@@ -15,6 +15,7 @@ type
     constructor Create(newScene: TCastleTransformDesign);
     function GetSuitsList(suitType: TSuits): TShapeNames;
     procedure WearSuit(suitType: TSuits; const suitName: String);
+    function GetAcessoriesList(): TSceneNames;
   protected
     Scene: TCastleTransformDesign;
     function GetMainBody(): TCastleScene; { main chara Body }
@@ -24,6 +25,13 @@ implementation
 
 uses
   X3DNodes, StrUtils;
+
+const
+  PrefixTop = 'top.';
+  PrefixBottom = 'bottom.';
+  PrefixFoots = 'foots.';
+  PrefixArms = 'arms.';
+  PrefixAccesory = 'accessory_';
 
 constructor TCharaDresser.Create(newScene: TCastleTransformDesign);
 begin
@@ -39,20 +47,20 @@ var
 begin
   { get list of full suit shape names }
   Case suitType of
-  Top: fullNames:= GetShapeNamesByNameStart(GetMainBody(), 'top.');
-  Bottom: fullNames:= GetShapeNamesByNameStart(GetMainBody(), 'bottom.');
-  Foots: fullNames:= GetShapeNamesByNameStart(GetMainBody(), 'foots.');
-  Arms: fullNames:= GetShapeNamesByNameStart(GetMainBody(), 'arms.');
+  Top: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixTop);
+  Bottom: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixBottom);
+  Foots: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixFoots);
+  Arms: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixArms);
   All:
     begin
       fullNames:= [];
-      Insert(GetShapeNamesByNameStart(GetMainBody(), 'top.'),
+      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixTop),
              fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(GetMainBody(), 'bottom.'),
+      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixBottom),
              fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(GetMainBody(), 'foots.'),
+      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixFoots),
              fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(GetMainBody(), 'arms.'),
+      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixArms),
              fullNames, Length(fullNames));
     end
   else
@@ -89,10 +97,10 @@ var
   shapeName: String;
 begin
   Case suitType of
-  Top: shapes:= GetShapesByNameStart(GetMainBody(), 'top.');
-  Bottom: shapes:= GetShapesByNameStart(GetMainBody(), 'bottom.');
-  Foots: shapes:= GetShapesByNameStart(GetMainBody(), 'foots.');
-  Arms: shapes:= GetShapesByNameStart(GetMainBody(), 'arms.');
+  Top: shapes:= GetShapesByNameStart(GetMainBody(), PrefixTop);
+  Bottom: shapes:= GetShapesByNameStart(GetMainBody(), PrefixBottom);
+  Foots: shapes:= GetShapesByNameStart(GetMainBody(), PrefixFoots);
+  Arms: shapes:= GetShapesByNameStart(GetMainBody(), PrefixArms);
   else
     shapes:= [];
   end;
@@ -105,6 +113,21 @@ begin
     else
       shape.Visible:= False;
   end;
+end;
+
+function TCharaDresser.GetAcessoriesList(): TSceneNames;
+var
+  i: Integer;
+  acessoryNames: TSceneNames;
+begin
+  acessoryNames:= GetSceneNamesByNameStart(Scene, PrefixAccesory);
+
+  for i:= 0 to (Length(acessoryNames) - 1) do
+  begin
+    delete(acessoryNames[i], 1, Length(PrefixAccesory));
+  end;
+
+  Result:= acessoryNames;
 end;
 
 function TCharaDresser.GetMainBody(): TCastleScene;

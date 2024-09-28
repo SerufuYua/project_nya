@@ -146,7 +146,7 @@ begin
   begin
     Container.PopView;
     DressMenu:= False;
-  end else if (NOT DressMenu) then
+  end else if (NOT DressMenu AND (button.Name <> 'BtnDressNone')) then
   begin
     Container.PushView(ViewDressingMenu);
     DressMenu:= True;

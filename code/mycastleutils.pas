@@ -9,8 +9,9 @@ uses
 
 type
   TCastleScenes = Array of TCastleScene;
-  TShapeNames = Array of String;
+  TSceneNames = Array of String;
   TShapeNodes = Array of TShapeNode;
+  TShapeNames = Array of String;
 
 procedure SetAnisotropicFiltering(const scene: TCastleScene;
                                   degree: Single = 16);
@@ -21,6 +22,8 @@ function GetShapeNamesByNameStart(const scene: TCastleScene;
 function GetShapesByNameStart(const scene: TCastleScene;
                               const NameStartWith: String): TShapeNodes;
 function GetAllScenes(const scene: TCastleTransformDesign): TCastleScenes;
+function GetSceneNamesByNameStart(const scene: TCastleTransformDesign;
+                                  const NameStartWith: String): TSceneNames;
 
 implementation
 
@@ -201,13 +204,31 @@ begin
   end;
 
   // get only scenes from all components
-  num:= Length(items);
-  for i:= 0 to (num - 1) do
+  for item in items do
   begin
-    if (CompareText(items[i].ClassName, TCastleScene.ClassName) = 0) then
+    if (CompareText(item.ClassName, TCastleScene.ClassName) = 0) then
     begin
       SetLength(Result, Length(Result) + 1);
-      Result[Length(Result) - 1]:= items[i] as TCastleScene;
+      Result[Length(Result) - 1]:= item as TCastleScene;
+    end;
+  end;
+end;
+
+function GetSceneNamesByNameStart(const scene: TCastleTransformDesign;
+                                  const NameStartWith: String): TSceneNames;
+var
+  items: TCastleScenes;
+  item: TCastleScene;
+begin
+  Result:= [];
+  items:= GetAllScenes(scene);
+
+  for item in items do
+  begin
+    if item.Name.StartsWith(NameStartWith) then
+    begin
+      SetLength(Result, Length(Result) + 1);
+      Result[Length(Result) - 1]:= item.Name;
     end;
   end;
 end;

@@ -10,10 +10,11 @@ type
   TViewDressingMenu = class(TCastleView)
   published
     RectangleControl: TCastleRectangleControl;
-    VerticalGroupTop: TCastleVerticalGroup;
-    VerticalGroupBottom: TCastleVerticalGroup;
-    VerticalGroupArms: TCastleVerticalGroup;
-    VerticalGroupFoots: TCastleVerticalGroup;
+    ListTop: TCastleVerticalGroup;
+    ListBottom: TCastleVerticalGroup;
+    ListArms: TCastleVerticalGroup;
+    ListFoots: TCastleVerticalGroup;
+    ListAccessories: TCastleVerticalGroup;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -22,10 +23,12 @@ type
     procedure SetChara(chara: TCharaBehavior);
     procedure SetColor(color: TCastleColorRGB);
   private
-    currentDresser: TCharaDresser;
+    Dresser: TCharaDresser;
     procedure UpdateSuits();
     procedure UpdateSuits(suitType: TSuits; groupList: TCastleVerticalGroup);
+    procedure UpdateAccessories();
     procedure ClickSuit(Sender: TObject);
+    procedure ClickAccesories(Sender: TObject);
   end;
 
 var
@@ -57,8 +60,9 @@ end;
 procedure TViewDressingMenu.SetChara(chara: TCharaBehavior);
 begin
   if NOT Assigned(chara) then Exit;
-  currentDresser:= chara.GetDresser();
+  Dresser:= chara.GetDresser();
   UpdateSuits();
+  UpdateAccessories();
 
   { Set personal color as background }
   SetColor(chara.PersonalColor);
@@ -75,10 +79,10 @@ end;
 
 procedure TViewDressingMenu.UpdateSuits();
 begin
-  UpdateSuits(TSuits.Top, VerticalGroupTop);
-  UpdateSuits(TSuits.Bottom, VerticalGroupBottom);
-  UpdateSuits(TSuits.Arms, VerticalGroupArms);
-  UpdateSuits(TSuits.Foots, VerticalGroupFoots);
+  UpdateSuits(TSuits.Top, ListTop);
+  UpdateSuits(TSuits.Bottom, ListBottom);
+  UpdateSuits(TSuits.Arms, ListArms);
+  UpdateSuits(TSuits.Foots, ListFoots);
 end;
 
 procedure TViewDressingMenu.UpdateSuits(suitType: TSuits;
@@ -86,26 +90,40 @@ procedure TViewDressingMenu.UpdateSuits(suitType: TSuits;
 var
   suits: TShapeNames;
   suit: String;
-  newLbl: TCastleLabel;
   newBtn: TCastleButton;
 begin
-  suits:= currentDresser.GetSuitsList(suitType);
+  suits:= Dresser.GetSuitsList(suitType);
   groupList.ClearControls;
 
-  newLbl:= TCastleLabel.Create(FreeAtStop);
-  newLbl.Caption:= '';
-
-  newBtn:= TCastleButton.Create(FreeAtStop);
+  newBtn:= TCastleButton.Create(groupList);
   newBtn.Caption:= 'none';
   newBtn.OnClick := {$ifdef FPC}@{$endif} ClickSuit;
   groupList.InsertFront(newBtn);
 
   for suit in suits do
   begin
-    newBtn:= TCastleButton.Create(FreeAtStop);
+    newBtn:= TCastleButton.Create(groupList);
     newBtn.Caption:= suit;
     newBtn.OnClick := {$ifdef FPC}@{$endif} ClickSuit;
     groupList.InsertFront(newBtn);
+  end;
+end;
+
+procedure TViewDressingMenu.UpdateAccessories();
+var
+  acessories: TShapeNames;
+  acessory: String;
+  newBtn: TCastleButton;
+begin
+  acessories:= Dresser.GetAcessoriesList();
+  ListAccessories.ClearControls;
+
+  for acessory in acessories do
+  begin
+    newBtn:= TCastleButton.Create(ListAccessories);
+    newBtn.Caption:= acessory;
+    newBtn.OnClick := {$ifdef FPC}@{$endif} ClickAccesories;
+    ListAccessories.InsertFront(newBtn);
   end;
 end;
 
@@ -118,15 +136,24 @@ begin
   if NOT Assigned(button) then exit;
 
   Case button.Parent.Name of
-  'VerticalGroupTop': suitType:= TSuits.Top;
-  'VerticalGroupBottom': suitType:= TSuits.Bottom;
-  'VerticalGroupArms': suitType:= TSuits.Arms;
-  'VerticalGroupFoots': suitType:= TSuits.Foots;
+  'ListTop': suitType:= TSuits.Top;
+  'ListBottom': suitType:= TSuits.Bottom;
+  'ListArms': suitType:= TSuits.Arms;
+  'ListFoots': suitType:= TSuits.Foots;
   else
     suitType:= TSuits.All;
   end;
 
-  currentDresser.WearSuit(suitType, button.Caption);
+  Dresser.WearSuit(suitType, button.Caption);
+end;
+
+procedure TViewDressingMenu.ClickAccesories(Sender: TObject);
+var
+  button: TCastleButton;
+begin
+  button:= Sender as TCastleButton;
+  if NOT Assigned(button) then exit;
+
 end;
 
 end.
