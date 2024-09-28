@@ -1,0 +1,121 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "CenterPersistent" : {
+    "$$ClassName" : "TCastleVector3Persistent"
+  },
+  "Name" : "ToysForGirl",
+  "RotationPersistent" : {
+    "$$ClassName" : "TCastleVector4RotationPersistent"
+  },
+  "ScaleOrientationPersistent" : {
+    "$$ClassName" : "TCastleVector4Persistent"
+  },
+  "ScalePersistent" : {
+    "$$ClassName" : "TCastleVector3Persistent"
+  },
+  "TranslationPersistent" : {
+    "$$ClassName" : "TCastleVector3Persistent"
+  },
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleTransform",
+      "CenterPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent"
+      },
+      "Name" : "Toys",
+      "RotationPersistent" : {
+        "$$ClassName" : "TCastleVector4RotationPersistent"
+      },
+      "ScaleOrientationPersistent" : {
+        "$$ClassName" : "TCastleVector4Persistent"
+      },
+      "ScalePersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent"
+      },
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent"
+      },
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleScene",
+          "AutoAnimation" : "GAME.TOYA.IDLE",
+          "CenterPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent"
+          },
+          "ExposeTransforms" : [
+          ],
+          "Name" : "ToyA",
+          "ProcessEvents" : true,
+          "RenderOptions" : {
+            "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+            "WireframeColorPersistent" : {
+              "$$ClassName" : "TCastleColorRGBPersistent"
+            }
+          },
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent"
+          },
+          "ScaleOrientationPersistent" : {
+            "$$ClassName" : "TCastleVector4Persistent"
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent"
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent"
+          },
+          "Url" : "castle-data:/toys/toyA/ToyA.gltf"
+        }
+      ]
+    },
+    {
+      "$$ClassName" : "TCastleTransform",
+      "CenterPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent"
+      },
+      "Name" : "Utils",
+      "RotationPersistent" : {
+        "$$ClassName" : "TCastleVector4RotationPersistent"
+      },
+      "ScaleOrientationPersistent" : {
+        "$$ClassName" : "TCastleVector4Persistent"
+      },
+      "ScalePersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent"
+      },
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent"
+      },
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleScene",
+          "CenterPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent"
+          },
+          "ExposeTransforms" : [
+          ],
+          "Name" : "Railing",
+          "RenderOptions" : {
+            "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+            "WireframeColorPersistent" : {
+              "$$ClassName" : "TCastleColorRGBPersistent"
+            }
+          },
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent"
+          },
+          "ScaleOrientationPersistent" : {
+            "$$ClassName" : "TCastleVector4Persistent"
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent"
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent"
+          },
+          "Url" : "castle-data:/toys/railing/railing.gltf"
+        }
+      ]
+    }
+  ]
+}

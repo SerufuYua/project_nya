@@ -1,0 +1,54 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo { headlight FALSE }
+
+DEF room Transform
+{
+  children Inline
+  {
+    url "shipping-container_room.gltf"
+  }
+}
+
+PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
+                  inputOutput SFColor lightColor 1 1 1]
+{
+  SpotLight {
+    location IS lightPos
+    cutOffAngle 1.25
+    direction 0 -1 0
+    intensity 5
+    ambientIntensity 0.4
+    color IS lightColor
+    radius 500
+    beamWidth 0.1
+    shadows TRUE
+    defaultShadowMap GeneratedShadowMap {
+      size 1024
+      update "ALWAYS"
+      scale 3
+    }
+  }
+}
+
+PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
+{
+  PointLight
+  {
+    location IS lightPos
+    intensity 0.005
+    ambientIntensity 0.4
+    radius 500
+  }
+}
+
+UpperLight { lightPos -60 75 60 lightColor 1.0 0.925 0.925 }
+UpperLight { lightPos -60 75 -60 lightColor 0.898 0.965 1.0 }
+UpperLight { lightPos 60 75 60 lightColor 1.0 1.0 1.0 }
+UpperLight { lightPos 60 75 -60 lightColor 1.0 0.937 0.831 }
+
+BottomLight { lightPos 50 30 50 }
+BottomLight { lightPos 50 30 -50 }
+BottomLight { lightPos -50 30 50 }
+BottomLight { lightPos -50 30 -50 }
