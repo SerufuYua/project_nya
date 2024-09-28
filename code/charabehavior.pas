@@ -29,8 +29,7 @@ type
     procedure ActionStand;
     procedure ActionWalk;
     procedure ActionRun;
-    procedure WearSuit(suitType: TSuits; const suitName: String);
-    function GetSuitsList(suitType: TSuits): TShapeNames;
+    function GetDresser(): TCharaDresser;
     property Pos: TVector3 read GetPos write SetPos;
     property Lightning: Boolean read GetLightning write SetLightning;
     property SelfEmission: Single write SetSelfEmission;
@@ -66,7 +65,7 @@ begin
   charaHead:= Scene.DesignedComponent('SceneHead') as TCastleScene;
 
   { create dresser }
-  Dresser:= TCharaDresser.Create(charaBody);
+  Dresser:= TCharaDresser.Create(Scene);
 
   { set Anisotropic Filtering for character }
   SetAnisotropicFiltering(charaBody);
@@ -121,9 +120,9 @@ begin
   Scene.Translation:= coord;
 end;
 
-function TCharaBehavior.GetSuitsList(suitType: TSuits): TShapeNames;
+function TCharaBehavior.GetDresser(): TCharaDresser;
 begin
-  Result:= Dresser.GetSuitsList(suitType);
+  Result:= Dresser;
 end;
 
 procedure TCharaBehavior.SetLightning(enable: Boolean);
@@ -183,11 +182,6 @@ end;
 function TCharaBehavior.GetLightning: Boolean;
 begin
   Result:= GetMainBody().RenderOptions.Lighting;
-end;
-
-procedure TCharaBehavior.WearSuit(suitType: TSuits; const suitName: String);
-begin
-  Dresser.WearSuit(suitType, suitName);
 end;
 
 procedure TCharaBehavior.PlayAnimation(const animationName: String);

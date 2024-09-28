@@ -22,7 +22,7 @@ type
     procedure SetChara(chara: TCharaBehavior);
     procedure SetColor(color: TCastleColorRGB);
   private
-    currentChara: TCharaBehavior;
+    currentDresser: TCharaDresser;
     procedure UpdateSuits();
     procedure UpdateSuits(suitType: TSuits; groupList: TCastleVerticalGroup);
     procedure ClickSuit(Sender: TObject);
@@ -57,11 +57,11 @@ end;
 procedure TViewDressingMenu.SetChara(chara: TCharaBehavior);
 begin
   if NOT Assigned(chara) then Exit;
-  currentChara:= chara;
+  currentDresser:= chara.GetDresser();
   UpdateSuits();
 
   { Set personal color as background }
-  SetColor(currentChara.PersonalColor);
+  SetColor(chara.PersonalColor);
 end;
 
 procedure TViewDressingMenu.SetColor(color: TCastleColorRGB);
@@ -89,7 +89,7 @@ var
   newLbl: TCastleLabel;
   newBtn: TCastleButton;
 begin
-  suits:= currentChara.GetSuitsList(suitType);
+  suits:= currentDresser.GetSuitsList(suitType);
   groupList.ClearControls;
 
   newLbl:= TCastleLabel.Create(FreeAtStop);
@@ -126,7 +126,7 @@ begin
     suitType:= TSuits.All;
   end;
 
-  currentChara.WearSuit(suitType, button.Caption);
+  currentDresser.WearSuit(suitType, button.Caption);
 end;
 
 end.

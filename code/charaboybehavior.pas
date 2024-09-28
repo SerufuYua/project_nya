@@ -43,14 +43,14 @@ end;
 procedure TCharaBoyBehavior.ActionPlayTogetherA1P1;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P1');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaBoyBehavior.ActionPlayTogetherA1P2;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P2');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 

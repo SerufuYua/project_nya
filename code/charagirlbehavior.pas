@@ -37,35 +37,35 @@ end;
 procedure TCharaGirlBehavior.ActionPlayA1;
 begin
   PlayAnimation('GAME.RU.PLAY.A1');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayA2;
 begin
   PlayAnimation('GAME.RU.PLAY.A2');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayA3;
 begin
   PlayAnimation('GAME.RU.PLAY.A3');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayA4;
 begin
   PlayAnimation('GAME.RU.PLAY.A4');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayA5;
 begin
   PlayAnimation('GAME.RU.PLAY.A5');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
@@ -78,14 +78,14 @@ end;
 procedure TCharaGirlBehavior.ActionPlayTogetherA1P1;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P1');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayTogetherA1P2;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P2');
-  WearSuit(TSuits.Bottom, 'none');
+  Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
