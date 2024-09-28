@@ -12,6 +12,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <Title Value="prjF"/>
+      <Icon Value="0"/>
     </General>
     <BuildModes Count="2">
       <Item1 Name="Debug" Default="True"/>
@@ -127,7 +128,7 @@
       <Filename Value="prjF"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="code"/>
+      <IncludeFiles Value="code;$(ProjOutDir)"/>
       <OtherUnitFiles Value="code"/>
       <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
