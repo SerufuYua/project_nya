@@ -16,6 +16,7 @@ type
     function GetSuitsList(suitType: TSuits): TShapeNames;
     procedure WearSuit(suitType: TSuits; const suitName: String);
     function GetAcessoriesList(): TSceneNames;
+    procedure WearAcessory(const accessoryName: String; visible: boolean);
   protected
     Scene: TCastleTransformDesign;
     function GetMainBody(): TCastleScene; { main chara Body }
@@ -128,6 +129,20 @@ begin
   end;
 
   Result:= acessoryNames;
+end;
+
+procedure TCharaDresser.WearAcessory(const accessoryName: String; visible: boolean);
+var
+  items: TCastleScenes;
+  item: TCastleScene;
+begin
+  items:= GetAllScenes(scene);
+
+  for item in items do
+  begin
+    if item.Name.Contains(accessoryName) then
+      item.Visible:= visible;
+  end;
 end;
 
 function TCharaDresser.GetMainBody(): TCastleScene;

@@ -113,17 +113,17 @@ procedure TViewDressingMenu.UpdateAccessories();
 var
   acessories: TShapeNames;
   acessory: String;
-  newBtn: TCastleButton;
+  newChk: TCastleCheckbox;
 begin
   acessories:= Dresser.GetAcessoriesList();
   ListAccessories.ClearControls;
 
   for acessory in acessories do
   begin
-    newBtn:= TCastleButton.Create(ListAccessories);
-    newBtn.Caption:= acessory;
-    newBtn.OnClick := {$ifdef FPC}@{$endif} ClickAccesories;
-    ListAccessories.InsertFront(newBtn);
+    newChk:= TCastleCheckbox.Create(ListAccessories);
+    newChk.Caption:= acessory;
+    newChk.OnChange := {$ifdef FPC}@{$endif} ClickAccesories;
+    ListAccessories.InsertFront(newChk);
   end;
 end;
 
@@ -149,11 +149,12 @@ end;
 
 procedure TViewDressingMenu.ClickAccesories(Sender: TObject);
 var
-  button: TCastleButton;
+  check: TCastleCheckbox;
 begin
-  button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
+  check:= Sender as TCastleCheckbox;
+  if NOT Assigned(check) then exit;
 
+  Dresser.WearAcessory(check.Caption, check.Checked);
 end;
 
 end.
