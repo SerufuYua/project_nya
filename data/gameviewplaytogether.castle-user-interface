@@ -371,6 +371,7 @@
         },
         {
           "$$ClassName" : "TCastleRectangleControl",
+          "AutoSizeToChildren" : true,
           "ColorPersistent" : {
             "$$ClassName" : "TCastleColorPersistent",
             "Alpha" : 2.9411765933036804E-001,
@@ -385,9 +386,8 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleVerticalGroup",
-              "FullSize" : true,
               "Name" : "VerticalGroup1",
-              "Padding" : 1.0000000000000000E+001,
+              "Padding" : 2.0000000000000000E+001,
               "Spacing" : 1.0000000000000000E+001,
               "VerticalAnchorParent" : "vpTop",
               "VerticalAnchorSelf" : "vpTop",
@@ -413,8 +413,8 @@
                   "Name" : "BtnPlayA1P1",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -1.0000000000000000E+001
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.0000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -440,8 +440,8 @@
                   "Name" : "BtnPlayA1P2",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -5.9000000000000000E+001
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -6.9000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -467,8 +467,8 @@
                   "Name" : "BtnCharaLight",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -1.0800000000000000E+002
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -1.1800000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -487,8 +487,8 @@
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -1.5700000000000000E+002
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -1.6700000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -504,8 +504,8 @@
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -1.8900000000000000E+002
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -1.9900000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -525,8 +525,8 @@
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -2.2900000000000000E+002
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.3900000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -544,8 +544,8 @@
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -2.6100000000000000E+002
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.7100000000000000E+002
                   },
                   "Value" : 1.0000000000000000E+000,
                   "VerticalAnchorParent" : "vpTop",
@@ -558,6 +558,7 @@
         },
         {
           "$$ClassName" : "TCastleRectangleControl",
+          "AutoSizeToChildren" : true,
           "ColorPersistent" : {
             "$$ClassName" : "TCastleColorPersistent",
             "Alpha" : 2.9411765933036804E-001,
@@ -577,7 +578,7 @@
               "HorizontalAnchorParent" : "hpMiddle",
               "HorizontalAnchorSelf" : "hpMiddle",
               "Name" : "HorizontalGroup1",
-              "Padding" : 1.0000000000000000E+001,
+              "Padding" : 2.0000000000000000E+001,
               "Spacing" : 1.0000000000000000E+001,
               "VerticalAnchorParent" : "vpMiddle",
               "VerticalAnchorSelf" : "vpMiddle",
@@ -603,7 +604,7 @@
                   "Name" : "BtnStop",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001
+                    "X" : 2.0000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
@@ -629,7 +630,7 @@
                   "Name" : "BtnPause",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.3400000000000000E+002
+                    "X" : 1.4400000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
@@ -640,6 +641,7 @@
         },
         {
           "$$ClassName" : "TCastleRectangleControl",
+          "AutoSizeToChildren" : true,
           "ColorPersistent" : {
             "$$ClassName" : "TCastleColorPersistent",
             "Alpha" : 2.9411765933036804E-001,
@@ -647,22 +649,17 @@
             "Red" : 9.0196079015731812E-001
           },
           "Height" : 6.0000000000000000E+001,
-          "HorizontalAnchorParent" : "hpMiddle",
-          "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "RectangleControl3",
-          "Width" : 1.0000000000000000E+000,
-          "WidthFraction" : 1.0000000000000000E+000,
           "$Children" : [
             {
               "$$ClassName" : "TCastleHorizontalGroup",
-              "FullSize" : true,
               "Name" : "HorizontalGroup2",
-              "Padding" : 1.0000000000000000E+001,
+              "Padding" : 2.0000000000000000E+001,
               "Spacing" : 1.0000000000000000E+001,
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleButton",
-                  "Caption" : "Back to Main",
+                  "Caption" : "Main Menu",
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
@@ -681,7 +678,7 @@
                   "Name" : "BtnBack",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001
+                    "X" : 2.0000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
@@ -692,6 +689,7 @@
         },
         {
           "$$ClassName" : "TCastleRectangleControl",
+          "AutoSizeToChildren" : true,
           "ColorPersistent" : {
             "$$ClassName" : "TCastleColorPersistent",
             "Alpha" : 2.9411765933036804E-001,
@@ -708,9 +706,8 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleVerticalGroup",
-              "FullSize" : true,
               "Name" : "VerticalGroup2",
-              "Padding" : 1.0000000000000000E+001,
+              "Padding" : 2.0000000000000000E+001,
               "Spacing" : 1.0000000000000000E+001,
               "$Children" : [
                 {
@@ -727,8 +724,8 @@
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -1.0000000000000000E+001
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.0000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -739,8 +736,8 @@
                   "Spacing" : 1.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -4.2000000000000000E+001
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -5.2000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -870,25 +867,35 @@
       }
     },
     {
-      "$$ClassName" : "TCastleLabel",
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 1.0000000000000000E+000,
-        "Green" : 1.0000000000000000E+000,
-        "Red" : 1.0000000000000000E+000
-      },
-      "FontSize" : 2.0000000000000000E+001,
+      "$$ClassName" : "TCastleVerticalGroup",
       "HorizontalAnchorParent" : "hpRight",
       "HorizontalAnchorSelf" : "hpRight",
-      "Name" : "LabelFps",
-      "Text" : [
-        "FPS: xxx"
-      ],
-      "TranslationPersistent" : {
-        "$$ClassName" : "TCastleVector2Persistent",
-        "X" : -2.0000000000000000E+001,
-        "Y" : 2.0000000000000000E+001
-      }
+      "Name" : "VerticalGroupInfo",
+      "Padding" : 1.0000000000000000E+001,
+      "Spacing" : 1.0000000000000000E+001,
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleLabel",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent",
+            "Blue" : 1.0000000000000000E+000,
+            "Green" : 1.0000000000000000E+000,
+            "Red" : 1.0000000000000000E+000
+          },
+          "FontSize" : 2.0000000000000000E+001,
+          "Name" : "LabelFps",
+          "Text" : [
+            "FPS: xxx"
+          ],
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "X" : 1.0000000000000000E+001,
+            "Y" : -1.0000000000000000E+001
+          },
+          "VerticalAnchorParent" : "vpTop",
+          "VerticalAnchorSelf" : "vpTop"
+        }
+      ]
     }
   ]
 }
