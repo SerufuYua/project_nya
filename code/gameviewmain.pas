@@ -9,9 +9,9 @@ interface
 
 uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
-  CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform, CastleQuaternions,
-  CharaGirlBehavior, CharaBoyBehavior;
+  CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
+  CastleTransform, CastleQuaternions, CastleScene,
+  CharaGirlBehavior, CharaBoyBehavior, FadeInOut;
 
 type
   { Main view, where most of the application logic takes place. }
@@ -26,6 +26,7 @@ type
     LabelInfo1: TCastleLabel;
     LabelInfo2: TCastleLabel;
     CameraMain: TCastleCamera;
+    ScreenRectangle: TCastleRectangleControl;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -35,11 +36,12 @@ type
   private
     GirlBehavior: TCharaGirlBehavior;
     BoyBehavior: TCharaBoyBehavior;
+    Fader: TRectangleFader;
     CameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
     procedure ClickSceneGirl(Sender: TObject);
     procedure ClicSceneTogether(Sender: TObject);
-    procedure ActionWaiting;
+    procedure CharaActionWaiting;
     procedure UpdateCamera; { follow cameta rotation to cursor }
   end;
 
@@ -71,6 +73,10 @@ begin
   BtnPlaySolo.OnClick:= {$ifdef FPC}@{$endif}ClickSceneGirl;
   BtnPlayTogether.OnClick:= {$ifdef FPC}@{$endif}ClicSceneTogether;
 
+  { set fog animator }
+  Fader:= TRectangleFader.Create(ScreenRectangle);
+  Fader.SetFade(1.0, 0.0, 3.0);
+
   { Create Girl Character instance }
   GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
   GirlBehavior := TCharaGirlBehavior.Create(FreeAtStop);
@@ -88,8 +94,10 @@ begin
   { remember initial camera rotation }
   CameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
 
-  { default action }
-  ActionWaiting;
+  { default chara action }
+  CharaActionWaiting;
+
+  //self.FindRequiredComponent();
 end;
 
 procedure TViewMain.Stop;
@@ -106,28 +114,14 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
+  Fader.AnimateQuadFade(SecondsPassed);
   UpdateCamera;
-
-  { rise fog }
 end;
 
 function TViewMain.Press(const Event: TInputPressRelease): Boolean;
 begin
   Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
-
-{  if Event.IsKey(keyEscape) then
-  begin
-    Close;
-    Exit(true);
-  end;}
-
-{  if Event.IsKey(keyX) then
-  begin
-    GirlBehavior.ActionWear('Swimsuit');
-    BoyBehavior.ActionWear('Swimsuit');
-    Exit(true);
-  end;}
 end;
 
 procedure TViewMain.ClickExit(Sender: TObject);
@@ -145,7 +139,7 @@ begin
   Container.View:= ViewPlayTogether;
 end;
 
-procedure TViewMain.ActionWaiting;
+procedure TViewMain.CharaActionWaiting;
 begin
   GirlBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
   GirlBehavior.Pos:= Vector3(59, 0, 13);
