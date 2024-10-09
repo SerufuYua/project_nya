@@ -10,6 +10,9 @@ uses
 
 type
   TToysForGirlBehavior = class(TCastleBehavior)
+  private
+    function GetSpeed: Single;
+    procedure SetSpeed(value: Single);
   public
     constructor Create(AOwner: TComponent); override;
     procedure ParentAfterAttach(); override;
@@ -22,6 +25,7 @@ type
     procedure ActionPlayA3;
     procedure ActionPlayA4;
     procedure ActionPlayA5;
+    property Speed: Single read GetSpeed write SetSpeed;
   protected
     Scene: TCastleTransformDesign;
     function GetCurrentTool(): TCastleScene;
@@ -112,6 +116,16 @@ begin
     railing.Translation:= Vector3(-30, 0, 0);
     railing.Rotation:= Vector4(0, 1, 0, 30);
   end;
+end;
+
+function TToysForGirlBehavior.GetSpeed: Single;
+begin
+  Result:= GetCurrentTool().TimePlayingSpeed;
+end;
+
+procedure TToysForGirlBehavior.SetSpeed(value: Single);
+begin
+  GetCurrentTool().TimePlayingSpeed:= value;
 end;
 
 end.

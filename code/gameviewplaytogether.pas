@@ -10,9 +10,6 @@ uses Classes,
 type
   TViewPlayTogether = class(TCastleView)
   published
-    { Components designed using CGE editor.
-      These fields will be automatically initialized at Start. }
-    // ButtonXxx: TCastleButton;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
     BtnDressGirl: TCastleButton;
@@ -85,6 +82,10 @@ begin
   BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
   BoyBehavior:= TCharaBoyBehavior.Create(FreeAtStop);
   BoyScene.AddBehavior(BoyBehavior);
+
+  { set character self emission }
+  GirlBehavior.SelfEmission:= 0.15;
+  BoyBehavior.SelfEmission:= 0.15;
 end;
 
 procedure TViewPlayTogether.Update(const SecondsPassed: Single; var HandleInput: boolean);

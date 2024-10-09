@@ -10,7 +10,8 @@ interface
 uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform, CharaBoyBehavior, CharaGirlBehavior;
+  CastleTransform, CastleQuaternions,
+  CharaGirlBehavior, CharaBoyBehavior;
 
 type
   { Main view, where most of the application logic takes place. }
@@ -19,12 +20,12 @@ type
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
     BtnExit: TCastleButton;
-    BtnAnimStand: TCastleButton;
-    BtnAnimWalk: TCastleButton;
-    BtnAnimRun: TCastleButton;
-    BtnSceneGirl: TCastleButton;
-    BtnSceneTogether: TCastleButton;
+    BtnPlaySolo: TCastleButton;
+    BtnPlayTogether: TCastleButton;
     LabelFps: TCastleLabel;
+    LabelInfo1: TCastleLabel;
+    LabelInfo2: TCastleLabel;
+    CameraMain: TCastleCamera;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -34,12 +35,12 @@ type
   private
     GirlBehavior: TCharaGirlBehavior;
     BoyBehavior: TCharaBoyBehavior;
+    CameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
-    procedure ClickCaharsStand(Sender: TObject);
-    procedure ClickCaharsWalk(Sender: TObject);
-    procedure ClickCaharsRun(Sender: TObject);
     procedure ClickSceneGirl(Sender: TObject);
     procedure ClicSceneTogether(Sender: TObject);
+    procedure ActionWaiting;
+    procedure UpdateCamera; { follow cameta rotation to cursor }
   end;
 
 var
@@ -47,7 +48,8 @@ var
 
 implementation
 
-uses SysUtils, GameViewPlayGirl, GameViewPlayTogether;
+uses
+  SysUtils, GameViewPlayGirl, GameViewPlayTogether;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -66,11 +68,8 @@ begin
   inherited;
 
   BtnExit.OnClick:= {$ifdef FPC}@{$endif}ClickExit;
-  BtnAnimStand.OnClick:= {$ifdef FPC}@{$endif}ClickCaharsStand;
-  BtnAnimWalk.OnClick:= {$ifdef FPC}@{$endif}ClickCaharsWalk;
-  BtnAnimRun.OnClick:= {$ifdef FPC}@{$endif}ClickCaharsRun;
-  BtnSceneGirl.OnClick:= {$ifdef FPC}@{$endif}ClickSceneGirl;
-  BtnSceneTogether.OnClick:= {$ifdef FPC}@{$endif}ClicSceneTogether;
+  BtnPlaySolo.OnClick:= {$ifdef FPC}@{$endif}ClickSceneGirl;
+  BtnPlayTogether.OnClick:= {$ifdef FPC}@{$endif}ClicSceneTogether;
 
   { Create Girl Character instance }
   GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
@@ -81,6 +80,16 @@ begin
   BoyScene := DesignedComponent('CharaBoy') as TCastleTransformDesign;
   BoyBehavior := TCharaBoyBehavior.Create(FreeAtStop);
   BoyScene.AddBehavior(BoyBehavior);
+
+  { set character self emission }
+  GirlBehavior.SelfEmission:= 0.15;
+  BoyBehavior.SelfEmission:= 0.15;
+
+  { remember initial camera rotation }
+  CameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
+
+  { default action }
+  ActionWaiting;
 end;
 
 procedure TViewMain.Stop;
@@ -96,6 +105,10 @@ begin
   { This virtual method is executed every frame (many times per second). }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
+
+  UpdateCamera;
+
+  { rise fog }
 end;
 
 function TViewMain.Press(const Event: TInputPressRelease): Boolean;
@@ -122,24 +135,6 @@ begin
   Application.MainWindow.Close();
 end;
 
-procedure TViewMain.ClickCaharsStand(Sender: TObject);
-begin
-  GirlBehavior.ActionStand;
-  BoyBehavior.ActionStand;
-end;
-
-procedure TViewMain.ClickCaharsWalk(Sender: TObject);
-begin
-  GirlBehavior.ActionWalk;
-  BoyBehavior.ActionWalk;
-end;
-
-procedure TViewMain.ClickCaharsRun(Sender: TObject);
-begin
-  GirlBehavior.ActionRun;
-  BoyBehavior.ActionRun;
-end;
-
 procedure TViewMain.ClickSceneGirl(Sender: TObject);
 begin
   Container.View:= ViewPlayGirl;
@@ -148,6 +143,30 @@ end;
 procedure TViewMain.ClicSceneTogether(Sender: TObject);
 begin
   Container.View:= ViewPlayTogether;
+end;
+
+procedure TViewMain.ActionWaiting;
+begin
+  GirlBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
+  GirlBehavior.Pos:= Vector3(59, 0, 13);
+  GirlBehavior.Rot:= Vector4(0, 0, 0, 0);
+  BoyBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
+  BoyBehavior.Pos:= Vector3(81, 0, 56);
+  BoyBehavior.Rot:= Vector4(0, -1, 0, Pi/2);
+end;
+
+procedure TViewMain.UpdateCamera;
+var
+  cursorX, cursorY: Single;
+  rotatorX, rotatorY: TQuaternion;
+begin
+  cursorX:= (Container.MousePosition.X / Container.PixelsWidth - 0.5) * 2.0;
+  cursorY:= (Container.MousePosition.Y / Container.PixelsHeight - 0.5) * 2.0;
+
+  rotatorX:= QuatFromAxisAngle(Vector4(0, 1, 0, -Pi/24.0 * cursorX));
+  rotatorY:= QuatFromAxisAngle(Vector4(1, 0, 0, Pi/24.0 * cursorY));
+
+  CameraMain.Rotation:= (CameraRatation * rotatorX * rotatorY).ToAxisAngle;
 end;
 
 end.

@@ -14,6 +14,8 @@ type
   private
     function GetPos(): TVector3;
     procedure SetPos(coord: TVector3);
+    function GetRot(): TVector4;
+    procedure SetRot(coord: TVector4);
     function GetLightning: Boolean;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
@@ -29,8 +31,10 @@ type
     procedure ActionStand;
     procedure ActionWalk;
     procedure ActionRun;
+    procedure PlayAnimation(const animationName: String; loop: boolean = true);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3 read GetPos write SetPos;
+    property Rot: TVector4 read GetRot write SetRot;
     property Lightning: Boolean read GetLightning write SetLightning;
     property SelfEmission: Single write SetSelfEmission;
     property Speed: Single read GetSpeed write SetSpeed;
@@ -38,9 +42,9 @@ type
   protected
     Scene: TCastleTransformDesign;
     Dresser: TCharaDresser;
-    procedure PlayAnimation(const animationName: String);
     function GetMainBody(): TCastleScene; { main chara Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
+    procedure ActionFaceDefault;
   end;
 
 implementation
@@ -98,16 +102,27 @@ end;
 procedure TCharaBehavior.ActionStand;
 begin
   PlayAnimation('GAME.STAND');
+  ActionFaceDefault;
 end;
 
 procedure TCharaBehavior.ActionWalk;
 begin
   PlayAnimation('GAME.WALK.FORWARD');
+  ActionFaceDefault;
 end;
 
 procedure TCharaBehavior.ActionRun;
 begin
   PlayAnimation('GAME.RUN.FORWARD');
+  ActionFaceDefault;
+end;
+
+procedure TCharaBehavior.ActionFaceDefault;
+var
+  head: TCastleScene;
+begin
+  head:= Scene.DesignedComponent('SceneHead') as TCastleScene;
+  head.PlayAnimation('Blink', true);
 end;
 
 function TCharaBehavior.GetPos(): TVector3;
@@ -118,6 +133,16 @@ end;
 procedure TCharaBehavior.SetPos(coord: TVector3);
 begin
   Scene.Translation:= coord;
+end;
+
+function TCharaBehavior.GetRot(): TVector4;
+begin
+  Result:= Scene.Rotation;
+end;
+
+procedure TCharaBehavior.SetRot(coord: TVector4);
+begin
+  Scene.Rotation:= coord;
 end;
 
 function TCharaBehavior.GetDresser(): TCharaDresser;
@@ -184,7 +209,8 @@ begin
   Result:= GetMainBody().RenderOptions.Lighting;
 end;
 
-procedure TCharaBehavior.PlayAnimation(const animationName: String);
+procedure TCharaBehavior.PlayAnimation(const animationName: String;
+                                       loop: boolean);
 var
   bodies: TCastleScenes;
   body: TCastleScene;
@@ -192,7 +218,7 @@ begin
   bodies:= GetActorsList();
   for body in bodies do
     if Assigned(body) then
-      body.PlayAnimation(animationName, true);
+      body.PlayAnimation(animationName, loop);
 end;
 
 function TCharaBehavior.GetMainBody(): TCastleScene;

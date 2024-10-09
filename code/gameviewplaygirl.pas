@@ -20,6 +20,7 @@ type
     BtnPlayA3: TCastleButton;
     BtnPlayA4: TCastleButton;
     BtnPlayA5: TCastleButton;
+    FloatSliderSpeed: TCastleFloatSlider;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -34,6 +35,7 @@ type
     procedure ClickPause(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickPlay(Sender: TObject);
+    procedure ChangedSpeed(Sender: TObject);
   end;
 
 var
@@ -66,6 +68,7 @@ begin
   BtnPlayA3.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
   BtnPlayA4.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
   BtnPlayA5.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
+  FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
@@ -151,6 +154,17 @@ begin
     end;
   end;
 
+end;
+
+procedure TViewPlayGirl.ChangedSpeed(Sender: TObject);
+var
+  slider: TCastleFloatSlider;
+begin
+  slider:= Sender as TCastleFloatSlider;
+  if NOT Assigned(slider) then Exit;
+
+  GirlBehavior.Speed:= slider.Value;
+  ToysBehavior.Speed:= slider.Value;
 end;
 
 end.
