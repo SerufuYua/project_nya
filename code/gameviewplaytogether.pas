@@ -31,8 +31,7 @@ type
     FGirlBehavior: TCharaGirlBehavior;
     FBoyBehavior: TCharaBoyBehavior;
     FDressMenu: boolean;
-    procedure ClickBack(Sender: TObject);
-    procedure ClickPlay(Sender: TObject);
+    procedure ClickControl(Sender: TObject);
     procedure ClicCharaLight(Sender: TObject);
     procedure ChangedEmission(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
@@ -61,14 +60,14 @@ begin
   inherited;
   { Executed once when view starts. }
 
-  BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickBack;
   BtnDressGirl.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnDressBoy.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnDressNone.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
-  BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnPlayA1P1.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnPlayA1P2.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
+  BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnPlayA1P1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnPlayA1P2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnCharaLight.OnClick:= {$ifdef FPC}@{$endif}ClicCharaLight;
   FloatSliderEmission.OnChange:=  {$ifdef FPC}@{$endif}ChangedEmission;
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
@@ -96,12 +95,7 @@ begin
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 end;
 
-procedure TViewPlayTogether.ClickBack(Sender: TObject);
-begin
-  Container.View:= ViewMain;
-end;
-
-procedure TViewPlayTogether.ClickPlay(Sender: TObject);
+procedure TViewPlayTogether.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
@@ -109,6 +103,12 @@ begin
   if NOT Assigned(button) then exit;
 
   Case button.Name of
+  'BtnBack':
+    begin
+      FGirlBehavior.SaveCondition;
+      FBoyBehavior.SaveCondition;
+      Container.View:= ViewMain;
+    end;
   'BtnStop':
     begin
       SceneActors.Translation:= Vector3(45, 0, 0);

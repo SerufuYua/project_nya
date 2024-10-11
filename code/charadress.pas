@@ -5,16 +5,16 @@ unit CharaDress;
 interface
 
 uses
-  Classes, SysUtils, CastleTransform, CastleScene, MyCastleUtils,
-  IniFiles;
+  Classes, SysUtils, CastleTransform, CastleScene, MyCastleUtils;
 
 type
   TSuits = (All, Top, Bottom, Foots, Arms);
 
   TCharaDresser = class
   public
-    constructor Create(newScene: TCastleTransformDesign);
+    constructor Create(scene: TCastleTransformDesign);
     function GetSuitsList(suitType: TSuits): TItemConditions;
+    function GetDressedSuit(suitType: TSuits): String;
     procedure WearSuit(suitType: TSuits; const suitName: String);
     function GetAcessoriesList(): TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
@@ -26,19 +26,18 @@ type
   TDressSaver = class
   public
     constructor Create(dresser: TCharaDresser; charaName: String);
-    destructor Destroy; override;
+    procedure RestoreProperties;
+    procedure SaveProperties;
   protected
     FIniName: String;
     FDresser: TCharaDresser;
     FCharaName: String;
-    procedure RestoreProperties;
-    procedure SaveProperties;
   end;
 
 implementation
 
 uses
-  X3DNodes, StrUtils;
+  X3DNodes, StrUtils, IniFiles;
 
 const
   PrefixTop = 'top.';
@@ -49,9 +48,9 @@ const
 
 { TCharaDresser}
 
-constructor TCharaDresser.Create(newScene: TCastleTransformDesign);
+constructor TCharaDresser.Create(scene: TCastleTransformDesign);
 begin
-  FScene:= newScene;
+  FScene:= scene;
 end;
 
 function TCharaDresser.GetSuitsList(suitType: TSuits): TItemConditions;
@@ -103,6 +102,20 @@ begin
     begin
       SetLength(Result, Length(Result) + 1);
       Result[High(Result)]:= shortName;
+    end;
+  end;
+end;
+
+function TCharaDresser.GetDressedSuit(suitType: TSuits): String;
+var
+  suit: TItemCondition;
+begin
+  for suit in GetSuitsList(suitType) do
+  begin
+    if suit.Visible then
+    begin
+      Result:= suit.Name;
+      Exit
     end;
   end;
 end;
@@ -177,31 +190,53 @@ begin
   RestoreProperties;
 end;
 
-destructor TDressSaver.Destroy;
-begin
-  SaveProperties;
-  inherited;
-end;
-
 procedure TDressSaver.RestoreProperties;
 var
   ini: TCustomIniFile;
+  accessory: TItemCondition;
+  visible: boolean;
 begin
   ini:= TMemIniFile.Create(FIniName);
   ini.FormatSettings.DecimalSeparator := '|';
-  ini.Options:= [ifoFormatSettingsActive, ifoWriteStringBoolean];
-//  Edit1.Caption:= ini.ReadString('main', 'stringVal', 'none');
+  ini.Options:= [ifoFormatSettingsActive];
+
+  { suits }
+  FDresser.WearSuit(Top, ini.ReadString(FCharaName, PrefixTop, 'summer_shirt'));
+  FDresser.WearSuit(Bottom, ini.ReadString(FCharaName, PrefixBottom, 'briefs'));
+  FDresser.WearSuit(Foots, ini.ReadString(FCharaName, PrefixFoots, 'sneakers'));
+  FDresser.WearSuit(Arms, ini.ReadString(FCharaName, PrefixArms, 'none'));
+
+  { accessories }
+  for accessory in FDresser.GetAcessoriesList() do
+  begin
+    visible:= ini.ReadBool(FCharaName, accessory.Name, False);
+    FDresser.WearAcessory(accessory.Name, visible);
+  end;
+
   ini.Free;
 end;
 
 procedure TDressSaver.SaveProperties;
 var
   ini: TCustomIniFile;
+  accessory: TItemCondition;
 begin
   ini:= TMemIniFile.Create(FIniName);
   ini.FormatSettings.DecimalSeparator := '|';
-  ini.Options:= [ifoFormatSettingsActive, ifoWriteStringBoolean];
-//  ini.WriteString('main', 'stringVal', Edit1.Caption);
+  ini.Options:= [ifoFormatSettingsActive];
+
+  { suits }
+  ini.WriteString(FCharaName, PrefixTop, FDresser.GetDressedSuit(Top));
+  ini.WriteString(FCharaName, PrefixBottom, FDresser.GetDressedSuit(Bottom));
+  ini.WriteString(FCharaName, PrefixFoots, FDresser.GetDressedSuit(Foots));
+  ini.WriteString(FCharaName, PrefixArms, FDresser.GetDressedSuit(Arms));
+
+  { accessories }
+  for accessory in FDresser.GetAcessoriesList() do
+  begin
+    ini.WriteBool(FCharaName, accessory.Name, accessory.Visible);
+  end;
+
   ini.Free;
 end;
 

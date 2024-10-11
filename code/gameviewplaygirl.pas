@@ -20,7 +20,6 @@ type
     FloatSliderSpeed: TCastleFloatSlider;
   public
     constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
@@ -28,7 +27,6 @@ type
     FGirlBehavior: TCharaGirlBehavior;
     FToysBehavior: TToysForGirlBehavior;
     FDressMenu: boolean;
-    procedure ClickBack(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
@@ -39,18 +37,14 @@ var
 
 implementation
 
-uses GameViewMain, CastleScene, CharaBehavior, GameViewDressingMenu;
+uses
+  GameViewMain, CastleScene, CharaBehavior, GameViewDressingMenu;
 
 constructor TViewPlayGirl.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl:= 'castle-data:/gameviewplaygirl.castle-user-interface';
   FDressMenu:= False;
-end;
-
-destructor TViewPlayGirl.Destroy;
-begin
-  inherited;
 end;
 
 procedure TViewPlayGirl.Start;
@@ -60,8 +54,8 @@ begin
   inherited;
   { Executed once when view starts }
 
-  BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickBack;
   BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
+  BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -94,11 +88,6 @@ begin
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 end;
 
-procedure TViewPlayGirl.ClickBack(Sender: TObject);
-begin
-  Container.View:= ViewMain;
-end;
-
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
 begin
   { Show Dressing Menu }
@@ -122,6 +111,11 @@ begin
   if NOT Assigned(button) then exit;
 
   Case button.Name of
+  'BtnBack':
+    begin
+      FGirlBehavior.SaveCondition;
+      Container.View:= ViewMain;
+    end;
   'BtnStop':
     begin
       FGirlBehavior.ActionPlayToyA_Idle;

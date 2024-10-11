@@ -28,6 +28,7 @@ type
     procedure ParentAfterAttach(); override;
     procedure Update(const SecondsPassed: Single;
                      var RemoveMe: TRemoveType); override;
+    procedure SaveCondition;
     procedure ActionPause;
     procedure ActionStand;
     procedure ActionWalk;
@@ -99,6 +100,11 @@ procedure TCharaBehavior.Update(const SecondsPassed: Single; var RemoveMe: TRemo
 begin
   inherited;
   { any other updates }
+end;
+
+procedure TCharaBehavior.SaveCondition;
+begin
+  FDresseSaver.SaveProperties;
 end;
 
 procedure TCharaBehavior.ActionPause;
