@@ -20,13 +20,14 @@ type
     FloatSliderSpeed: TCastleFloatSlider;
   public
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
   private
-    GirlBehavior: TCharaGirlBehavior;
-    ToysBehavior: TToysForGirlBehavior;
-    DressMenu: boolean;
+    FGirlBehavior: TCharaGirlBehavior;
+    FToysBehavior: TToysForGirlBehavior;
+    FDressMenu: boolean;
     procedure ClickBack(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -44,7 +45,12 @@ constructor TViewPlayGirl.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl:= 'castle-data:/gameviewplaygirl.castle-user-interface';
-  DressMenu:= False;
+  FDressMenu:= False;
+end;
+
+destructor TViewPlayGirl.Destroy;
+begin
+  inherited;
 end;
 
 procedure TViewPlayGirl.Start;
@@ -64,20 +70,20 @@ begin
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  GirlBehavior:= TCharaGirlBehavior.Create(FreeAtStop);
-  girlScene.AddBehavior(GirlBehavior);
+  FGirlBehavior:= TCharaGirlBehavior.Create(FreeAtStop);
+  girlScene.AddBehavior(FGirlBehavior);
 
   { Create Toys instance }
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
-  ToysBehavior:= TToysForGirlBehavior.Create(FreeAtStop);
-  toysScene.AddBehavior(ToysBehavior);
+  FToysBehavior:= TToysForGirlBehavior.Create(FreeAtStop);
+  toysScene.AddBehavior(FToysBehavior);
 
   { set character self emission }
-  GirlBehavior.SelfEmission:= 0.15;
+  FGirlBehavior.SelfEmission:= 0.15;
 
   { default chara action }
-  GirlBehavior.ActionPlayToyA_Idle;
-  ToysBehavior.ActionPlayToyA_Idle;
+  FGirlBehavior.ActionPlayToyA_Idle;
+  FToysBehavior.ActionPlayToyA_Idle;
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -96,15 +102,15 @@ end;
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
 begin
   { Show Dressing Menu }
-  if DressMenu then
+  if FDressMenu then
   begin
     Container.PopView;
-    DressMenu:= False;
+    FDressMenu:= False;
   end else
   begin
     Container.PushView(ViewDressingMenu);
-    ViewDressingMenu.SetChara(GirlBehavior);
-    DressMenu:= True;
+    ViewDressingMenu.SetChara(FGirlBehavior);
+    FDressMenu:= True;
   end;
 end;
 
@@ -118,23 +124,23 @@ begin
   Case button.Name of
   'BtnStop':
     begin
-      GirlBehavior.ActionPlayToyA_Idle;
-      ToysBehavior.ActionPlayToyA_Idle;
+      FGirlBehavior.ActionPlayToyA_Idle;
+      FToysBehavior.ActionPlayToyA_Idle;
     end;
   'BtnPause':
     begin
-      GirlBehavior.ActionPause;
-      ToysBehavior.ActionPause;
+      FGirlBehavior.ActionPause;
+      FToysBehavior.ActionPause;
     end;
   'BtnPlayA1':
     begin
-      GirlBehavior.ActionPlayToyA_A1P1;
-      ToysBehavior.ActionPlayToyA_A1P1;
+      FGirlBehavior.ActionPlayToyA_A1P1;
+      FToysBehavior.ActionPlayToyA_A1P1;
     end;
   'BtnPlayA2':
     begin
-      GirlBehavior.ActionPlayToyA_A2P1;
-      ToysBehavior.ActionPlayToyA_A2P1;
+      FGirlBehavior.ActionPlayToyA_A2P1;
+      FToysBehavior.ActionPlayToyA_A2P1;
     end;
   end;
 
@@ -147,8 +153,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  GirlBehavior.Speed:= slider.Value;
-  ToysBehavior.Speed:= slider.Value;
+  FGirlBehavior.Speed:= slider.Value;
+  FToysBehavior.Speed:= slider.Value;
 end;
 
 end.

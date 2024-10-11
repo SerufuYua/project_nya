@@ -24,6 +24,7 @@ type
     function GetColor: TCastleColorRGB;
   public
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure ParentAfterAttach(); override;
     procedure Update(const SecondsPassed: Single;
                      var RemoveMe: TRemoveType); override;
@@ -40,8 +41,10 @@ type
     property Speed: Single read GetSpeed write SetSpeed;
     property PersonalColor: TCastleColorRGB read GetColor;
   protected
-    Scene: TCastleTransformDesign;
-    Dresser: TCharaDresser;
+    FScene: TCastleTransformDesign;
+    FDresser: TCharaDresser;
+    FDresseSaver: TDressSaver;
+    FCharaName: String;
     function GetMainBody(): TCastleScene; { main chara Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     procedure ActionFaceDefault;
@@ -50,12 +53,21 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, X3DTime, X3DNodes;
+  SysUtils, CastleComponentSerialize, X3DTime, X3DNodes;
 
 constructor TCharaBehavior.Create(AOwner: TComponent);
 begin
-  inherited;
+  inherited Create(AOwner);
   { any other initialization }
+end;
+
+destructor TCharaBehavior.Destroy;
+begin
+  if Assigned(FDresseSaver) then
+    FreeAndNil(FDresseSaver);
+  if Assigned(FDresser) then
+    FreeAndNil(FDresser);
+  inherited;
 end;
 
 procedure TCharaBehavior.ParentAfterAttach;
@@ -63,13 +75,14 @@ var
   charaBody, charaHead: TCastleScene;
 begin
   inherited;
-  Scene:= Parent as TCastleTransformDesign;
+  FScene:= Parent as TCastleTransformDesign;
 
-  charaBody:= Scene.DesignedComponent('Body') as TCastleScene;
-  charaHead:= Scene.DesignedComponent('SceneHead') as TCastleScene;
+  charaBody:= FScene.DesignedComponent('Body') as TCastleScene;
+  charaHead:= FScene.DesignedComponent('SceneHead') as TCastleScene;
 
-  { create dresser }
-  Dresser:= TCharaDresser.Create(Scene);
+  { create FDresser }
+  FDresser:= TCharaDresser.Create(FScene);
+  FDresseSaver:= TDressSaver.Create(FDresser, FCharaName);
 
   { set Anisotropic Filtering for character }
   SetAnisotropicFiltering(charaBody);
@@ -121,33 +134,33 @@ procedure TCharaBehavior.ActionFaceDefault;
 var
   head: TCastleScene;
 begin
-  head:= Scene.DesignedComponent('SceneHead') as TCastleScene;
+  head:= FScene.DesignedComponent('SceneHead') as TCastleScene;
   head.PlayAnimation('Blink', true);
 end;
 
 function TCharaBehavior.GetPos(): TVector3;
 begin
-  Result:= Scene.Translation;
+  Result:= FScene.Translation;
 end;
 
 procedure TCharaBehavior.SetPos(coord: TVector3);
 begin
-  Scene.Translation:= coord;
+  FScene.Translation:= coord;
 end;
 
 function TCharaBehavior.GetRot(): TVector4;
 begin
-  Result:= Scene.Rotation;
+  Result:= FScene.Rotation;
 end;
 
 procedure TCharaBehavior.SetRot(coord: TVector4);
 begin
-  Scene.Rotation:= coord;
+  FScene.Rotation:= coord;
 end;
 
 function TCharaBehavior.GetDresser(): TCharaDresser;
 begin
-  Result:= Dresser;
+  Result:= FDresser;
 end;
 
 procedure TCharaBehavior.SetLightning(enable: Boolean);
@@ -155,7 +168,7 @@ var
   item: TCastleScene;
   items: TCastleScenes;
 begin
-  items:= GetAllScenes(Scene);
+  items:= GetAllScenes(FScene);
 
   for item in items do
   begin
@@ -168,7 +181,7 @@ var
   item: TCastleScene;
   items: TCastleScenes;
 begin
-  items:= GetAllScenes(Scene);
+  items:= GetAllScenes(FScene);
 
   for item in items do
   begin
@@ -196,7 +209,7 @@ function TCharaBehavior.GetColor: TCastleColorRGB;
 var
   imageColor: TCastleImageTransform;
 begin
-  imageColor:= Scene.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
+  imageColor:= FScene.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
 
   if Assigned(imageColor) then
     Result:= imageColor.Color.RGB
@@ -223,7 +236,7 @@ end;
 
 function TCharaBehavior.GetMainBody(): TCastleScene;
 begin
-  Result:= Scene.DesignedComponent('Body') as TCastleScene;
+  Result:= FScene.DesignedComponent('Body') as TCastleScene;
 end;
 
 function TCharaBehavior.GetActorsList(): TCastleScenes;
@@ -232,8 +245,8 @@ var
 begin
   SetLength(actors, 3);
   actors[0]:= GetMainBody();
-  actors[1]:= Scene.DesignedComponent('SceneHead') as TCastleScene;
-  actors[2]:= Scene.DesignedComponent('SceneHair') as TCastleScene;
+  actors[1]:= FScene.DesignedComponent('SceneHead') as TCastleScene;
+  actors[2]:= FScene.DesignedComponent('SceneHair') as TCastleScene;
 
   Result:= actors;
 end;

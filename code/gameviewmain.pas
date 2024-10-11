@@ -34,10 +34,10 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    GirlBehavior: TCharaGirlBehavior;
-    BoyBehavior: TCharaBoyBehavior;
-    Fader: TRectangleFader;
-    CameraRatation: TQuaternion;
+    FGirlBehavior: TCharaGirlBehavior;
+    FBoyBehavior: TCharaBoyBehavior;
+    FFader: TRectangleFader;
+    FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
     procedure ClickSceneGirl(Sender: TObject);
     procedure ClicSceneTogether(Sender: TObject);
@@ -59,7 +59,7 @@ constructor TViewMain.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl := 'castle-data:/gameviewmain.castle-user-interface';
-  GirlBehavior :=  nil;
+  FGirlBehavior :=  nil;
 end;
 
 procedure TViewMain.Start;
@@ -74,25 +74,25 @@ begin
   BtnPlayTogether.OnClick:= {$ifdef FPC}@{$endif}ClicSceneTogether;
 
   { set fog animator }
-  Fader:= TRectangleFader.Create(ScreenRectangle);
-  Fader.SetFade(1.0, 0.0, 3.0);
+  FFader:= TRectangleFader.Create(ScreenRectangle);
+  FFader.SetFade(1.0, 0.0, 3.0);
 
   { Create Girl Character instance }
   GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  GirlBehavior := TCharaGirlBehavior.Create(FreeAtStop);
-  GirlScene.AddBehavior(GirlBehavior);
+  FGirlBehavior := TCharaGirlBehavior.Create(FreeAtStop);
+  GirlScene.AddBehavior(FGirlBehavior);
 
   { Create Boy Character instance }
   BoyScene := DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  BoyBehavior := TCharaBoyBehavior.Create(FreeAtStop);
-  BoyScene.AddBehavior(BoyBehavior);
+  FBoyBehavior := TCharaBoyBehavior.Create(FreeAtStop);
+  BoyScene.AddBehavior(FBoyBehavior);
 
   { set character self emission }
-  GirlBehavior.SelfEmission:= 0.15;
-  BoyBehavior.SelfEmission:= 0.15;
+  FGirlBehavior.SelfEmission:= 0.15;
+  FBoyBehavior.SelfEmission:= 0.15;
 
   { remember initial camera rotation }
-  CameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
+  FCameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
 
   { default chara action }
   CharaActionWaiting;
@@ -100,8 +100,8 @@ end;
 
 procedure TViewMain.Stop;
 begin
-  FreeAndNil(GirlBehavior);
-  FreeAndNil(BoyBehavior);
+  FreeAndNil(FGirlBehavior);
+  FreeAndNil(FBoyBehavior);
   inherited;
 end;
 
@@ -112,7 +112,7 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
-  Fader.AnimateQuadFade(SecondsPassed);
+  FFader.AnimateQuadFade(SecondsPassed);
   UpdateCamera;
 end;
 
@@ -139,12 +139,12 @@ end;
 
 procedure TViewMain.CharaActionWaiting;
 begin
-  GirlBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  GirlBehavior.Pos:= Vector3(59, 0, 13);
-  GirlBehavior.Rot:= Vector4(0, 0, 0, 0);
-  BoyBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  BoyBehavior.Pos:= Vector3(81, 0, 56);
-  BoyBehavior.Rot:= Vector4(0, -1, 0, Pi/2);
+  FGirlBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
+  FGirlBehavior.Pos:= Vector3(59, 0, 13);
+  FGirlBehavior.Rot:= Vector4(0, 0, 0, 0);
+  FBoyBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
+  FBoyBehavior.Pos:= Vector3(81, 0, 56);
+  FBoyBehavior.Rot:= Vector4(0, -1, 0, Pi/2);
 end;
 
 procedure TViewMain.UpdateCamera;
@@ -158,7 +158,7 @@ begin
   rotatorX:= QuatFromAxisAngle(Vector4(0, 1, 0, -Pi/24.0 * cursorX));
   rotatorY:= QuatFromAxisAngle(Vector4(1, 0, 0, Pi/24.0 * cursorY));
 
-  CameraMain.Rotation:= (CameraRatation * rotatorX * rotatorY).ToAxisAngle;
+  CameraMain.Rotation:= (FCameraRatation * rotatorX * rotatorY).ToAxisAngle;
 end;
 
 end.

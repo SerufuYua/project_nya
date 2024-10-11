@@ -24,7 +24,7 @@ type
     procedure ActionPlayToyA_A2P1;
     property Speed: Single read GetSpeed write SetSpeed;
   protected
-    Scene: TCastleTransformDesign;
+    FScene: TCastleTransformDesign;
     function GetCurrentTool(): TCastleScene;
     procedure RailingUsed(enable: Boolean);
   end;
@@ -43,7 +43,7 @@ end;
 procedure TToysForGirlBehavior.ParentAfterAttach;
 begin
   inherited;
-  Scene:= Parent as TCastleTransformDesign;
+  FScene:= Parent as TCastleTransformDesign;
   ActionPlayToyA_Idle;
 end;
 
@@ -79,14 +79,14 @@ end;
 
 function TToysForGirlBehavior.GetCurrentTool(): TCastleScene;
 begin
-  Result:= Scene.DesignedComponent('ToyA') as TCastleScene;
+  Result:= FScene.DesignedComponent('ToyA') as TCastleScene;
 end;
 
 procedure TToysForGirlBehavior.RailingUsed(enable: Boolean);
 var
   railing: TCastleScene;
 begin
-  railing:= Scene.DesignedComponent('Railing') as TCastleScene;
+  railing:= FScene.DesignedComponent('Railing') as TCastleScene;
 
   if enable then
   begin

@@ -11,6 +11,7 @@ uses
 type
   TCharaGirlBehavior = class(TCharaBehavior)
   public
+    constructor Create(AOwner: TComponent); override;
     procedure ActionIdle;
     procedure ActionPlayToyA_Idle;
     procedure ActionPlayToyA_A1P1;
@@ -26,52 +27,59 @@ implementation
 uses
   CastleComponentSerialize;
 
+constructor TCharaGirlBehavior.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+
+  FCharaName:= 'Girl';
+end;
+
 procedure TCharaGirlBehavior.ActionIdle;
 begin
   ActionStand;
-  Scene.Translation:= Vector3(0, 0, -30);
+  FScene.Translation:= Vector3(0, 0, -30);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayToyA_Idle;
 begin
   PlayAnimation('GAME.GIRL_TOYA.PLAY.IDLE');
-  Scene.Translation:= Vector3(0, 0, 0);
+  FScene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayToyA_A1P1;
 begin
   ActionFaceDefault;
   PlayAnimation('GAME.GIRL_TOYA.PLAY.A1.P1');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
+  FDresser.WearSuit(TSuits.Bottom, 'none');
+  FScene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayToyA_A2P1;
 begin
   ActionFaceDefault;
   PlayAnimation('GAME.GIRL_TOYA.PLAY.A2.P1');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
+  FDresser.WearSuit(TSuits.Bottom, 'none');
+  FScene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayTogether_Idle;
 begin
   ActionStand;
-  Scene.Translation:= Vector3(-9, 0, 0);
+  FScene.Translation:= Vector3(-9, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayTogether_A1P1;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P1');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
+  FDresser.WearSuit(TSuits.Bottom, 'none');
+  FScene.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TCharaGirlBehavior.ActionPlayTogether_A1P2;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P2');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
+  FDresser.WearSuit(TSuits.Bottom, 'none');
+  FScene.Translation:= Vector3(0, 0, 0);
 end;
 
 initialization

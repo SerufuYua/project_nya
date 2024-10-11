@@ -23,7 +23,7 @@ type
     procedure SetChara(chara: TCharaBehavior);
     procedure SetColor(color: TCastleColorRGB);
   private
-    Dresser: TCharaDresser;
+    FDresser: TCharaDresser;
     procedure UpdateSuits();
     procedure UpdateSuits(suitType: TSuits; groupList: TCastleVerticalGroup);
     procedure UpdateAccessories();
@@ -60,7 +60,7 @@ end;
 procedure TViewDressingMenu.SetChara(chara: TCharaBehavior);
 begin
   if NOT Assigned(chara) then Exit;
-  Dresser:= chara.GetDresser();
+  FDresser:= chara.GetDresser();
   UpdateSuits();
   UpdateAccessories();
 
@@ -92,7 +92,7 @@ var
   suit: TItemCondition;
   newBtn: TCastleButton;
 begin
-  suits:= Dresser.GetSuitsList(suitType);
+  suits:= FDresser.GetSuitsList(suitType);
   groupList.ClearControls;
 
   newBtn:= TCastleButton.Create(groupList);
@@ -115,7 +115,7 @@ var
   acessory: TItemCondition;
   newChk: TCastleCheckbox;
 begin
-  acessories:= Dresser.GetAcessoriesList();
+  acessories:= FDresser.GetAcessoriesList();
   ListAccessories.ClearControls;
 
   for acessory in acessories do
@@ -145,7 +145,7 @@ begin
     suitType:= TSuits.All;
   end;
 
-  Dresser.WearSuit(suitType, button.Caption);
+  FDresser.WearSuit(suitType, button.Caption);
 end;
 
 procedure TViewDressingMenu.ClickAccesories(Sender: TObject);
@@ -155,7 +155,7 @@ begin
   check:= Sender as TCastleCheckbox;
   if NOT Assigned(check) then exit;
 
-  Dresser.WearAcessory(check.Caption, check.Checked);
+  FDresser.WearAcessory(check.Caption, check.Checked);
 end;
 
 end.

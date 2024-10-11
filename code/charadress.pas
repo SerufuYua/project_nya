@@ -11,15 +11,6 @@ uses
 type
   TSuits = (All, Top, Bottom, Foots, Arms);
 
-  TDressSaver = class
-  public
-    constructor Create(newScene: TCastleTransformDesign);
-  protected
-    iniName: String;
-    procedure RestoreProperties;
-    procedure SaveProperties;
-  end;
-
   TCharaDresser = class
   public
     constructor Create(newScene: TCastleTransformDesign);
@@ -28,8 +19,20 @@ type
     function GetAcessoriesList(): TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
   protected
-    Scene: TCastleTransformDesign;
+    FScene: TCastleTransformDesign;
     function GetMainBody(): TCastleScene; { main chara Body }
+  end;
+
+  TDressSaver = class
+  public
+    constructor Create(dresser: TCharaDresser; charaName: String);
+    destructor Destroy; override;
+  protected
+    FIniName: String;
+    FDresser: TCharaDresser;
+    FCharaName: String;
+    procedure RestoreProperties;
+    procedure SaveProperties;
   end;
 
 implementation
@@ -48,7 +51,7 @@ const
 
 constructor TCharaDresser.Create(newScene: TCastleTransformDesign);
 begin
-  Scene:= newScene;
+  FScene:= newScene;
 end;
 
 function TCharaDresser.GetSuitsList(suitType: TSuits): TItemConditions;
@@ -134,7 +137,7 @@ var
   i: Integer;
   acessoryNames: TItemConditions;
 begin
-  acessoryNames:= GetSceneNamesByNameStart(Scene, PrefixAccesory);
+  acessoryNames:= GetSceneNamesByNameStart(FScene, PrefixAccesory);
 
   for i:= 0 to (Length(acessoryNames) - 1) do
   begin
@@ -149,7 +152,7 @@ var
   items: TCastleScenes;
   item: TCastleScene;
 begin
-  items:= GetAllScenes(scene);
+  items:= GetAllScenes(FScene);
 
   for item in items do
   begin
@@ -160,21 +163,31 @@ end;
 
 function TCharaDresser.GetMainBody(): TCastleScene;
 begin
-  Result:= Scene.DesignedComponent('Body') as TCastleScene;
+  Result:= FScene.DesignedComponent('Body') as TCastleScene;
 end;
 
 { TDressSaver }
 
-constructor TDressSaver.Create(newScene: TCastleTransformDesign);
+constructor TDressSaver.Create(dresser: TCharaDresser; charaName: String);
 begin
-  iniName:= 'condition.ini';
+  FIniName:= 'condition.ini';
+  FDresser:= dresser;
+  FCharaName:= charaName;
+
+  RestoreProperties;
+end;
+
+destructor TDressSaver.Destroy;
+begin
+  SaveProperties;
+  inherited;
 end;
 
 procedure TDressSaver.RestoreProperties;
 var
   ini: TCustomIniFile;
 begin
-  ini:= TMemIniFile.Create(iniName);
+  ini:= TMemIniFile.Create(FIniName);
   ini.FormatSettings.DecimalSeparator := '|';
   ini.Options:= [ifoFormatSettingsActive, ifoWriteStringBoolean];
 //  Edit1.Caption:= ini.ReadString('main', 'stringVal', 'none');
@@ -185,7 +198,7 @@ procedure TDressSaver.SaveProperties;
 var
   ini: TCustomIniFile;
 begin
-  ini:= TMemIniFile.Create(iniName);
+  ini:= TMemIniFile.Create(FIniName);
   ini.FormatSettings.DecimalSeparator := '|';
   ini.Options:= [ifoFormatSettingsActive, ifoWriteStringBoolean];
 //  ini.WriteString('main', 'stringVal', Edit1.Caption);

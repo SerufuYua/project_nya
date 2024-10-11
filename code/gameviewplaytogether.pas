@@ -28,9 +28,9 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   private
-    GirlBehavior: TCharaGirlBehavior;
-    BoyBehavior: TCharaBoyBehavior;
-    DressMenu: boolean;
+    FGirlBehavior: TCharaGirlBehavior;
+    FBoyBehavior: TCharaBoyBehavior;
+    FDressMenu: boolean;
     procedure ClickBack(Sender: TObject);
     procedure ClickPlay(Sender: TObject);
     procedure ClicCharaLight(Sender: TObject);
@@ -50,7 +50,7 @@ constructor TViewPlayTogether.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl := 'castle-data:/gameviewplaytogether.castle-user-interface';
-  DressMenu:= False;
+  FDressMenu:= False;
 end;
 
 procedure TViewPlayTogether.Start;
@@ -75,17 +75,17 @@ begin
 
   { Create Girl Character instance }
   GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  GirlBehavior:= TCharaGirlBehavior.Create(FreeAtStop);
-  GirlScene.AddBehavior(GirlBehavior);
+  FGirlBehavior:= TCharaGirlBehavior.Create(FreeAtStop);
+  GirlScene.AddBehavior(FGirlBehavior);
 
   { Create Boy Character instance }
   BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  BoyBehavior:= TCharaBoyBehavior.Create(FreeAtStop);
-  BoyScene.AddBehavior(BoyBehavior);
+  FBoyBehavior:= TCharaBoyBehavior.Create(FreeAtStop);
+  BoyScene.AddBehavior(FBoyBehavior);
 
   { set character self emission }
-  GirlBehavior.SelfEmission:= 0.15;
-  BoyBehavior.SelfEmission:= 0.15;
+  FGirlBehavior.SelfEmission:= 0.15;
+  FBoyBehavior.SelfEmission:= 0.15;
 end;
 
 procedure TViewPlayTogether.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -112,25 +112,25 @@ begin
   'BtnStop':
     begin
       SceneActors.Translation:= Vector3(45, 0, 0);
-      GirlBehavior.ActionPlayTogether_Idle;
-      BoyBehavior.ActionPlayTogether_Idle;
+      FGirlBehavior.ActionPlayTogether_Idle;
+      FBoyBehavior.ActionPlayTogether_Idle;
     end;
   'BtnPause':
     begin
-      GirlBehavior.ActionPause;
-      BoyBehavior.ActionPause;
+      FGirlBehavior.ActionPause;
+      FBoyBehavior.ActionPause;
     end;
   'BtnPlayA1P1':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      GirlBehavior.ActionPlayTogether_A1P1;
-      BoyBehavior.ActionPlayTogether_A1P1;
+      FGirlBehavior.ActionPlayTogether_A1P1;
+      FBoyBehavior.ActionPlayTogether_A1P1;
     end;
   'BtnPlayA1P2':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      GirlBehavior.ActionPlayTogether_A1P2;
-      BoyBehavior.ActionPlayTogether_A1P2;
+      FGirlBehavior.ActionPlayTogether_A1P2;
+      FBoyBehavior.ActionPlayTogether_A1P2;
     end;
   end;
 end;
@@ -143,30 +143,30 @@ begin
   if NOT Assigned(button) then exit;
 
   { Show Dressing Menu }
-  if (DressMenu AND (button.Name = 'BtnDressNone')) then
+  if (FDressMenu AND (button.Name = 'BtnDressNone')) then
   begin
     Container.PopView;
-    DressMenu:= False;
-  end else if (NOT DressMenu AND (button.Name <> 'BtnDressNone')) then
+    FDressMenu:= False;
+  end else if (NOT FDressMenu AND (button.Name <> 'BtnDressNone')) then
   begin
     Container.PushView(ViewDressingMenu);
-    DressMenu:= True;
+    FDressMenu:= True;
   end;
 
   { Updte Dressing Menu if it showed}
-  if DressMenu then
+  if FDressMenu then
   begin
     Case button.Name of
-    'BtnDressGirl': ViewDressingMenu.SetChara(GirlBehavior);
-    'BtnDressBoy': ViewDressingMenu.SetChara(BoyBehavior);
+    'BtnDressGirl': ViewDressingMenu.SetChara(FGirlBehavior);
+    'BtnDressBoy': ViewDressingMenu.SetChara(FBoyBehavior);
     end;
   end;
 end;
 
 procedure TViewPlayTogether.ClicCharaLight(Sender: TObject);
 begin
-  GirlBehavior.Lightning:= NOT GirlBehavior.Lightning;
-  BoyBehavior.Lightning:= NOT BoyBehavior.Lightning;
+  FGirlBehavior.Lightning:= NOT FGirlBehavior.Lightning;
+  FBoyBehavior.Lightning:= NOT FBoyBehavior.Lightning;
 end;
 
 procedure TViewPlayTogether.ChangedEmission(Sender: TObject);
@@ -176,8 +176,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  GirlBehavior.SelfEmission:= slider.Value;
-  BoyBehavior.SelfEmission:= slider.Value;
+  FGirlBehavior.SelfEmission:= slider.Value;
+  FBoyBehavior.SelfEmission:= slider.Value;
 end;
 
 procedure TViewPlayTogether.ChangedSpeed(Sender: TObject);
@@ -187,8 +187,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  GirlBehavior.Speed:= slider.Value;
-  BoyBehavior.Speed:= slider.Value;
+  FGirlBehavior.Speed:= slider.Value;
+  FBoyBehavior.Speed:= slider.Value;
 end;
 
 end.
