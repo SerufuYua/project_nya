@@ -17,9 +17,6 @@ type
     BtnPause: TCastleButton;
     BtnPlayA1: TCastleButton;
     BtnPlayA2: TCastleButton;
-    BtnPlayA3: TCastleButton;
-    BtnPlayA4: TCastleButton;
-    BtnPlayA5: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
   public
     constructor Create(AOwner: TComponent); override;
@@ -31,10 +28,8 @@ type
     ToysBehavior: TToysForGirlBehavior;
     DressMenu: boolean;
     procedure ClickBack(Sender: TObject);
-    procedure ClickStop(Sender: TObject);
-    procedure ClickPause(Sender: TObject);
     procedure ClickDress(Sender: TObject);
-    procedure ClickPlay(Sender: TObject);
+    procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
   end;
 
@@ -60,14 +55,11 @@ begin
   { Executed once when view starts }
 
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickBack;
-  BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickStop;
-  BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickPause;
   BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
-  BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnPlayA3.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnPlayA4.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
-  BtnPlayA5.OnClick:= {$ifdef FPC}@{$endif}ClickPlay;
+  BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { Create Girl Character instance }
@@ -79,6 +71,13 @@ begin
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
   ToysBehavior:= TToysForGirlBehavior.Create(FreeAtStop);
   toysScene.AddBehavior(ToysBehavior);
+
+  { set character self emission }
+  GirlBehavior.SelfEmission:= 0.15;
+
+  { default chara action }
+  GirlBehavior.ActionPlayToyA_Idle;
+  ToysBehavior.ActionPlayToyA_Idle;
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -92,16 +91,6 @@ end;
 procedure TViewPlayGirl.ClickBack(Sender: TObject);
 begin
   Container.View:= ViewMain;
-end;
-
-procedure TViewPlayGirl.ClickStop(Sender: TObject);
-begin
-  GirlBehavior.ActionIdle;
-end;
-
-procedure TViewPlayGirl.ClickPause(Sender: TObject);
-begin
-  GirlBehavior.ActionPause;
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
@@ -119,7 +108,7 @@ begin
   end;
 end;
 
-procedure TViewPlayGirl.ClickPlay(Sender: TObject);
+procedure TViewPlayGirl.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
@@ -127,30 +116,25 @@ begin
   if NOT Assigned(button) then exit;
 
   Case button.Name of
+  'BtnStop':
+    begin
+      GirlBehavior.ActionPlayToyA_Idle;
+      ToysBehavior.ActionPlayToyA_Idle;
+    end;
+  'BtnPause':
+    begin
+      GirlBehavior.ActionPause;
+      ToysBehavior.ActionPause;
+    end;
   'BtnPlayA1':
     begin
-      GirlBehavior.ActionPlayA1;
-      ToysBehavior.ActionPlayA1;
+      GirlBehavior.ActionPlayToyA_A1P1;
+      ToysBehavior.ActionPlayToyA_A1P1;
     end;
   'BtnPlayA2':
     begin
-      GirlBehavior.ActionPlayA2;
-      ToysBehavior.ActionPlayA2;
-    end;
-  'BtnPlayA3':
-    begin
-      GirlBehavior.ActionPlayA3;
-      ToysBehavior.ActionPlayA3;
-    end;
-  'BtnPlayA4':
-    begin
-      GirlBehavior.ActionPlayA4;
-      ToysBehavior.ActionPlayA4;
-    end;
-  'BtnPlayA5':
-    begin
-      GirlBehavior.ActionPlayA5;
-      ToysBehavior.ActionPlayA5;
+      GirlBehavior.ActionPlayToyA_A2P1;
+      ToysBehavior.ActionPlayToyA_A2P1;
     end;
   end;
 

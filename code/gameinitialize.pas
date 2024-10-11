@@ -45,7 +45,7 @@ begin
     Window.Container.View:= ViewPlayTogether
   else
     //Window.Container.View := ViewMain;
-    Window.Container.View:= ViewMain;
+    Window.Container.View:= ViewPlayGirl;
 
 end;
 

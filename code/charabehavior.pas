@@ -101,20 +101,20 @@ end;
 
 procedure TCharaBehavior.ActionStand;
 begin
-  PlayAnimation('GAME.STAND');
   ActionFaceDefault;
+  PlayAnimation('GAME.STAND');
 end;
 
 procedure TCharaBehavior.ActionWalk;
 begin
-  PlayAnimation('GAME.WALK.FORWARD');
   ActionFaceDefault;
+  PlayAnimation('GAME.WALK.FORWARD');
 end;
 
 procedure TCharaBehavior.ActionRun;
 begin
-  PlayAnimation('GAME.RUN.FORWARD');
   ActionFaceDefault;
+  PlayAnimation('GAME.RUN.FORWARD');
 end;
 
 procedure TCharaBehavior.ActionFaceDefault;

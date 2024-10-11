@@ -1,5 +1,6 @@
 {
 	"asset":{
+		"copyright":"@serufu_yua",
 		"generator":"Khronos glTF Blender I/O v3.6.28",
 		"version":"2.0"
 	},
@@ -22,7 +23,7 @@
 		},
 		{
 			"mesh":0,
-			"name":"hair.004",
+			"name":"hair.boy",
 			"skin":0
 		},
 		{
@@ -30,7 +31,7 @@
 				1,
 				0
 			],
-			"name":"Skeleton.Hair"
+			"name":"Skeleton.Hair.Boy"
 		}
 	],
 	"materials":[
@@ -62,7 +63,7 @@
 	],
 	"meshes":[
 		{
-			"name":"head.004",
+			"name":"hair.boy",
 			"primitives":[
 				{
 					"attributes":{
@@ -88,8 +89,8 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"hair_Raf",
-			"uri":"hair_Raf.png"
+			"name":"hair",
+			"uri":"hair.png"
 		}
 	],
 	"skins":[
@@ -98,7 +99,7 @@
 			"joints":[
 				0
 			],
-			"name":"Skeleton.Hair"
+			"name":"Skeleton.Hair.Boy"
 		}
 	],
 	"accessors":[
@@ -108,12 +109,12 @@
 			"count":1391,
 			"max":[
 				7.115396022796631,
-				11.369499206542969,
-				7.171228408813477
+				11.369498252868652,
+				7.171228885650635
 			],
 			"min":[
 				-7.115396022796631,
-				-3.4007675647735596,
+				-3.4007670879364014,
 				-7.572914123535156
 			],
 			"type":"VEC3"

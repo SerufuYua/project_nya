@@ -12,14 +12,12 @@ type
   TCharaGirlBehavior = class(TCharaBehavior)
   public
     procedure ActionIdle;
-    procedure ActionPlayA1;
-    procedure ActionPlayA2;
-    procedure ActionPlayA3;
-    procedure ActionPlayA4;
-    procedure ActionPlayA5;
-    procedure ActionIdleTogether;
-    procedure ActionPlayTogetherA1P1;
-    procedure ActionPlayTogetherA1P2;
+    procedure ActionPlayToyA_Idle;
+    procedure ActionPlayToyA_A1P1;
+    procedure ActionPlayToyA_A2P1;
+    procedure ActionPlayTogether_Idle;
+    procedure ActionPlayTogether_A1P1;
+    procedure ActionPlayTogether_A1P2;
   protected
   end;
 
@@ -34,55 +32,42 @@ begin
   Scene.Translation:= Vector3(0, 0, -30);
 end;
 
-procedure TCharaGirlBehavior.ActionPlayA1;
+procedure TCharaGirlBehavior.ActionPlayToyA_Idle;
 begin
-  PlayAnimation('GAME.RU.PLAY.A1');
+  PlayAnimation('GAME.GIRL_TOYA.PLAY.IDLE');
+  Scene.Translation:= Vector3(0, 0, 0);
+end;
+
+procedure TCharaGirlBehavior.ActionPlayToyA_A1P1;
+begin
+  ActionFaceDefault;
+  PlayAnimation('GAME.GIRL_TOYA.PLAY.A1.P1');
   Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
-procedure TCharaGirlBehavior.ActionPlayA2;
+procedure TCharaGirlBehavior.ActionPlayToyA_A2P1;
 begin
-  PlayAnimation('GAME.RU.PLAY.A2');
+  ActionFaceDefault;
+  PlayAnimation('GAME.GIRL_TOYA.PLAY.A2.P1');
   Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
-procedure TCharaGirlBehavior.ActionPlayA3;
-begin
-  PlayAnimation('GAME.RU.PLAY.A3');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
-end;
-
-procedure TCharaGirlBehavior.ActionPlayA4;
-begin
-  PlayAnimation('GAME.RU.PLAY.A4');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
-end;
-
-procedure TCharaGirlBehavior.ActionPlayA5;
-begin
-  PlayAnimation('GAME.RU.PLAY.A5');
-  Dresser.WearSuit(TSuits.Bottom, 'none');
-  Scene.Translation:= Vector3(0, 0, 0);
-end;
-
-procedure TCharaGirlBehavior.ActionIdleTogether;
+procedure TCharaGirlBehavior.ActionPlayTogether_Idle;
 begin
   ActionStand;
   Scene.Translation:= Vector3(-9, 0, 0);
 end;
 
-procedure TCharaGirlBehavior.ActionPlayTogetherA1P1;
+procedure TCharaGirlBehavior.ActionPlayTogether_A1P1;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P1');
   Dresser.WearSuit(TSuits.Bottom, 'none');
   Scene.Translation:= Vector3(0, 0, 0);
 end;
 
-procedure TCharaGirlBehavior.ActionPlayTogetherA1P2;
+procedure TCharaGirlBehavior.ActionPlayTogether_A1P2;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P2');
   Dresser.WearSuit(TSuits.Bottom, 'none');

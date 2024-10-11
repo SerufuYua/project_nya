@@ -22,7 +22,7 @@ type
     BtnCharaLight: TCastleButton;
     FloatSliderEmission: TCastleFloatSlider;
     FloatSliderSpeed: TCastleFloatSlider;
-    Charas: TCastleTransform; { Charas Root }
+    SceneActors: TCastleTransform; { Charas Root }
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -111,9 +111,9 @@ begin
   Case button.Name of
   'BtnStop':
     begin
-      Charas.Translation:= Vector3(45, 0, 0);
-      GirlBehavior.ActionIdleTogether;
-      BoyBehavior.ActionIdleTogether;
+      SceneActors.Translation:= Vector3(45, 0, 0);
+      GirlBehavior.ActionPlayTogether_Idle;
+      BoyBehavior.ActionPlayTogether_Idle;
     end;
   'BtnPause':
     begin
@@ -122,15 +122,15 @@ begin
     end;
   'BtnPlayA1P1':
     begin
-      Charas.Translation:= Vector3(45, 12, -57);
-      GirlBehavior.ActionPlayTogetherA1P1;
-      BoyBehavior.ActionPlayTogetherA1P1;
+      SceneActors.Translation:= Vector3(45, 12, -57);
+      GirlBehavior.ActionPlayTogether_A1P1;
+      BoyBehavior.ActionPlayTogether_A1P1;
     end;
   'BtnPlayA1P2':
     begin
-      Charas.Translation:= Vector3(45, 12, -57);
-      GirlBehavior.ActionPlayTogetherA1P2;
-      BoyBehavior.ActionPlayTogetherA1P2;
+      SceneActors.Translation:= Vector3(45, 12, -57);
+      GirlBehavior.ActionPlayTogether_A1P2;
+      BoyBehavior.ActionPlayTogether_A1P2;
     end;
   end;
 end;

@@ -96,8 +96,6 @@ begin
 
   { default chara action }
   CharaActionWaiting;
-
-  //self.FindRequiredComponent();
 end;
 
 procedure TViewMain.Stop;

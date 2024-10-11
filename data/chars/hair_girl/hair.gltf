@@ -1,5 +1,6 @@
 {
 	"asset":{
+		"copyright":"@serufu_yua",
 		"generator":"Khronos glTF Blender I/O v3.6.28",
 		"version":"2.0"
 	},
@@ -22,7 +23,7 @@
 		},
 		{
 			"mesh":0,
-			"name":"hair",
+			"name":"hair.girl",
 			"skin":0
 		},
 		{
@@ -30,7 +31,7 @@
 				1,
 				0
 			],
-			"name":"Skeleton.Hair"
+			"name":"Skeleton.Hair.Girl"
 		}
 	],
 	"materials":[
@@ -63,7 +64,7 @@
 	],
 	"meshes":[
 		{
-			"name":"hair",
+			"name":"hair.girl",
 			"primitives":[
 				{
 					"attributes":{
@@ -90,8 +91,8 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"hair_Ru",
-			"uri":"hair_Ru.png"
+			"name":"hair",
+			"uri":"hair.png"
 		}
 	],
 	"skins":[
@@ -100,7 +101,7 @@
 			"joints":[
 				0
 			],
-			"name":"Skeleton.Hair"
+			"name":"Skeleton.Hair.Girl"
 		}
 	],
 	"accessors":[
