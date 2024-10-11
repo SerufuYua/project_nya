@@ -5,17 +5,27 @@ unit CharaDress;
 interface
 
 uses
-  Classes, SysUtils, CastleTransform, CastleScene, MyCastleUtils;
+  Classes, SysUtils, CastleTransform, CastleScene, MyCastleUtils,
+  IniFiles;
 
 type
   TSuits = (All, Top, Bottom, Foots, Arms);
 
+  TDressSaver = class
+  public
+    constructor Create(newScene: TCastleTransformDesign);
+  protected
+    iniName: String;
+    procedure RestoreProperties;
+    procedure SaveProperties;
+  end;
+
   TCharaDresser = class
   public
     constructor Create(newScene: TCastleTransformDesign);
-    function GetSuitsList(suitType: TSuits): TShapeNames;
+    function GetSuitsList(suitType: TSuits): TItemConditions;
     procedure WearSuit(suitType: TSuits; const suitName: String);
-    function GetAcessoriesList(): TSceneNames;
+    function GetAcessoriesList(): TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
   protected
     Scene: TCastleTransformDesign;
@@ -34,17 +44,19 @@ const
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
 
+{ TCharaDresser}
+
 constructor TCharaDresser.Create(newScene: TCastleTransformDesign);
 begin
   Scene:= newScene;
 end;
 
-function TCharaDresser.GetSuitsList(suitType: TSuits): TShapeNames;
+function TCharaDresser.GetSuitsList(suitType: TSuits): TItemConditions;
 var
   i: Integer;
   found: Boolean;
-  shortName, newName: String;
-  fullNames: TShapeNames;
+  fullNames: TItemConditions;
+  shortName, newName: TItemCondition;
 begin
   { get list of full suit shape names }
   Case suitType of
@@ -74,10 +86,11 @@ begin
   for i:= 0 to (Length(fullNames) - 1) do
   begin
     found:= False;
-    shortName:= ExtractDelimited(2, fullNames[i], ['.']);
+    shortName.Name:= ExtractDelimited(2, fullNames[i].Name, ['.']);
+    shortName.Visible:= fullNames[i].Visible;
     for newName in Result do
     begin
-      if (String.Compare(shortName, newName) = 0) then
+      if (String.Compare(shortName.Name, newName.Name) = 0) then
       begin
         found:= True;
         Break;
@@ -116,16 +129,16 @@ begin
   end;
 end;
 
-function TCharaDresser.GetAcessoriesList(): TSceneNames;
+function TCharaDresser.GetAcessoriesList(): TItemConditions;
 var
   i: Integer;
-  acessoryNames: TSceneNames;
+  acessoryNames: TItemConditions;
 begin
   acessoryNames:= GetSceneNamesByNameStart(Scene, PrefixAccesory);
 
   for i:= 0 to (Length(acessoryNames) - 1) do
   begin
-    delete(acessoryNames[i], 1, Length(PrefixAccesory));
+    delete(acessoryNames[i].Name, 1, Length(PrefixAccesory));
   end;
 
   Result:= acessoryNames;
@@ -148,6 +161,35 @@ end;
 function TCharaDresser.GetMainBody(): TCastleScene;
 begin
   Result:= Scene.DesignedComponent('Body') as TCastleScene;
+end;
+
+{ TDressSaver }
+
+constructor TDressSaver.Create(newScene: TCastleTransformDesign);
+begin
+  iniName:= 'condition.ini';
+end;
+
+procedure TDressSaver.RestoreProperties;
+var
+  ini: TCustomIniFile;
+begin
+  ini:= TMemIniFile.Create(iniName);
+  ini.FormatSettings.DecimalSeparator := '|';
+  ini.Options:= [ifoFormatSettingsActive, ifoWriteStringBoolean];
+//  Edit1.Caption:= ini.ReadString('main', 'stringVal', 'none');
+  ini.Free;
+end;
+
+procedure TDressSaver.SaveProperties;
+var
+  ini: TCustomIniFile;
+begin
+  ini:= TMemIniFile.Create(iniName);
+  ini.FormatSettings.DecimalSeparator := '|';
+  ini.Options:= [ifoFormatSettingsActive, ifoWriteStringBoolean];
+//  ini.WriteString('main', 'stringVal', Edit1.Caption);
+  ini.Free;
 end;
 
 end.

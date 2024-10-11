@@ -88,8 +88,8 @@ end;
 procedure TViewDressingMenu.UpdateSuits(suitType: TSuits;
                                         groupList: TCastleVerticalGroup);
 var
-  suits: TShapeNames;
-  suit: String;
+  suits: TItemConditions;
+  suit: TItemCondition;
   newBtn: TCastleButton;
 begin
   suits:= Dresser.GetSuitsList(suitType);
@@ -103,7 +103,7 @@ begin
   for suit in suits do
   begin
     newBtn:= TCastleButton.Create(groupList);
-    newBtn.Caption:= suit;
+    newBtn.Caption:= suit.Name;
     newBtn.OnClick := {$ifdef FPC}@{$endif} ClickSuit;
     groupList.InsertFront(newBtn);
   end;
@@ -111,8 +111,8 @@ end;
 
 procedure TViewDressingMenu.UpdateAccessories();
 var
-  acessories: TShapeNames;
-  acessory: String;
+  acessories: TItemConditions;
+  acessory: TItemCondition;
   newChk: TCastleCheckbox;
 begin
   acessories:= Dresser.GetAcessoriesList();
@@ -121,7 +121,8 @@ begin
   for acessory in acessories do
   begin
     newChk:= TCastleCheckbox.Create(ListAccessories);
-    newChk.Caption:= acessory;
+    newChk.Caption:= acessory.Name;
+    newChk.Checked:= acessory.Visible;
     newChk.OnChange := {$ifdef FPC}@{$endif} ClickAccesories;
     ListAccessories.InsertFront(newChk);
   end;

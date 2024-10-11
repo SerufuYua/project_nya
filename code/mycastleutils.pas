@@ -8,22 +8,26 @@ uses
   Classes, CastleScene, CastleShapes, CastleTransform, X3DNodes;
 
 type
+  TItemCondition = record
+    Name: String;
+    Visible: boolean;
+  end;
+
+  TItemConditions = Array of TItemCondition;
   TCastleScenes = Array of TCastleScene;
-  TSceneNames = Array of String;
   TShapeNodes = Array of TShapeNode;
-  TShapeNames = Array of String;
 
 procedure SetAnisotropicFiltering(const scene: TCastleScene;
                                   degree: Single = 16);
 procedure SetEmission(const scene: TCastleScene;
                       r, g, b: Single; toSelf: Boolean);
 function GetShapeNamesByNameStart(const scene: TCastleScene;
-                                  const NameStartWith: String): TShapeNames;
+                                  const NameStartWith: String): TItemConditions;
 function GetShapesByNameStart(const scene: TCastleScene;
                               const NameStartWith: String): TShapeNodes;
 function GetAllScenes(const scene: TCastleTransformDesign): TCastleScenes;
 function GetSceneNamesByNameStart(const scene: TCastleTransformDesign;
-                                  const NameStartWith: String): TSceneNames;
+                                  const NameStartWith: String): TItemConditions;
 
 implementation
 
@@ -46,7 +50,7 @@ var
   EmissionColor: TVector3;
   EmissionToSelf: Boolean;
   NameStartPattern: String;
-  FoundShapeNames: TShapeNames;
+  FoundItems: TItemConditions;
   FoundShapes: TShapeNodes;
 
 class procedure TNodeHandler.HandleNodeAnisotropic(Node: TX3DNode);
@@ -88,12 +92,16 @@ end;
 class procedure TNodeHandler.HandleShapeNamesByNameStart(Node: TX3DNode);
 var
   nodeName: String;
+  shape: TShapeNode;
 begin
   nodeName:= Node.X3DName;
   if nodeName.StartsWith(NameStartPattern) then
   begin
-    SetLength(FoundShapeNames, Length(FoundShapeNames) + 1);
-    FoundShapeNames[High(FoundShapeNames)]:= nodeName;
+    SetLength(FoundItems, Length(FoundItems) + 1);
+    FoundItems[High(FoundItems)].Name:= nodeName;
+
+    shape:= Node as TShapeNode;
+    FoundItems[High(FoundItems)].Visible:= shape.Visible;
   end;
 end;
 
@@ -110,7 +118,6 @@ begin
     FoundShapes[High(FoundShapes)]:= shape;
   end;
 end;
-
 
 procedure SetAnisotropicFiltering(const scene: TCastleScene; degree: Single);
 var
@@ -141,12 +148,12 @@ begin
 end;
 
 function GetShapeNamesByNameStart(const scene: TCastleScene;
-                                  const NameStartWith: String): TShapeNames;
+                                  const NameStartWith: String): TItemConditions;
 var
   Node: TX3DRootNode;
 begin
   if NOT Assigned(scene) then Exit;
-  FoundShapeNames:= [];
+  FoundItems:= [];
   NameStartPattern:= NameStartWith;
 
   Node:= scene.RootNode;
@@ -154,7 +161,7 @@ begin
     {$ifdef FPC}@{$endif} TNodeHandler {$ifdef FPC}(nil){$endif}.
     HandleShapeNamesByNameStart, false);
 
-  Result:= FoundShapeNames;
+  Result:= FoundItems;
 end;
 
 function GetShapesByNameStart(const scene: TCastleScene;
@@ -173,7 +180,6 @@ begin
 
   Result:= FoundShapes;
 end;
-
 
 function GetAllScenes(const scene: TCastleTransformDesign): TCastleScenes;
 var
@@ -215,10 +221,11 @@ begin
 end;
 
 function GetSceneNamesByNameStart(const scene: TCastleTransformDesign;
-                                  const NameStartWith: String): TSceneNames;
+                                  const NameStartWith: String): TItemConditions;
 var
   items: TCastleScenes;
   item: TCastleScene;
+  itemCondition: TItemCondition;
 begin
   Result:= [];
   items:= GetAllScenes(scene);
@@ -228,7 +235,9 @@ begin
     if item.Name.StartsWith(NameStartWith) then
     begin
       SetLength(Result, Length(Result) + 1);
-      Result[Length(Result) - 1]:= item.Name;
+      itemCondition.Name:= item.Name;
+      itemCondition.Visible:= item.Visible;
+      Result[Length(Result) - 1]:= itemCondition;
     end;
   end;
 end;
