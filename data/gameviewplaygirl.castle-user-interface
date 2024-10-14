@@ -413,9 +413,7 @@
           "Height" : 6.0000000000000000E+001,
           "HorizontalAnchorParent" : "hpRight",
           "HorizontalAnchorSelf" : "hpRight",
-          "Name" : "RectangleControl4",
-          "VerticalAnchorParent" : "vpTop",
-          "VerticalAnchorSelf" : "vpTop",
+          "Name" : "DressingControl",
           "Width" : 1.3000000000000000E+002,
           "$Children" : [
             {
@@ -506,6 +504,8 @@
       "Name" : "VerticalGroupInfo",
       "Padding" : 1.0000000000000000E+001,
       "Spacing" : 1.0000000000000000E+001,
+      "VerticalAnchorParent" : "vpTop",
+      "VerticalAnchorSelf" : "vpTop",
       "$Children" : [
         {
           "$$ClassName" : "TCastleLabel",

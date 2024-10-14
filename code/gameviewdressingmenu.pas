@@ -15,6 +15,7 @@ type
     ListArms: TCastleVerticalGroup;
     ListFoots: TCastleVerticalGroup;
     ListAccessories: TCastleVerticalGroup;
+    BtnClose: TcastleButton;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -29,6 +30,7 @@ type
     procedure UpdateAccessories();
     procedure ClickSuit(Sender: TObject);
     procedure ClickAccesories(Sender: TObject);
+    procedure ClickClose(Sender: TObject);
   end;
 
 var
@@ -48,6 +50,8 @@ procedure TViewDressingMenu.Start;
 begin
   inherited;
   { Executed once when view starts. }
+
+  BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
 end;
 
 procedure TViewDressingMenu.Update(const SecondsPassed: Single;
@@ -97,14 +101,14 @@ begin
 
   newBtn:= TCastleButton.Create(groupList);
   newBtn.Caption:= 'none';
-  newBtn.OnClick := {$ifdef FPC}@{$endif} ClickSuit;
+  newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
   groupList.InsertFront(newBtn);
 
   for suit in suits do
   begin
     newBtn:= TCastleButton.Create(groupList);
     newBtn.Caption:= suit.Name;
-    newBtn.OnClick := {$ifdef FPC}@{$endif} ClickSuit;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
     groupList.InsertFront(newBtn);
   end;
 end;
@@ -123,7 +127,7 @@ begin
     newChk:= TCastleCheckbox.Create(ListAccessories);
     newChk.Caption:= acessory.Name;
     newChk.Checked:= acessory.Visible;
-    newChk.OnChange := {$ifdef FPC}@{$endif} ClickAccesories;
+    newChk.OnChange:= {$ifdef FPC}@{$endif} ClickAccesories;
     ListAccessories.InsertFront(newChk);
   end;
 end;
@@ -156,6 +160,11 @@ begin
   if NOT Assigned(check) then exit;
 
   FDresser.WearAcessory(check.Caption, check.Checked);
+end;
+
+procedure TViewDressingMenu.ClickClose(Sender: TObject);
+begin
+  Container.PopView(self);
 end;
 
 end.

@@ -18,6 +18,7 @@ type
     BtnPlayA1: TCastleButton;
     BtnPlayA2: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
+    DressingControl: TCastleRectangleControl;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -26,7 +27,6 @@ type
   private
     FGirlBehavior: TCharaGirlBehavior;
     FToysBehavior: TToysForGirlBehavior;
-    FDressMenu: boolean;
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
@@ -45,7 +45,6 @@ constructor TViewPlayGirl.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl:= 'castle-data:/gameviewplaygirl.castle-user-interface';
-  FDressMenu:= False;
 end;
 
 procedure TViewPlayGirl.Start;
@@ -87,20 +86,20 @@ begin
   { Executed every frame. }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
+
+  { Release Dressing Menu Button }
+  if NOT (Container.FrontView = ViewDressingMenu) then
+    DressingControl.Exists:= True;
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
 begin
   { Show Dressing Menu }
-  if FDressMenu then
-  begin
-    Container.PopView;
-    FDressMenu:= False;
-  end else
+  if NOT (Container.FrontView = ViewDressingMenu) then
   begin
     Container.PushView(ViewDressingMenu);
     ViewDressingMenu.SetChara(FGirlBehavior);
-    FDressMenu:= True;
+    DressingControl.Exists:= False;
   end;
 end;
 

@@ -14,7 +14,6 @@ type
     BtnBack: TCastleButton;
     BtnDressGirl: TCastleButton;
     BtnDressBoy: TCastleButton;
-    BtnDressNone: TCastleButton;
     BtnPause: TCastleButton;
     BtnStop: TCastleButton;
     BtnPlayA1P1: TCastleButton;
@@ -23,6 +22,7 @@ type
     FloatSliderEmission: TCastleFloatSlider;
     FloatSliderSpeed: TCastleFloatSlider;
     SceneActors: TCastleTransform; { Charas Root }
+    DressingControl: TCastleRectangleControl;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -30,7 +30,6 @@ type
   private
     FGirlBehavior: TCharaGirlBehavior;
     FBoyBehavior: TCharaBoyBehavior;
-    FDressMenu: boolean;
     procedure ClickControl(Sender: TObject);
     procedure ClicCharaLight(Sender: TObject);
     procedure ChangedEmission(Sender: TObject);
@@ -50,7 +49,6 @@ constructor TViewPlayTogether.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl := 'castle-data:/gameviewplaytogether.castle-user-interface';
-  FDressMenu:= False;
 end;
 
 procedure TViewPlayTogether.Start;
@@ -63,7 +61,6 @@ begin
 
   BtnDressGirl.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnDressBoy.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
-  BtnDressNone.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -94,6 +91,10 @@ begin
   { Executed every frame. }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
+
+  { Release Dressing Menu Button }
+  if NOT (Container.FrontView = ViewDressingMenu) then
+    DressingControl.Exists:= True;
 end;
 
 procedure TViewPlayTogether.ClickControl(Sender: TObject);
@@ -145,23 +146,16 @@ begin
   if NOT Assigned(button) then exit;
 
   { Show Dressing Menu }
-  if (FDressMenu AND (button.Name = 'BtnDressNone')) then
-  begin
-    Container.PopView;
-    FDressMenu:= False;
-  end else if (NOT FDressMenu AND (button.Name <> 'BtnDressNone')) then
+  if NOT (Container.FrontView = ViewDressingMenu) then
   begin
     Container.PushView(ViewDressingMenu);
-    FDressMenu:= True;
-  end;
 
-  { Updte Dressing Menu if it showed}
-  if FDressMenu then
-  begin
     Case button.Name of
     'BtnDressGirl': ViewDressingMenu.SetChara(FGirlBehavior);
     'BtnDressBoy': ViewDressingMenu.SetChara(FBoyBehavior);
     end;
+
+    DressingControl.Exists:= False;
   end;
 end;
 
