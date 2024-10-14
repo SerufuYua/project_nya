@@ -38,7 +38,8 @@ var
 implementation
 
 uses
-  GameViewMain, CastleScene, CharaBehavior, GameViewDressingMenu;
+  GameViewMain, CastleScene, CharaBehavior, GameViewDressingMenu,
+  GameViewLoading;
 
 constructor TViewPlayGirl.Create(AOwner: TComponent);
 begin
@@ -114,7 +115,8 @@ begin
   'BtnBack':
     begin
       FGirlBehavior.SaveCondition;
-      Container.View:= ViewMain;
+      ViewLoading.SetLoading(ViewMain);
+      Container.View:= ViewLoading;
     end;
   'BtnStop':
     begin

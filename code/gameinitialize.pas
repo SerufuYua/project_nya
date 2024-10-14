@@ -19,6 +19,7 @@ uses SysUtils, CustApp,
   , GameViewPlayGirl
   , GameViewPlayTogether
   , GameViewDressingMenu
+  , GameViewLoading
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -37,6 +38,7 @@ begin
   ViewPlayGirl:= TViewPlayGirl.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewDressingMenu:= TViewDressingMenu.Create(Application);
+  ViewLoading := TViewLoading.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('g', 'PlayGirl') then

@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -136,6 +136,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="FadeInOut"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="code/gameviewloading.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewLoading"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
