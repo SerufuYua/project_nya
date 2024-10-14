@@ -10,6 +10,7 @@ type
   published
     { Components designed using CGE editor }
     LabelMessage: TCastleLabel;
+    LabelMessageShadow: TCastleLabel;
   private
     FWhatToLoad: TCastleView;
     procedure DoLoading(Sender: TObject);
@@ -17,6 +18,7 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
+    procedure SetMessage(msg: String);
     procedure SetLoading(whatToLoad: TCastleView);
   end;
 
@@ -48,6 +50,12 @@ begin
   { Executed every frame. }
 end;
 
+procedure TViewLoading.SetMessage(msg: String);
+begin
+  LabelMessage.Caption:= msg;
+  LabelMessageShadow.Caption:= msg;
+end;
+
 procedure TViewLoading.SetLoading(whatToLoad: TCastleView);
 begin
   FWhatToLoad:= whatToLoad;
@@ -59,7 +67,7 @@ begin
     Container.View:= FWhatToLoad
   else
   begin
-    LabelMessage.Caption:= 'ERROR: Nothing to load';
+    SetMessage('ERROR: Nothing to load');
     Container.View:= ViewMain;
   end;
 end;

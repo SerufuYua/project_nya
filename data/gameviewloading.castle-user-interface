@@ -12,8 +12,36 @@
         "Red" : 1.0980392247438431E-001
       },
       "FullSize" : true,
-      "Name" : "RectangleControl1",
+      "Name" : "RectangleControl",
       "$Children" : [
+        {
+          "$$ClassName" : "TCastleImageControl",
+          "Content" : {
+            "$$ClassName" : "TCastleImagePersistent",
+            "Url" : "castle-data:/loading/loading01.png"
+          },
+          "FullSize" : true,
+          "Name" : "ImageBG"
+        },
+        {
+          "$$ClassName" : "TCastleLabel",
+          "Alignment" : "hpMiddle",
+          "FontSize" : 6.4000000000000000E+001,
+          "HorizontalAnchorParent" : "hpMiddle",
+          "HorizontalAnchorSelf" : "hpMiddle",
+          "Name" : "LabelMessageShadow",
+          "Text" : [
+            "LOADING..."
+          ],
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "X" : 4.0000000000000000E+000,
+            "Y" : -4.0000000000000000E+000
+          },
+          "VerticalAlignment" : "vpMiddle",
+          "VerticalAnchorParent" : "vpMiddle",
+          "VerticalAnchorSelf" : "vpMiddle"
+        },
         {
           "$$ClassName" : "TCastleLabel",
           "Alignment" : "hpMiddle",
