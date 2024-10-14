@@ -12,14 +12,14 @@ type
     LabelMessage: TCastleLabel;
     LabelMessageShadow: TCastleLabel;
   private
-    FWhatToLoad: TCastleView;
+    FWview: TCastleView;
     procedure DoLoading(Sender: TObject);
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     procedure SetMessage(msg: String);
-    procedure SetLoading(whatToLoad: TCastleView);
+    procedure SetToLoad(view: TCastleView);
   end;
 
 var
@@ -56,15 +56,15 @@ begin
   LabelMessageShadow.Caption:= msg;
 end;
 
-procedure TViewLoading.SetLoading(whatToLoad: TCastleView);
+procedure TViewLoading.SetToLoad(view: TCastleView);
 begin
-  FWhatToLoad:= whatToLoad;
+  FWview:= view;
 end;
 
 procedure TViewLoading.DoLoading(Sender: TObject);
 begin
-  if Assigned(FWhatToLoad) then
-    Container.View:= FWhatToLoad
+  if Assigned(FWview) then
+    Container.View:= FWview
   else
   begin
     SetMessage('ERROR: Nothing to load');

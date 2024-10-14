@@ -108,7 +108,7 @@ begin
     begin
       FGirlBehavior.SaveCondition;
       FBoyBehavior.SaveCondition;
-      ViewLoading.SetLoading(ViewMain);
+      ViewLoading.SetToLoad(ViewMain);
       Container.View:= ViewLoading;
     end;
   'BtnStop':

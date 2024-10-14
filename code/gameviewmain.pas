@@ -129,13 +129,13 @@ end;
 
 procedure TViewMain.ClickSceneGirl(Sender: TObject);
 begin
-  ViewLoading.SetLoading(ViewPlayGirl);
+  ViewLoading.SetToLoad(ViewPlayGirl);
   Container.View:= ViewLoading;
 end;
 
 procedure TViewMain.ClicSceneTogether(Sender: TObject);
 begin
-  ViewLoading.SetLoading(ViewPlayTogether);
+  ViewLoading.SetToLoad(ViewPlayTogether);
   Container.View:= ViewLoading;
 end;
 

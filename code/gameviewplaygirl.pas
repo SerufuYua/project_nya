@@ -115,7 +115,7 @@ begin
   'BtnBack':
     begin
       FGirlBehavior.SaveCondition;
-      ViewLoading.SetLoading(ViewMain);
+      ViewLoading.SetToLoad(ViewMain);
       Container.View:= ViewLoading;
     end;
   'BtnStop':
