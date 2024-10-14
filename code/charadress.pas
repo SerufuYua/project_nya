@@ -118,6 +118,7 @@ begin
       Exit
     end;
   end;
+  Result:= 'none';
 end;
 
 procedure TCharaDresser.WearSuit(suitType: TSuits; const suitName: String);
