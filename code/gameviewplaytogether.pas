@@ -43,7 +43,8 @@ var
 
 implementation
 
-uses GameViewMain, CharaBehavior, GameViewDressingMenu;
+uses
+  GameViewMain, CharaBehavior, GameViewDressingMenu, GameViewLoading;
 
 constructor TViewPlayTogether.Create(AOwner: TComponent);
 begin
@@ -107,7 +108,8 @@ begin
     begin
       FGirlBehavior.SaveCondition;
       FBoyBehavior.SaveCondition;
-      Container.View:= ViewMain;
+      ViewLoading.SetLoading(ViewMain);
+      Container.View:= ViewLoading;
     end;
   'BtnStop':
     begin

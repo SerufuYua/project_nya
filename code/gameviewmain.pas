@@ -51,7 +51,7 @@ var
 implementation
 
 uses
-  SysUtils, GameViewPlayGirl, GameViewPlayTogether;
+  SysUtils, GameViewPlayGirl, GameViewPlayTogether, GameViewLoading;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -129,12 +129,14 @@ end;
 
 procedure TViewMain.ClickSceneGirl(Sender: TObject);
 begin
-  Container.View:= ViewPlayGirl;
+  ViewLoading.SetLoading(ViewPlayGirl);
+  Container.View:= ViewLoading;
 end;
 
 procedure TViewMain.ClicSceneTogether(Sender: TObject);
 begin
-  Container.View:= ViewPlayTogether;
+  ViewLoading.SetLoading(ViewPlayTogether);
+  Container.View:= ViewLoading;
 end;
 
 procedure TViewMain.CharaActionWaiting;
