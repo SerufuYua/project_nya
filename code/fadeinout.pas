@@ -112,7 +112,7 @@ end;
 
 procedure TImageFader.AnimateLineFade(SecondsPassed: TFloatTime);
 var
-  koeff, value: Single;
+  koeff: Single;
 begin
   if NOT FRectangle.Exists then Exit;
 
@@ -121,15 +121,14 @@ begin
   if (FAnimationTime <= FFadeTime) then
   begin
     koeff:= FAnimationTime / FFadeTime;
-    value:= Lerp(koeff, 1.0, 0.0);
-    FRectangle.Content.Color:= Vector4(1.0, 1.0, 1.0, value)
+    FRectangle.Content.Color:= Vector4(1.0, 1.0, 1.0, 1.0 - koeff)
   end else
     FRectangle.Exists:= False;
 end;
 
 procedure TImageFader.AnimateQuadFade(SecondsPassed: TFloatTime);
 var
-  koeff, value: Single;
+  koeff: Single;
 begin
   if NOT FRectangle.Exists then Exit;
 
@@ -138,8 +137,7 @@ begin
   if (FAnimationTime <= FFadeTime) then
   begin
     koeff:= FAnimationTime / FFadeTime;
-    value:= Lerp(koeff * koeff, 1.0, 0.0);
-    FRectangle.Content.Color:= Vector4(1.0, 1.0, 1.0, value)
+    FRectangle.Content.Color:= Vector4(1.0, 1.0, 1.0, 1.0 - koeff * koeff)
   end else
     FRectangle.Exists:= False;
 end;
