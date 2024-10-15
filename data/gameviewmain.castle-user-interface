@@ -78,7 +78,7 @@
               "X" : 5.9000000000000000E+001,
               "Z" : 1.3000000000000000E+001
             },
-            "Url" : "castle-data:/CharaGirl.castle-transform"
+            "Url" : "castle-data:/CharaGirl_intro.castle-transform"
           },
           {
             "$$ClassName" : "TCastleTransformDesign",
@@ -93,7 +93,7 @@
               "X" : 8.1000000000000000E+001,
               "Z" : 5.6000000000000000E+001
             },
-            "Url" : "castle-data:/CharaBoy.castle-transform"
+            "Url" : "castle-data:/CharaBoy_intro.castle-transform"
           }
         ]
       },
@@ -283,14 +283,14 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 6.5662586688995361E-001,
-          "X" : -2.3903077840805054E-001,
-          "Y" : -9.6788942813873291E-001,
-          "Z" : -7.7810935676097870E-002
+          "W" : 8.1759852170944214E-001,
+          "X" : -3.4134888648986816E-001,
+          "Y" : -9.3003559112548828E-001,
+          "Z" : -1.3606935739517212E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
