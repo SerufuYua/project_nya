@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform,
-  CharaGirlBehavior, ToysForGirlBehavior;
+  CharaGirlBehavior, ToysForGirlBehavior, FadeInOut;
 
 type
   TViewPlayGirl = class(TCastleView)
@@ -19,17 +19,21 @@ type
     BtnPlayA2: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
     DressingControl: TCastleRectangleControl;
+    ImageScreen: TCastleImageControl;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
+    function Press(const Event: TInputPressRelease): Boolean; override;
   private
     FGirlBehavior: TCharaGirlBehavior;
     FToysBehavior: TToysForGirlBehavior;
+    FScreenFader: TImageFader;
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
+    procedure ScreenShot;
   end;
 
 var
@@ -52,7 +56,6 @@ var
   girlScene, toysScene: TCastleTransformDesign;
 begin
   inherited;
-  { Executed once when view starts }
 
   BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -61,6 +64,9 @@ begin
   BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
+
+  { set fade animator }
+  FScreenFader:= TImageFader.Create(ImageScreen);
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
@@ -90,6 +96,8 @@ begin
   { Release Dressing Menu Button }
   if NOT (Container.FrontView = ViewDressingMenu) then
     DressingControl.Exists:= True;
+
+  FScreenFader.AnimateQuadFade(SecondsPassed);
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
@@ -119,6 +127,7 @@ begin
     end;
   'BtnStop':
     begin
+      FScreenFader.Fade(Container.SaveScreen, 0.25);
       FGirlBehavior.ActionPlayToyA_Idle;
       FToysBehavior.ActionPlayToyA_Idle;
     end;
@@ -129,11 +138,13 @@ begin
     end;
   'BtnPlayA1':
     begin
+      FScreenFader.Fade(Container.SaveScreen, 0.25);
       FGirlBehavior.ActionPlayToyA_A1P1;
       FToysBehavior.ActionPlayToyA_A1P1;
     end;
   'BtnPlayA2':
     begin
+      FScreenFader.Fade(Container.SaveScreen, 0.25);
       FGirlBehavior.ActionPlayToyA_A2P1;
       FToysBehavior.ActionPlayToyA_A2P1;
     end;
@@ -150,6 +161,23 @@ begin
 
   FGirlBehavior.Speed:= slider.Value;
   FToysBehavior.Speed:= slider.Value;
+end;
+
+procedure TViewPlayGirl.ScreenShot;
+begin
+  FScreenFader.Fade(Container.SaveScreen, 0.5);
+end;
+
+function TViewPlayGirl.Press(const Event: TInputPressRelease): Boolean;
+begin
+  Result := inherited;
+  if Result then Exit; // allow the ancestor to handle keys
+
+  if Event.IsKey(keyP) then
+  begin
+    ScreenShot;
+    Exit(true);
+  end;
 end;
 
 end.

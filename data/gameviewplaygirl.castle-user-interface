@@ -498,6 +498,14 @@
       }
     },
     {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "FullSize" : true,
+      "Name" : "ImageScreen"
+    },
+    {
       "$$ClassName" : "TCastleVerticalGroup",
       "HorizontalAnchorParent" : "hpRight",
       "HorizontalAnchorSelf" : "hpRight",

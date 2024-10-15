@@ -5,13 +5,14 @@ unit FadeInOut;
 interface
 
 uses
-  Classes, SysUtils, CastleTimeUtils, CastleVectors, CastleControls;
+  Classes, SysUtils, CastleTimeUtils, CastleVectors, CastleControls,
+  CastleImages;
 
 type
   TRectangleFader = class
   public
     constructor Create(rectangle: TCastleRectangleControl);
-    procedure SetFade(valueFrom, valueTo: Single; time: TFloatTime);
+    procedure Fade(valueFrom, valueTo: Single; time: TFloatTime);
     procedure AnimateLineFade(SecondsPassed: TFloatTime);
     procedure AnimateQuadFade(SecondsPassed: TFloatTime);
   protected
@@ -20,13 +21,27 @@ type
     FValueTo: Single;
     FFadeTime: TFloatTime;
     FColor: TVector3;
-    AnimationTime: TFloatTime;
+    FAnimationTime: TFloatTime;
+  end;
+
+  TImageFader = class
+  public
+    constructor Create(rectangle: TCastleImageControl);
+    procedure Fade(image: TRGBImage; time: TFloatTime);
+    procedure AnimateLineFade(SecondsPassed: TFloatTime);
+    procedure AnimateQuadFade(SecondsPassed: TFloatTime);
+  protected
+    FRectangle: TCastleImageControl;
+    FFadeTime: TFloatTime;
+    FAnimationTime: TFloatTime;
   end;
 
 implementation
 
 uses
   CastleUtils;
+
+{ TRectangleFader }
 
 constructor TRectangleFader.Create(rectangle: TCastleRectangleControl);
 begin
@@ -35,12 +50,12 @@ begin
   FRectangle.Exists:= False;
 end;
 
-procedure TRectangleFader.SetFade(valueFrom, valueTo: Single; time: TFloatTime);
+procedure TRectangleFader.Fade(valueFrom, valueTo: Single; time: TFloatTime);
 begin
   FValueFrom:= valueFrom;
   FValueTo:= valueTo;
   FFadeTime:= time;
-  AnimationTime:= 0;
+  FAnimationTime:= 0;
   FRectangle.Color:= Vector4(FColor, valueFrom);
   FRectangle.Exists:= True;
 end;
@@ -51,11 +66,11 @@ var
 begin
   if NOT FRectangle.Exists then Exit;
 
-  AnimationTime:= AnimationTime + SecondsPassed;
+  FAnimationTime:= FAnimationTime + SecondsPassed;
 
-  if (AnimationTime <= FFadeTime) then
+  if (FAnimationTime <= FFadeTime) then
   begin
-    koeff:= AnimationTime / FFadeTime;
+    koeff:= FAnimationTime / FFadeTime;
     value:= Lerp(koeff, FValueFrom, FValueTo);
     FRectangle.Color:= Vector4(FColor, value)
   end else
@@ -68,13 +83,63 @@ var
 begin
   if NOT FRectangle.Exists then Exit;
 
-  AnimationTime:= AnimationTime + SecondsPassed;
+  FAnimationTime:= FAnimationTime + SecondsPassed;
 
-  if (AnimationTime <= FFadeTime) then
+  if (FAnimationTime <= FFadeTime) then
   begin
-    koeff:= AnimationTime / FFadeTime;
+    koeff:= FAnimationTime / FFadeTime;
     value:= Lerp(koeff * koeff, FValueFrom, FValueTo);
     FRectangle.Color:= Vector4(FColor, value)
+  end else
+    FRectangle.Exists:= False;
+end;
+
+{ TImageFader }
+
+constructor TImageFader.Create(rectangle: TCastleImageControl);
+begin
+  FRectangle:= rectangle;
+  FRectangle.Exists:= False;
+end;
+
+procedure TImageFader.Fade(image: TRGBImage; time: TFloatTime);
+begin
+  FFadeTime:= time;
+  FAnimationTime:= 0;
+  FRectangle.Image:= image;
+  FRectangle.Exists:= True;
+end;
+
+procedure TImageFader.AnimateLineFade(SecondsPassed: TFloatTime);
+var
+  koeff, value: Single;
+begin
+  if NOT FRectangle.Exists then Exit;
+
+  FAnimationTime:= FAnimationTime + SecondsPassed;
+
+  if (FAnimationTime <= FFadeTime) then
+  begin
+    koeff:= FAnimationTime / FFadeTime;
+    value:= Lerp(koeff, 1.0, 0.0);
+    FRectangle.Content.Color:= Vector4(1.0, 1.0, 1.0, value)
+  end else
+    FRectangle.Exists:= False;
+end;
+
+procedure TImageFader.AnimateQuadFade(SecondsPassed: TFloatTime);
+var
+  koeff, value: Single;
+begin
+  if NOT FRectangle.Exists then Exit;
+
+  FAnimationTime:= FAnimationTime + SecondsPassed;
+
+  if (FAnimationTime <= FFadeTime) then
+  begin
+    koeff:= FAnimationTime / FFadeTime;
+    value:= Lerp(koeff * koeff, 1.0, 0.0);
+    FRectangle.Content.Color:= Vector4(1.0, 1.0, 1.0, value)
   end else
     FRectangle.Exists:= False;
 end;

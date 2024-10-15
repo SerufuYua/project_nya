@@ -73,9 +73,9 @@ begin
   BtnPlaySolo.OnClick:= {$ifdef FPC}@{$endif}ClickSceneGirl;
   BtnPlayTogether.OnClick:= {$ifdef FPC}@{$endif}ClicSceneTogether;
 
-  { set fog animator }
+  { set fade animator }
   FFader:= TRectangleFader.Create(ScreenRectangle);
-  FFader.SetFade(1.0, 0.0, 3.0);
+  FFader.Fade(1.0, 0.0, 3.0);
 
   { Create Girl Character instance }
   GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
