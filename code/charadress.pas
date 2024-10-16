@@ -29,7 +29,6 @@ type
     procedure RestoreProperties;
     procedure SaveProperties;
   protected
-    FIniName: String;
     FDresser: TCharaDresser;
     FCharaName: String;
   end;
@@ -45,6 +44,7 @@ const
   PrefixFoots = 'foots.';
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
+  IniFileName = 'condition.ini';
 
 { TCharaDresser}
 
@@ -184,10 +184,8 @@ end;
 
 constructor TDressSaver.Create(dresser: TCharaDresser; charaName: String);
 begin
-  FIniName:= 'condition.ini';
   FDresser:= dresser;
   FCharaName:= charaName;
-
   RestoreProperties;
 end;
 
@@ -196,16 +194,24 @@ var
   ini: TCustomIniFile;
   accessory: TItemCondition;
   visible: boolean;
+  suitName: String;
 begin
-  ini:= TMemIniFile.Create(FIniName);
+  ini:= TMemIniFile.Create(IniFileName);
   ini.FormatSettings.DecimalSeparator := '|';
   ini.Options:= [ifoFormatSettingsActive];
 
   { suits }
-  FDresser.WearSuit(Top, ini.ReadString(FCharaName, PrefixTop, 'summer_shirt'));
-  FDresser.WearSuit(Bottom, ini.ReadString(FCharaName, PrefixBottom, 'briefs'));
-  FDresser.WearSuit(Foots, ini.ReadString(FCharaName, PrefixFoots, 'sneakers'));
-  FDresser.WearSuit(Arms, ini.ReadString(FCharaName, PrefixArms, 'none'));
+  suitName:= ini.ReadString(FCharaName, PrefixTop, 'summer_shirt');
+  FDresser.WearSuit(Top, suitName);
+
+  suitName:= ini.ReadString(FCharaName, PrefixBottom, 'briefs');
+  FDresser.WearSuit(Bottom, suitName);
+
+  suitName:= ini.ReadString(FCharaName, PrefixFoots, 'sneakers');
+  FDresser.WearSuit(Foots, suitName);
+
+  suitName:= ini.ReadString(FCharaName, PrefixArms, 'none');
+  FDresser.WearSuit(Arms, suitName);
 
   { accessories }
   for accessory in FDresser.GetAcessoriesList() do
@@ -221,16 +227,24 @@ procedure TDressSaver.SaveProperties;
 var
   ini: TCustomIniFile;
   accessory: TItemCondition;
+  suitName: String;
 begin
-  ini:= TMemIniFile.Create(FIniName);
+  ini:= TMemIniFile.Create(IniFileName);
   ini.FormatSettings.DecimalSeparator := '|';
   ini.Options:= [ifoFormatSettingsActive];
 
   { suits }
-  ini.WriteString(FCharaName, PrefixTop, FDresser.GetDressedSuit(Top));
-  ini.WriteString(FCharaName, PrefixBottom, FDresser.GetDressedSuit(Bottom));
-  ini.WriteString(FCharaName, PrefixFoots, FDresser.GetDressedSuit(Foots));
-  ini.WriteString(FCharaName, PrefixArms, FDresser.GetDressedSuit(Arms));
+  suitName:= FDresser.GetDressedSuit(Top);
+  ini.WriteString(FCharaName, PrefixTop, suitName);
+
+  suitName:= FDresser.GetDressedSuit(Bottom);
+  ini.WriteString(FCharaName, PrefixBottom, suitName);
+
+  suitName:= FDresser.GetDressedSuit(Foots);
+  ini.WriteString(FCharaName, PrefixFoots, suitName);
+
+  suitName:= FDresser.GetDressedSuit(Arms);
+  ini.WriteString(FCharaName, PrefixArms, suitName);
 
   { accessories }
   for accessory in FDresser.GetAcessoriesList() do

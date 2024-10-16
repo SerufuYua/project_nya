@@ -1,4 +1,4 @@
-unit CharaBehavior;
+unit ActorChara;
 
 {$mode ObjFPC}{$H+}
 
@@ -10,7 +10,7 @@ uses
   CharaDress;
 
 type
-  TCharaBehavior = class(TCastleBehavior)
+  TActorChara = class
   private
     function GetPos(): TVector3;
     procedure SetPos(coord: TVector3);
@@ -23,16 +23,10 @@ type
     procedure SetSpeed(value: Single);
     function GetColor: TCastleColorRGB;
   public
-    constructor Create(AOwner: TComponent); override;
+    constructor Create(actorRoot: TCastleTransformDesign);
     destructor Destroy; override;
-    procedure ParentAfterAttach(); override;
-    procedure Update(const SecondsPassed: Single;
-                     var RemoveMe: TRemoveType); override;
     procedure SaveCondition;
-    procedure ActionPause;
-    procedure ActionStand;
-    procedure ActionWalk;
-    procedure ActionRun;
+    procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3 read GetPos write SetPos;
@@ -42,11 +36,11 @@ type
     property Speed: Single read GetSpeed write SetSpeed;
     property PersonalColor: TCastleColorRGB read GetColor;
   protected
-    FScene: TCastleTransformDesign;
+    FRoot: TCastleTransformDesign;
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
-    FCharaName: String;
-    function GetMainBody(): TCastleScene; { main chara Body }
+    FActorName: String;
+    function GetMainBody(): TCastleScene; { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     procedure ActionFaceDefault;
   end;
@@ -56,13 +50,25 @@ implementation
 uses
   SysUtils, CastleComponentSerialize, X3DTime, X3DNodes;
 
-constructor TCharaBehavior.Create(AOwner: TComponent);
+constructor TActorChara.Create(actorRoot: TCastleTransformDesign);
+var
+  charaBody, charaHead: TCastleScene;
 begin
-  inherited Create(AOwner);
-  { any other initialization }
+  FRoot:= actorRoot as TCastleTransformDesign;
+
+  charaBody:= FRoot.DesignedComponent('Body') as TCastleScene;
+  charaHead:= FRoot.DesignedComponent('SceneHead') as TCastleScene;
+
+  { create FDresser }
+  FDresser:= TCharaDresser.Create(FRoot);
+  FDresseSaver:= TDressSaver.Create(FDresser, FActorName);
+
+  { set Anisotropic Filtering for character }
+  SetAnisotropicFiltering(charaBody);
+  SetAnisotropicFiltering(charaHead);
 end;
 
-destructor TCharaBehavior.Destroy;
+destructor TActorChara.Destroy;
 begin
   if Assigned(FDresseSaver) then
     FreeAndNil(FDresseSaver);
@@ -71,43 +77,12 @@ begin
   inherited;
 end;
 
-procedure TCharaBehavior.ParentAfterAttach;
-var
-  charaBody, charaHead: TCastleScene;
-begin
-  inherited;
-  FScene:= Parent as TCastleTransformDesign;
-
-  charaBody:= FScene.DesignedComponent('Body') as TCastleScene;
-  charaHead:= FScene.DesignedComponent('SceneHead') as TCastleScene;
-
-  { create FDresser }
-  FDresser:= TCharaDresser.Create(FScene);
-  FDresseSaver:= TDressSaver.Create(FDresser, FCharaName);
-
-  { set Anisotropic Filtering for character }
-  SetAnisotropicFiltering(charaBody);
-  SetAnisotropicFiltering(charaHead);
-
-  { Set Emission }
-  SelfEmission:= 0.6;
-
-  { Default action}
-  ActionStand;
-end;
-
-procedure TCharaBehavior.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
-begin
-  inherited;
-  { any other updates }
-end;
-
-procedure TCharaBehavior.SaveCondition;
+procedure TActorChara.SaveCondition;
 begin
   FDresseSaver.SaveProperties;
 end;
 
-procedure TCharaBehavior.ActionPause;
+procedure TActorChara.PauseAnimation;
 var
   bodies: TCastleScenes;
   body: TCastleScene;
@@ -118,63 +93,45 @@ begin
       body.StopAnimation();
 end;
 
-procedure TCharaBehavior.ActionStand;
-begin
-  ActionFaceDefault;
-  PlayAnimation('GAME.STAND');
-end;
-
-procedure TCharaBehavior.ActionWalk;
-begin
-  ActionFaceDefault;
-  PlayAnimation('GAME.WALK.FORWARD');
-end;
-
-procedure TCharaBehavior.ActionRun;
-begin
-  ActionFaceDefault;
-  PlayAnimation('GAME.RUN.FORWARD');
-end;
-
-procedure TCharaBehavior.ActionFaceDefault;
+procedure TActorChara.ActionFaceDefault;
 var
   head: TCastleScene;
 begin
-  head:= FScene.DesignedComponent('SceneHead') as TCastleScene;
+  head:= FRoot.DesignedComponent('SceneHead') as TCastleScene;
   head.PlayAnimation('Blink', true);
 end;
 
-function TCharaBehavior.GetPos(): TVector3;
+function TActorChara.GetPos(): TVector3;
 begin
-  Result:= FScene.Translation;
+  Result:= FRoot.Translation;
 end;
 
-procedure TCharaBehavior.SetPos(coord: TVector3);
+procedure TActorChara.SetPos(coord: TVector3);
 begin
-  FScene.Translation:= coord;
+  FRoot.Translation:= coord;
 end;
 
-function TCharaBehavior.GetRot(): TVector4;
+function TActorChara.GetRot(): TVector4;
 begin
-  Result:= FScene.Rotation;
+  Result:= FRoot.Rotation;
 end;
 
-procedure TCharaBehavior.SetRot(coord: TVector4);
+procedure TActorChara.SetRot(coord: TVector4);
 begin
-  FScene.Rotation:= coord;
+  FRoot.Rotation:= coord;
 end;
 
-function TCharaBehavior.GetDresser(): TCharaDresser;
+function TActorChara.GetDresser(): TCharaDresser;
 begin
   Result:= FDresser;
 end;
 
-procedure TCharaBehavior.SetLightning(enable: Boolean);
+procedure TActorChara.SetLightning(enable: Boolean);
 var
   item: TCastleScene;
   items: TCastleScenes;
 begin
-  items:= GetAllScenes(FScene);
+  items:= GetAllScenes(FRoot);
 
   for item in items do
   begin
@@ -182,12 +139,12 @@ begin
   end;
 end;
 
-procedure TCharaBehavior.SetSelfEmission(value: Single);
+procedure TActorChara.SetSelfEmission(value: Single);
 var
   item: TCastleScene;
   items: TCastleScenes;
 begin
-  items:= GetAllScenes(FScene);
+  items:= GetAllScenes(FRoot);
 
   for item in items do
   begin
@@ -195,12 +152,12 @@ begin
   end;
 end;
 
-function TCharaBehavior.GetSpeed: Single;
+function TActorChara.GetSpeed: Single;
 begin
   Result:= GetMainBody().TimePlayingSpeed;
 end;
 
-procedure TCharaBehavior.SetSpeed(value: Single);
+procedure TActorChara.SetSpeed(value: Single);
 var
   bodies: TCastleScenes;
   body: TCastleScene;
@@ -211,11 +168,11 @@ begin
       body.TimePlayingSpeed:= value;
 end;
 
-function TCharaBehavior.GetColor: TCastleColorRGB;
+function TActorChara.GetColor: TCastleColorRGB;
 var
   imageColor: TCastleImageTransform;
 begin
-  imageColor:= FScene.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
+  imageColor:= FRoot.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
 
   if Assigned(imageColor) then
     Result:= imageColor.Color.RGB
@@ -223,12 +180,12 @@ begin
     Result:=  Vector3(1.0, 1.0, 1.0);
 end;
 
-function TCharaBehavior.GetLightning: Boolean;
+function TActorChara.GetLightning: Boolean;
 begin
   Result:= GetMainBody().RenderOptions.Lighting;
 end;
 
-procedure TCharaBehavior.PlayAnimation(const animationName: String;
+procedure TActorChara.PlayAnimation(const animationName: String;
                                        loop: boolean);
 var
   bodies: TCastleScenes;
@@ -240,19 +197,19 @@ begin
       body.PlayAnimation(animationName, loop);
 end;
 
-function TCharaBehavior.GetMainBody(): TCastleScene;
+function TActorChara.GetMainBody(): TCastleScene;
 begin
-  Result:= FScene.DesignedComponent('Body') as TCastleScene;
+  Result:= FRoot.DesignedComponent('Body') as TCastleScene;
 end;
 
-function TCharaBehavior.GetActorsList(): TCastleScenes;
+function TActorChara.GetActorsList(): TCastleScenes;
 var
   actors: TCastleScenes;
 begin
   SetLength(actors, 3);
   actors[0]:= GetMainBody();
-  actors[1]:= FScene.DesignedComponent('SceneHead') as TCastleScene;
-  actors[2]:= FScene.DesignedComponent('SceneHair') as TCastleScene;
+  actors[1]:= FRoot.DesignedComponent('SceneHead') as TCastleScene;
+  actors[2]:= FRoot.DesignedComponent('SceneHair') as TCastleScene;
 
   Result:= actors;
 end;

@@ -4,7 +4,7 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CharaBehavior, CastleColors, CharaDress;
+  ActorChara, CastleColors, CharaDress;
 
 type
   TViewDressingMenu = class(TCastleView)
@@ -21,7 +21,7 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
-    procedure SetChara(chara: TCharaBehavior);
+    procedure SetChara(chara: TActorChara);
     procedure SetColor(color: TCastleColorRGB);
   private
     FDresser: TCharaDresser;
@@ -61,7 +61,7 @@ begin
   { Executed every frame. }
 end;
 
-procedure TViewDressingMenu.SetChara(chara: TCharaBehavior);
+procedure TViewDressingMenu.SetChara(chara: TActorChara);
 begin
   if NOT Assigned(chara) then Exit;
   FDresser:= chara.GetDresser();

@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform,
-  CharaGirlBehavior, CharaBoyBehavior;
+  ActorGirl, ActorBoy;
 
 type
   TViewPlayTogether = class(TCastleView)
@@ -28,8 +28,8 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   private
-    FGirlBehavior: TCharaGirlBehavior;
-    FBoyBehavior: TCharaBoyBehavior;
+    FGirlBehavior: TActorGirl;
+    FBoyBehavior: TActorBoy;
     procedure ClickControl(Sender: TObject);
     procedure ClicCharaLight(Sender: TObject);
     procedure ChangedEmission(Sender: TObject);
@@ -43,7 +43,7 @@ var
 implementation
 
 uses
-  GameViewMain, CharaBehavior, GameViewDressingMenu, GameViewLoading;
+  GameViewMain, ActorChara, GameViewDressingMenu, GameViewLoading;
 
 constructor TViewPlayTogether.Create(AOwner: TComponent);
 begin
@@ -72,13 +72,11 @@ begin
 
   { Create Girl Character instance }
   GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FGirlBehavior:= TCharaGirlBehavior.Create(FreeAtStop);
-  GirlScene.AddBehavior(FGirlBehavior);
+  FGirlBehavior:= TActorGirl.Create(GirlScene);
 
   { Create Boy Character instance }
   BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FBoyBehavior:= TCharaBoyBehavior.Create(FreeAtStop);
-  BoyScene.AddBehavior(FBoyBehavior);
+  FBoyBehavior:= TActorBoy.Create(BoyScene);
 
   { set character self emission }
   FGirlBehavior.SelfEmission:= 0.15;
@@ -120,8 +118,8 @@ begin
     end;
   'BtnPause':
     begin
-      FGirlBehavior.ActionPause;
-      FBoyBehavior.ActionPause;
+      FGirlBehavior.PauseAnimation;
+      FBoyBehavior.PauseAnimation;
     end;
   'BtnPlayA1P1':
     begin

@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform,
-  CharaGirlBehavior, ToysForGirlBehavior, FadeInOut;
+  ActorGirl, ToysForGirlBehavior, FadeInOut;
 
 type
   TViewPlayGirl = class(TCastleView)
@@ -27,7 +27,7 @@ type
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    FGirlBehavior: TCharaGirlBehavior;
+    FGirlBehavior: TActorGirl;
     FToysBehavior: TToysForGirlBehavior;
     FScreenFader: TImageFader;
     procedure ClickDress(Sender: TObject);
@@ -42,7 +42,7 @@ var
 implementation
 
 uses
-  GameViewMain, CastleScene, CharaBehavior, GameViewDressingMenu,
+  GameViewMain, CastleScene, ActorChara, GameViewDressingMenu,
   GameViewLoading;
 
 constructor TViewPlayGirl.Create(AOwner: TComponent);
@@ -70,8 +70,7 @@ begin
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FGirlBehavior:= TCharaGirlBehavior.Create(FreeAtStop);
-  girlScene.AddBehavior(FGirlBehavior);
+  FGirlBehavior:= TActorGirl.Create(girlScene);
 
   { Create Toys instance }
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
@@ -133,7 +132,7 @@ begin
     end;
   'BtnPause':
     begin
-      FGirlBehavior.ActionPause;
+      FGirlBehavior.PauseAnimation;
       FToysBehavior.ActionPause;
     end;
   'BtnPlayA1':

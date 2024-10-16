@@ -11,7 +11,7 @@ uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
   CastleTransform, CastleQuaternions, CastleScene,
-  CharaGirlBehavior, CharaBoyBehavior, FadeInOut;
+  ActorGirl, ActorBoy, FadeInOut;
 
 type
   { Main view, where most of the application logic takes place. }
@@ -34,8 +34,8 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    FGirlBehavior: TCharaGirlBehavior;
-    FBoyBehavior: TCharaBoyBehavior;
+    FGirlBehavior: TActorGirl;
+    FBoyBehavior: TActorBoy;
     FFader: TRectangleFader;
     FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
@@ -79,13 +79,11 @@ begin
 
   { Create Girl Character instance }
   GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FGirlBehavior := TCharaGirlBehavior.Create(FreeAtStop);
-  GirlScene.AddBehavior(FGirlBehavior);
+  FGirlBehavior := TActorGirl.Create(GirlScene);
 
   { Create Boy Character instance }
   BoyScene := DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FBoyBehavior := TCharaBoyBehavior.Create(FreeAtStop);
-  BoyScene.AddBehavior(FBoyBehavior);
+  FBoyBehavior := TActorBoy.Create(BoyScene);
 
   { set character self emission }
   FGirlBehavior.SelfEmission:= 0.15;
