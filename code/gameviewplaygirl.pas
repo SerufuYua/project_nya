@@ -27,8 +27,8 @@ type
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    FGirlBehavior: TActorGirl;
-    FToysBehavior: TActorToyA;
+    FActorGirl: TActorGirl;
+    FActorToyA: TActorToyA;
     FScreenFader: TImageFader;
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -70,18 +70,18 @@ begin
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FGirlBehavior:= TActorGirl.Create(girlScene);
+  FActorGirl:= TActorGirl.Create(girlScene);
 
   { Create Toys instance }
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
-  FToysBehavior:= TActorToyA.Create(toysScene);
+  FActorToyA:= TActorToyA.Create(toysScene);
 
   { set character self emission }
-  FGirlBehavior.SelfEmission:= 0.15;
+  FActorGirl.SelfEmission:= 0.15;
 
   { default chara action }
-  FGirlBehavior.ActionPlayToyA_Idle;
-  FToysBehavior.ActionPlayToyA_Idle;
+  FActorGirl.ActionPlayToyA_Idle;
+  FActorToyA.ActionPlayToyA_Idle;
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -104,7 +104,7 @@ begin
   if NOT (Container.FrontView = ViewDressingMenu) then
   begin
     Container.PushView(ViewDressingMenu);
-    ViewDressingMenu.SetChara(FGirlBehavior);
+    ViewDressingMenu.SetChara(FActorGirl);
     DressingControl.Exists:= False;
   end;
 end;
@@ -119,32 +119,32 @@ begin
   Case button.Name of
   'BtnBack':
     begin
-      FGirlBehavior.SaveCondition;
+      FActorGirl.SaveCondition;
       ViewLoading.SetToLoad(ViewMain);
       Container.View:= ViewLoading;
     end;
   'BtnStop':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FGirlBehavior.ActionPlayToyA_Idle;
-      FToysBehavior.ActionPlayToyA_Idle;
+      FActorGirl.ActionPlayToyA_Idle;
+      FActorToyA.ActionPlayToyA_Idle;
     end;
   'BtnPause':
     begin
-      FGirlBehavior.PauseAnimation;
-      FToysBehavior.PauseAnimation;
+      FActorGirl.PauseAnimation;
+      FActorToyA.PauseAnimation;
     end;
   'BtnPlayA1':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FGirlBehavior.ActionPlayToyA_A1P1;
-      FToysBehavior.ActionPlayToyA_A1P1;
+      FActorGirl.ActionPlayToyA_A1P1;
+      FActorToyA.ActionPlayToyA_A1P1;
     end;
   'BtnPlayA2':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FGirlBehavior.ActionPlayToyA_A2P1;
-      FToysBehavior.ActionPlayToyA_A2P1;
+      FActorGirl.ActionPlayToyA_A2P1;
+      FActorToyA.ActionPlayToyA_A2P1;
     end;
   end;
 
@@ -157,8 +157,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  FGirlBehavior.Speed:= slider.Value;
-  FToysBehavior.Speed:= slider.Value;
+  FActorGirl.Speed:= slider.Value;
+  FActorToyA.Speed:= slider.Value;
 end;
 
 procedure TViewPlayGirl.ScreenShot;

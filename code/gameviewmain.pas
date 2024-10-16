@@ -34,8 +34,8 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    FGirlBehavior: TActorGirl;
-    FBoyBehavior: TActorBoy;
+    FActorGirl: TActorGirl;
+    FActorBoy: TActorBoy;
     FFader: TRectangleFader;
     FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
@@ -59,7 +59,7 @@ constructor TViewMain.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl := 'castle-data:/gameviewmain.castle-user-interface';
-  FGirlBehavior :=  nil;
+  FActorGirl :=  nil;
 end;
 
 procedure TViewMain.Start;
@@ -79,15 +79,15 @@ begin
 
   { Create Girl Character instance }
   GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FGirlBehavior := TActorGirl.Create(GirlScene);
+  FActorGirl := TActorGirl.Create(GirlScene);
 
   { Create Boy Character instance }
   BoyScene := DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FBoyBehavior := TActorBoy.Create(BoyScene);
+  FActorBoy := TActorBoy.Create(BoyScene);
 
   { set character self emission }
-  FGirlBehavior.SelfEmission:= 0.15;
-  FBoyBehavior.SelfEmission:= 0.15;
+  FActorGirl.SelfEmission:= 0.15;
+  FActorBoy.SelfEmission:= 0.15;
 
   { remember initial camera rotation }
   FCameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
@@ -98,8 +98,8 @@ end;
 
 procedure TViewMain.Stop;
 begin
-  FreeAndNil(FGirlBehavior);
-  FreeAndNil(FBoyBehavior);
+  FreeAndNil(FActorGirl);
+  FreeAndNil(FActorBoy);
   inherited;
 end;
 
@@ -139,12 +139,12 @@ end;
 
 procedure TViewMain.CharaActionWaiting;
 begin
-  FGirlBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  FGirlBehavior.Pos:= Vector3(59, 0, 13);
-  FGirlBehavior.Rot:= Vector4(0, 0, 0, 0);
-  FBoyBehavior.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  FBoyBehavior.Pos:= Vector3(81, 0, 56);
-  FBoyBehavior.Rot:= Vector4(0, -1, 0, Pi/2);
+  FActorGirl.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
+  FActorGirl.Pos:= Vector3(59, 0, 13);
+  FActorGirl.Rot:= Vector4(0, 0, 0, 0);
+  FActorBoy.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
+  FActorBoy.Pos:= Vector3(81, 0, 56);
+  FActorBoy.Rot:= Vector4(0, -1, 0, Pi/2);
 end;
 
 procedure TViewMain.UpdateCamera;

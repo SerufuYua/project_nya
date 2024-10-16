@@ -28,8 +28,8 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   private
-    FGirlBehavior: TActorGirl;
-    FBoyBehavior: TActorBoy;
+    FActorGirl: TActorGirl;
+    FActorBoy: TActorBoy;
     procedure ClickControl(Sender: TObject);
     procedure ClicCharaLight(Sender: TObject);
     procedure ChangedEmission(Sender: TObject);
@@ -72,15 +72,15 @@ begin
 
   { Create Girl Character instance }
   GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FGirlBehavior:= TActorGirl.Create(GirlScene);
+  FActorGirl:= TActorGirl.Create(GirlScene);
 
   { Create Boy Character instance }
   BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FBoyBehavior:= TActorBoy.Create(BoyScene);
+  FActorBoy:= TActorBoy.Create(BoyScene);
 
   { set character self emission }
-  FGirlBehavior.SelfEmission:= 0.15;
-  FBoyBehavior.SelfEmission:= 0.15;
+  FActorGirl.SelfEmission:= 0.15;
+  FActorBoy.SelfEmission:= 0.15;
 end;
 
 procedure TViewPlayTogether.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -105,33 +105,33 @@ begin
   Case button.Name of
   'BtnBack':
     begin
-      FGirlBehavior.SaveCondition;
-      FBoyBehavior.SaveCondition;
+      FActorGirl.SaveCondition;
+      FActorBoy.SaveCondition;
       ViewLoading.SetToLoad(ViewMain);
       Container.View:= ViewLoading;
     end;
   'BtnStop':
     begin
       SceneActors.Translation:= Vector3(45, 0, 0);
-      FGirlBehavior.ActionPlayTogether_Idle;
-      FBoyBehavior.ActionPlayTogether_Idle;
+      FActorGirl.ActionPlayTogether_Idle;
+      FActorBoy.ActionPlayTogether_Idle;
     end;
   'BtnPause':
     begin
-      FGirlBehavior.PauseAnimation;
-      FBoyBehavior.PauseAnimation;
+      FActorGirl.PauseAnimation;
+      FActorBoy.PauseAnimation;
     end;
   'BtnPlayA1P1':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      FGirlBehavior.ActionPlayTogether_A1P1;
-      FBoyBehavior.ActionPlayTogether_A1P1;
+      FActorGirl.ActionPlayTogether_A1P1;
+      FActorBoy.ActionPlayTogether_A1P1;
     end;
   'BtnPlayA1P2':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      FGirlBehavior.ActionPlayTogether_A1P2;
-      FBoyBehavior.ActionPlayTogether_A1P2;
+      FActorGirl.ActionPlayTogether_A1P2;
+      FActorBoy.ActionPlayTogether_A1P2;
     end;
   end;
 end;
@@ -149,8 +149,8 @@ begin
     Container.PushView(ViewDressingMenu);
 
     Case button.Name of
-    'BtnDressGirl': ViewDressingMenu.SetChara(FGirlBehavior);
-    'BtnDressBoy': ViewDressingMenu.SetChara(FBoyBehavior);
+    'BtnDressGirl': ViewDressingMenu.SetChara(FActorGirl);
+    'BtnDressBoy': ViewDressingMenu.SetChara(FActorBoy);
     end;
 
     DressingControl.Exists:= False;
@@ -159,8 +159,8 @@ end;
 
 procedure TViewPlayTogether.ClicCharaLight(Sender: TObject);
 begin
-  FGirlBehavior.Lightning:= NOT FGirlBehavior.Lightning;
-  FBoyBehavior.Lightning:= NOT FBoyBehavior.Lightning;
+  FActorGirl.Lightning:= NOT FActorGirl.Lightning;
+  FActorBoy.Lightning:= NOT FActorBoy.Lightning;
 end;
 
 procedure TViewPlayTogether.ChangedEmission(Sender: TObject);
@@ -170,8 +170,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  FGirlBehavior.SelfEmission:= slider.Value;
-  FBoyBehavior.SelfEmission:= slider.Value;
+  FActorGirl.SelfEmission:= slider.Value;
+  FActorBoy.SelfEmission:= slider.Value;
 end;
 
 procedure TViewPlayTogether.ChangedSpeed(Sender: TObject);
@@ -181,8 +181,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  FGirlBehavior.Speed:= slider.Value;
-  FBoyBehavior.Speed:= slider.Value;
+  FActorGirl.Speed:= slider.Value;
+  FActorBoy.Speed:= slider.Value;
 end;
 
 end.
