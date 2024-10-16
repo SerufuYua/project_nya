@@ -10,7 +10,7 @@ uses
   CharaDress, ActorInterfaces;
 
 type
-  TActorChara = class(TInterfacedObject, IActor, IActorChara)
+  TActorChara = class(TInterfacedObject, IActor)
   private
     function GetPos(): TVector3;
     procedure SetPos(coord: TVector3);

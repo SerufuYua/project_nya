@@ -18,12 +18,6 @@ type
     property Speed: Single;
   end;
 
-  IActorChara = interface
-    procedure SaveCondition;
-    function GetDresser(): TCharaDresser;
-    property PersonalColor: TCastleColorRGB;
-  end;
-
 implementation
 
 end.
