@@ -7,10 +7,10 @@ interface
 uses
   Classes, Generics.Collections,
   CastleVectors, CastleTransform, CastleScene, MyCastleUtils, CastleColors,
-  CharaDress;
+  CharaDress, ActorInterfaces;
 
 type
-  TActorChara = class
+  TActorChara = class(TInterfacedObject, IActor, IActorChara)
   private
     function GetPos(): TVector3;
     procedure SetPos(coord: TVector3);
