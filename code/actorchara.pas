@@ -36,7 +36,7 @@ type
     property Speed: Single read GetSpeed write SetSpeed;
     property PersonalColor: TCastleColorRGB read GetColor;
   protected
-    FRoot: TCastleTransformDesign;
+    FActorRoot: TCastleTransformDesign;
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
     FActorName: String;
@@ -54,13 +54,13 @@ constructor TActorChara.Create(actorRoot: TCastleTransformDesign);
 var
   charaBody, charaHead: TCastleScene;
 begin
-  FRoot:= actorRoot as TCastleTransformDesign;
+  FActorRoot:= actorRoot as TCastleTransformDesign;
 
-  charaBody:= FRoot.DesignedComponent('Body') as TCastleScene;
-  charaHead:= FRoot.DesignedComponent('SceneHead') as TCastleScene;
+  charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
+  charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
 
   { create FDresser }
-  FDresser:= TCharaDresser.Create(FRoot);
+  FDresser:= TCharaDresser.Create(FActorRoot);
   FDresseSaver:= TDressSaver.Create(FDresser, FActorName);
 
   { set Anisotropic Filtering for character }
@@ -97,28 +97,28 @@ procedure TActorChara.ActionFaceDefault;
 var
   head: TCastleScene;
 begin
-  head:= FRoot.DesignedComponent('SceneHead') as TCastleScene;
+  head:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
   head.PlayAnimation('Blink', true);
 end;
 
 function TActorChara.GetPos(): TVector3;
 begin
-  Result:= FRoot.Translation;
+  Result:= FActorRoot.Translation;
 end;
 
 procedure TActorChara.SetPos(coord: TVector3);
 begin
-  FRoot.Translation:= coord;
+  FActorRoot.Translation:= coord;
 end;
 
 function TActorChara.GetRot(): TVector4;
 begin
-  Result:= FRoot.Rotation;
+  Result:= FActorRoot.Rotation;
 end;
 
 procedure TActorChara.SetRot(coord: TVector4);
 begin
-  FRoot.Rotation:= coord;
+  FActorRoot.Rotation:= coord;
 end;
 
 function TActorChara.GetDresser(): TCharaDresser;
@@ -131,7 +131,7 @@ var
   item: TCastleScene;
   items: TCastleScenes;
 begin
-  items:= GetAllScenes(FRoot);
+  items:= GetAllScenes(FActorRoot);
 
   for item in items do
   begin
@@ -144,7 +144,7 @@ var
   item: TCastleScene;
   items: TCastleScenes;
 begin
-  items:= GetAllScenes(FRoot);
+  items:= GetAllScenes(FActorRoot);
 
   for item in items do
   begin
@@ -172,7 +172,7 @@ function TActorChara.GetColor: TCastleColorRGB;
 var
   imageColor: TCastleImageTransform;
 begin
-  imageColor:= FRoot.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
+  imageColor:= FActorRoot.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
 
   if Assigned(imageColor) then
     Result:= imageColor.Color.RGB
@@ -199,7 +199,7 @@ end;
 
 function TActorChara.GetMainBody(): TCastleScene;
 begin
-  Result:= FRoot.DesignedComponent('Body') as TCastleScene;
+  Result:= FActorRoot.DesignedComponent('Body') as TCastleScene;
 end;
 
 function TActorChara.GetActorsList(): TCastleScenes;
@@ -208,8 +208,8 @@ var
 begin
   SetLength(actors, 3);
   actors[0]:= GetMainBody();
-  actors[1]:= FRoot.DesignedComponent('SceneHead') as TCastleScene;
-  actors[2]:= FRoot.DesignedComponent('SceneHair') as TCastleScene;
+  actors[1]:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
+  actors[2]:= FActorRoot.DesignedComponent('SceneHair') as TCastleScene;
 
   Result:= actors;
 end;

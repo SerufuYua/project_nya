@@ -35,7 +35,7 @@ end;
 procedure TActorGirl.ActionPlayToyA_Idle;
 begin
   PlayAnimation('GAME.GIRL_TOYA.PLAY.IDLE');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TActorGirl.ActionPlayToyA_A1P1;
@@ -43,7 +43,7 @@ begin
   ActionFaceDefault;
   PlayAnimation('GAME.GIRL_TOYA.PLAY.A1.P1');
   FDresser.WearSuit(TSuits.Bottom, 'none');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TActorGirl.ActionPlayToyA_A2P1;
@@ -51,27 +51,27 @@ begin
   ActionFaceDefault;
   PlayAnimation('GAME.GIRL_TOYA.PLAY.A2.P1');
   FDresser.WearSuit(TSuits.Bottom, 'none');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TActorGirl.ActionPlayTogether_Idle;
 begin
   //ActionStand;
-  FRoot.Translation:= Vector3(-9, 0, 0);
+  FActorRoot.Translation:= Vector3(-9, 0, 0);
 end;
 
 procedure TActorGirl.ActionPlayTogether_A1P1;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P1');
   FDresser.WearSuit(TSuits.Bottom, 'none');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TActorGirl.ActionPlayTogether_A1P2;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P2');
   FDresser.WearSuit(TSuits.Bottom, 'none');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 end.

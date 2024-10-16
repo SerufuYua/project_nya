@@ -31,21 +31,21 @@ end;
 procedure TActorBoy.ActionPlayTogether_Idle;
 begin
   //ActionStand;
-  FRoot.Translation:= Vector3(9, 0, 0);
+  FActorRoot.Translation:= Vector3(9, 0, 0);
 end;
 
 procedure TActorBoy.ActionPlayTogether_A1P1;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P1');
   FDresser.WearSuit(TSuits.Bottom, 'none');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 procedure TActorBoy.ActionPlayTogether_A1P2;
 begin
   PlayAnimation('GAME.TOGETHER.PLAY.A1.P2');
   FDresser.WearSuit(TSuits.Bottom, 'none');
-  FRoot.Translation:= Vector3(0, 0, 0);
+  FActorRoot.Translation:= Vector3(0, 0, 0);
 end;
 
 end.
