@@ -27,7 +27,7 @@ type
   TImageFader = class
   public
     constructor Create(rectangle: TCastleImageControl);
-    procedure Fade(image: TRGBImage; time: TFloatTime);
+    procedure Fade(image: TEncodedImage; time: TFloatTime);
     procedure AnimateLineFade(SecondsPassed: TFloatTime);
     procedure AnimateQuadFade(SecondsPassed: TFloatTime);
   protected
@@ -102,7 +102,7 @@ begin
   FRectangle.Exists:= False;
 end;
 
-procedure TImageFader.Fade(image: TRGBImage; time: TFloatTime);
+procedure TImageFader.Fade(image: TEncodedImage; time: TFloatTime);
 begin
   FFadeTime:= time;
   FAnimationTime:= 0;
