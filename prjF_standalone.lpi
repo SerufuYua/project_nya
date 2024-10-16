@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="17">
+    <Units Count="15">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -92,64 +92,55 @@
         <UnitName Value="ActorChara"/>
       </Unit4>
       <Unit5>
-        <Filename Value="code/ActorBoy.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit5>
-      <Unit6>
         <Filename Value="code/charadress.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="CharaDress"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="code/actorgirl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ActorGirl"/>
-      </Unit7>
-      <Unit8>
+      </Unit5>
+      <Unit6>
         <Filename Value="code/gameviewdressingmenu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewDressingMenu"/>
-      </Unit8>
-      <Unit9>
+      </Unit6>
+      <Unit7>
         <Filename Value="code/gameviewplaygirl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewPlayGirl"/>
-      </Unit9>
-      <Unit10>
+      </Unit7>
+      <Unit8>
         <Filename Value="code/gameviewplaytogether.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewPlayTogether"/>
-      </Unit10>
-      <Unit11>
+      </Unit8>
+      <Unit9>
         <Filename Value="code/mycastleutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MyCastleUtils"/>
-      </Unit11>
-      <Unit12>
+      </Unit9>
+      <Unit10>
         <Filename Value="code/actortoya.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ActorToyA"/>
-      </Unit12>
-      <Unit13>
+      </Unit10>
+      <Unit11>
         <Filename Value="code/fadeinout.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="FadeInOut"/>
-      </Unit13>
-      <Unit14>
+      </Unit11>
+      <Unit12>
         <Filename Value="code/gameviewloading.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewLoading"/>
-      </Unit14>
-      <Unit15>
+      </Unit12>
+      <Unit13>
         <Filename Value="code/actorinterfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ActorInterfaces"/>
-      </Unit15>
-      <Unit16>
+      </Unit13>
+      <Unit14>
         <Filename Value="code/actorlogic.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ActorLogic"/>
-      </Unit16>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

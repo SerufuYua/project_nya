@@ -23,7 +23,7 @@ type
     procedure SetSpeed(value: Single);
     function GetColor: TCastleColorRGB;
   public
-    constructor Create(actorRoot: TCastleTransformDesign);
+    constructor Create(actorRoot: TCastleTransformDesign; name: String);
     destructor Destroy; override;
     procedure SaveCondition;
     procedure PauseAnimation;
@@ -50,11 +50,12 @@ implementation
 uses
   SysUtils, CastleComponentSerialize, X3DTime, X3DNodes;
 
-constructor TActorChara.Create(actorRoot: TCastleTransformDesign);
+constructor TActorChara.Create(actorRoot: TCastleTransformDesign; name: String);
 var
   charaBody, charaHead: TCastleScene;
 begin
   FActorRoot:= actorRoot as TCastleTransformDesign;
+  FActorName:= name;
 
   charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;

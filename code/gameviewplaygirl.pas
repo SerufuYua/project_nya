@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform,
-  ActorGirl, ActorToyA, ActorLogic, FadeInOut;
+  ActorChara, ActorToyA, ActorLogic, FadeInOut;
 
 type
   TViewPlayGirl = class(TCastleView)
@@ -27,7 +27,7 @@ type
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    FActorGirl: TActorGirl;
+    FActorGirl: TActorChara;
     FActorToyA: TActorToyA;
     FActorLogic: TActorLogic;
     FScreenFader: TImageFader;
@@ -43,7 +43,7 @@ var
 implementation
 
 uses
-  GameViewMain, CastleScene, ActorChara, GameViewDressingMenu,
+  GameViewMain, CastleScene, GameViewDressingMenu,
   GameViewLoading;
 
 constructor TViewPlayGirl.Create(AOwner: TComponent);
@@ -71,7 +71,7 @@ begin
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorGirl:= TActorGirl.Create(girlScene);
+  FActorGirl:= TActorChara.Create(girlScene, 'Girl');
 
   { Create Toys instance }
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;

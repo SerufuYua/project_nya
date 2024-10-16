@@ -4,8 +4,7 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform,
-  ActorGirl, ActorBoy;
+  CastleTransform, ActorChara;
 
 type
   TViewPlayTogether = class(TCastleView)
@@ -28,8 +27,8 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   private
-    FActorGirl: TActorGirl;
-    FActorBoy: TActorBoy;
+    FActorGirl: TActorChara;
+    FActorBoy: TActorChara;
     procedure ClickControl(Sender: TObject);
     procedure ClicCharaLight(Sender: TObject);
     procedure ChangedEmission(Sender: TObject);
@@ -43,7 +42,7 @@ var
 implementation
 
 uses
-  GameViewMain, ActorChara, GameViewDressingMenu, GameViewLoading;
+  GameViewMain, GameViewDressingMenu, GameViewLoading;
 
 constructor TViewPlayTogether.Create(AOwner: TComponent);
 begin
@@ -72,11 +71,11 @@ begin
 
   { Create Girl Character instance }
   GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorGirl:= TActorGirl.Create(GirlScene);
+  FActorGirl:= TActorChara.Create(GirlScene, 'Girl');
 
   { Create Boy Character instance }
   BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FActorBoy:= TActorBoy.Create(BoyScene);
+  FActorBoy:= TActorChara.Create(BoyScene, 'Boy');
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;
@@ -113,8 +112,8 @@ begin
   'BtnStop':
     begin
       SceneActors.Translation:= Vector3(45, 0, 0);
-      FActorGirl.ActionPlayTogether_Idle;
-      FActorBoy.ActionPlayTogether_Idle;
+      //FActorGirl.ActionPlayTogether_Idle;
+      //FActorBoy.ActionPlayTogether_Idle;
     end;
   'BtnPause':
     begin
@@ -124,14 +123,14 @@ begin
   'BtnPlayA1P1':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      FActorGirl.ActionPlayTogether_A1P1;
-      FActorBoy.ActionPlayTogether_A1P1;
+      //FActorGirl.ActionPlayTogether_A1P1;
+      //FActorBoy.ActionPlayTogether_A1P1;
     end;
   'BtnPlayA1P2':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      FActorGirl.ActionPlayTogether_A1P2;
-      FActorBoy.ActionPlayTogether_A1P2;
+      //FActorGirl.ActionPlayTogether_A1P2;
+      //FActorBoy.ActionPlayTogether_A1P2;
     end;
   end;
 end;
