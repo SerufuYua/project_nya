@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform,
-  ActorGirl, ActorToyA, FadeInOut;
+  ActorGirl, ActorToyA, ActorLogic, FadeInOut;
 
 type
   TViewPlayGirl = class(TCastleView)
@@ -29,6 +29,7 @@ type
   private
     FActorGirl: TActorGirl;
     FActorToyA: TActorToyA;
+    FActorLogic: TActorLogic;
     FScreenFader: TImageFader;
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -76,12 +77,14 @@ begin
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
   FActorToyA:= TActorToyA.Create(toysScene);
 
+  { Create Actors Logic }
+  FActorLogic:= TActorLogic.Create(FActorGirl, FActorToyA);
+
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;
 
   { default chara action }
-  FActorGirl.ActionPlayToyA_Idle;
-  FActorToyA.ActionPlayToyA_Idle;
+  FActorLogic.ActionPlayToyA_Idle;
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -126,8 +129,7 @@ begin
   'BtnStop':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FActorGirl.ActionPlayToyA_Idle;
-      FActorToyA.ActionPlayToyA_Idle;
+      FActorLogic.ActionPlayToyA_Idle;
     end;
   'BtnPause':
     begin
@@ -137,14 +139,12 @@ begin
   'BtnPlayA1':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FActorGirl.ActionPlayToyA_A1P1;
-      FActorToyA.ActionPlayToyA_A1P1;
+      FActorLogic.ActionPlayToyA_A1P1;
     end;
   'BtnPlayA2':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FActorGirl.ActionPlayToyA_A2P1;
-      FActorToyA.ActionPlayToyA_A2P1;
+      FActorLogic.ActionPlayToyA_A2P1;
     end;
   end;
 

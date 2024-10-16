@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, Generics.Collections,
-  CastleVectors, CastleTransform, CastleScene, ActorInterfaces;
+  CastleVectors, CastleTransform, CastleScene, ActorInterfaces, CharaDress,
+  StrUtils;
 
 type
   TActorToyA = class(TInterfacedObject, IActor)
@@ -17,9 +18,7 @@ type
     constructor Create(actorRoot: TCastleTransformDesign);
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
-    procedure ActionPlayToyA_Idle;
-    procedure ActionPlayToyA_A1P1;
-    procedure ActionPlayToyA_A2P1;
+    function GetDresser(): TCharaDresser;
     property Speed: Single read GetSpeed write SetSpeed;
     procedure UseRailing(enable: Boolean);
   protected
@@ -35,7 +34,6 @@ uses
 constructor TActorToyA.Create(actorRoot: TCastleTransformDesign);
 begin
   FActorRoot:= actorRoot;
-  ActionPlayToyA_Idle;
 end;
 
 procedure TActorToyA.PauseAnimation;
@@ -46,25 +44,13 @@ end;
 procedure TActorToyA.PlayAnimation(const animationName: String;
                                              loop: boolean = true);
 begin
+  UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', animationName));
   GetCurrentTool().PlayAnimation(animationName, loop);
 end;
 
-procedure TActorToyA.ActionPlayToyA_Idle;
+function TActorToyA.GetDresser(): TCharaDresser;
 begin
-  UseRailing(True);
-  PlayAnimation('GAME.GIRL_TOYA.PLAY.IDLE', true);
-end;
-
-procedure TActorToyA.ActionPlayToyA_A1P1;
-begin
-  UseRailing(True);
-  PlayAnimation('GAME.GIRL_TOYA.PLAY.A1.P1', true);
-end;
-
-procedure TActorToyA.ActionPlayToyA_A2P1;
-begin
-  UseRailing(False);
-  PlayAnimation('GAME.GIRL_TOYA.PLAY.A2.P1', true);
+  Result:= nil;
 end;
 
 function TActorToyA.GetCurrentTool(): TCastleScene;

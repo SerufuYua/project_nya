@@ -11,6 +11,7 @@ type
   IActor = interface
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
+    function GetDresser(): TCharaDresser;
     property Pos: TVector3;
     property Rot: TVector4;
     property Lightning: Boolean;
