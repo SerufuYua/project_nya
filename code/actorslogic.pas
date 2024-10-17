@@ -63,7 +63,7 @@ const
   SuffixFastGo = '.P2';
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
-  ActionCoeff = 0.1;
+  ActionCoeff = 0.01;
 
 constructor TActorsLogic.Create(actorA, actorB: IActor; animationPrefix: String;
                                 screenFader: TImageFader);

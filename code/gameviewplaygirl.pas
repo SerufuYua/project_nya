@@ -14,7 +14,6 @@ type
     BtnDress: TCastleButton;
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
-    BtnPause: TCastleButton;
     BtnNext: TCastleButton;
     BtnPlayA1: TCastleButton;
     BtnPlayA2: TCastleButton;
@@ -64,7 +63,6 @@ begin
   BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -138,10 +136,6 @@ begin
   'BtnStop':
     begin
       FActorsLogic.Stop;
-    end;
-  'BtnPause':
-    begin
-      FActorsLogic.Pause;
     end;
   'BtnNext':
     begin
