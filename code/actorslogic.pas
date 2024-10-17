@@ -13,19 +13,14 @@ type
   TActorsList = Array[0..1] of IActor;
 
   TActorsLogic = class
-  public
-    constructor Create(actorA, actorB: IActor; animationPrefix: String;
-                       screenFader: TImageFader);
-    procedure SetAction(num: Integer);
-    procedure Pause;
-    procedure Stop;
-    procedure NextPart;
   protected
     FActors: TActorsList;
     FAnimationPrefix: String;
     FActionNum: String;
     FStatus: TActorStatus;
     FScreenFader: TImageFader;
+    FPleasure: Single;
+    FTension: Single;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
@@ -40,6 +35,15 @@ type
                               const Animation: TTimeSensorNode);
     procedure ActionFinishStop(const Scene: TCastleSceneCore;
                               const Animation: TTimeSensorNode);
+  public
+    constructor Create(actorA, actorB: IActor; animationPrefix: String;
+                       screenFader: TImageFader);
+    procedure SetAction(num: Integer);
+    procedure Pause;
+    procedure Stop;
+    procedure NextPart;
+    property Pleasure: Single read FPleasure write FPleasure;
+    property Tension: Single read FTension write FTension;
   end;
 
 implementation
@@ -63,6 +67,8 @@ begin
   FAnimationPrefix:= animationPrefix;
   FScreenFader:= screenFader;
   FActionNum:= '';
+  FPleasure:= 0.0;
+  FTension:= 0.0;
   Stop;
 end;
 

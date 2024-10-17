@@ -252,8 +252,8 @@
                   "Background" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
-                  "Max" : 4.0000000000000000E+000,
-                  "Min" : 5.0000000000000000E-001,
+                  "Max" : 3.0000000000000000E+000,
+                  "Min" : 2.5000000000000000E-001,
                   "Name" : "FloatSliderSpeed",
                   "Thumb" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -264,6 +264,52 @@
                     "Y" : -1.5000000000000000E+002
                   },
                   "Value" : 1.0000000000000000E+000,
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleFloatSlider",
+                  "Background" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "FloatSliderPleasure",
+                  "Thumb" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorPersistent",
+                      "Blue" : 0.0000000000000000E+000,
+                      "Red" : 0.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/dot_green.png"
+                  },
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -1.9000000000000000E+002
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleFloatSlider",
+                  "Background" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "FloatSliderTension",
+                  "Thumb" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorPersistent",
+                      "Blue" : 0.0000000000000000E+000,
+                      "Green" : 0.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/dot_red.png"
+                  },
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.3000000000000000E+002
+                  },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
                 }
@@ -326,7 +372,7 @@
                 },
                 {
                   "$$ClassName" : "TCastleButton",
-                  "Caption" : "Pause Play",
+                  "Caption" : "Pause",
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
@@ -371,7 +417,7 @@
                   "Name" : "BtnNext",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.1100000000000000E+002
+                    "X" : 1.6300000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"

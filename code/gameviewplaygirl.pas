@@ -19,6 +19,8 @@ type
     BtnPlayA1: TCastleButton;
     BtnPlayA2: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
+    FloatSliderPleasure: TCastleFloatSlider;
+    FloatSliderTension: TCastleFloatSlider;
     DressingControl: TCastleRectangleControl;
     ImageScreen: TCastleImageControl;
   public
@@ -81,7 +83,8 @@ begin
 
   { Create Actors Logic }
   FActorsLogic:= TActorsLogic.Create(FActorGirl, FActorToyA,
-                                     'GAME.GIRL_TOYA.PLAY', FScreenFader);
+                                     'GAME.GIRL_TOYA.PLAY',
+                                     FScreenFader);
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;
@@ -99,6 +102,11 @@ begin
     DressingControl.Exists:= True;
 
   FScreenFader.AnimateQuadFade(SecondsPassed);
+
+  { upade gauges }
+  FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
+  FloatSliderTension.Value:= FActorsLogic.Tension;
+
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
