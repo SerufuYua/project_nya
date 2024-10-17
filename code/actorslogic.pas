@@ -1,4 +1,4 @@
-unit ActorLogic;
+unit ActorsLogic;
 
 {$mode ObjFPC}{$H+}
 
@@ -16,19 +16,17 @@ type
   public
     constructor Create(actorA, actorB: IActor);
     procedure SetAction(num: Integer);
-    procedure PauseAction;
-    procedure StopAction;
-    procedure NextPartAction;
-    procedure ActionPlayToyA_A1P1;
-    procedure ActionPlayToyA_A2P1;
+    procedure Pause;
+    procedure Stop;
+    procedure NextPart;
   protected
     FActors: TActorsList;
     FActionNum: String;
-    FNewStatus: TActorStatus;
-    FOldStatus: TActorStatus;
+    FStatus: TActorStatus;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean);
-    procedure ActionIdle;
+    procedure ActionIdle;  { Play Idle Animation. IN Cycle }
+    procedure ActionStart; { Play Start Animation. NO Cycle }
   end;
 
 implementation
@@ -49,17 +47,18 @@ constructor TActorsLogic.Create(actorA, actorB: IActor);
 begin
   FActors[0]:= actorA;
   FActors[1]:= actorB;
-  ActionIdle;
+  FActionNum:= '';
+  Stop;
 end;
 
 procedure TActorsLogic.SetAction(num: Integer);
 begin
   FActionNum:= '.A' + IntToStr(num);
-  FNewStatus:= Start;
-  FOldStatus:= Start;
+  FStatus:= Start;
+  ActionStart;
 end;
 
-procedure TActorsLogic.PauseAction;
+procedure TActorsLogic.Pause;
 var
   actor: IActor;
 begin
@@ -67,14 +66,13 @@ begin
     actor.PauseAnimation;
 end;
 
-procedure TActorsLogic.StopAction;
+procedure TActorsLogic.Stop;
 begin
-  FNewStatus:= Wait;
-  FOldStatus:= Wait;
+  FStatus:= Wait;
   ActionIdle;
 end;
 
-procedure TActorsLogic.NextPartAction;
+procedure TActorsLogic.NextPart;
 begin
 
 end;
@@ -102,14 +100,9 @@ begin
   PlayAnimation(Prefix + SuffixWait, True, True);
 end;
 
-procedure TActorsLogic.ActionPlayToyA_A1P1;
+procedure TActorsLogic.ActionStart;
 begin
-  PlayAnimation('GAME.GIRL_TOYA.PLAY.A1.P1', True, False);
-end;
-
-procedure TActorsLogic.ActionPlayToyA_A2P1;
-begin
-  PlayAnimation('GAME.GIRL_TOYA.PLAY.A2.P1', True, False);
+  PlayAnimation(Prefix + FActionNum + SuffixStart, False, False);
 end;
 
 end.
