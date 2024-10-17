@@ -180,8 +180,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  FActorGirl.Speed:= slider.Value;
-  FActorBoy.Speed:= slider.Value;
+  FActorGirl.SetSpeed(slider.Value);
+  FActorBoy.SetSpeed(slider.Value);
 end;
 
 end.

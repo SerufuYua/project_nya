@@ -12,12 +12,13 @@ type
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
+    procedure StopAnimation(const DisableStopNotification: Boolean = false);
+    procedure SetSpeed(value: Single);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3;
     property Rot: TVector4;
     property Lightning: Boolean;
     property SelfEmission: Single;
-    property Speed: Single;
   end;
 
 implementation

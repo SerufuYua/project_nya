@@ -12,16 +12,14 @@ uses
 
 type
   TActorToyA = class(TInterfacedObject, IActor)
-  private
-    function GetSpeed: Single;
-    procedure SetSpeed(value: Single);
   public
     constructor Create(actorRoot: TCastleTransformDesign);
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
+    procedure StopAnimation(const DisableStopNotification: Boolean = false);
+    procedure SetSpeed(value: Single);
     function GetDresser(): TCharaDresser;
-    property Speed: Single read GetSpeed write SetSpeed;
     procedure UseRailing(enable: Boolean);
   protected
     FActorRoot: TCastleTransformDesign;
@@ -56,6 +54,12 @@ begin
   GetCurrentTool().PlayAnimation(Parameters);
 end;
 
+procedure TActorToyA.StopAnimation(const DisableStopNotification: Boolean);
+begin
+  GetCurrentTool().StopAnimation(DisableStopNotification);
+end;
+
+
 function TActorToyA.GetDresser(): TCharaDresser;
 begin
   Result:= nil;
@@ -80,11 +84,6 @@ begin
     railing.Translation:= Vector3(-28, 0, -10);
     railing.Rotation:= Vector4(0, 1, 0, -30);
   end;
-end;
-
-function TActorToyA.GetSpeed: Single;
-begin
-  Result:= GetCurrentTool().TimePlayingSpeed;
 end;
 
 procedure TActorToyA.SetSpeed(value: Single);

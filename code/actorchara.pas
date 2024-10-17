@@ -20,8 +20,6 @@ type
     function GetLightning: Boolean;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
-    function GetSpeed: Single;
-    procedure SetSpeed(value: Single);
     function GetColor: TCastleColorRGB;
   public
     constructor Create(actorRoot: TCastleTransformDesign; name: String);
@@ -30,12 +28,13 @@ type
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
+    procedure StopAnimation(const DisableStopNotification: Boolean = false);
+    procedure SetSpeed(value: Single);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3 read GetPos write SetPos;
     property Rot: TVector4 read GetRot write SetRot;
     property Lightning: Boolean read GetLightning write SetLightning;
     property SelfEmission: Single write SetSelfEmission;
-    property Speed: Single read GetSpeed write SetSpeed;
     property PersonalColor: TCastleColorRGB read GetColor;
   protected
     FActorRoot: TCastleTransformDesign;
@@ -155,11 +154,6 @@ begin
   end;
 end;
 
-function TActorChara.GetSpeed: Single;
-begin
-  Result:= GetMainBody().TimePlayingSpeed;
-end;
-
 procedure TActorChara.SetSpeed(value: Single);
 var
   bodies: TCastleScenes;
@@ -211,6 +205,18 @@ begin
   for body in bodies do
     if Assigned(body) then
       body.PlayAnimation(Parameters);
+end;
+
+procedure TActorChara.StopAnimation(const DisableStopNotification: Boolean);
+var
+  bodies: TCastleScenes;
+  body: TCastleScene;
+begin
+  ActionFaceDefault;
+  bodies:= GetActorsList();
+  for body in bodies do
+    if Assigned(body) then
+      body.StopAnimation(DisableStopNotification);
 end;
 
 function TActorChara.GetMainBody(): TCastleScene;

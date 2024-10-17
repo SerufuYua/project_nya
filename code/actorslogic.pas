@@ -39,6 +39,7 @@ type
     constructor Create(actorA, actorB: IActor; animationPrefix: String;
                        screenFader: TImageFader);
     procedure SetAction(num: Integer);
+    procedure SetSpeed(value: Single);
     procedure Pause;
     procedure Stop;
     procedure NextPart;
@@ -79,6 +80,14 @@ begin
   ActionStart;
 end;
 
+procedure TActorsLogic.SetSpeed(value: Single);
+var
+  actor: IActor;
+begin
+  for actor in FActors do
+    actor.SetSpeed(value);
+end;
+
 procedure TActorsLogic.Pause;
 var
   actor: IActor;
@@ -88,8 +97,12 @@ begin
 end;
 
 procedure TActorsLogic.Stop;
+var
+  actor: IActor;
 begin
-  FStatus:= TActorStatus.Wait;
+  for actor in FActors do
+    actor.StopAnimation(True);
+
   ActionIdle;
 end;
 

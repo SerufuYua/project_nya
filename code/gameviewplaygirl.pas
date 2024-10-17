@@ -136,7 +136,6 @@ begin
     end;
   'BtnStop':
     begin
-      //FScreenFader.Fade(SaveScreen, 0.25);
       FActorsLogic.Stop;
     end;
   'BtnPause':
@@ -149,12 +148,10 @@ begin
     end;
   'BtnPlayA1':
     begin
-      //FScreenFader.Fade(Container.SaveScreen, 0.25);
       FActorsLogic.SetAction(1);
     end;
   'BtnPlayA2':
     begin
-      //FScreenFader.Fade(Container.SaveScreen, 0.25);
       FActorsLogic.SetAction(2);
     end;
   end;
@@ -168,8 +165,7 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  FActorGirl.Speed:= slider.Value;
-  FActorToyA.Speed:= slider.Value;
+  FActorsLogic.SetSpeed(slider.Value);
 end;
 
 procedure TViewPlayGirl.ScreenShot;
