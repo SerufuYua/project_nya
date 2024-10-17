@@ -65,7 +65,7 @@ const
   SuffixFastGo = '.P2';
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
-  ActionCoeff = 0.1;
+  ActionCoeff = 0.01;
 
 constructor TActorsLogic.Create(actorA, actorB: IActor;
                                 animationPrefix: String;
@@ -155,16 +155,11 @@ end;
 procedure TActorsLogic.NextPart;
 begin
   Case FStatus of
-  TActorStatus.Start:
-    ActionGo;
-  TActorStatus.Go:
-    ActionFastGo;
-  TActorStatus.FastGo:
-    ActionFinish;
-  TActorStatus.Finish:
-    ActionRelax;
-  TActorStatus.Relax:
-    ActionIdle;
+    TActorStatus.Start:  ActionGo;
+    TActorStatus.Go:     ActionFastGo;
+    TActorStatus.FastGo: ActionFinish;
+    TActorStatus.Finish: ActionRelax;
+    TActorStatus.Relax:  ActionIdle;
   end;
 end;
 
