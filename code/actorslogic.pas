@@ -21,6 +21,7 @@ type
     FScreenFader: TImageFader;
     FPleasure: Single;
     FTension: Single;
+    FSpeed: Single;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
@@ -34,23 +35,26 @@ type
     procedure ActionStartStop(const Scene: TCastleSceneCore;
                               const Animation: TTimeSensorNode);
     procedure ActionFinishStop(const Scene: TCastleSceneCore;
-                              const Animation: TTimeSensorNode);
+                               const Animation: TTimeSensorNode);
+    procedure SetPleasure(value: Single);
+    procedure SetTension(value: Single);
   public
     constructor Create(actorA, actorB: IActor; animationPrefix: String;
                        screenFader: TImageFader);
+    procedure Update(const SecondsPassed: Single);
     procedure SetAction(num: Integer);
     procedure SetSpeed(value: Single);
     procedure Pause;
     procedure Stop;
     procedure NextPart;
-    property Pleasure: Single read FPleasure write FPleasure;
-    property Tension: Single read FTension write FTension;
+    property Pleasure: Single read FPleasure write SetPleasure;
+    property Tension: Single read FTension write SetTension;
   end;
 
 implementation
 
 uses
-  CharaDress;
+  CharaDress, CastleUtils;
 
 const
   SuffixWait = '.IDLE';
@@ -59,6 +63,7 @@ const
   SuffixFastGo = '.P2';
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
+  ActionCoeff = 0.1;
 
 constructor TActorsLogic.Create(actorA, actorB: IActor; animationPrefix: String;
                                 screenFader: TImageFader);
@@ -70,7 +75,47 @@ begin
   FActionNum:= '';
   FPleasure:= 0.0;
   FTension:= 0.0;
+  FSpeed:= 1.0;
   Stop;
+end;
+
+procedure TActorsLogic.Update(const SecondsPassed: Single);
+begin
+  Case FStatus of
+  TActorStatus.Wait:
+    begin
+      Pleasure:= Pleasure - ActionCoeff * SecondsPassed;
+      Tension:= Tension - ActionCoeff * SecondsPassed;
+    end;
+//  TActorStatus.Start:
+  TActorStatus.Go:
+    begin
+      Pleasure:= Pleasure + FSpeed * ActionCoeff * SecondsPassed;
+      Tension:= Tension + 0.5 *  FSpeed *  FSpeed * ActionCoeff * SecondsPassed;
+      if ((Pleasure > 0.6) AND (Tension < 0.95)) then
+        ActionFastGo
+      else if (Pleasure > 0.95) then
+        ActionFinish;
+    end;
+  TActorStatus.FastGo:
+    begin
+      Pleasure:= Pleasure + 3.0 *  FSpeed * ActionCoeff * SecondsPassed;
+      Tension:= Tension + 4.0 *  FSpeed *  FSpeed * ActionCoeff * SecondsPassed;
+      if (Tension > 0.95) then
+        ActionGo
+      else if (Pleasure > 0.95) then
+        ActionFinish;
+    end;
+  TActorStatus.Finish:
+    begin
+      Pleasure:= 1.0;
+    end;
+  TActorStatus.Relax:
+    begin
+      Pleasure:= Pleasure - 0.5 * ActionCoeff * SecondsPassed;
+      Tension:= Tension - ActionCoeff * SecondsPassed;
+    end;
+  end;
 end;
 
 procedure TActorsLogic.SetAction(num: Integer);
@@ -84,6 +129,7 @@ procedure TActorsLogic.SetSpeed(value: Single);
 var
   actor: IActor;
 begin
+  FSpeed:= value;
   for actor in FActors do
     actor.SetSpeed(value);
 end;
@@ -228,6 +274,16 @@ procedure TActorsLogic.ActionFinishStop(const Scene: TCastleSceneCore;
                                         const Animation: TTimeSensorNode);
 begin
   ActionRelax;
+end;
+
+procedure TActorsLogic.SetPleasure(value: Single);
+begin
+  FPleasure:= Clamped(value, 0.0, 1.0);
+end;
+
+procedure TActorsLogic.SetTension(value: Single);
+begin
+  FTension:= Clamped(value, 0.0, 1.0);
 end;
 
 end.

@@ -104,6 +104,7 @@ begin
   FScreenFader.AnimateQuadFade(SecondsPassed);
 
   { upade gauges }
+  FActorsLogic.Update(SecondsPassed);
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
 
