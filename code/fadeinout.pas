@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleTimeUtils, CastleVectors, CastleControls,
-  CastleImages;
+  CastleImages, CastleUIControls;
 
 type
   TRectangleFader = class
@@ -26,14 +26,16 @@ type
 
   TImageFader = class
   public
-    constructor Create(rectangle: TCastleImageControl);
-    procedure Fade(image: TEncodedImage; time: TFloatTime);
+    constructor Create(rectangle: TCastleImageControl;
+                       container: TCastleContainer);
+    procedure Fade(time: TFloatTime);
     procedure AnimateLineFade(SecondsPassed: TFloatTime);
     procedure AnimateQuadFade(SecondsPassed: TFloatTime);
   protected
     FRectangle: TCastleImageControl;
     FFadeTime: TFloatTime;
     FAnimationTime: TFloatTime;
+    FContainer: TCastleContainer;
   end;
 
 implementation
@@ -96,17 +98,19 @@ end;
 
 { TImageFader }
 
-constructor TImageFader.Create(rectangle: TCastleImageControl);
+constructor TImageFader.Create(rectangle: TCastleImageControl;
+                               container: TCastleContainer);
 begin
   FRectangle:= rectangle;
+  FContainer:= container;
   FRectangle.Exists:= False;
 end;
 
-procedure TImageFader.Fade(image: TEncodedImage; time: TFloatTime);
+procedure TImageFader.Fade(time: TFloatTime);
 begin
   FFadeTime:= time;
   FAnimationTime:= 0;
-  FRectangle.Image:= image;
+  FRectangle.Image:= FContainer.SaveScreen;
   FRectangle.Exists:= True;
 end;
 

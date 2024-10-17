@@ -7,6 +7,7 @@ interface
 uses
   Classes, Generics.Collections,
   CastleVectors, CastleTransform, CastleScene, MyCastleUtils, CastleColors,
+  CastleSceneCore,
   CharaDress, ActorInterfaces;
 
 type
@@ -28,6 +29,7 @@ type
     procedure SaveCondition;
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
+    procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3 read GetPos write SetPos;
     property Rot: TVector4 read GetRot write SetRot;
@@ -40,7 +42,7 @@ type
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
     FActorName: String;
-    function GetMainBody(): TCastleScene; { main actor Body }
+    function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     procedure ActionFaceDefault;
   end;
@@ -60,7 +62,7 @@ begin
   charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
 
-  { create FDresser }
+  { create dresser }
   FDresser:= TCharaDresser.Create(FActorRoot);
   FDresseSaver:= TDressSaver.Create(FDresser, FActorName);
 
@@ -192,10 +194,23 @@ var
   bodies: TCastleScenes;
   body: TCastleScene;
 begin
+  ActionFaceDefault;
   bodies:= GetActorsList();
   for body in bodies do
     if Assigned(body) then
       body.PlayAnimation(animationName, loop);
+end;
+
+procedure TActorChara.PlayAnimation(const Parameters: TPlayAnimationParameters);
+var
+  bodies: TCastleScenes;
+  body: TCastleScene;
+begin
+  ActionFaceDefault;
+  bodies:= GetActorsList();
+  for body in bodies do
+    if Assigned(body) then
+      body.PlayAnimation(Parameters);
 end;
 
 function TActorChara.GetMainBody(): TCastleScene;

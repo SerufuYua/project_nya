@@ -5,12 +5,13 @@ unit ActorInterfaces;
 interface
 
 uses
-  Classes, SysUtils, CastleVectors, CastleColors, CharaDress;
+  Classes, SysUtils, CastleSceneCore, CastleVectors, CastleColors, CharaDress;
 
 type
   IActor = interface
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
+    procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3;
     property Rot: TVector4;

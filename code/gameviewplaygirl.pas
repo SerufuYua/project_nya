@@ -69,7 +69,7 @@ begin
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { set fade animator }
-  FScreenFader:= TImageFader.Create(ImageScreen);
+  FScreenFader:= TImageFader.Create(ImageScreen, Container);
 
   { Create Girl Character instance }
   girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
@@ -80,7 +80,8 @@ begin
   FActorToyA:= TActorToyA.Create(toysScene);
 
   { Create Actors Logic }
-  FActorsLogic:= TActorsLogic.Create(FActorGirl, FActorToyA);
+  FActorsLogic:= TActorsLogic.Create(FActorGirl, FActorToyA,
+                                     'GAME.GIRL_TOYA.PLAY', FScreenFader);
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;
@@ -127,7 +128,7 @@ begin
     end;
   'BtnStop':
     begin
-      FScreenFader.Fade(Container.SaveScreen, 0.25);
+      //FScreenFader.Fade(SaveScreen, 0.25);
       FActorsLogic.Stop;
     end;
   'BtnPause':
@@ -165,7 +166,7 @@ end;
 
 procedure TViewPlayGirl.ScreenShot;
 begin
-  FScreenFader.Fade(Container.SaveScreen, 0.5);
+  FScreenFader.Fade(1.5);
 end;
 
 function TViewPlayGirl.Press(const Event: TInputPressRelease): Boolean;

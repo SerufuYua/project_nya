@@ -6,6 +6,7 @@ interface
 
 uses
   Classes, Generics.Collections,
+  CastleSceneCore,
   CastleVectors, CastleTransform, CastleScene, ActorInterfaces, CharaDress,
   StrUtils;
 
@@ -18,6 +19,7 @@ type
     constructor Create(actorRoot: TCastleTransformDesign);
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
+    procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     function GetDresser(): TCharaDresser;
     property Speed: Single read GetSpeed write SetSpeed;
     procedure UseRailing(enable: Boolean);
@@ -46,6 +48,12 @@ procedure TActorToyA.PlayAnimation(const animationName: String;
 begin
   UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', animationName));
   GetCurrentTool().PlayAnimation(animationName, loop);
+end;
+
+procedure TActorToyA.PlayAnimation(const Parameters: TPlayAnimationParameters);
+begin
+  UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Parameters.Name));
+  GetCurrentTool().PlayAnimation(Parameters);
 end;
 
 function TActorToyA.GetDresser(): TCharaDresser;
