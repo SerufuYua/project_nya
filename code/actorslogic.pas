@@ -39,7 +39,8 @@ type
     procedure SetPleasure(value: Single);
     procedure SetTension(value: Single);
   public
-    constructor Create(actorA, actorB: IActor; animationPrefix: String;
+    constructor Create(actorA, actorB: IActor;
+                       animationPrefix: String;
                        screenFader: TImageFader);
     procedure Update(const SecondsPassed: Single);
     procedure SetAction(num: Integer);
@@ -65,7 +66,8 @@ const
   SuffixRelax = '.P4';
   ActionCoeff = 0.01;
 
-constructor TActorsLogic.Create(actorA, actorB: IActor; animationPrefix: String;
+constructor TActorsLogic.Create(actorA, actorB: IActor;
+                                animationPrefix: String;
                                 screenFader: TImageFader);
 begin
   FActors[0]:= actorA;
@@ -76,7 +78,6 @@ begin
   FPleasure:= 0.0;
   FTension:= 0.0;
   FSpeed:= 1.0;
-  Stop;
 end;
 
 procedure TActorsLogic.Update(const SecondsPassed: Single);

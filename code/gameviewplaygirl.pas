@@ -37,6 +37,7 @@ type
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
     procedure ScreenShot;
+    procedure DoStart(Sender: TObject);
   end;
 
 var
@@ -79,13 +80,16 @@ begin
   toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
   FActorToyA:= TActorToyA.Create(toysScene);
 
+  { set character self emission }
+  FActorGirl.SelfEmission:= 0.15;
+
   { Create Actors Logic }
   FActorsLogic:= TActorsLogic.Create(FActorGirl, FActorToyA,
                                      'GAME.GIRL_TOYA.PLAY',
                                      FScreenFader);
 
-  { set character self emission }
-  FActorGirl.SelfEmission:= 0.15;
+  { set initial action }
+  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -178,6 +182,11 @@ begin
     ScreenShot;
     Exit(true);
   end;
+end;
+
+procedure TViewPlayGirl.DoStart(Sender: TObject);
+begin
+  FActorsLogic.Stop;
 end;
 
 end.
