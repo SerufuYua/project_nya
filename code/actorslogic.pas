@@ -85,7 +85,7 @@ begin
   Case FStatus of
   TActorStatus.Wait:
     begin
-      Pleasure:= Pleasure - ActionCoeff * SecondsPassed;
+      Pleasure:= Pleasure - 4.0 * ActionCoeff * SecondsPassed;
       Tension:= Tension - ActionCoeff * SecondsPassed;
     end;
 //  TActorStatus.Start:
@@ -107,10 +107,7 @@ begin
       else if (Pleasure > 0.95) then
         ActionFinish;
     end;
-  TActorStatus.Finish:
-    begin
-      Pleasure:= 1.0;
-    end;
+//  TActorStatus.Finish:
   TActorStatus.Relax:
     begin
       Pleasure:= Pleasure - 0.5 * ActionCoeff * SecondsPassed;

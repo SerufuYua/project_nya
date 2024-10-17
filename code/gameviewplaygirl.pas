@@ -147,10 +147,12 @@ begin
     end;
   'BtnPlayA1':
     begin
+      FActorsLogic.Stop;
       FActorsLogic.SetAction(1);
     end;
   'BtnPlayA2':
     begin
+      FActorsLogic.Stop;
       FActorsLogic.SetAction(2);
     end;
   end;
