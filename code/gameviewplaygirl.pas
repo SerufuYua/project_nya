@@ -15,6 +15,7 @@ type
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnPause: TCastleButton;
+    BtnNext: TCastleButton;
     BtnPlayA1: TCastleButton;
     BtnPlayA2: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
@@ -29,7 +30,7 @@ type
   private
     FActorGirl: TActorChara;
     FActorToyA: TActorToyA;
-    FActorLogic: TActorLogic;
+    FActorLogic: TActorsLogic;
     FScreenFader: TImageFader;
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -62,6 +63,7 @@ begin
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPause.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
@@ -78,13 +80,10 @@ begin
   FActorToyA:= TActorToyA.Create(toysScene);
 
   { Create Actors Logic }
-  FActorLogic:= TActorLogic.Create(FActorGirl, FActorToyA);
+  FActorLogic:= TActorsLogic.Create(FActorGirl, FActorToyA);
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;
-
-  { default chara action }
-  FActorLogic.ActionPlayToyA_Idle;
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -129,12 +128,15 @@ begin
   'BtnStop':
     begin
       FScreenFader.Fade(Container.SaveScreen, 0.25);
-      FActorLogic.ActionPlayToyA_Idle;
+      FActorLogic.StopAction;
     end;
   'BtnPause':
     begin
-      FActorGirl.PauseAnimation;
-      FActorToyA.PauseAnimation;
+      FActorLogic.PauseAction;
+    end;
+  'BtnNext':
+    begin
+      FActorLogic.NextPartAction;
     end;
   'BtnPlayA1':
     begin

@@ -300,7 +300,7 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleButton",
-                  "Caption" : "Stop Play",
+                  "Caption" : "|<",
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
@@ -345,7 +345,33 @@
                   "Name" : "BtnPause",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.4400000000000000E+002
+                    "X" : 7.4000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpMiddle",
+                  "VerticalAnchorSelf" : "vpMiddle"
+                },
+                {
+                  "$$ClassName" : "TCastleButton",
+                  "Caption" : ">>",
+                  "CustomBackgroundDisabled" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundFocused" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundNormal" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundPressed" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Image" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "BtnNext",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.1100000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
@@ -502,6 +528,7 @@
       "Content" : {
         "$$ClassName" : "TCastleImagePersistent"
       },
+      "Exists" : false,
       "FullSize" : true,
       "Name" : "ImageScreen"
     },
