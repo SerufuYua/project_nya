@@ -22,6 +22,7 @@ type
     FPleasure: Single;
     FTension: Single;
     FSpeed: Single;
+    FEnableStopAction: Boolean;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
@@ -64,7 +65,7 @@ const
   SuffixFastGo = '.P2';
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
-  ActionCoeff = 0.01;
+  ActionCoeff = 0.1;
 
 constructor TActorsLogic.Create(actorA, actorB: IActor;
                                 animationPrefix: String;
@@ -77,6 +78,7 @@ begin
   FActionNum:= '';
   FPleasure:= 0.0;
   FTension:= 0.0;
+  FEnableStopAction:= False;
   FSpeed:= 1.0;
 end;
 
@@ -220,6 +222,7 @@ begin
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Start;
     FScreenFader.Fade(0.25);
+    FEnableStopAction:= True;
     PlayAnimation(AnimationParams, False);
   finally FreeAndNil(AnimationParams)
   end;
@@ -250,6 +253,7 @@ begin
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Finish;
     FScreenFader.Fade(0.25);
+    FEnableStopAction:= True;
     PlayAnimation(AnimationParams, False);
   finally FreeAndNil(AnimationParams)
   end;
@@ -259,19 +263,24 @@ procedure TActorsLogic.ActionRelax;
 begin
   FStatus:= TActorStatus.Relax;
   FScreenFader.Fade(0.6);
+  Pleasure:= Pleasure - 0.5 * Tension;
   PlayAnimation(FAnimationPrefix + FActionNum + SuffixRelax, True, True);
 end;
 
 procedure TActorsLogic.ActionStartStop(const Scene: TCastleSceneCore;
                                        const Animation: TTimeSensorNode);
 begin
+  if NOT FEnableStopAction then Exit;
   ActionGo;
+  FEnableStopAction:= False;
 end;
 
 procedure TActorsLogic.ActionFinishStop(const Scene: TCastleSceneCore;
                                         const Animation: TTimeSensorNode);
 begin
+  if NOT FEnableStopAction then Exit;
   ActionRelax;
+  FEnableStopAction:= False;
 end;
 
 procedure TActorsLogic.SetPleasure(value: Single);
