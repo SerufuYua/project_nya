@@ -18,6 +18,7 @@
         "Red" : 5.9607845544815063E-001
       },
       "Camera" : "CameraMain",
+      "Fog" : "Darkness",
       "FullSize" : true,
       "Items" : {
         "$$ClassName" : "TCastleRootTransform",
@@ -122,7 +123,7 @@
               "$$ClassName" : "TCastleVector3Persistent",
               "Y" : -1.0000000000000000E+000
             },
-            "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room.x3dv",
+            "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_bed.x3dv",
             "$Children" : [
               {
                 "$$ClassName" : "TCastleTransform",
@@ -356,6 +357,17 @@
           "TexturePositiveX" : "castle-data:/environment/star_sky/star_sky_0003.png",
           "TexturePositiveY" : "castle-data:/environment/star_sky/star_sky_0005.png",
           "TexturePositiveZ" : "castle-data:/environment/star_sky/star_sky_0004.png"
+        },
+        {
+          "$$ClassName" : "TCastleFog",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Blue" : 0.0000000000000000E+000,
+            "Green" : 0.0000000000000000E+000,
+            "Red" : 0.0000000000000000E+000
+          },
+          "Name" : "Darkness",
+          "VisibilityRange" : 4.0000000000000000E+002
         }
       ],
       "$Children" : [
@@ -806,14 +818,14 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 5.9062016010284424E-001,
-          "X" : -5.0142687559127808E-001,
-          "Y" : -8.5604399442672729E-001,
-          "Z" : -1.2553770840167999E-001
+          "W" : 3.2931548357009888E-001,
+          "X" : -6.8692094087600708E-001,
+          "Y" : -7.2295290231704712E-001,
+          "Z" : -7.4019208550453186E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 9.9999994039535522E-001
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
