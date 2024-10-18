@@ -68,7 +68,7 @@
             "RenderOptions" : {
               "$$ClassName" : "TCastleScene.TSceneRenderOptions"
             },
-            "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room.x3dv"
+            "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_intro.x3dv"
           },
           {
             "$$ClassName" : "TCastleTransformDesign",
@@ -134,7 +134,7 @@
             "Red" : 0.0000000000000000E+000
           },
           "Name" : "Darkness",
-          "VisibilityRange" : 3.0000000000000000E+002
+          "VisibilityRange" : 6.0000000000000000E+002
         }
       ],
       "$Children" : [
@@ -283,14 +283,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 8.1759852170944214E-001,
-          "X" : -3.4134888648986816E-001,
-          "Y" : -9.3003559112548828E-001,
-          "Z" : -1.3606935739517212E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Z" : 9.9999994039535522E-001
+          "W" : 6.9295275211334229E-001,
+          "X" : -2.5997239351272583E-001,
+          "Y" : -9.6157711744308472E-001,
+          "Z" : -8.8226541876792908E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
