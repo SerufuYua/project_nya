@@ -94,6 +94,38 @@
               "Z" : 5.6000000000000000E+001
             },
             "Url" : "castle-data:/CharaBoy_intro.castle-transform"
+          },
+          {
+            "$$ClassName" : "TCastleScene",
+            "ExposeTransforms" : [
+            ],
+            "Name" : "Mat",
+            "RenderOptions" : {
+              "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "X" : -3.8000000000000000E+001,
+              "Z" : -4.5000000000000000E+001
+            },
+            "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf",
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastleScene",
+                "ExposeTransforms" : [
+                ],
+                "Name" : "Railing",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 3.4906584024429321E-001,
+                  "Y" : 1.0000000000000000E+000
+                },
+                "Url" : "castle-data:/toys/railing/railing.gltf"
+              }
+            ]
           }
         ]
       },
@@ -283,16 +315,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 6.9295275211334229E-001,
-          "X" : -2.5997239351272583E-001,
-          "Y" : -9.6157711744308472E-001,
-          "Z" : -8.8226541876792908E-002
+          "W" : 3.9479342103004456E-001,
+          "X" : -1.8594728410243988E-001,
+          "Y" : 9.8151648044586182E-001,
+          "Z" : 4.5266490429639816E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.1902465820312500E+001,
-          "Y" : 5.6306167602539062E+001,
-          "Z" : 8.4742469787597656E+001
+          "X" : -8.2383546829223633E+000,
+          "Y" : 2.7158075332641602E+001,
+          "Z" : 6.4085540771484375E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
