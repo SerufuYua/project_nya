@@ -140,11 +140,11 @@ end;
 procedure TViewMain.CharaActionWaiting;
 begin
   FActorGirl.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  FActorGirl.Pos:= Vector3(59, 0, 13);
-  FActorGirl.Rot:= Vector4(0, 0, 0, 0);
+  FActorGirl.Translation:= Vector3(59, 0, 13);
+  FActorGirl.Rotation:= Vector4(0, 0, 0, 0);
   FActorBoy.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  FActorBoy.Pos:= Vector3(81, 0, 56);
-  FActorBoy.Rot:= Vector4(0, -1, 0, Pi/2);
+  FActorBoy.Translation:= Vector3(81, 0, 56);
+  FActorBoy.Rotation:= Vector4(0, -1, 0, Pi/2);
 end;
 
 procedure TViewMain.UpdateCamera;

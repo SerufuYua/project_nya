@@ -13,8 +13,8 @@ uses
 type
   TActorChara = class(TInterfacedObject, IActor)
   private
-    function GetPos(): TVector3;
-    procedure SetPos(coord: TVector3);
+    function GetTrans(): TVector3;
+    procedure SetTrans(coord: TVector3);
     function GetRot(): TVector4;
     procedure SetRot(coord: TVector4);
     function GetLightning: Boolean;
@@ -31,8 +31,8 @@ type
     procedure StopAnimation(const DisableStopNotification: Boolean = false);
     procedure SetSpeed(value: Single);
     function GetDresser(): TCharaDresser;
-    property Pos: TVector3 read GetPos write SetPos;
-    property Rot: TVector4 read GetRot write SetRot;
+    property Translation: TVector3 read GetTrans write SetTrans;
+    property Rotation: TVector4 read GetRot write SetRot;
     property Lightning: Boolean read GetLightning write SetLightning;
     property SelfEmission: Single write SetSelfEmission;
     property PersonalColor: TCastleColorRGB read GetColor;
@@ -103,12 +103,12 @@ begin
   head.PlayAnimation('Blink', true);
 end;
 
-function TActorChara.GetPos(): TVector3;
+function TActorChara.GetTrans(): TVector3;
 begin
   Result:= FActorRoot.Translation;
 end;
 
-procedure TActorChara.SetPos(coord: TVector3);
+procedure TActorChara.SetTrans(coord: TVector3);
 begin
   FActorRoot.Translation:= coord;
 end;

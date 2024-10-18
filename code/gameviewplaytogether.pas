@@ -42,7 +42,7 @@ var
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, GameViewLoading;
+  GameViewMain, GameViewDressingMenu, GameViewLoading, CharaDress;
 
 constructor TViewPlayTogether.Create(AOwner: TComponent);
 begin
@@ -112,8 +112,10 @@ begin
   'BtnStop':
     begin
       SceneActors.Translation:= Vector3(45, 0, 0);
-      //FActorGirl.ActionPlayTogether_Idle;
-      //FActorBoy.ActionPlayTogether_Idle;
+      FActorGirl.Translation:= Vector3(-9, 0, 0);
+      FActorBoy.Translation:= Vector3(9, 0, 0);
+      FActorGirl.PlayAnimation('GAME.STAND', true);
+      FActorBoy.PlayAnimation('GAME.STAND', true);
     end;
   'BtnPause':
     begin
@@ -123,14 +125,22 @@ begin
   'BtnPlayA1P1':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      //FActorGirl.ActionPlayTogether_A1P1;
-      //FActorBoy.ActionPlayTogether_A1P1;
+      FActorGirl.GetDresser().WearSuit(TSuits.Bottom, 'none');
+      FActorBoy.GetDresser().WearSuit(TSuits.Bottom, 'none');
+      FActorGirl.Translation:= Vector3(0, 0, 0);
+      FActorBoy.Translation:= Vector3(0, 0, 0);
+      FActorGirl.PlayAnimation('GAME.TOGETHER.PLAY.A1.P1', true);
+      FActorBoy.PlayAnimation('GAME.TOGETHER.PLAY.A1.P1', true);
     end;
   'BtnPlayA1P2':
     begin
       SceneActors.Translation:= Vector3(45, 12, -57);
-      //FActorGirl.ActionPlayTogether_A1P2;
-      //FActorBoy.ActionPlayTogether_A1P2;
+      FActorGirl.GetDresser().WearSuit(TSuits.Bottom, 'none');
+      FActorBoy.GetDresser().WearSuit(TSuits.Bottom, 'none');
+      FActorGirl.Translation:= Vector3(0, 0, 0);
+      FActorBoy.Translation:= Vector3(0, 0, 0);
+      FActorGirl.PlayAnimation('GAME.TOGETHER.PLAY.A1.P2', true);
+      FActorBoy.PlayAnimation('GAME.TOGETHER.PLAY.A1.P2', true);
     end;
   end;
 end;
