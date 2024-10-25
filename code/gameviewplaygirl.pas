@@ -4,8 +4,9 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform,
-  ActorChara, ActorToyA, ActorsLogic, FadeInOut;
+  CastleTransform, CastleNotifications,
+  ActorChara, ActorToyA, ActorsLogic, FadeInOut,
+  CastleParticleEmitter;
 
 type
   TViewPlayGirl = class(TCastleView)
@@ -22,6 +23,7 @@ type
     FloatSliderTension: TCastleFloatSlider;
     DressingControl: TCastleRectangleControl;
     ImageScreen: TCastleImageControl;
+    Notifications: TCastleNotifications;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -46,8 +48,8 @@ var
 implementation
 
 uses
-  GameViewMain, CastleScene, GameViewDressingMenu,
-  GameViewLoading;
+  GameViewMain, GameViewDressingMenu, CastleScene,
+  GameViewLoading, SysUtils;
 
 constructor TViewPlayGirl.Create(AOwner: TComponent);
 begin
@@ -110,6 +112,8 @@ begin
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
 
+  { vew controls }
+  //Notifications.Show(FloatToStr(((DesignedComponent('CharaGirl') as TCastleTransformDesign).DesignedComponent('Control_Jizz') as TCastleTransform).Translation.Y));
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);

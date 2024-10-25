@@ -83,7 +83,10 @@ begin
 end;
 
 procedure TActorsLogic.Update(const SecondsPassed: Single);
+var
+  actor: IActor;
 begin
+  { Update Pleasure/Tension Statuses }
   Case FStatus of
   TActorStatus.Wait:
     begin
@@ -116,6 +119,10 @@ begin
       Tension:= Tension - ActionCoeff * SecondsPassed;
     end;
   end;
+
+  { Update Actors }
+  for actor in FActors do
+    actor.Update(SecondsPassed);
 end;
 
 procedure TActorsLogic.SetAction(num: Integer);

@@ -10,6 +10,7 @@ uses
 type
   IActor = interface
     procedure PauseAnimation;
+    procedure Update(const SecondsPassed: Single);
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     procedure StopAnimation(const DisableStopNotification: Boolean = false);

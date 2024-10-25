@@ -8,7 +8,8 @@ uses
   Classes, Generics.Collections,
   CastleVectors, CastleTransform, CastleScene, MyCastleUtils, CastleColors,
   CastleSceneCore,
-  CharaDress, ActorInterfaces;
+  CharaDress, ActorInterfaces,
+  CastleParticleEmitter;
 
 type
   TActorChara = class(TInterfacedObject, IActor)
@@ -24,6 +25,7 @@ type
   public
     constructor Create(actorRoot: TCastleTransformDesign; name: String);
     destructor Destroy; override;
+    procedure Update(const SecondsPassed: Single);
     procedure SaveCondition;
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
@@ -40,6 +42,8 @@ type
     FActorRoot: TCastleTransformDesign;
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
+    FControlJizz: TCastleTransform;
+    FEffectJizz: TCastleParticleEmitter;
     FActorName: String;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
@@ -57,6 +61,8 @@ var
 begin
   FActorRoot:= actorRoot as TCastleTransformDesign;
   FActorName:= name;
+  FControlJizz:= FActorRoot.DesignedComponent('Control_Jizz') as TCastleTransform;
+  FEffectJizz:= FActorRoot.DesignedComponent('EffectJizz') as TCastleParticleEmitter;
 
   charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
@@ -77,6 +83,11 @@ begin
   if Assigned(FDresser) then
     FreeAndNil(FDresser);
   inherited;
+end;
+
+procedure TActorChara.Update(const SecondsPassed: Single);
+begin
+  FEffectJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
 end;
 
 procedure TActorChara.SaveCondition;
@@ -228,10 +239,11 @@ function TActorChara.GetActorsList(): TCastleScenes;
 var
   actors: TCastleScenes;
 begin
-  SetLength(actors, 3);
+  SetLength(actors, 4);
   actors[0]:= GetMainBody();
   actors[1]:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
   actors[2]:= FActorRoot.DesignedComponent('SceneHair') as TCastleScene;
+  actors[3]:= FActorRoot.DesignedComponent('Controller') as TCastleScene;
 
   Result:= actors;
 end;

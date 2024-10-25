@@ -14,6 +14,7 @@ type
   TActorToyA = class(TInterfacedObject, IActor)
   public
     constructor Create(actorRoot: TCastleTransformDesign);
+    procedure Update(const SecondsPassed: Single);
     procedure PauseAnimation;
     procedure PlayAnimation(const animationName: String; loop: boolean = true);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
@@ -34,6 +35,11 @@ uses
 constructor TActorToyA.Create(actorRoot: TCastleTransformDesign);
 begin
   FActorRoot:= actorRoot;
+end;
+
+procedure TActorToyA.Update(const SecondsPassed: Single);
+begin
+
 end;
 
 procedure TActorToyA.PauseAnimation;
