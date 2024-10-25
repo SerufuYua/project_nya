@@ -61,8 +61,10 @@ var
 begin
   FActorRoot:= actorRoot as TCastleTransformDesign;
   FActorName:= name;
-  FControlJizz:= FActorRoot.DesignedComponent('Control_Jizz') as TCastleTransform;
-  FEffectJizz:= FActorRoot.DesignedComponent('EffectJizz') as TCastleParticleEmitter;
+  FControlJizz:= FActorRoot.DesignedComponent('Control_Jizz', False)
+                 as TCastleTransform;
+  FEffectJizz:= FActorRoot.DesignedComponent('EffectJizz', False)
+                as TCastleParticleEmitter;
 
   charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
@@ -87,7 +89,8 @@ end;
 
 procedure TActorChara.Update(const SecondsPassed: Single);
 begin
-  FEffectJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
+  if (Assigned(FControlJizz) AND Assigned(FEffectJizz)) then
+    FEffectJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
 end;
 
 procedure TActorChara.SaveCondition;
