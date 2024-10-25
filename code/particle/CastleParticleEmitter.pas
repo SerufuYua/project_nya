@@ -2185,7 +2185,6 @@ var
   ShapeList: TShapeList;
   Shape: TShape;
   ShapeNode: TShapeNode;
-  IndexedTriangleSetNode: TIndexedTriangleSetNode;
   CoordNode: TCoordinateNode;
   VertexList: TVector3List;
   TextureData: packed array of TVector3;
@@ -2205,7 +2204,6 @@ begin
       Shape := ShapeList.Items[0];
       ShapeNode := Shape.Node as TShapeNode;
       //
-      IndexedTriangleSetNode := ShapeNode.FindNode(TIndexedTriangleSetNode, False) as TIndexedTriangleSetNode;
       CoordNode := ShapeNode.FindNode(TCoordinateNode, False) as TCoordinateNode;
       VertexList := CoordNode.FdPoint.Items;
       //
@@ -2401,7 +2399,7 @@ end;
 
 function TCastleParticleEmitter.LocalBoundingBox: TBox3D;
 begin
-  if GetExists and (Self.FEffect <> nil) then
+  if Exists and (Self.FEffect <> nil) then
   begin
     if not Self.FEffect.BBox.IsEmpty then
       Result := Box3D(
