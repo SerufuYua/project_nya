@@ -242,7 +242,7 @@ end;
 
 function TActorChara.GetMainBody(): TCastleScene;
 begin
-  Result:= FActorRoot.DesignedComponent('Body') as TCastleScene;
+  Result:= FActorRoot.DesignedComponent('Body', False) as TCastleScene;
 end;
 
 function TActorChara.GetActorsList(): TCastleScenes;
@@ -251,9 +251,9 @@ var
 begin
   SetLength(actors, 4);
   actors[0]:= GetMainBody();
-  actors[1]:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
-  actors[2]:= FActorRoot.DesignedComponent('SceneHair') as TCastleScene;
-  actors[3]:= FActorRoot.DesignedComponent('Controller') as TCastleScene;
+  actors[1]:= FActorRoot.DesignedComponent('SceneHead', False) as TCastleScene;
+  actors[2]:= FActorRoot.DesignedComponent('SceneHair', False) as TCastleScene;
+  actors[3]:= FActorRoot.DesignedComponent('Controller', False) as TCastleScene;
 
   Result:= actors;
 end;
