@@ -5658,7 +5658,10 @@
 					"texCoord":3
 				},
 				"metallicFactor":0,
-				"roughnessFactor":0.800000011920929
+				"metallicRoughnessTexture":{
+					"index":3,
+					"texCoord":3
+				}
 			}
 		},
 		{
@@ -5678,7 +5681,7 @@
 			"name":"breeches.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":3
+					"index":4
 				},
 				"metallicFactor":0
 			}
@@ -5702,7 +5705,7 @@
 			"name":"briefs.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":4,
+					"index":5,
 					"texCoord":3
 				},
 				"metallicFactor":0
@@ -5713,7 +5716,7 @@
 			"name":"swimsuit.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":5
+					"index":6
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.75
@@ -5736,7 +5739,7 @@
 			"name":"boots.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":6,
+					"index":7,
 					"texCoord":2
 				},
 				"metallicFactor":0
@@ -5759,7 +5762,7 @@
 			"name":"summer_shirt.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":7
+					"index":8
 				},
 				"metallicFactor":0
 			}
@@ -5769,7 +5772,7 @@
 			"name":"weskit.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":8
+					"index":9
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.44999998807907104
@@ -5780,7 +5783,7 @@
 			"name":"weskit_metal.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":9
+					"index":10
 				},
 				"roughnessFactor":0.5
 			}
@@ -5790,7 +5793,7 @@
 			"name":"sneakers.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":10
+					"index":11
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -6046,11 +6049,15 @@
 		},
 		{
 			"sampler":0,
-			"source":8
+			"source":9
 		},
 		{
 			"sampler":0,
 			"source":9
+		},
+		{
+			"sampler":0,
+			"source":10
 		}
 	],
 	"images":[
@@ -6068,6 +6075,11 @@
 			"mimeType":"image/png",
 			"name":"body_girl",
 			"uri":"body_girl.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"body_girl_r",
+			"uri":"body_girl_r.png"
 		},
 		{
 			"mimeType":"image/png",
