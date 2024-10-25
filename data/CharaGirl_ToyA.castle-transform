@@ -8,7 +8,8 @@
       "ExposeTransforms" : [
         "Head",
         "ForeArmTwist2.L",
-        "ForeArmTwist2.R"
+        "ForeArmTwist2.R",
+        "Vagina_In.F"
       ],
       "Name" : "Body",
       "PreciseCollisions" : true,
@@ -23,21 +24,22 @@
           "Name" : "Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.0605492591857910E+000,
+            "W" : 1.0706607103347778E+000,
             "X" : 1.0000000000000000E+000,
-            "Y" : -3.5538532117129762E-009,
-            "Z" : -2.6527264829212527E-009
+            "Y" : 6.9088586315046996E-005,
+            "Z" : 2.1437914983835071E-004
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.4999998807907104E-001,
-            "Y" : 9.4999980926513672E-001,
-            "Z" : 9.4999945163726807E-001
+            "X" : 9.4999974966049194E-001,
+            "Y" : 9.5000046491622925E-001,
+            "Z" : 9.4999969005584717E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 3.2732086181640625E+001,
-            "Z" : -2.6210498809814453E+000
+            "X" : -4.7254264354705811E-003,
+            "Y" : 3.3220741271972656E+001,
+            "Z" : -2.5766718387603760E+000
           },
           "$Children" : [
             {
@@ -77,22 +79,21 @@
           "Name" : "ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.0409007072448730E+000,
-            "X" : 6.6687875986099243E-001,
-            "Y" : 7.1796223521232605E-002,
-            "Z" : 7.4169927835464478E-001
+            "W" : 2.9470102787017822E+000,
+            "X" : 6.2573307752609253E-001,
+            "Y" : 8.0321654677391052E-002,
+            "Z" : 7.7589064836502075E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999952316284180E-001,
-            "Y" : 9.9999952316284180E-001,
-            "Z" : 9.9999970197677612E-001
+            "X" : 1.0000003576278687E+000,
+            "Y" : 1.0000001192092896E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -1.1114236831665039E+001,
-            "Y" : 2.0988391876220703E+001,
-            "Z" : -6.8734240531921387E+000
+            "X" : -1.0827476501464844E+001,
+            "Y" : 2.0837532043457031E+001,
+            "Z" : -7.3431434631347656E+000
           },
           "$Children" : [
             {
@@ -123,22 +124,22 @@
           "Name" : "ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.2422840595245361E+000,
-            "X" : -6.6687858104705811E-001,
-            "Y" : 7.1796432137489319E-002,
-            "Z" : 7.4169945716857910E-001
+            "W" : 3.3371553421020508E+000,
+            "X" : -6.2560361623764038E-001,
+            "Y" : 7.9880103468894958E-002,
+            "Z" : 7.7604079246520996E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0000001192092896E+000,
-            "Y" : 9.9999934434890747E-001,
-            "Z" : 1.0000001192092896E+000
+            "X" : 1.0000003576278687E+000,
+            "Y" : 9.9999970197677612E-001,
+            "Z" : 1.0000002384185791E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.1114231109619141E+001,
-            "Y" : 2.0988376617431641E+001,
-            "Z" : -6.8734278678894043E+000
+            "X" : 1.0822010040283203E+001,
+            "Y" : 2.0837303161621094E+001,
+            "Z" : -7.3431863784790039E+000
           },
           "$Children" : [
             {
@@ -163,6 +164,97 @@
               "Url" : "castle-data:/accessories/shackle/shackle.gltf"
             }
           ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Vagina_In_F",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 2.6121985912322998E+000,
+            "X" : 9.9999916553497314E-001,
+            "Y" : -1.2649556156247854E-003,
+            "Z" : 3.4158787457272410E-004
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : 9.9999946355819702E-001,
+            "Z" : 1.0000165700912476E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -3.1825571786612272E-003,
+            "Y" : 1.6713863372802734E+001,
+            "Z" : -6.2312183380126953E+000
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleParticleEmitter",
+              "Effect" : "ParticleEffectJizz",
+              "Exists" : false,
+              "Name" : "EffectJizz",
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 2.6179939508438110E-001,
+                "X" : -1.0000000000000000E+000
+              },
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleParticleEffect",
+                  "Anchors" : [
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 2.4705882370471954E-001,
+                        "Green" : 2.4705882370471954E-001,
+                        "Red" : 2.4705882370471954E-001
+                      },
+                      "ColorVariancePersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 8.6274512112140656E-002
+                      },
+                      "Size" : 5.0000000000000000E-001,
+                      "TimeNormalized" : 3.4999999403953552E-001
+                    },
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 0.0000000000000000E+000,
+                        "Green" : 0.0000000000000000E+000,
+                        "Red" : 0.0000000000000000E+000
+                      },
+                      "ColorVariancePersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 6.6666670143604279E-002
+                      },
+                      "Size" : 1.0000000149011612E-001
+                    }
+                  ],
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 3.3333334326744080E-001,
+                    "Green" : 3.3333334326744080E-001,
+                    "Red" : 3.3333334326744080E-001
+                  },
+                  "ColorVariancePersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 6.6666670143604279E-002
+                  },
+                  "DirectionVariance" : 2.0000000298023224E-001,
+                  "LifeSpan" : 5.0000000000000000E-001,
+                  "LifeSpanVariance" : 1.5000000596046448E-001,
+                  "MaxParticles" : 300,
+                  "Name" : "ParticleEffectJizz",
+                  "Size" : 1.0000000149011612E-001,
+                  "SourceType" : "pstCylinderSurface",
+                  "Speed" : 2.0000000000000000E+001,
+                  "SpeedVariance" : 5.0000000000000000E+000,
+                  "Texture" : "castle-data:/effects/drip.png"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -183,6 +275,34 @@
         "X" : 1.2000000000000000E+001,
         "Y" : 6.0000000000000000E+001
       }
+    },
+    {
+      "$$ClassName" : "TCastleScene",
+      "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
+      "ExposeTransforms" : [
+        "Control_Jizz"
+      ],
+      "Name" : "Controller",
+      "ProcessEvents" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/chars/controller_girl/controller_ToyA.gltf",
+      "Visible" : false,
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Jizz",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 3.0000000000000000E+001
+          }
+        }
+      ]
     }
   ]
 }
