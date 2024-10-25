@@ -199,38 +199,45 @@ end;
 procedure TActorChara.PlayAnimation(const animationName: String;
                                        loop: boolean);
 var
-  bodies: TCastleScenes;
-  body: TCastleScene;
+  actors: TCastleScenes;
+  actor: TCastleScene;
 begin
   ActionFaceDefault;
-  bodies:= GetActorsList();
-  for body in bodies do
-    if Assigned(body) then
-      body.PlayAnimation(animationName, loop);
+  actors:= GetActorsList();
+  for actor in actors do
+    if Assigned(actor) then
+      actor.PlayAnimation(animationName, loop);
 end;
 
 procedure TActorChara.PlayAnimation(const Parameters: TPlayAnimationParameters);
 var
-  bodies: TCastleScenes;
-  body: TCastleScene;
+  actors: TCastleScenes;
+  actor: TCastleScene;
+  noEventParam: TPlayAnimationParameters;
 begin
   ActionFaceDefault;
-  bodies:= GetActorsList();
-  for body in bodies do
-    if Assigned(body) then
-      body.PlayAnimation(Parameters);
+  actors:= GetActorsList();
+  for actor in actors do
+    if Assigned(actor) then
+      if (actor = GetMainBody()) then
+        actor.PlayAnimation(Parameters)
+      else begin
+        noEventParam:= Parameters;
+        Parameters.StopNotification:= nil;
+        actor.PlayAnimation(noEventParam)
+      end;
 end;
 
 procedure TActorChara.StopAnimation(const DisableStopNotification: Boolean);
 var
-  bodies: TCastleScenes;
-  body: TCastleScene;
+  actors: TCastleScenes;
+  actor: TCastleScene;
 begin
   ActionFaceDefault;
-  bodies:= GetActorsList();
-  for body in bodies do
-    if Assigned(body) then
-      body.StopAnimation(DisableStopNotification);
+  actors:= GetActorsList();
+  for actor in actors do
+    if Assigned(actor) then
+      actor.StopAnimation(DisableStopNotification);
 end;
 
 function TActorChara.GetMainBody(): TCastleScene;
