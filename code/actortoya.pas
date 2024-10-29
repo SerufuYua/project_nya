@@ -20,6 +20,7 @@ type
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     procedure StopAnimation(const DisableStopNotification: Boolean = false);
     procedure SetSpeed(value: Single);
+    procedure SetDripping(value: Single);
     function GetDresser(): TCharaDresser;
     procedure UseRailing(enable: Boolean);
   protected
@@ -95,6 +96,11 @@ end;
 procedure TActorToyA.SetSpeed(value: Single);
 begin
   GetCurrentTool().TimePlayingSpeed:= value;
+end;
+
+procedure TActorToyA.SetDripping(value: Single);
+begin
+
 end;
 
 end.

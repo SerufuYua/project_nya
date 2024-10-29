@@ -32,6 +32,7 @@ type
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     procedure StopAnimation(const DisableStopNotification: Boolean = false);
     procedure SetSpeed(value: Single);
+    procedure SetDripping(value: Single);
     function GetDresser(): TCharaDresser;
     property Translation: TVector3 read GetTrans write SetTrans;
     property Rotation: TVector4 read GetRot write SetRot;
@@ -44,6 +45,8 @@ type
     FDresseSaver: TDressSaver;
     FControlJizz: TCastleTransform;
     FEffectJizz: TCastleParticleEmitter;
+    EffectDrip: TCastleParticleEmitter;
+    ParticleEffectDrip: TCastleParticleEffect;
     FActorName: String;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
@@ -61,10 +64,16 @@ var
 begin
   FActorRoot:= actorRoot as TCastleTransformDesign;
   FActorName:= name;
+
+  { juices setting }
   FControlJizz:= FActorRoot.DesignedComponent('Control_Jizz', False)
                  as TCastleTransform;
   FEffectJizz:= FActorRoot.DesignedComponent('EffectJizz', False)
                 as TCastleParticleEmitter;
+  EffectDrip:= FActorRoot.DesignedComponent('EffectDrip', False)
+               as TCastleParticleEmitter;
+  ParticleEffectDrip:= FActorRoot.DesignedComponent('ParticleEffectDrip', False)
+                       as TCastleParticleEffect;
 
   charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
@@ -177,6 +186,15 @@ begin
   for body in bodies do
     if Assigned(body) then
       body.TimePlayingSpeed:= value;
+end;
+
+procedure TActorChara.SetDripping(value: Single);
+begin
+  if (Assigned(ParticleEffectDrip) AND Assigned(EffectDrip)) then
+  begin
+    EffectDrip.Exists:= (value > 0.05);
+    ParticleEffectDrip.MaxParticles:= round(10.0 * value);
+  end;
 end;
 
 function TActorChara.GetColor: TCastleColorRGB;

@@ -122,7 +122,10 @@ begin
 
   { Update Actors }
   for actor in FActors do
+  begin
     actor.Update(SecondsPassed);
+    actor.SetDripping(Pleasure);
+  end;
 end;
 
 procedure TActorsLogic.SetAction(num: Integer);

@@ -15,6 +15,7 @@ type
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
     procedure StopAnimation(const DisableStopNotification: Boolean = false);
     procedure SetSpeed(value: Single);
+    procedure SetDripping(value: Single);
     function GetDresser(): TCharaDresser;
     property Pos: TVector3;
     property Rot: TVector4;
