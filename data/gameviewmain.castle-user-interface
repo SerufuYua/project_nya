@@ -120,8 +120,13 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 3.4906584024429321E-001,
+                  "W" : -2.0943951606750488E+000,
                   "Y" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -2.8000000000000000E+001,
+                  "Z" : -1.0000000000000000E+001
                 },
                 "Url" : "castle-data:/toys/railing/railing.gltf"
               }
