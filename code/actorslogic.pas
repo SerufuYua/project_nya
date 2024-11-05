@@ -66,6 +66,7 @@ const
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
   ActionCoeff = 0.01;
+  WithoutPants = 'condom';
 
 constructor TActorsLogic.Create(actorA, actorB: IActor;
                                 animationPrefix: String;
@@ -185,7 +186,7 @@ begin
     begin
       dresser:= actor.GetDresser();
       if Assigned(dresser) then
-        dresser.WearSuit(TSuits.Bottom, 'none');
+        dresser.WearSuit(TSuits.Bottom, WithoutPants);
     end;
     actor.PlayAnimation(animationName, loop)
   end;
@@ -203,7 +204,7 @@ begin
     begin
       dresser:= actor.GetDresser();
       if Assigned(dresser) then
-        dresser.WearSuit(TSuits.Bottom, 'none');
+        dresser.WearSuit(TSuits.Bottom, WithoutPants);
     end;
     actor.PlayAnimation(Parameters)
   end;
