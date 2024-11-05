@@ -1,0 +1,231 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "Name" : "CharaBoy",
+  "ScalePersistent" : {
+    "$$ClassName" : "TCastleVector3Persistent",
+    "X" : 8.9999997615814209E-001,
+    "Y" : 8.9999997615814209E-001,
+    "Z" : 8.9999997615814209E-001
+  },
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleScene",
+      "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
+      "ExposeTransforms" : [
+        "Head",
+        "Penis.004"
+      ],
+      "Name" : "Body",
+      "PreciseCollisions" : true,
+      "ProcessEvents" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/chars/body_boy/body_togetherPlay.gltf",
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Head",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 3.9845979213714600E+000,
+            "X" : 6.8324649333953857E-001,
+            "Y" : 6.2031251192092896E-001,
+            "Z" : -3.8521000742912292E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 1.0999997854232788E+000,
+            "Y" : 1.1000006198883057E+000,
+            "Z" : 1.0999995470046997E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 5.3785624504089355E+000,
+            "Y" : 6.4210672378540039E+000,
+            "Z" : -1.4032331466674805E+001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "SceneHead",
+              "ProcessEvents" : true,
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "Z" : 1.0000000000000000E+000
+              },
+              "Url" : "castle-data:/chars/head_boy/head_togetherPlay.gltf"
+            },
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "SceneHair",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "Z" : 1.0000000000000000E+000
+              },
+              "Url" : "castle-data:/chars/hair_boy/hair.gltf"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Penis_004",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 2.0427937507629395E+000,
+            "X" : -7.0300763845443726E-001,
+            "Y" : 4.5610502362251282E-001,
+            "Z" : -5.4566311836242676E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 9.9999934434890747E-001,
+            "Y" : 9.9999964237213135E-001,
+            "Z" : 9.9999952316284180E-001
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -1.7762908935546875E+000,
+            "Y" : 5.5127620697021484E+000,
+            "Z" : 7.8232222795486450E-001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleParticleEmitter",
+              "Burst" : true,
+              "Effect" : "ParticleEffectJizz",
+              "Exists" : false,
+              "Name" : "EffectJizz",
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 1.3999999761581421E+000
+              },
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleParticleEffect",
+                  "Anchors" : [
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 0.0000000000000000E+000,
+                        "Green" : 0.0000000000000000E+000,
+                        "Red" : 0.0000000000000000E+000
+                      },
+                      "Size" : 1.0000000149011612E-001
+                    },
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem"
+                    }
+                  ],
+                  "DirectionVariance" : 2.0000000298023224E-001,
+                  "LifeSpan" : 5.0000000000000000E-001,
+                  "LifeSpanVariance" : 1.5000000596046448E-001,
+                  "MaxParticles" : 300,
+                  "Name" : "ParticleEffectJizz",
+                  "Size" : 2.0000000298023224E-001,
+                  "SourceType" : "pstCylinderSurface",
+                  "Speed" : 2.0000000000000000E+001,
+                  "SpeedVariance" : 5.0000000000000000E+000,
+                  "Texture" : "castle-data:/effects/drip.png"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleParticleEmitter",
+              "Effect" : "ParticleEffectDrip",
+              "Exists" : false,
+              "Name" : "EffectDrip",
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 1.6000000238418579E+000
+              },
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleParticleEffect",
+                  "Anchors" : [
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 2.4705882370471954E-001,
+                        "Green" : 2.4705882370471954E-001,
+                        "Red" : 2.4705882370471954E-001
+                      },
+                      "Size" : 5.0000000000000000E-001,
+                      "TimeNormalized" : 5.0000000000000000E-001
+                    },
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 0.0000000000000000E+000,
+                        "Green" : 0.0000000000000000E+000,
+                        "Red" : 0.0000000000000000E+000
+                      },
+                      "Size" : 1.0000000149011612E-001
+                    }
+                  ],
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 2.2745098173618317E-001,
+                    "Green" : 2.2745098173618317E-001,
+                    "Red" : 2.2745098173618317E-001
+                  },
+                  "DirectionVariance" : 2.5000000000000000E+001,
+                  "GravityPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : -4.0000000000000000E+001
+                  },
+                  "LifeSpan" : 5.0000000000000000E-001,
+                  "LifeSpanVariance" : 1.5000000596046448E-001,
+                  "MaxParticles" : 3,
+                  "Name" : "ParticleEffectDrip",
+                  "Size" : 3.0000001192092896E-001,
+                  "SourcePositionVariancePersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "X" : 4.0000000596046448E-001,
+                    "Z" : 4.0000000596046448E-001
+                  },
+                  "SourceType" : "pstSpheroidSurface",
+                  "Speed" : 2.0000000000000000E+000,
+                  "SpeedVariance" : 5.0000000000000000E-001,
+                  "Texture" : "castle-data:/effects/drop2.png"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$$ClassName" : "TCastleImageTransform",
+      "AlphaChannel" : "acNone",
+      "CastShadows" : false,
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Blue" : 3.1372550129890442E-001,
+        "Green" : 7.9607844352722168E-001,
+        "Red" : 0.0000000000000000E+000
+      },
+      "Exists" : false,
+      "Name" : "PersonalColor",
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent",
+        "X" : 1.2000000000000000E+001,
+        "Y" : 6.0000000000000000E+001
+      }
+    }
+  ]
+}
