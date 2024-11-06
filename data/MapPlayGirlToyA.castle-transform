@@ -1,0 +1,115 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "Name" : "SceneMain",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleBackground",
+      "Name" : "Sky",
+      "TextureNegativeX" : "castle-data:/environment/star_sky/star_sky_0001.png",
+      "TextureNegativeY" : "castle-data:/environment/star_sky/star_sky_0006.png",
+      "TextureNegativeZ" : "castle-data:/environment/star_sky/star_sky_0002.png",
+      "TexturePositiveX" : "castle-data:/environment/star_sky/star_sky_0003.png",
+      "TexturePositiveY" : "castle-data:/environment/star_sky/star_sky_0005.png",
+      "TexturePositiveZ" : "castle-data:/environment/star_sky/star_sky_0004.png"
+    },
+    {
+      "$$ClassName" : "TCastleFog",
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorRGBPersistent",
+        "Blue" : 0.0000000000000000E+000,
+        "Green" : 0.0000000000000000E+000,
+        "Red" : 0.0000000000000000E+000
+      },
+      "Name" : "Fog",
+      "VisibilityRange" : 4.0000000000000000E+002
+    }
+  ],
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleScene",
+      "CastGlobalLights" : true,
+      "ExposeTransforms" : [
+      ],
+      "Name" : "Room",
+      "PreciseCollisions" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_toys.x3dv"
+    },
+    {
+      "$$ClassName" : "TCastleTransform",
+      "Name" : "SceneActors",
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent",
+        "X" : -3.8000000000000000E+001,
+        "Z" : -4.5000000000000000E+001
+      },
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleScene",
+          "ExposeTransforms" : [
+          ],
+          "Name" : "Mat",
+          "RenderOptions" : {
+            "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+          },
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          },
+          "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf"
+        },
+        {
+          "$$ClassName" : "TCastleTransformDesign",
+          "Name" : "CharaGirl",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          },
+          "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
+        },
+        {
+          "$$ClassName" : "TCastleTransformDesign",
+          "Name" : "Toys",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          },
+          "Url" : "castle-data:/ToysForGirl.castle-transform"
+        }
+      ]
+    },
+    {
+      "$$ClassName" : "TCastleCamera",
+      "Name" : "CameraMain",
+      "Orthographic" : {
+        "$$ClassName" : "TCastleOrthographic"
+      },
+      "Perspective" : {
+        "$$ClassName" : "TCastlePerspective"
+      },
+      "RotationPersistent" : {
+        "$$ClassName" : "TCastleVector4RotationPersistent",
+        "W" : 5.4889017343521118E-001,
+        "X" : 6.7963905632495880E-002,
+        "Y" : 9.9750715494155884E-001,
+        "Z" : -1.9087478518486023E-002
+      },
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent",
+        "X" : -8.9266662597656250E+000,
+        "Y" : 1.5547952651977539E+001,
+        "Z" : 6.0668153762817383E+000
+      },
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleSpotLight",
+          "Intensity" : 1.0000000000000000E+003,
+          "Name" : "SpotLight",
+          "Radius" : 5.0000000000000000E+002
+        }
+      ]
+    }
+  ]
+}
