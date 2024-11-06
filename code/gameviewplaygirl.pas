@@ -3,7 +3,7 @@ unit GameViewPlayGirl;
 interface
 
 uses Classes,
-  CastleUIControls, CastleControls, CastleKeysMouse,
+  CastleUIControls, CastleControls, CastleKeysMouse, CastleColors,
   CastleTransform, CastleNotifications,
   ActorChara, ActorToyA, ActorsLogic, FadeInOut,
   CastleParticleEmitter;
@@ -38,6 +38,7 @@ type
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
+    procedure SetUIColor(newColor: TCastleColorRGB);
     procedure ScreenShot;
     procedure DoStart(Sender: TObject);
   end;
@@ -64,7 +65,6 @@ var
   viewportMain: TCastleViewport;
   skyMain: TCastleBackground;
   fogMain: TCastleFog;
-  controlActions: TCastleRectangleControl;
 begin
   inherited;
   {
@@ -73,8 +73,8 @@ begin
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;     }
+  BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;   }
+  FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { set fade animator }
   FScreenFader:= TImageFader.Create(ImageScreen, Container);
@@ -119,8 +119,7 @@ begin
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
 
   { set color }
-  controlActions:= DesignedComponent('RectangleControlActions') as TCastleRectangleControl;
-  controlActions.Color:= Vector4(FActorsLogic.CharasColor, 0.5);
+  SetUIColor(FActorsLogic.CharasColor);
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -202,6 +201,24 @@ begin
   if NOT Assigned(slider) then Exit;
 
   FActorsLogic.SetSpeed(slider.Value);
+end;
+
+procedure TViewPlayGirl.SetUIColor(newColor: TCastleColorRGB);
+var
+  rectanpleUI: TCastleRectangleControl;
+  alpha: Single;
+begin
+  rectanpleUI:= DesignedComponent('RectangleControlActions') as TCastleRectangleControl;
+  alpha:= rectanpleUI.Color.W;
+  rectanpleUI.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+
+  rectanpleUI:= DesignedComponent('RectangleControlNavigation') as TCastleRectangleControl;
+  alpha:= rectanpleUI.Color.W;
+  rectanpleUI.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+
+  rectanpleUI:= DesignedComponent('RectangleControlDressing') as TCastleRectangleControl;
+  alpha:= rectanpleUI.Color.W;
+  rectanpleUI.Color:= Vector4(FActorsLogic.CharasColor, alpha);
 end;
 
 procedure TViewPlayGirl.ScreenShot;
