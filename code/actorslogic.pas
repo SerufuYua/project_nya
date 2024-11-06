@@ -5,7 +5,8 @@ unit ActorsLogic;
 interface
 
 uses
-  Classes, SysUtils, ActorInterfaces, CastleSceneCore, X3DNodes, FadeInOut;
+  Classes, SysUtils, ActorInterfaces, CastleSceneCore, CastleColors,
+  X3DNodes, FadeInOut;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
@@ -39,6 +40,7 @@ type
                                const Animation: TTimeSensorNode);
     procedure SetPleasure(value: Single);
     procedure SetTension(value: Single);
+    function GetColor: TCastleColorRGB;
   public
     constructor Create(actorA, actorB: IActor;
                        animationPrefix: String;
@@ -51,12 +53,13 @@ type
     procedure NextPart;
     property Pleasure: Single read FPleasure write SetPleasure;
     property Tension: Single read FTension write SetTension;
+    property CharasColor: TCastleColorRGB read GetColor;
   end;
 
 implementation
 
 uses
-  CharaDress, CastleUtils;
+  CharaDress, CastleUtils, ActorChara, CastleVectors;
 
 const
   SuffixWait = '.IDLE';
@@ -297,6 +300,29 @@ end;
 procedure TActorsLogic.SetTension(value: Single);
 begin
   FTension:= Clamped(value, 0.0, 1.0);
+end;
+
+function TActorsLogic.GetColor: TCastleColorRGB;
+var
+  actor: IActor;
+  chara: TActorChara;
+  averColor: TCastleColorRGB;
+begin
+  averColor:= Vector3(0.5, 0.5, 0.5);
+
+  for actor in FActors do
+  begin
+    chara:= actor as TActorChara;
+    if Assigned(chara) then
+      averColor:= chara.PersonalColor;
+  end;
+
+{  if Assigned(imageColor) then
+    Result:= imageColor.Color.RGB
+  else
+    Result:=  Vector3(1.0, 1.0, 1.0);}
+
+  Result:=  averColor;
 end;
 
 end.

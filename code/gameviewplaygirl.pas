@@ -3,7 +3,7 @@ unit GameViewPlayGirl;
 interface
 
 uses Classes,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
+  CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform, CastleNotifications,
   ActorChara, ActorToyA, ActorsLogic, FadeInOut,
   CastleParticleEmitter;
@@ -12,7 +12,7 @@ type
   TViewPlayGirl = class(TCastleView)
   published
     LabelFps: TCastleLabel;
-    BtnDress: TCastleButton;
+    //BtnDress: TCastleButton;
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
@@ -48,38 +48,63 @@ var
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, CastleScene,
-  GameViewLoading, SysUtils;
+  GameViewMain, GameViewDressingMenu, CastleScene, CastleViewport,
+  GameViewLoading, SysUtils, CastleVectors;
 
 constructor TViewPlayGirl.Create(AOwner: TComponent);
 begin
   inherited;
-  DesignUrl:= 'castle-data:/gameviewplaygirl.castle-user-interface';
+  DesignUrl:= 'castle-data:/gameviewplay.castle-user-interface';
 end;
 
 procedure TViewPlayGirl.Start;
 var
-  girlScene, toysScene: TCastleTransformDesign;
+  girlScene, toysScene, mapScene: TCastleTransformDesign;
+  cameraMain: TCastleCamera;
+  viewportMain: TCastleViewport;
+  skyMain: TCastleBackground;
+  fogMain: TCastleFog;
+  controlActions: TCastleRectangleControl;
 begin
   inherited;
-
-  BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
+  {
+  //BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
+  FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;     }
 
   { set fade animator }
   FScreenFader:= TImageFader.Create(ImageScreen, Container);
 
+  { set map }
+  mapScene:= DesignedComponent('Map') as TCastleTransformDesign;
+  mapScene.Url:= 'castle-data:/MapPlayGirlToyA.castle-transform';
+
+  { set Camera }
+  viewportMain:= DesignedComponent('ViewportMain') as TCastleViewport;
+  cameraMain:= mapScene.DesignedComponent('CameraMain') as TCastleCamera;
+  viewportMain.Camera:= cameraMain;
+
+  { set Sky }
+  skyMain:= mapScene.DesignedComponent('Sky', False) as TCastleBackground;
+  if Assigned(skyMain) then
+    viewportMain.Background:= skyMain;
+
+  { set Fog }
+  fogMain:= mapScene.DesignedComponent('Fog', False) as TCastleFog;
+  if Assigned(fogMain) then
+    viewportMain.Fog:= fogMain;
+
+
   { Create Girl Character instance }
-  girlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
+  girlScene:= mapScene.DesignedComponent('CharaGirl') as TCastleTransformDesign;
   FActorGirl:= TActorChara.Create(girlScene, 'Girl');
 
   { Create Toys instance }
-  toysScene:= DesignedComponent('Toys') as TCastleTransformDesign;
+  toysScene:= mapScene.DesignedComponent('Toys') as TCastleTransformDesign;
   FActorToyA:= TActorToyA.Create(toysScene);
 
   { set character self emission }
@@ -92,19 +117,22 @@ begin
 
   { set initial action }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
+
+  { set color }
+  controlActions:= DesignedComponent('RectangleControlActions') as TCastleRectangleControl;
+  controlActions.Color:= Vector4(FActorsLogic.CharasColor, 0.5);
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
   { Executed every frame. }
+
+  { update FPS }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
-  { Release Dressing Menu Button }
-  if NOT (Container.FrontView = ViewDressingMenu) then
-    DressingControl.Exists:= True;
-
+  { update fader }
   FScreenFader.AnimateQuadFade(SecondsPassed);
 
   { upade gauges }
@@ -112,8 +140,11 @@ begin
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
 
-  { vew controls }
-  //Notifications.Show(FloatToStr(((DesignedComponent('CharaGirl') as TCastleTransformDesign).DesignedComponent('Control_Jizz') as TCastleTransform).Translation.Y));
+  {
+  { Release Dressing Menu Button }
+  if NOT (Container.FrontView = ViewDressingMenu) then
+    DressingControl.Exists:= True;
+  }
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
