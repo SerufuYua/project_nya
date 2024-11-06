@@ -181,15 +181,23 @@ procedure TActorsLogic.PlayAnimation(const animationName: String;
                                     loop, bottomDress: boolean);
 var
   actor: TBaseActor;
+  chara: TActorChara;
   dresser: TCharaDresser;
 begin
   for actor in FActors do
   begin
     if NOT bottomDress then
     begin
-//      dresser:= actor.GetDresser();
-      if Assigned(dresser) then
-        dresser.WearSuit(TSuits.Bottom, WithoutPants);
+      if (actor is TActorChara) then
+      begin
+        chara:= actor as TActorChara;
+        if Assigned(chara) then
+        begin
+          dresser:= chara.GetDresser();
+          if Assigned(dresser) then
+            dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        end;
+      end;
     end;
     actor.PlayAnimation(animationName, loop)
   end;
@@ -199,15 +207,23 @@ procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
                                      bottomDress: boolean);
 var
   actor: TBaseActor;
+  chara: TActorChara;
   dresser: TCharaDresser;
 begin
   for actor in FActors do
   begin
     if NOT bottomDress then
     begin
-//      dresser:= actor.GetDresser();
-      if Assigned(dresser) then
-        dresser.WearSuit(TSuits.Bottom, WithoutPants);
+      if (actor is TActorChara) then
+      begin
+        chara:= actor as TActorChara;
+        if Assigned(chara) then
+        begin
+          dresser:= chara.GetDresser();
+          if Assigned(dresser) then
+            dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        end;
+      end;
     end;
     actor.PlayAnimation(Parameters)
   end;
@@ -307,22 +323,28 @@ var
   actor: TBaseActor;
   chara: TActorChara;
   averColor: TCastleColorRGB;
+  count: Integer;
 begin
-  averColor:= Vector3(0.5, 0.5, 0.5);
+  averColor:= Vector3(0.0, 0.0, 0.0);
+  count:= 0;
 
   for actor in FActors do
   begin
-    chara:= actor as TActorChara;
-    if Assigned(chara) then
-      averColor:= chara.PersonalColor;
+    if (actor is TActorChara) then
+    begin
+      chara:= actor as TActorChara;
+      if Assigned(chara) then
+      begin
+        averColor:= chara.PersonalColor;
+        count:= count + 1;
+      end;
+    end;
   end;
 
-{  if Assigned(imageColor) then
-    Result:= imageColor.Color.RGB
-  else
-    Result:=  Vector3(1.0, 1.0, 1.0);}
+  if (count > 1) then
+    averColor:= averColor / count;
 
-  Result:=  averColor;
+  Result:= averColor;
 end;
 
 end.
