@@ -5,7 +5,8 @@ unit MyCastleUtils;
 interface
 
 uses
-  Classes, CastleScene, CastleShapes, CastleTransform, X3DNodes;
+  Classes, CastleScene, CastleShapes, CastleTransform,
+  X3DNodes;
 
 type
   TItemCondition = record
@@ -212,7 +213,7 @@ begin
   // get only scenes from all components
   for item in items do
   begin
-    if (CompareText(item.ClassName, TCastleScene.ClassName) = 0) then
+    if (item is TCastleScene) then
     begin
       SetLength(Result, Length(Result) + 1);
       Result[Length(Result) - 1]:= item as TCastleScene;
