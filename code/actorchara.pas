@@ -8,30 +8,26 @@ uses
   Classes, Generics.Collections,
   CastleVectors, CastleTransform, CastleScene, MyCastleUtils, CastleColors,
   CastleSceneCore,
-  CharaDress, ActorInterfaces,
+  CharaDress, BaseActor,
   CastleParticleEmitter;
 
 type
-  TActorChara = class(TInterfacedObject, IActor)
-  private
-    function GetTrans(): TVector3;
-    procedure SetTrans(coord: TVector3);
-    function GetRot(): TVector4;
-    procedure SetRot(coord: TVector4);
+  TActorChara = class(TBaseActor)
+  protected
     function GetLightning: Boolean;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
     function GetColor: TCastleColorRGB;
   public
-    constructor Create(actorRoot: TCastleTransformDesign; name: String);
+    constructor Create(actorRoot: TCastleTransformDesign; charaName: String); override;
     destructor Destroy; override;
-    procedure Update(const SecondsPassed: Single);
+    procedure Update(const SecondsPassed: Single); override;
     procedure SaveCondition;
-    procedure PauseAnimation;
-    procedure PlayAnimation(const animationName: String; loop: boolean = true);
-    procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
-    procedure StopAnimation(const DisableStopNotification: Boolean = false);
-    procedure SetSpeed(value: Single);
+    procedure PauseAnimation; override;
+    procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
+    procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
+    procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
+    procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
     function GetDresser(): TCharaDresser;
     property Translation: TVector3 read GetTrans write SetTrans;
@@ -40,14 +36,12 @@ type
     property SelfEmission: Single write SetSelfEmission;
     property PersonalColor: TCastleColorRGB read GetColor;
   protected
-    FActorRoot: TCastleTransformDesign;
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
     FControlJizz: TCastleTransform;
     FEffectJizz: TCastleParticleEmitter;
     EffectDrip: TCastleParticleEmitter;
     ParticleEffectDrip: TCastleParticleEffect;
-    FActorName: String;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     procedure ActionFaceDefault;
@@ -58,12 +52,11 @@ implementation
 uses
   SysUtils, CastleComponentSerialize, X3DTime, X3DNodes;
 
-constructor TActorChara.Create(actorRoot: TCastleTransformDesign; name: String);
+constructor TActorChara.Create(actorRoot: TCastleTransformDesign; charaName: String);
 var
   charaBody, charaHead: TCastleScene;
 begin
-  FActorRoot:= actorRoot as TCastleTransformDesign;
-  FActorName:= name;
+  inherited Create(actorRoot, charaName);
 
   { juices setting }
   FControlJizz:= FActorRoot.DesignedComponent('Control_Jizz', False)
@@ -124,26 +117,6 @@ var
 begin
   head:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
   head.PlayAnimation('Blink', true);
-end;
-
-function TActorChara.GetTrans(): TVector3;
-begin
-  Result:= FActorRoot.Translation;
-end;
-
-procedure TActorChara.SetTrans(coord: TVector3);
-begin
-  FActorRoot.Translation:= coord;
-end;
-
-function TActorChara.GetRot(): TVector4;
-begin
-  Result:= FActorRoot.Rotation;
-end;
-
-procedure TActorChara.SetRot(coord: TVector4);
-begin
-  FActorRoot.Rotation:= coord;
 end;
 
 function TActorChara.GetDresser(): TCharaDresser;

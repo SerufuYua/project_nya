@@ -104,8 +104,8 @@ begin
   FActorGirl:= TActorChara.Create(girlScene, 'Girl');
 
   { Create Toys instance }
-  toysScene:= mapScene.DesignedComponent('Toys') as TCastleTransformDesign;
-  FActorToyA:= TActorToyA.Create(toysScene);
+  toysScene:= mapScene.DesignedComponent('ToyA') as TCastleTransformDesign;
+  FActorToyA:= TActorToyA.Create(toysScene, 'ToyA');
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;

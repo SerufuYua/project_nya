@@ -7,24 +7,20 @@ interface
 uses
   Classes, Generics.Collections,
   CastleSceneCore,
-  CastleVectors, CastleTransform, CastleScene, ActorInterfaces, CharaDress,
+  CastleVectors, CastleTransform, CastleScene, BaseActor, CharaDress,
   StrUtils;
 
 type
-  TActorToyA = class(TInterfacedObject, IActor)
+  TActorToyA = class(TBaseActor)
   public
-    constructor Create(actorRoot: TCastleTransformDesign);
-    procedure Update(const SecondsPassed: Single);
-    procedure PauseAnimation;
-    procedure PlayAnimation(const animationName: String; loop: boolean = true);
-    procedure PlayAnimation(const Parameters: TPlayAnimationParameters);
-    procedure StopAnimation(const DisableStopNotification: Boolean = false);
-    procedure SetSpeed(value: Single);
-    procedure SetDripping(value: Single);
-    function GetDresser(): TCharaDresser;
+    procedure Update(const SecondsPassed: Single); override;
+    procedure PauseAnimation; override;
+    procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
+    procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
+    procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
+    procedure SetSpeed(value: Single); override;
     procedure UseRailing(enable: Boolean);
   protected
-    FActorRoot: TCastleTransformDesign;
     function GetCurrentTool(): TCastleScene;
   end;
 
@@ -32,11 +28,6 @@ implementation
 
 uses
   CastleComponentSerialize;
-
-constructor TActorToyA.Create(actorRoot: TCastleTransformDesign);
-begin
-  FActorRoot:= actorRoot;
-end;
 
 procedure TActorToyA.Update(const SecondsPassed: Single);
 begin
@@ -66,12 +57,6 @@ begin
   GetCurrentTool().StopAnimation(DisableStopNotification);
 end;
 
-
-function TActorToyA.GetDresser(): TCharaDresser;
-begin
-  Result:= nil;
-end;
-
 function TActorToyA.GetCurrentTool(): TCastleScene;
 begin
   Result:= FActorRoot.DesignedComponent('ToyA') as TCastleScene;
@@ -96,11 +81,6 @@ end;
 procedure TActorToyA.SetSpeed(value: Single);
 begin
   GetCurrentTool().TimePlayingSpeed:= value;
-end;
-
-procedure TActorToyA.SetDripping(value: Single);
-begin
-
 end;
 
 end.

@@ -5,13 +5,13 @@ unit ActorsLogic;
 interface
 
 uses
-  Classes, SysUtils, ActorInterfaces, CastleSceneCore, CastleColors,
+  Classes, SysUtils, BaseActor, CastleSceneCore, CastleColors,
   X3DNodes, FadeInOut;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
 
-  TActorsList = Array[0..1] of IActor;
+  TActorsList = Array[0..1] of TBaseActor;
 
   TActorsLogic = class
   protected
@@ -42,7 +42,7 @@ type
     procedure SetTension(value: Single);
     function GetColor: TCastleColorRGB;
   public
-    constructor Create(actorA, actorB: IActor;
+    constructor Create(actorA, actorB: TBaseActor;
                        animationPrefix: String;
                        screenFader: TImageFader);
     procedure Update(const SecondsPassed: Single);
@@ -71,7 +71,7 @@ const
   ActionCoeff = 0.01;
   WithoutPants = 'condom';
 
-constructor TActorsLogic.Create(actorA, actorB: IActor;
+constructor TActorsLogic.Create(actorA, actorB: TBaseActor;
                                 animationPrefix: String;
                                 screenFader: TImageFader);
 begin
@@ -88,7 +88,7 @@ end;
 
 procedure TActorsLogic.Update(const SecondsPassed: Single);
 var
-  actor: IActor;
+  actor: TBaseActor;
 begin
   { Update Pleasure/Tension Statuses }
   Case FStatus of
@@ -128,7 +128,7 @@ begin
   for actor in FActors do
   begin
     actor.Update(SecondsPassed);
-    actor.SetDripping(Pleasure);
+//    actor.SetDripping(Pleasure);
   end;
 end;
 
@@ -141,7 +141,7 @@ end;
 
 procedure TActorsLogic.SetSpeed(value: Single);
 var
-  actor: IActor;
+  actor: TBaseActor;
 begin
   FSpeed:= value;
   for actor in FActors do
@@ -150,7 +150,7 @@ end;
 
 procedure TActorsLogic.Pause;
 var
-  actor: IActor;
+  actor: TBaseActor;
 begin
   for actor in FActors do
     actor.PauseAnimation;
@@ -158,7 +158,7 @@ end;
 
 procedure TActorsLogic.Stop;
 var
-  actor: IActor;
+  actor: TBaseActor;
 begin
   for actor in FActors do
     actor.StopAnimation(True);
@@ -180,14 +180,14 @@ end;
 procedure TActorsLogic.PlayAnimation(const animationName: String;
                                     loop, bottomDress: boolean);
 var
-  actor: IActor;
+  actor: TBaseActor;
   dresser: TCharaDresser;
 begin
   for actor in FActors do
   begin
     if NOT bottomDress then
     begin
-      dresser:= actor.GetDresser();
+//      dresser:= actor.GetDresser();
       if Assigned(dresser) then
         dresser.WearSuit(TSuits.Bottom, WithoutPants);
     end;
@@ -198,14 +198,14 @@ end;
 procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
                                      bottomDress: boolean);
 var
-  actor: IActor;
+  actor: TBaseActor;
   dresser: TCharaDresser;
 begin
   for actor in FActors do
   begin
     if NOT bottomDress then
     begin
-      dresser:= actor.GetDresser();
+//      dresser:= actor.GetDresser();
       if Assigned(dresser) then
         dresser.WearSuit(TSuits.Bottom, WithoutPants);
     end;
@@ -304,7 +304,7 @@ end;
 
 function TActorsLogic.GetColor: TCastleColorRGB;
 var
-  actor: IActor;
+  actor: TBaseActor;
   chara: TActorChara;
   averColor: TCastleColorRGB;
 begin
