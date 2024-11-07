@@ -27,6 +27,7 @@ type
     procedure SetSpeed(value: Single); virtual; abstract;
     property Translation: TVector3 read GetTrans write SetTrans;
     property Rotation: TVector4 read GetRot write SetRot;
+    property ActorName: String read FActorName;
   end;
 
 implementation

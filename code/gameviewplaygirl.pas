@@ -39,6 +39,7 @@ type
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
+    procedure SetDressButtons();
     procedure SetUIColor(newColor: TCastleColorRGB);
     procedure ScreenShot;
     procedure DoStart(Sender: TObject);
@@ -69,7 +70,6 @@ var
 begin
   inherited;
   {
-  //BtnDress.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -119,6 +119,9 @@ begin
   { set initial action }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
 
+  { set dress buttons }
+  SetDressButtons();
+
   { set color }
   SetUIColor(FActorsLogic.CharasColor);
 end;
@@ -140,18 +143,34 @@ begin
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
 
-  { Release Dressing Menu Button }
+  { Release Dressing Menu Buttons }
   if NOT (Container.FrontView = ViewDressingMenu) then
     RectangleControlDressing.Exists:= True;
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
+var
+  chara: TActorChara;
+  btnDress: TCastleButton;
 begin
+  btnDress:= Sender as TCastleButton;
+  if NOT Assigned(btnDress) then Exit;
+
   { Show Dressing Menu }
   if NOT (Container.FrontView = ViewDressingMenu) then
   begin
     Container.PushView(ViewDressingMenu);
-    ViewDressingMenu.SetChara(FActorGirl);
+
+    { find selected chara }
+    for chara in FActorsLogic.Charas do
+    begin
+      if (chara.ActorName = btnDress.Caption) then
+      begin
+        ViewDressingMenu.SetChara(chara);
+        Break;
+      end;
+    end;
+
     RectangleControlDressing.Exists:= False;
   end;
 end;
@@ -190,6 +209,22 @@ begin
     end;
   end;
 
+end;
+
+procedure TViewPlayGirl.SetDressButtons();
+var
+  chara: TActorChara;
+  newBtn: TCastleButton;
+begin
+  GroupDressingButtons.ClearControls;
+
+  for chara in FActorsLogic.Charas do
+  begin
+    newBtn:= TCastleButton.Create(GroupDressingButtons);
+    newBtn.Caption:= chara.ActorName;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
+    GroupDressingButtons.InsertFront(newBtn);
+  end;
 end;
 
 procedure TViewPlayGirl.ChangedSpeed(Sender: TObject);

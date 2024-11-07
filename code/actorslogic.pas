@@ -33,7 +33,7 @@ type
     procedure ActionGo;     { Play Go Animation.      IN Cycle }
     procedure ActionFastGo; { Play Fast Go Animation. IN Cycle }
     procedure ActionFinish; { Play Finish Animation.  NO Cycle }
-    procedure ActionRelax;  { Play Fast Go Animation. IN Cycle }
+    procedure ActionRelax;  { Play Relax Animation. IN Cycle }
     procedure ActionStartStop(const Scene: TCastleSceneCore;
                               const Animation: TTimeSensorNode);
     procedure ActionFinishStop(const Scene: TCastleSceneCore;

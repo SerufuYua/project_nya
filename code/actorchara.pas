@@ -74,7 +74,7 @@ begin
 
   { create dresser }
   FDresser:= TCharaDresser.Create(FActorRoot);
-  FDresseSaver:= TDressSaver.Create(FDresser, FActorName);
+  FDresseSaver:= TDressSaver.Create(FDresser, ActorName);
 
   { set Anisotropic Filtering for character }
   SetAnisotropicFiltering(charaBody);
