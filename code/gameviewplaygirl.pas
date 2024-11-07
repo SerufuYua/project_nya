@@ -12,7 +12,6 @@ type
   TViewPlayGirl = class(TCastleView)
   published
     LabelFps: TCastleLabel;
-    //BtnDress: TCastleButton;
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
@@ -69,11 +68,11 @@ var
   fogMain: TCastleFog;
 begin
   inherited;
-  {
+
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+{  BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;   }
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
 
