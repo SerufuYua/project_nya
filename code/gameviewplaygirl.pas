@@ -4,7 +4,7 @@ interface
 
 uses Classes,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleColors,
-  CastleTransform, CastleNotifications,
+  CastleTransform, CastleNotifications, CastleClassUtils,
   ActorChara, ActorToyA, ActorsLogic, FadeInOut,
   CastleParticleEmitter;
 
@@ -21,7 +21,8 @@ type
     FloatSliderPleasure: TCastleFloatSlider;
     FloatSliderTension: TCastleFloatSlider;
     RectangleControlDressing: TCastleRectangleControl;
-    GroupDressingButtons: TCastleHorizontalGroup;
+    GroupDressingButtons: TCastlePackedGroup;
+    GroupActionSelect: TCastlePackedGroup;
     ImageScreen: TCastleImageControl;
     Notifications: TCastleNotifications;
   public
@@ -35,10 +36,12 @@ type
     FActorToyA: TActorToyA;
     FActorsLogic: TActorsLogic;
     FScreenFader: TImageFader;
+    procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
     procedure SetDressButtons();
+    procedure SetActionsList(actList: TCastleComponent);
     procedure SetUIColor(newColor: TCastleColorRGB);
     procedure ScreenShot;
     procedure DoStart(Sender: TObject);
@@ -72,8 +75,6 @@ begin
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-{  BtnPlayA1.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  BtnPlayA2.OnClick:= {$ifdef FPC}@{$endif}ClickControl;   }
   FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { set fade animator }
@@ -121,11 +122,15 @@ begin
   { set dress buttons }
   SetDressButtons();
 
+  { set actions list }
+  SetActionsList(mapScene.DesignedComponent('ActionsList') as TCastleComponent);
+
   { set color }
   SetUIColor(FActorsLogic.CharasColor);
 end;
 
-procedure TViewPlayGirl.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TViewPlayGirl.Update(const SecondsPassed: Single;
+                               var HandleInput: boolean);
 begin
   inherited;
   { Executed every frame. }
@@ -145,6 +150,17 @@ begin
   { Release Dressing Menu Buttons }
   if NOT (Container.FrontView = ViewDressingMenu) then
     RectangleControlDressing.Exists:= True;
+end;
+
+procedure TViewPlayGirl.ClickAction(Sender: TObject);
+var
+  btnDress: TCastleButton;
+begin
+  btnDress:= Sender as TCastleButton;
+  if NOT Assigned(btnDress) then Exit;
+
+  FActorsLogic.Stop;
+  FActorsLogic.SetAction(btnDress.Tag);
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
@@ -196,18 +212,7 @@ begin
     begin
       FActorsLogic.NextPart;
     end;
-  'BtnPlayA1':
-    begin
-      FActorsLogic.Stop;
-      FActorsLogic.SetAction(1);
-    end;
-  'BtnPlayA2':
-    begin
-      FActorsLogic.Stop;
-      FActorsLogic.SetAction(2);
-    end;
   end;
-
 end;
 
 procedure TViewPlayGirl.SetDressButtons();
@@ -223,6 +228,28 @@ begin
     newBtn.Caption:= chara.ActorName;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
     GroupDressingButtons.InsertFront(newBtn);
+  end;
+end;
+
+procedure TViewPlayGirl.SetActionsList(actList: TCastleComponent);
+var
+  num, i: Integer;
+  actionDescr: TCastleComponent;
+  newBtn: TCastleButton;
+begin
+  num:= actList.NonVisualComponentsCount;
+  if (num < 1) then Exit;
+
+  GroupActionSelect.ClearControls;
+
+  for i:= 0 to (num - 1) do
+  begin
+    actionDescr:= actList.NonVisualComponents[i] as TCastleComponent;
+    newBtn:= TCastleButton.Create(GroupActionSelect);
+    newBtn.Caption:= actionDescr.Name;
+    newBtn.Tag:= actionDescr.Tag;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
+    GroupActionSelect.InsertFront(newBtn);
   end;
 end;
 
