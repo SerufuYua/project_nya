@@ -15,8 +15,8 @@ type
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
-    BtnPlayA1: TCastleButton;
-    BtnPlayA2: TCastleButton;
+    FloatSliderEmission: TCastleFloatSlider;
+    BtnEmission: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
     FloatSliderPleasure: TCastleFloatSlider;
     FloatSliderTension: TCastleFloatSlider;
@@ -39,6 +39,7 @@ type
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
+    procedure ChangedEmission(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
     procedure SetDressButtons();
     procedure SetActionsList(actList: TCastleComponent);
@@ -72,10 +73,12 @@ var
 begin
   inherited;
 
+  { set Buttons }
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  FloatSliderSpeed.OnChange:=  {$ifdef FPC}@{$endif}ChangedSpeed;
+  BtnEmission.OnClick:= {$ifdef FPC}@{$endif}ChangedEmission;
+  FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { set fade animator }
   FScreenFader:= TImageFader.Create(ImageScreen, Container);
@@ -84,6 +87,18 @@ begin
   mapScene:= DesignedComponent('Map') as TCastleTransformDesign;
   mapScene.Url:= 'castle-data:/MapPlayGirlToyA.castle-transform';
 
+  { Create Girl Character instance }
+  girlScene:= mapScene.DesignedComponent('CharaGirl') as TCastleTransformDesign;
+  FActorGirl:= TActorChara.Create(girlScene, 'Girl');
+
+  { Create Toys instance }
+  toysScene:= mapScene.DesignedComponent('ToyA') as TCastleTransformDesign;
+  FActorToyA:= TActorToyA.Create(toysScene, 'ToyA');
+
+  { Create Actors Logic }
+  FActorsLogic:= TActorsLogic.Create(FActorGirl, FActorToyA,
+                                     'GAME.GIRL_TOYA.PLAY',
+                                     FScreenFader);
   { set Camera }
   viewportMain:= DesignedComponent('ViewportMain') as TCastleViewport;
   cameraMain:= mapScene.DesignedComponent('CameraMain') as TCastleCamera;
@@ -99,25 +114,8 @@ begin
   if Assigned(fogMain) then
     viewportMain.Fog:= fogMain;
 
-
-  { Create Girl Character instance }
-  girlScene:= mapScene.DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorGirl:= TActorChara.Create(girlScene, 'Girl');
-
-  { Create Toys instance }
-  toysScene:= mapScene.DesignedComponent('ToyA') as TCastleTransformDesign;
-  FActorToyA:= TActorToyA.Create(toysScene, 'ToyA');
-
-  { set character self emission }
-  FActorGirl.SelfEmission:= 0.15;
-
-  { Create Actors Logic }
-  FActorsLogic:= TActorsLogic.Create(FActorGirl, FActorToyA,
-                                     'GAME.GIRL_TOYA.PLAY',
-                                     FScreenFader);
-
-  { set initial action }
-  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
+  { set characters self emission }
+  ChangedEmission(FloatSliderEmission);
 
   { set dress buttons }
   SetDressButtons();
@@ -127,6 +125,9 @@ begin
 
   { set color }
   SetUIColor(FActorsLogic.CharasColor);
+
+  { set initial action }
+  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
 end;
 
 procedure TViewPlayGirl.Update(const SecondsPassed: Single;
@@ -251,6 +252,14 @@ begin
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
     GroupActionSelect.InsertFront(newBtn);
   end;
+end;
+
+procedure TViewPlayGirl.ChangedEmission(Sender: TObject);
+var
+  chara: TActorChara;
+begin
+  for chara in FActorsLogic.Charas do
+    chara.SelfEmission:= FloatSliderEmission.Value;
 end;
 
 procedure TViewPlayGirl.ChangedSpeed(Sender: TObject);

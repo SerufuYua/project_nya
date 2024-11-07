@@ -264,6 +264,79 @@
                 "Green" : 1.0000000000000000E+000,
                 "Red" : 1.0000000000000000E+000
               },
+              "Name" : "LabelEmission",
+              "Text" : [
+                "Emission:"
+              ],
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector2Persistent",
+                "X" : 2.0000000000000000E+001,
+                "Y" : -1.6700000000000000E+002
+              },
+              "VerticalAnchorParent" : "vpTop",
+              "VerticalAnchorSelf" : "vpTop"
+            },
+            {
+              "$$ClassName" : "TCastleHorizontalGroup",
+              "Name" : "GroupEmission",
+              "Spacing" : 4.0000000000000000E+000,
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector2Persistent",
+                "X" : 2.0000000000000000E+001,
+                "Y" : -1.9900000000000000E+002
+              },
+              "VerticalAnchorParent" : "vpTop",
+              "VerticalAnchorSelf" : "vpTop",
+              "$Children" : [
+                {
+                  "$$ClassName" : "TCastleFloatSlider",
+                  "Background" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "FloatSliderEmission",
+                  "Thumb" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Value" : 1.5000000596046448E-001,
+                  "VerticalAnchorParent" : "vpMiddle",
+                  "VerticalAnchorSelf" : "vpMiddle"
+                },
+                {
+                  "$$ClassName" : "TCastleButton",
+                  "Caption" : "Set",
+                  "CustomBackgroundDisabled" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundFocused" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundNormal" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundPressed" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Image" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "BtnEmission",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.0400000000000000E+002
+                  },
+                  "VerticalAnchorParent" : "vpMiddle",
+                  "VerticalAnchorSelf" : "vpMiddle"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleLabel",
+              "ColorPersistent" : {
+                "$$ClassName" : "TCastleColorPersistent",
+                "Blue" : 1.0000000000000000E+000,
+                "Green" : 1.0000000000000000E+000,
+                "Red" : 1.0000000000000000E+000
+              },
               "Name" : "LabelSpeed",
               "Text" : [
                 "Speed:"
@@ -271,7 +344,7 @@
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 2.0000000000000000E+001,
-                "Y" : -1.6700000000000000E+002
+                "Y" : -2.4800000000000000E+002
               },
               "VerticalAnchorParent" : "vpTop",
               "VerticalAnchorSelf" : "vpTop"
@@ -290,7 +363,7 @@
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 2.0000000000000000E+001,
-                "Y" : -1.9900000000000000E+002
+                "Y" : -2.8000000000000000E+002
               },
               "Value" : 1.0000000000000000E+000,
               "VerticalAnchorParent" : "vpTop",
@@ -311,7 +384,7 @@
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 2.0000000000000000E+001,
-                "Y" : -2.3900000000000000E+002
+                "Y" : -3.2000000000000000E+002
               },
               "VerticalAnchorParent" : "vpTop",
               "VerticalAnchorSelf" : "vpTop"
@@ -334,7 +407,7 @@
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 2.0000000000000000E+001,
-                "Y" : -2.7100000000000000E+002
+                "Y" : -3.5200000000000000E+002
               },
               "VerticalAnchorParent" : "vpTop",
               "VerticalAnchorSelf" : "vpTop"
@@ -354,7 +427,7 @@
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 2.0000000000000000E+001,
-                "Y" : -3.1100000000000000E+002
+                "Y" : -3.9200000000000000E+002
               },
               "VerticalAnchorParent" : "vpTop",
               "VerticalAnchorSelf" : "vpTop"
@@ -377,7 +450,7 @@
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 2.0000000000000000E+001,
-                "Y" : -3.4300000000000000E+002
+                "Y" : -4.2400000000000000E+002
               },
               "VerticalAnchorParent" : "vpTop",
               "VerticalAnchorSelf" : "vpTop"
