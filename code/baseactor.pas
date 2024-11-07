@@ -11,6 +11,8 @@ uses
 type
   TBaseActor = class
   protected
+    FActorRoot: TCastleTransformDesign;
+    FActorName: String;
     function GetTrans(): TVector3;
     procedure SetTrans(coord: TVector3);
     function GetRot(): TVector4;
@@ -25,9 +27,6 @@ type
     procedure SetSpeed(value: Single); virtual; abstract;
     property Translation: TVector3 read GetTrans write SetTrans;
     property Rotation: TVector4 read GetRot write SetRot;
-  protected
-    FActorRoot: TCastleTransformDesign;
-    FActorName: String;
   end;
 
 implementation

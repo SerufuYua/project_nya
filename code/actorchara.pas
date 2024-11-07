@@ -14,6 +14,15 @@ uses
 type
   TActorChara = class(TBaseActor)
   protected
+    FDresser: TCharaDresser;
+    FDresseSaver: TDressSaver;
+    FControlJizz: TCastleTransform;
+    FEffectJizz: TCastleParticleEmitter;
+    EffectDrip: TCastleParticleEmitter;
+    ParticleEffectDrip: TCastleParticleEffect;
+    function GetMainBody(): TCastleScene;    { main actor Body }
+    function GetActorsList(): TCastleScenes; { Body + Head + Hair}
+    procedure ActionFaceDefault;
     function GetLightning: Boolean;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
@@ -35,16 +44,6 @@ type
     property Lightning: Boolean read GetLightning write SetLightning;
     property SelfEmission: Single write SetSelfEmission;
     property PersonalColor: TCastleColorRGB read GetColor;
-  protected
-    FDresser: TCharaDresser;
-    FDresseSaver: TDressSaver;
-    FControlJizz: TCastleTransform;
-    FEffectJizz: TCastleParticleEmitter;
-    EffectDrip: TCastleParticleEmitter;
-    ParticleEffectDrip: TCastleParticleEffect;
-    function GetMainBody(): TCastleScene;    { main actor Body }
-    function GetActorsList(): TCastleScenes; { Body + Head + Hair}
-    procedure ActionFaceDefault;
   end;
 
 implementation

@@ -12,6 +12,8 @@ uses
 
 type
   TActorToyA = class(TBaseActor)
+  protected
+    function GetCurrentTool(): TCastleScene;
   public
     procedure Update(const SecondsPassed: Single); override;
     procedure PauseAnimation; override;
@@ -20,8 +22,6 @@ type
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
     procedure SetSpeed(value: Single); override;
     procedure UseRailing(enable: Boolean);
-  protected
-    function GetCurrentTool(): TCastleScene;
   end;
 
 implementation
