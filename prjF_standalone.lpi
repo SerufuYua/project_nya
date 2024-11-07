@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="15">
+    <Units Count="16">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -141,6 +141,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ActorsLogic"/>
       </Unit14>
+      <Unit15>
+        <Filename Value="code/myclassutils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MyClassUtils"/>
+      </Unit15>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

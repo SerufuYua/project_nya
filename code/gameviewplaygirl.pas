@@ -21,7 +21,8 @@ type
     FloatSliderSpeed: TCastleFloatSlider;
     FloatSliderPleasure: TCastleFloatSlider;
     FloatSliderTension: TCastleFloatSlider;
-    DressingControl: TCastleRectangleControl;
+    RectangleControlDressing: TCastleRectangleControl;
+    GroupDressingButtons: TCastleHorizontalGroup;
     ImageScreen: TCastleImageControl;
     Notifications: TCastleNotifications;
   public
@@ -139,11 +140,9 @@ begin
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
 
-  {
   { Release Dressing Menu Button }
   if NOT (Container.FrontView = ViewDressingMenu) then
-    DressingControl.Exists:= True;
-  }
+    RectangleControlDressing.Exists:= True;
 end;
 
 procedure TViewPlayGirl.ClickDress(Sender: TObject);
@@ -153,7 +152,7 @@ begin
   begin
     Container.PushView(ViewDressingMenu);
     ViewDressingMenu.SetChara(FActorGirl);
-    DressingControl.Exists:= False;
+    RectangleControlDressing.Exists:= False;
   end;
 end;
 

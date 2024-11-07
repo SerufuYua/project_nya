@@ -46,6 +46,8 @@ type
     property PersonalColor: TCastleColorRGB read GetColor;
   end;
 
+  TCharasList = Array of TActorChara;
+
 implementation
 
 uses

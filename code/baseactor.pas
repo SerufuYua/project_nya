@@ -9,7 +9,7 @@ uses
   CastleColors, CharaDress;
 
 type
-  TBaseActor = class
+  TBaseActor = class abstract
   protected
     FActorRoot: TCastleTransformDesign;
     FActorName: String;

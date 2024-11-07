@@ -6,12 +6,12 @@ interface
 
 uses
   Classes, SysUtils, BaseActor, CastleSceneCore, CastleColors,
-  X3DNodes, FadeInOut;
+  X3DNodes, FadeInOut, ActorChara;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
 
-  TActorsList = Array[0..1] of TBaseActor;
+  TActorsList = Array of TBaseActor;
 
   TActorsLogic = class
   protected
@@ -40,6 +40,7 @@ type
                                const Animation: TTimeSensorNode);
     procedure SetPleasure(value: Single);
     procedure SetTension(value: Single);
+    function GetCharas: TCharasList;
     function GetColor: TCastleColorRGB;
   public
     constructor Create(actorA, actorB: TBaseActor;
@@ -53,13 +54,17 @@ type
     procedure NextPart;
     property Pleasure: Single read FPleasure write SetPleasure;
     property Tension: Single read FTension write SetTension;
+    property Charas: TCharasList read GetCharas;
     property CharasColor: TCastleColorRGB read GetColor;
   end;
 
 implementation
 
 uses
-  CharaDress, CastleUtils, ActorChara, CastleVectors;
+  CharaDress, CastleUtils, CastleVectors, MyClassUtils;
+
+type
+  TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TActorChara>;
 
 const
   SuffixWait = '.IDLE';
@@ -75,6 +80,7 @@ constructor TActorsLogic.Create(actorA, actorB: TBaseActor;
                                 animationPrefix: String;
                                 screenFader: TImageFader);
 begin
+  SetLength(FActors, 2);
   FActors[0]:= actorA;
   FActors[1]:= actorB;
   FAnimationPrefix:= animationPrefix;
@@ -188,15 +194,12 @@ begin
   begin
     if NOT bottomDress then
     begin
-      if (actor is TActorChara) then
+      chara:= TCharaDynamic.Cast(actor);
+      if Assigned(chara) then
       begin
-        chara:= actor as TActorChara;
-        if Assigned(chara) then
-        begin
-          dresser:= chara.GetDresser();
-          if Assigned(dresser) then
-            dresser.WearSuit(TSuits.Bottom, WithoutPants);
-        end;
+        dresser:= chara.GetDresser();
+        if Assigned(dresser) then
+          dresser.WearSuit(TSuits.Bottom, WithoutPants);
       end;
     end;
     actor.PlayAnimation(animationName, loop)
@@ -214,15 +217,12 @@ begin
   begin
     if NOT bottomDress then
     begin
-      if (actor is TActorChara) then
+      chara:= TCharaDynamic.Cast(actor);
+      if Assigned(chara) then
       begin
-        chara:= actor as TActorChara;
-        if Assigned(chara) then
-        begin
-          dresser:= chara.GetDresser();
-          if Assigned(dresser) then
-            dresser.WearSuit(TSuits.Bottom, WithoutPants);
-        end;
+        dresser:= chara.GetDresser();
+        if Assigned(dresser) then
+          dresser.WearSuit(TSuits.Bottom, WithoutPants);
       end;
     end;
     actor.PlayAnimation(Parameters)
@@ -318,6 +318,24 @@ begin
   FTension:= Clamped(value, 0.0, 1.0);
 end;
 
+function TActorsLogic.GetCharas: TCharasList;
+var
+  actor: TBaseActor;
+  chara: TActorChara;
+begin
+  Result:= [];
+
+  for actor in FActors do
+  begin
+    chara:= TCharaDynamic.Cast(actor);
+    if Assigned(chara) then
+    begin
+      SetLength(Result, Length(Result) + 1);
+      Result[Length(Result) - 1]:= chara;
+    end;
+  end;
+end;
+
 function TActorsLogic.GetColor: TCastleColorRGB;
 var
   actor: TBaseActor;
@@ -330,14 +348,11 @@ begin
 
   for actor in FActors do
   begin
-    if (actor is TActorChara) then
+    chara:= TCharaDynamic.Cast(actor);
+    if Assigned(chara) then
     begin
-      chara:= actor as TActorChara;
-      if Assigned(chara) then
-      begin
-        averColor:= chara.PersonalColor;
-        count:= count + 1;
-      end;
+      averColor:= chara.PersonalColor;
+      count:= count + 1;
     end;
   end;
 
