@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="17">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -146,6 +146,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MyClassUtils"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="code/baseviewplay.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BaseViewPlay"/>
+      </Unit16>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
