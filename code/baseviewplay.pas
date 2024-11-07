@@ -57,7 +57,8 @@ implementation
 uses
   GameViewMain, GameViewDressingMenu, GameViewLoading,
   ActorChara,
-  CastleScene, CastleViewport, CastleVectors;
+  CastleScene, CastleViewport, CastleVectors,
+  StrUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -248,7 +249,7 @@ begin
   begin
     actionDescr:= actList.NonVisualComponents[i] as TCastleComponent;
     newBtn:= TCastleButton.Create(GroupActionSelect);
-    newBtn.Caption:= actionDescr.Name;
+    newBtn.Caption:= ReplaceStr(actionDescr.Name, '_', ' ');
     newBtn.Tag:= actionDescr.Tag;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
     GroupActionSelect.InsertFront(newBtn);
