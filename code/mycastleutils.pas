@@ -39,7 +39,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleTextureImages, CastleColors,
-  CastleVectors, CastleClassUtils, sysutils;
+  CastleVectors, Generics.Collections, sysutils;
 
 type
   TNodeHandler = class
@@ -187,41 +187,28 @@ end;
 
 function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
 type
-  TComponents = Array of TComponent;
+  TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TComponent>;
 var
-  num, startSub, i, j, start: Integer;
-  item: TComponent;
-  items: TComponents;
+  item, child: TComponent;
+  items: TItemsStack;
 begin
   Result:= [];
-  start:= 0;
-  items:= [rootItem];
+  items:= TItemsStack.Create(False);
+  items.Push(rootItem);
 
-  // collect all components
-  while (start < Length(items)) do
+  { iterate over all elements of tree }
+  while (items.Count > 0) do
   begin
-    num:= Length(items);
-    for i:= start to (num - 1) do
-    begin
-      startSub:= Length(items) - 1;
+    item:= items.Pop;
+    for child in item do
+      items.Push(child);
 
-      j:= 0;
-      for item in items[i] do
-      begin
-        j:= j + 1;
-        SetLength(items, Length(items) + 1);
-        items[startSub + j]:= item;
-
-        // pick up target
-        if (item is TCastleScene) then
-        begin
-          SetLength(Result, Length(Result) + 1);
-          Result[Length(Result) - 1]:= item as TCastleScene;
-        end;
-      end;
-    end;
-    start:= num;
+    { pick up target }
+    if (item is TCastleScene) then
+      Insert((item as TCastleScene), Result, 0);
   end;
+
+  FreeAndNil(items);
 end;
 
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
@@ -246,80 +233,54 @@ end;
 
 function GetAllUIRectangles(const rootItem: TCastleUserInterface): TUIRectangles;
 type
-  TCastleUIs = Array of TCastleUserInterface;
+  TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TCastleUserInterface>;
 var
-  num, startSub, i, j, start: Integer;
-  item: TCastleUserInterface;
-  items: TCastleUIs;
+  item, child: TCastleUserInterface;
+  items: TItemsStack;
 begin
   Result:= [];
-  start:= 0;
-  items:= [rootItem];
+  items:= TItemsStack.Create(False);
+  items.Push(rootItem);
 
-  // collect all components
-  while (start < Length(items)) do
+  { iterate over all elements of tree }
+  while (items.Count > 0) do
   begin
-    num:= Length(items);
-    for i:= start to (num - 1) do
-    begin
-      startSub:= Length(items) - 1;
+    item:= items.Pop;
+    for child in item do
+      items.Push(child);
 
-      j:= 0;
-      for item in items[i] do
-      begin
-        j:= j + 1;
-        SetLength(items, Length(items) + 1);
-        items[startSub + j]:= item;
-
-        // pick up target
-        if (item is TCastleRectangleControl) then
-        begin
-          SetLength(Result, Length(Result) + 1);
-          Result[Length(Result) - 1]:= item as TCastleRectangleControl;
-        end;
-      end;
-    end;
-    start:= num;
+    { pick up target }
+    if (item is TCastleRectangleControl) then
+      Insert((item as TCastleRectangleControl), Result, 0);
   end;
+
+    FreeAndNil(items);
 end;
 
 function GetAllUIImages(const rootItem: TCastleUserInterface): TUIImages;
 type
-  TCastleUIs = Array of TCastleUserInterface;
+  TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TCastleUserInterface>;
 var
-  num, startSub, i, j, start: Integer;
-  item: TCastleUserInterface;
-  items: TCastleUIs;
+  item, child: TCastleUserInterface;
+  items: TItemsStack;
 begin
   Result:= [];
-  start:= 0;
-  items:= [rootItem];
+  items:= TItemsStack.Create(False);
+  items.Push(rootItem);
 
-  // collect all components
-  while (start < Length(items)) do
+  { iterate over all elements of tree }
+  while (items.Count > 0) do
   begin
-    num:= Length(items);
-    for i:= start to (num - 1) do
-    begin
-      startSub:= Length(items) - 1;
+    item:= items.Pop;
+    for child in item do
+      items.Push(child);
 
-      j:= 0;
-      for item in items[i] do
-      begin
-        j:= j + 1;
-        SetLength(items, Length(items) + 1);
-        items[startSub + j]:= item;
-
-        // pick up target
-        if (item is TCastleImageControl) then
-        begin
-          SetLength(Result, Length(Result) + 1);
-          Result[Length(Result) - 1]:= item as TCastleImageControl;
-        end;
-      end;
-    end;
-    start:= num;
+    { pick up target }
+    if (item is TCastleImageControl) then
+      Insert((item as TCastleImageControl), Result, 0);
   end;
+
+  FreeAndNil(items);
 end;
 
 end.
