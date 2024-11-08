@@ -6,6 +6,7 @@ interface
 
 uses
   Classes, CastleScene, CastleShapes, CastleTransform,
+  CastleControls, CastleUIControls,
   X3DNodes;
 
 type
@@ -17,6 +18,7 @@ type
   TItemConditions = Array of TItemCondition;
   TCastleScenes = Array of TCastleScene;
   TShapeNodes = Array of TShapeNode;
+  TUIRectangles = Array of TCastleRectangleControl;
 
 procedure SetAnisotropicFiltering(const scene: TCastleScene;
                                   degree: Single = 16);
@@ -26,9 +28,10 @@ function GetShapeNamesByNameStart(const scene: TCastleScene;
                                   const NameStartWith: String): TItemConditions;
 function GetShapesByNameStart(const scene: TCastleScene;
                               const NameStartWith: String): TShapeNodes;
-function GetAllScenes(const rootScene: TCastleTransform): TCastleScenes;
+function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
+function GetAllUIRectangles(const rootItem: TCastleUserInterface): TUIRectangles;
 
 implementation
 
@@ -37,8 +40,6 @@ uses
   CastleVectors, CastleClassUtils, sysutils;
 
 type
-  TComponents = Array of TComponent;
-
   TNodeHandler = class
     class procedure HandleNodeAnisotropic(Node: TX3DNode);
     class procedure HandleNodeEmission(Node: TX3DNode);
@@ -182,15 +183,17 @@ begin
   Result:= FoundShapes;
 end;
 
-function GetAllScenes(const rootScene: TCastleTransform): TCastleScenes;
+function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
+type
+  TComponents = Array of TComponent;
 var
-  num, numSub, startSub, i, j, start: Integer;
+  num, startSub, i, j, start: Integer;
   item: TComponent;
   items: TComponents;
 begin
   Result:= [];
   start:= 0;
-  items:= [rootScene];
+  items:= [rootItem];
 
   // collect all components
   while (start < Length(items)) do
@@ -222,14 +225,12 @@ end;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
 var
-  items: TCastleScenes;
   item: TCastleScene;
   itemCondition: TItemCondition;
 begin
   Result:= [];
-  items:= GetAllScenes(rootScene);
 
-  for item in items do
+  for item in GetAllScenes(rootScene) do
   begin
     if item.Name.StartsWith(NameStartWith) then
     begin
@@ -238,6 +239,45 @@ begin
       itemCondition.Visible:= item.Visible;
       Result[Length(Result) - 1]:= itemCondition;
     end;
+  end;
+end;
+
+function GetAllUIRectangles(const rootItem: TCastleUserInterface): TUIRectangles;
+type
+  TCastleUIs = Array of TCastleUserInterface;
+var
+  num, startSub, i, j, start: Integer;
+  item: TCastleUserInterface;
+  items: TCastleUIs;
+begin
+  Result:= [];
+  start:= 0;
+  items:= [rootItem];
+
+  // collect all components
+  while (start < Length(items)) do
+  begin
+    num:= Length(items);
+    for i:= start to (num - 1) do
+    begin
+      startSub:= Length(items) - 1;
+
+      j:= 0;
+      for item in items[i] do
+      begin
+        j:= j + 1;
+        SetLength(items, Length(items) + 1);
+        items[startSub + j]:= item;
+
+        // pick up target
+        if (item is TCastleRectangleControl) then
+        begin
+          SetLength(Result, Length(Result) + 1);
+          Result[Length(Result) - 1]:= item as TCastleRectangleControl;
+        end;
+      end;
+    end;
+    start:= num;
   end;
 end;
 

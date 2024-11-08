@@ -163,12 +163,9 @@ end;
 
 procedure TCharaDresser.WearAcessory(const accessoryName: String; visible: boolean);
 var
-  items: TCastleScenes;
   item: TCastleScene;
 begin
-  items:= GetAllScenes(FScene);
-
-  for item in items do
+  for item in GetAllScenes(FScene) do
   begin
     if item.Name.Contains(accessoryName) then
       item.Visible:= visible;

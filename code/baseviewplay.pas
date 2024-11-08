@@ -58,7 +58,7 @@ uses
   GameViewMain, GameViewDressingMenu, GameViewLoading,
   ActorChara,
   CastleScene, CastleViewport, CastleVectors,
-  StrUtils;
+  StrUtils, MyCastleUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -276,20 +276,17 @@ end;
 
 procedure TBaseViewPlay.SetUIColor(newColor: TCastleColorRGB);
 var
-  rectanpleUI: TCastleRectangleControl;
-  alpha: Single;
+  rootItem: TCastleUserInterface;
+  item: TCastleRectangleControl;
+  alpha: single;
 begin
-  rectanpleUI:= DesignedComponent('RectangleControlActions') as TCastleRectangleControl;
-  alpha:= rectanpleUI.Color.W;
-  rectanpleUI.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+  rootItem:= DesignedComponent('SceneMain') as TCastleUserInterface;
 
-  rectanpleUI:= DesignedComponent('RectangleControlNavigation') as TCastleRectangleControl;
-  alpha:= rectanpleUI.Color.W;
-  rectanpleUI.Color:= Vector4(FActorsLogic.CharasColor, alpha);
-
-  rectanpleUI:= DesignedComponent('RectangleControlDressing') as TCastleRectangleControl;
-  alpha:= rectanpleUI.Color.W;
-  rectanpleUI.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+  for item in GetAllUIRectangles(rootItem) do
+  begin
+      alpha:= item.Color.W;
+      item.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+  end;
 end;
 
 procedure TBaseViewPlay.SaveCharasCondition();

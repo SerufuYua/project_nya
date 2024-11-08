@@ -128,11 +128,8 @@ end;
 procedure TActorChara.SetLightning(enable: Boolean);
 var
   item: TCastleScene;
-  items: TCastleScenes;
 begin
-  items:= GetAllScenes(FActorRoot);
-
-  for item in items do
+  for item in GetAllScenes(FActorRoot) do
   begin
     item.RenderOptions.Lighting:= enable;
   end;
@@ -141,11 +138,8 @@ end;
 procedure TActorChara.SetSelfEmission(value: Single);
 var
   item: TCastleScene;
-  items: TCastleScenes;
 begin
-  items:= GetAllScenes(FActorRoot);
-
-  for item in items do
+  for item in GetAllScenes(FActorRoot) do
   begin
     SetEmission(item, value, value, value, True);
   end;
