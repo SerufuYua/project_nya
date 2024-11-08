@@ -277,12 +277,12 @@ end;
 procedure TBaseViewPlay.SetUIColor(newColor: TCastleColorRGB);
 var
   rootItem: TCastleUserInterface;
-  item: TCastleRectangleControl;
+  item: TCastleImageControl;
   alpha: single;
 begin
   rootItem:= DesignedComponent('SceneMain') as TCastleUserInterface;
 
-  for item in GetAllUIRectangles(rootItem) do
+  for item in GetAllUIImages(rootItem) do
   begin
       alpha:= item.Color.W;
       item.Color:= Vector4(FActorsLogic.CharasColor, alpha);

@@ -19,6 +19,7 @@ type
   TCastleScenes = Array of TCastleScene;
   TShapeNodes = Array of TShapeNode;
   TUIRectangles = Array of TCastleRectangleControl;
+  TUIImages = Array of TCastleImageControl;
 
 procedure SetAnisotropicFiltering(const scene: TCastleScene;
                                   degree: Single = 16);
@@ -32,6 +33,7 @@ function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
 function GetAllUIRectangles(const rootItem: TCastleUserInterface): TUIRectangles;
+function GetAllUIImages(const rootItem: TCastleUserInterface): TUIImages;
 
 implementation
 
@@ -274,6 +276,45 @@ begin
         begin
           SetLength(Result, Length(Result) + 1);
           Result[Length(Result) - 1]:= item as TCastleRectangleControl;
+        end;
+      end;
+    end;
+    start:= num;
+  end;
+end;
+
+function GetAllUIImages(const rootItem: TCastleUserInterface): TUIImages;
+type
+  TCastleUIs = Array of TCastleUserInterface;
+var
+  num, startSub, i, j, start: Integer;
+  item: TCastleUserInterface;
+  items: TCastleUIs;
+begin
+  Result:= [];
+  start:= 0;
+  items:= [rootItem];
+
+  // collect all components
+  while (start < Length(items)) do
+  begin
+    num:= Length(items);
+    for i:= start to (num - 1) do
+    begin
+      startSub:= Length(items) - 1;
+
+      j:= 0;
+      for item in items[i] do
+      begin
+        j:= j + 1;
+        SetLength(items, Length(items) + 1);
+        items[startSub + j]:= item;
+
+        // pick up target
+        if (item is TCastleImageControl) then
+        begin
+          SetLength(Result, Length(Result) + 1);
+          Result[Length(Result) - 1]:= item as TCastleImageControl;
         end;
       end;
     end;
