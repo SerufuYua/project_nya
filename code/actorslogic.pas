@@ -329,10 +329,7 @@ begin
   begin
     chara:= TCharaDynamic.Cast(actor);
     if Assigned(chara) then
-    begin
-      SetLength(Result, Length(Result) + 1);
-      Result[Length(Result) - 1]:= chara;
-    end;
+      Insert(chara, Result, 0);
   end;
 end;
 

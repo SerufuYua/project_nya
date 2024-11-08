@@ -99,10 +99,7 @@ begin
       end;
     end;
     if NOT found then
-    begin
-      SetLength(Result, Length(Result) + 1);
-      Result[High(Result)]:= shortName;
-    end;
+      Insert(shortName, Result, 0);
   end;
 end;
 

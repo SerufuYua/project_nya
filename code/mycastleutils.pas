@@ -97,16 +97,17 @@ class procedure TNodeHandler.HandleShapeNamesByNameStart(Node: TX3DNode);
 var
   nodeName: String;
   shape: TShapeNode;
+  condition: TItemCondition;
 begin
   nodeName:= Node.X3DName;
   if nodeName.StartsWith(NameStartPattern) then
   begin
-    SetLength(FoundItems, Length(FoundItems) + 1);
-    FoundItems[High(FoundItems)].Name:= nodeName;
-
     shape:= Node as TShapeNode;
-    FoundItems[High(FoundItems)].Visible:= shape.Visible;
-  end;
+    condition.Name:= nodeName;
+    condition.Visible:= shape.Visible;
+
+    Insert(condition, FoundItems, 0);
+end;
 end;
 
 class procedure TNodeHandler.HandleShapesByNameStart(Node: TX3DNode);
@@ -118,8 +119,7 @@ begin
   if nodeName.StartsWith(NameStartPattern) then
   begin
     shape:= Node as TShapeNode;
-    SetLength(FoundShapes, Length(FoundShapes) + 1);
-    FoundShapes[High(FoundShapes)]:= shape;
+    Insert(shape, FoundShapes, 0);
   end;
 end;
 
@@ -215,7 +215,7 @@ function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
 var
   item: TCastleScene;
-  itemCondition: TItemCondition;
+  condition: TItemCondition;
 begin
   Result:= [];
 
@@ -223,10 +223,10 @@ begin
   begin
     if item.Name.StartsWith(NameStartWith) then
     begin
-      SetLength(Result, Length(Result) + 1);
-      itemCondition.Name:= item.Name;
-      itemCondition.Visible:= item.Visible;
-      Result[Length(Result) - 1]:= itemCondition;
+      condition.Name:= item.Name;
+      condition.Visible:= item.Visible;
+
+      Insert(condition, Result, 0);
     end;
   end;
 end;
