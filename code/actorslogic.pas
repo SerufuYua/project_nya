@@ -61,7 +61,7 @@ type
 implementation
 
 uses
-  CharaDress, CastleUtils, CastleVectors, MyClassUtils;
+  CharaDress, CastleUtils, CastleVectors, MyClassUtils, Math;
 
 type
   TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TActorChara>;
@@ -342,22 +342,26 @@ var
   chara: TActorChara;
   averColor: TCastleColorRGB;
   count: Integer;
+  maxColor: Single;
 begin
   averColor:= Vector3(0.0, 0.0, 0.0);
   count:= 0;
+  maxColor:= 0.0;
 
   for actor in FActors do
   begin
     chara:= TCharaDynamic.Cast(actor);
     if Assigned(chara) then
     begin
-      averColor:= chara.PersonalColor;
+      averColor:= averColor + chara.PersonalColor;
       count:= count + 1;
+      maxColor:= max(max(max(chara.PersonalColor.X, chara.PersonalColor.Y),
+                             chara.PersonalColor.Y), maxColor);
     end;
   end;
 
   if (count > 1) then
-    averColor:= averColor / count;
+    averColor:= (averColor / count) / maxColor;
 
   Result:= averColor;
 end;
