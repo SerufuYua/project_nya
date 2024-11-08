@@ -208,7 +208,7 @@
 			]
 		},
 		{
-			"mesh":9,
+			"mesh":10,
 			"name":"light.roof.002",
 			"translation":[
 				-60,
@@ -217,7 +217,7 @@
 			]
 		},
 		{
-			"mesh":9,
+			"mesh":10,
 			"name":"light.roof.003",
 			"translation":[
 				60,
@@ -226,7 +226,7 @@
 			]
 		},
 		{
-			"mesh":10,
+			"mesh":9,
 			"name":"light.roof.004",
 			"translation":[
 				60,
@@ -2227,57 +2227,18 @@
 			}
 		},
 		{
-			"name":"lamp_cover.off.tex",
-			"pbrMetallicRoughness":{
-				"baseColorTexture":{
-					"index":22
-				},
-				"metallicFactor":0.800000011920929,
-				"roughnessFactor":0.10000000149011612
-			}
-		},
-		{
-			"name":"light.roof.off.tex",
-			"pbrMetallicRoughness":{
-				"baseColorTexture":{
-					"index":23
-				},
-				"metallicFactor":0.800000011920929
-			}
-		},
-		{
-			"name":"lamp_emitter.off.tex",
-			"pbrMetallicRoughness":{
-				"baseColorTexture":{
-					"index":24
-				},
-				"metallicFactor":0,
-				"roughnessFactor":0.5
-			}
-		},
-		{
-			"name":"lamp_reflector.off.tex",
-			"pbrMetallicRoughness":{
-				"baseColorTexture":{
-					"index":25
-				},
-				"metallicFactor":0,
-				"roughnessFactor":0.5
-			}
-		},
-		{
 			"emissiveFactor":[
 				0.5,
 				0.5,
 				0.5
 			],
 			"emissiveTexture":{
-				"index":26
+				"index":22
 			},
 			"name":"lamp_cover.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":27
+					"index":23
 				},
 				"metallicFactor":0.800000011920929,
 				"roughnessFactor":0.10000000149011612
@@ -2290,12 +2251,12 @@
 				0.5
 			],
 			"emissiveTexture":{
-				"index":28
+				"index":24
 			},
 			"name":"light.roof.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":29
+					"index":25
 				},
 				"metallicFactor":0.800000011920929
 			}
@@ -2307,7 +2268,7 @@
 				1
 			],
 			"emissiveTexture":{
-				"index":30
+				"index":26
 			},
 			"extensions":{
 				"KHR_materials_emissive_strength":{
@@ -2317,7 +2278,7 @@
 			"name":"lamp_emitter.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":31
+					"index":27
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -2330,7 +2291,7 @@
 				1
 			],
 			"emissiveTexture":{
-				"index":32
+				"index":28
 			},
 			"extensions":{
 				"KHR_materials_emissive_strength":{
@@ -2338,6 +2299,45 @@
 				}
 			},
 			"name":"lamp_reflector.tex",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":29
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"name":"lamp_cover.off.tex",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":30
+				},
+				"metallicFactor":0.800000011920929,
+				"roughnessFactor":0.10000000149011612
+			}
+		},
+		{
+			"name":"light.roof.off.tex",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":31
+				},
+				"metallicFactor":0.800000011920929
+			}
+		},
+		{
+			"name":"lamp_emitter.off.tex",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":32
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"name":"lamp_reflector.off.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":33
@@ -3371,7 +3371,7 @@
 			]
 		},
 		{
-			"name":"light.roof.off",
+			"name":"light.roof.on",
 			"primitives":[
 				{
 					"attributes":{
@@ -3412,7 +3412,7 @@
 			]
 		},
 		{
-			"name":"light.roof.on",
+			"name":"light.roof.off",
 			"primitives":[
 				{
 					"attributes":{
@@ -4582,7 +4582,7 @@
 			"source":17
 		},
 		{
-			"sampler":0,
+			"sampler":1,
 			"source":18
 		},
 		{
@@ -11406,6 +11406,12 @@
 		{
 			"magFilter":9729,
 			"minFilter":9987
+		},
+		{
+			"magFilter":9729,
+			"minFilter":9987,
+			"wrapS":33071,
+			"wrapT":33071
 		}
 	],
 	"buffers":[

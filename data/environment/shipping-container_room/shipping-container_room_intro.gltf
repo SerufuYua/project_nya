@@ -3371,7 +3371,7 @@
 			]
 		},
 		{
-			"name":"Cone",
+			"name":"light.roof.off",
 			"primitives":[
 				{
 					"attributes":{
@@ -3412,7 +3412,7 @@
 			]
 		},
 		{
-			"name":"Cone.001",
+			"name":"light.roof.on",
 			"primitives":[
 				{
 					"attributes":{
@@ -4582,7 +4582,7 @@
 			"source":17
 		},
 		{
-			"sampler":0,
+			"sampler":1,
 			"source":18
 		},
 		{
@@ -11406,6 +11406,12 @@
 		{
 			"magFilter":9729,
 			"minFilter":9987
+		},
+		{
+			"magFilter":9729,
+			"minFilter":9987,
+			"wrapS":33071,
+			"wrapT":33071
 		}
 	],
 	"buffers":[
