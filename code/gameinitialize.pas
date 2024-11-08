@@ -46,8 +46,7 @@ begin
   else if Application.hasOption('t', 'PlayTogether') then
     Window.Container.View:= ViewPlayTogether
   else
-    //Window.Container.View := ViewMain;
-    Window.Container.View:= ViewPlayGirl;
+    Window.Container.View := ViewMain;
 
 end;
 

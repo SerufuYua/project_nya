@@ -2,7 +2,8 @@ unit GameViewPlayGirl;
 
 interface
 
-uses Classes, BaseViewPlay;
+uses
+  Classes, BaseViewPlay;
 
 type
   TViewPlayGirl = class(TBaseViewPlay)
