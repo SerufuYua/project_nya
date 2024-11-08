@@ -26,8 +26,8 @@ function GetShapeNamesByNameStart(const scene: TCastleScene;
                                   const NameStartWith: String): TItemConditions;
 function GetShapesByNameStart(const scene: TCastleScene;
                               const NameStartWith: String): TShapeNodes;
-function GetAllScenes(const scene: TCastleTransformDesign): TCastleScenes;
-function GetSceneNamesByNameStart(const scene: TCastleTransformDesign;
+function GetAllScenes(const rootScene: TCastleTransform): TCastleScenes;
+function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
 
 implementation
@@ -182,7 +182,7 @@ begin
   Result:= FoundShapes;
 end;
 
-function GetAllScenes(const scene: TCastleTransformDesign): TCastleScenes;
+function GetAllScenes(const rootScene: TCastleTransform): TCastleScenes;
 var
   num, numSub, startSub, i, j, start: Integer;
   item: TComponent;
@@ -190,7 +190,7 @@ var
 begin
   Result:= [];
   start:= 0;
-  items:= [scene];
+  items:= [rootScene];
 
   // collect all components
   while (start < Length(items)) do
@@ -198,30 +198,28 @@ begin
     num:= Length(items);
     for i:= start to (num - 1) do
     begin
-      numSub:= items[i].ComponentCount;
       startSub:= Length(items) - 1;
-      SetLength(items, Length(items) + numSub);
-      for j:= 0 to (numSub - 1) do
+
+      j:= 0;
+      for item in items[i] do
       begin
-        item:= items[i].Components[j];
-        items[startSub + j + 1]:= item;
+        j:= j + 1;
+        SetLength(items, Length(items) + 1);
+        items[startSub + j]:= item;
+
+        // pick up target
+        if (item is TCastleScene) then
+        begin
+          SetLength(Result, Length(Result) + 1);
+          Result[Length(Result) - 1]:= item as TCastleScene;
+        end;
       end;
     end;
     start:= num;
   end;
-
-  // get only scenes from all components
-  for item in items do
-  begin
-    if (item is TCastleScene) then
-    begin
-      SetLength(Result, Length(Result) + 1);
-      Result[Length(Result) - 1]:= item as TCastleScene;
-    end;
-  end;
 end;
 
-function GetSceneNamesByNameStart(const scene: TCastleTransformDesign;
+function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
 var
   items: TCastleScenes;
@@ -229,7 +227,7 @@ var
   itemCondition: TItemCondition;
 begin
   Result:= [];
-  items:= GetAllScenes(scene);
+  items:= GetAllScenes(rootScene);
 
   for item in items do
   begin
