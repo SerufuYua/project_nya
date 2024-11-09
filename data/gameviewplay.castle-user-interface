@@ -698,6 +698,10 @@
     {
       "$$ClassName" : "TCastleNotifications",
       "Name" : "Notifications",
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector2Persistent",
+        "X" : 1.0000000000000000E+001
+      },
       "VerticalAnchorParent" : "vpMiddle",
       "VerticalAnchorSelf" : "vpMiddle"
     },

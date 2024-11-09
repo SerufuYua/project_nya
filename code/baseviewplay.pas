@@ -203,6 +203,7 @@ begin
   Case button.Name of
   'BtnBack':
     begin
+      Notifications.Show('saving characters condition...');
       SaveCharasCondition();
       ViewLoading.SetToLoad(ViewMain);
       Container.View:= ViewLoading;
@@ -300,6 +301,7 @@ end;
 procedure TBaseViewPlay.DoStart(Sender: TObject);
 begin
   FActorsLogic.Stop;
+  Notifications.Show('Lets Play!');
 end;
 
 end.
