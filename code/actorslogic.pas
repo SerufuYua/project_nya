@@ -25,9 +25,9 @@ type
     FSpeed: Single;
     FEnableStopAction: Boolean;
     procedure PlayAnimation(const animationName: String;
-                            loop, bottomDress: boolean);
+                            loop, bottomDress: boolean; footDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
-                            bottomDress: boolean);
+                            bottomDress: boolean; footDress: boolean);
     procedure ActionIdle;   { Play Idle Animation.    IN Cycle }
     procedure ActionStart;  { Play Start Animation.   NO Cycle }
     procedure ActionGo;     { Play Go Animation.      IN Cycle }
@@ -75,6 +75,7 @@ const
   SuffixRelax = '.P4';
   ActionCoeff = 0.01;
   WithoutPants = 'condom';
+  BareFoots = 'none';
 
 constructor TActorsLogic.Create(actorA, actorB: TBaseActor;
                                 animationPrefix: String;
@@ -184,7 +185,8 @@ begin
 end;
 
 procedure TActorsLogic.PlayAnimation(const animationName: String;
-                                    loop, bottomDress: boolean);
+                                    loop, bottomDress: boolean;
+                                    footDress: boolean);
 var
   actor: TBaseActor;
   chara: TActorChara;
@@ -192,14 +194,18 @@ var
 begin
   for actor in FActors do
   begin
-    if NOT bottomDress then
+    if (NOT (bottomDress AND footDress)) then
     begin
       chara:= TCharaDynamic.Cast(actor);
       if Assigned(chara) then
       begin
         dresser:= chara.GetDresser();
-        if Assigned(dresser) then
-          dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        begin
+          if NOT bottomDress then
+            dresser.WearSuit(TSuits.Bottom, WithoutPants);
+          if NOT footDress then
+            dresser.WearSuit(TSuits.Foots, BareFoots);
+        end;
       end;
     end;
     actor.PlayAnimation(animationName, loop)
@@ -207,7 +213,8 @@ begin
 end;
 
 procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
-                                     bottomDress: boolean);
+                                     bottomDress: boolean;
+                                     footDress: boolean);
 var
   actor: TBaseActor;
   chara: TActorChara;
@@ -215,14 +222,19 @@ var
 begin
   for actor in FActors do
   begin
-    if NOT bottomDress then
+    if (NOT (bottomDress AND footDress)) then
     begin
       chara:= TCharaDynamic.Cast(actor);
       if Assigned(chara) then
       begin
         dresser:= chara.GetDresser();
         if Assigned(dresser) then
-          dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        begin
+          if NOT bottomDress then
+            dresser.WearSuit(TSuits.Bottom, WithoutPants);
+          if NOT footDress then
+            dresser.WearSuit(TSuits.Foots, BareFoots);
+        end;
       end;
     end;
     actor.PlayAnimation(Parameters)
@@ -233,7 +245,7 @@ procedure TActorsLogic.ActionIdle;
 begin
   FStatus:= TActorStatus.Wait;
   FScreenFader.Fade(0.75);
-  PlayAnimation(FAnimationPrefix + SuffixWait, True, True);
+  PlayAnimation(FAnimationPrefix + SuffixWait, True, True, False);
 end;
 
 procedure TActorsLogic.ActionStart;
@@ -248,7 +260,7 @@ begin
     FStatus:= TActorStatus.Start;
     FScreenFader.Fade(0.25);
     FEnableStopAction:= True;
-    PlayAnimation(AnimationParams, False);
+    PlayAnimation(AnimationParams, False, True);
   finally FreeAndNil(AnimationParams)
   end;
 end;
@@ -257,14 +269,14 @@ procedure TActorsLogic.ActionGo;
 begin
   FStatus:= TActorStatus.Go;
   FScreenFader.Fade(0.25);
-  PlayAnimation(FAnimationPrefix + FActionNum + SuffixGO, True, True);
+  PlayAnimation(FAnimationPrefix + FActionNum + SuffixGO, True, True, True);
 end;
 
 procedure TActorsLogic.ActionFastGo;
 begin
   FStatus:= TActorStatus.FastGo;
   FScreenFader.Fade(0.5);
-  PlayAnimation(FAnimationPrefix + FActionNum + SuffixFastGO, True, True);
+  PlayAnimation(FAnimationPrefix + FActionNum + SuffixFastGO, True, True, True);
 end;
 
 procedure TActorsLogic.ActionFinish;
@@ -279,7 +291,7 @@ begin
     FStatus:= TActorStatus.Finish;
     FScreenFader.Fade(0.25);
     FEnableStopAction:= True;
-    PlayAnimation(AnimationParams, False);
+    PlayAnimation(AnimationParams, True, True);
   finally FreeAndNil(AnimationParams)
   end;
 end;
@@ -289,7 +301,7 @@ begin
   FStatus:= TActorStatus.Relax;
   FScreenFader.Fade(0.6);
   Pleasure:= Pleasure - 0.5 * Tension;
-  PlayAnimation(FAnimationPrefix + FActionNum + SuffixRelax, True, True);
+  PlayAnimation(FAnimationPrefix + FActionNum + SuffixRelax, True, True, True);
 end;
 
 procedure TActorsLogic.ActionStartStop(const Scene: TCastleSceneCore;
