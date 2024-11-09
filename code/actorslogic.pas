@@ -340,10 +340,12 @@ var
   averColor: TCastleColorRGB;
   count: Integer;
   maxColor: Single;
+  maxAverColor: Single;
 begin
   averColor:= Vector3(0.0, 0.0, 0.0);
   count:= 0;
   maxColor:= 0.0;
+  maxAverColor:= 0.0;
 
   for actor in FActors do
   begin
@@ -351,14 +353,18 @@ begin
     if Assigned(chara) then
     begin
       averColor:= averColor + chara.PersonalColor;
-      count:= count + 1;
       maxColor:= max(max(max(chara.PersonalColor.X, chara.PersonalColor.Y),
-                             chara.PersonalColor.Y), maxColor);
+                 chara.PersonalColor.Y), maxColor);
+      count:= count + 1;
     end;
   end;
 
   if (count > 1) then
-    averColor:= (averColor / count) / maxColor;
+  begin
+    averColor:= averColor / count;
+    maxAverColor:= max(max(averColor.X, averColor.Y), averColor.Y);
+    averColor:= maxColor * averColor / maxAverColor;
+  end;
 
   Result:= averColor;
 end;
