@@ -176,229 +176,257 @@
       ],
       "$Children" : [
         {
-          "$$ClassName" : "TCastleRectangleControl",
+          "$$ClassName" : "TCastleImageControl",
           "AutoSizeToChildren" : true,
-          "ColorPersistent" : {
-            "$$ClassName" : "TCastleColorPersistent",
-            "Alpha" : 5.0196081399917603E-001,
-            "Green" : 5.6078433990478516E-001,
-            "Red" : 8.7843137979507446E-001
+          "Content" : {
+            "$$ClassName" : "TCastleImagePersistent",
+            "ProtectedSides" : {
+              "$$ClassName" : "TBorder",
+              "AllSides" : 2.5000000000000000E+001
+            },
+            "Url" : "castle-data:/ui/menu_actions.png"
           },
-          "Height" : 1.0000000000000000E+000,
-          "HeightFraction" : 1.0000000000000000E+000,
-          "Name" : "RectangleControl1",
+          "Name" : "ImageControlActions",
           "VerticalAnchorParent" : "vpMiddle",
           "VerticalAnchorSelf" : "vpMiddle",
-          "Width" : 2.0000000000000000E+002,
           "$Children" : [
             {
-              "$$ClassName" : "TCastleVerticalGroup",
-              "Name" : "VerticalGroup1",
-              "Padding" : 2.0000000000000000E+001,
-              "Spacing" : 1.0000000000000000E+001,
+              "$$ClassName" : "TCastleRectangleControl",
+              "AutoSizeToChildren" : true,
+              "ColorPersistent" : {
+                "$$ClassName" : "TCastleColorPersistent",
+                "Alpha" : 0.0000000000000000E+000
+              },
+              "Height" : 1.0000000000000000E+000,
+              "HeightFraction" : 1.0000000000000000E+000,
+              "Name" : "RectangleControlActions",
               "VerticalAnchorParent" : "vpMiddle",
               "VerticalAnchorSelf" : "vpMiddle",
+              "Width" : 2.0000000000000000E+002,
               "$Children" : [
                 {
-                  "$$ClassName" : "TCastleButton",
-                  "Caption" : "Play Together",
-                  "CustomBackground" : true,
-                  "CustomBackgroundDisabled" : {
-                    "$$ClassName" : "TCastleImagePersistent"
-                  },
-                  "CustomBackgroundFocused" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
+                  "$$ClassName" : "TCastleVerticalGroup",
+                  "Name" : "GroupActions",
+                  "Padding" : 2.0000000000000000E+001,
+                  "Spacing" : 1.0000000000000000E+001,
+                  "VerticalAnchorParent" : "vpMiddle",
+                  "VerticalAnchorSelf" : "vpMiddle",
+                  "$Children" : [
+                    {
+                      "$$ClassName" : "TCastleButton",
+                      "Caption" : "Play Together",
+                      "CustomBackground" : true,
+                      "CustomBackgroundDisabled" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "CustomBackgroundFocused" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light_focus.png"
+                      },
+                      "CustomBackgroundNormal" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light.png"
+                      },
+                      "CustomBackgroundPressed" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light_press.png"
+                      },
+                      "CustomTextColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 1.0000000000000000E+000,
+                        "Green" : 1.0000000000000000E+000,
+                        "Red" : 1.0000000000000000E+000
+                      },
+                      "CustomTextColorUse" : true,
+                      "Image" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "Name" : "BtnPlayTogether",
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : 2.0000000000000000E+001,
+                        "Y" : -2.0000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpTop",
+                      "VerticalAnchorSelf" : "vpTop"
                     },
-                    "Url" : "castle-data:/ui/button_light_focus.png"
-                  },
-                  "CustomBackgroundNormal" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light.png"
-                  },
-                  "CustomBackgroundPressed" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light_press.png"
-                  },
-                  "CustomTextColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "CustomTextColorUse" : true,
-                  "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
-                  },
-                  "Name" : "BtnPlayTogether",
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -2.0000000000000000E+001
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleButton",
-                  "Caption" : "Play Solo",
-                  "CustomBackground" : true,
-                  "CustomBackgroundDisabled" : {
-                    "$$ClassName" : "TCastleImagePersistent"
-                  },
-                  "CustomBackgroundFocused" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light_focus.png"
-                  },
-                  "CustomBackgroundNormal" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light.png"
-                  },
-                  "CustomBackgroundPressed" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light_press.png"
-                  },
-                  "CustomTextColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "CustomTextColorUse" : true,
-                  "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
-                  },
-                  "Name" : "BtnPlaySolo",
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -6.9000000000000000E+001
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
+                    {
+                      "$$ClassName" : "TCastleButton",
+                      "Caption" : "Play Solo",
+                      "CustomBackground" : true,
+                      "CustomBackgroundDisabled" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "CustomBackgroundFocused" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light_focus.png"
+                      },
+                      "CustomBackgroundNormal" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light.png"
+                      },
+                      "CustomBackgroundPressed" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light_press.png"
+                      },
+                      "CustomTextColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 1.0000000000000000E+000,
+                        "Green" : 1.0000000000000000E+000,
+                        "Red" : 1.0000000000000000E+000
+                      },
+                      "CustomTextColorUse" : true,
+                      "Image" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "Name" : "BtnPlaySolo",
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : 2.0000000000000000E+001,
+                        "Y" : -6.9000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpTop",
+                      "VerticalAnchorSelf" : "vpTop"
+                    }
+                  ]
                 }
               ]
             }
           ]
         },
         {
-          "$$ClassName" : "TCastleRectangleControl",
+          "$$ClassName" : "TCastleImageControl",
           "AutoSizeToChildren" : true,
-          "ColorPersistent" : {
-            "$$ClassName" : "TCastleColorPersistent",
-            "Alpha" : 5.0196081399917603E-001,
-            "Green" : 5.6078433990478516E-001,
-            "Red" : 8.7843137979507446E-001
+          "Content" : {
+            "$$ClassName" : "TCastleImagePersistent",
+            "ProtectedSides" : {
+              "$$ClassName" : "TBorder",
+              "AllSides" : 2.5000000000000000E+001
+            },
+            "Url" : "castle-data:/ui/menu_navigation.png"
           },
-          "Height" : 1.0000000000000000E+000,
-          "HeightFraction" : 1.0000000000000000E+000,
-          "Name" : "RectangleControl2",
-          "Width" : 2.0000000000000000E+002,
+          "Name" : "ImageControlNavigation",
           "$Children" : [
             {
-              "$$ClassName" : "TCastleVerticalGroup",
-              "Name" : "VerticalGroup4",
-              "Padding" : 2.0000000000000000E+001,
-              "Spacing" : 1.0000000000000000E+001,
+              "$$ClassName" : "TCastleRectangleControl",
+              "AutoSizeToChildren" : true,
+              "ColorPersistent" : {
+                "$$ClassName" : "TCastleColorPersistent",
+                "Alpha" : 0.0000000000000000E+000
+              },
+              "Height" : 1.0000000000000000E+000,
+              "HeightFraction" : 1.0000000000000000E+000,
+              "Name" : "RectangleControlNavigation",
+              "Width" : 2.0000000000000000E+002,
               "$Children" : [
                 {
-                  "$$ClassName" : "TCastleButton",
-                  "Caption" : "Exit Game",
-                  "CustomBackground" : true,
-                  "CustomBackgroundDisabled" : {
-                    "$$ClassName" : "TCastleImagePersistent"
-                  },
-                  "CustomBackgroundFocused" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light_focus.png"
-                  },
-                  "CustomBackgroundNormal" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light.png"
-                  },
-                  "CustomBackgroundPressed" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 1.5000000000000000E+001,
-                      "Right" : 1.5000000000000000E+001,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/button_light_press.png"
-                  },
-                  "CustomTextColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "CustomTextColorUse" : true,
-                  "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
-                  },
-                  "Name" : "BtnExit",
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -2.0000000000000000E+001
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
+                  "$$ClassName" : "TCastleVerticalGroup",
+                  "Name" : "GroupNavigation",
+                  "Padding" : 2.0000000000000000E+001,
+                  "Spacing" : 1.0000000000000000E+001,
+                  "$Children" : [
+                    {
+                      "$$ClassName" : "TCastleButton",
+                      "Caption" : "Exit Game",
+                      "CustomBackground" : true,
+                      "CustomBackgroundDisabled" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "CustomBackgroundFocused" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light_focus.png"
+                      },
+                      "CustomBackgroundNormal" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light.png"
+                      },
+                      "CustomBackgroundPressed" : {
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 1.5000000000000000E+001,
+                          "Right" : 1.5000000000000000E+001,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/button_light_press.png"
+                      },
+                      "CustomTextColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 1.0000000000000000E+000,
+                        "Green" : 1.0000000000000000E+000,
+                        "Red" : 1.0000000000000000E+000
+                      },
+                      "CustomTextColorUse" : true,
+                      "Image" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "Name" : "BtnExit",
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : 2.0000000000000000E+001,
+                        "Y" : -2.0000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpTop",
+                      "VerticalAnchorSelf" : "vpTop"
+                    }
+                  ]
                 }
               ]
             }
@@ -416,10 +444,14 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.9479342103004456E-001,
-          "X" : -1.8594728410243988E-001,
-          "Y" : 9.8151648044586182E-001,
-          "Z" : 4.5266490429639816E-002
+          "W" : 9.7031313180923462E-001,
+          "X" : -6.1763655394315720E-002,
+          "Y" : -9.9771952629089355E-001,
+          "Z" : -2.7223736047744751E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
