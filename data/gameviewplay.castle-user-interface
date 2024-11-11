@@ -384,11 +384,26 @@
                     {
                       "$$ClassName" : "TCastleFloatSlider",
                       "Background" : {
-                        "$$ClassName" : "TCastleImagePersistent"
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "ProtectedSides" : {
+                          "$$ClassName" : "TBorder",
+                          "Bottom" : 5.0000000000000000E+000,
+                          "Left" : 9.0000000000000000E+000,
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 5.0000000000000000E+000
+                        },
+                        "Url" : "castle-data:/ui/scroll_light.png"
                       },
                       "Name" : "FloatSliderEmission",
+                      "TextColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 1.0000000000000000E+000,
+                        "Green" : 1.0000000000000000E+000,
+                        "Red" : 9.4509804248809814E-001
+                      },
                       "Thumb" : {
-                        "$$ClassName" : "TCastleImagePersistent"
+                        "$$ClassName" : "TCastleImagePersistent",
+                        "Url" : "castle-data:/ui/scroll_cursor.png"
                       },
                       "Value" : 1.5000000596046448E-001,
                       "VerticalAnchorParent" : "vpMiddle",
@@ -477,13 +492,28 @@
                 {
                   "$$ClassName" : "TCastleFloatSlider",
                   "Background" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 9.0000000000000000E+000,
+                      "Right" : 9.0000000000000000E+000,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/scroll_light.png"
                   },
                   "Max" : 3.0000000000000000E+000,
                   "Min" : 2.5000000000000000E-001,
                   "Name" : "FloatSliderSpeed",
+                  "TextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 9.4509804248809814E-001
+                  },
                   "Thumb" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui/scroll_cursor.png"
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
@@ -521,6 +551,12 @@
                     "Url" : "castle-data:/ui/gauge.png"
                   },
                   "Name" : "FloatSliderPleasure",
+                  "TextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 9.4509804248809814E-001
+                  },
                   "Thumb" : {
                     "$$ClassName" : "TCastleImagePersistent",
                     "ColorPersistent" : {
@@ -565,6 +601,12 @@
                     "Url" : "castle-data:/ui/gauge.png"
                   },
                   "Name" : "FloatSliderTension",
+                  "TextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 9.4509804248809814E-001
+                  },
                   "Thumb" : {
                     "$$ClassName" : "TCastleImagePersistent",
                     "ColorPersistent" : {
