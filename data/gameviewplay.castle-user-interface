@@ -394,6 +394,7 @@
                         },
                         "Url" : "castle-data:/ui/scroll_light.png"
                       },
+                      "Height" : 3.2000000000000000E+001,
                       "Name" : "FloatSliderEmission",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -502,6 +503,7 @@
                     },
                     "Url" : "castle-data:/ui/scroll_light.png"
                   },
+                  "Height" : 3.2000000000000000E+001,
                   "Max" : 3.0000000000000000E+000,
                   "Min" : 2.5000000000000000E-001,
                   "Name" : "FloatSliderSpeed",
@@ -528,9 +530,7 @@
                   "$$ClassName" : "TCastleLabel",
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
+                    "Green" : 1.0000000000000000E+000
                   },
                   "Name" : "LabelPleasure",
                   "Text" : [
@@ -539,7 +539,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -3.2000000000000000E+002
+                    "Y" : -3.2200000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -548,8 +548,16 @@
                   "$$ClassName" : "TCastleFloatSlider",
                   "Background" : {
                     "$$ClassName" : "TCastleImagePersistent",
-                    "Url" : "castle-data:/ui/gauge.png"
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 9.0000000000000000E+000,
+                      "Right" : 9.0000000000000000E+000,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/scroll_light_growing.png"
                   },
+                  "Height" : 3.2000000000000000E+001,
                   "Name" : "FloatSliderPleasure",
                   "TextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
@@ -564,22 +572,22 @@
                       "Blue" : 0.0000000000000000E+000,
                       "Red" : 0.0000000000000000E+000
                     },
-                    "Url" : "castle-data:/ui/dot_green.png"
+                    "Url" : "castle-data:/ui/scroll_cursor_growing.png"
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -3.5200000000000000E+002
+                    "Y" : -3.5400000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 2.5000000000000000E+002
                 },
                 {
                   "$$ClassName" : "TCastleLabel",
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
+                    "Green" : 3.5294118523597717E-001,
                     "Red" : 1.0000000000000000E+000
                   },
                   "Name" : "LabelTension",
@@ -589,7 +597,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -3.9200000000000000E+002
+                    "Y" : -3.9600000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -598,7 +606,14 @@
                   "$$ClassName" : "TCastleFloatSlider",
                   "Background" : {
                     "$$ClassName" : "TCastleImagePersistent",
-                    "Url" : "castle-data:/ui/gauge.png"
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 9.0000000000000000E+000,
+                      "Right" : 9.0000000000000000E+000,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/scroll_light_growing.png"
                   },
                   "Name" : "FloatSliderTension",
                   "TextColorPersistent" : {
@@ -612,17 +627,18 @@
                     "ColorPersistent" : {
                       "$$ClassName" : "TCastleColorPersistent",
                       "Blue" : 0.0000000000000000E+000,
-                      "Green" : 0.0000000000000000E+000
+                      "Green" : 3.5294118523597717E-001
                     },
-                    "Url" : "castle-data:/ui/dot_red.png"
+                    "Url" : "castle-data:/ui/scroll_cursor_growing.png"
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -4.2400000000000000E+002
+                    "Y" : -4.2800000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 2.5000000000000000E+002
                 }
               ]
             }
