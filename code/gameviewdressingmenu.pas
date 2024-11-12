@@ -9,7 +9,7 @@ uses Classes,
 type
   TViewDressingMenu = class(TCastleView)
   published
-    RectangleControl: TCastleRectangleControl;
+    ImageControl: TCastleImageControl;
     ListTop: TCastleVerticalGroup;
     ListBottom: TCastleVerticalGroup;
     ListArms: TCastleVerticalGroup;
@@ -74,11 +74,17 @@ end;
 
 procedure TViewDressingMenu.SetColor(color: TCastleColorRGB);
 var
-  alpha: Single;
+  rootItem: TCastleUserInterface;
+  item: TCastleImageControl;
+  alpha: single;
 begin
-  { Set personal color}
-  alpha:= RectangleControl.Color.W;
-  RectangleControl.Color:= Vector4(color.X, color.Y, color.Z, alpha);
+  rootItem:= DesignedComponent('MenuRoot') as TCastleUserInterface;
+
+  for item in GetAllUIImages(rootItem) do
+  begin
+      alpha:= item.Color.W;
+      item.Color:= Vector4(color.X, color.Y, color.Z, alpha);
+  end;
 end;
 
 procedure TViewDressingMenu.UpdateSuits();
@@ -126,6 +132,8 @@ begin
   begin
     newChk:= TCastleCheckbox.Create(ListAccessories);
     newChk.Caption:= acessory.Name;
+    newChk.CheckboxColor:= Vector4(1.0, 1.0, 1.0, 1.0);
+    newChk.TextColor:= Vector4(1.0, 1.0, 1.0, 1.0);
     newChk.Checked:= acessory.Visible;
     newChk.OnChange:= {$ifdef FPC}@{$endif} ClickAccesories;
     ListAccessories.InsertFront(newChk);

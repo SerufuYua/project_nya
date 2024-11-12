@@ -23,7 +23,7 @@ type
     FloatSliderSpeed: TCastleFloatSlider;
     FloatSliderPleasure: TCastleFloatSlider;
     FloatSliderTension: TCastleFloatSlider;
-    RectangleControlDressing: TCastleRectangleControl;
+    ImageControlDressing: TCastleImageControl;
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
     ImageScreen: TCastleImageControl;
@@ -140,7 +140,7 @@ begin
 
   { Release Dressing Menu Buttons }
   if NOT (Container.FrontView = ViewDressingMenu) then
-    RectangleControlDressing.Exists:= True;
+    ImageControlDressing.Exists:= True;
 end;
 
 function TBaseViewPlay.Press(const Event: TInputPressRelease): Boolean;
@@ -189,7 +189,7 @@ begin
       end;
     end;
 
-    RectangleControlDressing.Exists:= False;
+    ImageControlDressing.Exists:= False;
   end;
 end;
 
