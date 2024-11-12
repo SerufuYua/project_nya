@@ -202,18 +202,50 @@
                 {
                   "$$ClassName" : "TCastleButton",
                   "Caption" : "Play Together",
+                  "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
                   "CustomBackgroundFocused" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light_focus.png"
                   },
                   "CustomBackgroundNormal" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light.png"
                   },
                   "CustomBackgroundPressed" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light_press.png"
                   },
+                  "CustomTextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "CustomTextColorUse" : true,
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
@@ -229,18 +261,50 @@
                 {
                   "$$ClassName" : "TCastleButton",
                   "Caption" : "Play Solo",
+                  "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
                   "CustomBackgroundFocused" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light_focus.png"
                   },
                   "CustomBackgroundNormal" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light.png"
                   },
                   "CustomBackgroundPressed" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light_press.png"
                   },
+                  "CustomTextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "CustomTextColorUse" : true,
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
@@ -280,18 +344,50 @@
                 {
                   "$$ClassName" : "TCastleButton",
                   "Caption" : "Exit Game",
+                  "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
                   "CustomBackgroundFocused" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light_focus.png"
                   },
                   "CustomBackgroundNormal" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light.png"
                   },
                   "CustomBackgroundPressed" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/button_light_press.png"
                   },
+                  "CustomTextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "CustomTextColorUse" : true,
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
