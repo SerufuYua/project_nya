@@ -134,8 +134,9 @@ begin
   { Update Actors }
   for actor in FActors do
   begin
+    actor.Pleasure:= Pleasure;
+    actor.Tension:= Tension;
     actor.Update(SecondsPassed);
-//    actor.SetDripping(Pleasure);
   end;
 end;
 

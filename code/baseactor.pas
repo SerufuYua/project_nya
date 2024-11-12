@@ -13,6 +13,8 @@ type
   protected
     FActorRoot: TCastleTransformDesign;
     FActorName: String;
+    FPleasure: Single;
+    FTension: Single;
     function GetTrans(): TVector3;
     procedure SetTrans(coord: TVector3);
     function GetRot(): TVector4;
@@ -28,6 +30,8 @@ type
     property Translation: TVector3 read GetTrans write SetTrans;
     property Rotation: TVector4 read GetRot write SetRot;
     property ActorName: String read FActorName;
+    property Pleasure: Single read FPleasure write FPleasure;
+    property Tension: Single read FTension write FTension;
   end;
 
 implementation

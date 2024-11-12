@@ -17,15 +17,19 @@ type
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
     FControlJizz: TCastleTransform;
-    FEffectJizz: TCastleParticleEmitter;
-    EffectDrip: TCastleParticleEmitter;
-    ParticleEffectDrip: TCastleParticleEffect;
+    FEmitterJizz: TCastleParticleEmitter;
+    FEffectDrip: TCastleParticleEffect;
+    FEmitterDrip: TCastleParticleEmitter;
+    FEmitterSweat: TCastleParticleEmitter;
+    FEffectSweat: TCastleParticleEffect;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     procedure ActionFaceDefault;
     function GetLightning: Boolean;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
+    procedure SetDripping(value: Single);
+    procedure SetSweating(value: Single);
     function GetColor: TCastleColorRGB;
   public
     constructor Create(actorRoot: TCastleTransformDesign; charaName: String); override;
@@ -37,7 +41,6 @@ type
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
     procedure SetSpeed(value: Single); override;
-    procedure SetDripping(value: Single);
     function GetDresser(): TCharaDresser;
     property Translation: TVector3 read GetTrans write SetTrans;
     property Rotation: TVector4 read GetRot write SetRot;
@@ -62,12 +65,16 @@ begin
   { juices setting }
   FControlJizz:= FActorRoot.DesignedComponent('Control_Jizz', False)
                  as TCastleTransform;
-  FEffectJizz:= FActorRoot.DesignedComponent('EffectJizz', False)
-                as TCastleParticleEmitter;
-  EffectDrip:= FActorRoot.DesignedComponent('EffectDrip', False)
-               as TCastleParticleEmitter;
-  ParticleEffectDrip:= FActorRoot.DesignedComponent('ParticleEffectDrip', False)
-                       as TCastleParticleEffect;
+  FEmitterJizz:= FActorRoot.DesignedComponent('EmitterJizz', False)
+                 as TCastleParticleEmitter;
+  FEmitterDrip:= FActorRoot.DesignedComponent('EmitterDrip', False)
+                 as TCastleParticleEmitter;
+  FEffectDrip:= FActorRoot.DesignedComponent('EffectDrip', False)
+                as TCastleParticleEffect;
+  FEmitterSweat:= FActorRoot.DesignedComponent('EmitterSweat', False)
+                  as TCastleParticleEmitter;
+  FEffectSweat:= FActorRoot.DesignedComponent('EffectSweat', False)
+                 as TCastleParticleEffect;
 
   charaBody:= FActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
@@ -92,8 +99,11 @@ end;
 
 procedure TActorChara.Update(const SecondsPassed: Single);
 begin
-  if (Assigned(FControlJizz) AND Assigned(FEffectJizz)) then
-    FEffectJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
+  if (Assigned(FControlJizz) AND Assigned(FEmitterJizz)) then
+    FEmitterJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
+
+  SetDripping(Pleasure);
+  SetSweating(Tension);
 end;
 
 procedure TActorChara.SaveCondition;
@@ -145,6 +155,24 @@ begin
   end;
 end;
 
+procedure TActorChara.SetDripping(value: Single);
+begin
+  if (Assigned(FEffectDrip) AND Assigned(FEmitterDrip)) then
+  begin
+    FEmitterDrip.Exists:= (value > 0.05);
+    FEffectDrip.MaxParticles:= 1 + round(20.0 * value);
+  end;
+end;
+
+procedure TActorChara.SetSweating(value: Single);
+begin
+  if (Assigned(FEffectSweat) AND Assigned(FEmitterSweat)) then
+  begin
+    FEmitterSweat.Exists:= (value > 0.05);
+    FEffectSweat.MaxParticles:= 1 + round(5.0 * value);
+  end;
+end;
+
 procedure TActorChara.SetSpeed(value: Single);
 var
   bodies: TCastleScenes;
@@ -154,15 +182,6 @@ begin
   for body in bodies do
     if Assigned(body) then
       body.TimePlayingSpeed:= value;
-end;
-
-procedure TActorChara.SetDripping(value: Single);
-begin
-  if (Assigned(ParticleEffectDrip) AND Assigned(EffectDrip)) then
-  begin
-    EffectDrip.Exists:= (value > 0.05);
-    ParticleEffectDrip.MaxParticles:= round(10.0 * value);
-  end;
 end;
 
 function TActorChara.GetColor: TCastleColorRGB;
