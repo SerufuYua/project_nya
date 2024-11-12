@@ -28,22 +28,22 @@
           "Name" : "Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.9845979213714600E+000,
-            "X" : 6.8324649333953857E-001,
-            "Y" : 6.2031251192092896E-001,
-            "Z" : -3.8521000742912292E-001
+            "W" : 3.9905705451965332E+000,
+            "X" : 6.8810611963272095E-001,
+            "Y" : 6.2111645936965942E-001,
+            "Z" : -3.7513208389282227E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0999997854232788E+000,
-            "Y" : 1.1000006198883057E+000,
-            "Z" : 1.0999995470046997E+000
+            "X" : 1.1000000238418579E+000,
+            "Y" : 1.1000009775161743E+000,
+            "Z" : 1.0999997854232788E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 5.3785624504089355E+000,
-            "Y" : 6.4210672378540039E+000,
-            "Z" : -1.4032331466674805E+001
+            "X" : 5.4059309959411621E+000,
+            "Y" : 6.4304904937744141E+000,
+            "Z" : -1.4024250030517578E+001
           },
           "$Children" : [
             {
@@ -75,6 +75,64 @@
                 "Z" : 1.0000000000000000E+000
               },
               "Url" : "castle-data:/chars/hair_boy/hair.gltf"
+            },
+            {
+              "$$ClassName" : "TCastleParticleEmitter",
+              "Effect" : "EffectSweat",
+              "Name" : "EmitterSweat",
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleParticleEffect",
+                  "Anchors" : [
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Alpha" : 0.0000000000000000E+000,
+                        "Blue" : 0.0000000000000000E+000,
+                        "Green" : 0.0000000000000000E+000,
+                        "Red" : 0.0000000000000000E+000
+                      },
+                      "Size" : 2.5000000000000000E-001
+                    }
+                  ],
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 5.4117649793624878E-001,
+                    "Green" : 8.6274510622024536E-001,
+                    "Red" : 8.3137255907058716E-001
+                  },
+                  "DirectionPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : 0.0000000000000000E+000,
+                    "Z" : 1.0000000000000000E+000
+                  },
+                  "GravityPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : -1.0000000000000000E+002
+                  },
+                  "LifeSpan" : 5.0000000000000000E-001,
+                  "MaxParticles" : 2,
+                  "Name" : "EffectSweat",
+                  "Size" : 7.5000000000000000E-001,
+                  "SizeVariance" : 1.5000000596046448E-001,
+                  "SourcePositionPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : 5.0000000000000000E+000,
+                    "Z" : 5.0000000000000000E+000
+                  },
+                  "SourcePositionVariancePersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "X" : 3.0000000000000000E+000,
+                    "Y" : 2.0000000000000000E+000,
+                    "Z" : 2.0000000298023224E-001
+                  },
+                  "SourceType" : "pstSpheroidSurface",
+                  "Speed" : 1.5000000000000000E+001,
+                  "SpeedVariance" : 5.0000000000000000E+000,
+                  "Texture" : "castle-data:/effects/drop2.png"
+                }
+              ]
             }
           ]
         },
@@ -83,30 +141,30 @@
           "Name" : "Penis_004",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.0427937507629395E+000,
-            "X" : -7.0300763845443726E-001,
-            "Y" : 4.5610502362251282E-001,
-            "Z" : -5.4566311836242676E-001
+            "W" : 2.0527124404907227E+000,
+            "X" : -6.9547545909881592E-001,
+            "Y" : 4.6968245506286621E-001,
+            "Z" : -5.4379433393478394E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999934434890747E-001,
-            "Y" : 9.9999964237213135E-001,
-            "Z" : 9.9999952316284180E-001
+            "X" : 9.9999952316284180E-001,
+            "Y" : 9.9999976158142090E-001,
+            "Z" : 9.9999982118606567E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -1.7762908935546875E+000,
-            "Y" : 5.5127620697021484E+000,
-            "Z" : 7.8232222795486450E-001
+            "X" : -1.7247728109359741E+000,
+            "Y" : 5.4956398010253906E+000,
+            "Z" : 7.8441596031188965E-001
           },
           "$Children" : [
             {
               "$$ClassName" : "TCastleParticleEmitter",
               "Burst" : true,
-              "Effect" : "ParticleEffectJizz",
+              "Effect" : "EffectJizz",
               "Exists" : false,
-              "Name" : "EffectJizz",
+              "Name" : "EmitterJizz",
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
                 "Y" : 1.3999999761581421E+000
@@ -133,7 +191,7 @@
                   "LifeSpan" : 5.0000000000000000E-001,
                   "LifeSpanVariance" : 1.5000000596046448E-001,
                   "MaxParticles" : 300,
-                  "Name" : "ParticleEffectJizz",
+                  "Name" : "EffectJizz",
                   "Size" : 2.0000000298023224E-001,
                   "SourceType" : "pstCylinderSurface",
                   "Speed" : 2.0000000000000000E+001,
@@ -144,9 +202,9 @@
             },
             {
               "$$ClassName" : "TCastleParticleEmitter",
-              "Effect" : "ParticleEffectDrip",
+              "Effect" : "EffectDrip",
               "Exists" : false,
-              "Name" : "EffectDrip",
+              "Name" : "EmitterDrip",
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
                 "Y" : 1.6000000238418579E+000
@@ -191,7 +249,7 @@
                   "LifeSpan" : 5.0000000000000000E-001,
                   "LifeSpanVariance" : 1.5000000596046448E-001,
                   "MaxParticles" : 3,
-                  "Name" : "ParticleEffectDrip",
+                  "Name" : "EffectDrip",
                   "Size" : 3.0000001192092896E-001,
                   "SourcePositionVariancePersistent" : {
                     "$$ClassName" : "TCastleVector3Persistent",
