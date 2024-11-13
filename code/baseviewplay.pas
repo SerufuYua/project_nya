@@ -222,17 +222,37 @@ end;
 procedure TBaseViewPlay.SetDressButtons();
 var
   chara: TActorChara;
-  newBtn: TCastleButton;
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
 begin
-  GroupDressingButtons.ClearControls;
+  if ((GroupDressingButtons.ControlsCount > 0) AND
+      (GroupDressingButtons.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= GroupDressingButtons.Controls[0] as TCastleButton;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
 
   for chara in FActorsLogic.Charas do
   begin
-    newBtn:= TCastleButton.Create(GroupDressingButtons);
+    if Assigned(sampleBtn) then
+      newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton
+    else
+      newBtn:= TCastleButton.Create(GroupDressingButtons);
+
     newBtn.Caption:= chara.ActorName;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
     GroupDressingButtons.InsertFront(newBtn);
   end;
+
+  if Assigned(sampleBtn) then
+    GroupDressingButtons.RemoveControl(sampleBtn);
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
 end;
 
 procedure TBaseViewPlay.SetActionsList(actList: TCastleComponent);
@@ -252,7 +272,10 @@ begin
     myBtnFactory:= TCastleComponentFactory.Create(self);
     myBtnFactory.LoadFromComponent(sampleBtn);
   end else
+  begin
     sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
 
   for i:= 0 to (num - 1) do
   begin
