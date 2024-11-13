@@ -56,9 +56,9 @@ implementation
 
 uses
   GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
-  ActorChara,
-  CastleScene, CastleViewport, CastleVectors,
-  StrUtils, MyCastleUtils;
+  CastleScene, CastleFonts, CastleViewport, CastleVectors,
+  StrUtils, MyCastleUtils,
+  ActorChara;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -224,11 +224,13 @@ var
   chara: TActorChara;
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
 begin
   if ((GroupDressingButtons.ControlsCount > 0) AND
       (GroupDressingButtons.Controls[0] is TCastleButton)) then
   begin
     sampleBtn:= GroupDressingButtons.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
     myBtnFactory:= TCastleComponentFactory.Create(self);
     myBtnFactory.LoadFromComponent(sampleBtn);
   end else
@@ -242,8 +244,10 @@ begin
   for chara in FActorsLogic.Charas do
   begin
     if Assigned(sampleBtn) then
-      newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton
-    else
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
       newBtn:= TCastleButton.Create(GroupDressingButtons);
 
     newBtn.Caption:= chara.ActorName;
@@ -261,6 +265,7 @@ var
   actionDescr: TCastleComponent;
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
 begin
   num:= actList.NonVisualComponentsCount;
   if (num < 1) then Exit;
@@ -269,6 +274,7 @@ begin
       (GroupActionSelect.Controls[0] is TCastleButton)) then
   begin
     sampleBtn:= GroupActionSelect.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
     myBtnFactory:= TCastleComponentFactory.Create(self);
     myBtnFactory.LoadFromComponent(sampleBtn);
   end else
@@ -283,8 +289,10 @@ begin
   begin
 
     if Assigned(sampleBtn) then
-      newBtn:= myBtnFactory.ComponentLoad(GroupActionSelect) as TCastleButton
-    else
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(GroupActionSelect) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
       newBtn:= TCastleButton.Create(GroupActionSelect);
 
     actionDescr:= actList.NonVisualComponents[i] as TCastleComponent;
