@@ -2,6 +2,16 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "RootGroup",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleBitmapFont",
+      "DisplayMargin" : -1.0000000000000000E+001,
+      "ImageColumns" : 14,
+      "ImageRows" : 7,
+      "ImageUrl" : "castle-data:/fonts/future_n0t_found_regular_65.PNG",
+      "Name" : "future_n0t_found_regular"
+    }
+  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleRectangleControl",
@@ -26,12 +36,12 @@
         {
           "$$ClassName" : "TCastleLabel",
           "Alignment" : "hpMiddle",
-          "FontSize" : 6.4000000000000000E+001,
+          "CustomFont" : "future_n0t_found_regular",
           "HorizontalAnchorParent" : "hpMiddle",
           "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "LabelMessageShadow",
           "Text" : [
-            "LOADING..."
+            "L0ADING..."
           ],
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector2Persistent",
@@ -51,12 +61,12 @@
             "Green" : 1.0000000000000000E+000,
             "Red" : 1.0000000000000000E+000
           },
-          "FontSize" : 6.4000000000000000E+001,
+          "CustomFont" : "future_n0t_found_regular",
           "HorizontalAnchorParent" : "hpMiddle",
           "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "LabelMessage",
           "Text" : [
-            "LOADING..."
+            "L0ADING..."
           ],
           "VerticalAlignment" : "vpMiddle",
           "VerticalAnchorParent" : "vpMiddle",
