@@ -243,7 +243,7 @@ begin
 
   for chara in FActorsLogic.Charas do
   begin
-    if Assigned(sampleBtn) then
+    if Assigned(myBtnFactory) then
     begin
       newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton;
       newBtn.CustomFont:= myFont;
@@ -287,8 +287,7 @@ begin
 
   for i:= 0 to (num - 1) do
   begin
-
-    if Assigned(sampleBtn) then
+    if Assigned(myBtnFactory) then
     begin
       newBtn:= myBtnFactory.ComponentLoad(GroupActionSelect) as TCastleButton;
       newBtn.CustomFont:= myFont;
