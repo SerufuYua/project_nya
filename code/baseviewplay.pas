@@ -55,7 +55,7 @@ type
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, GameViewLoading,
+  GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   ActorChara,
   CastleScene, CastleViewport, CastleVectors,
   StrUtils, MyCastleUtils;
@@ -239,22 +239,40 @@ procedure TBaseViewPlay.SetActionsList(actList: TCastleComponent);
 var
   num, i: Integer;
   actionDescr: TCastleComponent;
-  newBtn: TCastleButton;
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
 begin
   num:= actList.NonVisualComponentsCount;
   if (num < 1) then Exit;
 
-  GroupActionSelect.ClearControls;
+  if ((GroupActionSelect.ControlsCount > 0) AND
+      (GroupActionSelect.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= GroupActionSelect.Controls[0] as TCastleButton;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+    sampleBtn:= nil;
 
   for i:= 0 to (num - 1) do
   begin
+
+    if Assigned(sampleBtn) then
+      newBtn:= myBtnFactory.ComponentLoad(GroupActionSelect) as TCastleButton
+    else
+      newBtn:= TCastleButton.Create(GroupActionSelect);
+
     actionDescr:= actList.NonVisualComponents[i] as TCastleComponent;
-    newBtn:= TCastleButton.Create(GroupActionSelect);
     newBtn.Caption:= ReplaceStr(actionDescr.Name, '_', ' ');
     newBtn.Tag:= actionDescr.Tag;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
     GroupActionSelect.InsertFront(newBtn);
   end;
+
+  if Assigned(sampleBtn) then
+    GroupActionSelect.RemoveControl(sampleBtn);
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
 end;
 
 procedure TBaseViewPlay.ChangedEmission(Sender: TObject);
