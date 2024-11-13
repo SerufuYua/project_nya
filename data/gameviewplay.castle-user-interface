@@ -99,9 +99,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 2.0255067348480225E+000,
+          "X" : 1.9478091001510620E+000,
           "Y" : 1.9317089080810547E+001,
-          "Z" : 2.7357501983642578E+000
+          "Z" : 2.7772371768951416E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
@@ -345,33 +345,33 @@
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light_focus.png"
+                            "Url" : "castle-data:/ui/button_list_light_focus.png"
                           },
                           "CustomBackgroundNormal" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light.png"
+                            "Url" : "castle-data:/ui/button_list_light.png"
                           },
                           "CustomBackgroundPressed" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light_press.png"
+                            "Url" : "castle-data:/ui/button_list_light_press.png"
                           },
                           "CustomFont" : "future_n0t_found",
                           "CustomTextColorPersistent" : {
@@ -386,6 +386,7 @@
                             "$$ClassName" : "TCastleImagePersistent"
                           },
                           "Name" : "BtnSampleForAction1",
+                          "PaddingHorizontal" : 2.0000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
@@ -406,33 +407,33 @@
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light_focus.png"
+                            "Url" : "castle-data:/ui/button_list_light_focus.png"
                           },
                           "CustomBackgroundNormal" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light.png"
+                            "Url" : "castle-data:/ui/button_list_light.png"
                           },
                           "CustomBackgroundPressed" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light_press.png"
+                            "Url" : "castle-data:/ui/button_list_light_press.png"
                           },
                           "CustomFont" : "future_n0t_found",
                           "CustomTextColorPersistent" : {
@@ -447,6 +448,7 @@
                             "$$ClassName" : "TCastleImagePersistent"
                           },
                           "Name" : "BtnSampleForAction2",
+                          "PaddingHorizontal" : 2.0000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
@@ -467,33 +469,33 @@
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light_focus.png"
+                            "Url" : "castle-data:/ui/button_list_light_focus.png"
                           },
                           "CustomBackgroundNormal" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light.png"
+                            "Url" : "castle-data:/ui/button_list_light.png"
                           },
                           "CustomBackgroundPressed" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
                               "Bottom" : 1.0000000000000000E+001,
-                              "Left" : 1.5000000000000000E+001,
+                              "Left" : 2.1000000000000000E+001,
                               "Right" : 1.5000000000000000E+001,
                               "Top" : 1.0000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/button_light_press.png"
+                            "Url" : "castle-data:/ui/button_list_light_press.png"
                           },
                           "CustomFont" : "future_n0t_found",
                           "CustomTextColorPersistent" : {
@@ -508,6 +510,7 @@
                             "$$ClassName" : "TCastleImagePersistent"
                           },
                           "Name" : "BtnSampleForAction3",
+                          "PaddingHorizontal" : 2.0000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
@@ -1013,33 +1016,33 @@
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
                           "Bottom" : 1.0000000000000000E+001,
-                          "Left" : 1.5000000000000000E+001,
+                          "Left" : 2.1000000000000000E+001,
                           "Right" : 1.5000000000000000E+001,
                           "Top" : 1.0000000000000000E+001
                         },
-                        "Url" : "castle-data:/ui/button_light_focus.png"
+                        "Url" : "castle-data:/ui/button_list_light_focus.png"
                       },
                       "CustomBackgroundNormal" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
                           "Bottom" : 1.0000000000000000E+001,
-                          "Left" : 1.5000000000000000E+001,
+                          "Left" : 2.1000000000000000E+001,
                           "Right" : 1.5000000000000000E+001,
                           "Top" : 1.0000000000000000E+001
                         },
-                        "Url" : "castle-data:/ui/button_light.png"
+                        "Url" : "castle-data:/ui/button_list_light.png"
                       },
                       "CustomBackgroundPressed" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
                           "Bottom" : 1.0000000000000000E+001,
-                          "Left" : 1.5000000000000000E+001,
+                          "Left" : 2.1000000000000000E+001,
                           "Right" : 1.5000000000000000E+001,
                           "Top" : 1.0000000000000000E+001
                         },
-                        "Url" : "castle-data:/ui/button_light_press.png"
+                        "Url" : "castle-data:/ui/button_list_light_press.png"
                       },
                       "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
@@ -1054,12 +1057,13 @@
                         "$$ClassName" : "TCastleImagePersistent"
                       },
                       "Name" : "BtnSampleForDress1",
+                      "PaddingHorizontal" : 2.0000000000000000E+001,
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
                     },
                     {
                       "$$ClassName" : "TCastleButton",
-                      "Caption" : "Sample Chara Button 2",
+                      "Caption" : "Sample Chara Button 1",
                       "CustomBackground" : true,
                       "CustomBackgroundDisabled" : {
                         "$$ClassName" : "TCastleImagePersistent"
@@ -1069,33 +1073,33 @@
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
                           "Bottom" : 1.0000000000000000E+001,
-                          "Left" : 1.5000000000000000E+001,
+                          "Left" : 2.1000000000000000E+001,
                           "Right" : 1.5000000000000000E+001,
                           "Top" : 1.0000000000000000E+001
                         },
-                        "Url" : "castle-data:/ui/button_light_focus.png"
+                        "Url" : "castle-data:/ui/button_list_light_focus.png"
                       },
                       "CustomBackgroundNormal" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
                           "Bottom" : 1.0000000000000000E+001,
-                          "Left" : 1.5000000000000000E+001,
+                          "Left" : 2.1000000000000000E+001,
                           "Right" : 1.5000000000000000E+001,
                           "Top" : 1.0000000000000000E+001
                         },
-                        "Url" : "castle-data:/ui/button_light.png"
+                        "Url" : "castle-data:/ui/button_list_light.png"
                       },
                       "CustomBackgroundPressed" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
                           "Bottom" : 1.0000000000000000E+001,
-                          "Left" : 1.5000000000000000E+001,
+                          "Left" : 2.1000000000000000E+001,
                           "Right" : 1.5000000000000000E+001,
                           "Top" : 1.0000000000000000E+001
                         },
-                        "Url" : "castle-data:/ui/button_light_press.png"
+                        "Url" : "castle-data:/ui/button_list_light_press.png"
                       },
                       "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
@@ -1110,6 +1114,7 @@
                         "$$ClassName" : "TCastleImagePersistent"
                       },
                       "Name" : "BtnSampleForDress2",
+                      "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
                         "Y" : -5.2000000000000000E+001
