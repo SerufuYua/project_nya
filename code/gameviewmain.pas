@@ -37,12 +37,13 @@ type
     FActorGirl: TActorChara;
     FActorBoy: TActorChara;
     FFader: TRectangleFader;
+    FCurPos: TVector2;
     FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
     procedure ClickSceneGirl(Sender: TObject);
     procedure ClicSceneTogether(Sender: TObject);
     procedure CharaActionWaiting;
-    procedure UpdateCamera; { follow cameta rotation to cursor }
+    procedure UpdateCamera(const SecondsPassed: Single); { follow cameta rotation to cursor }
   end;
 
 var
@@ -51,7 +52,8 @@ var
 implementation
 
 uses
-  SysUtils, GameViewPlayGirl, GameViewPlayTogether, GameViewLoading;
+  SysUtils, CastleUtils, GameViewPlayGirl, GameViewPlayTogether,
+  GameViewLoading;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -60,6 +62,7 @@ begin
   inherited;
   DesignUrl := 'castle-data:/gameviewmain.castle-user-interface';
   FActorGirl :=  nil;
+  FCurPos:= Vector2(0.0, 0.0);
 end;
 
 procedure TViewMain.Start;
@@ -111,7 +114,7 @@ begin
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
   FFader.AnimateQuadFade(SecondsPassed);
-  UpdateCamera;
+  UpdateCamera(SecondsPassed);
 end;
 
 function TViewMain.Press(const Event: TInputPressRelease): Boolean;
@@ -147,18 +150,23 @@ begin
   FActorBoy.Rotation:= Vector4(0, -1, 0, Pi/2);
 end;
 
-procedure TViewMain.UpdateCamera;
+procedure TViewMain.UpdateCamera(const SecondsPassed: Single);
 var
-  cursorX, cursorY: Single;
+  curPos: TVector2;
   rotatorX, rotatorY: TQuaternion;
 begin
-  cursorX:= (Container.MousePosition.X / Container.PixelsWidth - 0.5) * 2.0;
-  cursorY:= (Container.MousePosition.Y / Container.PixelsHeight - 0.5) * 2.0;
+//  curPos.X:= (Container.MousePosition.X / Container.PixelsWidth - 0.5) * 2.0;
+//  curPos.Y:= (Container.MousePosition.Y / Container.PixelsHeight - 0.5) * 2.0;
+  curPos:= (Container.MousePosition / Container.PixelsWidth - Vector2(0.5, 0.5)) * 2.0; // not inlined?
 
-  rotatorX:= QuatFromAxisAngle(Vector4(0, 1, 0, -Pi/24.0 * cursorX));
-  rotatorY:= QuatFromAxisAngle(Vector4(1, 0, 0, Pi/24.0 * cursorY));
+  curPos:= Lerp(1.0 * SecondsPassed, FCurPos, curPos);
+
+  rotatorX:= QuatFromAxisAngle(Vector4(0, 1, 0, -Pi/20.0 * curPos.X));
+  rotatorY:= QuatFromAxisAngle(Vector4(1, 0, 0, Pi/24.0 * curPos.Y));
 
   CameraMain.Rotation:= (FCameraRatation * rotatorX * rotatorY).ToAxisAngle;
+
+  FCurPos:= curPos;
 end;
 
 end.
