@@ -237,6 +237,8 @@ begin
     myBtnFactory:= nil;
   end;
 
+  GroupDressingButtons.ClearControls;
+
   for chara in FActorsLogic.Charas do
   begin
     if Assigned(sampleBtn) then
@@ -249,8 +251,6 @@ begin
     GroupDressingButtons.InsertFront(newBtn);
   end;
 
-  if Assigned(sampleBtn) then
-    GroupDressingButtons.RemoveControl(sampleBtn);
   if Assigned(myBtnFactory) then
     FreeAndNil(myBtnFactory);
 end;
@@ -277,6 +277,8 @@ begin
     myBtnFactory:= nil;
   end;
 
+  GroupActionSelect.ClearControls;
+
   for i:= 0 to (num - 1) do
   begin
 
@@ -292,8 +294,6 @@ begin
     GroupActionSelect.InsertFront(newBtn);
   end;
 
-  if Assigned(sampleBtn) then
-    GroupActionSelect.RemoveControl(sampleBtn);
   if Assigned(myBtnFactory) then
     FreeAndNil(myBtnFactory);
 end;
