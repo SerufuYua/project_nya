@@ -38,7 +38,8 @@ var
 
 implementation
 
-uses CastleScene, MyCastleUtils;
+uses CastleScene, CastleComponentSerialize, CastleFonts, MyCastleUtils,
+  SysUtils;
 
 constructor TViewDressingMenu.Create(AOwner: TComponent);
 begin
@@ -100,40 +101,91 @@ procedure TViewDressingMenu.UpdateSuits(suitType: TSuits;
 var
   suits: TItemConditions;
   suit: TItemCondition;
-  newBtn: TCastleButton;
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
 begin
   suits:= FDresser.GetSuitsList(suitType);
+
+  if ((groupList.ControlsCount > 0) AND
+      (groupList.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= groupList.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
+
   groupList.ClearControls;
 
-  newBtn:= TCastleButton.Create(groupList);
+  if Assigned(myBtnFactory) then
+  begin
+    newBtn:= myBtnFactory.ComponentLoad(groupList) as TCastleButton;
+    newBtn.CustomFont:= myFont;
+  end else
+    newBtn:= TCastleButton.Create(groupList);
+
   newBtn.Caption:= 'none';
   newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
   groupList.InsertFront(newBtn);
 
   for suit in suits do
   begin
-    newBtn:= TCastleButton.Create(groupList);
+    if Assigned(myBtnFactory) then
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(groupList) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
+      newBtn:= TCastleButton.Create(groupList);
+
     newBtn.Caption:= suit.Name;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
     groupList.InsertFront(newBtn);
   end;
+
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
 end;
 
 procedure TViewDressingMenu.UpdateAccessories();
 var
   acessories: TItemConditions;
   acessory: TItemCondition;
-  newChk: TCastleCheckbox;
+  newChk, sampleChk: TCastleCheckbox;
+  myChkFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
 begin
   acessories:= FDresser.GetAcessoriesList();
+
+  if ((ListAccessories.ControlsCount > 0) AND
+      (ListAccessories.Controls[0] is TCastleCheckbox)) then
+  begin
+    sampleChk:= ListAccessories.Controls[0] as TCastleCheckbox;
+    myFont:= sampleChk.CustomFont;
+    myChkFactory:= TCastleComponentFactory.Create(self);
+    myChkFactory.LoadFromComponent(sampleChk);
+  end else
+  begin
+    sampleChk:= nil;
+    myChkFactory:= nil;
+  end;
+
   ListAccessories.ClearControls;
 
   for acessory in acessories do
   begin
-    newChk:= TCastleCheckbox.Create(ListAccessories);
+    if Assigned(myChkFactory) then
+    begin
+      newChk:= myChkFactory.ComponentLoad(ListAccessories) as TCastleCheckbox;
+      newChk.CustomFont:= myFont;
+    end else
+      newChk:= TCastleCheckbox.Create(ListAccessories);
+
     newChk.Caption:= acessory.Name;
-    newChk.CheckboxColor:= Vector4(1.0, 1.0, 1.0, 1.0);
-    newChk.TextColor:= Vector4(1.0, 1.0, 1.0, 1.0);
     newChk.Checked:= acessory.Visible;
     newChk.OnChange:= {$ifdef FPC}@{$endif} ClickAccesories;
     ListAccessories.InsertFront(newChk);

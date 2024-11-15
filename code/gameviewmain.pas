@@ -155,9 +155,8 @@ var
   curPos: TVector2;
   rotatorX, rotatorY: TQuaternion;
 begin
-//  curPos.X:= (Container.MousePosition.X / Container.PixelsWidth - 0.5) * 2.0;
-//  curPos.Y:= (Container.MousePosition.Y / Container.PixelsHeight - 0.5) * 2.0;
-  curPos:= (Container.MousePosition / Container.PixelsWidth - Vector2(0.5, 0.5)) * 2.0; // not inlined?
+  curPos.X:= (Container.MousePosition.X / Container.PixelsWidth - 0.5) * 2.0;
+  curPos.Y:= (Container.MousePosition.Y / Container.PixelsHeight - 0.5) * 2.0;
 
   curPos:= Lerp(1.0 * SecondsPassed, FCurPos, curPos);
 

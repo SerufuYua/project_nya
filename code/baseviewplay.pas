@@ -55,10 +55,10 @@ type
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, GameViewLoading,
-  ActorChara,
-  CastleScene, CastleViewport, CastleVectors,
-  StrUtils, MyCastleUtils;
+  GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  CastleScene, CastleFonts, CastleViewport, CastleVectors,
+  StrUtils, MyCastleUtils,
+  ActorChara;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -222,39 +222,87 @@ end;
 procedure TBaseViewPlay.SetDressButtons();
 var
   chara: TActorChara;
-  newBtn: TCastleButton;
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
 begin
+  if ((GroupDressingButtons.ControlsCount > 0) AND
+      (GroupDressingButtons.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= GroupDressingButtons.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
+
   GroupDressingButtons.ClearControls;
 
   for chara in FActorsLogic.Charas do
   begin
-    newBtn:= TCastleButton.Create(GroupDressingButtons);
+    if Assigned(myBtnFactory) then
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
+      newBtn:= TCastleButton.Create(GroupDressingButtons);
+
     newBtn.Caption:= chara.ActorName;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
     GroupDressingButtons.InsertFront(newBtn);
   end;
+
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
 end;
 
 procedure TBaseViewPlay.SetActionsList(actList: TCastleComponent);
 var
   num, i: Integer;
   actionDescr: TCastleComponent;
-  newBtn: TCastleButton;
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
 begin
   num:= actList.NonVisualComponentsCount;
   if (num < 1) then Exit;
+
+  if ((GroupActionSelect.ControlsCount > 0) AND
+      (GroupActionSelect.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= GroupActionSelect.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
 
   GroupActionSelect.ClearControls;
 
   for i:= 0 to (num - 1) do
   begin
+    if Assigned(myBtnFactory) then
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(GroupActionSelect) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
+      newBtn:= TCastleButton.Create(GroupActionSelect);
+
     actionDescr:= actList.NonVisualComponents[i] as TCastleComponent;
-    newBtn:= TCastleButton.Create(GroupActionSelect);
     newBtn.Caption:= ReplaceStr(actionDescr.Name, '_', ' ');
     newBtn.Tag:= actionDescr.Tag;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
     GroupActionSelect.InsertFront(newBtn);
   end;
+
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
 end;
 
 procedure TBaseViewPlay.ChangedEmission(Sender: TObject);

@@ -2,6 +2,14 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "SceneMain",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleFont",
+      "Name" : "future_n0t_found",
+      "OptimalSize" : 24,
+      "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
+    }
+  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleViewport",
@@ -91,9 +99,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 2.0255067348480225E+000,
+          "X" : 1.9478091001510620E+000,
           "Y" : 1.9317089080810547E+001,
-          "Z" : 2.7357501983642578E+000
+          "Z" : 2.7772371768951416E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
@@ -203,6 +211,7 @@
                         },
                         "Url" : "castle-data:/ui/button_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -264,6 +273,7 @@
                         },
                         "Url" : "castle-data:/ui/button_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -278,7 +288,7 @@
                       "Name" : "BtnNext",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.8000000000000000E+001
+                        "X" : 9.7000000000000000E+001
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -302,7 +312,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -7.1000000000000000E+001
+                    "Y" : -7.2000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -325,7 +335,7 @@
                       "$Children" : [
                         {
                           "$$ClassName" : "TCastleButton",
-                          "Caption" : "Play with Toy A #1",
+                          "Caption" : "Sample Button Action 1",
                           "CustomBackground" : true,
                           "CustomBackgroundDisabled" : {
                             "$$ClassName" : "TCastleImagePersistent"
@@ -334,35 +344,36 @@
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "Bottom" : 1.0000000000000000E+001,
+                              "Bottom" : 6.0000000000000000E+000,
                               "Left" : 1.5000000000000000E+001,
-                              "Right" : 1.5000000000000000E+001,
-                              "Top" : 1.0000000000000000E+001
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
                             },
-                            "Url" : "castle-data:/ui/button_light_focus.png"
+                            "Url" : "castle-data:/ui/button_list_light_focus.png"
                           },
                           "CustomBackgroundNormal" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "Bottom" : 1.0000000000000000E+001,
+                              "Bottom" : 6.0000000000000000E+000,
                               "Left" : 1.5000000000000000E+001,
-                              "Right" : 1.5000000000000000E+001,
-                              "Top" : 1.0000000000000000E+001
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
                             },
-                            "Url" : "castle-data:/ui/button_light.png"
+                            "Url" : "castle-data:/ui/button_list_light.png"
                           },
                           "CustomBackgroundPressed" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "Bottom" : 1.0000000000000000E+001,
+                              "Bottom" : 6.0000000000000000E+000,
                               "Left" : 1.5000000000000000E+001,
-                              "Right" : 1.5000000000000000E+001,
-                              "Top" : 1.0000000000000000E+001
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
                             },
-                            "Url" : "castle-data:/ui/button_light_press.png"
+                            "Url" : "castle-data:/ui/button_list_light_press.png"
                           },
+                          "CustomFont" : "future_n0t_found",
                           "CustomTextColorPersistent" : {
                             "$$ClassName" : "TCastleColorPersistent",
                             "Blue" : 1.0000000000000000E+000,
@@ -374,7 +385,8 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "BtnPlayA1",
+                          "Name" : "BtnSampleForAction1",
+                          "PaddingHorizontal" : 2.0000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
@@ -385,7 +397,7 @@
                         },
                         {
                           "$$ClassName" : "TCastleButton",
-                          "Caption" : "Play with Toy A #2",
+                          "Caption" : "Sample Button Action 2",
                           "CustomBackground" : true,
                           "CustomBackgroundDisabled" : {
                             "$$ClassName" : "TCastleImagePersistent"
@@ -394,35 +406,36 @@
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "Bottom" : 1.0000000000000000E+001,
+                              "Bottom" : 6.0000000000000000E+000,
                               "Left" : 1.5000000000000000E+001,
-                              "Right" : 1.5000000000000000E+001,
-                              "Top" : 1.0000000000000000E+001
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
                             },
-                            "Url" : "castle-data:/ui/button_light_focus.png"
+                            "Url" : "castle-data:/ui/button_list_light_focus.png"
                           },
                           "CustomBackgroundNormal" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "Bottom" : 1.0000000000000000E+001,
+                              "Bottom" : 6.0000000000000000E+000,
                               "Left" : 1.5000000000000000E+001,
-                              "Right" : 1.5000000000000000E+001,
-                              "Top" : 1.0000000000000000E+001
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
                             },
-                            "Url" : "castle-data:/ui/button_light.png"
+                            "Url" : "castle-data:/ui/button_list_light.png"
                           },
                           "CustomBackgroundPressed" : {
                             "$$ClassName" : "TCastleImagePersistent",
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "Bottom" : 1.0000000000000000E+001,
+                              "Bottom" : 6.0000000000000000E+000,
                               "Left" : 1.5000000000000000E+001,
-                              "Right" : 1.5000000000000000E+001,
-                              "Top" : 1.0000000000000000E+001
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
                             },
-                            "Url" : "castle-data:/ui/button_light_press.png"
+                            "Url" : "castle-data:/ui/button_list_light_press.png"
                           },
+                          "CustomFont" : "future_n0t_found",
                           "CustomTextColorPersistent" : {
                             "$$ClassName" : "TCastleColorPersistent",
                             "Blue" : 1.0000000000000000E+000,
@@ -434,11 +447,74 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "BtnPlayA2",
+                          "Name" : "BtnSampleForAction2",
+                          "PaddingHorizontal" : 2.0000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -6.1000000000000000E+001
+                            "Y" : -6.2000000000000000E+001
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop"
+                        },
+                        {
+                          "$$ClassName" : "TCastleButton",
+                          "Caption" : "Sample Button Action 3",
+                          "CustomBackground" : true,
+                          "CustomBackgroundDisabled" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundFocused" : {
+                            "$$ClassName" : "TCastleImagePersistent",
+                            "ProtectedSides" : {
+                              "$$ClassName" : "TBorder",
+                              "Bottom" : 6.0000000000000000E+000,
+                              "Left" : 1.5000000000000000E+001,
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
+                            },
+                            "Url" : "castle-data:/ui/button_list_light_focus.png"
+                          },
+                          "CustomBackgroundNormal" : {
+                            "$$ClassName" : "TCastleImagePersistent",
+                            "ProtectedSides" : {
+                              "$$ClassName" : "TBorder",
+                              "Bottom" : 6.0000000000000000E+000,
+                              "Left" : 1.5000000000000000E+001,
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
+                            },
+                            "Url" : "castle-data:/ui/button_list_light.png"
+                          },
+                          "CustomBackgroundPressed" : {
+                            "$$ClassName" : "TCastleImagePersistent",
+                            "ProtectedSides" : {
+                              "$$ClassName" : "TBorder",
+                              "Bottom" : 6.0000000000000000E+000,
+                              "Left" : 1.5000000000000000E+001,
+                              "Right" : 9.0000000000000000E+000,
+                              "Top" : 6.0000000000000000E+000
+                            },
+                            "Url" : "castle-data:/ui/button_list_light_press.png"
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "CustomTextColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 1.0000000000000000E+000,
+                            "Red" : 9.4509804248809814E-001
+                          },
+                          "CustomTextColorUse" : true,
+                          "Html" : true,
+                          "Image" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "Name" : "BtnSampleForAction3",
+                          "PaddingHorizontal" : 2.0000000000000000E+001,
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "X" : 1.0000000000000000E+001,
+                            "Y" : -1.1400000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -455,6 +531,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Name" : "LabelEmission",
                   "Text" : [
                     "Emission:"
@@ -462,7 +539,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.0300000000000000E+002
+                    "Y" : -2.5800000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -474,7 +551,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.3500000000000000E+002
+                    "Y" : -2.9000000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -492,6 +569,7 @@
                         },
                         "Url" : "castle-data:/ui/scroll_light.png"
                       },
+                      "CustomFont" : "future_n0t_found",
                       "Height" : 3.2000000000000000E+001,
                       "Name" : "FloatSliderEmission",
                       "TextColorPersistent" : {
@@ -548,6 +626,7 @@
                         },
                         "Url" : "castle-data:/ui/button_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -577,6 +656,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Name" : "LabelSpeed",
                   "Text" : [
                     "Speed:"
@@ -584,7 +664,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.8600000000000000E+002
+                    "Y" : -3.4200000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -602,6 +682,7 @@
                     },
                     "Url" : "castle-data:/ui/scroll_light.png"
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Height" : 3.2000000000000000E+001,
                   "Max" : 3.0000000000000000E+000,
                   "Min" : 2.5000000000000000E-001,
@@ -619,7 +700,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -3.1800000000000000E+002
+                    "Y" : -3.7400000000000000E+002
                   },
                   "Value" : 1.0000000000000000E+000,
                   "VerticalAnchorParent" : "vpTop",
@@ -631,6 +712,7 @@
                     "$$ClassName" : "TCastleColorPersistent",
                     "Green" : 1.0000000000000000E+000
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Name" : "LabelPleasure",
                   "Text" : [
                     "Pleasure:"
@@ -638,7 +720,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -3.6000000000000000E+002
+                    "Y" : -4.1600000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -656,6 +738,7 @@
                     },
                     "Url" : "castle-data:/ui/scroll_light_growing.png"
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Height" : 3.2000000000000000E+001,
                   "Name" : "FloatSliderPleasure",
                   "TextColorPersistent" : {
@@ -676,7 +759,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -3.9200000000000000E+002
+                    "Y" : -4.4800000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -689,6 +772,7 @@
                     "Green" : 8.5098040103912354E-001,
                     "Red" : 1.0000000000000000E+000
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Name" : "LabelTension",
                   "Text" : [
                     "Tension:"
@@ -696,7 +780,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -4.3400000000000000E+002
+                    "Y" : -4.9000000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -714,6 +798,7 @@
                     },
                     "Url" : "castle-data:/ui/scroll_light_growing.png"
                   },
+                  "CustomFont" : "future_n0t_found",
                   "Name" : "FloatSliderTension",
                   "TextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
@@ -733,7 +818,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -4.6600000000000000E+002
+                    "Y" : -5.2200000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -817,6 +902,7 @@
                     },
                     "Url" : "castle-data:/ui/button_light_press.png"
                   },
+                  "CustomFont" : "future_n0t_found",
                   "CustomTextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -876,6 +962,7 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleVerticalGroup",
+              "Alignment" : "hpRight",
               "Name" : "GroupDressing",
               "Padding" : 2.0000000000000000E+001,
               "Spacing" : 1.0000000000000000E+001,
@@ -888,25 +975,30 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
+                  "CustomFont" : "future_n0t_found",
+                  "HorizontalAnchorParent" : "hpRight",
+                  "HorizontalAnchorSelf" : "hpRight",
                   "Name" : "LabelDressing",
                   "Text" : [
                     "Dressing:"
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
+                    "X" : -2.0000000000000000E+001,
                     "Y" : -2.0000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
                 },
                 {
-                  "$$ClassName" : "TCastleHorizontalGroup",
+                  "$$ClassName" : "TCastleVerticalGroup",
+                  "HorizontalAnchorParent" : "hpRight",
+                  "HorizontalAnchorSelf" : "hpRight",
                   "Name" : "GroupDressingButtons",
                   "Spacing" : 1.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
+                    "X" : -2.0000000000000000E+001,
                     "Y" : -5.2000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
@@ -914,7 +1006,7 @@
                   "$Children" : [
                     {
                       "$$ClassName" : "TCastleButton",
-                      "Caption" : "Chara1",
+                      "Caption" : "Sample Chara Button 1",
                       "CustomBackground" : true,
                       "CustomBackgroundDisabled" : {
                         "$$ClassName" : "TCastleImagePersistent"
@@ -923,35 +1015,36 @@
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
-                          "Bottom" : 1.0000000000000000E+001,
+                          "Bottom" : 6.0000000000000000E+000,
                           "Left" : 1.5000000000000000E+001,
-                          "Right" : 1.5000000000000000E+001,
-                          "Top" : 1.0000000000000000E+001
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 6.0000000000000000E+000
                         },
-                        "Url" : "castle-data:/ui/button_light_focus.png"
+                        "Url" : "castle-data:/ui/button_list_light_focus.png"
                       },
                       "CustomBackgroundNormal" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
-                          "Bottom" : 1.0000000000000000E+001,
+                          "Bottom" : 6.0000000000000000E+000,
                           "Left" : 1.5000000000000000E+001,
-                          "Right" : 1.5000000000000000E+001,
-                          "Top" : 1.0000000000000000E+001
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 6.0000000000000000E+000
                         },
-                        "Url" : "castle-data:/ui/button_light.png"
+                        "Url" : "castle-data:/ui/button_list_light.png"
                       },
                       "CustomBackgroundPressed" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
-                          "Bottom" : 1.0000000000000000E+001,
+                          "Bottom" : 6.0000000000000000E+000,
                           "Left" : 1.5000000000000000E+001,
-                          "Right" : 1.5000000000000000E+001,
-                          "Top" : 1.0000000000000000E+001
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 6.0000000000000000E+000
                         },
-                        "Url" : "castle-data:/ui/button_light_press.png"
+                        "Url" : "castle-data:/ui/button_list_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -963,13 +1056,14 @@
                       "Image" : {
                         "$$ClassName" : "TCastleImagePersistent"
                       },
-                      "Name" : "BtnDressChara1",
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
+                      "Name" : "BtnSampleForDress1",
+                      "PaddingHorizontal" : 2.0000000000000000E+001,
+                      "VerticalAnchorParent" : "vpTop",
+                      "VerticalAnchorSelf" : "vpTop"
                     },
                     {
                       "$$ClassName" : "TCastleButton",
-                      "Caption" : "Chara2",
+                      "Caption" : "Sample Chara Button 2",
                       "CustomBackground" : true,
                       "CustomBackgroundDisabled" : {
                         "$$ClassName" : "TCastleImagePersistent"
@@ -978,35 +1072,36 @@
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
-                          "Bottom" : 1.0000000000000000E+001,
+                          "Bottom" : 6.0000000000000000E+000,
                           "Left" : 1.5000000000000000E+001,
-                          "Right" : 1.5000000000000000E+001,
-                          "Top" : 1.0000000000000000E+001
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 6.0000000000000000E+000
                         },
-                        "Url" : "castle-data:/ui/button_light_focus.png"
+                        "Url" : "castle-data:/ui/button_list_light_focus.png"
                       },
                       "CustomBackgroundNormal" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
-                          "Bottom" : 1.0000000000000000E+001,
+                          "Bottom" : 6.0000000000000000E+000,
                           "Left" : 1.5000000000000000E+001,
-                          "Right" : 1.5000000000000000E+001,
-                          "Top" : 1.0000000000000000E+001
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 6.0000000000000000E+000
                         },
-                        "Url" : "castle-data:/ui/button_light.png"
+                        "Url" : "castle-data:/ui/button_list_light.png"
                       },
                       "CustomBackgroundPressed" : {
                         "$$ClassName" : "TCastleImagePersistent",
                         "ProtectedSides" : {
                           "$$ClassName" : "TBorder",
-                          "Bottom" : 1.0000000000000000E+001,
+                          "Bottom" : 6.0000000000000000E+000,
                           "Left" : 1.5000000000000000E+001,
-                          "Right" : 1.5000000000000000E+001,
-                          "Top" : 1.0000000000000000E+001
+                          "Right" : 9.0000000000000000E+000,
+                          "Top" : 6.0000000000000000E+000
                         },
-                        "Url" : "castle-data:/ui/button_light_press.png"
+                        "Url" : "castle-data:/ui/button_list_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -1018,13 +1113,14 @@
                       "Image" : {
                         "$$ClassName" : "TCastleImagePersistent"
                       },
-                      "Name" : "BtnDressChara2",
+                      "Name" : "BtnSampleForDress2",
+                      "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 1.0200000000000000E+002
+                        "Y" : -5.2000000000000000E+001
                       },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
+                      "VerticalAnchorParent" : "vpTop",
+                      "VerticalAnchorSelf" : "vpTop"
                     }
                   ]
                 }
@@ -1052,7 +1148,6 @@
             "Green" : 1.0000000000000000E+000,
             "Red" : 1.0000000000000000E+000
           },
-          "FontSize" : 2.0000000000000000E+001,
           "Name" : "LabelFps",
           "Text" : [
             "FPS: xxx"
@@ -1069,6 +1164,7 @@
     },
     {
       "$$ClassName" : "TCastleNotifications",
+      "CustomFont" : "future_n0t_found",
       "Name" : "Notifications",
       "TranslationPersistent" : {
         "$$ClassName" : "TCastleVector2Persistent",

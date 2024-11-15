@@ -2,6 +2,14 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "SceneMain",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleFont",
+      "Name" : "future_n0t_found_regular",
+      "OptimalSize" : 32,
+      "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
+    }
+  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleViewport",
@@ -252,6 +260,7 @@
                         },
                         "Url" : "castle-data:/ui/button_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found_regular",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -312,6 +321,7 @@
                         },
                         "Url" : "castle-data:/ui/button_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found_regular",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -327,7 +337,7 @@
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
                         "X" : 2.0000000000000000E+001,
-                        "Y" : -7.1000000000000000E+001
+                        "Y" : -8.0000000000000000E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
@@ -409,6 +419,7 @@
                         },
                         "Url" : "castle-data:/ui/button_light_press.png"
                       },
+                      "CustomFont" : "future_n0t_found_regular",
                       "CustomTextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -511,7 +522,6 @@
             "Green" : 1.0000000000000000E+000,
             "Red" : 1.0000000000000000E+000
           },
-          "FontSize" : 2.0000000000000000E+001,
           "HorizontalAnchorParent" : "hpRight",
           "HorizontalAnchorSelf" : "hpRight",
           "Name" : "LabelFps",
