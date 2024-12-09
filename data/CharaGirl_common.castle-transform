@@ -1,0 +1,316 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "Name" : "CharaGirl",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleScene",
+      "AutoAnimation" : "GAME.STAND",
+      "ExposeTransforms" : [
+        "Head",
+        "ForeArmTwist2.L",
+        "ForeArmTwist2.R"
+      ],
+      "Name" : "Body",
+      "PreciseCollisions" : true,
+      "ProcessEvents" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/chars/body_girl/body_common.gltf",
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Head",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 9.9829444661736488E-003,
+            "X" : -3.4302547574043274E-002,
+            "Y" : 5.1035439968109131E-001,
+            "Z" : -8.5794478654861450E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 9.4999986886978149E-001,
+            "Y" : 9.5000046491622925E-001,
+            "Z" : 9.5000022649765015E-001
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -5.0651574134826660E-001,
+            "Y" : 4.9370403289794922E+001,
+            "Z" : 4.9425843358039856E-001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "AutoAnimation" : "GAME.STAND",
+              "ExposeTransforms" : [
+                "eye.C"
+              ],
+              "Name" : "SceneHead",
+              "ProcessEvents" : true,
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "Z" : 1.0000000000000000E+000
+              },
+              "Url" : "castle-data:/chars/head_girl/head_common.gltf",
+              "$Children" : [
+                {
+                  "$$ClassName" : "TCastleTransform",
+                  "Name" : "eye_C",
+                  "RotationPersistent" : {
+                    "$$ClassName" : "TCastleVector4RotationPersistent",
+                    "W" : 3.1415879726409912E+000,
+                    "X" : -2.3412305836245650E-006,
+                    "Y" : 6.9791954755783081E-001,
+                    "Z" : 7.1617615222930908E-001
+                  },
+                  "ScalePersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "X" : 9.9999982118606567E-001,
+                    "Y" : 9.9999964237213135E-001,
+                    "Z" : 9.9999994039535522E-001
+                  },
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "X" : 2.5779405632420094E-007,
+                    "Y" : 2.6600003242492676E+000,
+                    "Z" : 1.7438995838165283E+000
+                  },
+                  "$Children" : [
+                    {
+                      "$$ClassName" : "TCastleCamera",
+                      "Name" : "CameraHead",
+                      "Orthographic" : {
+                        "$$ClassName" : "TCastleOrthographic"
+                      },
+                      "Perspective" : {
+                        "$$ClassName" : "TCastlePerspective"
+                      },
+                      "ProjectionNear" : 3.0000000000000000E+000,
+                      "RotationPersistent" : {
+                        "$$ClassName" : "TCastleVector4RotationPersistent",
+                        "W" : 1.5707963705062866E+000,
+                        "X" : 1.0000000000000000E+000
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleScene",
+              "AutoAnimation" : "GAME.STAND",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "SceneHair",
+              "ProcessEvents" : true,
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "Z" : 1.0000000000000000E+000
+              },
+              "Url" : "castle-data:/chars/hair_girl/hair_common.gltf"
+            },
+            {
+              "$$ClassName" : "TCastleParticleEmitter",
+              "Effect" : "EffectSweat",
+              "Exists" : false,
+              "Name" : "EmitterSweat",
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleParticleEffect",
+                  "Anchors" : [
+                    {
+                      "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Alpha" : 0.0000000000000000E+000,
+                        "Blue" : 0.0000000000000000E+000,
+                        "Green" : 0.0000000000000000E+000,
+                        "Red" : 0.0000000000000000E+000
+                      },
+                      "Size" : 2.5000000000000000E-001
+                    }
+                  ],
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 8.8627451658248901E-001,
+                    "Green" : 8.6274510622024536E-001,
+                    "Red" : 8.3137255907058716E-001
+                  },
+                  "DirectionPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : -1.0000000000000000E+000
+                  },
+                  "GravityPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : -1.0000000000000000E+001
+                  },
+                  "LifeSpan" : 2.0000000298023224E-001,
+                  "LifeSpanVariance" : 5.0000000745058060E-002,
+                  "MaxParticles" : 2,
+                  "Name" : "EffectSweat",
+                  "Size" : 7.5000000000000000E-001,
+                  "SizeVariance" : 1.5000000596046448E-001,
+                  "SourcePositionPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Y" : 5.0000000000000000E+000
+                  },
+                  "SourcePositionVariancePersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "X" : 8.0000000000000000E+000,
+                    "Y" : 3.0000000000000000E+000,
+                    "Z" : 8.0000000000000000E+000
+                  },
+                  "SourceType" : "pstSpheroidSurface",
+                  "Speed" : 5.0000000000000000E+000,
+                  "SpeedVariance" : 3.0000000000000000E+000,
+                  "Texture" : "castle-data:/effects/drop.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "ForeArmTwist2_R",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 2.9803619384765625E+000,
+            "X" : 1.3336060941219330E-001,
+            "Y" : 5.6389700621366501E-002,
+            "Z" : 9.8946201801300049E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 9.9999982118606567E-001,
+            "Y" : 1.0000010728836060E+000,
+            "Z" : 1.0000001192092896E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -8.3028411865234375E+000,
+            "Y" : 3.2430339813232422E+001,
+            "Z" : -2.5247492790222168E+000
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "accessory_shackle_R",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.5707963705062866E+000,
+                "X" : -9.9999994039535522E-001,
+                "Y" : 1.7263347399421036E-004,
+                "Z" : 1.7263347399421036E-004
+              },
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 3.5000000000000000E+000
+              },
+              "Url" : "castle-data:/accessories/shackle/shackle.gltf"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "ForeArmTwist2_L",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 3.3145055770874023E+000,
+            "X" : -1.4652657508850098E-001,
+            "Y" : 4.4758658856153488E-002,
+            "Z" : 9.8819357156753540E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 1.0000003576278687E+000,
+            "Y" : 1.0000007152557373E+000,
+            "Z" : 1.0000007152557373E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 6.7792830467224121E+000,
+            "Y" : 3.1696336746215820E+001,
+            "Z" : -1.4733442664146423E-001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "accessory_shackle_L",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.5707963705062866E+000,
+                "X" : -9.9999994039535522E-001,
+                "Y" : 1.7263347399421036E-004,
+                "Z" : 1.7263347399421036E-004
+              },
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 3.5000000000000000E+000
+              },
+              "Url" : "castle-data:/accessories/shackle/shackle.gltf"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Vagina_In_F",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 2.5456907749176025E+000,
+            "X" : 9.9994421005249023E-001,
+            "Y" : -1.0285268537700176E-002,
+            "Z" : 2.3997551761567593E-003
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 1.0000001192092896E+000,
+            "Y" : 9.9999958276748657E-001,
+            "Z" : 9.9999994039535522E-001
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -2.1927446126937866E-002,
+            "Y" : 1.6739732742309570E+001,
+            "Z" : -6.1756682395935059E+000
+          }
+        }
+      ]
+    },
+    {
+      "$$ClassName" : "TCastleImageTransform",
+      "AlphaChannel" : "acNone",
+      "CastShadows" : false,
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Blue" : 0.0000000000000000E+000,
+        "Green" : 1.1764705926179886E-001
+      },
+      "Exists" : false,
+      "Name" : "PersonalColor",
+      "SmoothScaling" : false,
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent",
+        "X" : 1.2000000000000000E+001,
+        "Y" : 6.0000000000000000E+001
+      }
+    }
+  ]
+}
