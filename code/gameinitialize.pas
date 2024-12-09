@@ -20,6 +20,7 @@ uses SysUtils, CustApp,
   , GameViewPlayTogether
   , GameViewDressingMenu
   , GameViewLoading
+  , GameViewTravel
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -39,14 +40,18 @@ begin
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewDressingMenu:= TViewDressingMenu.Create(Application);
   ViewLoading := TViewLoading.Create(Application);
+  ViewTravel := TViewTravel.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('g', 'PlayGirl') then
     Window.Container.View:= ViewPlayGirl
   else if Application.hasOption('t', 'PlayTogether') then
     Window.Container.View:= ViewPlayTogether
+  else if Application.hasOption('r', 'Travel') then
+    Window.Container.View:= ViewTravel
   else
-    Window.Container.View := ViewMain;
+//    Window.Container.View := ViewMain;
+    Window.Container.View := ViewTravel;
 
 end;
 

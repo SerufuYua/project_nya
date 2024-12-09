@@ -1,0 +1,100 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "Name" : "SceneMain",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleBackground",
+      "Name" : "Sky",
+      "TextureNegativeX" : "castle-data:/environment/star_sky/star_sky_0001.png",
+      "TextureNegativeY" : "castle-data:/environment/star_sky/star_sky_0006.png",
+      "TextureNegativeZ" : "castle-data:/environment/star_sky/star_sky_0002.png",
+      "TexturePositiveX" : "castle-data:/environment/star_sky/star_sky_0003.png",
+      "TexturePositiveY" : "castle-data:/environment/star_sky/star_sky_0005.png",
+      "TexturePositiveZ" : "castle-data:/environment/star_sky/star_sky_0004.png"
+    },
+    {
+      "$$ClassName" : "TCastleFog",
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorRGBPersistent",
+        "Blue" : 0.0000000000000000E+000,
+        "Green" : 0.0000000000000000E+000,
+        "Red" : 0.0000000000000000E+000
+      },
+      "Name" : "Fog",
+      "VisibilityRange" : 4.0000000000000000E+002
+    }
+  ],
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleScene",
+      "CastGlobalLights" : true,
+      "ExposeTransforms" : [
+      ],
+      "Name" : "Room",
+      "PreciseCollisions" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room.x3dv",
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleScene",
+          "Collides" : false,
+          "ExposeTransforms" : [
+          ],
+          "Name" : "Mat",
+          "RenderOptions" : {
+            "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+          },
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -3.8000000000000000E+001,
+            "Z" : -4.5000000000000000E+001
+          },
+          "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "Railing",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.7453292608261108E+000,
+                "Y" : -1.0000000000000000E+000
+              },
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "X" : -3.8000000000000000E+001,
+                "Z" : -1.2000000000000000E+001
+              },
+              "Url" : "castle-data:/toys/railing/railing.gltf"
+            }
+          ]
+        }
+      ],
+      "$Behaviors" : [
+        {
+          "$$ClassName" : "TCastleMeshCollider",
+          "Friction" : 1.0000000149011612E-001,
+          "Mesh" : "Room",
+          "Name" : "ColliderRoom",
+          "Restitution" : 7.9999998211860657E-002
+        },
+        {
+          "$$ClassName" : "TCastleRigidBody",
+          "Dynamic" : false,
+          "Gravity" : false,
+          "Name" : "RigidBodyRoom"
+        }
+      ]
+    }
+  ]
+}
