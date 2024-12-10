@@ -31,6 +31,9 @@ type
     procedure ChangedEmission(value: Single);
     procedure SaveCharasCondition();
     procedure SetDressButtons();
+    procedure NavigationSetAnimation(
+              const Sender: TCastleThirdPersonNavigation;
+              const AnimationNames: array of String);
   end;
 
 var
@@ -58,6 +61,9 @@ begin
 
   { Create Girl Character instance }
   FActorMain:= TActorChara.Create(Chara, 'Girl');
+
+  { set cahara animation event }
+  ThirdPersonNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
 
   { set characters self emission }
   ChangedEmission(0.3);
@@ -192,6 +198,14 @@ begin
 
   if Assigned(myBtnFactory) then
     FreeAndNil(myBtnFactory);
+end;
+
+procedure TViewTravel.NavigationSetAnimation(
+                      const Sender: TCastleThirdPersonNavigation;
+                      const AnimationNames: array of String);
+begin
+  if (Length(AnimationNames) > 0) then
+    FActorMain.AutoAnimation:= AnimationNames[0];
 end;
 
 end.

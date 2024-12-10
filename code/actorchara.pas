@@ -24,8 +24,10 @@ type
     FEffectSweat: TCastleParticleEffect;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
-    function GetLightning: Boolean;
+    procedure SetAutoAnimation(const Value: String);
+    function GetAutoAnimation: String;
     procedure SetLightning(enable: Boolean);
+    function GetLightning: Boolean;
     procedure SetSelfEmission(value: Single);
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
@@ -41,6 +43,7 @@ type
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
     procedure SetSpeed(value: Single); override;
     function GetDresser(): TCharaDresser;
+    property AutoAnimation: String read GetAutoAnimation write SetAutoAnimation;
     property Translation: TVector3 read GetTrans write SetTrans;
     property Rotation: TVector4 read GetRot write SetRot;
     property Lightning: Boolean read GetLightning write SetLightning;
@@ -124,6 +127,22 @@ end;
 function TActorChara.GetDresser(): TCharaDresser;
 begin
   Result:= FDresser;
+end;
+
+procedure TActorChara.SetAutoAnimation(const Value: String);
+var
+  actors: TCastleScenes;
+  actor: TCastleScene;
+begin
+  actors:= GetActorsList();
+  for actor in actors do
+    if Assigned(actor) then
+      actor.AutoAnimation:= Value;
+end;
+
+function TActorChara.GetAutoAnimation: String;
+begin
+  Result:= GetMainBody().AutoAnimation;
 end;
 
 procedure TActorChara.SetLightning(enable: Boolean);

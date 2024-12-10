@@ -129,7 +129,7 @@
           "AnimationFall" : "",
           "AnimationIdle" : "GAME.STAND",
           "AnimationJump" : "",
-          "AnimationRotate" : "",
+          "AnimationRotate" : "GAME.WALK.FORWARD",
           "AnimationRun" : "GAME.RUN.FORWARD",
           "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "Chara",
@@ -476,7 +476,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000000000000000E+001
+                        "Y" : -5.1999996185302734E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
