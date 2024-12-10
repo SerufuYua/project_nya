@@ -66,7 +66,8 @@
               "$$ClassName" : "TCastleOrthographic"
             },
             "Perspective" : {
-              "$$ClassName" : "TCastlePerspective"
+              "$$ClassName" : "TCastlePerspective",
+              "FieldOfView" : 1.2000000476837158E+000
             },
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
@@ -74,8 +75,9 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : 4.2500000000000000E+001,
-              "Z" : 1.0750000000000000E+003
+              "X" : -1.0000000000000000E+001,
+              "Y" : 5.6000000000000000E+001,
+              "Z" : 4.6000000000000000E+001
             },
             "$Children" : [
               {
@@ -135,15 +137,16 @@
             "$$ClassName" : "TCastleVector3Persistent",
             "Y" : 5.5000000000000000E+001
           },
-          "DistanceToAvatarTarget" : 8.0000000000000000E+001,
+          "DistanceToAvatarTarget" : 4.5000000000000000E+001,
           "InitialHeightAboveTarget" : 1.5000000000000000E+001,
           "JumpSpeed" : 0.0000000000000000E+000,
           "MaxDistanceToAvatarTarget" : 2.4000000000000000E+002,
-          "MinDistanceToAvatarTarget" : 6.0000000000000000E+001,
+          "MinDistanceToAvatarTarget" : 4.5000000000000000E+001,
           "MouseLookHorizontalSensitivity" : 1.7500000540167093E-003,
           "MouseLookVerticalSensitivity" : 1.7500000540167093E-003,
           "MoveSpeed" : 2.5000000000000000E+001,
           "Name" : "ThirdPersonNavigation",
+          "Radius" : 0.0000000000000000E+000,
           "RotationSpeed" : 3.0000000000000000E+000,
           "RunSpeed" : 6.0000000000000000E+001
         }
@@ -159,14 +162,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.0829868316650391E+000,
-          "X" : -1.2957039475440979E-001,
-          "Y" : 9.8885387182235718E-001,
-          "Z" : 7.3345459997653961E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "W" : 1.1304159164428711E+000,
+          "X" : -2.8239157795906067E-001,
+          "Y" : 9.4486957788467407E-001,
+          "Z" : 1.6576042771339417E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
@@ -477,7 +476,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.1999996185302734E+001
+                        "Y" : -5.2000000000000000E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
