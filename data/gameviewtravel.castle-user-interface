@@ -62,6 +62,7 @@
           {
             "$$ClassName" : "TCastleCamera",
             "CastShadows" : false,
+            "Collides" : false,
             "CollisionSphereRadius" : 1.0000000000000000E+000,
             "Name" : "CameraMain",
             "Orthographic" : {
@@ -74,7 +75,8 @@
             "Pickable" : false,
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
-              "Z" : 1.0000000000000000E+000
+              "W" : 3.4906584024429321E-001,
+              "X" : -1.0000000000000000E+000
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
