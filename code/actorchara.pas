@@ -24,7 +24,6 @@ type
     FEffectSweat: TCastleParticleEffect;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
-    procedure ActionFaceDefault;
     function GetLightning: Boolean;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
@@ -122,14 +121,6 @@ begin
       body.StopAnimation();
 end;
 
-procedure TActorChara.ActionFaceDefault;
-var
-  head: TCastleScene;
-begin
-  head:= FActorRoot.DesignedComponent('SceneHead') as TCastleScene;
-  head.PlayAnimation('Blink', true);
-end;
-
 function TActorChara.GetDresser(): TCharaDresser;
 begin
   Result:= FDresser;
@@ -207,7 +198,6 @@ var
   actors: TCastleScenes;
   actor: TCastleScene;
 begin
-  ActionFaceDefault;
   actors:= GetActorsList();
   for actor in actors do
     if Assigned(actor) then
@@ -220,7 +210,6 @@ var
   actor: TCastleScene;
   noEventParam: TPlayAnimationParameters;
 begin
-  ActionFaceDefault;
   actors:= GetActorsList();
   for actor in actors do
     if Assigned(actor) then
@@ -238,7 +227,6 @@ var
   actors: TCastleScenes;
   actor: TCastleScene;
 begin
-  ActionFaceDefault;
   actors:= GetActorsList();
   for actor in actors do
     if Assigned(actor) then
