@@ -61,6 +61,8 @@
           },
           {
             "$$ClassName" : "TCastleCamera",
+            "CastShadows" : false,
+            "CollisionSphereRadius" : 1.0000000000000000E+000,
             "Name" : "CameraMain",
             "Orthographic" : {
               "$$ClassName" : "TCastleOrthographic"
@@ -69,6 +71,7 @@
               "$$ClassName" : "TCastlePerspective",
               "FieldOfView" : 1.2000000476837158E+000
             },
+            "Pickable" : false,
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "Z" : 1.0000000000000000E+000
@@ -135,7 +138,7 @@
           "AvatarHierarchy" : "Chara",
           "AvatarTargetPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 5.5000000000000000E+001
+            "Y" : 3.5000000000000000E+001
           },
           "DistanceToAvatarTarget" : 4.5000000000000000E+001,
           "InitialHeightAboveTarget" : 1.5000000000000000E+001,
@@ -146,9 +149,9 @@
           "MouseLookVerticalSensitivity" : 1.7500000540167093E-003,
           "MoveSpeed" : 2.5000000000000000E+001,
           "Name" : "ThirdPersonNavigation",
-          "Radius" : 0.0000000000000000E+000,
+          "Radius" : 1.0000000149011612E-001,
           "RotationSpeed" : 3.0000000000000000E+000,
-          "RunSpeed" : 6.0000000000000000E+001
+          "RunSpeed" : 8.0000000000000000E+001
         }
       ],
       "InternalDesignCamera" : {
@@ -162,16 +165,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.1304159164428711E+000,
-          "X" : -2.8239157795906067E-001,
-          "Y" : 9.4486957788467407E-001,
-          "Z" : 1.6576042771339417E-001
+          "W" : 8.7281197309494019E-001,
+          "X" : -2.0622944831848145E-001,
+          "Y" : 9.7441810369491577E-001,
+          "Z" : 8.9324794709682465E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 8.4194137573242188E+001,
-          "Y" : 6.6913642883300781E+001,
-          "Z" : 9.3163345336914062E+001
+          "X" : 3.4694194793701172E+000,
+          "Y" : 6.1872203826904297E+001,
+          "Z" : 5.6024776458740234E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
