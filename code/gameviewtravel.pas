@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleThirdPersonNavigation, CastleTransform, CastleNotifications,
-  ActorChara;
+  ActorChara, MyThirdPersonNavigation;
 
 type
   TViewTravel = class(TCastleView)
@@ -14,7 +14,7 @@ type
     Map: TCastleTransformDesign;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
-    ThirdPersonNavigation: TCastleThirdPersonNavigation;
+    Navigation: TMyThirdPersonNavigation;
     CameraMain: TCastleCamera;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
@@ -63,7 +63,7 @@ begin
   FActorMain:= TActorChara.Create(Chara, 'Girl');
 
   { set cahara animation event }
-  ThirdPersonNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
+//  Navigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
 
   { set characters self emission }
   ChangedEmission(0.3);
@@ -110,7 +110,7 @@ begin
 
   if Event.IsMouseButton(buttonRight) then
   begin
-    ThirdPersonNavigation.MouseLook := not ThirdPersonNavigation.MouseLook;
+    Navigation.MouseLook := not Navigation.MouseLook;
     Exit(true);
   end;
 
