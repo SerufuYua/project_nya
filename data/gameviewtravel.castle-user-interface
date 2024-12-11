@@ -188,6 +188,11 @@
         {
           "$$ClassName" : "TMyThirdPersonNavigation",
           "AvatarHierarchy" : "Chara",
+          "AvatarTargetPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : 4.0000000000000000E+001
+          },
+          "DistanceToAvatarTarget" : 5.0000000000000000E+001,
           "MouseLookHorizontalSensitivity" : 1.0000000000000000E+001,
           "MouseLookVerticalSensitivity" : 1.0000000000000000E+001,
           "Name" : "Navigation",
