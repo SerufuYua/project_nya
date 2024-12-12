@@ -12,6 +12,8 @@ type
   TMyThirdPersonNavigation = class(TCastleMouseLookNavigation)
   protected
     FDistanceToAvatarTarget: Single;
+    FDistanceToAvatarTargetMin: Single;
+    FDistanceToAvatarTargetMax: Single;
     FFollowSpeed: Single;
     FZoomSpeed: Single;
     FAvatarTarget: TVector3;
@@ -23,6 +25,8 @@ type
     function GetAvatarTargetForPersistent: TVector3;
     procedure SetAvatarTargetForPersistent(const AValue: TVector3);
     procedure SetDistanceToAvatarTarget(const Value: Single);
+    procedure SetDistanceToAvatarTargetMin(const Value: Single);
+    procedure SetDistanceToAvatarTargetMax(const Value: Single);
   protected
     procedure CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
     procedure CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
@@ -33,6 +37,8 @@ type
     const
       DefaultAvatarTarget: TVector3 = (X: 0; Y: 20; Z: 0);
       DefaultDistanceToAvatarTarget = 40.0;
+      DefaultDistanceToAvatarTargetMin = 10.0;
+      DefaultDistanceToAvatarTargetMax = 180.0;
       DefaultFollowSpeed = 10;
       DefaultZoomSpeed = 5;
 
@@ -48,6 +54,10 @@ type
     property AvatarTargetPersistent: TCastleVector3Persistent read FAvatarTargetPersistent;
     property DistanceToAvatarTarget: Single read FDistanceToAvatarTarget write SetDistanceToAvatarTarget
       {$ifdef FPC}default DefaultDistanceToAvatarTarget{$endif};
+    property DistanceToAvatarTargetMin: Single read FDistanceToAvatarTargetMin write SetDistanceToAvatarTargetMin
+      {$ifdef FPC}default DefaultDistanceToAvatarTargetMin{$endif};
+    property DistanceToAvatarTargetMax: Single read FDistanceToAvatarTargetMax write SetDistanceToAvatarTargetMax
+      {$ifdef FPC}default DefaultDistanceToAvatarTargetMax{$endif};
     property FollowSpeed: Single read FFollowSpeed write FFollowSpeed
       {$ifdef FPC}default DefaultFollowSpeed{$endif};
     property ZoomSpeed: Single read FZoomSpeed write FZoomSpeed
@@ -65,6 +75,8 @@ begin
   inherited;
   FAvatarTarget:= DefaultAvatarTarget;
   FDistanceToAvatarTarget:= DefaultDistanceToAvatarTarget;
+  FDistanceToAvatarTargetMin:= DefaultDistanceToAvatarTargetMin;
+  FDistanceToAvatarTargetMax:= DefaultDistanceToAvatarTargetMax;
   FFollowSpeed:= DefaultFollowSpeed;
   FZoomSpeed:= DefaultZoomSpeed;
 
@@ -108,7 +120,8 @@ function TMyThirdPersonNavigation.PropertySections(const PropertyName: String): 
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'AvatarTargetPersistent',
-       'DistanceToAvatarTarget', 'FollowSpeed', 'ZoomSpeed'
+       'DistanceToAvatarTarget', 'DistanceToAvatarTargetMin',
+       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomSpeed'
      ]) then
     Result := [psBasic]
   else
@@ -201,6 +214,11 @@ begin
 
   DistanceToAvatarTarget:= DistanceToAvatarTarget - Factor * ZoomSpeed;
 
+  if (DistanceToAvatarTarget > DistanceToAvatarTargetMax) then
+    DistanceToAvatarTarget:= DistanceToAvatarTargetMax
+  else if (DistanceToAvatarTarget < DistanceToAvatarTargetMin) then
+    DistanceToAvatarTarget:= DistanceToAvatarTargetMin;
+
   Result:= True;
 end;
 
@@ -223,9 +241,19 @@ end;
 procedure TMyThirdPersonNavigation.SetDistanceToAvatarTarget(const Value: Single);
 begin
   if FDistanceToAvatarTarget <> Value then
-  begin
     FDistanceToAvatarTarget:= Value;
-  end;
+end;
+
+procedure TMyThirdPersonNavigation.SetDistanceToAvatarTargetMin(const Value: Single);
+begin
+  if FDistanceToAvatarTargetMin <> Value then
+    FDistanceToAvatarTargetMin:= Value;
+end;
+
+procedure TMyThirdPersonNavigation.SetDistanceToAvatarTargetMax(const Value: Single);
+begin
+  if FDistanceToAvatarTargetMax <> Value then
+    FDistanceToAvatarTargetMax:= Value;
 end;
 
 initialization
