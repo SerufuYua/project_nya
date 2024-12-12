@@ -254,20 +254,6 @@
       ],
       "$Children" : [
         {
-          "$$ClassName" : "TMyThirdPersonNavigation",
-          "AvatarHierarchy" : "Chara",
-          "AvatarTargetPersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 4.0000000000000000E+001
-          },
-          "DistanceToAvatarTarget" : 5.0000000000000000E+001,
-          "DistanceToAvatarTargetMin" : 2.0000000000000000E+001,
-          "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
-          "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
-          "Name" : "Navigation",
-          "ZoomEnabled" : true
-        },
-        {
           "$$ClassName" : "TCastleThirdPersonNavigation",
           "AvatarHierarchy" : "Chara",
           "AvatarTargetPersistent" : {
@@ -280,6 +266,25 @@
           "MinDistanceToAvatarTarget" : 1.0000000000000000E+001,
           "MouseLook" : true,
           "Name" : "ThirdPersonNavigation1"
+        },
+        {
+          "$$ClassName" : "TMyThirdPersonCameraNavigation",
+          "AvatarHierarchy" : "Chara",
+          "AvatarTargetPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : 4.5000000000000000E+001
+          },
+          "DistanceToAvatarTarget" : 5.0000000000000000E+001,
+          "DistanceToAvatarTargetMin" : 2.0000000000000000E+001,
+          "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
+          "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
+          "Name" : "CameraNavigation",
+          "ZoomEnabled" : true
+        },
+        {
+          "$$ClassName" : "TMyThirdPersonCharaNavigation",
+          "AvatarHierarchy" : "Chara",
+          "Name" : "CharaNavigation"
         }
       ],
       "InternalDesignCamera" : {

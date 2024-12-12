@@ -1,4 +1,4 @@
-unit MyThirdPersonNavigation;
+unit MyThirdPersonCameraNavigation;
 
 {$mode ObjFPC}{$H+}
 {$WARN 6058 off : Call to subroutine "$1" marked as inline is not inlined}
@@ -9,13 +9,13 @@ uses
   CastleVectors;
 
 type
-  TMyThirdPersonNavigation = class(TCastleMouseLookNavigation)
+  TMyThirdPersonCameraNavigation = class(TCastleMouseLookNavigation)
   protected
     FDistanceToAvatarTarget: Single;
     FDistanceToAvatarTargetMin: Single;
     FDistanceToAvatarTargetMax: Single;
     FFollowSpeed: Single;
-    FZoomSpeed: Single;
+    FZoomStep: Single;
     FAvatarTarget: TVector3;
     FAvatarTargetPersistent: TCastleVector3Persistent;
     FAvatarHierarchy: TCastleTransform;
@@ -39,8 +39,8 @@ type
       DefaultDistanceToAvatarTarget = 40.0;
       DefaultDistanceToAvatarTargetMin = 10.0;
       DefaultDistanceToAvatarTargetMax = 180.0;
-      DefaultFollowSpeed = 10;
-      DefaultZoomSpeed = 5;
+      DefaultFollowStep = 10;
+      DefaultZoomStep = 5;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -59,9 +59,9 @@ type
     property DistanceToAvatarTargetMax: Single read FDistanceToAvatarTargetMax write SetDistanceToAvatarTargetMax
       {$ifdef FPC}default DefaultDistanceToAvatarTargetMax{$endif};
     property FollowSpeed: Single read FFollowSpeed write FFollowSpeed
-      {$ifdef FPC}default DefaultFollowSpeed{$endif};
-    property ZoomSpeed: Single read FZoomSpeed write FZoomSpeed
-      {$ifdef FPC}default DefaultZoomSpeed{$endif};
+      {$ifdef FPC}default DefaultFollowStep{$endif};
+    property ZoomStep: Single read FZoomStep write FZoomStep
+      {$ifdef FPC}default DefaultZoomStep{$endif};
   end;
 
 implementation
@@ -70,15 +70,15 @@ uses
   CastleComponentSerialize, CastleUtils, Math, CastleQuaternions,
   CastleVectorsInternalSingle;
 
-constructor TMyThirdPersonNavigation.Create(AOwner: TComponent);
+constructor TMyThirdPersonCameraNavigation.Create(AOwner: TComponent);
 begin
   inherited;
   FAvatarTarget:= DefaultAvatarTarget;
   FDistanceToAvatarTarget:= DefaultDistanceToAvatarTarget;
   FDistanceToAvatarTargetMin:= DefaultDistanceToAvatarTargetMin;
   FDistanceToAvatarTargetMax:= DefaultDistanceToAvatarTargetMax;
-  FFollowSpeed:= DefaultFollowSpeed;
-  FZoomSpeed:= DefaultZoomSpeed;
+  FFollowSpeed:= DefaultFollowStep;
+  FZoomStep:= DefaultZoomStep;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
@@ -91,14 +91,14 @@ begin
   FAvatarTargetPersistent.InternalDefaultValue:= DefaultAvatarTarget; // current value is default
 end;
 
-destructor TMyThirdPersonNavigation.Destroy;
+destructor TMyThirdPersonCameraNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
   FreeAndNil(FAvatarTargetPersistent);
   inherited;
 end;
 
-procedure TMyThirdPersonNavigation.Update(const SecondsPassed: Single;
+procedure TMyThirdPersonCameraNavigation.Update(const SecondsPassed: Single;
                  var HandleInput: Boolean);
 begin
   inherited;
@@ -107,7 +107,7 @@ begin
   UpdateCamera(SecondsPassed);
 end;
 
-procedure TMyThirdPersonNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
+procedure TMyThirdPersonCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
 begin
   if (FAvatarHierarchy <> Value) then
   begin
@@ -116,19 +116,19 @@ begin
   end;
 end;
 
-function TMyThirdPersonNavigation.PropertySections(const PropertyName: String): TPropertySections;
+function TMyThirdPersonCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'AvatarTargetPersistent',
        'DistanceToAvatarTarget', 'DistanceToAvatarTargetMin',
-       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomSpeed'
+       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomStep'
      ]) then
     Result := [psBasic]
   else
     Result := inherited PropertySections(PropertyName);
 end;
 
-procedure TMyThirdPersonNavigation.CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
+procedure TMyThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
 var
   TargetWorldPos: TVector3;
 begin
@@ -140,7 +140,7 @@ begin
   AUp:= Camera.GravityUp;
 end;
 
-procedure TMyThirdPersonNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
+procedure TMyThirdPersonCameraNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
 var
   TargetWorldPos: TVector3;
   CollisionDistance: Single;
@@ -162,7 +162,7 @@ begin
     CameraPos:= TargetWorldPos - CameraDir.AdjustToLength(CollisionDistance);
 end;
 
-procedure TMyThirdPersonNavigation.UpdateCamera(const SecondsPassed: Single);
+procedure TMyThirdPersonCameraNavigation.UpdateCamera(const SecondsPassed: Single);
 var
   CameraPos, CameraPosTarget, CameraDir, CameraUp: TVector3;
 begin
@@ -173,7 +173,7 @@ begin
   Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
-procedure TMyThirdPersonNavigation.ProcessMouseLookDelta(const Delta: TVector2);
+procedure TMyThirdPersonCameraNavigation.ProcessMouseLookDelta(const Delta: TVector2);
 var
   CameraPos, CameraDir, CameraUp: TVector3;
   TurnVertDir, TurnHorizDir, CrossTurnDir: TVector3;
@@ -207,12 +207,12 @@ begin
   Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
-function TMyThirdPersonNavigation.Zoom(const Factor: Single): Boolean;
+function TMyThirdPersonCameraNavigation.Zoom(const Factor: Single): Boolean;
 begin
   Result:= false;
   if NOT Valid then Exit;
 
-  DistanceToAvatarTarget:= DistanceToAvatarTarget - Factor * ZoomSpeed;
+  DistanceToAvatarTarget:= DistanceToAvatarTarget - Factor * ZoomStep;
 
   if (DistanceToAvatarTarget > DistanceToAvatarTargetMax) then
     DistanceToAvatarTarget:= DistanceToAvatarTargetMax
@@ -222,41 +222,41 @@ begin
   Result:= True;
 end;
 
-procedure TMyThirdPersonNavigation.AvatarHierarchyFreeNotification(
+procedure TMyThirdPersonCameraNavigation.AvatarHierarchyFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   AvatarHierarchy:= nil;
 end;
 
-function TMyThirdPersonNavigation.GetAvatarTargetForPersistent: TVector3;
+function TMyThirdPersonCameraNavigation.GetAvatarTargetForPersistent: TVector3;
 begin
   Result:= AvatarTarget;
 end;
 
-procedure TMyThirdPersonNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
+procedure TMyThirdPersonCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
 begin
   AvatarTarget:= AValue;
 end;
 
-procedure TMyThirdPersonNavigation.SetDistanceToAvatarTarget(const Value: Single);
+procedure TMyThirdPersonCameraNavigation.SetDistanceToAvatarTarget(const Value: Single);
 begin
   if FDistanceToAvatarTarget <> Value then
     FDistanceToAvatarTarget:= Value;
 end;
 
-procedure TMyThirdPersonNavigation.SetDistanceToAvatarTargetMin(const Value: Single);
+procedure TMyThirdPersonCameraNavigation.SetDistanceToAvatarTargetMin(const Value: Single);
 begin
   if FDistanceToAvatarTargetMin <> Value then
     FDistanceToAvatarTargetMin:= Value;
 end;
 
-procedure TMyThirdPersonNavigation.SetDistanceToAvatarTargetMax(const Value: Single);
+procedure TMyThirdPersonCameraNavigation.SetDistanceToAvatarTargetMax(const Value: Single);
 begin
   if FDistanceToAvatarTargetMax <> Value then
     FDistanceToAvatarTargetMax:= Value;
 end;
 
 initialization
-  RegisterSerializableComponent(TMyThirdPersonNavigation, ['Navigation', 'My-Third-Person']);
+  RegisterSerializableComponent(TMyThirdPersonCameraNavigation, ['Navigation', 'My-Third-Person-Camera']);
 end.
 

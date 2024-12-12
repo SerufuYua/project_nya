@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="19">
+    <Units Count="20">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -157,10 +157,15 @@
         <UnitName Value="GameViewTravel"/>
       </Unit17>
       <Unit18>
-        <Filename Value="code/mythirdpersonnavigation.pas"/>
+        <Filename Value="code/mythirdpersoncameranavigation.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MyThirdPersonNavigation"/>
+        <UnitName Value="MyThirdPersonCameraNavigation"/>
       </Unit18>
+      <Unit19>
+        <Filename Value="code/mythirdpersoncharanavigation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MyThirdPersonCharaNavigation"/>
+      </Unit19>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
