@@ -25,6 +25,7 @@ type
     procedure SetDistanceToAvatarTarget(const Value: Single);
   protected
     procedure CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
+    procedure CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
     procedure UpdateCamera(const SecondsPassed: Single);
     procedure ProcessMouseLookDelta(const Delta: TVector2); override;
     function Zoom(const Factor: Single): Boolean; override;
@@ -122,7 +123,30 @@ begin
 
   TargetWorldPos:= AvatarHierarchy.WorldTransform.MultPoint(AvatarTarget);
   APos:= TargetWorldPos - ADir * DistanceToAvatarTarget;
+  CameraCollision(ADir, APos);
   AUp:= Camera.GravityUp;
+end;
+
+procedure TMyThirdPersonNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
+var
+  TargetWorldPos: TVector3;
+  CollisionDistance: Single;
+  SavedPickable: Boolean;
+begin
+  CollisionDistance:= MaxSingle;
+  TargetWorldPos:= AvatarHierarchy.WorldTransform.MultPoint(AvatarTarget);
+
+  SavedPickable := AvatarHierarchy.Pickable;
+  AvatarHierarchy.Pickable := false;
+  try
+    if (AvatarHierarchy.World.WorldRayCast(TargetWorldPos, -CameraDir, CollisionDistance) = nil) then
+      CollisionDistance:= MaxSingle;
+  finally
+    AvatarHierarchy.Pickable := SavedPickable;
+  end;
+
+  if PointsDistanceSqr(CameraPos, TargetWorldPos) > Sqr(CollisionDistance) then
+    CameraPos:= TargetWorldPos - CameraDir.AdjustToLength(CollisionDistance);
 end;
 
 procedure TMyThirdPersonNavigation.UpdateCamera(const SecondsPassed: Single);
