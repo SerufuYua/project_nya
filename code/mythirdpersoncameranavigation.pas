@@ -68,7 +68,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, Math, CastleQuaternions,
-  CastleVectorsInternalSingle;
+  CastleVectorsInternalSingle, MyVectorMath;
 
 constructor TMyThirdPersonCameraNavigation.Create(AOwner: TComponent);
 begin
@@ -176,34 +176,24 @@ end;
 procedure TMyThirdPersonCameraNavigation.ProcessMouseLookDelta(const Delta: TVector2);
 var
   CameraPos, CameraDir, CameraUp: TVector3;
-  TurnVertDir, TurnHorizDir, CrossTurnDir: TVector3;
+  VerticalDir, HorizontalDir: TVector3;
   Rot: TVector2;
 begin
   inherited;
 
   Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
-  TurnVertDir:= Camera.GravityUp;
 
   Rot:= (-Pi/180.0) * Delta;
 
-  { using formula rotate vector v around vector k:
-  v_rot = v + (1-cos(angle))(k x (k x v)) + sin(angle)(k x v) }
+  VerticalDir:= Camera.GravityUp;
+  HorizontalDir:= TVector3.CrossProduct(VerticalDir, CameraDir);
 
-  CrossTurnDir:= TVector3.CrossProduct(TurnVertDir, CameraDir);
-  CameraDir:= CameraDir +
-              (1 - cos(Rot.X)) * TVector3.CrossProduct(TurnVertDir, CrossTurnDir) +
-              sin(Rot.X) * CrossTurnDir;
-
-  TurnHorizDir:= TVector3.CrossProduct(TurnVertDir, CameraDir);
-
-  CrossTurnDir:= TVector3.CrossProduct(TurnHorizDir, CameraDir);
-  CameraDir:= CameraDir +
-              (1 - cos(Rot.Y)) * TVector3.CrossProduct(TurnHorizDir, CrossTurnDir) +
-              sin(Rot.Y) * CrossTurnDir;
+  CameraDir:= TurnVectorAroundVector(CameraDir, VerticalDir, Rot.X);
+  CameraDir:= TurnVectorAroundVector(CameraDir, HorizontalDir, Rot.Y);
 
   CalcCamera(CameraDir, CameraPos, CameraUp);
 
-  CameraUp:= TurnVertDir;
+  CameraUp:= VerticalDir;
   Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 

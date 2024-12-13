@@ -1,0 +1,30 @@
+unit MyVectorMath;
+
+{$mode ObjFPC}{$H+}
+{$WARN 6058 off : Call to subroutine "$1" marked as inline is not inlined}
+interface
+
+uses
+  Classes, SysUtils, CastleVectors;
+
+  function TurnVectorAroundVector(const turnVector, axis: TVector3;
+                                  const angle: Single): TVector3;
+
+implementation
+
+function TurnVectorAroundVector(const turnVector, axis: TVector3;
+                                const angle: Single): TVector3;
+var
+  CrossAxisVec: TVector3;
+begin
+  { using formula rotate vector v around vector k:
+  v_rot = v + (1-cos(angle))(k x (k x v)) + sin(angle)(k x v) }
+
+  CrossAxisVec:= TVector3.CrossProduct(axis, turnVector);
+  Result:= turnVector +
+           (1 - cos(angle)) * TVector3.CrossProduct(axis, CrossAxisVec) +
+           sin(angle) * CrossAxisVec;
+end;
+
+end.
+
