@@ -39,7 +39,7 @@ type
       DefaultDistanceToAvatarTarget = 40.0;
       DefaultDistanceToAvatarTargetMin = 10.0;
       DefaultDistanceToAvatarTargetMax = 180.0;
-      DefaultFollowStep = 10;
+      DefaultFollowSpeed = 10;
       DefaultZoomStep = 5;
 
     constructor Create(AOwner: TComponent); override;
@@ -59,7 +59,7 @@ type
     property DistanceToAvatarTargetMax: Single read FDistanceToAvatarTargetMax write SetDistanceToAvatarTargetMax
       {$ifdef FPC}default DefaultDistanceToAvatarTargetMax{$endif};
     property FollowSpeed: Single read FFollowSpeed write FFollowSpeed
-      {$ifdef FPC}default DefaultFollowStep{$endif};
+      {$ifdef FPC}default DefaultFollowSpeed{$endif};
     property ZoomStep: Single read FZoomStep write FZoomStep
       {$ifdef FPC}default DefaultZoomStep{$endif};
   end;
@@ -77,7 +77,7 @@ begin
   FDistanceToAvatarTarget:= DefaultDistanceToAvatarTarget;
   FDistanceToAvatarTargetMin:= DefaultDistanceToAvatarTargetMin;
   FDistanceToAvatarTargetMax:= DefaultDistanceToAvatarTargetMax;
-  FFollowSpeed:= DefaultFollowStep;
+  FFollowSpeed:= DefaultFollowSpeed;
   FZoomStep:= DefaultZoomStep;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);

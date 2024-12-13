@@ -5,7 +5,8 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleThirdPersonNavigation, CastleTransform, CastleNotifications,
-  ActorChara, MyThirdPersonCameraNavigation, MyThirdPersonCharaNavigation;
+  ActorChara, MyThirdPersonCameraNavigation, MyThirdPersonCharaNavigation,
+  CastleDebugTransform;
 
 type
   TViewTravel = class(TCastleView)
@@ -26,6 +27,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
   protected
     FActorMain: TActorChara;
+    DebugAvatar: TDebugTransform;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ChangedEmission(value: Single);
@@ -61,6 +63,11 @@ begin
 
   { Create Girl Character instance }
   FActorMain:= TActorChara.Create(Chara, 'Girl');
+
+  { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
+  DebugAvatar:= TDebugTransform.Create(FreeAtStop);
+  DebugAvatar.Parent:= Chara;
+  DebugAvatar.Exists:= True;
 
   { set cahara animation event }
 //  CameraNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;

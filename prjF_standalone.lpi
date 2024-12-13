@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="20">
+    <Units Count="21">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -166,6 +166,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MyThirdPersonCharaNavigation"/>
       </Unit19>
+      <Unit20>
+        <Filename Value="code/myvectormath.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MyVectorMath"/>
+      </Unit20>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
