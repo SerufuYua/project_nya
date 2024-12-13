@@ -11,6 +11,7 @@ uses
 type
   TMyThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
+    FGravityVelocity: TVector3;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
     FInput_Forward: TInputShortcut;
@@ -19,7 +20,6 @@ type
     FInput_Rightward: TInputShortcut;
     FInput_Jump: TInputShortcut;
     FWasMoveInput: Boolean;
-    FOldMoveVelocity: TVector3;
     FAvatarHierarchy: TCastleTransform;
     FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
@@ -27,6 +27,8 @@ type
   protected
     procedure RotateChara(const SecondsPassed: Single);
     procedure MoveChara(const SecondsPassed: Single);
+    function IsOnGround(RBody: TCastleRigidBody;
+                        CBody: TCastleCollider): Boolean;
   public
   const
     DefaultTurnSpeed = 20;
@@ -54,7 +56,8 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleKeysMouse;
+  CastleComponentSerialize, CastleUtils, CastleKeysMouse,
+  CastleBoxes, Math;
 
 constructor TMyThirdPersonCharaNavigation.Create(AOwner: TComponent);
 begin
@@ -85,9 +88,9 @@ begin
   Input_Jump                   .Name := 'Input_Jump';
 
   FWasMoveInput:= False;
-  FOldMoveVelocity:= TVector3.Zero;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
+  FGravityVelocity:= TVector3.Zero;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
@@ -149,19 +152,22 @@ procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single);
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  MoveVelocity, GravityVelocity: TVector3;
+  OnGround: Boolean;
+  MoveVelocity: TVector3;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
-  if NOT Assigned(RBody) then Exit;
-
+  CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
+  if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
 
   MoveVelocity:= Tvector3.Zero;
+  OnGround:= IsOnGround(RBody, CBody);
 
-  CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
-  if Assigned(CBody) then
-    GravityVelocity:= -Camera.GravityUp * CBody.Mass
+  if OnGround then
+    FGravityVelocity:= TVector3.Zero
   else
-    GravityVelocity:= -Camera.GravityUp;
+    FGravityVelocity:= SmoothTowards(FGravityVelocity,
+                                     -Camera.GravityUp * CBody.Mass,
+                                     SecondsPassed, 10.0);
 
   if (Input_Forward.IsPressed(Container) OR
       Input_Backward.IsPressed(Container) OR
@@ -174,12 +180,65 @@ begin
   end else if FWasMoveInput then
   begin
     FWasMoveInput:= False;
-    RBody.LinearVelocity:= Tvector3.Zero + GravityVelocity;
+    RBody.LinearVelocity:= Tvector3.Zero + FGravityVelocity;
   end;
 
   if NOT MoveVelocity.IsZero then
-    RBody.LinearVelocity:= MoveVelocity + GravityVelocity;
+    RBody.LinearVelocity:= MoveVelocity + FGravityVelocity;
 
+end;
+
+function TMyThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;
+                                                  CBody: TCastleCollider): Boolean;
+var
+  GroundRayCast: TPhysicsRayCastResult;
+  AvatarBBox: TBox3D;
+  AvatarRadius, DistanceToGround: Single;
+  RayDirection, RayOrigin: TVector3;
+
+  ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
+begin
+  Result:= False;
+
+  AvatarBBox := AvatarHierarchy.BoundingBox;
+  AvatarRadius:= Min(Min(AvatarBBox.SizeX, AvatarBBox.SizeY),
+                     AvatarBBox.SizeZ) / 2.0;
+  DistanceToGround:= Max(Max(AvatarBBox.SizeX, AvatarBBox.SizeY),
+                         AvatarBBox.SizeZ) * 0.1;
+  RayOrigin:= AvatarHierarchy.Translation;
+  RayDirection:= -AvatarHierarchy.Up;
+
+  ForwardDir:= AvatarHierarchy.Direction.Normalize;
+  BackwardDir:= -ForwardDir;
+  RightwardDir:= TVector3.CrossProduct(AvatarHierarchy.Up,
+                                       AvatarHierarchy.Direction).Normalize;
+  LeftwardDir:= -RightwardDir;
+
+  GroundRayCast:= RBody.PhysicsRayCast(RayOrigin,
+                                       RayDirection,
+                                       DistanceToGround);
+
+  if NOT GroundRayCast.Hit then
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + ForwardDir * AvatarRadius,
+                                         RayDirection,
+                                         DistanceToGround);
+
+  if NOT GroundRayCast.Hit then
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + BackwardDir * AvatarRadius,
+                                         RayDirection,
+                                         DistanceToGround);
+
+  if NOT GroundRayCast.Hit then
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + RightwardDir * AvatarRadius,
+                                         RayDirection,
+                                         DistanceToGround);
+
+  if NOT GroundRayCast.Hit then
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + LeftwardDir * AvatarRadius,
+                                         RayDirection,
+                                         DistanceToGround);
+
+  Result:= GroundRayCast.Hit;
 end;
 
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;

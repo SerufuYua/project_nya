@@ -43,7 +43,7 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : 6.0000000000000000E+000
+              "Y" : 2.5000000000000000E+001
             },
             "Url" : "castle-data:/CharaGirl_common.castle-transform",
             "$Behaviors" : [
@@ -70,11 +70,6 @@
             "CastShadows" : false,
             "Collides" : false,
             "CollisionSphereRadius" : 1.0000000000000000E+000,
-            "GravityUpPersistent" : {
-              "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : 7.0710676908493042E-001,
-              "Z" : 7.0710676908493042E-001
-            },
             "Name" : "CameraMain",
             "Orthographic" : {
               "$$ClassName" : "TCastleOrthographic"
@@ -171,6 +166,29 @@
               },
               {
                 "$$ClassName" : "TCastleBox",
+                "Name" : "Box1",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 3.0000000000000000E+001,
+                  "Y" : 6.0000000000000000E+001,
+                  "Z" : 2.0000000000000000E+001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 5.1916309356689453E+001,
+                  "Y" : 3.0000000000000000E+001,
+                  "Z" : 4.0000000000000000E+001
+                }
+              },
+              {
+                "$$ClassName" : "TCastleBox",
                 "Name" : "Box2",
                 "RenderOptions" : {
                   "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -201,26 +219,50 @@
               },
               {
                 "$$ClassName" : "TCastleBox",
-                "Name" : "Box1",
+                "Name" : "Box3",
                 "RenderOptions" : {
                   "$$ClassName" : "TCastleScene.TSceneRenderOptions"
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "Z" : 1.0000000000000000E+000
+                  "Y" : 1.0000000000000000E+000
+                },
+                "ScalePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 9.9999994039535522E-001
                 },
                 "SizePersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 3.0000000000000000E+001,
-                  "Y" : 6.0000000000000000E+001,
-                  "Z" : 2.0000000000000000E+001
+                  "X" : 9.0000000000000000E+001,
+                  "Y" : 2.0000000000000000E+001,
+                  "Z" : 9.0000000000000000E+001
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 5.1916309356689453E+001,
-                  "Y" : 3.0000000000000000E+001,
-                  "Z" : 4.0000000000000000E+001
-                }
+                  "Y" : 1.0000000000000000E+001
+                },
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBoxCollider",
+                    "Name" : "BoxCollider1"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Dynamic" : false,
+                    "Gravity" : false,
+                    "LockRotation" : [
+                      0,
+                      1,
+                      2
+                    ],
+                    "LockTranslation" : [
+                      0,
+                      1,
+                      2
+                    ],
+                    "Name" : "RigidBody1"
+                  }
+                ]
               }
             ]
           }
@@ -320,9 +362,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -3.2789829254150391E+001,
-          "Y" : 5.9910160064697266E+001,
-          "Z" : 7.6605041503906250E+001
+          "X" : -7.3793441772460938E+001,
+          "Y" : 1.0093444061279297E+002,
+          "Z" : 1.2530094909667969E+002
         }
       },
       "InternalDesignNavigations[dnFly]" : {
