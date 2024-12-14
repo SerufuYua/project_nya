@@ -30,7 +30,6 @@
         "$Children" : [
           {
             "$$ClassName" : "TCastleTransformDesign",
-            "Exists" : false,
             "Name" : "Map",
             "Url" : "castle-data:/MapTravel_ContainerRoom.castle-transform"
           },
@@ -43,7 +42,7 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : 5.5000000000000000E+001
+              "Y" : 5.0000000000000000E+000
             },
             "Url" : "castle-data:/CharaGirl_common.castle-transform",
             "$Behaviors" : [
@@ -96,7 +95,12 @@
           },
           {
             "$$ClassName" : "TCastleTransform",
+            "Exists" : false,
             "Name" : "TestMap",
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Y" : -5.0000000000000000E+001
+            },
             "$Children" : [
               {
                 "$$ClassName" : "TCastlePointLight",
@@ -357,9 +361,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -7.4017379760742188E+001,
-          "Y" : 1.0093444061279297E+002,
-          "Z" : 1.2566641235351562E+002
+          "X" : -4.1292865753173828E+001,
+          "Y" : 7.5757347106933594E+001,
+          "Z" : 7.2261627197265625E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

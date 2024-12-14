@@ -12,6 +12,7 @@ type
   TMyThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
     FLookTargetDir: TVector3;
+    FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
     FInput_Forward: TInputShortcut;
@@ -31,6 +32,7 @@ type
                         CBody: TCastleCollider): Boolean;
   public
   const
+    DefaultGravityAlignSpeed = 20000;
     DefaultTurnSpeed = 20;
     DefaultWalkSpeed = 40;
 
@@ -47,6 +49,8 @@ type
     property Input_Jump: TInputShortcut read FInput_Jump;
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
+    property SpeedOfGravityAlign: Single read FGravityAlignSpeed write FGravityAlignSpeed
+      {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
     property SpeedOfTurn: Single read FTurnSpeed write FTurnSpeed
       {$ifdef FPC}default DefaultTurnSpeed{$endif};
     property SpeedOfWalk: Single read FWalkSpeed write FWalkSpeed
@@ -87,6 +91,7 @@ begin
   Input_Rightward              .Name:= 'Input_RightRotate';
   Input_Jump                   .Name := 'Input_Jump';
 
+  FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
   FLookTargetDir:= TVector3.Zero;
@@ -110,7 +115,7 @@ begin
 
   CalcLookTargetDir;
   RotateChara(SecondsPassed);
-  //MoveChara(SecondsPassed);
+  MoveChara(SecondsPassed);
 end;
 
 procedure TMyThirdPersonCharaNavigation.CalcLookTargetDir;
@@ -157,7 +162,7 @@ begin
   AvaUp:= AvatarHierarchy.Up;
   AngleCoeff:= 1 - TVector3.DotProduct(AvaUp, UpDir);
   TurnVec:= TVector3.CrossProduct(AvaUp, UpDir);
-  AngularVelocity:= AngularVelocity + AngleCoeff * TurnVec * SpeedOfTurn;
+  AngularVelocity:= AngularVelocity + AngleCoeff * TurnVec * FGravityAlignSpeed;
 
 
   { turn avatar to target }
@@ -176,21 +181,29 @@ procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single);
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  //OnGround: Boolean;
+  OnGround: Boolean;
   MoveForce: TVector3;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
   if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
 
-  //OnGround:= IsOnGround(RBody, CBody);
+  OnGround:= IsOnGround(RBody, CBody);
 
-  if NOT FLookTargetDir.IsZero then
+  if ((NOT FLookTargetDir.IsZero) AND OnGround) then
   begin
-    MoveForce:= AvatarHierarchy.Direction.Normalize * SpeedOfWalk * 100.0;
+    MoveForce:= AvatarHierarchy.Direction * SpeedOfWalk * 100.0;
     RBody.AddForce(MoveForce, False);
+    //RBody.AddForceAtPosition(MoveForce, AvatarHierarchy.Translation)
+    //RBody.LinearVelocity:= MoveForce;
   end;
 
+  if (FInput_Jump.IsPressed(Container) AND OnGround) then
+  begin
+    RBody.ApplyImpulse(AvatarHierarchy.Up * 50.0,
+                       AvatarHierarchy.BoundingBox.Center);
+    //RBody.AddForce(AvatarHierarchy.Up * 40.0, False);
+  end;
 
 end;
 
@@ -204,8 +217,6 @@ var
 
   ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
 begin
-  Result:= False;
-
   AvatarBBox := AvatarHierarchy.BoundingBox;
   AvatarRadius:= AvatarBBox.MinSize / 2.0;
   DistanceToGround:= AvatarBBox.MaxSize * 0.1;
@@ -248,7 +259,7 @@ end;
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfTurn'
+       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfTurn', 'SpeedOfGravityAlign'
      ]) then
     Result := [psBasic]
   else
