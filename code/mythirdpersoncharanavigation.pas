@@ -1,7 +1,7 @@
 unit MyThirdPersonCharaNavigation;
 
 {$mode ObjFPC}{$H+}
-
+{$WARN 6058 off : Call to subroutine "$1" marked as inline is not inlined}
 interface
 
 uses
@@ -143,29 +143,33 @@ end;
 
 procedure TMyThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
 var
-  AvaDir, TurnVec: TVector3;
+  AvaDir, AvaUp, TurnVec, UpDir, AngularVelocity: TVector3;
   RBody: TCastleRigidBody;
   AngleCoeff: Single;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
 
+  AngularVelocity:= TVector3.Zero;
 
-  {AvatarHierarchy.Up:= SmoothTowards(AvatarHierarchy.Up.Normalize,
-                                     Camera.GravityUp,
-                                     SecondsPassed, SpeedOfTurn); }
-   { turn avatar aganist gravity }
+  { turn avatar up aganist gravity }
+  UpDir:= Camera.GravityUp;
+  AvaUp:= AvatarHierarchy.Up;
+  AngleCoeff:= 1 - TVector3.DotProduct(AvaUp, UpDir);
+  TurnVec:= TVector3.CrossProduct(AvaUp, UpDir);
+  AngularVelocity:= AngularVelocity + AngleCoeff * TurnVec * SpeedOfTurn;
 
 
   { turn avatar to target }
-  if FLookTargetDir.IsZero then
-    RBody.AngularVelocity:= TVector3.Zero
-  else begin
+  if NOT FLookTargetDir.IsZero then
+  begin
     AvaDir:= AvatarHierarchy.Direction;
     AngleCoeff:= 1 - TVector3.DotProduct(AvaDir, FLookTargetDir);
     TurnVec:= TVector3.CrossProduct(AvaDir, FLookTargetDir);
-    RBody.AngularVelocity:= AngleCoeff * TurnVec * SpeedOfTurn;
+    AngularVelocity:= AngularVelocity + AngleCoeff * TurnVec * SpeedOfTurn;
   end;
+
+  RBody.AngularVelocity:= AngularVelocity;
 end;
 
 procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single);

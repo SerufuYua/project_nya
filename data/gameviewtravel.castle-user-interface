@@ -57,10 +57,6 @@
                 "$$ClassName" : "TCastleRigidBody",
                 "AngularVelocityDamp" : 1.0000000000000000E+001,
                 "Animated" : true,
-                "LockRotation" : [
-                  0,
-                  2
-                ],
                 "Name" : "RigidBodyChara"
               }
             ]
@@ -336,8 +332,7 @@
         {
           "$$ClassName" : "TMyThirdPersonCharaNavigation",
           "AvatarHierarchy" : "Chara",
-          "Name" : "CharaNavigation",
-          "SpeedOfTurn" : 5.0000000000000000E+000
+          "Name" : "CharaNavigation"
         }
       ],
       "InternalDesignCamera" : {
