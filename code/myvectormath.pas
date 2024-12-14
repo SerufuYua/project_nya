@@ -10,10 +10,8 @@ uses
   function TurnVectorAroundVector(const turnVector, axis: TVector3;
                                   const angle: Single): TVector3;
 
-  function TwoVectorAngleCoeff(const VectorA, VectorB,
-                               PlaneNormal: TVector3): Single;
-
-  function Sign(const num: Single): Single;
+  { calculate angular velocity for turn VectorA to VectorB }
+  function TurnVectorToVector(const VectorA, VectorB: TVector3): TVector3;
 
 implementation
 
@@ -31,22 +29,14 @@ begin
            sin(angle) * CrossAxisVec;
 end;
 
-function TwoVectorAngleCoeff(const VectorA, VectorB,
-                             PlaneNormal: TVector3): Single;
+function TurnVectorToVector(const VectorA, VectorB: TVector3): TVector3;
 var
-  AngleSign, AngleCoeff: Single;
+  TurnVec: TVector3;
+  AngleCoeff: Single;
 begin
-  AngleCoeff:= TVector3.DotProduct(VectorA, VectorB);
-  AngleSign:= Sign(TVector3.DotProduct(PlaneNormal, TVector3.CrossProduct(VectorA, VectorB)));
-  Result:= AngleSign * (1 - AngleCoeff);
-end;
-
-function Sign(const num: Single): Single;
-begin
-  if (num < 0) then
-    Result:= -1.0
-  else
-    Result:= 1.0;
+  AngleCoeff:= 1 - TVector3.DotProduct(VectorA, VectorB);
+  TurnVec:= TVector3.CrossProduct(VectorA, VectorB);
+  Result:= AngleCoeff * TurnVec;
 end;
 
 end.

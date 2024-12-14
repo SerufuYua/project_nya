@@ -61,7 +61,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes;
+  CastleBoxes, MyVectorMath;
 
 constructor TMyThirdPersonCharaNavigation.Create(AOwner: TComponent);
 begin
@@ -148,9 +148,8 @@ end;
 
 procedure TMyThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
 var
-  AvaDir, AvaUp, TurnVec, UpDir, AngularVelocity: TVector3;
+  TurnVec, AngularVelocity: TVector3;
   RBody: TCastleRigidBody;
-  AngleCoeff: Single;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
@@ -158,20 +157,15 @@ begin
   AngularVelocity:= TVector3.Zero;
 
   { turn avatar up aganist gravity }
-  UpDir:= Camera.GravityUp;
-  AvaUp:= AvatarHierarchy.Up;
-  AngleCoeff:= 1 - TVector3.DotProduct(AvaUp, UpDir);
-  TurnVec:= TVector3.CrossProduct(AvaUp, UpDir);
-  AngularVelocity:= AngularVelocity + AngleCoeff * TurnVec * FGravityAlignSpeed;
+  TurnVec:= TurnVectorToVector(AvatarHierarchy.Up, Camera.GravityUp);
+  AngularVelocity:= AngularVelocity + TurnVec * SpeedOfGravityAlign;
 
 
   { turn avatar to target }
   if NOT FLookTargetDir.IsZero then
   begin
-    AvaDir:= AvatarHierarchy.Direction;
-    AngleCoeff:= 1 - TVector3.DotProduct(AvaDir, FLookTargetDir);
-    TurnVec:= TVector3.CrossProduct(AvaDir, FLookTargetDir);
-    AngularVelocity:= AngularVelocity + AngleCoeff * TurnVec * SpeedOfTurn;
+    TurnVec:= TurnVectorToVector(AvatarHierarchy.Direction, FLookTargetDir);
+    AngularVelocity:= AngularVelocity + TurnVec * SpeedOfTurn;
   end;
 
   RBody.AngularVelocity:= AngularVelocity;
@@ -194,15 +188,12 @@ begin
   begin
     MoveForce:= AvatarHierarchy.Direction * SpeedOfWalk * 100.0;
     RBody.AddForce(MoveForce, False);
-    //RBody.AddForceAtPosition(MoveForce, AvatarHierarchy.Translation)
-    //RBody.LinearVelocity:= MoveForce;
   end;
 
   if (FInput_Jump.IsPressed(Container) AND OnGround) then
   begin
     RBody.ApplyImpulse(AvatarHierarchy.Up * 50.0,
                        AvatarHierarchy.BoundingBox.Center);
-    //RBody.AddForce(AvatarHierarchy.Up * 40.0, False);
   end;
 
 end;
