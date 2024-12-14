@@ -11,7 +11,7 @@ uses
 type
   TMyThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
-    FGravityVelocity: TVector3;
+    FLookTargetDir: TVector3;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
     FInput_Forward: TInputShortcut;
@@ -19,12 +19,12 @@ type
     FInput_Leftward: TInputShortcut;
     FInput_Rightward: TInputShortcut;
     FInput_Jump: TInputShortcut;
-    FWasMoveInput: Boolean;
     FAvatarHierarchy: TCastleTransform;
     FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
     procedure SetAvatarHierarchy(const Value: TCastleTransform);
   protected
+    procedure CalcLookTargetDir;
     procedure RotateChara(const SecondsPassed: Single);
     procedure MoveChara(const SecondsPassed: Single);
     function IsOnGround(RBody: TCastleRigidBody;
@@ -57,7 +57,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, Math;
+  CastleBoxes;
 
 constructor TMyThirdPersonCharaNavigation.Create(AOwner: TComponent);
 begin
@@ -87,10 +87,9 @@ begin
   Input_Rightward              .Name:= 'Input_RightRotate';
   Input_Jump                   .Name := 'Input_Jump';
 
-  FWasMoveInput:= False;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
-  FGravityVelocity:= TVector3.Zero;
+  FLookTargetDir:= TVector3.Zero;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
@@ -109,14 +108,14 @@ begin
   if NOT Valid then Exit;
   if NOT Assigned(AvatarHierarchy) then Exit;
 
+  CalcLookTargetDir;
   RotateChara(SecondsPassed);
-  MoveChara(SecondsPassed);
+  //MoveChara(SecondsPassed);
 end;
 
-procedure TMyThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
+procedure TMyThirdPersonCharaNavigation.CalcLookTargetDir;
 var
   AvaVerticalDir, ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
-  LookToDir: TVector3;
 begin
   AvaVerticalDir:= AvatarHierarchy.Up;
   LeftwardDir:= TVector3.CrossProduct(AvaVerticalDir, Camera.Direction);
@@ -124,67 +123,70 @@ begin
   BackwardDir:= TVector3.CrossProduct(AvaVerticalDir, LeftwardDir);
   ForwardDir:= -BackwardDir;
 
-  LookToDir:= TVector3.Zero;
+  FLookTargetDir:= TVector3.Zero;
 
   if Input_Forward.IsPressed(Container) then
-    LookToDir:= LookToDir + ForwardDir;
+    FLookTargetDir:= FLookTargetDir + ForwardDir;
 
   if Input_Backward.IsPressed(Container) then
-    LookToDir:= LookToDir + BackwardDir;
+    FLookTargetDir:= FLookTargetDir + BackwardDir;
 
   if Input_Leftward.IsPressed(Container) then
-    LookToDir:= LookToDir + LeftwardDir;
+    FLookTargetDir:= FLookTargetDir + LeftwardDir;
 
   if Input_Rightward.IsPressed(Container) then
-    LookToDir:= LookToDir + RightwardDir;
+    FLookTargetDir:= FLookTargetDir + RightwardDir;
+
+  if NOT FLookTargetDir.IsZero then
+    FLookTargetDir:= FLookTargetDir.Normalize;
+end;
+
+procedure TMyThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
+var
+  AvaDir, TurnVec: TVector3;
+  RBody: TCastleRigidBody;
+  AngleCoeff: Single;
+begin
+  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
+  if NOT Assigned(RBody) then Exit;
 
 
-  AvatarHierarchy.Up:= SmoothTowards(AvatarHierarchy.Up.Normalize,
+  {AvatarHierarchy.Up:= SmoothTowards(AvatarHierarchy.Up.Normalize,
                                      Camera.GravityUp,
-                                     SecondsPassed, SpeedOfTurn);
+                                     SecondsPassed, SpeedOfTurn); }
+   { turn avatar aganist gravity }
 
-  AvatarHierarchy.Direction:= SmoothTowards(AvatarHierarchy.Direction.Normalize,
-                                            LookToDir.Normalize,
-                                            SecondsPassed, SpeedOfTurn);
+
+  { turn avatar to target }
+  if FLookTargetDir.IsZero then
+    RBody.AngularVelocity:= TVector3.Zero
+  else begin
+    AvaDir:= AvatarHierarchy.Direction;
+    AngleCoeff:= 1 - TVector3.DotProduct(AvaDir, FLookTargetDir);
+    TurnVec:= TVector3.CrossProduct(AvaDir, FLookTargetDir);
+    RBody.AngularVelocity:= AngleCoeff * TurnVec * SpeedOfTurn;
+  end;
 end;
 
 procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single);
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  OnGround: Boolean;
-  MoveVelocity: TVector3;
+  //OnGround: Boolean;
+  MoveForce: TVector3;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
   if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
 
-  MoveVelocity:= Tvector3.Zero;
-  OnGround:= IsOnGround(RBody, CBody);
+  //OnGround:= IsOnGround(RBody, CBody);
 
-  if OnGround then
-    FGravityVelocity:= TVector3.Zero
-  else
-    FGravityVelocity:= SmoothTowards(FGravityVelocity,
-                                     -Camera.GravityUp * CBody.Mass,
-                                     SecondsPassed, 10.0);
-
-  if (Input_Forward.IsPressed(Container) OR
-      Input_Backward.IsPressed(Container) OR
-      Input_Leftward.IsPressed(Container) OR
-      Input_Rightward.IsPressed(Container)) then
+  if NOT FLookTargetDir.IsZero then
   begin
-    FWasMoveInput:= True;
-    MoveVelocity:= AvatarHierarchy.Direction.Normalize;
-    MoveVelocity:= MoveVelocity * SpeedOfWalk;
-  end else if FWasMoveInput then
-  begin
-    FWasMoveInput:= False;
-    RBody.LinearVelocity:= Tvector3.Zero + FGravityVelocity;
+    MoveForce:= AvatarHierarchy.Direction.Normalize * SpeedOfWalk * 100.0;
+    RBody.AddForce(MoveForce, False);
   end;
 
-  if NOT MoveVelocity.IsZero then
-    RBody.LinearVelocity:= MoveVelocity + FGravityVelocity;
 
 end;
 
@@ -201,10 +203,8 @@ begin
   Result:= False;
 
   AvatarBBox := AvatarHierarchy.BoundingBox;
-  AvatarRadius:= Min(Min(AvatarBBox.SizeX, AvatarBBox.SizeY),
-                     AvatarBBox.SizeZ) / 2.0;
-  DistanceToGround:= Max(Max(AvatarBBox.SizeX, AvatarBBox.SizeY),
-                         AvatarBBox.SizeZ) * 0.1;
+  AvatarRadius:= AvatarBBox.MinSize / 2.0;
+  DistanceToGround:= AvatarBBox.MaxSize * 0.1;
   RayOrigin:= AvatarHierarchy.Translation;
   RayDirection:= -AvatarHierarchy.Up;
 
