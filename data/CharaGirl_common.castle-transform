@@ -4,7 +4,6 @@
   "$Children" : [
     {
       "$$ClassName" : "TCastleScene",
-      "AutoAnimation" : "GAME.STAND",
       "ExposeTransforms" : [
         "Head",
         "ForeArmTwist2.L",
@@ -23,27 +22,16 @@
           "Name" : "Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 9.8386043682694435E-003,
-            "X" : -3.0067203566431999E-002,
-            "Y" : 5.1326644420623779E-001,
-            "Z" : -8.6141926050186157E-001
-          },
-          "ScalePersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.4999992847442627E-001,
-            "Y" : 9.5000034570693970E-001,
-            "Z" : 9.5000010728836060E-001
+            "Z" : 1.0000000000000000E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -5.0233614444732666E-001,
-            "Y" : 4.9374473571777344E+001,
-            "Z" : 5.1815932989120483E-001
+            "Y" : 4.9901798248291016E+001,
+            "Z" : 7.3294609785079956E-001
           },
           "$Children" : [
             {
               "$$ClassName" : "TCastleScene",
-              "AutoAnimation" : "GAME.STAND",
               "ExposeTransforms" : [
                 "eye.C"
               ],
@@ -63,20 +51,19 @@
                   "Name" : "eye_C",
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
-                    "W" : 3.1415903568267822E+000,
-                    "X" : -1.1558839787539910E-006,
-                    "Y" : 6.9791954755783081E-001,
-                    "Z" : 7.1617615222930908E-001
+                    "W" : 3.1415913105010986E+000,
+                    "X" : -9.6403823590662796E-007,
+                    "Y" : 7.0710664987564087E-001,
+                    "Z" : 7.0710688829421997E-001
                   },
                   "ScalePersistent" : {
                     "$$ClassName" : "TCastleVector3Persistent",
-                    "X" : 9.9999982118606567E-001,
-                    "Y" : 9.9999964237213135E-001,
+                    "Y" : 9.9999994039535522E-001,
                     "Z" : 9.9999994039535522E-001
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector3Persistent",
-                    "X" : 2.5779405632420094E-007,
+                    "X" : 1.3858476677341969E-007,
                     "Y" : 2.6600003242492676E+000,
                     "Z" : 1.7438995838165283E+000
                   },
@@ -109,7 +96,6 @@
             },
             {
               "$$ClassName" : "TCastleScene",
-              "AutoAnimation" : "GAME.STAND",
               "ExposeTransforms" : [
               ],
               "Name" : "SceneHair",
@@ -188,22 +174,16 @@
           "Name" : "ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.9813344478607178E+000,
-            "X" : 1.3430628180503845E-001,
-            "Y" : 6.1232011765241623E-002,
-            "Z" : 9.8904627561569214E-001
-          },
-          "ScalePersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999988079071045E-001,
-            "Y" : 1.0000010728836060E+000,
-            "Z" : 1.0000001192092896E+000
+            "W" : 2.6542222499847412E+000,
+            "X" : 1.8844974040985107E-001,
+            "Y" : 5.9741830825805664E-001,
+            "Z" : 7.7947294712066650E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -8.3031482696533203E+000,
-            "Y" : 3.2388130187988281E+001,
-            "Z" : -2.4801313877105713E+000
+            "X" : -9.8769540786743164E+000,
+            "Y" : 3.6814399719238281E+001,
+            "Z" : 4.4330496788024902E+000
           },
           "$Children" : [
             {
@@ -234,22 +214,16 @@
           "Name" : "ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.3158428668975830E+000,
-            "X" : -1.5484848618507385E-001,
-            "Y" : 5.0908513367176056E-002,
-            "Z" : 9.8662573099136353E-001
-          },
-          "ScalePersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0000003576278687E+000,
-            "Y" : 1.0000007152557373E+000,
-            "Z" : 1.0000005960464478E+000
+            "W" : 3.6289632320404053E+000,
+            "X" : -1.8844975531101227E-001,
+            "Y" : 5.9741836786270142E-001,
+            "Z" : 7.7947300672531128E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 6.7773842811584473E+000,
-            "Y" : 3.1639171600341797E+001,
-            "Z" : -7.3429547250270844E-002
+            "X" : 9.8769540786743164E+000,
+            "Y" : 3.6814399719238281E+001,
+            "Z" : 4.4330496788024902E+000
           },
           "$Children" : [
             {
