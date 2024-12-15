@@ -337,6 +337,9 @@
         },
         {
           "$$ClassName" : "TMyThirdPersonCharaNavigation",
+          "AnimationRun" : "GAME.RUN.FORWARD",
+          "AnimationStand" : "GAME.STAND",
+          "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "Chara",
           "Name" : "CharaNavigation"
         }

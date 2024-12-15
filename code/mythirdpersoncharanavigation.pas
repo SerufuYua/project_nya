@@ -9,8 +9,17 @@ uses
   CastleInputs, CastleVectors;
 
 type
+  TMyThirdPersonCharaNavigation = class;
+
+  TMyThirdPersonCharaNavigationAnimationEvent = procedure (
+    const Sender: TMyThirdPersonCharaNavigation;
+    const AnimationName: String; AnimtionSpeed: Single) of object;
+
   TMyThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
+    FAnimationStand: String;
+    FAnimationWalk: String;
+    FAnimationRun: String;
     FLookTargetDir: TVector3;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
@@ -24,6 +33,7 @@ type
     FInput_Leftward: TInputShortcut;
     FInput_Rightward: TInputShortcut;
     FInput_Jump: TInputShortcut;
+    FOnAnimation: TMyThirdPersonCharaNavigationAnimationEvent;
     FAvatarHierarchy: TCastleTransform;
     FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
@@ -31,18 +41,26 @@ type
   protected
     procedure CalcLookTargetDir;
     procedure RotateChara(const SecondsPassed: Single);
-    procedure MoveChara(const SecondsPassed: Single);
+    procedure MoveChara(const SecondsPassed: Single; out OnGround: Boolean);
     function IsOnGround(RBody: TCastleRigidBody;
                         CBody: TCastleCollider): Boolean;
+    procedure Animate(const OnGround: Boolean);
+
+    function AnimationStandStored: Boolean;
+    function AnimationWalkStored: Boolean;
+    function AnimationRunStored: Boolean;
   public
   const
     DefaultGravityAlignSpeed = 20000;
     DefaultTurnSpeed = 20;
-    DefaultWalkSpeed = 40;
+    DefaultWalkSpeed = 30;
     DefaultWalkForce = 400.0;
     DefaultWalkForceStart = 40000.0;
     DefaultWalkInAirForce = 400.0;
     DefaultJumpImpulse = 50.0;
+    DefaultAnimationStand = 'stand';
+    DefaultAnimationWalk = 'walk';
+    DefaultAnimationRun = 'run';
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -58,19 +76,29 @@ type
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
     property SpeedOfGravityAlign: Single read FGravityAlignSpeed write FGravityAlignSpeed
-      {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
+             {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
     property SpeedOfTurn: Single read FTurnSpeed write FTurnSpeed
-      {$ifdef FPC}default DefaultTurnSpeed{$endif};
+             {$ifdef FPC}default DefaultTurnSpeed{$endif};
     property SpeedOfWalk: Single read FWalkSpeed write FWalkSpeed
-      {$ifdef FPC}default DefaultWalkSpeed{$endif};
+             {$ifdef FPC}default DefaultWalkSpeed{$endif};
     property ForceOfWalk: Single read FWalkForce write FWalkForce
-      {$ifdef FPC}default DefaultWalkForce{$endif};
+             {$ifdef FPC}default DefaultWalkForce{$endif};
     property ForceOfWalkStart: Single read FWalkForceStart write FWalkForceStart
-      {$ifdef FPC}default DefaultWalkForceStart{$endif};
+             {$ifdef FPC}default DefaultWalkForceStart{$endif};
     property ForceOfWalkInAir: Single read FWalkInAirForce write FWalkInAirForce
-      {$ifdef FPC}default DefaultWalkInAirForce{$endif};
+             {$ifdef FPC}default DefaultWalkInAirForce{$endif};
     property ImpulseOfJump: Single read FJumpImpulse write FJumpImpulse
-      {$ifdef FPC}default DefaultJumpImpulse{$endif};
+             {$ifdef FPC}default DefaultJumpImpulse{$endif};
+
+    property AnimationStand: String read FAnimationStand write FAnimationStand
+             stored AnimationStandStored nodefault;
+    property AnimationWalk: String read FAnimationWalk write FAnimationWalk
+             stored AnimationWalkStored nodefault;
+    property AnimationRun: String read FAnimationRun write FAnimationRun
+             stored AnimationRunStored nodefault;
+
+    property OnAnimation: TMyThirdPersonCharaNavigationAnimationEvent
+      read FOnAnimation write FOnAnimation;
   end;
 
 implementation
@@ -116,6 +144,11 @@ begin
   FWalkInAirForce:= DefaultWalkInAirForce;
   FJumpImpulse:= DefaultJumpImpulse;
 
+  FOnAnimation:= nil;
+  FAnimationStand:= DefaultAnimationStand;
+  FAnimationWalk:= DefaultAnimationWalk;
+  FAnimationRun:= DefaultAnimationRun;
+
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
 end;
@@ -127,7 +160,9 @@ begin
 end;
 
 procedure TMyThirdPersonCharaNavigation.Update(const SecondsPassed: Single;
-                 var HandleInput: Boolean);
+                                               var HandleInput: Boolean);
+var
+  OnGround: Boolean;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -135,7 +170,9 @@ begin
 
   CalcLookTargetDir;
   RotateChara(SecondsPassed);
-  MoveChara(SecondsPassed);
+  MoveChara(SecondsPassed, OnGround);
+
+  Animate(OnGround);
 end;
 
 procedure TMyThirdPersonCharaNavigation.CalcLookTargetDir;
@@ -191,11 +228,11 @@ begin
   RBody.AngularVelocity:= AngularVelocity;
 end;
 
-procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single);
+procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single;
+                                                  out OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  OnGround: Boolean;
   AvaDir, MoveForce: TVector3;
   ForwardVelocity: Single;
 begin
@@ -241,7 +278,6 @@ var
   AvatarBBox: TBox3D;
   AvatarRadius, DistanceToGround: Single;
   RayDirection, RayOrigin: TVector3;
-
   ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
 begin
   AvatarBBox := AvatarHierarchy.BoundingBox;
@@ -283,11 +319,34 @@ begin
   Result:= GroundRayCast.Hit;
 end;
 
+procedure TMyThirdPersonCharaNavigation.Animate(const OnGround: Boolean);
+var
+  RBody: TCastleRigidBody;
+  ForwardVelocity: Single;
+begin
+  if NOT Assigned(OnAnimation) then Exit;
+  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
+  if NOT Assigned(RBody) then Exit;
+
+  ForwardVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+                                               AvatarHierarchy.Direction);
+
+  if OnGround then
+  begin
+    if ForwardVelocity < 0.1 * SpeedOfWalk then
+      OnAnimation(self, AnimationStand, 1.0)
+    else
+      OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalk);
+  end else
+    OnAnimation(self, AnimationStand, 1.0);
+end;
+
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfTurn', 'SpeedOfGravityAlign',
-       'ForceOfWalk', 'ForceOfWalkStart', 'ForceOfWalkInAir', 'ImpulseOfJump'
+       'ForceOfWalk', 'ForceOfWalkStart', 'ForceOfWalkInAir', 'ImpulseOfJump',
+       'AnimationStand', 'AnimationWalk', 'AnimationRun'
      ]) then
     Result := [psBasic]
   else
@@ -307,6 +366,21 @@ begin
     FAvatarHierarchy:= Value;
     FAvatarHierarchyFreeObserver.Observed:= Value;
   end;
+end;
+
+function TMyThirdPersonCharaNavigation.AnimationStandStored: Boolean;
+begin
+  Result := FAnimationStand <> DefaultAnimationStand;
+end;
+
+function TMyThirdPersonCharaNavigation.AnimationWalkStored: Boolean;
+begin
+  Result := FAnimationWalk <> DefaultAnimationWalk;
+end;
+
+function TMyThirdPersonCharaNavigation.AnimationRunStored: Boolean;
+begin
+  Result := FAnimationRun <> DefaultAnimationRun;
 end;
 
 initialization

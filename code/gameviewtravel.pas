@@ -16,6 +16,7 @@ type
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
     CameraNavigation: TMyThirdPersonCameraNavigation;
+    CharaNavigation: TMyThirdPersonCharaNavigation;
     CameraMain: TCastleCamera;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
@@ -34,8 +35,8 @@ type
     procedure SaveCharasCondition();
     procedure SetDressButtons();
     procedure NavigationSetAnimation(
-              const Sender: TCastleThirdPersonNavigation;
-              const AnimationNames: array of String);
+              const Sender: TMyThirdPersonCharaNavigation;
+              const AnimationName: String; AnimtionSpeed: Single);
   end;
 
 var
@@ -70,7 +71,7 @@ begin
   DebugAvatar.Exists:= True;
 
   { set cahara animation event }
-//  CameraNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
+  CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
 
   { set characters self emission }
   ChangedEmission(0.3);
@@ -208,11 +209,11 @@ begin
 end;
 
 procedure TViewTravel.NavigationSetAnimation(
-                      const Sender: TCastleThirdPersonNavigation;
-                      const AnimationNames: array of String);
+                      const Sender: TMyThirdPersonCharaNavigation;
+                      const AnimationName: String; AnimtionSpeed: Single);
 begin
-  if (Length(AnimationNames) > 0) then
-    FActorMain.AutoAnimation:= AnimationNames[0];
+  FActorMain.AutoAnimation:= AnimationName;
+  FActorMain.SetSpeed(AnimtionSpeed);
 end;
 
 end.
