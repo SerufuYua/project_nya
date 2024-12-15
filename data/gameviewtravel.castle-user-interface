@@ -30,6 +30,7 @@
         "$Children" : [
           {
             "$$ClassName" : "TCastleTransformDesign",
+            "Exists" : false,
             "Name" : "Map",
             "Url" : "castle-data:/MapTravel_ContainerRoom.castle-transform"
           },
@@ -100,7 +101,6 @@
           },
           {
             "$$ClassName" : "TCastleTransform",
-            "Exists" : false,
             "Name" : "TestMap",
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",

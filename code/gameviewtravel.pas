@@ -26,6 +26,7 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
+    function Release(const Event: TInputPressRelease): boolean; override;
   protected
     FActorMain: TActorChara;
     DebugAvatar: TDebugTransform;
@@ -118,10 +119,18 @@ begin
 
   if Event.IsMouseButton(buttonRight) then
   begin
-    CameraNavigation.MouseLook := not CameraNavigation.MouseLook;
+    CameraNavigation.MouseLook:= True;
     Exit(true);
   end;
 
+end;
+
+function TViewTravel.Release(const Event: TInputPressRelease): boolean;
+begin
+  if Event.IsMouseButton(buttonRight) then
+    CameraNavigation.MouseLook:= False;
+
+  Result := inherited;
 end;
 
 procedure TViewTravel.ChangedEmission(value: Single);
