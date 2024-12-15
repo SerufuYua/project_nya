@@ -7,11 +7,14 @@ interface
 uses
   Classes, SysUtils, CastleVectors;
 
-  function TurnVectorAroundVector(const turnVector, axis: TVector3;
-                                  const angle: Single): TVector3;
+function TurnVectorAroundVector(const turnVector, axis: TVector3;
+                                const angle: Single): TVector3;
 
-  { calculate angular velocity for turn VectorA to VectorB }
-  function TurnVectorToVector(const VectorA, VectorB: TVector3): TVector3;
+{ calculate angular velocity for turn VectorA to VectorB }
+function TurnVectorToVector(const VectorA, VectorB: TVector3): TVector3;
+
+{ length of vector VectorA to VectorB projection }
+function ProjectionVectorAtoBLength(const VectorA, VectorB: TVector3): Single;
 
 implementation
 
@@ -37,6 +40,12 @@ begin
   AngleCoeff:= 1 - TVector3.DotProduct(VectorA, VectorB);
   TurnVec:= TVector3.CrossProduct(VectorA, VectorB);
   Result:= AngleCoeff * TurnVec;
+end;
+
+function ProjectionVectorAtoBLength(const VectorA, VectorB: TVector3): Single;
+begin
+  Result:= TVector3.DotProduct(VectorA, VectorB) /
+           TVector3.DotProduct(VectorB, VectorB);
 end;
 
 end.

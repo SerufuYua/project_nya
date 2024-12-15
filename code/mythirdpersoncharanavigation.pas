@@ -15,6 +15,10 @@ type
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
+    FWalkForce: Single;
+    FWalkForceStart: Single;
+    FWalkInAirForce: Single;
+    FJumpImpulse: Single;
     FInput_Forward: TInputShortcut;
     FInput_Backward: TInputShortcut;
     FInput_Leftward: TInputShortcut;
@@ -35,6 +39,10 @@ type
     DefaultGravityAlignSpeed = 20000;
     DefaultTurnSpeed = 20;
     DefaultWalkSpeed = 40;
+    DefaultWalkForce = 400.0;
+    DefaultWalkForceStart = 40000.0;
+    DefaultWalkInAirForce = 400.0;
+    DefaultJumpImpulse = 50.0;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -55,6 +63,14 @@ type
       {$ifdef FPC}default DefaultTurnSpeed{$endif};
     property SpeedOfWalk: Single read FWalkSpeed write FWalkSpeed
       {$ifdef FPC}default DefaultWalkSpeed{$endif};
+    property ForceOfWalk: Single read FWalkForce write FWalkForce
+      {$ifdef FPC}default DefaultWalkForce{$endif};
+    property ForceOfWalkStart: Single read FWalkForceStart write FWalkForceStart
+      {$ifdef FPC}default DefaultWalkForceStart{$endif};
+    property ForceOfWalkInAir: Single read FWalkInAirForce write FWalkInAirForce
+      {$ifdef FPC}default DefaultWalkInAirForce{$endif};
+    property ImpulseOfJump: Single read FJumpImpulse write FJumpImpulse
+      {$ifdef FPC}default DefaultJumpImpulse{$endif};
   end;
 
 implementation
@@ -89,12 +105,16 @@ begin
   Input_Backward               .Name:= 'Input_Backward';
   Input_Leftward               .Name:= 'Input_LeftRotate';
   Input_Rightward              .Name:= 'Input_RightRotate';
-  Input_Jump                   .Name := 'Input_Jump';
+  Input_Jump                   .Name:= 'Input_Jump';
 
+  FLookTargetDir:= TVector3.Zero;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
-  FLookTargetDir:= TVector3.Zero;
+  FWalkForce:= DefaultWalkForce;
+  FWalkForceStart:= DefaultWalkForceStart;
+  FWalkInAirForce:= DefaultWalkInAirForce;
+  FJumpImpulse:= DefaultJumpImpulse;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
@@ -176,23 +196,39 @@ var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
   OnGround: Boolean;
-  MoveForce: TVector3;
+  AvaDir, MoveForce: TVector3;
+  ForwardVelocity: Single;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
   if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
 
   OnGround:= IsOnGround(RBody, CBody);
+  AvaDir:= AvatarHierarchy.Direction;
 
+  { movement }
   if ((NOT FLookTargetDir.IsZero) AND OnGround) then
   begin
-    MoveForce:= AvatarHierarchy.Direction * SpeedOfWalk * 100.0;
+    { movement on ground }
+    ForwardVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+                                                 AvaDir);
+    if (ForwardVelocity < SpeedOfWalk) then
+      MoveForce:= AvaDir * ForceOfWalkStart
+    else
+      MoveForce:= AvaDir * ForceOfWalk;
+
+    RBody.AddForce(MoveForce, False);
+  end else if ((NOT FLookTargetDir.IsZero) AND (NOT OnGround)) then
+  begin
+    { movement in air }
+    MoveForce:= AvaDir * ForceOfWalkInAir;
     RBody.AddForce(MoveForce, False);
   end;
 
+  { jump }
   if (FInput_Jump.IsPressed(Container) AND OnGround) then
   begin
-    RBody.ApplyImpulse(AvatarHierarchy.Up * 50.0,
+    RBody.ApplyImpulse(AvatarHierarchy.Up * ImpulseOfJump,
                        AvatarHierarchy.BoundingBox.Center);
   end;
 
@@ -250,7 +286,8 @@ end;
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfTurn', 'SpeedOfGravityAlign'
+       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfTurn', 'SpeedOfGravityAlign',
+       'ForceOfWalk', 'ForceOfWalkStart', 'ForceOfWalkInAir', 'ImpulseOfJump'
      ]) then
     Result := [psBasic]
   else
