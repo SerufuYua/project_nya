@@ -33,6 +33,7 @@ type
     FInput_Backward: TInputShortcut;
     FInput_Leftward: TInputShortcut;
     FInput_Rightward: TInputShortcut;
+    FInput_FastMove: TInputShortcut;
     FInput_Jump: TInputShortcut;
     FOnAnimation: TMyThirdPersonCharaNavigationAnimationEvent;
     FAvatarHierarchy: TCastleTransform;
@@ -55,7 +56,7 @@ type
     DefaultGravityAlignSpeed = 20000;
     DefaultTurnSpeed = 20.0;
     DefaultWalkSpeed = 30.0;
-    DefaultRunSpeed = 60.0;
+    DefaultRunSpeed = 100.0;
     DefaultJumpSpeed = 10000.0;
     DefaultMoveInAirForce = 4.0;
     DefaultGravityForce = 500.0;
@@ -74,6 +75,7 @@ type
     property Input_Backward: TInputShortcut read FInput_Backward;
     property Input_Leftward: TInputShortcut read FInput_Leftward;
     property Input_Rightward: TInputShortcut read FInput_Rightward;
+    property Input_FastMove: TInputShortcut read FInput_FastMove;
     property Input_Jump: TInputShortcut read FInput_Jump;
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
@@ -119,24 +121,28 @@ begin
   FInput_Backward              := TInputShortcut.Create(Self);
   FInput_Leftward              := TInputShortcut.Create(Self);
   FInput_Rightward             := TInputShortcut.Create(Self);
+  FInput_FastMove              := TInputShortcut.Create(Self);
   FInput_Jump                  := TInputShortcut.Create(Self);
 
   Input_Forward                .Assign(keyW, keyArrowUp);
   Input_Backward               .Assign(keyS, keyArrowDown);
   Input_Leftward               .Assign(keyA, keyArrowLeft);
   Input_Rightward              .Assign(keyD, keyArrowRight);
+  Input_FastMove               .Assign(keyShift);
   Input_Jump                   .Assign(keySpace);
 
   Input_Forward                .SetSubComponent(true);
   Input_Backward               .SetSubComponent(true);
   Input_Leftward               .SetSubComponent(true);
   Input_Rightward              .SetSubComponent(true);
+  Input_FastMove               .SetSubComponent(true);
   Input_Jump                   .SetSubComponent(true);
 
   Input_Forward                .Name:= 'Input_Forward';
   Input_Backward               .Name:= 'Input_Backward';
-  Input_Leftward               .Name:= 'Input_LeftRotate';
-  Input_Rightward              .Name:= 'Input_RightRotate';
+  Input_Leftward               .Name:= 'Input_Leftward';
+  Input_Rightward              .Name:= 'Input_Rightward';
+  Input_FastMove               .Name:= 'Input_FastMove';
   Input_Jump                   .Name:= 'Input_Jump';
 
   FLookTargetDir:= TVector3.Zero;
@@ -257,10 +263,15 @@ begin
   begin
     { movement }
     if OnGround then
+    begin
       { movement on ground }
-      RBody.LinearVelocity:= AvaDir * SpeedOfWalk + GravityVelocity
-      // SpeedOfRun
-    else
+      if Input_FastMove.IsPressed(Container) then
+        { walk }
+        RBody.LinearVelocity:= AvaDir * SpeedOfRun + GravityVelocity
+      else
+        { run }
+        RBody.LinearVelocity:= AvaDir * SpeedOfWalk + GravityVelocity;
+    end else
       { movement in air }
       RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
   end;
@@ -339,8 +350,10 @@ begin
   begin
     if ForwardVelocity < 0.1 * SpeedOfWalk then
       OnAnimation(self, AnimationStand, 1.0)
+    else if (ForwardVelocity < (SpeedOfWalk + SpeedOfRun) / 2.0) then
+      OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalk)
     else
-      OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalk);
+      OnAnimation(self, AnimationRun, ForwardVelocity / SpeedOfRun);
   end else
     OnAnimation(self, AnimationStand, 1.0);
 end;
