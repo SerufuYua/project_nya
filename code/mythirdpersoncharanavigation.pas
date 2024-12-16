@@ -168,6 +168,8 @@ begin
   if NOT Valid then Exit;
   if NOT Assigned(AvatarHierarchy) then Exit;
 
+  OnGround:= False;
+
   CalcLookTargetDir;
   RotateChara(SecondsPassed);
   MoveChara(SecondsPassed, OnGround);
@@ -276,47 +278,47 @@ function TMyThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;
 var
   GroundRayCast: TPhysicsRayCastResult;
   AvatarBBox: TBox3D;
-  AvatarRadius, DistanceToGround: Single;
+  ProbeLength: Single;
   RayDirection, RayOrigin: TVector3;
-  ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
+  ForwardDir, RightwardDir: TVector3;
 begin
   AvatarBBox := AvatarHierarchy.BoundingBox;
-  AvatarRadius:= AvatarBBox.MinSize / 2.0;
-  DistanceToGround:= AvatarBBox.MaxSize * 0.1;
-  RayOrigin:= AvatarHierarchy.Translation;
+  ProbeLength:=  (1.0 + 0.2) * AvatarBBox.SizeY / 2.0;
+  RayOrigin:= AvatarBBox.Center;
   RayDirection:= -AvatarHierarchy.Up;
 
   ForwardDir:= AvatarHierarchy.Direction.Normalize;
-  BackwardDir:= -ForwardDir;
   RightwardDir:= TVector3.CrossProduct(AvatarHierarchy.Up,
                                        AvatarHierarchy.Direction).Normalize;
-  LeftwardDir:= -RightwardDir;
 
   GroundRayCast:= RBody.PhysicsRayCast(RayOrigin,
                                        RayDirection,
-                                       DistanceToGround);
+                                       ProbeLength);
 
   if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + ForwardDir * AvatarRadius,
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + ForwardDir * AvatarBBox.SizeZ / 2.0,
                                          RayDirection,
-                                         DistanceToGround);
+                                         ProbeLength);
 
   if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + BackwardDir * AvatarRadius,
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin - ForwardDir * AvatarBBox.SizeZ / 2.0,
                                          RayDirection,
-                                         DistanceToGround);
+                                         ProbeLength);
 
   if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + RightwardDir * AvatarRadius,
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + RightwardDir * AvatarBBox.SizeX / 2.0,
                                          RayDirection,
-                                         DistanceToGround);
+                                         ProbeLength);
 
   if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + LeftwardDir * AvatarRadius,
+    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin - RightwardDir * AvatarBBox.SizeX / 2.0,
                                          RayDirection,
-                                         DistanceToGround);
+                                         ProbeLength);
 
-  Result:= GroundRayCast.Hit;
+  if GroundRayCast.Hit then
+    Exit((ProbeLength - GroundRayCast.Distance) > 0);
+
+  Result:= False;
 end;
 
 procedure TMyThirdPersonCharaNavigation.Animate(const OnGround: Boolean);
