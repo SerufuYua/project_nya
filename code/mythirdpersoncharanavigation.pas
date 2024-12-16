@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleCameras, CastleTransform, CastleClassUtils,
-  CastleInputs, CastleVectors;
+  CastleInputs, CastleVectors, MyMath;
 
 type
   TMyThirdPersonCharaNavigation = class;
@@ -17,10 +17,12 @@ type
 
   TMyThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
+    FVelocityNoiseSuppressor: TNoiseSuppressor;
     FAnimationStand: String;
     FAnimationWalk: String;
     FAnimationRun: String;
     FLookTargetDir: TVector3;
+    FAvatarPos: TVector3;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
@@ -46,7 +48,7 @@ type
     procedure MoveChara(const SecondsPassed: Single; out OnGround: Boolean);
     function IsOnGround(RBody: TCastleRigidBody;
                         CBody: TCastleCollider): Boolean;
-    procedure Animate(const OnGround: Boolean);
+    procedure Animate(const SecondsPassed: Single; const OnGround: Boolean);
 
     function AnimationStandStored: Boolean;
     function AnimationWalkStored: Boolean;
@@ -145,7 +147,10 @@ begin
   Input_FastMove               .Name:= 'Input_FastMove';
   Input_Jump                   .Name:= 'Input_Jump';
 
+  FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
+
   FLookTargetDir:= TVector3.Zero;
+  FAvatarPos:= TVector3.Zero;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
@@ -185,7 +190,7 @@ begin
   RotateChara(SecondsPassed);
   MoveChara(SecondsPassed, OnGround);
 
-  Animate(OnGround);
+  Animate(SecondsPassed, OnGround);
 end;
 
 procedure TMyThirdPersonCharaNavigation.CalcLookTargetDir;
@@ -334,21 +339,32 @@ begin
   Result:= False;
 end;
 
-procedure TMyThirdPersonCharaNavigation.Animate(const OnGround: Boolean);
+procedure TMyThirdPersonCharaNavigation.Animate(const SecondsPassed: Single;
+                                                const OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
-  ForwardVelocity: Single;
+  ForwardVelocity, RealForwardVelocity: Single;
 begin
   if NOT Assigned(OnAnimation) then Exit;
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
 
+  { calculate Velocity from Rigid Body }
   ForwardVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
                                                AvatarHierarchy.Direction);
 
+  { calculate real Velocity from Avatar Hierarchy }
+  RealForwardVelocity:= ProjectionVectorAtoBLength((AvatarHierarchy.Translation - FAvatarPos) / SecondsPassed,
+                                                   AvatarHierarchy.Direction);
+  FAvatarPos:= AvatarHierarchy.Translation;
+
+  FVelocityNoiseSuppressor.Update(RealForwardVelocity, 8);
+  RealForwardVelocity:= FVelocityNoiseSuppressor.Value;
+
+  { processing animations }
   if OnGround then
   begin
-    if ForwardVelocity < 0.1 * SpeedOfWalk then
+    if RealForwardVelocity < 0.2 * SpeedOfWalk then
       OnAnimation(self, AnimationStand, 1.0)
     else if (ForwardVelocity < (SpeedOfWalk + SpeedOfRun) / 2.0) then
       OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalk)
@@ -356,6 +372,7 @@ begin
       OnAnimation(self, AnimationRun, ForwardVelocity / SpeedOfRun);
   end else
     OnAnimation(self, AnimationStand, 1.0);
+
 end;
 
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
