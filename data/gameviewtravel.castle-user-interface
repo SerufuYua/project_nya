@@ -48,8 +48,7 @@
             "$Behaviors" : [
               {
                 "$$ClassName" : "TCastleCapsuleCollider",
-                "Friction" : 6.0000000000000000E+001,
-                "Mass" : 6.0000000000000000E+001,
+                "Mass" : 1.0000000000000000E+000,
                 "Name" : "ColliderChara"
               },
               {
@@ -59,8 +58,8 @@
                   0,
                   2
                 ],
-                "MaxAngularVelocity" : 5.0000000000000000E+001,
-                "MaxLinearVelocity" : 6.0000000000000000E+001,
+                "MaxAngularVelocity" : 5.0000000000000000E+000,
+                "MaxLinearVelocity" : 8.0000000000000000E+001,
                 "Name" : "RigidBodyChara"
               }
             ]
@@ -185,20 +184,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 6.0924822092056274E-001,
-          "X" : -7.9010081291198730E-001,
-          "Y" : -5.9502363204956055E-001,
-          "Z" : -1.4726664125919342E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Z" : 9.9999994039535522E-001
+          "W" : 6.8680793046951294E-001,
+          "X" : -7.2333210706710815E-001,
+          "Y" : -6.6863167285919189E-001,
+          "Z" : -1.7240142822265625E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -4.1292865753173828E+001,
-          "Y" : 7.5757347106933594E+001,
-          "Z" : 7.2261627197265625E+001
+          "X" : -8.1050636291503906E+001,
+          "Y" : 1.2214739990234375E+002,
+          "Z" : 1.7430360412597656E+002
         }
       },
       "InternalDesignNavigations[dnFly]" : {
@@ -503,7 +498,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.1999996185302734E+001
+                        "Y" : -5.2000000000000000E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"

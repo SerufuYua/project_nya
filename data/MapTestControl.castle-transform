@@ -9,9 +9,9 @@
         "Blue" : 0.0000000000000000E+000,
         "Green" : 3.2549020648002625E-001
       },
-      "Intensity" : 1.0000000000000000E+005,
+      "Intensity" : 2.0000000000000000E+005,
       "Name" : "PointLight1",
-      "Radius" : 1.0000000000000000E+003,
+      "Radius" : 3.0000000000000000E+003,
       "RotationPersistent" : {
         "$$ClassName" : "TCastleVector4RotationPersistent",
         "Z" : 1.0000000000000000E+000
@@ -26,6 +26,8 @@
     },
     {
       "$$ClassName" : "TCastleBox",
+      "CastShadows" : false,
+      "Exists" : false,
       "Name" : "Floor",
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -64,12 +66,14 @@
             1,
             2
           ],
-          "Name" : "RigidBodyMap"
+          "Name" : "RigidBodyFloor"
         }
       ]
     },
     {
       "$$ClassName" : "TCastleBox",
+      "CastShadows" : false,
+      "Exists" : false,
       "Name" : "Box1",
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -99,12 +103,24 @@
           "$$ClassName" : "TCastleRigidBody",
           "Dynamic" : false,
           "Gravity" : false,
+          "LockRotation" : [
+            0,
+            1,
+            2
+          ],
+          "LockTranslation" : [
+            0,
+            1,
+            2
+          ],
           "Name" : "RigidBody1"
         }
       ]
     },
     {
       "$$ClassName" : "TCastleBox",
+      "CastShadows" : false,
+      "Exists" : false,
       "Name" : "Box2",
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -141,12 +157,24 @@
           "$$ClassName" : "TCastleRigidBody",
           "Dynamic" : false,
           "Gravity" : false,
+          "LockRotation" : [
+            0,
+            1,
+            2
+          ],
+          "LockTranslation" : [
+            0,
+            1,
+            2
+          ],
           "Name" : "RigidBody2"
         }
       ]
     },
     {
       "$$ClassName" : "TCastleBox",
+      "CastShadows" : false,
+      "Exists" : false,
       "Name" : "Box3",
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -190,6 +218,8 @@
     },
     {
       "$$ClassName" : "TCastleBox",
+      "CastShadows" : false,
+      "Exists" : false,
       "Name" : "Box4",
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -230,6 +260,34 @@
             2
           ],
           "Name" : "RigidBody4"
+        }
+      ]
+    },
+    {
+      "$$ClassName" : "TCastleScene",
+      "ExposeTransforms" : [
+      ],
+      "Name" : "TestMapScene",
+      "PreciseCollisions" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector3Persistent",
+        "Y" : -2.0000000000000000E+001
+      },
+      "Url" : "castle-data:/environment/map_test_control/map_test_control.gltf",
+      "$Behaviors" : [
+        {
+          "$$ClassName" : "TCastleMeshCollider",
+          "Mesh" : "TestMapScene",
+          "Name" : "MeshColliderMap"
+        },
+        {
+          "$$ClassName" : "TCastleRigidBody",
+          "Dynamic" : false,
+          "Gravity" : false,
+          "Name" : "RigidBodyMap"
         }
       ]
     }

@@ -24,9 +24,10 @@ type
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
-    FWalkForce: Single;
-    FWalkForceStart: Single;
-    FWalkInAirForce: Single;
+    FRunSpeed: Single;
+    FJumpSpeed: Single;
+    FMoveInAirForce: Single;
+    FGravityForce: Single;
     FJumpImpulse: Single;
     FInput_Forward: TInputShortcut;
     FInput_Backward: TInputShortcut;
@@ -52,11 +53,12 @@ type
   public
   const
     DefaultGravityAlignSpeed = 20000;
-    DefaultTurnSpeed = 20;
-    DefaultWalkSpeed = 30;
-    DefaultWalkForce = 400.0;
-    DefaultWalkForceStart = 40000.0;
-    DefaultWalkInAirForce = 400.0;
+    DefaultTurnSpeed = 20.0;
+    DefaultWalkSpeed = 30.0;
+    DefaultRunSpeed = 60.0;
+    DefaultJumpSpeed = 10000.0;
+    DefaultMoveInAirForce = 4.0;
+    DefaultGravityForce = 500.0;
     DefaultJumpImpulse = 50.0;
     DefaultAnimationStand = 'stand';
     DefaultAnimationWalk = 'walk';
@@ -81,12 +83,14 @@ type
              {$ifdef FPC}default DefaultTurnSpeed{$endif};
     property SpeedOfWalk: Single read FWalkSpeed write FWalkSpeed
              {$ifdef FPC}default DefaultWalkSpeed{$endif};
-    property ForceOfWalk: Single read FWalkForce write FWalkForce
-             {$ifdef FPC}default DefaultWalkForce{$endif};
-    property ForceOfWalkStart: Single read FWalkForceStart write FWalkForceStart
-             {$ifdef FPC}default DefaultWalkForceStart{$endif};
-    property ForceOfWalkInAir: Single read FWalkInAirForce write FWalkInAirForce
-             {$ifdef FPC}default DefaultWalkInAirForce{$endif};
+    property SpeedOfRun: Single read FRunSpeed write FRunSpeed
+             {$ifdef FPC}default DefaultRunSpeed{$endif};
+    property SpeedOfJump: Single read FJumpSpeed write FJumpSpeed
+             {$ifdef FPC}default DefaultJumpSpeed{$endif};
+    property ForceOfMoveInAir: Single read FMoveInAirForce write FMoveInAirForce
+             {$ifdef FPC}default DefaultMoveInAirForce{$endif};
+    property ForceOfGravity: Single read FGravityForce write FGravityForce
+             {$ifdef FPC}default DefaultGravityForce{$endif};
     property ImpulseOfJump: Single read FJumpImpulse write FJumpImpulse
              {$ifdef FPC}default DefaultJumpImpulse{$endif};
 
@@ -139,9 +143,10 @@ begin
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
-  FWalkForce:= DefaultWalkForce;
-  FWalkForceStart:= DefaultWalkForceStart;
-  FWalkInAirForce:= DefaultWalkInAirForce;
+  FRunSpeed:= DefaultRunSpeed;
+  FJumpSpeed:= DefaultJumpSpeed;
+  FMoveInAirForce:= DefaultMoveInAirForce;
+  FGravityForce:= DefaultGravityForce;
   FJumpImpulse:= DefaultJumpImpulse;
 
   FOnAnimation:= nil;
@@ -235,8 +240,7 @@ procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single;
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  AvaDir, MoveForce: TVector3;
-  ForwardVelocity: Single;
+  AvaDir, GravityVelocity: TVector3;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
@@ -245,32 +249,30 @@ begin
   OnGround:= IsOnGround(RBody, CBody);
   AvaDir:= AvatarHierarchy.Direction;
 
-  { movement }
-  if ((NOT FLookTargetDir.IsZero) AND OnGround) then
-  begin
-    { movement on ground }
-    ForwardVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
-                                                 AvaDir);
-    if (ForwardVelocity < SpeedOfWalk) then
-      MoveForce:= AvaDir * ForceOfWalkStart
-    else
-      MoveForce:= AvaDir * ForceOfWalk;
+  { save Velocity from gravity }
+  GravityVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
+                                         -Camera.GravityUp);
 
-    RBody.AddForce(MoveForce, False);
-  end else if ((NOT FLookTargetDir.IsZero) AND (NOT OnGround)) then
+  if NOT FLookTargetDir.IsZero then
   begin
-    { movement in air }
-    MoveForce:= AvaDir * ForceOfWalkInAir;
-    RBody.AddForce(MoveForce, False);
+    { movement }
+    if OnGround then
+      { movement on ground }
+      RBody.LinearVelocity:= AvaDir * SpeedOfWalk + GravityVelocity
+      // SpeedOfRun
+    else
+      { movement in air }
+      RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
   end;
 
   { jump }
-  if (FInput_Jump.IsPressed(Container) AND OnGround) then
-  begin
-    RBody.ApplyImpulse(AvatarHierarchy.Up * ImpulseOfJump,
-                       AvatarHierarchy.BoundingBox.Center);
-  end;
+  if FInput_Jump.IsPressed(Container) AND OnGround then
+    RBody.LinearVelocity:= RBody.LinearVelocity +
+                           (AvatarHierarchy.Up + FLookTargetDir) * SpeedOfJump +
+                           GravityVelocity;
 
+  { gravity }
+  RBody.AddForce(-Camera.GravityUp * ForceOfGravity, False);
 end;
 
 function TMyThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;
@@ -346,9 +348,10 @@ end;
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfTurn', 'SpeedOfGravityAlign',
-       'ForceOfWalk', 'ForceOfWalkStart', 'ForceOfWalkInAir', 'ImpulseOfJump',
-       'AnimationStand', 'AnimationWalk', 'AnimationRun'
+       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfRun', 'SpeedOfJump',
+       'SpeedOfTurn', 'SpeedOfGravityAlign', 'ForceOfGravity',
+       'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationWalk',
+       'AnimationRun'
      ]) then
     Result := [psBasic]
   else

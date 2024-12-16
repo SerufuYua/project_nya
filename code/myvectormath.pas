@@ -13,6 +13,9 @@ function TurnVectorAroundVector(const turnVector, axis: TVector3;
 { calculate angular velocity for turn VectorA to VectorB }
 function TurnVectorToVector(const VectorA, VectorB: TVector3): TVector3;
 
+{ projection of vector VectorA to VectorB }
+function ProjectionVectorAtoB(const VectorA, VectorB: TVector3): TVector3;
+
 { length of vector VectorA to VectorB projection }
 function ProjectionVectorAtoBLength(const VectorA, VectorB: TVector3): Single;
 
@@ -40,6 +43,12 @@ begin
   AngleCoeff:= 1 - TVector3.DotProduct(VectorA, VectorB);
   TurnVec:= TVector3.CrossProduct(VectorA, VectorB);
   Result:= AngleCoeff * TurnVec;
+end;
+
+function ProjectionVectorAtoB(const VectorA, VectorB: TVector3): TVector3;
+begin
+  Result:= VectorB * (TVector3.DotProduct(VectorA, VectorB) /
+                      TVector3.DotProduct(VectorB, VectorB));
 end;
 
 function ProjectionVectorAtoBLength(const VectorA, VectorB: TVector3): Single;
