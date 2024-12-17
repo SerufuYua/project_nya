@@ -69,7 +69,7 @@ begin
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   DebugAvatar:= TDebugTransform.Create(FreeAtStop);
   DebugAvatar.Parent:= Chara;
-  DebugAvatar.Exists:= True;
+  DebugAvatar.Exists:= False;
 
   { set cahara animation event }
   CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
