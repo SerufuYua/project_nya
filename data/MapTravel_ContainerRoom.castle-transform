@@ -28,6 +28,7 @@
     {
       "$$ClassName" : "TCastleScene",
       "CastGlobalLights" : true,
+      "Collides" : false,
       "ExposeTransforms" : [
       ],
       "Name" : "Room",
@@ -39,60 +40,36 @@
       "$Children" : [
         {
           "$$ClassName" : "TCastleScene",
+          "CastShadows" : false,
           "Collides" : false,
           "ExposeTransforms" : [
           ],
-          "Name" : "Mat",
+          "Name" : "Collider",
+          "PreciseCollisions" : true,
+          "ReceiveShadowVolumes" : false,
           "RenderOptions" : {
-            "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+            "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+            "Textures" : false
           },
-          "RotationPersistent" : {
-            "$$ClassName" : "TCastleVector4RotationPersistent",
-            "Z" : 1.0000000000000000E+000
-          },
-          "TranslationPersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -3.8000000000000000E+001,
-            "Z" : -4.5000000000000000E+001
-          },
-          "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf",
-          "$Children" : [
+          "SceneFrustumCulling" : false,
+          "ShadowMaps" : false,
+          "ShapeFrustumCulling" : false,
+          "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_collider.gltf",
+          "Visible" : false,
+          "$Behaviors" : [
             {
-              "$$ClassName" : "TCastleScene",
-              "ExposeTransforms" : [
-              ],
-              "Name" : "Railing",
-              "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-              },
-              "RotationPersistent" : {
-                "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.7453292608261108E+000,
-                "Y" : -1.0000000000000000E+000
-              },
-              "TranslationPersistent" : {
-                "$$ClassName" : "TCastleVector3Persistent",
-                "X" : -3.8000000000000000E+001,
-                "Z" : -1.2000000000000000E+001
-              },
-              "Url" : "castle-data:/toys/railing/railing.gltf"
+              "$$ClassName" : "TCastleMeshCollider",
+              "Friction" : 1.0000000149011612E-001,
+              "Mesh" : "Collider",
+              "Name" : "MeshCollider"
+            },
+            {
+              "$$ClassName" : "TCastleRigidBody",
+              "Dynamic" : false,
+              "Gravity" : false,
+              "Name" : "RigidBody"
             }
           ]
-        }
-      ],
-      "$Behaviors" : [
-        {
-          "$$ClassName" : "TCastleMeshCollider",
-          "Friction" : 1.0000000149011612E-001,
-          "Mesh" : "Room",
-          "Name" : "ColliderRoom",
-          "Restitution" : 7.9999998211860657E-002
-        },
-        {
-          "$$ClassName" : "TCastleRigidBody",
-          "Dynamic" : false,
-          "Gravity" : false,
-          "Name" : "RigidBodyRoom"
         }
       ]
     }

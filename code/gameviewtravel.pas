@@ -75,7 +75,7 @@ begin
   CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
 
   { set characters self emission }
-  ChangedEmission(0.3);
+  ChangedEmission(0.15);
 
   { set Buttons }
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
