@@ -31,7 +31,7 @@
           {
             "$$ClassName" : "TCastleTransformDesign",
             "Name" : "Map",
-            "Url" : "castle-data:/MapTestControl.castle-transform"
+            "Url" : "castle-data:/MapTravel_ContainerRoom.castle-transform"
           },
           {
             "$$ClassName" : "TCastleTransformDesign",
@@ -79,16 +79,16 @@
             },
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
-              "W" : 8.8469302654266357E-001,
-              "X" : -4.1718500852584839E-001,
-              "Y" : -8.9158219099044800E-001,
-              "Z" : -1.7617636919021606E-001
+              "W" : 9.4054728746414185E-001,
+              "X" : -5.1274389028549194E-001,
+              "Y" : -8.3078813552856445E-001,
+              "Z" : -2.1653068065643311E-001
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -1.0000000000000000E+001,
-              "Y" : 5.6000000000000000E+001,
-              "Z" : 4.6000000000000000E+001
+              "X" : -6.5744293212890625E+001,
+              "Y" : 6.5733177185058594E+001,
+              "Z" : 8.4718429565429688E+001
             },
             "$Children" : [
               {
@@ -133,22 +133,15 @@
       ],
       "$Children" : [
         {
-          "$$ClassName" : "TCastleThirdPersonNavigation",
+          "$$ClassName" : "TMySpectatorCameraNavigation",
           "AvatarHierarchy" : "Chara",
           "AvatarTargetPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "Y" : 4.5000000000000000E+001
           },
-          "CameraDistanceChangeSpeed" : 1.0000000000000000E+001,
-          "DistanceToAvatarTarget" : 5.0000000000000000E+001,
-          "Exists" : false,
-          "JumpSpeed" : 5.0000000000000000E+001,
-          "MaxDistanceToAvatarTarget" : 3.0000000000000000E+002,
-          "MinDistanceToAvatarTarget" : 1.0000000000000000E+001,
-          "MouseLook" : true,
-          "MoveSpeed" : 3.0000000000000000E+001,
-          "Name" : "ThirdPersonNavigation1",
-          "RunSpeed" : 9.0000000000000000E+001
+          "FollowSpeed" : 2.0000000000000000E+000,
+          "Name" : "SpectatorCameraNavigation",
+          "ZoomEnabled" : true
         },
         {
           "$$ClassName" : "TMyThirdPersonCameraNavigation",
@@ -157,8 +150,9 @@
             "$$ClassName" : "TCastleVector3Persistent",
             "Y" : 4.5000000000000000E+001
           },
-          "DistanceToAvatarTarget" : 5.0000000000000000E+001,
+          "DistanceToAvatarTarget" : 8.0000000000000000E+001,
           "DistanceToAvatarTargetMin" : 2.0000000000000000E+001,
+          "Exists" : false,
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
           "Name" : "CameraNavigation",
@@ -170,7 +164,8 @@
           "AnimationStand" : "GAME.STAND",
           "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "Chara",
-          "Name" : "CharaNavigation"
+          "Name" : "CharaNavigation",
+          "SpeedOfJump" : 0.0000000000000000E+000
         }
       ],
       "InternalDesignCamera" : {
@@ -184,16 +179,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 6.8680793046951294E-001,
-          "X" : -7.2333210706710815E-001,
-          "Y" : -6.6863167285919189E-001,
-          "Z" : -1.7240142822265625E-001
+          "W" : 6.8961751461029053E-001,
+          "X" : -4.2070749402046204E-001,
+          "Y" : 8.9683431386947632E-001,
+          "Z" : 1.3672369718551636E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -8.1050636291503906E+001,
-          "Y" : 1.2214739990234375E+002,
-          "Z" : 1.7430360412597656E+002
+          "X" : 2.2732719421386719E+001,
+          "Y" : 5.7778739929199219E+001,
+          "Z" : 5.2506793975830078E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
@@ -498,7 +493,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000000000000000E+001
+                        "Y" : -5.1999996185302734E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"

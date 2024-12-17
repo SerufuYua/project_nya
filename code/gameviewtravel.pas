@@ -5,8 +5,8 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleThirdPersonNavigation, CastleTransform, CastleNotifications,
-  ActorChara, MyThirdPersonCameraNavigation, MyThirdPersonCharaNavigation,
-  CastleDebugTransform;
+  ActorChara, CastleDebugTransform, MyThirdPersonCharaNavigation,
+  MyThirdPersonCameraNavigation, MySpectatorCameraNavigation;
 
 type
   TViewTravel = class(TCastleView)

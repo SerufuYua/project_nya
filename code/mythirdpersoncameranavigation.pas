@@ -24,9 +24,6 @@ type
     procedure SetAvatarHierarchy(const Value: TCastleTransform);
     function GetAvatarTargetForPersistent: TVector3;
     procedure SetAvatarTargetForPersistent(const AValue: TVector3);
-    procedure SetDistanceToAvatarTarget(const Value: Single);
-    procedure SetDistanceToAvatarTargetMin(const Value: Single);
-    procedure SetDistanceToAvatarTargetMax(const Value: Single);
   protected
     procedure CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
     procedure CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
@@ -52,11 +49,11 @@ type
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
     property AvatarTargetPersistent: TCastleVector3Persistent read FAvatarTargetPersistent;
-    property DistanceToAvatarTarget: Single read FDistanceToAvatarTarget write SetDistanceToAvatarTarget
+    property DistanceToAvatarTarget: Single read FDistanceToAvatarTarget write FDistanceToAvatarTarget
       {$ifdef FPC}default DefaultDistanceToAvatarTarget{$endif};
-    property DistanceToAvatarTargetMin: Single read FDistanceToAvatarTargetMin write SetDistanceToAvatarTargetMin
+    property DistanceToAvatarTargetMin: Single read FDistanceToAvatarTargetMin write FDistanceToAvatarTargetMin
       {$ifdef FPC}default DefaultDistanceToAvatarTargetMin{$endif};
-    property DistanceToAvatarTargetMax: Single read FDistanceToAvatarTargetMax write SetDistanceToAvatarTargetMax
+    property DistanceToAvatarTargetMax: Single read FDistanceToAvatarTargetMax write FDistanceToAvatarTargetMax
       {$ifdef FPC}default DefaultDistanceToAvatarTargetMax{$endif};
     property FollowSpeed: Single read FFollowSpeed write FFollowSpeed
       {$ifdef FPC}default DefaultFollowSpeed{$endif};
@@ -226,24 +223,6 @@ end;
 procedure TMyThirdPersonCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
 begin
   AvatarTarget:= AValue;
-end;
-
-procedure TMyThirdPersonCameraNavigation.SetDistanceToAvatarTarget(const Value: Single);
-begin
-  if FDistanceToAvatarTarget <> Value then
-    FDistanceToAvatarTarget:= Value;
-end;
-
-procedure TMyThirdPersonCameraNavigation.SetDistanceToAvatarTargetMin(const Value: Single);
-begin
-  if FDistanceToAvatarTargetMin <> Value then
-    FDistanceToAvatarTargetMin:= Value;
-end;
-
-procedure TMyThirdPersonCameraNavigation.SetDistanceToAvatarTargetMax(const Value: Single);
-begin
-  if FDistanceToAvatarTargetMax <> Value then
-    FDistanceToAvatarTargetMax:= Value;
 end;
 
 initialization
