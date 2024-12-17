@@ -26,7 +26,9 @@ type
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
+    FWalkSpeedAnimation: Single;
     FRunSpeed: Single;
+    FRunSpeedAnimation: Single;
     FJumpSpeed: Single;
     FMoveInAirForce: Single;
     FGravityForce: Single;
@@ -58,7 +60,9 @@ type
     DefaultGravityAlignSpeed = 20000;
     DefaultTurnSpeed = 20.0;
     DefaultWalkSpeed = 30.0;
+    DefaultWalkSpeedAnimation = 30.0;
     DefaultRunSpeed = 100.0;
+    DefaultRunSpeedAnimation = 100.0;
     DefaultJumpSpeed = 10000.0;
     DefaultMoveInAirForce = 4.0;
     DefaultGravityForce = 500.0;
@@ -87,8 +91,12 @@ type
              {$ifdef FPC}default DefaultTurnSpeed{$endif};
     property SpeedOfWalk: Single read FWalkSpeed write FWalkSpeed
              {$ifdef FPC}default DefaultWalkSpeed{$endif};
+    property SpeedOfWalkAnimation: Single read FWalkSpeedAnimation write FWalkSpeedAnimation
+             {$ifdef FPC}default DefaultWalkSpeedAnimation{$endif};
     property SpeedOfRun: Single read FRunSpeed write FRunSpeed
              {$ifdef FPC}default DefaultRunSpeed{$endif};
+    property SpeedOfRunAnimation: Single read FRunSpeedAnimation write FRunSpeedAnimation
+             {$ifdef FPC}default DefaultRunSpeedAnimation{$endif};
     property SpeedOfJump: Single read FJumpSpeed write FJumpSpeed
              {$ifdef FPC}default DefaultJumpSpeed{$endif};
     property ForceOfMoveInAir: Single read FMoveInAirForce write FMoveInAirForce
@@ -148,14 +156,16 @@ begin
   Input_Jump                   .Name:= 'Input_Jump';
 
   FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
-  FVelocityNoiseSuppressor.CountLimit:= 8;
+  FVelocityNoiseSuppressor.CountLimit:= 30;
 
   FLookTargetDir:= TVector3.Zero;
   FAvatarPos:= TVector3.Zero;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
+  FWalkSpeedAnimation:= DefaultWalkSpeedAnimation;
   FRunSpeed:= DefaultRunSpeed;
+  FRunSpeedAnimation:= DefaultRunSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
   FMoveInAirForce:= DefaultMoveInAirForce;
   FGravityForce:= DefaultGravityForce;
@@ -365,12 +375,12 @@ begin
   { processing animations }
   if OnGround then
   begin
-    if RealForwardVelocity < 0.2 * SpeedOfWalk then
+    if RealForwardVelocity < 0.2 * SpeedOfWalkAnimation then
       OnAnimation(self, AnimationStand, 1.0)
-    else if (ForwardVelocity < (SpeedOfWalk + SpeedOfRun) / 2.0) then
-      OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalk)
+    else if (RealForwardVelocity < (SpeedOfWalkAnimation + SpeedOfRunAnimation) / 2.0) then
+      OnAnimation(self, AnimationWalk, RealForwardVelocity / SpeedOfWalkAnimation)
     else
-      OnAnimation(self, AnimationRun, ForwardVelocity / SpeedOfRun);
+      OnAnimation(self, AnimationRun, RealForwardVelocity / SpeedOfRunAnimation);
   end else
     OnAnimation(self, AnimationStand, 1.0);
 
@@ -379,7 +389,8 @@ end;
 function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfRun', 'SpeedOfJump',
+       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfWalkAnimation', 'SpeedOfRun',
+       'SpeedOfRunAnimation', 'SpeedOfJump',
        'SpeedOfTurn', 'SpeedOfGravityAlign', 'ForceOfGravity',
        'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationWalk',
        'AnimationRun'

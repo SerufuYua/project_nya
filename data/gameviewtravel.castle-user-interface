@@ -139,6 +139,7 @@
             "$$ClassName" : "TCastleVector3Persistent",
             "Y" : 4.5000000000000000E+001
           },
+          "Exists" : false,
           "FollowSpeed" : 2.0000000000000000E+000,
           "Name" : "SpectatorCameraNavigation",
           "ZoomEnabled" : true
@@ -152,7 +153,6 @@
           },
           "DistanceToAvatarTarget" : 8.0000000000000000E+001,
           "DistanceToAvatarTargetMin" : 2.0000000000000000E+001,
-          "Exists" : false,
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
           "Name" : "CameraNavigation",
@@ -165,7 +165,9 @@
           "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "Chara",
           "Name" : "CharaNavigation",
-          "SpeedOfJump" : 0.0000000000000000E+000
+          "SpeedOfJump" : 0.0000000000000000E+000,
+          "SpeedOfWalk" : 4.0000000000000000E+001,
+          "SpeedOfWalkAnimation" : 2.4000000000000000E+001
         }
       ],
       "InternalDesignCamera" : {
