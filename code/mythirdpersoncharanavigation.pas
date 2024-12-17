@@ -17,6 +17,7 @@ type
 
   TMyThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
+    FRunFlag: Boolean; { True - Run; False - Walk }
     FVelocityNoiseSuppressor: TNoiseSuppressor;
     FAnimationStand: String;
     FAnimationWalk: String;
@@ -156,7 +157,7 @@ begin
   Input_Jump                   .Name:= 'Input_Jump';
 
   FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
-  FVelocityNoiseSuppressor.CountLimit:= 30;
+  FVelocityNoiseSuppressor.CountLimit:= 8;
 
   FLookTargetDir:= TVector3.Zero;
   FAvatarPos:= TVector3.Zero;
@@ -172,6 +173,7 @@ begin
   FJumpImpulse:= DefaultJumpImpulse;
 
   FOnAnimation:= nil;
+  FRunFlag:= False;
   FAnimationStand:= DefaultAnimationStand;
   FAnimationWalk:= DefaultAnimationWalk;
   FAnimationRun:= DefaultAnimationRun;
@@ -375,12 +377,26 @@ begin
   { processing animations }
   if OnGround then
   begin
+    { switch walk/run state }
+    { W + (R - W) * 0.6 }
+    { W * 0.4 + R * 0.6 }
+    if (NOT FRunFlag) AND (RealForwardVelocity > (SpeedOfWalkAnimation* 0.4 + SpeedOfRunAnimation * 0.6)) then
+      FRunFlag:= True;
+    if FRunFlag AND (RealForwardVelocity < (SpeedOfWalkAnimation* 0.6 + SpeedOfRunAnimation * 0.4)) then
+      FRunFlag:= False;
+
     if RealForwardVelocity < 0.2 * SpeedOfWalkAnimation then
+      { stand }
       OnAnimation(self, AnimationStand, 1.0)
-    else if (RealForwardVelocity < (SpeedOfWalkAnimation + SpeedOfRunAnimation) / 2.0) then
-      OnAnimation(self, AnimationWalk, RealForwardVelocity / SpeedOfWalkAnimation)
-    else
-      OnAnimation(self, AnimationRun, RealForwardVelocity / SpeedOfRunAnimation);
+    else begin
+      { enable move animation }
+      if FRunFlag then
+        { run }
+        OnAnimation(self, AnimationRun, RealForwardVelocity / SpeedOfRunAnimation)
+      else
+        { walk }
+        OnAnimation(self, AnimationWalk, RealForwardVelocity / SpeedOfWalkAnimation);
+    end
   end else
     OnAnimation(self, AnimationStand, 1.0);
 
