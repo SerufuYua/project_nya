@@ -148,6 +148,7 @@ begin
   Input_Jump                   .Name:= 'Input_Jump';
 
   FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
+  FVelocityNoiseSuppressor.CountLimit:= 8;
 
   FLookTargetDir:= TVector3.Zero;
   FAvatarPos:= TVector3.Zero;
@@ -358,7 +359,7 @@ begin
                                                    AvatarHierarchy.Direction);
   FAvatarPos:= AvatarHierarchy.Translation;
 
-  FVelocityNoiseSuppressor.Update(RealForwardVelocity, 8);
+  FVelocityNoiseSuppressor.Update(RealForwardVelocity);
   RealForwardVelocity:= FVelocityNoiseSuppressor.Value;
 
   { processing animations }

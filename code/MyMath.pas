@@ -10,44 +10,55 @@ uses
 type
   TNoiseSuppressor = class
   protected
-    FValue: Single;
     FAccumulation: Array of Single;
-    FCount: Integer;
+    FIndex: Integer;
+    procedure SetCountLimit(limit: Integer);
+    function GetCountLimit: Integer;
+    function GetValue: Single;
   public
     constructor Create;
-    procedure Update(const Value: Single; const CountLimit: Integer);
-    property Value: Single read FValue;
+    procedure Update(const Value: Single);
+    property CountLimit: Integer read GetCountLimit write SetCountLimit;
+    property Value: Single read GetValue;
   end;
 
 implementation
 
 constructor TNoiseSuppressor.Create;
 begin
-  FValue:= 0.0;
-  FCount:= 0;
+  FIndex:= 0;
 end;
 
-procedure TNoiseSuppressor.Update(const Value: Single;
-                                  const CountLimit: Integer);
-var
-  val, summ: Single;
+procedure TNoiseSuppressor.Update(const Value: Single);
 begin
-  if (Length(FAccumulation) <> CountLimit) then
-    SetLength(FAccumulation, CountLimit);
+  FAccumulation[FIndex]:= Value;
+  FIndex:= FIndex + 1;
 
-  FAccumulation[FCount]:= Value;
-  FCount:= FCount + 1;
+  if (FIndex >= Length(FAccumulation)) then
+    FIndex:= 0;
+end;
 
-  if (FCount >= CountLimit) then
-  begin
-    FCount:= 0;
-    summ:= 0.0;
+procedure TNoiseSuppressor.SetCountLimit(limit: Integer);
+begin
+  if (Length(FAccumulation) <> limit) then
+    SetLength(FAccumulation, limit);
+end;
 
-    for val in FAccumulation do
-      summ:= summ + val;
+function TNoiseSuppressor.GetCountLimit: Integer;
+begin
+  Result:= Length(FAccumulation);
+end;
 
-    FValue:= summ;
-  end;
+function TNoiseSuppressor.GetValue: Single;
+var
+  val: Single;
+begin
+  Result:= 0.0;
+
+  for val in FAccumulation do
+    Result:= Result + val;
+
+  Result:= Result / Length(FAccumulation);
 end;
 
 end.
