@@ -11,7 +11,7 @@ type
   TNoiseSuppressor = class
   protected
     FValue: Single;
-    FAccumulation: Single;
+    FAccumulation: Array of Single;
     FCount: Integer;
   public
     constructor Create;
@@ -24,21 +24,29 @@ implementation
 constructor TNoiseSuppressor.Create;
 begin
   FValue:= 0.0;
-  FAccumulation:= 0.0;
   FCount:= 0;
 end;
 
 procedure TNoiseSuppressor.Update(const Value: Single;
                                   const CountLimit: Integer);
+var
+  val, summ: Single;
 begin
+  if (Length(FAccumulation) <> CountLimit) then
+    SetLength(FAccumulation, CountLimit);
+
+  FAccumulation[FCount]:= Value;
   FCount:= FCount + 1;
-  FAccumulation:= FAccumulation + Value;
 
   if (FCount >= CountLimit) then
   begin
-    FValue:= FAccumulation / FCount;
-    FAccumulation:= 0.0;
     FCount:= 0;
+    summ:= 0.0;
+
+    for val in FAccumulation do
+      summ:= summ + val;
+
+    FValue:= summ;
   end;
 end;
 
