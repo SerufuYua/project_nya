@@ -48,8 +48,6 @@ type
     procedure CalcLookTargetDir;
     procedure RotateChara(const SecondsPassed: Single);
     procedure MoveChara(const SecondsPassed: Single; out OnGround: Boolean);
-    function IsOnGround(RBody: TCastleRigidBody;
-                        CBody: TCastleCollider): Boolean;
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean);
 
     function AnimationStandStored: Boolean;
@@ -75,6 +73,8 @@ type
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
+    function IsOnGround(RBody: TCastleRigidBody;
+                        CBody: TCastleCollider): Boolean;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   public
     property Input_Forward: TInputShortcut read FInput_Forward;
