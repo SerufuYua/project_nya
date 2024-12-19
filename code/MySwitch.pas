@@ -50,8 +50,8 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleBoxes, CastleVectors,
-  Math;
+  CastleComponentSerialize, CastleUtils, CastleBoxes, CastleVectors, Math,
+  MyVectorMath;
 
 { ========= ------------------------------------------------------------------ }
 { TMySwitch ------------------------------------------------------------------ }
@@ -77,20 +77,31 @@ end;
 
 procedure TMySwitch.LookForActivator;
 var
-  ActivatorBox, ParentBox: TBox3D;
-  FromActivatorDir, ActivatorDir: TVector3;
+  ActivatorBox, SwitchBox: TBox3D;
+  FromRootActivator, FromActivatorDir, ProjPoint, SwitchCenter: TVector3;
 begin
   if NOT (Assigned(Parent) AND Assigned(Activator)) then Exit;
 
   ActivatorBox:= Activator.BoundingBox;
-  ParentBox:= Parent.BoundingBox;
+  SwitchBox:= Parent.BoundingBox;
 
-  if ActivatorBox.Collides(ParentBox) then
+  if ActivatorBox.Collides(SwitchBox) then
   begin
-    ActivatorDir:= Activator.Direction;
-    FromActivatorDir:= (ParentBox.Center - ActivatorBox.Center).Normalize;
-    IsTouch:= (TVector3.DotProduct(FromActivatorDir, ActivatorDir) > FAngleCOS);
+    SwitchCenter:= SwitchBox.Center;
+    FromRootActivator:= (SwitchCenter - Activator.Translation);
+    ProjPoint:= Activator.Translation + ProjectionVectorAtoB(FromRootActivator, Activator.Up);
+
+    if ActivatorBox.Contains(ProjPoint) then
+    begin
+      FromActivatorDir:= (SwitchCenter - ProjPoint).Normalize;
+      if (TVector3.DotProduct(FromActivatorDir, Activator.Direction) > FAngleCOS) then
+      begin
+        IsTouch:= True;
+        Exit;
+      end;
+    end;
   end;
+  IsTouch:= False;
 end;
 
 function TMySwitch.CanAttachToParent(const NewParent: TCastleTransform;
