@@ -143,7 +143,8 @@ begin
 
   Notifications.Show(Event.ToString);
 
-  if Event.IsMouseButton(buttonRight) then
+  { enable camera control }
+  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
   begin
     CameraNavigation.MouseLook:= True;
     Exit(true);
@@ -165,7 +166,8 @@ end;
 
 function TBaseViewPlay.Release(const Event: TInputPressRelease): boolean;
 begin
-  if Event.IsMouseButton(buttonRight) then
+  { disable camera control }
+  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
     CameraNavigation.MouseLook:= False;
 
   Result := inherited;

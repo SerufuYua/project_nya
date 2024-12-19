@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleCameras, CastleTransform, CastleClassUtils,
-  CastleVectors;
+  CastleVectors, CastleInputs, CastleKeysMouse;
 
 type
   TMyThirdPersonCameraNavigation = class(TCastleMouseLookNavigation)
@@ -16,6 +16,8 @@ type
     FDistanceToAvatarTargetMax: Single;
     FFollowSpeed: Single;
     FZoomStep: Single;
+    FInput_Rotate: TInputShortcut;
+    FInput_Shift: TInputShortcut;
     FAvatarTarget: TVector3;
     FAvatarTargetPersistent: TCastleVector3Persistent;
     FAvatarHierarchy: TCastleTransform;
@@ -46,6 +48,9 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property AvatarTarget: TVector3 read FAvatarTarget write FAvatarTarget;
+  public
+    property Input_Rotate: TInputShortcut read FInput_Rotate;
+    property Input_Shift: TInputShortcut read FInput_Shift;
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
     property AvatarTargetPersistent: TCastleVector3Persistent read FAvatarTargetPersistent;
@@ -70,6 +75,20 @@ uses
 constructor TMyThirdPersonCameraNavigation.Create(AOwner: TComponent);
 begin
   inherited;
+
+  FInput_Rotate                := TInputShortcut.Create(Self);
+  FInput_Shift                 := TInputShortcut.Create(Self);
+
+  Input_Rotate                 .Assign(keyNone, keyNone, '', True, buttonRight);
+  Input_Shift                  .Assign(keyNone, keyNone, '', True, buttonMiddle);
+
+  Input_Rotate                 .SetSubComponent(true);
+  Input_Shift                  .SetSubComponent(true);
+
+  Input_Rotate                 .Name:= 'Input_Rotate';
+  Input_Shift                  .Name:= 'Input_Shift';
+
+
   FAvatarTarget:= DefaultAvatarTarget;
   FDistanceToAvatarTarget:= DefaultDistanceToAvatarTarget;
   FDistanceToAvatarTargetMin:= DefaultDistanceToAvatarTargetMin;
@@ -178,20 +197,33 @@ var
 begin
   inherited;
 
-  Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
+  if Input_Rotate.IsPressed(Container) then
+  begin
+    Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
 
-  Rot:= (-Pi/180.0) * Delta;
+    Rot:= (-Pi/180.0) * Delta;
 
-  VerticalDir:= Camera.GravityUp;
-  HorizontalDir:= TVector3.CrossProduct(VerticalDir, CameraDir);
+    VerticalDir:= Camera.GravityUp;
+    HorizontalDir:= TVector3.CrossProduct(VerticalDir, CameraDir);
 
-  CameraDir:= TurnVectorAroundVector(CameraDir, VerticalDir, Rot.X);
-  CameraDir:= TurnVectorAroundVector(CameraDir, HorizontalDir, Rot.Y);
+    CameraDir:= TurnVectorAroundVector(CameraDir, VerticalDir, Rot.X);
+    CameraDir:= TurnVectorAroundVector(CameraDir, HorizontalDir, Rot.Y);
 
-  CalcCamera(CameraDir, CameraPos, CameraUp);
+    CalcCamera(CameraDir, CameraPos, CameraUp);
 
-  CameraUp:= VerticalDir;
-  Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
+    CameraUp:= VerticalDir;
+    Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
+  end
+  else
+  if Input_Shift.IsPressed(Container) then
+  begin
+    FAvatarTarget.Y:= FAvatarTarget.Y + Delta.Y;
+    if (FAvatarTarget.Y < 0.0) then
+      FAvatarTarget.Y:= 0.0
+    else
+    if (FAvatarTarget.Y > AvatarHierarchy.BoundingBox.MaxSize) then
+      FAvatarTarget.Y:= AvatarHierarchy.BoundingBox.MaxSize;
+  end;
 end;
 
 function TMyThirdPersonCameraNavigation.Zoom(const Factor: Single): Boolean;
