@@ -7,7 +7,7 @@ interface
 uses
   Classes, CastleScene, CastleShapes, CastleTransform,
   CastleControls, CastleUIControls,
-  X3DNodes;
+  X3DNodes, CastleKeysMouse;
 
 type
   TItemCondition = record
@@ -29,6 +29,7 @@ function GetShapeNamesByNameStart(const scene: TCastleScene;
                                   const NameStartWith: String): TItemConditions;
 function GetShapesByNameStart(const scene: TCastleScene;
                               const NameStartWith: String): TShapeNodes;
+function GetKeyName(key: TKey): string;
 function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
@@ -39,7 +40,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleTextureImages, CastleColors,
-  CastleVectors, Generics.Collections, sysutils;
+  CastleVectors, Generics.Collections, sysutils, TypInfo;
 
 type
   TNodeHandler = class
@@ -183,6 +184,12 @@ begin
     HandleShapesByNameStart, false);
 
   Result:= FoundShapes;
+end;
+
+function GetKeyName(key: TKey): string;
+begin
+  Result:= GetEnumName(TypeInfo(TKey), Ord(key));
+  Delete(Result, 1, 3);
 end;
 
 function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;

@@ -52,7 +52,7 @@ var
 implementation
 
 uses
-  GameViewLoading, GameViewMain, CastleViewport, CastleScene,
+  GameViewLoading, GameViewMain, CastleViewport, CastleScene, MyCastleUtils,
   CastleComponentSerialize, CastleFonts, SysUtils, GameViewDressingMenu;
 
 constructor TViewTravel.Create(AOwner: TComponent);
@@ -193,8 +193,10 @@ begin
   if NOT Assigned(switch) then Exit;
 
   if Touch then
-    {FUseKey}
-    Status.Caption:= 'Press ' + '"E"' + ' to ' + switch.ActionString
+    Status.Caption:= 'Press "' +
+                     GetKeyName(FUseKey) +
+                     '" to ' +
+                     switch.ActionString
   else
     Status.Caption:= '';
 
