@@ -37,7 +37,7 @@ type
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure TouchSwitch(const Sender: TObject; Touch: Boolean);
-    procedure ActivateSwitch;
+    procedure ActivateSwitch(Sender: TObject);
     procedure ChangedEmission(value: Single);
     procedure SaveCharasCondition();
     procedure SetDressButtons();
@@ -104,6 +104,7 @@ begin
 
   { set Switches }
   MySwitchTest.OnTouch:= {$ifdef FPC}@{$endif}TouchSwitch;
+  MySwitchTest.OnActivate:= {$ifdef FPC}@{$endif}ActivateSwitch;
 
   { set dress buttons }
   SetDressButtons();
@@ -139,7 +140,9 @@ begin
   { activate switch }
   if Event.IsKey(FUseKey) then
   begin
-    ActivateSwitch;
+    { activate switch }
+    if Assigned(FTouchedSwitch) then
+      FTouchedSwitch.Activate;
     Exit(true);
   end;
 end;
@@ -206,10 +209,19 @@ begin
   end;
 end;
 
-procedure TViewTravel.ActivateSwitch;
+procedure TViewTravel.ActivateSwitch(Sender: TObject);
+var
+  switch: TMySwitch;
 begin
-  if Assigned(FTouchedSwitch) then
-    FTouchedSwitch.Activate;
+  switch:= Sender as TMySwitch;
+  if NOT Assigned(switch) then Exit;
+
+  Case switch.Name of
+  'MySwitchTest':
+    begin
+      Notifications.Show('Lets with my toy!');
+    end;
+  end;
 end;
 
 procedure TViewTravel.ClickControl(Sender: TObject);
