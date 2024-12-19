@@ -12,6 +12,8 @@ type
   TViewTravel = class(TBaseViewPlay)
   public
     procedure Start; override;
+  protected
+    procedure ActivateSwitch(Sender: TObject); override;
   end;
 
 var
@@ -35,6 +37,21 @@ begin
   FActorMain:= TActorChara.Create(actorScene, 'Girl');
 
   inherited;
+end;
+
+procedure TViewTravel.ActivateSwitch(Sender: TObject);
+var
+  switch: TMySwitch;
+begin
+  switch:= Sender as TMySwitch;
+  if NOT Assigned(switch) then Exit;
+
+  Case switch.Name of
+  'MySwitchTest':
+    begin
+      Notifications.Show('Lets play with my Toy!');
+    end;
+  end;
 end;
 
 end.

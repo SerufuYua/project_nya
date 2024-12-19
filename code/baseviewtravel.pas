@@ -41,7 +41,7 @@ type
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure TouchSwitch(const Sender: TObject; Touch: Boolean);
-    procedure ActivateSwitch(Sender: TObject);
+    procedure ActivateSwitch(Sender: TObject); virtual; abstract;
     procedure SetDressButtons;
     procedure SetUIColor;
     procedure SetSwitches;
@@ -317,21 +317,6 @@ begin
   begin
     if(FTouchedSwitch = switch) then
       FTouchedSwitch:= nil;
-  end;
-end;
-
-procedure TBaseViewPlay.ActivateSwitch(Sender: TObject);
-var
-  switch: TMySwitch;
-begin
-  switch:= Sender as TMySwitch;
-  if NOT Assigned(switch) then Exit;
-
-  Case switch.Name of
-  'MySwitchTest':
-    begin
-      Notifications.Show('Lets play with my Toy!');
-    end;
   end;
 end;
 

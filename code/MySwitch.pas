@@ -15,22 +15,18 @@ type
     FOnTouch: TTouchEvent;
     FOnActivate: TNotifyEvent;
     FIsTouch: Boolean;
-    FAngleCOS: Single;
     FActionString: String;
     FActivator: TCastleTransform;
     FActivatorObserver: TFreeNotificationObserver;
     procedure SetActivator(const Value: TCastleTransform);
     procedure ActivatorFreeNotification(const Sender: TFreeNotificationObserver);
     procedure SetIsTouch(const Value: Boolean);
-    function GetAngle: Single;
-    procedure SetAngle(value: Single);
   protected
     function CanAttachToParent(const NewParent: TCastleTransform;
       out ReasonWhyCannot: String): Boolean; override;
     procedure LookForActivator; virtual;
   public
     const
-      DefaultAngleCOS = 0.707106769; { 45 grad }
       DefaultActionString = 'use';
 
     constructor Create(AOwner: TComponent); override;
@@ -41,10 +37,26 @@ type
   published
     property Activator: TCastleTransform read FActivator write SetActivator;
     property ActionString: String read FActionString write FActionString;
-    property VisibleAngle: Single read GetAngle write SetAngle
-      {$ifdef FPC}default DefaultAngleCOS{$endif};
     property OnTouch: TTouchEvent read FOnTouch write FOnTouch;
     property OnActivate: TNotifyEvent read FOnActivate write FOnActivate;
+  end;
+
+  TMyFrontSwitch = class(TMySwitch)
+  protected
+    FAngleCOS: Single;
+    function GetAngle: Single;
+    procedure SetAngle(value: Single);
+  protected
+    procedure LookForActivator; override;
+  public
+    const
+      DefaultAngleCOS = 0.707106769; { 45 grad }
+
+    constructor Create(AOwner: TComponent); override;
+    function PropertySections(const PropertyName: String): TPropertySections; override;
+  published
+    property VisibleAngle: Single read GetAngle write SetAngle
+      {$ifdef FPC}default DefaultAngleCOS{$endif};
   end;
 
 implementation
@@ -61,7 +73,6 @@ constructor TMySwitch.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FAngleCOS:= DefaultAngleCOS;
   FActionString:= DefaultActionString;
 
   FActivatorObserver:= TFreeNotificationObserver.Create(Self);
@@ -76,6 +87,86 @@ begin
 end;
 
 procedure TMySwitch.LookForActivator;
+var
+  ActivatorBox, SwitchBox: TBox3D;
+begin
+  if NOT (Assigned(Parent) AND Assigned(Activator)) then Exit;
+
+  ActivatorBox:= Activator.BoundingBox;
+  SwitchBox:= Parent.BoundingBox;
+
+  IsTouch:= ActivatorBox.Collides(SwitchBox);
+end;
+
+function TMySwitch.CanAttachToParent(const NewParent: TCastleTransform;
+  out ReasonWhyCannot: String): Boolean;
+begin
+  Result:= inherited;
+  if NOT Result then Exit;
+
+  if NewParent.FindBehavior(TMySwitch) <> nil then
+  begin
+    ReasonWhyCannot:= 'Only one TMySwitch can be added to the "' +
+                      NewParent.Name + '"';
+    Result:= false;
+  end;
+end;
+
+procedure TMySwitch.Activate;
+begin
+  if Assigned(OnActivate) then
+    OnActivate(Self);
+end;
+
+function TMySwitch.PropertySections(
+  const PropertyName: String): TPropertySections;
+begin
+  if ArrayContainsString(PropertyName, [
+       'Activator', 'ActionString'
+     ]) then
+    Result:= [psBasic]
+  else
+    Result:= inherited PropertySections(PropertyName);
+end;
+
+procedure TMySwitch.SetIsTouch(const Value: Boolean);
+begin
+  if FIsTouch <> Value then
+  begin
+    FIsTouch:= Value;
+
+    if Assigned(OnTouch) then
+      OnTouch(Self, Value);
+  end;
+end;
+
+procedure TMySwitch.SetActivator(const Value: TCastleTransform);
+begin
+  if (FActivator <> Value) then
+  begin
+    FActivatorObserver.Observed:= Value;
+    FActivator:= Value;
+  end;
+end;
+
+procedure TMySwitch.ActivatorFreeNotification(
+  const Sender: TFreeNotificationObserver);
+begin
+  Activator:= nil;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TMyFrontSwitch ------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+constructor TMyFrontSwitch.Create(AOwner: TComponent);
+begin
+  inherited;
+
+  FAngleCOS:= DefaultAngleCOS;
+end;
+
+procedure TMyFrontSwitch.LookForActivator;
 var
   ActivatorBox, SwitchBox: TBox3D;
   FromRootActivator, FromActivatorDir, ProjPoint, SwitchCenter: TVector3;
@@ -104,74 +195,29 @@ begin
   IsTouch:= False;
 end;
 
-function TMySwitch.CanAttachToParent(const NewParent: TCastleTransform;
-  out ReasonWhyCannot: String): Boolean;
-begin
-  Result:= inherited;
-  if NOT Result then Exit;
-
-  if NewParent.FindBehavior(TMySwitch) <> nil then
-  begin
-    ReasonWhyCannot:= 'Only one TMySwitch can be added to the "' +
-                      NewParent.Name + '"';
-    Result:= false;
-  end;
-end;
-
-procedure TMySwitch.Activate;
-begin
-  if Assigned(OnActivate) then
-    OnActivate(Self);
-end;
-
-function TMySwitch.PropertySections(
+function TMyFrontSwitch.PropertySections(
   const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Activator', 'VisibleAngle', 'ActionString'
+       'VisibleAngle'
      ]) then
     Result:= [psBasic]
   else
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TMySwitch.SetIsTouch(const Value: Boolean);
-begin
-  if FIsTouch <> Value then
-  begin
-    FIsTouch:= Value;
-
-    if Assigned(OnTouch) then
-      OnTouch(Self, Value);
-  end;
-end;
-
-function TMySwitch.GetAngle: Single;
+function TMyFrontSwitch.GetAngle: Single;
 begin
   Result:= 180.0 * ArcCos(FAngleCOS) / Pi;
 end;
 
-procedure TMySwitch.SetAngle(value: Single);
+procedure TMyFrontSwitch.SetAngle(value: Single);
 begin
   FAngleCOS:= Cos(value * Pi / 180.0);
 end;
 
-procedure TMySwitch.SetActivator(const Value: TCastleTransform);
-begin
-  if (FActivator <> Value) then
-  begin
-    FActivatorObserver.Observed:= Value;
-    FActivator:= Value;
-  end;
-end;
-
-procedure TMySwitch.ActivatorFreeNotification(
-  const Sender: TFreeNotificationObserver);
-begin
-  Activator:= nil;
-end;
-
 initialization
   RegisterSerializableComponent(TMySwitch, ['Switches', 'Switch']);
+  RegisterSerializableComponent(TMyFrontSwitch, ['Switches', 'Front Switch']);
 end.
 
