@@ -103,9 +103,9 @@ begin
        'AvatarHierarchy', 'AvatarTargetPersistent',
        'FollowSpeed'
      ]) then
-    Result := [psBasic]
+    Result:= [psBasic]
   else
-    Result := inherited PropertySections(PropertyName);
+    Result:= inherited PropertySections(PropertyName);
 end;
 
 procedure TMySpectatorCameraNavigation.CalcCamera(const SecondsPassed: Single;

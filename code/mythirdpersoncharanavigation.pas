@@ -55,20 +55,20 @@ type
     function AnimationWalkStored: Boolean;
     function AnimationRunStored: Boolean;
   public
-  const
-    DefaultGravityAlignSpeed = 20000;
-    DefaultTurnSpeed = 20.0;
-    DefaultWalkSpeed = 30.0;
-    DefaultWalkSpeedAnimation = 30.0;
-    DefaultRunSpeed = 100.0;
-    DefaultRunSpeedAnimation = 100.0;
-    DefaultJumpSpeed = 10000.0;
-    DefaultMoveInAirForce = 4.0;
-    DefaultGravityForce = 500.0;
-    DefaultJumpImpulse = 50.0;
-    DefaultAnimationStand = 'stand';
-    DefaultAnimationWalk = 'walk';
-    DefaultAnimationRun = 'run';
+    const
+      DefaultGravityAlignSpeed = 20000;
+      DefaultTurnSpeed = 20.0;
+      DefaultWalkSpeed = 30.0;
+      DefaultWalkSpeedAnimation = 30.0;
+      DefaultRunSpeed = 100.0;
+      DefaultRunSpeedAnimation = 100.0;
+      DefaultJumpSpeed = 10000.0;
+      DefaultMoveInAirForce = 4.0;
+      DefaultGravityForce = 500.0;
+      DefaultJumpImpulse = 50.0;
+      DefaultAnimationStand = 'stand';
+      DefaultAnimationWalk = 'walk';
+      DefaultAnimationRun = 'run';
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -411,9 +411,9 @@ begin
        'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationWalk',
        'AnimationRun'
      ]) then
-    Result := [psBasic]
+    Result:= [psBasic]
   else
-    Result := inherited PropertySections(PropertyName);
+    Result:= inherited PropertySections(PropertyName);
 end;
 
 procedure TMyThirdPersonCharaNavigation.AvatarHierarchyFreeNotification(
@@ -433,17 +433,17 @@ end;
 
 function TMyThirdPersonCharaNavigation.AnimationStandStored: Boolean;
 begin
-  Result := FAnimationStand <> DefaultAnimationStand;
+  Result:= FAnimationStand <> DefaultAnimationStand;
 end;
 
 function TMyThirdPersonCharaNavigation.AnimationWalkStored: Boolean;
 begin
-  Result := FAnimationWalk <> DefaultAnimationWalk;
+  Result:= FAnimationWalk <> DefaultAnimationWalk;
 end;
 
 function TMyThirdPersonCharaNavigation.AnimationRunStored: Boolean;
 begin
-  Result := FAnimationRun <> DefaultAnimationRun;
+  Result:= FAnimationRun <> DefaultAnimationRun;
 end;
 
 initialization

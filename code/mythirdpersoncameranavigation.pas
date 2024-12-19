@@ -120,9 +120,9 @@ begin
        'DistanceToAvatarTarget', 'DistanceToAvatarTargetMin',
        'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomStep'
      ]) then
-    Result := [psBasic]
+    Result:= [psBasic]
   else
-    Result := inherited PropertySections(PropertyName);
+    Result:= inherited PropertySections(PropertyName);
 end;
 
 procedure TMyThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
@@ -146,13 +146,13 @@ begin
   CollisionDistance:= MaxSingle;
   TargetWorldPos:= AvatarHierarchy.WorldTransform.MultPoint(AvatarTarget);
 
-  SavedPickable := AvatarHierarchy.Pickable;
+  SavedPickable:= AvatarHierarchy.Pickable;
   AvatarHierarchy.Pickable := false;
   try
     if (AvatarHierarchy.World.WorldRayCast(TargetWorldPos, -CameraDir, CollisionDistance) = nil) then
       CollisionDistance:= MaxSingle;
   finally
-    AvatarHierarchy.Pickable := SavedPickable;
+    AvatarHierarchy.Pickable:= SavedPickable;
   end;
 
   if PointsDistanceSqr(CameraPos, TargetWorldPos) > Sqr(CollisionDistance) then
