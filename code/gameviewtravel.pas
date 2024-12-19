@@ -4,9 +4,9 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleThirdPersonNavigation, CastleTransform, CastleNotifications,
-  ActorChara, CastleDebugTransform, MyThirdPersonCharaNavigation,
-  MyThirdPersonCameraNavigation, MySpectatorCameraNavigation;
+  CastleTransform, CastleNotifications, ActorChara, CastleDebugTransform,
+  MyThirdPersonCameraNavigation, MySpectatorCameraNavigation,
+  MyThirdPersonCharaNavigation, MySwitch;
 
 type
   TViewTravel = class(TCastleView)
@@ -20,7 +20,9 @@ type
     CameraMain: TCastleCamera;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
+    MySwitchTest: TMySwitch;
     Notifications: TCastleNotifications;
+    Status: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -29,9 +31,13 @@ type
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
     FActorMain: TActorChara;
-    DebugAvatar: TDebugTransform;
+    FDebugAvatar: TDebugTransform;
+    FUseKey: TKey;
+    FTouchedSwitch: TMySwitch;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
+    procedure TouchSwitch(const Sender: TObject; Touch: Boolean);
+    procedure ActivateSwitch;
     procedure ChangedEmission(value: Single);
     procedure SaveCharasCondition();
     procedure SetDressButtons();
@@ -62,14 +68,15 @@ var
   fogMain: TCastleFog;
 begin
   inherited;
+  FTouchedSwitch:= nil;
 
   { Create Girl Character instance }
   FActorMain:= TActorChara.Create(Chara, 'Girl');
 
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
-  DebugAvatar:= TDebugTransform.Create(FreeAtStop);
-  DebugAvatar.Parent:= Chara;
-  DebugAvatar.Exists:= False;
+  FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
+  FDebugAvatar.Parent:= Chara;
+  FDebugAvatar.Exists:= False;
 
   { set cahara animation event }
   CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
@@ -91,6 +98,12 @@ begin
   fogMain:= Map.DesignedComponent('Fog', False) as TCastleFog;
   if Assigned(fogMain) then
     viewportMain.Fog:= fogMain;
+
+  { set keys }
+  FUseKey:= TKey.keyE;
+
+  { set Switches }
+  MySwitchTest.OnTouch:= {$ifdef FPC}@{$endif}TouchSwitch;
 
   { set dress buttons }
   SetDressButtons();
@@ -123,6 +136,12 @@ begin
     Exit(true);
   end;
 
+  { activate switch }
+  if Event.IsKey(FUseKey) then
+  begin
+    ActivateSwitch;
+    Exit(true);
+  end;
 end;
 
 function TViewTravel.Release(const Event: TInputPressRelease): boolean;
@@ -161,6 +180,36 @@ begin
 
     ImageControlDressing.Exists:= False;
   end;
+end;
+
+procedure TViewTravel.TouchSwitch(const Sender: TObject; Touch: Boolean);
+var
+  switch: TMySwitch;
+begin
+  switch:= Sender as TMySwitch;
+  if NOT Assigned(switch) then Exit;
+
+  if Touch then
+    {FUseKey}
+    Status.Caption:= 'Press ' + '"E"' + ' to ' + switch.ActionString
+  else
+    Status.Caption:= '';
+
+  if Touch then
+  begin
+    if(FTouchedSwitch <> switch) then
+      FTouchedSwitch:= switch;
+  end else
+  begin
+    if(FTouchedSwitch = switch) then
+      FTouchedSwitch:= nil;
+  end;
+end;
+
+procedure TViewTravel.ActivateSwitch;
+begin
+  if Assigned(FTouchedSwitch) then
+    FTouchedSwitch.Activate;
 end;
 
 procedure TViewTravel.ClickControl(Sender: TObject);
