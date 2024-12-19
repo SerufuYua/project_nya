@@ -45,10 +45,10 @@ type
     procedure ClickControl(Sender: TObject);
     procedure ChangedEmission(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
-    procedure SetDressButtons();
+    procedure SetDressButtons;
     procedure SetActionsList(actList: TCastleComponent);
-    procedure SetUIColor(newColor: TCastleColorRGB);
-    procedure SaveCharasCondition();
+    procedure SetUIColor;
+    procedure SaveCharasCondition;
     procedure DoStart(Sender: TObject);
   end;
 
@@ -68,8 +68,8 @@ end;
 
 procedure TBaseViewPlay.Start;
 var
-  cameraMain: TCastleCamera;
   viewportMain: TCastleViewport;
+  cameraMain: TCastleCamera;
   skyMain: TCastleBackground;
   fogMain: TCastleFog;
 begin
@@ -108,13 +108,13 @@ begin
   ChangedEmission(FloatSliderEmission);
 
   { set dress buttons }
-  SetDressButtons();
+  SetDressButtons;
 
   { set actions list }
   SetActionsList(Map.DesignedComponent('ActionsList') as TCastleComponent);
 
   { set color }
-  SetUIColor(FActorsLogic.CharasColor);
+  SetUIColor;
 
   { set initial action }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
@@ -219,7 +219,7 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.SetDressButtons();
+procedure TBaseViewPlay.SetDressButtons;
 var
   chara: TActorChara;
   newBtn, sampleBtn: TCastleButton;
@@ -323,7 +323,7 @@ begin
   FActorsLogic.SetSpeed(slider.Value);
 end;
 
-procedure TBaseViewPlay.SetUIColor(newColor: TCastleColorRGB);
+procedure TBaseViewPlay.SetUIColor;
 var
   rootItem: TCastleUserInterface;
   item: TCastleImageControl;
@@ -338,7 +338,7 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.SaveCharasCondition();
+procedure TBaseViewPlay.SaveCharasCondition;
 var
   chara: TActorChara;
 begin
