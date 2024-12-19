@@ -18,6 +18,7 @@ type
     Map: TCastleTransformDesign;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
+    SpectatorCameraNavigation: TMySpectatorCameraNavigation;
     CameraNavigation: TMyThirdPersonCameraNavigation;
     CharaNavigation: TMyThirdPersonCharaNavigation;
     GroupDressingButtons: TCastlePackedGroup;
@@ -34,7 +35,8 @@ type
   protected
     FActorMain: TActorChara;
     FDebugAvatar: TDebugTransform;
-    FUseKey: TKey;
+    FKeyUse: TKey;
+    FKeyDebug: TKey;
     FTouchedSwitch: TMySwitch;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
@@ -74,11 +76,13 @@ begin
 
   { set Navigation }
   CharaNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
+  SpectatorCameraNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
+  CameraNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
 
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
   FDebugAvatar.Parent:= FActorMain.ActorRoot;
-  FDebugAvatar.Exists:= True;
+  FDebugAvatar.Exists:= False;
 
   { set cahara animation event }
   CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
@@ -105,7 +109,8 @@ begin
     viewportMain.Fog:= fogMain;
 
   { set keys }
-  FUseKey:= TKey.keyE;
+  FKeyUse:= TKey.keyE;
+  FKeyDebug:= TKey.keyF4;
 
   { set color }
   SetUIColor;
@@ -144,8 +149,12 @@ begin
     Exit(true);
   end;
 
+  { show debug }
+  if Event.IsKey(FKeyDebug) then
+    FDebugAvatar.Exists:= NOT FDebugAvatar.Exists;
+
   { activate switch }
-  if Event.IsKey(FUseKey) then
+  if Event.IsKey(FKeyUse) then
   begin
     { activate switch }
     if Assigned(FTouchedSwitch) then
@@ -196,9 +205,22 @@ begin
 end;
 
 procedure TBaseViewPlay.SetSwitches;
+var
+  behaviors: TCastleBehaviors;
+  behavior: TCastleBehavior;
+  switch: TMySwitch;
 begin
-  //  MySwitchTest.OnTouch:= {$ifdef FPC}@{$endif}TouchSwitch;
-  //  MySwitchTest.OnActivate:= {$ifdef FPC}@{$endif}ActivateSwitch;
+  behaviors:= GetAllBehavior(Map, TMySwitch);
+
+  for behavior in behaviors do
+  begin
+    switch:= behavior as TMySwitch;
+    if Assigned(switch) then
+    begin
+      switch.OnTouch:= {$ifdef FPC}@{$endif}TouchSwitch;
+      switch.OnActivate:= {$ifdef FPC}@{$endif}ActivateSwitch;
+    end;
+  end;
 end;
 
 procedure TBaseViewPlay.SaveCharasCondition;
@@ -279,7 +301,7 @@ begin
 
   if Touch then
     Status.Caption:= 'Press "' +
-                     GetKeyName(FUseKey) +
+                     GetKeyName(FKeyUse) +
                      '" to ' +
                      switch.ActionString
   else
