@@ -40,7 +40,7 @@ type
     FTouchedSwitch: TMySwitch;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
-    procedure TouchSwitch(const Sender: TObject; Touch: Boolean);
+    procedure TouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
     procedure ActivateSwitch(Sender: TObject); virtual; abstract;
     procedure SetDressButtons;
     procedure SetUIColor;

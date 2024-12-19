@@ -13,6 +13,7 @@ type
   public
     procedure Start; override;
   protected
+    procedure TouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure ActivateSwitch(Sender: TObject); override;
   end;
 
@@ -37,6 +38,12 @@ begin
   FActorMain:= TActorChara.Create(actorScene, 'Girl');
 
   inherited;
+end;
+
+procedure TViewTravel.TouchSwitch(const Sender: TObject; Touch: Boolean);
+begin
+  inherited;
+  { any additional actions for some specail switch }
 end;
 
 procedure TViewTravel.ActivateSwitch(Sender: TObject);
