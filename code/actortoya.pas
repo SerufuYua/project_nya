@@ -59,14 +59,14 @@ end;
 
 function TActorToyA.GetCurrentTool(): TCastleScene;
 begin
-  Result:= FActorRoot.DesignedComponent('ToyA') as TCastleScene;
+  Result:= ActorRoot.DesignedComponent('ToyA') as TCastleScene;
 end;
 
 procedure TActorToyA.UseRailing(enable: Boolean);
 var
   railing: TCastleScene;
 begin
-  railing:= FActorRoot.DesignedComponent('Railing') as TCastleScene;
+  railing:= ActorRoot.DesignedComponent('Railing') as TCastleScene;
 
   if enable then
   begin

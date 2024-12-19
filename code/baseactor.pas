@@ -20,7 +20,7 @@ type
     function GetRot(): TVector4;
     procedure SetRot(coord: TVector4);
   public
-    constructor Create(actorRoot: TCastleTransformDesign; actorName: String); virtual;
+    constructor Create(AActorRoot: TCastleTransformDesign; AActorName: String); virtual;
     procedure Update(const SecondsPassed: Single); virtual; abstract;
     procedure PauseAnimation; virtual; abstract;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
@@ -32,34 +32,35 @@ type
     property ActorName: String read FActorName;
     property Pleasure: Single read FPleasure write FPleasure;
     property Tension: Single read FTension write FTension;
+    property ActorRoot: TCastleTransformDesign read FActorRoot;
   end;
 
 implementation
 
-constructor TBaseActor.Create(actorRoot: TCastleTransformDesign; actorName: String);
+constructor TBaseActor.Create(AActorRoot: TCastleTransformDesign; AActorName: String);
 begin
-  FActorRoot:= actorRoot as TCastleTransformDesign;
-  FActorName:= actorName;
+  FActorRoot:= AActorRoot as TCastleTransformDesign;
+  FActorName:= AActorName;
 end;
 
 function TBaseActor.GetTrans(): TVector3;
 begin
-  Result:= FActorRoot.Translation;
+  Result:= ActorRoot.Translation;
 end;
 
 procedure TBaseActor.SetTrans(coord: TVector3);
 begin
-  FActorRoot.Translation:= coord;
+  ActorRoot.Translation:= coord;
 end;
 
 function TBaseActor.GetRot(): TVector4;
 begin
-  Result:= FActorRoot.Rotation;
+  Result:= ActorRoot.Rotation;
 end;
 
 procedure TBaseActor.SetRot(coord: TVector4);
 begin
-  FActorRoot.Rotation:= coord;
+  ActorRoot.Rotation:= coord;
 end;
 
 end.
