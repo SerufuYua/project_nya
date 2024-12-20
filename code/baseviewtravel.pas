@@ -109,7 +109,7 @@ begin
     viewportMain.Fog:= fogMain;
 
   { set keys }
-  FKeyUse:= TKey.keyE;
+  FKeyUse:= TKey.keyF;
   FKeyDebug:= TKey.keyF4;
 
   { set color }
