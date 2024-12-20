@@ -302,9 +302,7 @@ begin
   if NOT Assigned(switch) then Exit;
 
   if Touch then
-    Status.Caption:= 'Press "' +
-                     GetKeyName(FKeyUse) +
-                     '" to ' +
+    Status.Caption:= 'Press "' + GetKeyName(FKeyUse) + '" to ' +
                      switch.ActionString
   else
     Status.Caption:= '';
