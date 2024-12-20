@@ -97,14 +97,14 @@
               "ExposeTransforms" : [
               ],
               "Name" : "BedIndicator",
+              "Pickable" : false,
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.3618938624858856E-001,
-                "Y" : -1.0000005960464478E+000
+                "Z" : 1.0000000000000000E+000
               },
               "ScalePersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
@@ -164,14 +164,15 @@
               "ExposeTransforms" : [
               ],
               "Name" : "ToyAIndicator",
+              "Pickable" : false,
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 4.6610295772552490E-001,
-                "Y" : 1.0000004768371582E+000
+                "W" : 6.0229212045669556E-001,
+                "Y" : 1.0000000000000000E+000
               },
               "ScalePersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
