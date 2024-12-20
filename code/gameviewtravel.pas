@@ -54,10 +54,16 @@ begin
   if NOT Assigned(switch) then Exit;
 
   Case switch.Name of
-  'MySwitchTest':
+  'ToyASwitch':
     begin
       Notifications.Show('Lets play with my Toy!');
     end;
+  'BedSwitch':
+    begin
+      Notifications.Show('Lets play in my Bed!');
+    end;
+  else
+    Notifications.Show('There is nothing to use');
   end;
 end;
 
