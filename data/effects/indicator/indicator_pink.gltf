@@ -4,6 +4,9 @@
 		"generator":"Khronos glTF Blender I/O v3.6.28",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_emissive_strength"
+	],
 	"scene":0,
 	"scenes":[
 		{
@@ -25,17 +28,17 @@
 		},
 		{
 			"mesh":0,
-			"name":"Plane_activated",
+			"name":"Plane_activated.pink",
 			"skin":0
 		},
 		{
 			"mesh":1,
-			"name":"Plane_inactive",
+			"name":"Plane_inactive.pink",
 			"skin":0
 		},
 		{
 			"mesh":2,
-			"name":"Plane_touched",
+			"name":"Plane_touched.pink",
 			"skin":0
 		},
 		{
@@ -47,7 +50,7 @@
 				1,
 				2
 			],
-			"name":"Armature"
+			"name":"Armature.pink"
 		}
 	],
 	"animations":[
@@ -403,10 +406,15 @@
 			"doubleSided":true,
 			"emissiveFactor":[
 				1,
-				1,
-				1
+				0,
+				0.32010892033576965
 			],
-			"name":"indicator_activated",
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":4
+				}
+			},
+			"name":"indicator_activated.pink",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0
@@ -420,10 +428,15 @@
 			"doubleSided":true,
 			"emissiveFactor":[
 				1,
-				1,
-				1
+				0,
+				0.3201090097427368
 			],
-			"name":"indicator_inactive",
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":4
+				}
+			},
+			"name":"indicator_inactive.pinkl",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":1
@@ -437,10 +450,15 @@
 			"doubleSided":true,
 			"emissiveFactor":[
 				1,
-				1,
-				1
+				0,
+				0.3201090097427368
 			],
-			"name":"indicator_touched",
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":4
+				}
+			},
+			"name":"indicator_touched.pink",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":2
@@ -452,7 +470,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Plane.003",
+			"name":"Plane.006",
 			"primitives":[
 				{
 					"attributes":{
@@ -468,7 +486,7 @@
 			]
 		},
 		{
-			"name":"Plane.001",
+			"name":"Plane.004",
 			"primitives":[
 				{
 					"attributes":{
@@ -484,7 +502,7 @@
 			]
 		},
 		{
-			"name":"Plane.002",
+			"name":"Plane.005",
 			"primitives":[
 				{
 					"attributes":{
@@ -539,7 +557,7 @@
 				1,
 				2
 			],
-			"name":"Armature"
+			"name":"Armature.pink"
 		}
 	],
 	"accessors":[
