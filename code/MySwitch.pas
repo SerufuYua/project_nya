@@ -92,7 +92,10 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleBoxes, CastleVectors, Math,
-  MyVectorMath;
+  MyVectorMath
+  {$ifdef CASTLE_DESIGN_MODE}
+  , PropEdits, ComponentEditors, CastlePropEdits
+  {$endif};
 
 { ========= ------------------------------------------------------------------ }
 { TMySwitch ------------------------------------------------------------------ }
@@ -336,8 +339,46 @@ begin
   FAngleCOS:= Cos(value * Pi / 180.0);
 end;
 
+{$ifdef CASTLE_DESIGN_MODE}
+type
+  { Property editor to select an animation on TMySwitch }
+  TMySwitchPropertyEditor = class(TStringPropertyEditor)
+  public
+    function GetAttributes: TPropertyAttributes; override;
+    procedure GetValues(Proc: TGetStrProc); override;
+  end;
+
+function TMySwitchPropertyEditor.GetAttributes: TPropertyAttributes;
+begin
+  Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
+end;
+
+procedure TMySwitchPropertyEditor.GetValues(Proc: TGetStrProc);
+var
+  Nav: TMySwitch;
+  Scene: TCastleSceneCore;
+  S: String;
+begin
+  Proc('');
+  Nav:= GetComponent(0) as TMySwitch;
+  Scene:= Nav.Indicator;
+  if Scene <> nil then
+    for S in Scene.AnimationsList do
+      Proc(S);
+end;
+{$endif}
+
 initialization
   RegisterSerializableComponent(TMySwitch, ['Switches', 'Switch']);
   RegisterSerializableComponent(TMyFrontSwitch, ['Switches', 'Front Switch']);
+
+  {$ifdef CASTLE_DESIGN_MODE}
+  RegisterPropertyEditor(TypeInfo(AnsiString), TMySwitch, 'IndicatorAnimationInactive',
+    TMySwitchPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TMySwitch, 'IndicatorAnimationTouched',
+    TMySwitchPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TMySwitch, 'IndicatorAnimationActivated',
+    TMySwitchPropertyEditor);
+  {$endif}
 end.
 
