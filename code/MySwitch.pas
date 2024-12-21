@@ -37,7 +37,7 @@ type
   protected
     function CanAttachToParent(const NewParent: TCastleTransform;
       out ReasonWhyCannot: String): Boolean; override;
-    procedure LookForActivator; virtual;
+    function LookForActivator: TSwitchStatus; virtual;
     procedure ActavateAfterAnimation(const Scene: TCastleSceneCore;
                                      const Animation: TTimeSensorNode);
   public
@@ -71,7 +71,7 @@ type
     function GetAngle: Single;
     procedure SetAngle(value: Single);
   protected
-    procedure LookForActivator; override;
+    function LookForActivator: TSwitchStatus; override;
   public
     const
       DefaultAngleCOS = 0.707106769; { 45 grad }
@@ -116,22 +116,23 @@ begin
 
   if Status = TSwitchStatus.activated then Exit;
 
-  LookForActivator;
+  Status:= LookForActivator;
 end;
 
-procedure TMySwitch.LookForActivator;
+function TMySwitch.LookForActivator: TSwitchStatus;
 var
   ActivatorBox, SwitchBox: TBox3D;
 begin
-  if NOT (Assigned(Parent) AND Assigned(Activator)) then Exit;
+  if NOT (Assigned(Parent) AND Assigned(Activator)) then
+    Exit(TSwitchStatus.inactive);
 
   ActivatorBox:= Activator.BoundingBox;
   SwitchBox:= Parent.BoundingBox;
 
   if ActivatorBox.Collides(SwitchBox) then
-    Status:= TSwitchStatus.touched
+    Result:= TSwitchStatus.touched
   else
-    Status:= TSwitchStatus.inactive;
+    Result:= TSwitchStatus.inactive;
 end;
 
 function TMySwitch.CanAttachToParent(const NewParent: TCastleTransform;
@@ -284,33 +285,29 @@ begin
   FAngleCOS:= DefaultAngleCOS;
 end;
 
-procedure TMyFrontSwitch.LookForActivator;
+function TMyFrontSwitch.LookForActivator: TSwitchStatus;
 var
   ActivatorBox, SwitchBox: TBox3D;
   FromRootActivator, FromActivatorDir, ProjPoint, SwitchCenter: TVector3;
 begin
-  if NOT (Assigned(Parent) AND Assigned(Activator)) then Exit;
+  if (inherited = TSwitchStatus.inactive) then
+    Exit(TSwitchStatus.inactive);
 
   ActivatorBox:= Activator.BoundingBox;
   SwitchBox:= Parent.BoundingBox;
 
-  if ActivatorBox.Collides(SwitchBox) then
-  begin
-    SwitchCenter:= SwitchBox.Center;
-    FromRootActivator:= (SwitchCenter - Activator.Translation);
-    ProjPoint:= Activator.Translation + ProjectionVectorAtoB(FromRootActivator, Activator.Up);
+  SwitchCenter:= SwitchBox.Center;
+  FromRootActivator:= (SwitchCenter - Activator.Translation);
+  ProjPoint:= Activator.Translation + ProjectionVectorAtoB(FromRootActivator, Activator.Up);
 
-    if ActivatorBox.Contains(ProjPoint) then
-    begin
-      FromActivatorDir:= (SwitchCenter - ProjPoint).Normalize;
-      if (TVector3.DotProduct(FromActivatorDir, Activator.Direction) > FAngleCOS) then
-      begin
-        Status:= TSwitchStatus.touched;
-        Exit;
-      end;
-    end;
+  if ActivatorBox.Contains(ProjPoint) then
+  begin
+    FromActivatorDir:= (SwitchCenter - ProjPoint).Normalize;
+    if (TVector3.DotProduct(FromActivatorDir, Activator.Direction) > FAngleCOS) then
+      Exit(TSwitchStatus.touched);
   end;
-  Status:= TSwitchStatus.inactive;
+
+  Result:= TSwitchStatus.inactive;
 end;
 
 function TMyFrontSwitch.PropertySections(
