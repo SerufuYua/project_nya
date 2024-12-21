@@ -11,9 +11,9 @@ uses
 type
   TTouchEvent = procedure (const Sender: TObject; Touch: Boolean) of object;
 
-  TSwitchStatus = (inactive, touched, activated, unknown);
-
   TMySwitch = class(TCastleBehavior)
+  type
+    TSwitchStatus = (inactive, touched, activated, unknown);
   protected
     FDistance: Single;
     FOnTouch: TTouchEvent;
