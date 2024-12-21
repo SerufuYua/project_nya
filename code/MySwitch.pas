@@ -5,40 +5,64 @@ unit MySwitch;
 interface
 
 uses
-  Classes, SysUtils, CastleTransform, CastleClassUtils;
+  Classes, SysUtils, CastleTransform, CastleClassUtils, CastleScene,
+  CastleSceneCore, X3DNodes;
 
 type
   TTouchEvent = procedure (const Sender: TObject; Touch: Boolean) of object;
+
+  TSwitchStatus = (inactive, touched, activated, unknown);
 
   TMySwitch = class(TCastleBehavior)
   protected
     FOnTouch: TTouchEvent;
     FOnActivate: TNotifyEvent;
-    FIsTouch: Boolean;
+    FStatus: TSwitchStatus;
     FActionString: String;
+    FAnimationInactive: String;
+    FAnimationTouched: String;
+    FAnimationActivated: String;
+    FIndicator: TCastleScene;
+    FIndicatorObserver: TFreeNotificationObserver;
     FActivator: TCastleTransform;
     FActivatorObserver: TFreeNotificationObserver;
+    procedure SetIndicator(const Value: TCastleScene);
+    procedure IndicatorFreeNotification(const Sender: TFreeNotificationObserver);
     procedure SetActivator(const Value: TCastleTransform);
     procedure ActivatorFreeNotification(const Sender: TFreeNotificationObserver);
-    procedure SetIsTouch(const Value: Boolean);
+    procedure SetStatus(const Value: TSwitchStatus);
+    function AnimationInactiveStored: Boolean;
+    function AnimationTouchedStored: Boolean;
+    function AnimationActivatedStored: Boolean;
   protected
     function CanAttachToParent(const NewParent: TCastleTransform;
       out ReasonWhyCannot: String): Boolean; override;
     procedure LookForActivator; virtual;
+    procedure ActavateAfterAnimation(const Scene: TCastleSceneCore;
+                                     const Animation: TTimeSensorNode);
   public
     const
       DefaultActionString = 'use';
+      DefaultAnimationInactive  = 'inactive';
+      DefaultAnimationTouched   = 'touched';
+      DefaultAnimationActivated = 'activated';
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure Activate;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-    property IsTouch: Boolean read FIsTouch write SetIsTouch;
+    property Status: TSwitchStatus read FStatus write SetStatus;
   published
+    property Indicator: TCastleScene read FIndicator write SetIndicator;
     property Activator: TCastleTransform read FActivator write SetActivator;
     property ActionString: String read FActionString write FActionString;
     property OnTouch: TTouchEvent read FOnTouch write FOnTouch;
     property OnActivate: TNotifyEvent read FOnActivate write FOnActivate;
+
+    { Indicator Animations }
+    property IndicatorAnimationInactive: String read FAnimationInactive write FAnimationInactive stored AnimationInactiveStored nodefault;
+    property IndicatorAnimationTouched: String read FAnimationTouched write FAnimationTouched stored AnimationTouchedStored nodefault;
+    property IndicatorAnimationActivated: String read FAnimationActivated write FAnimationActivated stored AnimationActivatedStored nodefault;
   end;
 
   TMyFrontSwitch = class(TMySwitch)
@@ -73,8 +97,15 @@ constructor TMySwitch.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FActionString:= DefaultActionString;
+  FStatus:= TSwitchStatus.unknown;
 
+  FActionString:= DefaultActionString;
+  FAnimationInactive:= DefaultAnimationInactive;
+  FAnimationTouched:= DefaultAnimationTouched;
+  FAnimationActivated:= DefaultAnimationActivated;
+
+  FIndicatorObserver:= TFreeNotificationObserver.Create(Self);
+  FIndicatorObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}IndicatorFreeNotification;
   FActivatorObserver:= TFreeNotificationObserver.Create(Self);
   FActivatorObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}ActivatorFreeNotification;
 end;
@@ -82,6 +113,8 @@ end;
 procedure TMySwitch.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
 begin
   inherited;
+
+  if Status = TSwitchStatus.activated then Exit;
 
   LookForActivator;
 end;
@@ -95,7 +128,10 @@ begin
   ActivatorBox:= Activator.BoundingBox;
   SwitchBox:= Parent.BoundingBox;
 
-  IsTouch:= ActivatorBox.Collides(SwitchBox);
+  if ActivatorBox.Collides(SwitchBox) then
+    Status:= TSwitchStatus.touched
+  else
+    Status:= TSwitchStatus.inactive;
 end;
 
 function TMySwitch.CanAttachToParent(const NewParent: TCastleTransform;
@@ -114,30 +150,96 @@ end;
 
 procedure TMySwitch.Activate;
 begin
+  Status:= TSwitchStatus.activated;
+end;
+
+procedure TMySwitch.ActavateAfterAnimation(const Scene: TCastleSceneCore;
+                                           const Animation: TTimeSensorNode);
+begin
   if Assigned(OnActivate) then
     OnActivate(Self);
+  Status:= TSwitchStatus.unknown;
 end;
 
 function TMySwitch.PropertySections(
   const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Activator', 'ActionString'
+       'Activator', 'ActionString', 'Indicator',
+       'IndicatorAnimationInactive', 'IndicatorAnimationTouched',
+       'IndicatorAnimationActivated'
      ]) then
     Result:= [psBasic]
   else
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TMySwitch.SetIsTouch(const Value: Boolean);
+procedure TMySwitch.SetStatus(const Value: TSwitchStatus);
+var
+  animation: TPlayAnimationParameters;
 begin
-  if FIsTouch <> Value then
-  begin
-    FIsTouch:= Value;
+  if FStatus = Value then Exit;
+  FStatus:= Value;
+  animation:= TPlayAnimationParameters.Create;
 
-    if Assigned(OnTouch) then
-      OnTouch(Self, Value);
+  Case FStatus of
+  TSwitchStatus.inactive:
+    begin
+      if Assigned(Indicator) then
+      begin
+        animation.Name:= IndicatorAnimationInactive;
+        animation.Loop:= True;
+        Indicator.PlayAnimation(animation);
+      end;
+
+      if Assigned(OnTouch) then
+        OnTouch(Self, False);
+    end;
+  TSwitchStatus.touched:
+    begin
+      if Assigned(Indicator) then
+      begin
+        animation.Name:= IndicatorAnimationTouched;
+        animation.Loop:= True;
+        Indicator.PlayAnimation(animation);
+      end;
+
+      if Assigned(OnTouch) then
+        OnTouch(Self, True);
+    end;
+  TSwitchStatus.activated:
+    begin
+      if Assigned(Indicator) then
+      begin
+        animation.Name:= IndicatorAnimationActivated;
+        animation.Loop:= False;
+        animation.StopNotification:= {$ifdef FPC}@{$endif}ActavateAfterAnimation;
+        Indicator.PlayAnimation(animation);
+      end else
+      begin
+        if Assigned(OnActivate) then
+          OnActivate(Self);
+        Status:= TSwitchStatus.unknown;
+      end;
+    end;
   end;
+
+  FreeAndNil(animation);
+end;
+
+procedure TMySwitch.SetIndicator(const Value: TCastleScene);
+begin
+  if (FIndicator <> Value) then
+  begin
+    FIndicatorObserver.Observed:= Value;
+    FIndicator:= Value;
+  end;
+end;
+
+procedure TMySwitch.IndicatorFreeNotification(
+  const Sender: TFreeNotificationObserver);
+begin
+  Indicator:= nil;
 end;
 
 procedure TMySwitch.SetActivator(const Value: TCastleTransform);
@@ -153,6 +255,21 @@ procedure TMySwitch.ActivatorFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   Activator:= nil;
+end;
+
+function TMySwitch.AnimationInactiveStored: Boolean;
+begin
+  Result:= FAnimationInactive <> DefaultAnimationInactive;
+end;
+
+function TMySwitch.AnimationTouchedStored: Boolean;
+begin
+  Result:= FAnimationTouched <> DefaultAnimationTouched;
+end;
+
+function TMySwitch.AnimationActivatedStored: Boolean;
+begin
+  Result:= FAnimationActivated <> DefaultAnimationActivated;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -187,12 +304,12 @@ begin
       FromActivatorDir:= (SwitchCenter - ProjPoint).Normalize;
       if (TVector3.DotProduct(FromActivatorDir, Activator.Direction) > FAngleCOS) then
       begin
-        IsTouch:= True;
+        Status:= TSwitchStatus.touched;
         Exit;
       end;
     end;
   end;
-  IsTouch:= False;
+  Status:= TSwitchStatus.inactive;
 end;
 
 function TMyFrontSwitch.PropertySections(
