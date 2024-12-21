@@ -33,7 +33,8 @@ uses
 constructor TViewLoading.Create(AOwner: TComponent);
 begin
   inherited;
-  DesignUrl := 'castle-data:/gameviewloading.castle-user-interface';
+  DesignUrl:= 'castle-data:/gameviewloading.castle-user-interface';
+  FWview:= nil;
 end;
 
 procedure TViewLoading.Start;

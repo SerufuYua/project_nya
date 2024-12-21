@@ -60,8 +60,9 @@ uses
 constructor TViewMain.Create(AOwner: TComponent);
 begin
   inherited;
-  DesignUrl := 'castle-data:/gameviewmain.castle-user-interface';
-  FActorGirl :=  nil;
+  DesignUrl:= 'castle-data:/gameviewmain.castle-user-interface';
+  FActorGirl:=  nil;
+  FActorBoy:=  nil;
   FCurPos:= Vector2(0.0, 0.0);
 end;
 
@@ -81,12 +82,12 @@ begin
   FFader.Fade(1.0, 0.0, 3.0);
 
   { Create Girl Character instance }
-  GirlScene := DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorGirl := TActorChara.Create(GirlScene, 'Girl');
+  GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
+  FActorGirl:= TActorChara.Create(GirlScene, 'Girl');
 
   { Create Boy Character instance }
-  BoyScene := DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FActorBoy := TActorChara.Create(BoyScene, 'Boy');
+  BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
+  FActorBoy:= TActorChara.Create(BoyScene, 'Boy');
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;
