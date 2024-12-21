@@ -187,6 +187,7 @@ begin
     begin
       if Assigned(Indicator) then
       begin
+        Indicator.StopAnimation;
         animation.Name:= IndicatorAnimationInactive;
         animation.Loop:= True;
         Indicator.PlayAnimation(animation);
