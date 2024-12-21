@@ -23,7 +23,7 @@ var
 implementation
 
 uses
-  GameViewLoading, GameViewPlayGirl, GameViewPlayTogether, GameViewMain,
+  GameViewPlayGirl, GameViewPlayTogether, GameViewMain,
   CastleViewport, CastleScene, MyCastleUtils, CastleComponentSerialize,
   CastleFonts, SysUtils, GameViewDressingMenu;
 
@@ -58,14 +58,12 @@ begin
   'ToyASwitch':
     begin
       Notifications.Show('Lets play with my Toy!');
-      ViewLoading.SetToLoad(ViewPlayGirl);
-      Container.View:= ViewLoading;
+      FGetToGo:= ViewPlayGirl;
     end;
   'BedSwitch':
     begin
       Notifications.Show('Lets play in my Bed!');
-      ViewLoading.SetToLoad(ViewPlayTogether);
-      Container.View:= ViewLoading;
+      FGetToGo:= ViewPlayTogether;
     end;
   else
     Notifications.Show('There is nothing to use');

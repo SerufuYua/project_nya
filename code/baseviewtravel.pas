@@ -38,6 +38,7 @@ type
     FKeyUse: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TMySwitch;
+    FGetToGo: TCastleView;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure TouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
@@ -61,6 +62,7 @@ uses
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
   inherited;
+  FGetToGo:= nil;
   DesignUrl := 'castle-data:/gameviewtravel.castle-user-interface';
 end;
 
@@ -134,6 +136,13 @@ begin
   { Release Dressing Menu Buttons }
   if NOT (Container.FrontView = ViewDressingMenu) then
     ImageControlDressing.Exists:= True;
+
+  { change map }
+  if Assigned(FGetToGo) then
+  begin
+    ViewLoading.SetToLoad(FGetToGo);
+    Container.View:= ViewLoading;
+  end;
 end;
 
 function TBaseViewPlay.Press(const Event: TInputPressRelease): Boolean;
