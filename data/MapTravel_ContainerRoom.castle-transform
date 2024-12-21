@@ -74,22 +74,21 @@
         {
           "$$ClassName" : "TCastleBox",
           "Collides" : false,
-          "Name" : "SwitchTest",
-          "Pickable" : false,
+          "Name" : "BedBox",
           "RenderOptions" : {
             "$$ClassName" : "TCastleScene.TSceneRenderOptions"
           },
           "SizePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 2.0000000000000000E+001,
-            "Y" : 2.0000000000000000E+001,
-            "Z" : 2.0000000000000000E+001
+            "X" : 6.0000000000000000E+001,
+            "Y" : 3.0000000000000000E+001,
+            "Z" : 9.0000000000000000E+001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -3.2963779449462891E+001,
-            "Y" : 1.0000000000000000E+001,
-            "Z" : -5.3974250793457031E+001
+            "X" : 4.5000000000000000E+001,
+            "Y" : 1.2000000000000000E+001,
+            "Z" : -6.0000000000000000E+001
           },
           "$Children" : [
             {
@@ -97,7 +96,7 @@
               "CastShadows" : false,
               "ExposeTransforms" : [
               ],
-              "Name" : "Scene1",
+              "Name" : "BedIndicator",
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -109,15 +108,90 @@
                 "Y" : 9.9999994039535522E-001,
                 "Z" : -1.7263347399421036E-004
               },
+              "ScalePersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "X" : 1.0000001192092896E+000,
+                "Y" : 1.0000002384185791E+000,
+                "Z" : 1.0000001192092896E+000
+              },
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
-                "Y" : 4.0000000000000000E+001
+                "Y" : 5.0000000000000000E+001
               },
               "Url" : "castle-data:/effects/indicator/indicator.gltf",
               "$Behaviors" : [
                 {
                   "$$ClassName" : "TCastleBillboard",
-                  "Name" : "Billboard1"
+                  "Name" : "BedIndicatorBillboard"
+                }
+              ]
+            }
+          ],
+          "$Behaviors" : [
+            {
+              "$$ClassName" : "TMyFrontSwitch",
+              "ActionString" : "play in Bed",
+              "Activator" : "CharaGirl",
+              "Indicator" : "BedIndicator",
+              "Name" : "BedSwitch",
+              "VisibleAngle" : 9.0000000000000000E+001
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleScene",
+          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
+          "ExposeTransforms" : [
+          ],
+          "Name" : "ToyA",
+          "ProcessEvents" : true,
+          "RenderOptions" : {
+            "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+          },
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 6.0229212045669556E-001,
+            "Y" : -1.0000015497207642E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -4.0964862823486328E+001,
+            "Z" : -5.5454620361328125E+001
+          },
+          "Url" : "castle-data:/toys/toyA/ToyA.gltf",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "CastShadows" : false,
+              "ExposeTransforms" : [
+              ],
+              "Name" : "ToyAIndicator",
+              "ProcessEvents" : true,
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.5707963705062866E+000,
+                "X" : -1.7263347399421036E-004,
+                "Y" : 9.9999994039535522E-001,
+                "Z" : -1.7263347399421036E-004
+              },
+              "ScalePersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "X" : 1.0000001192092896E+000,
+                "Y" : 1.0000002384185791E+000,
+                "Z" : 1.0000001192092896E+000
+              },
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 5.0000000000000000E+001
+              },
+              "Url" : "castle-data:/effects/indicator/indicator.gltf",
+              "$Behaviors" : [
+                {
+                  "$$ClassName" : "TCastleBillboard",
+                  "Name" : "ToyAIndicatorBillboard"
                 }
               ]
             }
@@ -127,9 +201,19 @@
               "$$ClassName" : "TMyFrontSwitch",
               "ActionString" : "play with Toy-A",
               "Activator" : "CharaGirl",
-              "Indicator" : "Scene1",
-              "Name" : "MySwitchTest",
+              "Indicator" : "ToyAIndicator",
+              "Name" : "ToyASwitch",
               "VisibleAngle" : 4.5000000000000000E+001
+            },
+            {
+              "$$ClassName" : "TCastleBoxCollider",
+              "Name" : "ToyACollider"
+            },
+            {
+              "$$ClassName" : "TCastleRigidBody",
+              "Dynamic" : false,
+              "Gravity" : false,
+              "Name" : "ToyARigidBody"
             }
           ]
         }
