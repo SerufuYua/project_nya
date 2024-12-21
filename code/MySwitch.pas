@@ -15,6 +15,7 @@ type
 
   TMySwitch = class(TCastleBehavior)
   protected
+    FDistance: Single;
     FOnTouch: TTouchEvent;
     FOnActivate: TNotifyEvent;
     FStatus: TSwitchStatus;
@@ -46,6 +47,7 @@ type
       DefaultAnimationInactive  = 'inactive';
       DefaultAnimationTouched   = 'touched';
       DefaultAnimationActivated = 'activated';
+      DefaultDistance = 20;
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -56,6 +58,9 @@ type
     property Indicator: TCastleScene read FIndicator write SetIndicator;
     property Activator: TCastleTransform read FActivator write SetActivator;
     property ActionString: String read FActionString write FActionString;
+    property Distance: Single read FDistance write FDistance
+      {$ifdef FPC}default DefaultDistance{$endif};
+
     property OnTouch: TTouchEvent read FOnTouch write FOnTouch;
     property OnActivate: TNotifyEvent read FOnActivate write FOnActivate;
 
@@ -98,6 +103,7 @@ begin
   inherited;
 
   FStatus:= TSwitchStatus.unknown;
+  FDistance:= DefaultDistance;
 
   FActionString:= DefaultActionString;
   FAnimationInactive:= DefaultAnimationInactive;
@@ -121,15 +127,14 @@ end;
 
 function TMySwitch.LookForActivator: TSwitchStatus;
 var
-  ActivatorBox, SwitchBox: TBox3D;
+  SwitchBox: TBox3D;
 begin
   if NOT (Assigned(Parent) AND Assigned(Activator)) then
     Exit(TSwitchStatus.inactive);
 
-  ActivatorBox:= Activator.BoundingBox;
   SwitchBox:= Parent.BoundingBox;
 
-  if ActivatorBox.Collides(SwitchBox) then
+  if SwitchBox.Grow(20.0).Contains(Activator.Translation) then
     Result:= TSwitchStatus.touched
   else
     Result:= TSwitchStatus.inactive;
@@ -168,7 +173,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'Activator', 'ActionString', 'Indicator',
        'IndicatorAnimationInactive', 'IndicatorAnimationTouched',
-       'IndicatorAnimationActivated'
+       'IndicatorAnimationActivated', 'Distance'
      ]) then
     Result:= [psBasic]
   else
@@ -290,8 +295,8 @@ var
   ActivatorBox, SwitchBox: TBox3D;
   FromRootActivator, FromActivatorDir, ProjPoint, SwitchCenter: TVector3;
 begin
-  if (inherited = TSwitchStatus.inactive) then
-    Exit(TSwitchStatus.inactive);
+  Result:= inherited;
+  if (Result = TSwitchStatus.inactive) then Exit;
 
   ActivatorBox:= Activator.BoundingBox;
   SwitchBox:= Parent.BoundingBox;
