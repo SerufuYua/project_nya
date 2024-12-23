@@ -100,9 +100,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.9478091001510620E+000,
+          "X" : 1.3026292324066162E+000,
           "Y" : 1.9317089080810547E+001,
-          "Z" : 2.7772371768951416E+000
+          "Z" : 3.1217331886291504E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
@@ -124,6 +124,46 @@
       "$$ClassName" : "TMyFadeEffect",
       "FullSize" : true,
       "Name" : "FadeEffect"
+    },
+    {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Blue" : 9.5686274766921997E-001,
+          "Green" : 4.6666666865348816E-001
+        },
+        "Url" : "castle-data:/effects/play_state/splash_gradient.png"
+      },
+      "HeightFraction" : 3.0000001192092896E-001,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "PleasureEffect",
+      "Stretch" : true,
+      "WidthFraction" : 1.0000000000000000E+000
+    },
+    {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Blue" : 5.8039218187332153E-001,
+          "Green" : 0.0000000000000000E+000,
+          "Red" : 2.3921568691730499E-001
+        },
+        "FlipVertical" : true,
+        "Url" : "castle-data:/effects/play_state/splash_gradient.png"
+      },
+      "HeightFraction" : 3.0000001192092896E-001,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "TensionEffect",
+      "Stretch" : true,
+      "VerticalAnchorParent" : "vpTop",
+      "VerticalAnchorSelf" : "vpTop",
+      "WidthFraction" : 1.0000000000000000E+000
     },
     {
       "$$ClassName" : "TCastleImageControl",
