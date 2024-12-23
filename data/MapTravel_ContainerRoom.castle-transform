@@ -226,6 +226,70 @@
               "Name" : "ToyARigidBody"
             }
           ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "PortalGoOut",
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : -5.2500000000000000E+001,
+            "Z" : 9.6000000000000000E+001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "GoOutIndicator",
+              "Pickable" : false,
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.5707963705062866E+000,
+                "X" : -1.7263347399421036E-004,
+                "Y" : 9.9999994039535522E-001,
+                "Z" : -1.7263347399421036E-004
+              },
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 6.5000000000000000E+001
+              },
+              "Url" : "castle-data:/effects/indicator/indicator_blue.gltf",
+              "$Behaviors" : [
+                {
+                  "$$ClassName" : "TCastleBillboard",
+                  "Name" : "GoOutIndicatorBillboard"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleBox",
+              "Name" : "GoOutSwitchExtender",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "SizePersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 5.0000000000000000E+001
+              },
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "Y" : 2.5000000000000000E+001
+              },
+              "Visible" : false
+            }
+          ],
+          "$Behaviors" : [
+            {
+              "$$ClassName" : "TMySwitch",
+              "ActionString" : "go out",
+              "Activator" : "CharaGirl",
+              "Indicator" : "GoOutIndicator",
+              "Name" : "GoOutSwitch"
+            }
+          ]
         }
       ]
     },
