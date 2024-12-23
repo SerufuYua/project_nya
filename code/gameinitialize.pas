@@ -50,8 +50,8 @@ begin
   else if Application.hasOption('r', 'Travel') then
     Window.Container.View:= ViewTravel
   else
-//    Window.Container.View := ViewMain;
-    Window.Container.View := ViewTravel;
+    Window.Container.View := ViewMain;
+//    Window.Container.View := ViewTravel;
 
 end;
 

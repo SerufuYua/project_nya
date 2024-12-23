@@ -76,6 +76,9 @@ begin
   inherited;
   FTouchedSwitch:= nil;
 
+  { reset go to map }
+  FGetToGo:= nil;
+
   { set Navigation }
   CharaNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
   CameraNavigationSpectator.AvatarHierarchy:= FActorMain.ActorRoot;

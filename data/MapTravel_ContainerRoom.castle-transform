@@ -103,10 +103,10 @@
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.5707963705062866E+000,
-                "X" : -1.7263347399421036E-004,
-                "Y" : 9.9999994039535522E-001,
-                "Z" : -1.7263347399421036E-004
+                "W" : 3.9794364571571350E-001,
+                "X" : -1.7263338668271899E-004,
+                "Y" : -9.9999934434890747E-001,
+                "Z" : 8.5614772979170084E-004
               },
               "ScalePersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
@@ -182,10 +182,8 @@
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.5707963705062866E+000,
-                "X" : -1.7263347399421036E-004,
-                "Y" : 9.9999994039535522E-001,
-                "Z" : -1.7263347399421036E-004
+                "W" : 2.0434807240962982E-001,
+                "Y" : 1.0000009536743164E+000
               },
               "ScalePersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
@@ -242,15 +240,16 @@
               ],
               "Name" : "GoOutIndicator",
               "Pickable" : false,
+              "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.5707963705062866E+000,
-                "X" : -1.7263347399421036E-004,
-                "Y" : 9.9999994039535522E-001,
-                "Z" : -1.7263347399421036E-004
+                "W" : 3.9794364571571350E-001,
+                "X" : -1.7263338668271899E-004,
+                "Y" : -9.9999934434890747E-001,
+                "Z" : 8.5614772979170084E-004
               },
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
@@ -302,11 +301,14 @@
           "Name" : "CharaGirl",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "Z" : 1.0000000000000000E+000
+            "W" : 1.7453292608261108E+000,
+            "Y" : -1.0000000000000000E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 5.0000000000000000E+000
+            "X" : 2.3333686828613281E+001,
+            "Y" : 5.0000000000000000E+000,
+            "Z" : 2.6359313964843750E+001
           },
           "Url" : "castle-data:/CharaGirl_common.castle-transform",
           "$Behaviors" : [

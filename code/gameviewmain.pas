@@ -20,8 +20,8 @@ type
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
     BtnExit: TCastleButton;
-    BtnPlaySolo: TCastleButton;
-    BtnPlayTogether: TCastleButton;
+    BtnStart: TCastleButton;
+    BtnSettings: TCastleButton;
     LabelFps: TCastleLabel;
     LabelInfo1: TCastleLabel;
     LabelInfo2: TCastleLabel;
@@ -40,8 +40,8 @@ type
     FCurPos: TVector2;
     FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
-    procedure ClickSceneGirl(Sender: TObject);
-    procedure ClicSceneTogether(Sender: TObject);
+    procedure ClickStart(Sender: TObject);
+    procedure ClicSettings(Sender: TObject);
     procedure CharaActionWaiting;
     procedure UpdateCamera(const SecondsPassed: Single); { follow cameta rotation to cursor }
   end;
@@ -52,8 +52,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleUtils, GameViewPlayGirl, GameViewPlayTogether,
-  GameViewLoading;
+  SysUtils, CastleUtils, GameViewLoading, GameViewTravel;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -74,8 +73,8 @@ begin
   inherited;
 
   BtnExit.OnClick:= {$ifdef FPC}@{$endif}ClickExit;
-  BtnPlaySolo.OnClick:= {$ifdef FPC}@{$endif}ClickSceneGirl;
-  BtnPlayTogether.OnClick:= {$ifdef FPC}@{$endif}ClicSceneTogether;
+  BtnStart.OnClick:= {$ifdef FPC}@{$endif}ClickStart;
+  BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClicSettings;
 
   { set fade animator }
   FFader:= TRectangleFader.Create(ScreenRectangle);
@@ -129,16 +128,15 @@ begin
   Application.MainWindow.Close();
 end;
 
-procedure TViewMain.ClickSceneGirl(Sender: TObject);
+procedure TViewMain.ClickStart(Sender: TObject);
 begin
-  ViewLoading.SetToLoad(ViewPlayGirl);
+  ViewLoading.SetToLoad(ViewTravel);
   Container.View:= ViewLoading;
 end;
 
-procedure TViewMain.ClicSceneTogether(Sender: TObject);
+procedure TViewMain.ClicSettings(Sender: TObject);
 begin
-  ViewLoading.SetToLoad(ViewPlayTogether);
-  Container.View:= ViewLoading;
+  { #todo : need game settings }
 end;
 
 procedure TViewMain.CharaActionWaiting;

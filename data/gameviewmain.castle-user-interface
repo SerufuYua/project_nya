@@ -222,7 +222,7 @@
                   "$Children" : [
                     {
                       "$$ClassName" : "TCastleButton",
-                      "Caption" : "Play Together",
+                      "Caption" : "Start",
                       "CustomBackground" : true,
                       "CustomBackgroundDisabled" : {
                         "$$ClassName" : "TCastleImagePersistent"
@@ -272,7 +272,7 @@
                       "Image" : {
                         "$$ClassName" : "TCastleImagePersistent"
                       },
-                      "Name" : "BtnPlayTogether",
+                      "Name" : "BtnStart",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
                         "X" : 2.0000000000000000E+001,
@@ -283,7 +283,7 @@
                     },
                     {
                       "$$ClassName" : "TCastleButton",
-                      "Caption" : "Play Solo",
+                      "Caption" : "Settings",
                       "CustomBackground" : true,
                       "CustomBackgroundDisabled" : {
                         "$$ClassName" : "TCastleImagePersistent"
@@ -333,7 +333,7 @@
                       "Image" : {
                         "$$ClassName" : "TCastleImagePersistent"
                       },
-                      "Name" : "BtnPlaySolo",
+                      "Name" : "BtnSettings",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
                         "X" : 2.0000000000000000E+001,

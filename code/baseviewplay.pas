@@ -55,7 +55,7 @@ type
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  GameViewTravel, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
   StrUtils, MyCastleUtils,
   ActorChara;
@@ -205,7 +205,7 @@ begin
     begin
       Notifications.Show('saving characters condition...');
       SaveCharasCondition();
-      ViewLoading.SetToLoad(ViewMain);
+      ViewLoading.SetToLoad(ViewTravel);
       Container.View:= ViewLoading;
     end;
   'BtnStop':

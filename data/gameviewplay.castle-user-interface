@@ -289,7 +289,7 @@
                       "Name" : "BtnNext",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.7000000000000000E+001
+                        "X" : 9.7000007629394531E+001
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -865,7 +865,7 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleButton",
-                  "Caption" : "Back to Main",
+                  "Caption" : "Back",
                   "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
