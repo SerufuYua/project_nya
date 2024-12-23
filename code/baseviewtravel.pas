@@ -18,8 +18,8 @@ type
     Map: TCastleTransformDesign;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
-    SpectatorCameraNavigation: TMySpectatorCameraNavigation;
-    CameraNavigation: TMyThirdPersonCameraNavigation;
+    CameraNavigationSpectator: TMySpectatorCameraNavigation;
+    CameraNavigationFollow: TMyThirdPersonCameraNavigation;
     CharaNavigation: TMyThirdPersonCharaNavigation;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
@@ -78,8 +78,8 @@ begin
 
   { set Navigation }
   CharaNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
-  SpectatorCameraNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
-  CameraNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
+  CameraNavigationSpectator.AvatarHierarchy:= FActorMain.ActorRoot;
+  CameraNavigationFollow.AvatarHierarchy:= FActorMain.ActorRoot;
 
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
@@ -155,7 +155,7 @@ begin
   { enable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
   begin
-    CameraNavigation.MouseLook:= True;
+    CameraNavigationFollow.MouseLook:= True;
     Exit(true);
   end;
 
@@ -177,7 +177,7 @@ function TBaseViewPlay.Release(const Event: TInputPressRelease): boolean;
 begin
   { disable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-    CameraNavigation.MouseLook:= False;
+    CameraNavigationFollow.MouseLook:= False;
 
   Result := inherited;
 end;
