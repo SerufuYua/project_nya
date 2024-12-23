@@ -213,7 +213,8 @@ begin
 
   for item in GetAllUIImages(rootItem) do
   begin
-      alpha:= item.Color.W;
+    alpha:= item.Color.W;
+    if (item.Tag = 1) then
       item.Color:= Vector4(FActorMain.PersonalColor, alpha);
   end;
 end;

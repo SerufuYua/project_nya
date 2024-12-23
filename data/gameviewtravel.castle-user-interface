@@ -164,6 +164,7 @@
         "Url" : "castle-data:/ui/menu_navigation.png"
       },
       "Name" : "ImageControlNavigation",
+      "Tag" : 1,
       "$Children" : [
         {
           "$$ClassName" : "TCastleRectangleControl",
@@ -264,6 +265,7 @@
       "HorizontalAnchorParent" : "hpRight",
       "HorizontalAnchorSelf" : "hpRight",
       "Name" : "ImageControlDressing",
+      "Tag" : 1,
       "$Children" : [
         {
           "$$ClassName" : "TCastleRectangleControl",

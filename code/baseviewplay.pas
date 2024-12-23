@@ -322,7 +322,8 @@ begin
   for item in GetAllUIImages(rootItem) do
   begin
       alpha:= item.Color.W;
-      item.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+      if (item.Tag = 1) then
+        item.Color:= Vector4(FActorsLogic.CharasColor, alpha);
   end;
 end;
 
