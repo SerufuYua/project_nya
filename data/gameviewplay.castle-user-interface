@@ -89,14 +89,15 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.4150449037551880E+000,
-          "X" : 6.1321073770523071E-001,
-          "Y" : -7.0014494657516479E-001,
-          "Z" : 3.6574548482894897E-001
+          "W" : 1.4384580850601196E+000,
+          "X" : 6.3094109296798706E-001,
+          "Y" : -6.7961460351943970E-001,
+          "Z" : 3.7421557307243347E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.0000001192092896E+000
+          "X" : 9.9999994039535522E-001,
+          "Y" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
@@ -126,44 +127,10 @@
       "Name" : "FadeEffect"
     },
     {
-      "$$ClassName" : "TCastleImageControl",
-      "Content" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Blue" : 9.5686274766921997E-001,
-          "Green" : 4.6666666865348816E-001
-        },
-        "Url" : "castle-data:/effects/play_state/splash_gradient.png"
-      },
-      "HeightFraction" : 3.0000001192092896E-001,
-      "HorizontalAnchorParent" : "hpMiddle",
-      "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "PleasureEffect",
-      "Stretch" : true,
-      "WidthFraction" : 1.0000000000000000E+000
-    },
-    {
-      "$$ClassName" : "TCastleImageControl",
-      "Content" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Blue" : 5.8039218187332153E-001,
-          "Green" : 0.0000000000000000E+000,
-          "Red" : 2.3921568691730499E-001
-        },
-        "FlipVertical" : true,
-        "Url" : "castle-data:/effects/play_state/splash_gradient.png"
-      },
-      "HeightFraction" : 3.0000001192092896E-001,
-      "HorizontalAnchorParent" : "hpMiddle",
-      "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "TensionEffect",
-      "Stretch" : true,
-      "VerticalAnchorParent" : "vpTop",
-      "VerticalAnchorSelf" : "vpTop",
-      "WidthFraction" : 1.0000000000000000E+000
+      "$$ClassName" : "TCastleDesign",
+      "FullSize" : true,
+      "Name" : "PleasureTensionEffect",
+      "Url" : "castle-data:/PleasureTensionEffect.castle-user-interface"
     },
     {
       "$$ClassName" : "TCastleImageControl",
@@ -335,7 +302,7 @@
                       "Name" : "BtnNext",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.7000007629394531E+001
+                        "X" : 9.6999992370605469E+001
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -499,7 +466,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -6.2000000000000000E+001
+                            "Y" : -6.2000003814697266E+001
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -561,7 +528,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -1.1400000000000000E+002
+                            "Y" : -1.1400000762939453E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -1166,7 +1133,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000000000000000E+001
+                        "Y" : -5.2000003814697266E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
