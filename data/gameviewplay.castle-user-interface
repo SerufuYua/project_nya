@@ -121,6 +121,11 @@
       }
     },
     {
+      "$$ClassName" : "TMyFadeEffect",
+      "FullSize" : true,
+      "Name" : "FadeEffect"
+    },
+    {
       "$$ClassName" : "TCastleImageControl",
       "AutoSizeToChildren" : true,
       "Content" : {
@@ -453,7 +458,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -6.2000000000000000E+001
+                            "Y" : -6.2000003814697266E+001
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -515,7 +520,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -1.1400000000000000E+002
+                            "Y" : -1.1400000762939453E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -1118,7 +1123,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000000000000000E+001
+                        "Y" : -5.2000003814697266E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
@@ -1173,15 +1178,6 @@
       },
       "VerticalAnchorParent" : "vpMiddle",
       "VerticalAnchorSelf" : "vpMiddle"
-    },
-    {
-      "$$ClassName" : "TCastleImageControl",
-      "Content" : {
-        "$$ClassName" : "TCastleImagePersistent"
-      },
-      "Exists" : false,
-      "FullSize" : true,
-      "Name" : "ImageScreen"
     }
   ]
 }

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
-  FadeInOut, ActorChara,
+  ActorChara,
   MyThirdPersonCameraNavigation, MySpectatorCameraNavigation,
   MyThirdPersonCharaNavigation, MySwitch;
 

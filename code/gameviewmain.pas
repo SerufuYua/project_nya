@@ -10,8 +10,8 @@ interface
 uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
-  CastleTransform, CastleQuaternions, CastleScene,
-  ActorChara, FadeInOut;
+  CastleTransform, CastleQuaternions, CastleScene, CastleFlashEffect,
+  ActorChara;
 
 type
   { Main view, where most of the application logic takes place. }
@@ -26,7 +26,7 @@ type
     LabelInfo1: TCastleLabel;
     LabelInfo2: TCastleLabel;
     CameraMain: TCastleCamera;
-    ScreenRectangle: TCastleRectangleControl;
+    FlashEffect: TCastleFlashEffect;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -36,7 +36,6 @@ type
   private
     FActorGirl: TActorChara;
     FActorBoy: TActorChara;
-    FFader: TRectangleFader;
     FCurPos: TVector2;
     FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
@@ -76,9 +75,8 @@ begin
   BtnStart.OnClick:= {$ifdef FPC}@{$endif}ClickStart;
   BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClicSettings;
 
-  { set fade animator }
-  FFader:= TRectangleFader.Create(ScreenRectangle);
-  FFader.Fade(1.0, 0.0, 3.0);
+  { appear fade animator }
+  FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 0.9), True);
 
   { Create Girl Character instance }
   GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
@@ -113,7 +111,6 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
-  FFader.AnimateQuadFade(SecondsPassed);
   UpdateCamera(SecondsPassed);
 end;
 

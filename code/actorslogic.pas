@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, BaseActor, CastleSceneCore, CastleColors,
-  X3DNodes, FadeInOut, ActorChara;
+  X3DNodes, MyFadeEffect, ActorChara;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
@@ -19,7 +19,7 @@ type
     FAnimationPrefix: String;
     FActionNum: String;
     FStatus: TActorStatus;
-    FScreenFader: TImageFader;
+    FScreenFader: TMyFadeEffect;
     FPleasure: Single;
     FTension: Single;
     FSpeed: Single;
@@ -45,7 +45,7 @@ type
   public
     constructor Create(actorA, actorB: TBaseActor;
                        animationPrefix: String;
-                       screenFader: TImageFader);
+                       screenFader: TMyFadeEffect);
     procedure Update(const SecondsPassed: Single);
     procedure SetAction(num: Integer);
     procedure SetSpeed(value: Single);
@@ -79,7 +79,7 @@ const
 
 constructor TActorsLogic.Create(actorA, actorB: TBaseActor;
                                 animationPrefix: String;
-                                screenFader: TImageFader);
+                                screenFader: TMyFadeEffect);
 begin
   SetLength(FActors, 2);
   FActors[0]:= actorA;

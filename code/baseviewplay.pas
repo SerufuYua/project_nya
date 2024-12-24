@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
-  CastleColors, CastleKeysMouse, CastleTransform,
-  FadeInOut, ActorsLogic, BaseActor;
+  CastleColors, CastleKeysMouse, CastleTransform, MyFadeEffect,
+  ActorsLogic, BaseActor;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -26,7 +26,7 @@ type
     ImageControlDressing: TCastleImageControl;
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
-    ImageScreen: TCastleImageControl;
+    FadeEffect: TMyFadeEffect;
     Notifications: TCastleNotifications;
   public
     constructor Create(AOwner: TComponent); override;
@@ -39,7 +39,6 @@ type
     FActorB: TBaseActor;
     FAnimationPrefix: String;
     FActorsLogic: TActorsLogic;
-    FScreenFader: TImageFader;
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -82,13 +81,10 @@ begin
   BtnEmission.OnClick:= {$ifdef FPC}@{$endif}ChangedEmission;
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
 
-  { set fade animator }
-  FScreenFader:= TImageFader.Create(ImageScreen, Container);
-
   { Create Actors Logic }
   FActorsLogic:= TActorsLogic.Create(FActorA, FActorB,
                                      FAnimationPrefix,
-                                     FScreenFader);
+                                     FadeEffect);
   { set Camera }
   viewportMain:= DesignedComponent('ViewportMain') as TCastleViewport;
   cameraMain:= Map.DesignedComponent('CameraMain') as TCastleCamera;
@@ -130,9 +126,6 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
-  { update fader }
-  FScreenFader.AnimateQuadFade(SecondsPassed);
-
   { upade gauges }
   FActorsLogic.Update(SecondsPassed);
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
@@ -148,11 +141,6 @@ begin
   Result := inherited;
   if Result then Exit; // allow the ancestor to handle keys
 
-{  if Event.IsKey(keyP) then
-  begin
-    ScreenShot;
-    Exit(true);
-  end; }
 end;
 
 procedure TBaseViewPlay.ClickAction(Sender: TObject);
