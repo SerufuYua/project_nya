@@ -71,8 +71,69 @@
         "$Children" : [
           {
             "$$ClassName" : "TCastleParticleEmitter",
+            "Effect" : "DropsEffect",
+            "Name" : "DropsEmitter",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Y" : 1.2000000000000000E+001
+            },
+            "$NonVisualComponents" : [
+              {
+                "$$ClassName" : "TCastleParticleEffect",
+                "Anchors" : [
+                  {
+                    "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                    "Size" : 7.5000000000000000E-001,
+                    "TimeNormalized" : 5.0000000000000000E-001
+                  },
+                  {
+                    "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                    "Size" : 5.0000000000000000E-001,
+                    "TimeNormalized" : 7.5000000000000000E-001
+                  },
+                  {
+                    "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorPersistent",
+                      "Alpha" : 0.0000000000000000E+000
+                    },
+                    "Size" : 4.0000000596046448E-001
+                  }
+                ],
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000,
+                  "Blue" : 6.0000002384185791E-001,
+                  "Green" : 6.0000002384185791E-001,
+                  "Red" : 6.0000002384185791E-001
+                },
+                "GravityPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : -1.0000000000000000E+001
+                },
+                "LifeSpan" : 7.5000000000000000E-001,
+                "LifeSpanVariance" : 2.5000000000000000E-001,
+                "MaxParticles" : 50,
+                "Name" : "DropsEffect",
+                "Size" : 0.0000000000000000E+000,
+                "SourcePositionVariancePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.0000000000000000E+001,
+                  "Y" : 1.0000000000000000E+000,
+                  "Z" : 0.0000000000000000E+000
+                },
+                "Texture" : "castle-data:/effects/drop.png"
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleParticleEmitter",
             "Effect" : "HeartsEffect",
-            "Name" : "EffectsEmitter",
+            "Name" : "HeartsEmitter",
             "$NonVisualComponents" : [
               {
                 "$$ClassName" : "TCastleParticleEffect",
@@ -81,8 +142,8 @@
                     "$$ClassName" : "TCastleParticleEffectAnchorItem",
                     "ColorPersistent" : {
                       "$$ClassName" : "TCastleColorPersistent",
-                      "Blue" : 7.5686275959014893E-001,
-                      "Green" : 5.4117649793624878E-001
+                      "Blue" : 6.7058825492858887E-001,
+                      "Green" : 2.6274511218070984E-001
                     },
                     "TimeNormalized" : 1.5000000596046448E-001
                   },
@@ -112,15 +173,16 @@
                   "Blue" : 8.5882353782653809E-001,
                   "Green" : 5.0588238239288330E-001
                 },
+                "LifeSpan" : 7.5000000000000000E-001,
                 "MaxParticles" : 50,
                 "Name" : "HeartsEffect",
                 "SourcePositionVariancePersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : 1.0000000000000000E+001,
-                  "Y" : 0.0000000000000000E+000,
+                  "Y" : 5.0000000000000000E+000,
                   "Z" : 0.0000000000000000E+000
                 },
-                "Texture" : "castle-data:/effects/shine.png"
+                "Texture" : "castle-data:/effects/heart.png"
               }
             ]
           },
@@ -128,10 +190,22 @@
             "$$ClassName" : "TCastleCamera",
             "Name" : "EffectsCamera",
             "Orthographic" : {
-              "$$ClassName" : "TCastleOrthographic"
+              "$$ClassName" : "TCastleOrthographic",
+              "Height" : 1.5000000000000000E+001,
+              "OriginPersistent" : {
+                "$$ClassName" : "TCastleVector2Persistent",
+                "X" : 5.0000000000000000E-001,
+                "Y" : 5.0000000000000000E-001
+              },
+              "Width" : 1.5000000000000000E+001
             },
             "Perspective" : {
-              "$$ClassName" : "TCastlePerspective"
+              "$$ClassName" : "TCastlePerspective",
+              "FieldOfViewAxis" : "faVertical"
+            },
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
