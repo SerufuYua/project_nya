@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, MyFadeEffect,
-  ActorsLogic, BaseActor;
+  ActorsLogic, BaseActor, NyaPleasureTensionEffect;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -27,6 +27,7 @@ type
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
     FadeEffect: TMyFadeEffect;
+    PleasureTensionEffect: TNyaPleasureTensionEffect;
     Notifications: TCastleNotifications;
   public
     constructor Create(AOwner: TComponent); override;
@@ -126,10 +127,12 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
-  { upade gauges }
+  { upade pleasure/tension effects }
   FActorsLogic.Update(SecondsPassed);
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
+  PleasureTensionEffect.Pleasure:= FActorsLogic.Pleasure;
+  PleasureTensionEffect.Tension:= FActorsLogic.Tension;
 
   { Release Dressing Menu Buttons }
   if NOT (Container.FrontView = ViewDressingMenu) then

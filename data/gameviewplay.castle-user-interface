@@ -127,10 +127,14 @@
       "Name" : "FadeEffect"
     },
     {
-      "$$ClassName" : "TCastleDesign",
+      "$$ClassName" : "TNyaPleasureTensionEffect",
       "FullSize" : true,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
       "Name" : "PleasureTensionEffect",
-      "Url" : "castle-data:/PleasureTensionEffect.castle-user-interface"
+      "Url" : "castle-data:/PleasureTensionEffect.castle-user-interface",
+      "VerticalAnchorParent" : "vpMiddle",
+      "VerticalAnchorSelf" : "vpMiddle"
     },
     {
       "$$ClassName" : "TCastleImageControl",
@@ -302,7 +306,7 @@
                       "Name" : "BtnNext",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.6999992370605469E+001
+                        "X" : 9.7000015258789062E+001
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -546,6 +550,64 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "CustomFont" : "future_n0t_found",
+                  "Name" : "LabelSpeed",
+                  "Text" : [
+                    "Speed:"
+                  ],
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.5800000000000000E+002
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleFloatSlider",
+                  "Background" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 5.0000000000000000E+000,
+                      "Left" : 9.0000000000000000E+000,
+                      "Right" : 9.0000000000000000E+000,
+                      "Top" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/ui/scroll_light.png"
+                  },
+                  "CustomFont" : "future_n0t_found",
+                  "Height" : 3.2000000000000000E+001,
+                  "Max" : 3.0000000000000000E+000,
+                  "Min" : 2.5000000000000000E-001,
+                  "Name" : "FloatSliderSpeed",
+                  "TextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 9.4509804248809814E-001
+                  },
+                  "Thumb" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui/scroll_cursor.png"
+                  },
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.9000000000000000E+002
+                  },
+                  "Value" : 1.0000000000000000E+000,
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleLabel",
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "CustomFont" : "future_n0t_found",
                   "Name" : "LabelEmission",
                   "Text" : [
                     "Emission:"
@@ -553,7 +615,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.5800000000000000E+002
+                    "Y" : -3.3200000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -565,7 +627,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.9000000000000000E+002
+                    "Y" : -3.6400000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -661,64 +723,6 @@
                       "VerticalAnchorSelf" : "vpMiddle"
                     }
                   ]
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "CustomFont" : "future_n0t_found",
-                  "Name" : "LabelSpeed",
-                  "Text" : [
-                    "Speed:"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -3.4200000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleFloatSlider",
-                  "Background" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 9.0000000000000000E+000,
-                      "Right" : 9.0000000000000000E+000,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/scroll_light.png"
-                  },
-                  "CustomFont" : "future_n0t_found",
-                  "Height" : 3.2000000000000000E+001,
-                  "Max" : 3.0000000000000000E+000,
-                  "Min" : 2.5000000000000000E-001,
-                  "Name" : "FloatSliderSpeed",
-                  "TextColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 9.4509804248809814E-001
-                  },
-                  "Thumb" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "Url" : "castle-data:/ui/scroll_cursor.png"
-                  },
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -3.7400000000000000E+002
-                  },
-                  "Value" : 1.0000000000000000E+000,
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
                 },
                 {
                   "$$ClassName" : "TCastleLabel",

@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="25">
+    <Units Count="26">
       <Unit0>
         <Filename Value="prjF_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -189,6 +189,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MyFadeEffect"/>
       </Unit24>
+      <Unit25>
+        <Filename Value="code/nyapleasuretensioneffect.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaPleasureTensionEffect"/>
+      </Unit25>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

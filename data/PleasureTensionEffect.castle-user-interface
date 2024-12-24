@@ -19,7 +19,7 @@
       "HeightFraction" : 3.0000001192092896E-001,
       "HorizontalAnchorParent" : "hpMiddle",
       "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "TensionEffect",
+      "Name" : "TensionFlash",
       "Stretch" : true,
       "VerticalAnchorParent" : "vpTop",
       "VerticalAnchorSelf" : "vpTop",
@@ -39,7 +39,7 @@
       "HeightFraction" : 3.0000001192092896E-001,
       "HorizontalAnchorParent" : "hpMiddle",
       "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "PleasureEffect",
+      "Name" : "PleasureFlash",
       "Stretch" : true,
       "WidthFraction" : 1.0000000000000000E+000
     },
@@ -145,7 +145,7 @@
                       "Blue" : 6.7058825492858887E-001,
                       "Green" : 2.6274511218070984E-001
                     },
-                    "TimeNormalized" : 1.5000000596046448E-001
+                    "TimeNormalized" : 5.0000000745058060E-002
                   },
                   {
                     "$$ClassName" : "TCastleParticleEffectAnchorItem",
@@ -154,7 +154,7 @@
                       "Blue" : 7.0588237047195435E-001,
                       "Green" : 5.1372551918029785E-001
                     },
-                    "TimeNormalized" : 7.5000000000000000E-001
+                    "TimeNormalized" : 4.0000000596046448E-001
                   },
                   {
                     "$$ClassName" : "TCastleParticleEffectAnchorItem",
@@ -173,15 +173,17 @@
                   "Blue" : 8.5882353782653809E-001,
                   "Green" : 5.0588238239288330E-001
                 },
-                "LifeSpan" : 7.5000000000000000E-001,
+                "LifeSpan" : 2.0000000000000000E+000,
                 "MaxParticles" : 50,
                 "Name" : "HeartsEffect",
                 "SourcePositionVariancePersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : 1.0000000000000000E+001,
-                  "Y" : 5.0000000000000000E+000,
-                  "Z" : 0.0000000000000000E+000
+                  "Y" : 1.0000000000000000E+000,
+                  "Z" : 5.0000000000000000E+000
                 },
+                "Speed" : 1.0000000000000000E+000,
+                "SpeedVariance" : 5.0000000000000000E-001,
                 "Texture" : "castle-data:/effects/heart.png"
               }
             ]
