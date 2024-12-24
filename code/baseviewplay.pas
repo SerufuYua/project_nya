@@ -131,7 +131,7 @@ begin
   FActorsLogic.Update(SecondsPassed);
   FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
   FloatSliderTension.Value:= FActorsLogic.Tension;
-  PleasureTensionEffect.Pleasure:= FActorsLogic.Pleasure;
+  PleasureTensionEffect.Pleasure:= FActorsLogic.Pleasure / FActorsLogic.DefaultThresholdFastGo;
   PleasureTensionEffect.Tension:= FActorsLogic.Tension;
 
   { Release Dressing Menu Buttons }
@@ -311,7 +311,7 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then Exit;
 
-  FActorsLogic.SetSpeed(slider.Value);
+  FActorsLogic.Speed:= slider.Value;
 end;
 
 procedure TBaseViewPlay.SetUIColor;

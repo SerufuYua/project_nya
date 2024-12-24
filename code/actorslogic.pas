@@ -23,6 +23,8 @@ type
     FPleasure: Single;
     FTension: Single;
     FSpeed: Single;
+    FThresholdFastGo: Single;
+    FThresholdFinish: Single;
     FEnableStopAction: Boolean;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean; footDress: boolean);
@@ -42,13 +44,18 @@ type
     procedure SetTension(value: Single);
     function GetCharas: TCharasList;
     function GetColor: TCastleColorRGB;
+    procedure SetSpeed(value: Single);
   public
+    const
+      DefaultSpeed = 1.0;
+      DefaultThresholdFastGo = 0.6;
+      DefaultThresholdFinish = 0.95;
+
     constructor Create(actorA, actorB: TBaseActor;
                        animationPrefix: String;
                        screenFader: TMyFadeEffect);
     procedure Update(const SecondsPassed: Single);
     procedure SetAction(num: Integer);
-    procedure SetSpeed(value: Single);
     procedure Pause;
     procedure Stop;
     procedure NextPart;
@@ -56,6 +63,9 @@ type
     property Tension: Single read FTension write SetTension;
     property Charas: TCharasList read GetCharas;
     property CharasColor: TCastleColorRGB read GetColor;
+    property Speed: Single read FSpeed write SetSpeed;
+    property ThresholdFastGo: Single read FThresholdFastGo write FThresholdFastGo;
+    property ThresholdFinish: Single read FThresholdFinish write FThresholdFinish;
   end;
 
 implementation
@@ -90,7 +100,9 @@ begin
   FPleasure:= 0.0;
   FTension:= 0.0;
   FEnableStopAction:= False;
-  FSpeed:= 1.0;
+  FSpeed:= DefaultSpeed;
+  FThresholdFastGo:= DefaultThresholdFastGo;
+  FThresholdFinish:= DefaultThresholdFinish;
 end;
 
 procedure TActorsLogic.Update(const SecondsPassed: Single);
@@ -109,18 +121,18 @@ begin
     begin
       Pleasure:= Pleasure + FSpeed * ActionCoeff * SecondsPassed;
       Tension:= Tension + 0.5 *  FSpeed *  FSpeed * ActionCoeff * SecondsPassed;
-      if ((Pleasure > 0.6) AND (Tension < 0.95)) then
+      if ((Pleasure > FThresholdFastGo) AND (Tension < 0.95)) then
         ActionFastGo
-      else if (Pleasure > 0.95) then
+      else if (Pleasure > FThresholdFinish) then
         ActionFinish;
     end;
   TActorStatus.FastGo:
     begin
       Pleasure:= Pleasure + 3.0 *  FSpeed * ActionCoeff * SecondsPassed;
       Tension:= Tension + 4.0 *  FSpeed *  FSpeed * ActionCoeff * SecondsPassed;
-      if (Tension > 0.95) then
+      if (Tension > FThresholdFinish) then
         ActionGo
-      else if (Pleasure > 0.95) then
+      else if (Pleasure > FThresholdFinish) then
         ActionFinish;
     end;
 //  TActorStatus.Finish:
