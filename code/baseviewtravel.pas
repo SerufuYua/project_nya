@@ -10,7 +10,7 @@ uses
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   ActorChara,
   MyThirdPersonCameraNavigation, MySpectatorCameraNavigation,
-  MyThirdPersonCharaNavigation, NyaSwitch;
+  NyaThirdPersonCharaNavigation, NyaSwitch;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -20,7 +20,7 @@ type
     BtnBack: TCastleButton;
     CameraNavigationSpectator: TMySpectatorCameraNavigation;
     CameraNavigationFollow: TMyThirdPersonCameraNavigation;
-    CharaNavigation: TMyThirdPersonCharaNavigation;
+    CharaNavigation: TNyaThirdPersonCharaNavigation;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
     Notifications: TCastleNotifications;
@@ -47,7 +47,7 @@ type
     procedure SetSwitches;
     procedure SaveCharasCondition;
     procedure NavigationSetAnimation(
-      const Sender: TMyThirdPersonCharaNavigation;
+      const Sender: TNyaThirdPersonCharaNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
   end;
 
@@ -299,7 +299,7 @@ begin
 end;
 
 procedure TBaseViewPlay.NavigationSetAnimation(
-                        const Sender: TMyThirdPersonCharaNavigation;
+                        const Sender: TNyaThirdPersonCharaNavigation;
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
   FActorMain.AutoAnimation:= AnimationName;

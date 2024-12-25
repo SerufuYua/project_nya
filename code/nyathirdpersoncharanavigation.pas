@@ -1,4 +1,4 @@
-unit MyThirdPersonCharaNavigation;
+unit NyaThirdPersonCharaNavigation;
 
 {$mode ObjFPC}{$H+}
 {$WARN 6058 off : Call to subroutine "$1" marked as inline is not inlined}
@@ -9,13 +9,13 @@ uses
   CastleInputs, CastleVectors, NyaMath;
 
 type
-  TMyThirdPersonCharaNavigation = class;
+  TNyaThirdPersonCharaNavigation = class;
 
-  TMyThirdPersonCharaNavigationAnimationEvent = procedure (
-    const Sender: TMyThirdPersonCharaNavigation;
+  TNyaThirdPersonCharaNavigationAnimationEvent = procedure (
+    const Sender: TNyaThirdPersonCharaNavigation;
     const AnimationName: String; AnimtionSpeed: Single) of object;
 
-  TMyThirdPersonCharaNavigation = class(TCastleNavigation)
+  TNyaThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
     FRunFlag: Boolean; { True - Run; False - Walk }
     FVelocityNoiseSuppressor: TNoiseSuppressor;
@@ -40,7 +40,7 @@ type
     FInput_Rightward: TInputShortcut;
     FInput_FastMove: TInputShortcut;
     FInput_Jump: TInputShortcut;
-    FOnAnimation: TMyThirdPersonCharaNavigationAnimationEvent;
+    FOnAnimation: TNyaThirdPersonCharaNavigationAnimationEvent;
     FAvatarHierarchy: TCastleTransform;
     FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
@@ -114,7 +114,7 @@ type
     property AnimationRun: String read FAnimationRun write FAnimationRun
              stored AnimationRunStored nodefault;
 
-    property OnAnimation: TMyThirdPersonCharaNavigationAnimationEvent
+    property OnAnimation: TNyaThirdPersonCharaNavigationAnimationEvent
       read FOnAnimation write FOnAnimation;
   end;
 
@@ -124,7 +124,7 @@ uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
   CastleBoxes, NyaVectorMath;
 
-constructor TMyThirdPersonCharaNavigation.Create(AOwner: TComponent);
+constructor TNyaThirdPersonCharaNavigation.Create(AOwner: TComponent);
 begin
   inherited;
 
@@ -182,13 +182,13 @@ begin
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
 end;
 
-destructor TMyThirdPersonCharaNavigation.Destroy;
+destructor TNyaThirdPersonCharaNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
   inherited;
 end;
 
-procedure TMyThirdPersonCharaNavigation.Update(const SecondsPassed: Single;
+procedure TNyaThirdPersonCharaNavigation.Update(const SecondsPassed: Single;
                                                var HandleInput: Boolean);
 var
   OnGround: Boolean;
@@ -206,7 +206,7 @@ begin
   Animate(SecondsPassed, OnGround);
 end;
 
-procedure TMyThirdPersonCharaNavigation.CalcLookTargetDir;
+procedure TNyaThirdPersonCharaNavigation.CalcLookTargetDir;
 var
   AvaVerticalDir, ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
 begin
@@ -234,7 +234,7 @@ begin
     FLookTargetDir:= FLookTargetDir.Normalize;
 end;
 
-procedure TMyThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
+procedure TNyaThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
 var
   TurnVec, AngularVelocity: TVector3;
   RBody: TCastleRigidBody;
@@ -259,7 +259,7 @@ begin
   RBody.AngularVelocity:= AngularVelocity;
 end;
 
-procedure TMyThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single;
+procedure TNyaThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single;
                                                   out OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
@@ -304,7 +304,7 @@ begin
   RBody.AddForce(-Camera.GravityUp * ForceOfGravity, False);
 end;
 
-function TMyThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;
+function TNyaThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;
                                                   CBody: TCastleCollider): Boolean;
 var
   GroundRayCast: TPhysicsRayCastResult;
@@ -352,7 +352,7 @@ begin
   Result:= False;
 end;
 
-procedure TMyThirdPersonCharaNavigation.Animate(const SecondsPassed: Single;
+procedure TNyaThirdPersonCharaNavigation.Animate(const SecondsPassed: Single;
                                                 const OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
@@ -402,7 +402,7 @@ begin
 
 end;
 
-function TMyThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
+function TNyaThirdPersonCharaNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfWalkAnimation', 'SpeedOfRun',
@@ -416,13 +416,13 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TMyThirdPersonCharaNavigation.AvatarHierarchyFreeNotification(
+procedure TNyaThirdPersonCharaNavigation.AvatarHierarchyFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   AvatarHierarchy:= nil;
 end;
 
-procedure TMyThirdPersonCharaNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
+procedure TNyaThirdPersonCharaNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
 begin
   if (FAvatarHierarchy <> Value) then
   begin
@@ -431,22 +431,22 @@ begin
   end;
 end;
 
-function TMyThirdPersonCharaNavigation.AnimationStandStored: Boolean;
+function TNyaThirdPersonCharaNavigation.AnimationStandStored: Boolean;
 begin
   Result:= FAnimationStand <> DefaultAnimationStand;
 end;
 
-function TMyThirdPersonCharaNavigation.AnimationWalkStored: Boolean;
+function TNyaThirdPersonCharaNavigation.AnimationWalkStored: Boolean;
 begin
   Result:= FAnimationWalk <> DefaultAnimationWalk;
 end;
 
-function TMyThirdPersonCharaNavigation.AnimationRunStored: Boolean;
+function TNyaThirdPersonCharaNavigation.AnimationRunStored: Boolean;
 begin
   Result:= FAnimationRun <> DefaultAnimationRun;
 end;
 
 initialization
-  RegisterSerializableComponent(TMyThirdPersonCharaNavigation, ['Navigation', 'My-Third-Person-Chara']);
+  RegisterSerializableComponent(TNyaThirdPersonCharaNavigation, ['Navigation', 'My-Third-Person-Chara']);
 end.
 

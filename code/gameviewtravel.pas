@@ -4,9 +4,8 @@ interface
 
 uses Classes, BaseViewTravel,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform, CastleNotifications, ActorChara, CastleDebugTransform,
-  MyThirdPersonCameraNavigation, MySpectatorCameraNavigation,
-  MyThirdPersonCharaNavigation, NyaSwitch;
+  CastleTransform, ActorChara,
+  NyaSwitch;
 
 type
   TViewTravel = class(TBaseViewPlay)
