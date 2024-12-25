@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, Generics.Collections,
-  CastleVectors, CastleTransform, CastleScene, MyCastleUtils, CastleColors,
+  CastleVectors, CastleTransform, CastleScene, NyaCastleUtils, CastleColors,
   CastleSceneCore,
   CharaDress, BaseActor,
   CastleParticleEmitter;

@@ -5,7 +5,7 @@ unit CharaDress;
 interface
 
 uses
-  Classes, SysUtils, CastleTransform, CastleScene, MyCastleUtils;
+  Classes, SysUtils, CastleTransform, CastleScene, NyaCastleUtils;
 
 type
   TSuits = (All, Top, Bottom, Foots, Arms);

@@ -122,7 +122,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, MyVectorMath;
+  CastleBoxes, NyaVectorMath;
 
 constructor TMyThirdPersonCharaNavigation.Create(AOwner: TComponent);
 begin

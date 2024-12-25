@@ -1,4 +1,4 @@
-unit MyCastleUtils;
+unit NyaCastleUtils;
 
 {$mode ObjFPC}{$H+}
 

@@ -38,7 +38,7 @@ var
 
 implementation
 
-uses CastleScene, CastleComponentSerialize, CastleFonts, MyCastleUtils,
+uses CastleScene, CastleComponentSerialize, CastleFonts, NyaCastleUtils,
   SysUtils;
 
 constructor TViewDressingMenu.Create(AOwner: TComponent);

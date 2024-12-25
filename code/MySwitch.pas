@@ -92,7 +92,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleBoxes, CastleVectors, Math,
-  MyVectorMath
+  NyaVectorMath
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, ComponentEditors, CastlePropEdits
   {$endif};

@@ -49,7 +49,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, Math, CastleQuaternions,
-  CastleVectorsInternalSingle, MyVectorMath;
+  CastleVectorsInternalSingle, NyaVectorMath;
 
 constructor TMySpectatorCameraNavigation.Create(AOwner: TComponent);
 begin

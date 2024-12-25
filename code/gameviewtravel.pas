@@ -24,7 +24,7 @@ implementation
 
 uses
   GameViewPlayGirl, GameViewPlayTogether, GameViewMain,
-  CastleViewport, CastleScene, MyCastleUtils, CastleComponentSerialize,
+  CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
   CastleFonts, SysUtils, GameViewDressingMenu;
 
 procedure TViewTravel.Start;

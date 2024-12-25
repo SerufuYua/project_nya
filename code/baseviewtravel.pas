@@ -57,7 +57,7 @@ implementation
 uses
   GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
-  StrUtils, MyCastleUtils;
+  StrUtils, NyaCastleUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin

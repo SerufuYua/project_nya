@@ -70,7 +70,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, Math, CastleQuaternions,
-  CastleVectorsInternalSingle, MyVectorMath;
+  CastleVectorsInternalSingle, NyaVectorMath;
 
 constructor TMyThirdPersonCameraNavigation.Create(AOwner: TComponent);
 begin
