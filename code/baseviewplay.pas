@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, NyaFadeEffect,
-  ActorsLogic, BaseActor, NyaPleasureTensionEffect;
+  ActorsLogic, NyaBaseActor, NyaPleasureTensionEffect;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -36,8 +36,8 @@ type
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   protected
-    FActorA: TBaseActor;
-    FActorB: TBaseActor;
+    FActorA: TNyaBaseActor;
+    FActorB: TNyaBaseActor;
     FAnimationPrefix: String;
     FActorsLogic: TActorsLogic;
     procedure ClickAction(Sender: TObject);

@@ -79,12 +79,12 @@ begin
   FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 0.9), True);
 
   { Create Girl Character instance }
-  GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorGirl:= TActorChara.Create(GirlScene, 'Girl');
+{  GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
+  FActorGirl:= TActorChara.Create(GirlScene, 'Girl');}
 
   { Create Boy Character instance }
-  BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FActorBoy:= TActorChara.Create(BoyScene, 'Boy');
+{  BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
+  FActorBoy:= TActorChara.Create(BoyScene, 'Boy');}
 
   { set character self emission }
   FActorGirl.SelfEmission:= 0.15;

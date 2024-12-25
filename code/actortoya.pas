@@ -7,15 +7,14 @@ interface
 uses
   Classes, Generics.Collections,
   CastleSceneCore,
-  CastleVectors, CastleTransform, CastleScene, BaseActor, CharaDress,
+  CastleVectors, CastleTransform, CastleScene, NyaBaseActor, CharaDress,
   StrUtils;
 
 type
-  TActorToyA = class(TBaseActor)
+  TActorToyA = class(TNyaBaseActor)
   protected
     function GetCurrentTool(): TCastleScene;
   public
-    procedure Update(const SecondsPassed: Single); override;
     procedure PauseAnimation; override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
@@ -28,11 +27,6 @@ implementation
 
 uses
   CastleComponentSerialize;
-
-procedure TActorToyA.Update(const SecondsPassed: Single);
-begin
-
-end;
 
 procedure TActorToyA.PauseAnimation;
 begin
@@ -59,14 +53,14 @@ end;
 
 function TActorToyA.GetCurrentTool(): TCastleScene;
 begin
-  Result:= ActorRoot.DesignedComponent('ToyA') as TCastleScene;
+  Result:= DesignedComponent('ToyA') as TCastleScene;
 end;
 
 procedure TActorToyA.UseRailing(enable: Boolean);
 var
   railing: TCastleScene;
 begin
-  railing:= ActorRoot.DesignedComponent('Railing') as TCastleScene;
+  railing:= DesignedComponent('Railing') as TCastleScene;
 
   if enable then
   begin

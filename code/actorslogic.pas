@@ -5,13 +5,13 @@ unit ActorsLogic;
 interface
 
 uses
-  Classes, SysUtils, BaseActor, CastleSceneCore, CastleColors,
+  Classes, SysUtils, NyaBaseActor, CastleSceneCore, CastleColors,
   X3DNodes, NyaFadeEffect, ActorChara;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
 
-  TActorsList = Array of TBaseActor;
+  TActorsList = Array of TNyaBaseActor;
 
   TActorsLogic = class
   protected
@@ -51,7 +51,7 @@ type
       DefaultThresholdFastGo = 0.6;
       DefaultThresholdFinish = 0.95;
 
-    constructor Create(actorA, actorB: TBaseActor;
+    constructor Create(actorA, actorB: TNyaBaseActor;
                        animationPrefix: String;
                        screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
@@ -87,7 +87,7 @@ const
   WithoutPants = 'condom';
   BareFoots = 'none';
 
-constructor TActorsLogic.Create(actorA, actorB: TBaseActor;
+constructor TActorsLogic.Create(actorA, actorB: TNyaBaseActor;
                                 animationPrefix: String;
                                 screenFader: TNyaFadeEffect);
 begin
@@ -107,7 +107,7 @@ end;
 
 procedure TActorsLogic.Update(const SecondsPassed: Single);
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
 begin
   { Update Pleasure/Tension Statuses }
   Case FStatus of
@@ -148,7 +148,6 @@ begin
   begin
     actor.Pleasure:= Pleasure;
     actor.Tension:= Tension;
-    actor.Update(SecondsPassed);
   end;
 end;
 
@@ -161,16 +160,16 @@ end;
 
 procedure TActorsLogic.SetSpeed(value: Single);
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
 begin
   FSpeed:= value;
   for actor in FActors do
-    actor.SetSpeed(value);
+    actor.Speed:= value;
 end;
 
 procedure TActorsLogic.Pause;
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
 begin
   for actor in FActors do
     actor.PauseAnimation;
@@ -178,7 +177,7 @@ end;
 
 procedure TActorsLogic.Stop;
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
 begin
   for actor in FActors do
     actor.StopAnimation(True);
@@ -201,7 +200,7 @@ procedure TActorsLogic.PlayAnimation(const animationName: String;
                                     loop, bottomDress: boolean;
                                     footDress: boolean);
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
   chara: TActorChara;
   dresser: TCharaDresser;
 begin
@@ -229,7 +228,7 @@ procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
                                      bottomDress: boolean;
                                      footDress: boolean);
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
   chara: TActorChara;
   dresser: TCharaDresser;
 begin
@@ -345,7 +344,7 @@ end;
 
 function TActorsLogic.GetCharas: TCharasList;
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
   chara: TActorChara;
 begin
   Result:= [];
@@ -360,7 +359,7 @@ end;
 
 function TActorsLogic.GetColor: TCastleColorRGB;
 var
-  actor: TBaseActor;
+  actor: TNyaBaseActor;
   chara: TActorChara;
   averColor: TCastleColorRGB;
   count: Integer;

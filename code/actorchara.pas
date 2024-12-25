@@ -8,11 +8,11 @@ uses
   Classes, Generics.Collections,
   CastleVectors, CastleTransform, CastleScene, NyaCastleUtils, CastleColors,
   CastleSceneCore,
-  CharaDress, BaseActor,
+  CharaDress, NyaBaseActor,
   CastleParticleEmitter;
 
 type
-  TActorChara = class(TBaseActor)
+  TActorChara = class(TNyaBaseActor)
   protected
     FDresser: TCharaDresser;
     FDresseSaver: TDressSaver;
@@ -33,9 +33,9 @@ type
     procedure SetSweating(value: Single);
     function GetColor: TCastleColorRGB;
   public
-    constructor Create(caharRoot: TCastleTransformDesign; charaName: String); override;
+    constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure Update(const SecondsPassed: Single); override;
+    procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure SaveCondition;
     procedure PauseAnimation; override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
@@ -44,8 +44,6 @@ type
     procedure SetSpeed(value: Single); override;
     function GetDresser(): TCharaDresser;
     property AutoAnimation: String read GetAutoAnimation write SetAutoAnimation;
-    property Translation: TVector3 read GetTrans write SetTrans;
-    property Rotation: TVector4 read GetRot write SetRot;
     property Lightning: Boolean read GetLightning write SetLightning;
     property SelfEmission: Single write SetSelfEmission;
     property PersonalColor: TCastleColorRGB read GetColor;
@@ -58,14 +56,14 @@ implementation
 uses
   SysUtils, CastleComponentSerialize, X3DTime, X3DNodes;
 
-constructor TActorChara.Create(caharRoot: TCastleTransformDesign; charaName: String);
+constructor TActorChara.Create(AOwner: TComponent);
 var
   charaBody, charaHead: TCastleScene;
 begin
-  inherited Create(caharRoot, charaName);
+  inherited;
 
   { juices setting }
-  FControlJizz:= ActorRoot.DesignedComponent('Control_Jizz', False)
+{  FControlJizz:= ActorRoot.DesignedComponent('Control_Jizz', False)
                  as TCastleTransform;
   FEmitterJizz:= ActorRoot.DesignedComponent('EmitterJizz', False)
                  as TCastleParticleEmitter;
@@ -79,10 +77,10 @@ begin
                  as TCastleParticleEffect;
 
   charaBody:= ActorRoot.DesignedComponent('Body') as TCastleScene;
-  charaHead:= ActorRoot.DesignedComponent('SceneHead') as TCastleScene;
+  charaHead:= ActorRoot.DesignedComponent('SceneHead') as TCastleScene;}
 
   { create dresser }
-  FDresser:= TCharaDresser.Create(ActorRoot);
+  FDresser:= TCharaDresser.Create(self);
   FDresseSaver:= TDressSaver.Create(FDresser, ActorName);
 
   { set Anisotropic Filtering for character }
@@ -99,11 +97,8 @@ begin
   inherited;
 end;
 
-procedure TActorChara.Update(const SecondsPassed: Single);
+procedure TActorChara.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
 begin
-  if (Assigned(FControlJizz) AND Assigned(FEmitterJizz)) then
-    FEmitterJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
-
   SetDripping(Pleasure);
   SetSweating(Tension);
 end;
@@ -149,7 +144,7 @@ procedure TActorChara.SetLightning(enable: Boolean);
 var
   item: TCastleScene;
 begin
-  for item in GetAllScenes(ActorRoot) do
+  for item in GetAllScenes(self) do
   begin
     item.RenderOptions.Lighting:= enable;
   end;
@@ -159,7 +154,7 @@ procedure TActorChara.SetSelfEmission(value: Single);
 var
   item: TCastleScene;
 begin
-  for item in GetAllScenes(ActorRoot) do
+  for item in GetAllScenes(self) do
   begin
     SetEmission(item, value, value, value, True);
   end;
@@ -198,7 +193,7 @@ function TActorChara.GetColor: TCastleColorRGB;
 var
   imageColor: TCastleImageTransform;
 begin
-  imageColor:= ActorRoot.DesignedComponent('PersonalColor', False) as TCastleImageTransform;
+  imageColor:= DesignedComponent('PersonalColor', False) as TCastleImageTransform;
 
   if Assigned(imageColor) then
     Result:= imageColor.Color.RGB
@@ -254,7 +249,7 @@ end;
 
 function TActorChara.GetMainBody(): TCastleScene;
 begin
-  Result:= ActorRoot.DesignedComponent('Body', False) as TCastleScene;
+  Result:= DesignedComponent('Body', False) as TCastleScene;
 end;
 
 function TActorChara.GetActorsList(): TCastleScenes;
@@ -263,9 +258,9 @@ var
 begin
   SetLength(actors, 4);
   actors[0]:= GetMainBody();
-  actors[1]:= ActorRoot.DesignedComponent('SceneHead', False) as TCastleScene;
-  actors[2]:= ActorRoot.DesignedComponent('SceneHair', False) as TCastleScene;
-  actors[3]:= ActorRoot.DesignedComponent('Controller', False) as TCastleScene;
+  actors[1]:= DesignedComponent('SceneHead', False) as TCastleScene;
+  actors[2]:= DesignedComponent('SceneHair', False) as TCastleScene;
+  actors[3]:= DesignedComponent('Controller', False) as TCastleScene;
 
   Result:= actors;
 end;

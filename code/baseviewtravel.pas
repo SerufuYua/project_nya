@@ -79,13 +79,13 @@ begin
   FGetToGo:= nil;
 
   { set Navigation }
-  CharaNavigation.AvatarHierarchy:= FActorMain.ActorRoot;
-  CameraNavigationSpectator.AvatarHierarchy:= FActorMain.ActorRoot;
-  CameraNavigationFollow.AvatarHierarchy:= FActorMain.ActorRoot;
+  CharaNavigation.AvatarHierarchy:= FActorMain;
+  CameraNavigationSpectator.AvatarHierarchy:= FActorMain;
+  CameraNavigationFollow.AvatarHierarchy:= FActorMain;
 
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
-  FDebugAvatar.Parent:= FActorMain.ActorRoot;
+  FDebugAvatar.Parent:= FActorMain;
   FDebugAvatar.Exists:= False;
 
   { set cahara animation event }

@@ -27,12 +27,12 @@ begin
   Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-transform';
 
   { Create Girl Character instance }
-  actorScene:= Map.DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorA:= TActorChara.Create(actorScene, 'Girl');
+{  actorScene:= Map.DesignedComponent('CharaGirl') as TCastleTransformDesign;
+  FActorA:= TActorChara.Create(actorScene, 'Girl');}
 
   { Create Toys instance }
-  actorScene:= Map.DesignedComponent('ToyA') as TCastleTransformDesign;
-  FActorB:= TActorToyA.Create(actorScene, 'ToyA');
+{  actorScene:= Map.DesignedComponent('ToyA') as TCastleTransformDesign;
+  FActorB:= TActorToyA.Create(actorScene, 'ToyA');}
 
   { set animation name prefix }
   FAnimationPrefix:= 'GAME.GIRL_TOYA.PLAY';
