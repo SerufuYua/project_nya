@@ -1,4 +1,4 @@
-unit MyThirdPersonCameraNavigation;
+unit NyaThirdPersonCameraNavigation;
 
 {$mode ObjFPC}{$H+}
 {$WARN 6058 off : Call to subroutine "$1" marked as inline is not inlined}
@@ -9,7 +9,7 @@ uses
   CastleVectors, CastleInputs, CastleKeysMouse;
 
 type
-  TMyThirdPersonCameraNavigation = class(TCastleMouseLookNavigation)
+  TNyaThirdPersonCameraNavigation = class(TCastleMouseLookNavigation)
   protected
     FDistanceToAvatarTarget: Single;
     FDistanceToAvatarTargetMin: Single;
@@ -72,7 +72,7 @@ uses
   CastleComponentSerialize, CastleUtils, Math, CastleQuaternions,
   CastleVectorsInternalSingle, NyaVectorMath;
 
-constructor TMyThirdPersonCameraNavigation.Create(AOwner: TComponent);
+constructor TNyaThirdPersonCameraNavigation.Create(AOwner: TComponent);
 begin
   inherited;
 
@@ -107,14 +107,14 @@ begin
   FAvatarTargetPersistent.InternalDefaultValue:= DefaultAvatarTarget; // current value is default
 end;
 
-destructor TMyThirdPersonCameraNavigation.Destroy;
+destructor TNyaThirdPersonCameraNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
   FreeAndNil(FAvatarTargetPersistent);
   inherited;
 end;
 
-procedure TMyThirdPersonCameraNavigation.Update(const SecondsPassed: Single;
+procedure TNyaThirdPersonCameraNavigation.Update(const SecondsPassed: Single;
                  var HandleInput: Boolean);
 begin
   inherited;
@@ -123,7 +123,7 @@ begin
   UpdateCamera(SecondsPassed);
 end;
 
-procedure TMyThirdPersonCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
+procedure TNyaThirdPersonCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
 begin
   if (FAvatarHierarchy <> Value) then
   begin
@@ -132,7 +132,7 @@ begin
   end;
 end;
 
-function TMyThirdPersonCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
+function TNyaThirdPersonCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'AvatarTargetPersistent',
@@ -144,7 +144,7 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TMyThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
+procedure TNyaThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
 var
   TargetWorldPos: TVector3;
 begin
@@ -156,7 +156,7 @@ begin
   AUp:= Camera.GravityUp;
 end;
 
-procedure TMyThirdPersonCameraNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
+procedure TNyaThirdPersonCameraNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
 var
   TargetWorldPos: TVector3;
   CollisionDistance: Single;
@@ -178,7 +178,7 @@ begin
     CameraPos:= TargetWorldPos - CameraDir.AdjustToLength(CollisionDistance);
 end;
 
-procedure TMyThirdPersonCameraNavigation.UpdateCamera(const SecondsPassed: Single);
+procedure TNyaThirdPersonCameraNavigation.UpdateCamera(const SecondsPassed: Single);
 var
   CameraPos, CameraPosTarget, CameraDir, CameraUp: TVector3;
 begin
@@ -189,7 +189,7 @@ begin
   Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
-procedure TMyThirdPersonCameraNavigation.ProcessMouseLookDelta(const Delta: TVector2);
+procedure TNyaThirdPersonCameraNavigation.ProcessMouseLookDelta(const Delta: TVector2);
 var
   CameraPos, CameraDir, CameraUp: TVector3;
   VerticalDir, HorizontalDir: TVector3;
@@ -226,7 +226,7 @@ begin
   end;
 end;
 
-function TMyThirdPersonCameraNavigation.Zoom(const Factor: Single): Boolean;
+function TNyaThirdPersonCameraNavigation.Zoom(const Factor: Single): Boolean;
 begin
   Result:= false;
   if NOT Valid then Exit;
@@ -241,23 +241,23 @@ begin
   Result:= True;
 end;
 
-procedure TMyThirdPersonCameraNavigation.AvatarHierarchyFreeNotification(
+procedure TNyaThirdPersonCameraNavigation.AvatarHierarchyFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   AvatarHierarchy:= nil;
 end;
 
-function TMyThirdPersonCameraNavigation.GetAvatarTargetForPersistent: TVector3;
+function TNyaThirdPersonCameraNavigation.GetAvatarTargetForPersistent: TVector3;
 begin
   Result:= AvatarTarget;
 end;
 
-procedure TMyThirdPersonCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
+procedure TNyaThirdPersonCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
 begin
   AvatarTarget:= AValue;
 end;
 
 initialization
-  RegisterSerializableComponent(TMyThirdPersonCameraNavigation, ['Navigation', 'My-Third-Person-Camera']);
+  RegisterSerializableComponent(TNyaThirdPersonCameraNavigation, ['Navigation', 'Nya-Third-Person-Camera']);
 end.
 

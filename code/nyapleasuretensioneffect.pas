@@ -114,6 +114,6 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TNyaPleasureTensionEffect, 'Pleasure/Tension Effect');
+  RegisterSerializableComponent(TNyaPleasureTensionEffect, 'Nya-Pleasure/Tension Effect');
 end.
 

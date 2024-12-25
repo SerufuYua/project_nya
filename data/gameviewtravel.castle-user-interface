@@ -78,7 +78,7 @@
           "ZoomEnabled" : true
         },
         {
-          "$$ClassName" : "TMyThirdPersonCameraNavigation",
+          "$$ClassName" : "TNyaThirdPersonCameraNavigation",
           "AvatarTargetPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "Y" : 4.5000000000000000E+001
@@ -437,7 +437,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000000000000000E+001
+                        "Y" : -5.2000003814697266E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
