@@ -1,4 +1,4 @@
-unit MyMath;
+unit NyaMath;
 
 {$mode ObjFPC}{$H+}
 

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
-  CastleColors, CastleKeysMouse, CastleTransform, MyFadeEffect,
+  CastleColors, CastleKeysMouse, CastleTransform, NyaFadeEffect,
   ActorsLogic, BaseActor, NyaPleasureTensionEffect;
 
 type
@@ -26,7 +26,7 @@ type
     ImageControlDressing: TCastleImageControl;
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
-    FadeEffect: TMyFadeEffect;
+    FadeEffect: TNyaFadeEffect;
     PleasureTensionEffect: TNyaPleasureTensionEffect;
     Notifications: TCastleNotifications;
   public

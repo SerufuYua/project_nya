@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleCameras, CastleTransform, CastleClassUtils,
-  CastleInputs, CastleVectors, MyMath;
+  CastleInputs, CastleVectors, NyaMath;
 
 type
   TMyThirdPersonCharaNavigation = class;

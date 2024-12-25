@@ -1,4 +1,4 @@
-unit MyFadeEffect;
+unit NyaFadeEffect;
 
 {$mode ObjFPC}{$H+}
 
@@ -9,7 +9,7 @@ uses
   CastleUIControls, CastleColors, CastleGLImages, CastleTimeUtils;
 
 type
-  TMyFadeEffect = class(TCastleUserInterface)
+  TNyaFadeEffect = class(TCastleUserInterface)
   protected
     FDuration: TFloatTime;
     FTime: TFloatTime;
@@ -30,20 +30,20 @@ implementation
 uses
   CastleComponentSerialize, CastleImages, CastleVectors;
 
-constructor TMyFadeEffect.Create(AOwner: TComponent);
+constructor TNyaFadeEffect.Create(AOwner: TComponent);
 begin
   inherited;
   FActive:= False;
   FImage:= TDrawableImage.Create(nil, False, True { OwnsImage });
 end;
 
-destructor TMyFadeEffect.Destroy;
+destructor TNyaFadeEffect.Destroy;
 begin
   FreeAndNil(FImage);
   inherited;
 end;
 
-procedure TMyFadeEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TNyaFadeEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
   if NOT FActive then Exit;
@@ -56,7 +56,7 @@ begin
     FActive:= False;
 end;
 
-procedure TMyFadeEffect.Render;
+procedure TNyaFadeEffect.Render;
 begin
   inherited;
   if NOT FActive then Exit;
@@ -67,7 +67,7 @@ begin
 end;
 
 
-procedure TMyFadeEffect.Fade(duration: TFloatTime = 0.5);
+procedure TNyaFadeEffect.Fade(duration: TFloatTime = 0.5);
 begin
   FDuration:= duration;
   FTime:= 0;
@@ -76,6 +76,6 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TMyFadeEffect, 'Fade Effect');
+  RegisterSerializableComponent(TNyaFadeEffect, 'Fade Effect');
 end.
 
