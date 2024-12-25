@@ -1,4 +1,4 @@
-unit MySpectatorCameraNavigation;
+unit NyaSpectatorCameraNavigation;
 
 {$mode ObjFPC}{$H+}
 
@@ -9,7 +9,7 @@ uses
   CastleVectors;
 
 type
-  TMySpectatorCameraNavigation = class(TCastleMouseLookNavigation)
+  TNyaSpectatorCameraNavigation = class(TCastleMouseLookNavigation)
   protected
     FFollowSpeed: Single;
     FLastTargetPos: TVector3;
@@ -51,7 +51,7 @@ uses
   CastleComponentSerialize, CastleUtils, Math, CastleQuaternions,
   CastleVectorsInternalSingle, NyaVectorMath;
 
-constructor TMySpectatorCameraNavigation.Create(AOwner: TComponent);
+constructor TNyaSpectatorCameraNavigation.Create(AOwner: TComponent);
 begin
   inherited;
   FAvatarTarget:= DefaultAvatarTarget;
@@ -72,14 +72,14 @@ begin
 //  ZoomEnabled;
 end;
 
-destructor TMySpectatorCameraNavigation.Destroy;
+destructor TNyaSpectatorCameraNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
   FreeAndNil(FAvatarTargetPersistent);
   inherited;
 end;
 
-procedure TMySpectatorCameraNavigation.Update(const SecondsPassed: Single;
+procedure TNyaSpectatorCameraNavigation.Update(const SecondsPassed: Single;
                  var HandleInput: Boolean);
 begin
   inherited;
@@ -88,7 +88,7 @@ begin
   UpdateCamera(SecondsPassed);
 end;
 
-procedure TMySpectatorCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
+procedure TNyaSpectatorCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
 begin
   if (FAvatarHierarchy <> Value) then
   begin
@@ -97,7 +97,7 @@ begin
   end;
 end;
 
-function TMySpectatorCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
+function TNyaSpectatorCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'AvatarTargetPersistent',
@@ -108,7 +108,7 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TMySpectatorCameraNavigation.CalcCamera(const SecondsPassed: Single;
+procedure TNyaSpectatorCameraNavigation.CalcCamera(const SecondsPassed: Single;
                                                   const APos: TVector3;
                                                   out ADir, AUp: TVector3);
 var
@@ -123,7 +123,7 @@ begin
   AUp:= Camera.GravityUp;
 end;
 
-procedure TMySpectatorCameraNavigation.UpdateCamera(const SecondsPassed: Single);
+procedure TNyaSpectatorCameraNavigation.UpdateCamera(const SecondsPassed: Single);
 var
   CameraPos, CameraDir, CameraUp: TVector3;
 begin
@@ -132,28 +132,28 @@ begin
   Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
-function TMySpectatorCameraNavigation.Zoom(const Factor: Single): Boolean;
+function TNyaSpectatorCameraNavigation.Zoom(const Factor: Single): Boolean;
 begin
   Result:= False;
 end;
 
-procedure TMySpectatorCameraNavigation.AvatarHierarchyFreeNotification(
+procedure TNyaSpectatorCameraNavigation.AvatarHierarchyFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   AvatarHierarchy:= nil;
 end;
 
-function TMySpectatorCameraNavigation.GetAvatarTargetForPersistent: TVector3;
+function TNyaSpectatorCameraNavigation.GetAvatarTargetForPersistent: TVector3;
 begin
   Result:= AvatarTarget;
 end;
 
-procedure TMySpectatorCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
+procedure TNyaSpectatorCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
 begin
   AvatarTarget:= AValue;
 end;
 
 initialization
-  RegisterSerializableComponent(TMySpectatorCameraNavigation, ['Navigation', 'My-Spectator-Camera']);
+  RegisterSerializableComponent(TNyaSpectatorCameraNavigation, ['Navigation', 'Nya-Spectator-Camera']);
 end.
 

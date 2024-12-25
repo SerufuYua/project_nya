@@ -39,8 +39,8 @@ begin
   ViewPlayGirl:= TViewPlayGirl.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewDressingMenu:= TViewDressingMenu.Create(Application);
-  ViewLoading := TViewLoading.Create(Application);
-  ViewTravel := TViewTravel.Create(Application);
+  ViewLoading:= TViewLoading.Create(Application);
+  ViewTravel:= TViewTravel.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('g', 'PlayGirl') then
@@ -50,9 +50,9 @@ begin
   else if Application.hasOption('r', 'Travel') then
     Window.Container.View:= ViewTravel
   else
-    Window.Container.View := ViewMain;
-//    Window.Container.View := ViewPlayGirl;
-//    Window.Container.View := ViewTravel;
+    Window.Container.View:= ViewMain;
+//    Window.Container.View:= ViewPlayGirl;
+//    Window.Container.View:= ViewTravel;
 
 end;
 
@@ -85,14 +85,14 @@ initialization
     Run in a 600x400 window:
 
       Window.FullScreen := false; // default
-      Window.Width := 600;
-      Window.Height := 400;
+      Window.Width:= 600;
+      Window.Height:= 400;
 
     Run in a window taking 2/3 of screen (width and height):
 
       Window.FullScreen := false; // default
-      Window.Width := Application.ScreenWidth * 2 div 3;
-      Window.Height := Application.ScreenHeight * 2 div 3;
+      Window.Width:= Application.ScreenWidth * 2 div 3;
+      Window.Height:= Application.ScreenHeight * 2 div 3;
 
     Note that some platforms (like mobile) ignore these window sizes.
   }

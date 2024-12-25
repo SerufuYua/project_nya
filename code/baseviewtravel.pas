@@ -9,7 +9,7 @@ uses
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   ActorChara,
-  NyaThirdPersonCameraNavigation, MySpectatorCameraNavigation,
+  NyaThirdPersonCameraNavigation, NyaSpectatorCameraNavigation,
   NyaThirdPersonCharaNavigation, NyaSwitch;
 
 type
@@ -18,7 +18,7 @@ type
     Map: TCastleTransformDesign;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
-    CameraNavigationSpectator: TMySpectatorCameraNavigation;
+    CameraNavigationSpectator: TNyaSpectatorCameraNavigation;
     CameraNavigationFollow: TNyaThirdPersonCameraNavigation;
     CharaNavigation: TNyaThirdPersonCharaNavigation;
     GroupDressingButtons: TCastlePackedGroup;
