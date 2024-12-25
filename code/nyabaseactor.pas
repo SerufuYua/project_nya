@@ -16,9 +16,11 @@ type
     FTension: Single;
     function GetSpeed: Single; virtual; abstract;
     procedure SetSpeed(value: Single); virtual; abstract;
-    procedure SetPleasure(value: Single); virtual; abstract;
-    procedure SetTension(value: Single); virtual; abstract;
   public
+    const
+      DefaultActorName = 'unknown';
+
+    constructor Create(AOwner: TComponent); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual; abstract;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
@@ -26,14 +28,19 @@ type
   published
     property ActorName: String read FActorName write FActorName;
     property Speed: Single read GetSpeed write SetSpeed;
-    property Pleasure: Single read FPleasure write SetPleasure;
-    property Tension: Single read FTension write SetTension;
   end;
 
 implementation
 
 uses
   CastleUtils;
+
+constructor TNyaBaseActor.Create(AOwner: TComponent);
+begin
+  inherited;
+
+  FActorName:= DefaultActorName;
+end;
 
 function TNyaBaseActor.PropertySections(const PropertyName: String): TPropertySections;
 begin

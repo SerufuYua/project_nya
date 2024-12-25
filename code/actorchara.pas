@@ -62,18 +62,7 @@ begin
   inherited;
 
   { juices setting }
-{  FControlJizz:= ActorRoot.DesignedComponent('Control_Jizz', False)
-                 as TCastleTransform;
-  FEmitterJizz:= ActorRoot.DesignedComponent('EmitterJizz', False)
-                 as TCastleParticleEmitter;
-  FEmitterDrip:= ActorRoot.DesignedComponent('EmitterDrip', False)
-                 as TCastleParticleEmitter;
-  FEffectDrip:= ActorRoot.DesignedComponent('EffectDrip', False)
-                as TCastleParticleEffect;
-  FEmitterSweat:= ActorRoot.DesignedComponent('EmitterSweat', False)
-                  as TCastleParticleEmitter;
-  FEffectSweat:= ActorRoot.DesignedComponent('EffectSweat', False)
-                 as TCastleParticleEffect;
+{
 
   charaBody:= ActorRoot.DesignedComponent('Body') as TCastleScene;
   charaHead:= ActorRoot.DesignedComponent('SceneHead') as TCastleScene;}
@@ -97,9 +86,18 @@ begin
 end;
 
 procedure TActorChara.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
+var
+  ControlJizz: TCastleTransform;
+  EmitterJizz: TCastleParticleEmitter;
 begin
-  SetDripping(Pleasure);
-  SetSweating(Tension);
+  ControlJizz:= DesignedComponent('Control_Jizz', False)
+                as TCastleTransform;
+  EmitterJizz:= DesignedComponent('EmitterJizz', False)
+                as TCastleParticleEmitter;
+
+  if (Assigned(ControlJizz) AND Assigned(EmitterJizz)) then
+    EmitterJizz.Exists:= (ControlJizz.Translation.Y > 0.5);
+
 end;
 
 procedure TActorChara.SaveCondition;

@@ -11,6 +11,9 @@ type
   TSuits = (All, Top, Bottom, Foots, Arms);
 
   TCharaDresser = class
+  protected
+    FScene: TCastleTransformDesign;
+    function GetMainBody(): TCastleScene; { main chara Body }
   public
     constructor Create(scene: TCastleTransformDesign);
     function GetSuitsList(suitType: TSuits): TItemConditions;
@@ -18,19 +21,17 @@ type
     procedure WearSuit(suitType: TSuits; const suitName: String);
     function GetAcessoriesList(): TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
-  protected
-    FScene: TCastleTransformDesign;
-    function GetMainBody(): TCastleScene; { main chara Body }
+    procedure SaveCondition(const name:string);
   end;
 
   TDressSaver = class
-  public
-    constructor Create(dresser: TCharaDresser; charaName: String);
-    procedure RestoreProperties;
-    procedure SaveProperties;
   protected
     FDresser: TCharaDresser;
     FCharaName: String;
+  public
+    constructor Create(dresser: TCharaDresser; const charaName: String);
+    procedure RestoreProperties;
+    procedure SaveProperties;
   end;
 
 implementation
@@ -46,7 +47,9 @@ const
   PrefixAccesory = 'accessory_';
   IniFileName = 'condition.ini';
 
-{ TCharaDresser}
+{ ---------------------------------------------------------------------------- }
+{ TCharaDresser -------------------------------------------------------------- }
+{ ---------------------------------------------------------------------------- }
 
 constructor TCharaDresser.Create(scene: TCastleTransformDesign);
 begin
@@ -169,14 +172,25 @@ begin
   end;
 end;
 
+procedure TCharaDresser.SaveCondition(const name:string);
+var
+  DressSaver: TDressSaver;
+begin
+  DressSaver:= TDressSaver.Create(self, name);
+  DressSaver.SaveProperties;
+  FreeAndNil(DressSaver);
+end;
+
 function TCharaDresser.GetMainBody(): TCastleScene;
 begin
   Result:= FScene.DesignedComponent('Body') as TCastleScene;
 end;
 
-{ TDressSaver }
+{ ---------------------------------------------------------------------------- }
+{ TDressSaver ---------------------------------------------------------------- }
+{ ---------------------------------------------------------------------------- }
 
-constructor TDressSaver.Create(dresser: TCharaDresser; charaName: String);
+constructor TDressSaver.Create(dresser: TCharaDresser; const charaName: String);
 begin
   FDresser:= dresser;
   FCharaName:= charaName;

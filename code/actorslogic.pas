@@ -107,6 +107,7 @@ end;
 procedure TActorsLogic.Update(const SecondsPassed: Single);
 var
   actor: TNyaBaseActor;
+  chara: TActorChara;
 begin
   { Update Pleasure/Tension Statuses }
   Case FStatus of
@@ -143,10 +144,10 @@ begin
   end;
 
   { Update Actors }
-  for actor in FActors do
+  for chara in Charas do
   begin
-    actor.Pleasure:= Pleasure;
-    actor.Tension:= Tension;
+//    chara.Pleasure:= Pleasure;
+//    chara.Tension:= Tension;
   end;
 end;
 
