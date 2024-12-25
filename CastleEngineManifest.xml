@@ -5,11 +5,11 @@ Specify basic information about the project, including how this project is build
 See https://castle-engine.io/project_manifest for documentation of this file.
 -->
 
-<project name="prjF"
-  standalone_source="prjF_standalone.dpr"
+<project name="prjNya"
+  standalone_source="prjNya_standalone.dpr"
   game_units="GameInitialize"
-  qualified_name="com.mycompany.prjF"
-  caption="Project Friends"
+  qualified_name="com.mycompany.prjNya"
+  caption="Project Nya"
   editor_units="CastleParticleEmitter,NyaFadeEffect,NyaPleasureTensionEffect,NyaThirdPersonCameraNavigation,NyaThirdPersonCharaNavigation,NyaSpectatorCameraNavigation,NyaSwitch"
 >
   <compiler_options>

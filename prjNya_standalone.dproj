@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{A8FF9A83-FC48-4601-8058-A5838318F471}</ProjectGuid>
-        <MainSource>prjF_standalone.dpr</MainSource>
+        <ProjectGuid>{CA31A378-045A-414A-AD0C-67748F5A430B}</ProjectGuid>
+        <MainSource>prjNya_standalone.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>33939</TargetedPlatforms>
@@ -94,13 +94,13 @@
         <DCC_N>false</DCC_N>
         <DCC_S>false</DCC_S>
         <DCC_ImageBase>00400000</DCC_ImageBase>
-        <SanitizedProjectName>prjF</SanitizedProjectName>
+        <SanitizedProjectName>prjNya</SanitizedProjectName>
         <VerInfo_Locale>1045</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=;CFBundleName=</VerInfo_Keys>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
-        <DCC_UnitSearchPath>C:/castle_game_engine/src/base;C:/castle_game_engine/src/common_includes;C:/castle_game_engine/src/base/android;C:/castle_game_engine/src/base/windows;C:/castle_game_engine/src/base/unix;C:/castle_game_engine/src/base_rendering;C:/castle_game_engine/src/base_rendering/dglopengl;C:/castle_game_engine/src/base_rendering/glsl/generated-pascal;C:/castle_game_engine/src/fonts;C:/castle_game_engine/src/window;C:/castle_game_engine/src/window/gtk;C:/castle_game_engine/src/window/windows;C:/castle_game_engine/src/window/unix;C:/castle_game_engine/src/window/deprecated_units;C:/castle_game_engine/src/images;C:/castle_game_engine/src/transform;C:/castle_game_engine/src/scene;C:/castle_game_engine/src/scene/glsl/generated-pascal;C:/castle_game_engine/src/scene/x3d;C:/castle_game_engine/src/scene/load;C:/castle_game_engine/src/scene/load/ifc;C:/castle_game_engine/src/scene/load/spine;C:/castle_game_engine/src/scene/load/md3;C:/castle_game_engine/src/scene/load/collada;C:/castle_game_engine/src/scene/load/pasgltf;C:/castle_game_engine/src/audio;C:/castle_game_engine/src/audio/fmod;C:/castle_game_engine/src/audio/openal;C:/castle_game_engine/src/audio/ogg_vorbis;C:/castle_game_engine/src/files;C:/castle_game_engine/src/files/indy;C:/castle_game_engine/src/castlescript;C:/castle_game_engine/src/ui;C:/castle_game_engine/src/ui/windows;C:/castle_game_engine/src/services;C:/castle_game_engine/src/physics;C:/castle_game_engine/src/physics/kraft;C:/castle_game_engine/src/deprecated_units;C:/castle_game_engine/src/vampyre_imaginglib/src/Source;C:/castle_game_engine/src/vampyre_imaginglib/src/Source/JpegLib;C:/castle_game_engine/src/vampyre_imaginglib/src/Source/ZLib;C:/castle_game_engine/src/vampyre_imaginglib/src/Extras/Extensions;C:/castle_game_engine/src/vampyre_imaginglib/src/Extensions/J2KObjects;C:/castle_game_engine/src/vampyre_imaginglib/src/Extensions/LibTiff;C:/castle_game_engine/src/vampyre_imaginglib/src/Extensions;C:/castle_game_engine/src/delphi;C:/castle_game_engine/src/compatibility/delphi-only;C:/castle_game_engine/src/compatibility/delphi-only/fcl-json;code/;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>C:/castle_game_engine/src/base;C:/castle_game_engine/src/common_includes;C:/castle_game_engine/src/base/android;C:/castle_game_engine/src/base/windows;C:/castle_game_engine/src/base/unix;C:/castle_game_engine/src/base_rendering;C:/castle_game_engine/src/base_rendering/dglopengl;C:/castle_game_engine/src/base_rendering/glsl/generated-pascal;C:/castle_game_engine/src/fonts;C:/castle_game_engine/src/window;C:/castle_game_engine/src/window/gtk;C:/castle_game_engine/src/window/windows;C:/castle_game_engine/src/window/unix;C:/castle_game_engine/src/window/deprecated_units;C:/castle_game_engine/src/images;C:/castle_game_engine/src/transform;C:/castle_game_engine/src/scene;C:/castle_game_engine/src/scene/glsl/generated-pascal;C:/castle_game_engine/src/scene/x3d;C:/castle_game_engine/src/scene/load;C:/castle_game_engine/src/scene/load/ifc;C:/castle_game_engine/src/scene/load/spine;C:/castle_game_engine/src/scene/load/md3;C:/castle_game_engine/src/scene/load/collada;C:/castle_game_engine/src/scene/load/pasgltf;C:/castle_game_engine/src/audio;C:/castle_game_engine/src/audio/fmod;C:/castle_game_engine/src/audio/openal;C:/castle_game_engine/src/audio/ogg_vorbis;C:/castle_game_engine/src/files;C:/castle_game_engine/src/files/indy;C:/castle_game_engine/src/castlescript;C:/castle_game_engine/src/ui;C:/castle_game_engine/src/ui/windows;C:/castle_game_engine/src/services;C:/castle_game_engine/src/services/steam;C:/castle_game_engine/src/physics;C:/castle_game_engine/src/physics/kraft;C:/castle_game_engine/src/deprecated_units;C:/castle_game_engine/src/vampyre_imaginglib/src/Source;C:/castle_game_engine/src/vampyre_imaginglib/src/Source/JpegLib;C:/castle_game_engine/src/vampyre_imaginglib/src/Source/ZLib;C:/castle_game_engine/src/vampyre_imaginglib/src/Extras/Extensions;C:/castle_game_engine/src/vampyre_imaginglib/src/Extensions/J2KObjects;C:/castle_game_engine/src/vampyre_imaginglib/src/Extensions/LibTiff;C:/castle_game_engine/src/vampyre_imaginglib/src/Extensions;C:/castle_game_engine/src/delphi;C:/castle_game_engine/src/compatibility/delphi-only;C:/castle_game_engine/src/compatibility/delphi-only/fcl-json;code/;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DcuOutput>castle-engine-output\delphi\$(Platform)\$(Config)</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
@@ -184,7 +184,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <None Include="README.md"/>
-        <None Include="prjF_standalone.dpr"/>
+        <None Include="prjNya_standalone.dpr"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -203,7 +203,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">prjF_standalone.dpr</Source>
+                    <Source Name="MainSource">prjNya_standalone.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k280.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
@@ -232,41 +232,41 @@
                 </DeployFile>
 
                 <!-- Deploy executables on all platforms, for Debug -->
-                <DeployFile LocalName="prjF_standalone.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="prjNya_standalone.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>prjF_standalone.exe</RemoteName>
+                        <RemoteName>prjNya_standalone.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="prjF_standalone.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="prjNya_standalone.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>prjF_standalone.exe</RemoteName>
+                        <RemoteName>prjNya_standalone.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="prjF_standalone" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="prjNya_standalone" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Linux64">
-                        <RemoteName>prjF_standalone</RemoteName>
+                        <RemoteName>prjNya_standalone</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
 
                 <!-- Deploy executables on all platforms, for Release -->
-                <DeployFile LocalName="prjF_standalone.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="prjNya_standalone.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>prjF_standalone.exe</RemoteName>
+                        <RemoteName>prjNya_standalone.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="prjF_standalone.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="prjNya_standalone.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>prjF_standalone.exe</RemoteName>
+                        <RemoteName>prjNya_standalone.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="prjF_standalone" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="prjNya_standalone" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Linux64">
-                        <RemoteName>prjF_standalone</RemoteName>
+                        <RemoteName>prjNya_standalone</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -21,8 +21,8 @@ implementation
 uses CastleApplicationProperties, CastleWindow, CastleLog;
 
 initialization
-  ApplicationProperties.ApplicationName := 'prjF';
-  ApplicationProperties.Caption := 'Project Friends';
+  ApplicationProperties.ApplicationName := 'prjNya';
+  ApplicationProperties.Caption := 'Project Nya';
   ApplicationProperties.Version := '0.1';
 
   if not IsLibrary then
