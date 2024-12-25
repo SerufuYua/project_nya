@@ -154,6 +154,6 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TNyaSpectatorCameraNavigation, ['Navigation', 'Nya-Spectator-Camera']);
+  RegisterSerializableComponent(TNyaSpectatorCameraNavigation, ['Navigation', 'Nya Spectator Camera']);
 end.
 

@@ -369,8 +369,8 @@ end;
 {$endif}
 
 initialization
-  RegisterSerializableComponent(TNyaSwitch, ['Switches', 'Switch']);
-  RegisterSerializableComponent(TNyaFrontSwitch, ['Switches', 'Front Switch']);
+  RegisterSerializableComponent(TNyaSwitch, ['Switches', 'Nya Switch']);
+  RegisterSerializableComponent(TNyaFrontSwitch, ['Switches', 'Nya Front Switch']);
 
   {$ifdef CASTLE_DESIGN_MODE}
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaSwitch, 'IndicatorAnimationInactive',

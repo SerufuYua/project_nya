@@ -258,6 +258,6 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TNyaThirdPersonCameraNavigation, ['Navigation', 'Nya-Third-Person-Camera']);
+  RegisterSerializableComponent(TNyaThirdPersonCameraNavigation, ['Navigation', 'Nya Third-Person Camera']);
 end.
 

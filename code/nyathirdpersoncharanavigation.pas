@@ -447,6 +447,6 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TNyaThirdPersonCharaNavigation, ['Navigation', 'Nya-Third-Person-Chara']);
+  RegisterSerializableComponent(TNyaThirdPersonCharaNavigation, ['Navigation', 'Nya Third-Person Chara']);
 end.
 

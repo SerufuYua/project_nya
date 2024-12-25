@@ -76,6 +76,6 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TNyaFadeEffect, 'Fade Effect');
+  RegisterSerializableComponent(TNyaFadeEffect, 'Nya Fade Effect');
 end.
 
