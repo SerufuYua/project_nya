@@ -56,7 +56,6 @@ type
                        screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
     procedure SetAction(num: Integer);
-    procedure Pause;
     procedure Stop;
     procedure NextPart;
     property Pleasure: Single read FPleasure write SetPleasure;
@@ -165,14 +164,6 @@ begin
   FSpeed:= value;
   for actor in FActors do
     actor.Speed:= value;
-end;
-
-procedure TActorsLogic.Pause;
-var
-  actor: TNyaBaseActor;
-begin
-  for actor in FActors do
-    actor.PauseAnimation;
 end;
 
 procedure TActorsLogic.Stop;

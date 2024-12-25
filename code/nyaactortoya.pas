@@ -1,4 +1,4 @@
-unit ActorToyA;
+unit NyaActorToyA;
 
 {$mode ObjFPC}{$H+}
 
@@ -6,16 +6,14 @@ interface
 
 uses
   Classes, Generics.Collections,
-  CastleSceneCore,
-  CastleVectors, CastleTransform, CastleScene, NyaBaseActor, CharaDress,
+  CastleSceneCore, CastleVectors, CastleTransform, CastleScene, NyaBaseActor,
   StrUtils;
 
 type
-  TActorToyA = class(TNyaBaseActor)
+  TNyaActorToyA = class(TNyaBaseActor)
   protected
     function GetCurrentTool(): TCastleScene;
   public
-    procedure PauseAnimation; override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
@@ -28,35 +26,44 @@ implementation
 uses
   CastleComponentSerialize;
 
-procedure TActorToyA.PauseAnimation;
-begin
-  GetCurrentTool().StopAnimation();
-end;
-
-procedure TActorToyA.PlayAnimation(const animationName: String;
+procedure TNyaActorToyA.PlayAnimation(const animationName: String;
                                              loop: boolean = true);
+var
+  tool: TCastleScene;
 begin
   UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', animationName));
-  GetCurrentTool().PlayAnimation(animationName, loop);
+
+  tool:= GetCurrentTool();
+  if Assigned(tool) then
+    tool.PlayAnimation(animationName, loop);
 end;
 
-procedure TActorToyA.PlayAnimation(const Parameters: TPlayAnimationParameters);
+procedure TNyaActorToyA.PlayAnimation(const Parameters: TPlayAnimationParameters);
+var
+  tool: TCastleScene;
 begin
   UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Parameters.Name));
-  GetCurrentTool().PlayAnimation(Parameters);
+
+  tool:= GetCurrentTool();
+  if Assigned(tool) then
+    tool.PlayAnimation(Parameters);
 end;
 
-procedure TActorToyA.StopAnimation(const DisableStopNotification: Boolean);
+procedure TNyaActorToyA.StopAnimation(const DisableStopNotification: Boolean);
+var
+  tool: TCastleScene;
 begin
-  GetCurrentTool().StopAnimation(DisableStopNotification);
+  tool:= GetCurrentTool();
+  if Assigned(tool) then
+    tool.StopAnimation(DisableStopNotification);
 end;
 
-function TActorToyA.GetCurrentTool(): TCastleScene;
+function TNyaActorToyA.GetCurrentTool(): TCastleScene;
 begin
-  Result:= DesignedComponent('ToyA') as TCastleScene;
+  Result:= DesignedComponent('ToyA', False) as TCastleScene;
 end;
 
-procedure TActorToyA.UseRailing(enable: Boolean);
+procedure TNyaActorToyA.UseRailing(enable: Boolean);
 var
   railing: TCastleScene;
 begin
@@ -72,10 +79,16 @@ begin
   end;
 end;
 
-procedure TActorToyA.SetSpeed(value: Single);
+procedure TNyaActorToyA.SetSpeed(value: Single);
+var
+  tool: TCastleScene;
 begin
-  GetCurrentTool().TimePlayingSpeed:= value;
+  tool:= GetCurrentTool();
+  if Assigned(tool) then
+    tool.TimePlayingSpeed:= value;
 end;
 
+initialization
+  RegisterSerializableComponent(TNyaActorToyA, 'Nya Actor Toy-A');
 end.
 

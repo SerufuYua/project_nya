@@ -17,7 +17,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleTransform, ActorChara, ActorToyA;
+  SysUtils, CastleTransform, ActorChara, NyaActorToyA;
 
 procedure TViewPlayGirl.Start;
 var
@@ -32,7 +32,7 @@ begin
 
   { Create Toys instance }
 {  actorScene:= Map.DesignedComponent('ToyA') as TCastleTransformDesign;
-  FActorB:= TActorToyA.Create(actorScene, 'ToyA');}
+  FActorB:= TNyaActorToyA.Create(actorScene, 'ToyA');}
 
   { set animation name prefix }
   FAnimationPrefix:= 'GAME.GIRL_TOYA.PLAY';

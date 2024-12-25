@@ -37,7 +37,6 @@ type
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure SaveCondition;
-    procedure PauseAnimation; override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
@@ -106,17 +105,6 @@ end;
 procedure TActorChara.SaveCondition;
 begin
   FDresseSaver.SaveProperties;
-end;
-
-procedure TActorChara.PauseAnimation;
-var
-  bodies: TCastleScenes;
-  body: TCastleScene;
-begin
-  bodies:= GetActorsList();
-  for body in bodies do
-    if Assigned(body) then
-      body.StopAnimation();
 end;
 
 function TActorChara.GetDresser(): TCharaDresser;

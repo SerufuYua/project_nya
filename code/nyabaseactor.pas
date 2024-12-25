@@ -19,7 +19,6 @@ type
     procedure SetPleasure(value: Single); virtual; abstract;
     procedure SetTension(value: Single); virtual; abstract;
   public
-    procedure PauseAnimation; virtual; abstract;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual; abstract;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
