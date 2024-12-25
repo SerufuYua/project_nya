@@ -12,9 +12,9 @@ type
   TNyaBaseActor = class(TCastleTransformDesign)
   protected
     FActorName: String;
-    FSpeed: Single;
     FPleasure: Single;
     FTension: Single;
+    function GetSpeed: Single; virtual; abstract;
     procedure SetSpeed(value: Single); virtual; abstract;
     procedure SetPleasure(value: Single); virtual; abstract;
     procedure SetTension(value: Single); virtual; abstract;
@@ -25,7 +25,7 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
     property ActorName: String read FActorName write FActorName;
-    property Speed: Single read FSpeed write SetSpeed;
+    property Speed: Single read GetSpeed write SetSpeed;
     property Pleasure: Single read FPleasure write SetPleasure;
     property Tension: Single read FTension write SetTension;
   end;

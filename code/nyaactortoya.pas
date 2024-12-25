@@ -13,11 +13,12 @@ type
   TNyaActorToyA = class(TNyaBaseActor)
   protected
     function GetCurrentTool(): TCastleScene;
+    function GetSpeed: Single; override;
+    procedure SetSpeed(value: Single); override;
   public
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
-    procedure SetSpeed(value: Single); override;
     procedure UseRailing(enable: Boolean);
   end;
 
@@ -77,6 +78,17 @@ begin
     railing.Translation:= Vector3(-28, 0, -10);
     railing.Rotation:= Vector4(0, 1, 0, -30);
   end;
+end;
+
+function TNyaActorToyA.GetSpeed: Single;
+var
+  tool: TCastleScene;
+begin
+  tool:= GetCurrentTool();
+  if Assigned(tool) then
+    Result:= tool.TimePlayingSpeed
+  else
+    Result:= 1.0;
 end;
 
 procedure TNyaActorToyA.SetSpeed(value: Single);

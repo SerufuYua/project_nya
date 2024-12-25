@@ -86,12 +86,10 @@
           "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
         },
         {
-          "$$ClassName" : "TCastleTransformDesign",
+          "$$ClassName" : "TNyaActorToyA",
+          "ActorName" : "Toy-A",
           "Name" : "ToyA",
-          "RotationPersistent" : {
-            "$$ClassName" : "TCastleVector4RotationPersistent",
-            "Z" : 1.0000000000000000E+000
-          },
+          "Speed" : 1.0000000000000000E+000,
           "Url" : "castle-data:/ToyAForGirl.castle-transform"
         }
       ]
