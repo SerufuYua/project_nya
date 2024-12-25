@@ -10,7 +10,7 @@ uses
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   ActorChara,
   MyThirdPersonCameraNavigation, MySpectatorCameraNavigation,
-  MyThirdPersonCharaNavigation, MySwitch;
+  MyThirdPersonCharaNavigation, NyaSwitch;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -23,7 +23,6 @@ type
     CharaNavigation: TMyThirdPersonCharaNavigation;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
-    MySwitchTest: TMySwitch;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
   public
@@ -37,7 +36,7 @@ type
     FDebugAvatar: TDebugTransform;
     FKeyUse: TKey;
     FKeyDebug: TKey;
-    FTouchedSwitch: TMySwitch;
+    FTouchedSwitch: TNyaSwitch;
     FGetToGo: TCastleView;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
@@ -223,13 +222,13 @@ procedure TBaseViewPlay.SetSwitches;
 var
   behaviors: TCastleBehaviors;
   behavior: TCastleBehavior;
-  switch: TMySwitch;
+  switch: TNyaSwitch;
 begin
-  behaviors:= GetAllBehavior(Map, TMySwitch);
+  behaviors:= GetAllBehavior(Map, TNyaSwitch);
 
   for behavior in behaviors do
   begin
-    switch:= behavior as TMySwitch;
+    switch:= behavior as TNyaSwitch;
     if Assigned(switch) then
     begin
       switch.OnTouch:= {$ifdef FPC}@{$endif}TouchSwitch;
@@ -309,9 +308,9 @@ end;
 
 procedure TBaseViewPlay.TouchSwitch(const Sender: TObject; Touch: Boolean);
 var
-  switch: TMySwitch;
+  switch: TNyaSwitch;
 begin
-  switch:= Sender as TMySwitch;
+  switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
 
   if Touch then

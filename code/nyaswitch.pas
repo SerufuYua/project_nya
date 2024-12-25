@@ -1,4 +1,4 @@
-unit MySwitch;
+unit NyaSwitch;
 
 {$mode ObjFPC}{$H+}
 
@@ -11,7 +11,7 @@ uses
 type
   TTouchEvent = procedure (const Sender: TObject; Touch: Boolean) of object;
 
-  TMySwitch = class(TCastleBehavior)
+  TNyaSwitch = class(TCastleBehavior)
   type
     TSwitchStatus = (inactive, touched, activated, unknown);
   protected
@@ -70,7 +70,7 @@ type
     property IndicatorAnimationActivated: String read FAnimationActivated write FAnimationActivated stored AnimationActivatedStored nodefault;
   end;
 
-  TMyFrontSwitch = class(TMySwitch)
+  TNyaFrontSwitch = class(TNyaSwitch)
   protected
     FAngleCOS: Single;
     function GetAngle: Single;
@@ -98,10 +98,10 @@ uses
   {$endif};
 
 { ========= ------------------------------------------------------------------ }
-{ TMySwitch ------------------------------------------------------------------ }
+{ TNyaSwitch ------------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
-constructor TMySwitch.Create(AOwner: TComponent);
+constructor TNyaSwitch.Create(AOwner: TComponent);
 begin
   inherited;
 
@@ -119,7 +119,7 @@ begin
   FActivatorObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}ActivatorFreeNotification;
 end;
 
-procedure TMySwitch.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
+procedure TNyaSwitch.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
 begin
   inherited;
 
@@ -128,7 +128,7 @@ begin
   Status:= LookForActivator;
 end;
 
-function TMySwitch.LookForActivator: TSwitchStatus;
+function TNyaSwitch.LookForActivator: TSwitchStatus;
 var
   SwitchBox: TBox3D;
 begin
@@ -143,26 +143,26 @@ begin
     Result:= TSwitchStatus.inactive;
 end;
 
-function TMySwitch.CanAttachToParent(const NewParent: TCastleTransform;
+function TNyaSwitch.CanAttachToParent(const NewParent: TCastleTransform;
   out ReasonWhyCannot: String): Boolean;
 begin
   Result:= inherited;
   if NOT Result then Exit;
 
-  if NewParent.FindBehavior(TMySwitch) <> nil then
+  if NewParent.FindBehavior(TNyaSwitch) <> nil then
   begin
-    ReasonWhyCannot:= 'Only one TMySwitch can be added to the "' +
+    ReasonWhyCannot:= 'Only one TNyaSwitch can be added to the "' +
                       NewParent.Name + '"';
     Result:= false;
   end;
 end;
 
-procedure TMySwitch.Activate;
+procedure TNyaSwitch.Activate;
 begin
   Status:= TSwitchStatus.activated;
 end;
 
-procedure TMySwitch.ActavateAfterAnimation(const Scene: TCastleSceneCore;
+procedure TNyaSwitch.ActavateAfterAnimation(const Scene: TCastleSceneCore;
                                            const Animation: TTimeSensorNode);
 begin
   if Assigned(OnActivate) then
@@ -170,7 +170,7 @@ begin
   Status:= TSwitchStatus.unknown;
 end;
 
-function TMySwitch.PropertySections(
+function TNyaSwitch.PropertySections(
   const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
@@ -183,7 +183,7 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TMySwitch.SetStatus(const Value: TSwitchStatus);
+procedure TNyaSwitch.SetStatus(const Value: TSwitchStatus);
 var
   animation: TPlayAnimationParameters;
 begin
@@ -237,7 +237,7 @@ begin
   FreeAndNil(animation);
 end;
 
-procedure TMySwitch.SetIndicator(const Value: TCastleScene);
+procedure TNyaSwitch.SetIndicator(const Value: TCastleScene);
 begin
   if (FIndicator <> Value) then
   begin
@@ -246,13 +246,13 @@ begin
   end;
 end;
 
-procedure TMySwitch.IndicatorFreeNotification(
+procedure TNyaSwitch.IndicatorFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   Indicator:= nil;
 end;
 
-procedure TMySwitch.SetActivator(const Value: TCastleTransform);
+procedure TNyaSwitch.SetActivator(const Value: TCastleTransform);
 begin
   if (FActivator <> Value) then
   begin
@@ -261,39 +261,39 @@ begin
   end;
 end;
 
-procedure TMySwitch.ActivatorFreeNotification(
+procedure TNyaSwitch.ActivatorFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   Activator:= nil;
 end;
 
-function TMySwitch.AnimationInactiveStored: Boolean;
+function TNyaSwitch.AnimationInactiveStored: Boolean;
 begin
   Result:= FAnimationInactive <> DefaultAnimationInactive;
 end;
 
-function TMySwitch.AnimationTouchedStored: Boolean;
+function TNyaSwitch.AnimationTouchedStored: Boolean;
 begin
   Result:= FAnimationTouched <> DefaultAnimationTouched;
 end;
 
-function TMySwitch.AnimationActivatedStored: Boolean;
+function TNyaSwitch.AnimationActivatedStored: Boolean;
 begin
   Result:= FAnimationActivated <> DefaultAnimationActivated;
 end;
 
 { ========= ------------------------------------------------------------------ }
-{ TMyFrontSwitch ------------------------------------------------------------- }
+{ TNyaFrontSwitch ------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TMyFrontSwitch.Create(AOwner: TComponent);
+constructor TNyaFrontSwitch.Create(AOwner: TComponent);
 begin
   inherited;
 
   FAngleCOS:= DefaultAngleCOS;
 end;
 
-function TMyFrontSwitch.LookForActivator: TSwitchStatus;
+function TNyaFrontSwitch.LookForActivator: TSwitchStatus;
 var
   ActivatorBox, SwitchBox: TBox3D;
   FromRootActivator, FromActivatorDir, ProjPoint, SwitchCenter: TVector3;
@@ -318,7 +318,7 @@ begin
   Result:= TSwitchStatus.inactive;
 end;
 
-function TMyFrontSwitch.PropertySections(
+function TNyaFrontSwitch.PropertySections(
   const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
@@ -329,38 +329,38 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-function TMyFrontSwitch.GetAngle: Single;
+function TNyaFrontSwitch.GetAngle: Single;
 begin
   Result:= 180.0 * ArcCos(FAngleCOS) / Pi;
 end;
 
-procedure TMyFrontSwitch.SetAngle(value: Single);
+procedure TNyaFrontSwitch.SetAngle(value: Single);
 begin
   FAngleCOS:= Cos(value * Pi / 180.0);
 end;
 
 {$ifdef CASTLE_DESIGN_MODE}
 type
-  { Property editor to select an animation on TMySwitch }
-  TMySwitchPropertyEditor = class(TStringPropertyEditor)
+  { Property editor to select an animation on TNyaSwitch }
+  TNyaSwitchPropertyEditor = class(TStringPropertyEditor)
   public
     function GetAttributes: TPropertyAttributes; override;
     procedure GetValues(Proc: TGetStrProc); override;
   end;
 
-function TMySwitchPropertyEditor.GetAttributes: TPropertyAttributes;
+function TNyaSwitchPropertyEditor.GetAttributes: TPropertyAttributes;
 begin
   Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
 end;
 
-procedure TMySwitchPropertyEditor.GetValues(Proc: TGetStrProc);
+procedure TNyaSwitchPropertyEditor.GetValues(Proc: TGetStrProc);
 var
-  Nav: TMySwitch;
+  Nav: TNyaSwitch;
   Scene: TCastleSceneCore;
   S: String;
 begin
   Proc('');
-  Nav:= GetComponent(0) as TMySwitch;
+  Nav:= GetComponent(0) as TNyaSwitch;
   Scene:= Nav.Indicator;
   if Scene <> nil then
     for S in Scene.AnimationsList do
@@ -369,16 +369,16 @@ end;
 {$endif}
 
 initialization
-  RegisterSerializableComponent(TMySwitch, ['Switches', 'Switch']);
-  RegisterSerializableComponent(TMyFrontSwitch, ['Switches', 'Front Switch']);
+  RegisterSerializableComponent(TNyaSwitch, ['Switches', 'Switch']);
+  RegisterSerializableComponent(TNyaFrontSwitch, ['Switches', 'Front Switch']);
 
   {$ifdef CASTLE_DESIGN_MODE}
-  RegisterPropertyEditor(TypeInfo(AnsiString), TMySwitch, 'IndicatorAnimationInactive',
-    TMySwitchPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TMySwitch, 'IndicatorAnimationTouched',
-    TMySwitchPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TMySwitch, 'IndicatorAnimationActivated',
-    TMySwitchPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaSwitch, 'IndicatorAnimationInactive',
+    TNyaSwitchPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaSwitch, 'IndicatorAnimationTouched',
+    TNyaSwitchPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaSwitch, 'IndicatorAnimationActivated',
+    TNyaSwitchPropertyEditor);
   {$endif}
 end.
 

@@ -6,7 +6,7 @@ uses Classes, BaseViewTravel,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   CastleTransform, CastleNotifications, ActorChara, CastleDebugTransform,
   MyThirdPersonCameraNavigation, MySpectatorCameraNavigation,
-  MyThirdPersonCharaNavigation, MySwitch;
+  MyThirdPersonCharaNavigation, NyaSwitch;
 
 type
   TViewTravel = class(TBaseViewPlay)
@@ -49,9 +49,9 @@ end;
 
 procedure TViewTravel.ActivateSwitch(Sender: TObject);
 var
-  switch: TMySwitch;
+  switch: TNyaSwitch;
 begin
-  switch:= Sender as TMySwitch;
+  switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
 
   Case switch.Name of
