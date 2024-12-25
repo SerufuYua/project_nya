@@ -71,7 +71,7 @@ type
 implementation
 
 uses
-  CharaDress, CastleUtils, CastleVectors, MyClassUtils, Math;
+  CharaDress, CastleUtils, CastleVectors, NyaClassUtils, Math;
 
 type
   TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TActorChara>;

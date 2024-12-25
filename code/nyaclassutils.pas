@@ -1,4 +1,4 @@
-unit MyClassUtils;
+unit NyaClassUtils;
 
 {$mode ObjFPC}{$H+}
 
