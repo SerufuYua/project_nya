@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, NyaBaseActor, CastleClassUtils, CastleSceneCore,
-  CharaDress, CastleTransform;
+  CharaDress, CastleTransform, NyaCastleUtils, CastleScene;
 
 type
   TNyaActorChara = class(TNyaBaseActor)
@@ -14,6 +14,8 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
+    function GetMainBody(): TCastleScene;    { main actor Body }
+    function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
@@ -71,19 +73,44 @@ begin
 end;
 
 procedure TNyaActorChara.PlayAnimation(const animationName: String;
-                                             loop: boolean = true);
+                                       loop: boolean = true);
+var
+  actor: TCastleScene;
 begin
-
+  for actor in GetActorsList() do
+    if Assigned(actor) then
+      actor.PlayAnimation(animationName, loop);
 end;
 
 procedure TNyaActorChara.PlayAnimation(const Parameters: TPlayAnimationParameters);
+var
+  actor: TCastleScene;
+  body: TCastleScene;
+  noEventParam: TPlayAnimationParameters;
 begin
-
+  body:= GetMainBody();
+  for actor in GetActorsList() do
+  begin
+    if Assigned(actor) then
+    begin
+      if (actor = body) then
+        actor.PlayAnimation(Parameters)
+      else begin
+        noEventParam:= Parameters;
+        Parameters.StopNotification:= nil;
+        actor.PlayAnimation(noEventParam)
+      end;
+    end;
+  end;
 end;
 
 procedure TNyaActorChara.StopAnimation(const DisableStopNotification: Boolean);
+var
+  actor: TCastleScene;
 begin
-
+  for actor in GetActorsList() do
+    if Assigned(actor) then
+      actor.StopAnimation(DisableStopNotification);
 end;
 
 function TNyaActorChara.Dresser: TCharaDresser;
@@ -104,9 +131,60 @@ begin
     Result:= 1.0;
 end;
 
-procedure TNyaActorChara.SetSpeed(value: Single);
+function TNyaActorChara.GetMainBody(): TCastleScene;
 begin
+  Result:= DesignedComponent('Body', False) as TCastleScene;
+end;
 
+function TNyaActorChara.GetActorsList(): TCastleScenes;
+var
+  actor: TCastleScene;
+  i: Integer;
+begin
+  i:= -1;
+  Result:= [];
+  SetLength(Result, 4);
+
+  actor:= GetMainBody();
+  if Assigned(actor) then
+  begin
+    i:= i + 1;
+    Result[i]:= actor;
+  end;
+
+  actor:= DesignedComponent('SceneHead', False) as TCastleScene;
+  if Assigned(actor) then
+  begin
+    i:= i + 1;
+    Result[i]:= actor;
+  end;
+
+  actor:= DesignedComponent('SceneHair', False) as TCastleScene;
+  if Assigned(actor) then
+  begin
+    i:= i + 1;
+    Result[i]:= actor;
+  end;
+
+  actor:= DesignedComponent('Controller', False) as TCastleScene;
+  if Assigned(actor) then
+  begin
+    i:= i + 1;
+    Result[i]:= actor;
+  end;
+
+  SetLength(Result, i + 1);
+end;
+
+procedure TNyaActorChara.SetSpeed(value: Single);
+var
+  bodies: TCastleScenes;
+  body: TCastleScene;
+begin
+  bodies:= GetActorsList();
+  for body in bodies do
+    if Assigned(body) then
+      body.TimePlayingSpeed:= value;
 end;
 
 procedure TNyaActorChara.SetDripping(value: Single);
