@@ -8,8 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, NyaFadeEffect,
-  ActorsLogic, NyaBaseActor, NyaPleasureTensionEffect,
-  NyaActorChara;
+  ActorsLogic, NyaPleasureTensionEffect;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -19,8 +18,6 @@ type
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
-    FloatSliderEmission: TCastleFloatSlider;
-    BtnEmission: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
     FloatSliderPleasure: TCastleFloatSlider;
     FloatSliderTension: TCastleFloatSlider;
@@ -37,14 +34,10 @@ type
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
   protected
-    FActorA: TNyaBaseActor;
-    FActorB: TNyaBaseActor;
-    FAnimationPrefix: String;
     FActorsLogic: TActorsLogic;
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
-    procedure ChangedEmission(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
     procedure SetDressButtons;
     procedure SetActionsList(actList: TCastleComponent);
@@ -58,8 +51,7 @@ implementation
 uses
   GameViewTravel, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
-  StrUtils, NyaCastleUtils,
-  ActorChara;
+  StrUtils, NyaCastleUtils, NyaActorChara;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -80,13 +72,8 @@ begin
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-  BtnEmission.OnClick:= {$ifdef FPC}@{$endif}ChangedEmission;
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
 
-  { Create Actors Logic }
-  FActorsLogic:= TActorsLogic.Create(FActorA, FActorB,
-                                     FAnimationPrefix,
-                                     FadeEffect);
   { set Camera }
   viewportMain:= DesignedComponent('ViewportMain') as TCastleViewport;
   cameraMain:= Map.DesignedComponent('CameraMain') as TCastleCamera;
@@ -101,9 +88,6 @@ begin
   fogMain:= Map.DesignedComponent('Fog', False) as TCastleFog;
   if Assigned(fogMain) then
     viewportMain.Fog:= fogMain;
-
-  { set characters self emission }
-  ChangedEmission(FloatSliderEmission);
 
   { set dress buttons }
   SetDressButtons;
@@ -160,7 +144,7 @@ end;
 
 procedure TBaseViewPlay.ClickDress(Sender: TObject);
 var
-  chara: TActorChara;
+  chara: TNyaActorChara;
   btnDress: TCastleButton;
 begin
   btnDress:= Sender as TCastleButton;
@@ -213,7 +197,7 @@ end;
 
 procedure TBaseViewPlay.SetDressButtons;
 var
-  chara: TActorChara;
+  chara: TNyaActorChara;
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
@@ -297,14 +281,6 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
-procedure TBaseViewPlay.ChangedEmission(Sender: TObject);
-var
-  chara: TActorChara;
-begin
-  for chara in FActorsLogic.Charas do
-    chara.SelfEmission:= FloatSliderEmission.Value;
-end;
-
 procedure TBaseViewPlay.ChangedSpeed(Sender: TObject);
 var
   slider: TCastleFloatSlider;
@@ -333,7 +309,7 @@ end;
 
 procedure TBaseViewPlay.SaveCharasCondition;
 var
-  chara: TActorChara;
+  chara: TNyaActorChara;
 begin
   for chara in FActorsLogic.Charas do
     chara.SaveCondition;

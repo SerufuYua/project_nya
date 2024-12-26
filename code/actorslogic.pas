@@ -5,13 +5,14 @@ unit ActorsLogic;
 interface
 
 uses
-  Classes, SysUtils, NyaBaseActor, CastleSceneCore, CastleColors,
-  X3DNodes, NyaFadeEffect, ActorChara;
+  Classes, SysUtils, CastleSceneCore, CastleColors,
+  X3DNodes, NyaFadeEffect, NyaBaseActor, NyaActorChara;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
 
   TActorsList = Array of TNyaBaseActor;
+  TCharasList = Array of TNyaActorChara;
 
   TActorsLogic = class
   protected
@@ -35,7 +36,7 @@ type
     procedure ActionGo;     { Play Go Animation.      IN Cycle }
     procedure ActionFastGo; { Play Fast Go Animation. IN Cycle }
     procedure ActionFinish; { Play Finish Animation.  NO Cycle }
-    procedure ActionRelax;  { Play Relax Animation. IN Cycle }
+    procedure ActionRelax;  { Play Relax Animation.   IN Cycle }
     procedure ActionStartStop(const Scene: TCastleSceneCore;
                               const Animation: TTimeSensorNode);
     procedure ActionFinishStop(const Scene: TCastleSceneCore;
@@ -51,7 +52,7 @@ type
       DefaultThresholdFastGo = 0.6;
       DefaultThresholdFinish = 0.95;
 
-    constructor Create(actorA, actorB: TNyaBaseActor;
+    constructor Create(actors: TActorsList;
                        animationPrefix: String;
                        screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
@@ -73,7 +74,7 @@ uses
   CharaDress, CastleUtils, CastleVectors, NyaClassUtils, Math;
 
 type
-  TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TActorChara>;
+  TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TNyaActorChara>;
 
 const
   SuffixWait = '.IDLE';
@@ -86,13 +87,11 @@ const
   WithoutPants = 'condom';
   BareFoots = 'none';
 
-constructor TActorsLogic.Create(actorA, actorB: TNyaBaseActor;
+constructor TActorsLogic.Create(actors: TActorsList;
                                 animationPrefix: String;
                                 screenFader: TNyaFadeEffect);
 begin
-  SetLength(FActors, 2);
-  FActors[0]:= actorA;
-  FActors[1]:= actorB;
+  FActors:= actors;
   FAnimationPrefix:= animationPrefix;
   FScreenFader:= screenFader;
   FActionNum:= '';
@@ -106,8 +105,7 @@ end;
 
 procedure TActorsLogic.Update(const SecondsPassed: Single);
 var
-  actor: TNyaBaseActor;
-  chara: TActorChara;
+  chara: TNyaActorChara;
 begin
   { Update Pleasure/Tension Statuses }
   Case FStatus of
@@ -146,8 +144,8 @@ begin
   { Update Actors }
   for chara in Charas do
   begin
-//    chara.Pleasure:= Pleasure;
-//    chara.Tension:= Tension;
+    chara.Dripping:= Pleasure;
+    chara.Sweating:= Tension;
   end;
 end;
 
@@ -193,7 +191,7 @@ procedure TActorsLogic.PlayAnimation(const animationName: String;
                                     footDress: boolean);
 var
   actor: TNyaBaseActor;
-  chara: TActorChara;
+  chara: TNyaActorChara;
   dresser: TCharaDresser;
 begin
   for actor in FActors do
@@ -203,7 +201,7 @@ begin
       chara:= TCharaDynamic.Cast(actor);
       if Assigned(chara) then
       begin
-        dresser:= chara.GetDresser();
+        dresser:= chara.Dresser;
         begin
           if NOT bottomDress then
             dresser.WearSuit(TSuits.Bottom, WithoutPants);
@@ -221,7 +219,7 @@ procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
                                      footDress: boolean);
 var
   actor: TNyaBaseActor;
-  chara: TActorChara;
+  chara: TNyaActorChara;
   dresser: TCharaDresser;
 begin
   for actor in FActors do
@@ -231,7 +229,7 @@ begin
       chara:= TCharaDynamic.Cast(actor);
       if Assigned(chara) then
       begin
-        dresser:= chara.GetDresser();
+        dresser:= chara.Dresser;
         if Assigned(dresser) then
         begin
           if NOT bottomDress then
@@ -337,7 +335,7 @@ end;
 function TActorsLogic.GetCharas: TCharasList;
 var
   actor: TNyaBaseActor;
-  chara: TActorChara;
+  chara: TNyaActorChara;
 begin
   Result:= [];
 
@@ -352,7 +350,7 @@ end;
 function TActorsLogic.GetColor: TCastleColorRGB;
 var
   actor: TNyaBaseActor;
-  chara: TActorChara;
+  chara: TNyaActorChara;
   averColor: TCastleColorRGB;
   count: Integer;
   maxColor: Single;

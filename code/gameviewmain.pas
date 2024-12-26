@@ -11,7 +11,7 @@ uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
   CastleTransform, CastleQuaternions, CastleScene, CastleFlashEffect,
-  ActorChara;
+  NyaActorChara;
 
 type
   { Main view, where most of the application logic takes place. }
@@ -27,21 +27,18 @@ type
     LabelInfo2: TCastleLabel;
     CameraMain: TCastleCamera;
     FlashEffect: TCastleFlashEffect;
+    CharaGirl: TNyaActorChara;
+    CharaBoy: TNyaActorChara;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
-    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
-    function Press(const Event: TInputPressRelease): Boolean; override;
   private
-    FActorGirl: TActorChara;
-    FActorBoy: TActorChara;
     FCurPos: TVector2;
     FCameraRatation: TQuaternion;
     procedure ClickExit(Sender: TObject);
     procedure ClickStart(Sender: TObject);
     procedure ClicSettings(Sender: TObject);
-    procedure CharaActionWaiting;
     procedure UpdateCamera(const SecondsPassed: Single); { follow cameta rotation to cursor }
   end;
 
@@ -59,15 +56,10 @@ constructor TViewMain.Create(AOwner: TComponent);
 begin
   inherited;
   DesignUrl:= 'castle-data:/gameviewmain.castle-user-interface';
-  FActorGirl:=  nil;
-  FActorBoy:=  nil;
   FCurPos:= Vector2(0.0, 0.0);
 end;
 
 procedure TViewMain.Start;
-var
-  GirlScene: TCastleTransformDesign;
-  BoyScene: TCastleTransformDesign;
 begin
   inherited;
 
@@ -78,30 +70,8 @@ begin
   { appear fade animator }
   FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 0.9), True);
 
-  { Create Girl Character instance }
-{  GirlScene:= DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorGirl:= TActorChara.Create(GirlScene, 'Girl');}
-
-  { Create Boy Character instance }
-{  BoyScene:= DesignedComponent('CharaBoy') as TCastleTransformDesign;
-  FActorBoy:= TActorChara.Create(BoyScene, 'Boy');}
-
-  { set character self emission }
-  FActorGirl.SelfEmission:= 0.15;
-  FActorBoy.SelfEmission:= 0.15;
-
   { remember initial camera rotation }
   FCameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
-
-  { default chara action }
-  CharaActionWaiting;
-end;
-
-procedure TViewMain.Stop;
-begin
-  FreeAndNil(FActorGirl);
-  FreeAndNil(FActorBoy);
-  inherited;
 end;
 
 procedure TViewMain.Update(const SecondsPassed: Single; var HandleInput: Boolean);
@@ -112,12 +82,6 @@ begin
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
   UpdateCamera(SecondsPassed);
-end;
-
-function TViewMain.Press(const Event: TInputPressRelease): Boolean;
-begin
-  Result:= inherited;
-  if Result then Exit; // allow the ancestor to handle keys
 end;
 
 procedure TViewMain.ClickExit(Sender: TObject);
@@ -134,16 +98,6 @@ end;
 procedure TViewMain.ClicSettings(Sender: TObject);
 begin
   { #todo : need game settings }
-end;
-
-procedure TViewMain.CharaActionWaiting;
-begin
-  FActorGirl.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  FActorGirl.Translation:= Vector3(59, 0, 13);
-  FActorGirl.Rotation:= Vector4(0, 0, 0, 0);
-  FActorBoy.PlayAnimation('GAME.TOGETHER.INTRO.WAITING');
-  FActorBoy.Translation:= Vector3(81, 0, 56);
-  FActorBoy.Rotation:= Vector4(0, -1, 0, Pi/2);
 end;
 
 procedure TViewMain.UpdateCamera(const SecondsPassed: Single);

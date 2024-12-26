@@ -3,7 +3,7 @@ unit GameViewPlayGirl;
 interface
 
 uses
-  Classes, BaseViewPlay;
+  Classes, BaseViewPlay, NyaActorChara, NyaActorToyA;
 
 type
   TViewPlayGirl = class(TBaseViewPlay)
@@ -17,26 +17,25 @@ var
 implementation
 
 uses
-  SysUtils, CastleTransform, ActorChara, NyaActorToyA;
+  SysUtils, CastleTransform, NyaBaseActor, ActorsLogic;
 
 procedure TViewPlayGirl.Start;
 var
-  actorScene: TCastleTransformDesign;
+  actorA, actorB: TNyaBaseActor;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-transform';
 
-  { Create Girl Character instance }
-{  actorScene:= Map.DesignedComponent('CharaGirl') as TCastleTransformDesign;
-  FActorA:= TActorChara.Create(actorScene, 'Girl');}
+  { get Girl Character instance }
+  actorA:= Map.DesignedComponent('CharaGirl') as TNyaBaseActor;
 
-  { Create Toys instance }
-{  actorScene:= Map.DesignedComponent('ToyA') as TCastleTransformDesign;
-  FActorB:= TNyaActorToyA.Create(actorScene, 'ToyA');}
+  { get Toys instance }
+  actorB:= Map.DesignedComponent('ToyA') as TNyaBaseActor;
 
-  { set animation name prefix }
-  FAnimationPrefix:= 'GAME.GIRL_TOYA.PLAY';
-
+{ Create Actors Logic }
+  FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
+                                     'GAME.GIRL_TOYA.PLAY',
+                                     FadeEffect);
   inherited;
 end;
 
