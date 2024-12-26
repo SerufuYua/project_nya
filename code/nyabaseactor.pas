@@ -92,20 +92,28 @@ end;
 procedure TNyaBaseActor.PrepareResources(const Options: TPrepareResourcesOptions;
                                          const Params: TPrepareParams);
 var
-  buff: String;
+  animBuff: String;
   value: Single;
   enable: Boolean;
 begin
   inherited;
 
   { AutoAnimation: String; }
-  buff:= FAutoAnimation;
-  FAutoAnimation:= 'none';
-  AutoAnimation:= buff;
+  { #note : disable aniimation before SelfEmission }
+  animBuff:= FAutoAnimation;
+  AutoAnimation:= 'none';
+
+  { SelfEmission: Single; }
+  value:= FSelfEmission;
+  FSelfEmission:= value - 1.0;
+  SelfEmission:= value;
+
+  { #note : restore aniimation after SelfEmission }
+  AutoAnimation:= animBuff;
 
   { Speed: Single; }
   value:= FSpeed;
-  FSpeed:= -1.0;
+  FSpeed:= value - 1.0;
   Speed:= value;
 
   { Lightning: Boolean; }
@@ -113,10 +121,6 @@ begin
   FLightning:= NOT enable;
   Lightning:= enable;
 
-  { SelfEmission: Single; }
-  value:= FSelfEmission;
-  FSelfEmission:= -1.0;
-  SelfEmission:= value;
 end;
 
 procedure TNyaBaseActor.SetLightning(enable: Boolean);

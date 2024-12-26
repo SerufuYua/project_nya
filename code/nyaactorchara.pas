@@ -75,12 +75,12 @@ begin
 
   { Dripping: Single; }
   value:= FDripping;
-  FDripping:= -1.0;
+  FDripping:= value - 1.0;
   Dripping:= value;
 
   { Sweating: Single; }
   value:= FSweating;
-  FSweating:= -1.0;
+  FSweating:= value - 1.0;
   Sweating:= value;
 
   Dresser.RestoreCondition(ActorName);
