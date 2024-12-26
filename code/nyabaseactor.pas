@@ -14,6 +14,7 @@ type
     FActorName: String;
     FAutoAnimation: String;
     FPersonalColor: TCastleColorRGB;
+    FSpeed: Single;
     FPleasure: Single;
     FTension: Single;
     FSelfEmission: Single;
@@ -21,7 +22,6 @@ type
     FPersonalColorPersistent: TCastleColorRGBPersistent;
     function GetPersonalColorForPersistent: TCastleColorRGB;
     procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
-    function GetSpeed: Single;
     procedure SetSpeed(value: Single); virtual; abstract;
     procedure SetAutoAnimation(const Value: String); virtual; abstract;
     procedure SetLightning(enable: Boolean);
@@ -29,14 +29,16 @@ type
   public
     const
       DefaultActorName = 'unknown';
-      DefaultAutoAnimation  = 'none';
-      DefaultLightning  = True;
-      DefaultSpeed  = 1.0;
-      DefaultSelfEmission  = 0.0;
+      DefaultAutoAnimation = 'none';
+      DefaultLightning = True;
+      DefaultSpeed = 1.0;
+      DefaultSelfEmission = 0.0;
       DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure PrepareResources(const Options: TPrepareResourcesOptions;
+                               const Params: TPrepareParams); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual; abstract;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
@@ -47,7 +49,7 @@ type
   published
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property ActorName: String read FActorName write FActorName;
-    property Speed: Single read GetSpeed write SetSpeed
+    property Speed: Single read FSpeed write SetSpeed
       {$ifdef FPC}default DefaultSpeed{$endif};
     property Lightning: Boolean read FLightning write SetLightning;
     property SelfEmission: Single read FSelfEmission write SetSelfEmission
@@ -69,6 +71,7 @@ begin
 
   FActorName:= DefaultActorName;
   FAutoAnimation:= DefaultAutoAnimation;
+  FSpeed:= DefaultSpeed;
   FLightning:= DefaultLightning;
   FSelfEmission:= DefaultSelfEmission;
 
@@ -86,15 +89,34 @@ begin
   inherited;
 end;
 
-function TNyaBaseActor.GetSpeed: Single;
+procedure TNyaBaseActor.PrepareResources(const Options: TPrepareResourcesOptions;
+                                         const Params: TPrepareParams);
 var
-  actor: TCastleScene;
+  buff: String;
+  value: Single;
+  enable: Boolean;
 begin
-  actor:= MainActor;
-  if Assigned(actor) then
-    Result:= actor.TimePlayingSpeed
-  else
-    Result:= 1.0;
+  inherited;
+
+  { AutoAnimation: String; }
+  buff:= FAutoAnimation;
+  FAutoAnimation:= 'none';
+  AutoAnimation:= buff;
+
+  { Speed: Single; }
+  value:= FSpeed;
+  FSpeed:= -1.0;
+  Speed:= value;
+
+  { Lightning: Boolean; }
+  enable:= FLightning;
+  FLightning:= NOT enable;
+  Lightning:= enable;
+
+  { SelfEmission: Single; }
+  value:= FSelfEmission;
+  FSelfEmission:= -1.0;
+  SelfEmission:= value;
 end;
 
 procedure TNyaBaseActor.SetLightning(enable: Boolean);

@@ -114,6 +114,9 @@ procedure TNyaActorToyA.SetSpeed(value: Single);
 var
   tool: TCastleScene;
 begin
+  if (FSpeed = value) then Exit;
+  FSpeed:= value;
+
   tool:= MainActor;
   if Assigned(tool) then
     tool.TimePlayingSpeed:= value;

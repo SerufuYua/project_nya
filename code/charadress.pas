@@ -15,6 +15,8 @@ type
     FScene: TCastleTransformDesign;
     function GetMainBody(): TCastleScene; { main chara Body }
   public
+    { #todo : remove 'Get' }
+    { #todo : make function Saver instead two procedures }
     constructor Create(scene: TCastleTransformDesign);
     function GetSuitsList(suitType: TSuits): TItemConditions;
     function GetDressedSuit(suitType: TSuits): String;
@@ -22,6 +24,7 @@ type
     function GetAcessoriesList(): TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
+    procedure RestoreCondition(const name:string);
   end;
 
   TDressSaver = class
@@ -178,6 +181,15 @@ var
 begin
   DressSaver:= TDressSaver.Create(self, name);
   DressSaver.SaveProperties;
+  FreeAndNil(DressSaver);
+end;
+
+procedure TCharaDresser.RestoreCondition(const name:string);
+var
+  DressSaver: TDressSaver;
+begin
+  DressSaver:= TDressSaver.Create(self, name);
+  DressSaver.RestoreProperties;
   FreeAndNil(DressSaver);
 end;
 

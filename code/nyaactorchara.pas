@@ -26,6 +26,8 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure PrepareResources(const Options: TPrepareResourcesOptions;
+                               const Params: TPrepareParams); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
@@ -62,6 +64,26 @@ begin
     FreeAndNil(FDresser);
 
   inherited;
+end;
+
+procedure TNyaActorChara.PrepareResources(const Options: TPrepareResourcesOptions;
+                                         const Params: TPrepareParams);
+var
+  value: Single;
+begin
+  inherited;
+
+  { Dripping: Single; }
+  value:= FDripping;
+  FDripping:= -1.0;
+  Dripping:= value;
+
+  { Sweating: Single; }
+  value:= FSweating;
+  FSweating:= -1.0;
+  Sweating:= value;
+
+  Dresser.RestoreCondition(ActorName);
 end;
 
 procedure TNyaActorChara.Update(const SecondsPassed: Single;
@@ -182,6 +204,9 @@ var
   bodies: TCastleScenes;
   body: TCastleScene;
 begin
+  if (FSpeed = value) then Exit;
+  FSpeed:= value;
+
   bodies:= ActorsList;
   for body in bodies do
     if Assigned(body) then
