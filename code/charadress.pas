@@ -223,7 +223,7 @@ begin
   suitName:= ini.ReadString(FCharaName, PrefixTop, 'summer_shirt');
   FDresser.WearSuit(Top, suitName);
 
-  suitName:= ini.ReadString(FCharaName, PrefixBottom, 'briefs');
+  suitName:= ini.ReadString(FCharaName, PrefixBottom, 'jorts');
   FDresser.WearSuit(Bottom, suitName);
 
   suitName:= ini.ReadString(FCharaName, PrefixFoots, 'sneakers');
