@@ -12,10 +12,13 @@ uses
 type
   TNyaActorToyA = class(TNyaBaseActor)
   protected
+    FRailingUsed: Boolean;
     function GetCurrentTool(): TCastleScene;
     function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
+    procedure SetAutoAnimation(const Value: String); override;
   public
+    constructor Create(AOwner: TComponent); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
@@ -26,6 +29,28 @@ implementation
 
 uses
   CastleComponentSerialize;
+
+constructor TNyaActorToyA.Create(AOwner: TComponent);
+begin
+  inherited;
+
+  FRailingUsed:= False;
+end;
+
+procedure TNyaActorToyA.SetAutoAnimation(const Value: String);
+var
+  tool: TCastleScene;
+begin
+  UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Value));
+
+  if FAutoAnimation <> Value then
+  begin
+    FAutoAnimation:= Value;
+    tool:= GetCurrentTool();
+    if Assigned(tool) then
+      tool.AutoAnimation:= Value;
+  end;
+end;
 
 procedure TNyaActorToyA.PlayAnimation(const animationName: String;
                                              loop: boolean = true);
@@ -68,6 +93,9 @@ procedure TNyaActorToyA.UseRailing(enable: Boolean);
 var
   railing: TCastleScene;
 begin
+  if (FRailingUsed = enable) then Exit;
+  FRailingUsed:= enable;
+
   railing:= DesignedComponent('Railing') as TCastleScene;
 
   if enable then

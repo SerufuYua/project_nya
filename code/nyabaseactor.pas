@@ -12,13 +12,16 @@ type
   TNyaBaseActor = class(TCastleTransformDesign)
   protected
     FActorName: String;
+    FAutoAnimation: String;
     FPleasure: Single;
     FTension: Single;
     function GetSpeed: Single; virtual; abstract;
     procedure SetSpeed(value: Single); virtual; abstract;
+    procedure SetAutoAnimation(const Value: String); virtual; abstract;
   public
     const
       DefaultActorName = 'unknown';
+      DefaultAutoAnimation  = 'none';
 
     constructor Create(AOwner: TComponent); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
@@ -26,6 +29,7 @@ type
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
+    property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property ActorName: String read FActorName write FActorName;
     property Speed: Single read GetSpeed write SetSpeed;
   end;
@@ -40,12 +44,13 @@ begin
   inherited;
 
   FActorName:= DefaultActorName;
+  FAutoAnimation:= DefaultAutoAnimation;
 end;
 
 function TNyaBaseActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'ActorName', 'Speed', 'Pleasure', 'Tension'
+       'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation'
      ]) then
     Result:= [psBasic]
   else

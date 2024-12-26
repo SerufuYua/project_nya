@@ -14,20 +14,18 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    FAutoAnimation: String;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
-    procedure SetAutoAnimation(const Value: String);
+    procedure SetAutoAnimation(const Value: String); override;
     procedure UpdateJizz;
   public
     const
       DefaultDripping = 0.0;
       DefaultSweating = 0.0;
-      DefaultAutoAnimation  = 'none';
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -39,7 +37,6 @@ type
     procedure SaveCondition;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
-    property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property Dripping: Single read FDripping write SetDripping
       {$ifdef FPC}default DefaultDripping{$endif};
     property Sweating: Single read FSweating write SetSweating
@@ -57,7 +54,6 @@ begin
 
   FDripping:= DefaultDripping;
   FSweating:= DefaultSweating;
-  FAutoAnimation:= DefaultAutoAnimation;
   FDresser:= nil;
 end;
 
@@ -258,7 +254,7 @@ end;
 function TNyaActorChara.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Dripping', 'Sweating', 'AutoAnimation'
+       'Dripping', 'Sweating'
      ]) then
     Result:= [psBasic]
   else
