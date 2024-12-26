@@ -9,19 +9,18 @@ uses
 
 type
   TSuits = (All, Top, Bottom, Foots, Arms);
+  TDressSaver = class;
 
   TCharaDresser = class
   protected
     FScene: TCastleTransformDesign;
-    function GetMainBody(): TCastleScene; { main chara Body }
+    function MainBody: TCastleScene; { main chara Body }
   public
-    { #todo : remove 'Get' }
-    { #todo : make function Saver instead two procedures }
     constructor Create(scene: TCastleTransformDesign);
-    function GetSuitsList(suitType: TSuits): TItemConditions;
-    function GetDressedSuit(suitType: TSuits): String;
+    function SuitsList(suitType: TSuits): TItemConditions;
+    function DressedSuit(suitType: TSuits): String;
     procedure WearSuit(suitType: TSuits; const suitName: String);
-    function GetAcessoriesList(): TItemConditions;
+    function AcessoriesList: TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
     procedure RestoreCondition(const name:string);
@@ -59,7 +58,7 @@ begin
   FScene:= scene;
 end;
 
-function TCharaDresser.GetSuitsList(suitType: TSuits): TItemConditions;
+function TCharaDresser.SuitsList(suitType: TSuits): TItemConditions;
 var
   i: Integer;
   found: Boolean;
@@ -68,20 +67,20 @@ var
 begin
   { get list of full suit shape names }
   Case suitType of
-  Top: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixTop);
-  Bottom: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixBottom);
-  Foots: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixFoots);
-  Arms: fullNames:= GetShapeNamesByNameStart(GetMainBody(), PrefixArms);
+  Top: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixTop);
+  Bottom: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixBottom);
+  Foots: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixFoots);
+  Arms: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixArms);
   All:
     begin
       fullNames:= [];
-      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixTop),
+      Insert(GetShapeNamesByNameStart(MainBody, PrefixTop),
              fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixBottom),
+      Insert(GetShapeNamesByNameStart(MainBody, PrefixBottom),
              fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixFoots),
+      Insert(GetShapeNamesByNameStart(MainBody, PrefixFoots),
              fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(GetMainBody(), PrefixArms),
+      Insert(GetShapeNamesByNameStart(MainBody, PrefixArms),
              fullNames, Length(fullNames));
     end
   else
@@ -109,11 +108,11 @@ begin
   end;
 end;
 
-function TCharaDresser.GetDressedSuit(suitType: TSuits): String;
+function TCharaDresser.DressedSuit(suitType: TSuits): String;
 var
   suit: TItemCondition;
 begin
-  for suit in GetSuitsList(suitType) do
+  for suit in SuitsList(suitType) do
   begin
     if suit.Visible then
     begin
@@ -131,10 +130,10 @@ var
   shapeName: String;
 begin
   Case suitType of
-  Top: shapes:= GetShapesByNameStart(GetMainBody(), PrefixTop);
-  Bottom: shapes:= GetShapesByNameStart(GetMainBody(), PrefixBottom);
-  Foots: shapes:= GetShapesByNameStart(GetMainBody(), PrefixFoots);
-  Arms: shapes:= GetShapesByNameStart(GetMainBody(), PrefixArms);
+  Top: shapes:= GetShapesByNameStart(MainBody, PrefixTop);
+  Bottom: shapes:= GetShapesByNameStart(MainBody, PrefixBottom);
+  Foots: shapes:= GetShapesByNameStart(MainBody, PrefixFoots);
+  Arms: shapes:= GetShapesByNameStart(MainBody, PrefixArms);
   else
     shapes:= [];
   end;
@@ -149,7 +148,7 @@ begin
   end;
 end;
 
-function TCharaDresser.GetAcessoriesList(): TItemConditions;
+function TCharaDresser.AcessoriesList: TItemConditions;
 var
   i: Integer;
   acessoryNames: TItemConditions;
@@ -193,7 +192,7 @@ begin
   FreeAndNil(DressSaver);
 end;
 
-function TCharaDresser.GetMainBody(): TCastleScene;
+function TCharaDresser.MainBody: TCastleScene;
 begin
   Result:= FScene.DesignedComponent('Body') as TCastleScene;
 end;
@@ -234,7 +233,7 @@ begin
   FDresser.WearSuit(Arms, suitName);
 
   { accessories }
-  for accessory in FDresser.GetAcessoriesList() do
+  for accessory in FDresser.AcessoriesList do
   begin
     visible:= ini.ReadBool(FCharaName, accessory.Name, False);
     FDresser.WearAcessory(accessory.Name, visible);
@@ -254,20 +253,20 @@ begin
   ini.Options:= [ifoFormatSettingsActive];
 
   { suits }
-  suitName:= FDresser.GetDressedSuit(Top);
+  suitName:= FDresser.DressedSuit(Top);
   ini.WriteString(FCharaName, PrefixTop, suitName);
 
-  suitName:= FDresser.GetDressedSuit(Bottom);
+  suitName:= FDresser.DressedSuit(Bottom);
   ini.WriteString(FCharaName, PrefixBottom, suitName);
 
-  suitName:= FDresser.GetDressedSuit(Foots);
+  suitName:= FDresser.DressedSuit(Foots);
   ini.WriteString(FCharaName, PrefixFoots, suitName);
 
-  suitName:= FDresser.GetDressedSuit(Arms);
+  suitName:= FDresser.DressedSuit(Arms);
   ini.WriteString(FCharaName, PrefixArms, suitName);
 
   { accessories }
-  for accessory in FDresser.GetAcessoriesList() do
+  for accessory in FDresser.AcessoriesList do
   begin
     ini.WriteBool(FCharaName, accessory.Name, accessory.Visible);
   end;
