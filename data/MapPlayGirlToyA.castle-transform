@@ -91,6 +91,18 @@
           "Name" : "ToyA",
           "Speed" : 1.0000000000000000E+000,
           "Url" : "castle-data:/ToyAForGirl.castle-transform"
+        },
+        {
+          "$$ClassName" : "TNyaActorChara",
+          "ActorName" : "unknown",
+          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
+          "Name" : "NyaActorChara1",
+          "Speed" : 1.0000000000000000E+000,
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 3.9234184265136719E+001
+          },
+          "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
         }
       ]
     },

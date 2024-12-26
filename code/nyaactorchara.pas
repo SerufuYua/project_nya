@@ -14,17 +14,20 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
+    FAutoAnimation: String;
     function GetMainBody(): TCastleScene;    { main actor Body }
     function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
+    procedure SetAutoAnimation(const Value: String);
     procedure UpdateJizz;
   public
     const
       DefaultDripping = 0.0;
       DefaultSweating = 0.0;
+      DefaultAutoAnimation  = 'none';
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -36,6 +39,7 @@ type
     procedure SaveCondition;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
+    property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property Dripping: Single read FDripping write SetDripping
       {$ifdef FPC}default DefaultDripping{$endif};
     property Sweating: Single read FSweating write SetSweating
@@ -53,6 +57,7 @@ begin
 
   FDripping:= DefaultDripping;
   FSweating:= DefaultSweating;
+  FAutoAnimation:= DefaultAutoAnimation;
   FDresser:= nil;
 end;
 
@@ -72,14 +77,25 @@ begin
   UpdateJizz;
 end;
 
+procedure TNyaActorChara.SetAutoAnimation(const Value: String);
+var
+  actor: TCastleScene;
+begin
+  if FAutoAnimation <> Value then
+  begin
+    FAutoAnimation:= Value;
+    for actor in GetActorsList() do
+      actor.AutoAnimation:= Value;
+  end;
+end;
+
 procedure TNyaActorChara.PlayAnimation(const animationName: String;
                                        loop: boolean = true);
 var
   actor: TCastleScene;
 begin
   for actor in GetActorsList() do
-    if Assigned(actor) then
-      actor.PlayAnimation(animationName, loop);
+    actor.PlayAnimation(animationName, loop);
 end;
 
 procedure TNyaActorChara.PlayAnimation(const Parameters: TPlayAnimationParameters);
@@ -91,15 +107,12 @@ begin
   body:= GetMainBody();
   for actor in GetActorsList() do
   begin
-    if Assigned(actor) then
-    begin
-      if (actor = body) then
-        actor.PlayAnimation(Parameters)
-      else begin
-        noEventParam:= Parameters;
-        Parameters.StopNotification:= nil;
-        actor.PlayAnimation(noEventParam)
-      end;
+    if (actor = body) then
+      actor.PlayAnimation(Parameters)
+    else begin
+      noEventParam:= Parameters;
+      Parameters.StopNotification:= nil;
+      actor.PlayAnimation(noEventParam)
     end;
   end;
 end;
@@ -109,8 +122,7 @@ var
   actor: TCastleScene;
 begin
   for actor in GetActorsList() do
-    if Assigned(actor) then
-      actor.StopAnimation(DisableStopNotification);
+    actor.StopAnimation(DisableStopNotification);
 end;
 
 function TNyaActorChara.Dresser: TCharaDresser;
@@ -192,6 +204,8 @@ var
   EmitterDrip: TCastleParticleEmitter;
   EffectDrip: TCastleParticleEffect;
 begin
+  if (FDripping = value) then Exit;
+
   EmitterDrip:= DesignedComponent('EmitterDrip', False)
                 as TCastleParticleEmitter;
   EffectDrip:= DesignedComponent('EffectDrip', False)
@@ -210,6 +224,8 @@ var
   EmitterSweat: TCastleParticleEmitter;
   EffectSweat: TCastleParticleEffect;
 begin
+  if (FSweating = value) then Exit;
+
   EmitterSweat:= DesignedComponent('EmitterSweat', False)
                  as TCastleParticleEmitter;
   EffectSweat:= DesignedComponent('EffectSweat', False)
@@ -242,7 +258,7 @@ end;
 function TNyaActorChara.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Dripping', 'Sweating'
+       'Dripping', 'Sweating', 'AutoAnimation'
      ]) then
     Result:= [psBasic]
   else
