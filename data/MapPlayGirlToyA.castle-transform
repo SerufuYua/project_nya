@@ -80,20 +80,22 @@
           "$$ClassName" : "TNyaActorChara",
           "ActorName" : "Girl",
           "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
+          "Lightning" : true,
           "Name" : "CharaGirl",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "Z" : 1.0000000000000000E+000
           },
-          "Speed" : 1.0000000000000000E+000,
+          "SelfEmission" : 1.5000000596046448E-001,
           "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
         },
         {
           "$$ClassName" : "TNyaActorToyA",
           "ActorName" : "Toy-A",
           "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
+          "Lightning" : true,
           "Name" : "ToyA",
-          "Speed" : 1.0000000000000000E+000,
+          "SelfEmission" : 1.5000000596046448E-001,
           "Url" : "castle-data:/ToyAForGirl.castle-transform"
         }
       ]

@@ -15,16 +15,20 @@ type
     FAutoAnimation: String;
     FPleasure: Single;
     FTension: Single;
+    FSelfEmission: Single;
     FLightning: Boolean;
     function GetSpeed: Single;
     procedure SetSpeed(value: Single); virtual; abstract;
     procedure SetAutoAnimation(const Value: String); virtual; abstract;
     procedure SetLightning(enable: Boolean);
+    procedure SetSelfEmission(value: Single);
   public
     const
       DefaultActorName = 'unknown';
       DefaultAutoAnimation  = 'none';
       DefaultLightning  = True;
+      DefaultSpeed  = 1.0;
+      DefaultSelfEmission  = 0.0;
 
     constructor Create(AOwner: TComponent); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
@@ -35,8 +39,11 @@ type
   published
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property ActorName: String read FActorName write FActorName;
-    property Speed: Single read GetSpeed write SetSpeed;
+    property Speed: Single read GetSpeed write SetSpeed
+      {$ifdef FPC}default DefaultSpeed{$endif};
     property Lightning: Boolean read FLightning write SetLightning;
+    property SelfEmission: Single read FSelfEmission write SetSelfEmission
+      {$ifdef FPC}default DefaultSelfEmission{$endif};
   end;
 
 implementation
@@ -54,6 +61,7 @@ begin
   FActorName:= DefaultActorName;
   FAutoAnimation:= DefaultAutoAnimation;
   FLightning:= DefaultLightning;
+  FSelfEmission:= DefaultSelfEmission;
 end;
 
 function TNyaBaseActor.GetSpeed: Single;
@@ -69,19 +77,33 @@ end;
 
 procedure TNyaBaseActor.SetLightning(enable: Boolean);
 var
-  Scene: TCastleScene;
+  scene: TCastleScene;
 begin
   if (FLightning = enable) then Exit;
   FLightning:= enable;
 
-  for Scene in GetAllScenes(self) do
-    Scene.RenderOptions.Lighting:= enable;
+  for scene in GetAllScenes(self) do
+    scene.RenderOptions.Lighting:= enable;
+end;
+
+procedure TNyaBaseActor.SetSelfEmission(value: Single);
+var
+  scene: TCastleScene;
+begin
+  if (FSelfEmission = value) then Exit;
+  FSelfEmission:= value;
+
+  for scene in GetAllScenes(self) do
+  begin
+    SetEmission(scene, value, value, value, True);
+  end;
 end;
 
 function TNyaBaseActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation', 'Lightning'
+       'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation',
+       'Lightning', 'SelfEmission'
      ]) then
     Result:= [psBasic]
   else
