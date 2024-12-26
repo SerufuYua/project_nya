@@ -55,6 +55,8 @@ type
     property SelfEmission: Single read FSelfEmission write SetSelfEmission
       {$ifdef FPC}default DefaultSelfEmission{$endif};
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
+    { #todo : need to fix personal color saving }
+    { #todo : neet to add property AnisotropicFiltering }
   end;
 
 implementation
@@ -114,11 +116,10 @@ begin
   Lightning:= enable;
 
   { AutoAnimation: String; }
-  { #note : need to be placed after SelfEmission }
+  { #note : set animation need to be placed after SelfEmission }
   animBuff:= FAutoAnimation;
   AutoAnimation:= 'none'; { NOT FAutoAnimation }
   AutoAnimation:= animBuff;
-
 end;
 
 procedure TNyaBaseActor.SetLightning(enable: Boolean);
