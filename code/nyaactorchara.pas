@@ -14,8 +14,6 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    function GetMainBody(): TCastleScene;    { main actor Body }
-    function GetActorsList(): TCastleScenes; { Body + Head + Hair}
     function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
@@ -33,6 +31,8 @@ type
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
+    function MainActor: TCastleScene; override; { main actor Body }
+    function ActorsList: TCastleScenes;         { Body + Head + Hair}
     function Dresser: TCharaDresser;
     procedure SaveCondition;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -80,7 +80,7 @@ begin
   if FAutoAnimation <> Value then
   begin
     FAutoAnimation:= Value;
-    for actor in GetActorsList() do
+    for actor in ActorsList do
       actor.AutoAnimation:= Value;
   end;
 end;
@@ -90,7 +90,7 @@ procedure TNyaActorChara.PlayAnimation(const animationName: String;
 var
   actor: TCastleScene;
 begin
-  for actor in GetActorsList() do
+  for actor in ActorsList do
     actor.PlayAnimation(animationName, loop);
 end;
 
@@ -100,8 +100,8 @@ var
   body: TCastleScene;
   noEventParam: TPlayAnimationParameters;
 begin
-  body:= GetMainBody();
-  for actor in GetActorsList() do
+  body:= MainActor;
+  for actor in ActorsList do
   begin
     if (actor = body) then
       actor.PlayAnimation(Parameters)
@@ -117,7 +117,7 @@ procedure TNyaActorChara.StopAnimation(const DisableStopNotification: Boolean);
 var
   actor: TCastleScene;
 begin
-  for actor in GetActorsList() do
+  for actor in ActorsList do
     actor.StopAnimation(DisableStopNotification);
 end;
 
@@ -139,12 +139,12 @@ begin
     Result:= 1.0;
 end;
 
-function TNyaActorChara.GetMainBody(): TCastleScene;
+function TNyaActorChara.MainActor: TCastleScene;
 begin
   Result:= DesignedComponent('Body', False) as TCastleScene;
 end;
 
-function TNyaActorChara.GetActorsList(): TCastleScenes;
+function TNyaActorChara.ActorsList: TCastleScenes;
 var
   actor: TCastleScene;
   i: Integer;
@@ -153,7 +153,7 @@ begin
   Result:= [];
   SetLength(Result, 4);
 
-  actor:= GetMainBody();
+  actor:= MainActor;
   if Assigned(actor) then
   begin
     i:= i + 1;
@@ -189,7 +189,7 @@ var
   bodies: TCastleScenes;
   body: TCastleScene;
 begin
-  bodies:= GetActorsList();
+  bodies:= ActorsList;
   for body in bodies do
     if Assigned(body) then
       body.TimePlayingSpeed:= value;

@@ -77,32 +77,24 @@
           "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf"
         },
         {
-          "$$ClassName" : "TCastleTransformDesign",
+          "$$ClassName" : "TNyaActorChara",
+          "ActorName" : "Girl",
+          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
           "Name" : "CharaGirl",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "Z" : 1.0000000000000000E+000
           },
+          "Speed" : 1.0000000000000000E+000,
           "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
         },
         {
           "$$ClassName" : "TNyaActorToyA",
           "ActorName" : "Toy-A",
+          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
           "Name" : "ToyA",
           "Speed" : 1.0000000000000000E+000,
           "Url" : "castle-data:/ToyAForGirl.castle-transform"
-        },
-        {
-          "$$ClassName" : "TNyaActorChara",
-          "ActorName" : "unknown",
-          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
-          "Name" : "NyaActorChara1",
-          "Speed" : 1.0000000000000000E+000,
-          "TranslationPersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 3.9234184265136719E+001
-          },
-          "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
         }
       ]
     },

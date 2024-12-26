@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleSceneCore, CastleTransform, CastleVectors,
-  CastleColors, CharaDress, CastleClassUtils;
+  CastleColors, CharaDress, CastleClassUtils, CastleScene;
 
 type
   TNyaBaseActor = class(TCastleTransformDesign)
@@ -27,6 +27,7 @@ type
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual; abstract;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
+    function MainActor: TCastleScene; virtual; abstract;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
@@ -37,7 +38,10 @@ type
 implementation
 
 uses
-  CastleUtils;
+  CastleUtils
+  {$ifdef CASTLE_DESIGN_MODE}
+  , PropEdits, ComponentEditors, CastlePropEdits
+  {$endif};
 
 constructor TNyaBaseActor.Create(AOwner: TComponent);
 begin
@@ -57,5 +61,39 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
+{$ifdef CASTLE_DESIGN_MODE}
+type
+  { Property editor to select an animation on TNyaSwitch }
+  TNyaBaseActorPropertyEditor = class(TStringPropertyEditor)
+  public
+    function GetAttributes: TPropertyAttributes; override;
+    procedure GetValues(Proc: TGetStrProc); override;
+  end;
+
+function TNyaBaseActorPropertyEditor.GetAttributes: TPropertyAttributes;
+begin
+  Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
+end;
+
+procedure TNyaBaseActorPropertyEditor.GetValues(Proc: TGetStrProc);
+var
+  Nav: TNyaBaseActor;
+  Scene: TCastleSceneCore;
+  S: String;
+begin
+  Proc('');
+  Nav:= GetComponent(0) as TNyaBaseActor;
+  Scene:= Nav.MainActor;
+  if Scene <> nil then
+    for S in Scene.AnimationsList do
+      Proc(S);
+end;
+{$endif}
+
+initialization
+  {$ifdef CASTLE_DESIGN_MODE}
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaBaseActor, 'AutoAnimation',
+    TNyaBaseActorPropertyEditor);
+  {$endif}
 end.
 

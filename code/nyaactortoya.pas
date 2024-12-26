@@ -13,7 +13,6 @@ type
   TNyaActorToyA = class(TNyaBaseActor)
   protected
     FRailingUsed: Boolean;
-    function GetCurrentTool(): TCastleScene;
     function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetAutoAnimation(const Value: String); override;
@@ -22,6 +21,7 @@ type
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
+    function MainActor: TCastleScene; override;
     procedure UseRailing(enable: Boolean);
   end;
 
@@ -46,7 +46,7 @@ begin
   if FAutoAnimation <> Value then
   begin
     FAutoAnimation:= Value;
-    tool:= GetCurrentTool();
+    tool:= MainActor;
     if Assigned(tool) then
       tool.AutoAnimation:= Value;
   end;
@@ -59,7 +59,7 @@ var
 begin
   UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', animationName));
 
-  tool:= GetCurrentTool();
+  tool:= MainActor;
   if Assigned(tool) then
     tool.PlayAnimation(animationName, loop);
 end;
@@ -70,7 +70,7 @@ var
 begin
   UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Parameters.Name));
 
-  tool:= GetCurrentTool();
+  tool:= MainActor;
   if Assigned(tool) then
     tool.PlayAnimation(Parameters);
 end;
@@ -79,12 +79,12 @@ procedure TNyaActorToyA.StopAnimation(const DisableStopNotification: Boolean);
 var
   tool: TCastleScene;
 begin
-  tool:= GetCurrentTool();
+  tool:= MainActor;
   if Assigned(tool) then
     tool.StopAnimation(DisableStopNotification);
 end;
 
-function TNyaActorToyA.GetCurrentTool(): TCastleScene;
+function TNyaActorToyA.MainActor: TCastleScene;
 begin
   Result:= DesignedComponent('ToyA', False) as TCastleScene;
 end;
@@ -112,7 +112,7 @@ function TNyaActorToyA.GetSpeed: Single;
 var
   tool: TCastleScene;
 begin
-  tool:= GetCurrentTool();
+  tool:= MainActor;
   if Assigned(tool) then
     Result:= tool.TimePlayingSpeed
   else
@@ -123,7 +123,7 @@ procedure TNyaActorToyA.SetSpeed(value: Single);
 var
   tool: TCastleScene;
 begin
-  tool:= GetCurrentTool();
+  tool:= MainActor;
   if Assigned(tool) then
     tool.TimePlayingSpeed:= value;
 end;
