@@ -15,13 +15,16 @@ type
     FAutoAnimation: String;
     FPleasure: Single;
     FTension: Single;
-    function GetSpeed: Single; virtual; abstract;
+    FLightning: Boolean;
+    function GetSpeed: Single;
     procedure SetSpeed(value: Single); virtual; abstract;
     procedure SetAutoAnimation(const Value: String); virtual; abstract;
+    procedure SetLightning(enable: Boolean);
   public
     const
       DefaultActorName = 'unknown';
       DefaultAutoAnimation  = 'none';
+      DefaultLightning  = True;
 
     constructor Create(AOwner: TComponent); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
@@ -33,12 +36,13 @@ type
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property ActorName: String read FActorName write FActorName;
     property Speed: Single read GetSpeed write SetSpeed;
+    property Lightning: Boolean read FLightning write SetLightning;
   end;
 
 implementation
 
 uses
-  CastleUtils
+  CastleUtils, NyaCastleUtils
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, ComponentEditors, CastlePropEdits
   {$endif};
@@ -49,12 +53,35 @@ begin
 
   FActorName:= DefaultActorName;
   FAutoAnimation:= DefaultAutoAnimation;
+  FLightning:= DefaultLightning;
+end;
+
+function TNyaBaseActor.GetSpeed: Single;
+var
+  actor: TCastleScene;
+begin
+  actor:= MainActor;
+  if Assigned(actor) then
+    Result:= actor.TimePlayingSpeed
+  else
+    Result:= 1.0;
+end;
+
+procedure TNyaBaseActor.SetLightning(enable: Boolean);
+var
+  Scene: TCastleScene;
+begin
+  if (FLightning = enable) then Exit;
+  FLightning:= enable;
+
+  for Scene in GetAllScenes(self) do
+    Scene.RenderOptions.Lighting:= enable;
 end;
 
 function TNyaBaseActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation'
+       'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation', 'Lightning'
      ]) then
     Result:= [psBasic]
   else

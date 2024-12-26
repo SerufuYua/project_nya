@@ -13,10 +13,12 @@ type
   TNyaActorToyA = class(TNyaBaseActor)
   protected
     FRailingUsed: Boolean;
-    function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetAutoAnimation(const Value: String); override;
   public
+    const
+      DefaultRailingUsed = False;
+
     constructor Create(AOwner: TComponent); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
@@ -34,22 +36,21 @@ constructor TNyaActorToyA.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FRailingUsed:= False;
+  FRailingUsed:= DefaultRailingUsed;
 end;
 
 procedure TNyaActorToyA.SetAutoAnimation(const Value: String);
 var
   tool: TCastleScene;
 begin
+  if (FAutoAnimation = Value) then Exit;
+  FAutoAnimation:= Value;
+
   UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Value));
 
-  if FAutoAnimation <> Value then
-  begin
-    FAutoAnimation:= Value;
-    tool:= MainActor;
-    if Assigned(tool) then
-      tool.AutoAnimation:= Value;
-  end;
+  tool:= MainActor;
+  if Assigned(tool) then
+    tool.AutoAnimation:= Value;
 end;
 
 procedure TNyaActorToyA.PlayAnimation(const animationName: String;
@@ -96,7 +97,8 @@ begin
   if (FRailingUsed = enable) then Exit;
   FRailingUsed:= enable;
 
-  railing:= DesignedComponent('Railing') as TCastleScene;
+  railing:= DesignedComponent('Railing', False) as TCastleScene;
+  if NOT Assigned(railing) then Exit;
 
   if enable then
   begin
@@ -106,17 +108,6 @@ begin
     railing.Translation:= Vector3(-28, 0, -10);
     railing.Rotation:= Vector4(0, 1, 0, -30);
   end;
-end;
-
-function TNyaActorToyA.GetSpeed: Single;
-var
-  tool: TCastleScene;
-begin
-  tool:= MainActor;
-  if Assigned(tool) then
-    Result:= tool.TimePlayingSpeed
-  else
-    Result:= 1.0;
 end;
 
 procedure TNyaActorToyA.SetSpeed(value: Single);

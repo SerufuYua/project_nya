@@ -14,7 +14,6 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    function GetSpeed: Single; override;
     procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
@@ -77,12 +76,11 @@ procedure TNyaActorChara.SetAutoAnimation(const Value: String);
 var
   actor: TCastleScene;
 begin
-  if FAutoAnimation <> Value then
-  begin
-    FAutoAnimation:= Value;
-    for actor in ActorsList do
-      actor.AutoAnimation:= Value;
-  end;
+  if (FAutoAnimation = Value) then Exit;
+  FAutoAnimation:= Value;
+
+  for actor in ActorsList do
+    actor.AutoAnimation:= Value;
 end;
 
 procedure TNyaActorChara.PlayAnimation(const animationName: String;
@@ -132,11 +130,6 @@ end;
 procedure TNyaActorChara.SaveCondition;
 begin
   Dresser.SaveCondition(ActorName);
-end;
-
-function TNyaActorChara.GetSpeed: Single;
-begin
-    Result:= 1.0;
 end;
 
 function TNyaActorChara.MainActor: TCastleScene;
