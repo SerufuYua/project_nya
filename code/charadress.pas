@@ -194,7 +194,7 @@ end;
 
 function TCharaDresser.MainBody: TCastleScene;
 begin
-  Result:= FScene.DesignedComponent('Body') as TCastleScene;
+  Result:= FScene.DesignedComponent('Body', False) as TCastleScene;
 end;
 
 { ---------------------------------------------------------------------------- }
