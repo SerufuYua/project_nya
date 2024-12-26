@@ -98,18 +98,10 @@ var
 begin
   inherited;
 
-  { AutoAnimation: String; }
-  { #note : disable aniimation before SelfEmission }
-  animBuff:= FAutoAnimation;
-  AutoAnimation:= 'none';
-
   { SelfEmission: Single; }
   value:= FSelfEmission;
   FSelfEmission:= value - 1.0;
   SelfEmission:= value;
-
-  { #note : restore aniimation after SelfEmission }
-  AutoAnimation:= animBuff;
 
   { Speed: Single; }
   value:= FSpeed;
@@ -120,6 +112,12 @@ begin
   enable:= FLightning;
   FLightning:= NOT enable;
   Lightning:= enable;
+
+  { AutoAnimation: String; }
+  { #note : need to be placed after SelfEmission }
+  animBuff:= FAutoAnimation;
+  AutoAnimation:= 'none'; { NOT FAutoAnimation }
+  AutoAnimation:= animBuff;
 
 end;
 

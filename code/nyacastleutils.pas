@@ -82,11 +82,9 @@ end;
 
 class procedure TNodeHandler.HandleNodeEmission(Node: TX3DNode);
 var
-  appearance: TAppearanceNode;
   material: TPhysicalMaterialNode;
 begin
-  appearance:= Node as TAppearanceNode;
-  material:= appearance.Material as TPhysicalMaterialNode;
+  material:= Node as TPhysicalMaterialNode;
 
   material.EmissiveColor:= EmissionColor;
   if EmissionToSelf then
@@ -150,7 +148,7 @@ begin
   EmissionColor:= Vector3(r, g, b);
   EmissionToSelf:= toSelf;
   Node:= scene.RootNode;
-  Node.EnumerateNodes(TAppearanceNode,
+  Node.EnumerateNodes(TPhysicalMaterialNode,
     {$ifdef FPC}@{$endif} TNodeHandler {$ifdef FPC}(nil){$endif}.
     HandleNodeEmission, false);
 end;
