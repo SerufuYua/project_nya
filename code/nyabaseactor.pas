@@ -13,12 +13,12 @@ type
   protected
     FActorName: String;
     FAutoAnimation: String;
-    FPersonalColor: TCastleColorRGB;
     FSpeed: Single;
     FPleasure: Single;
     FTension: Single;
     FSelfEmission: Single;
     FLightning: Boolean;
+    FPersonalColor: TCastleColorRGB;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
     function GetPersonalColorForPersistent: TCastleColorRGB;
     procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
@@ -33,7 +33,7 @@ type
       DefaultLightning = True;
       DefaultSpeed = 1.0;
       DefaultSelfEmission = 0.0;
-      DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
+      DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -55,7 +55,6 @@ type
     property SelfEmission: Single read FSelfEmission write SetSelfEmission
       {$ifdef FPC}default DefaultSelfEmission{$endif};
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
-    { #todo : need to fix personal color saving }
     { #todo : neet to add property AnisotropicFiltering }
   end;
 
