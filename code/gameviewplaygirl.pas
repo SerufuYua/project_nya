@@ -32,10 +32,10 @@ begin
   { get Toys instance }
   actorB:= Map.DesignedComponent('ToyA') as TNyaBaseActor;
 
-{ Create Actors Logic }
-  FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
-                                     'GAME.GIRL_TOYA.PLAY',
-                                     FadeEffect);
+  { Create Actors Logic }
+    FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
+                                       'GAME.GIRL_TOYA.PLAY',
+                                       FadeEffect);
   inherited;
 end;
 
