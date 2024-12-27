@@ -30,6 +30,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
+    procedure Stop; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
@@ -100,6 +101,13 @@ begin
 
   { set initial action }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
+end;
+
+procedure TBaseViewPlay.Stop;
+begin
+  if Assigned(FActorsLogic) then
+    FreeAndNil(FActorsLogic);
+  inherited;
 end;
 
 procedure TBaseViewPlay.Update(const SecondsPassed: Single;
