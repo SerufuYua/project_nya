@@ -17,6 +17,7 @@ type
     FPleasure: Single;
     FTension: Single;
     FSelfEmission: Single;
+    FAnisotropicDegree: Single;
     FLightning: Boolean;
     FPersonalColor: TCastleColorRGB;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
@@ -26,6 +27,7 @@ type
     procedure SetAutoAnimation(const Value: String); virtual; abstract;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
+    procedure SetAnisotropicDegree(value: Single);
   public
     const
       DefaultActorName = 'unknown';
@@ -33,6 +35,7 @@ type
       DefaultLightning = True;
       DefaultSpeed = 1.0;
       DefaultSelfEmission = 0.0;
+      DefaultAnisotropicDegree = 0.0;
       DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
@@ -54,8 +57,9 @@ type
     property Lightning: Boolean read FLightning write SetLightning;
     property SelfEmission: Single read FSelfEmission write SetSelfEmission
       {$ifdef FPC}default DefaultSelfEmission{$endif};
+    property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
+      {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
-    { #todo : neet to add property AnisotropicFiltering }
   end;
 
 implementation
@@ -75,6 +79,7 @@ begin
   FSpeed:= DefaultSpeed;
   FLightning:= DefaultLightning;
   FSelfEmission:= DefaultSelfEmission;
+  FAnisotropicDegree:= DefaultAnisotropicDegree;
 
   { Persistent for PersonalColor }
   FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -103,6 +108,11 @@ begin
   value:= FSelfEmission;
   FSelfEmission:= value - 1.0;
   SelfEmission:= value;
+
+  { AnisotropicDegree: Single; }
+  value:= FAnisotropicDegree;
+  FAnisotropicDegree:= value - 1.0;
+  AnisotropicDegree:= value;
 
   { Speed: Single; }
   value:= FSpeed;
@@ -145,11 +155,25 @@ begin
   end;
 end;
 
+procedure TNyaBaseActor.SetAnisotropicDegree(value: Single);
+var
+  scene: TCastleScene;
+begin
+  if (FAnisotropicDegree = value) then Exit;
+  FAnisotropicDegree:= value;
+
+  for scene in GetAllScenes(self) do
+  begin
+    SetAnisotropicFiltering(scene, value);
+  end;
+end;
+
 function TNyaBaseActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation',
-       'Lightning', 'SelfEmission', 'PersonalColorPersistent'
+       'Lightning', 'SelfEmission', 'AnisotropicDegree',
+       'PersonalColorPersistent'
      ]) then
     Result:= [psBasic]
   else
