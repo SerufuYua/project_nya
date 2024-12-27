@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
-  ActorChara,
+  NyaActorChara,
   NyaThirdPersonCameraNavigation, NyaSpectatorCameraNavigation,
   NyaThirdPersonCharaNavigation, NyaSwitch;
 
@@ -32,7 +32,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
-    FActorMain: TActorChara;
+    FActorMain: TNyaActorChara;
     FDebugAvatar: TDebugTransform;
     FKeyUse: TKey;
     FKeyDebug: TKey;
@@ -91,9 +91,6 @@ begin
   { set cahara animation event }
   CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
 
-  { set characters self emission }
-  FActorMain.SelfEmission:= 0.15;
-
   { set Buttons }
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
 
@@ -142,6 +139,7 @@ begin
   { change map }
   if Assigned(FGetToGo) then
   begin
+    SaveCharasCondition();
     ViewLoading.SetToLoad(FGetToGo);
     Container.View:= ViewLoading;
   end;
@@ -303,7 +301,7 @@ procedure TBaseViewPlay.NavigationSetAnimation(
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
   FActorMain.AutoAnimation:= AnimationName;
-  FActorMain.SetSpeed(AnimtionSpeed);
+  FActorMain.Speed:= AnimtionSpeed;
 end;
 
 procedure TBaseViewPlay.TouchSwitch(const Sender: TObject; Touch: Boolean);
