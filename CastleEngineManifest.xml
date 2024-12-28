@@ -10,7 +10,15 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   game_units="GameInitialize"
   qualified_name="com.mycompany.prjNya"
   caption="Project Nya"
-  editor_units="CastleParticleEmitter,NyaFadeEffect,NyaPleasureTensionEffect,NyaThirdPersonCameraNavigation,NyaThirdPersonCharaNavigation,NyaSpectatorCameraNavigation,NyaSwitch,NyaActorToyA,NyaActorChara"
+  editor_units="CastleParticleEmitter,
+                NyaFadeEffect,
+                NyaPleasureTensionEffect,
+                NyaThirdPersonCameraNavigation,
+                NyaThirdPersonCharaNavigation,
+                NyaSpectatorCameraNavigation,
+                NyaSwitch,NyaActorToyA,
+                NyaActorChara,
+                NyaScene"
 >
   <compiler_options>
     <search_paths>
