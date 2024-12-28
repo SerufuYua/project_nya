@@ -6,14 +6,14 @@ interface
 
 uses
   Classes, SysUtils,
-  CastleScene, X3DNodes, CastleSceneCore, CastleShapes;
+  CastleScene, X3DNodes, CastleSceneCore, CastleShapes, CastleClassUtils;
 
 type
   TNyaScene = class(TCastleScene)
   protected
     FAnisotropicDegree: Single;
-    FAnisotropicDegreeSaved: Single;
     procedure SetAnisotropicDegree(value: Single);
+    procedure ApplyAnisotropicDegree;
 
     procedure HandleNodeAnisotropic(sceneNode: TX3DNode);
   public
@@ -23,6 +23,7 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure DoGeometryChanged(const Change: TGeometryChange;
                                 LocalGeometryShape: TShape); override;
+    function PropertySections(const PropertyName: String): TPropertySections; override;
   published
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
       {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
@@ -31,7 +32,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleTextureImages;
+  CastleComponentSerialize, CastleTextureImages, CastleUtils;
 
 constructor TNyaScene.Create(AOwner: TComponent);
 begin
@@ -45,22 +46,22 @@ procedure TNyaScene.DoGeometryChanged(const Change: TGeometryChange;
 begin
   inherited;
 
-  { AnisotropicDegree: Single; }
-  FAnisotropicDegree:= FAnisotropicDegreeSaved - 1.0;
-  AnisotropicDegree:= FAnisotropicDegreeSaved;
+  ApplyAnisotropicDegree;
 end;
 
 procedure TNyaScene.SetAnisotropicDegree(value: Single);
 begin
-  FAnisotropicDegreeSaved:= value;
+  if (FAnisotropicDegree = value) then Exit;
+  FAnisotropicDegree:= value;
+  ApplyAnisotropicDegree;
+end;
 
-  if (Assigned(RootNode) AND (FAnisotropicDegree <> FAnisotropicDegreeSaved)) then
-  begin
-    FAnisotropicDegree:= FAnisotropicDegreeSaved;
+procedure TNyaScene.ApplyAnisotropicDegree;
+begin
+  if Assigned(RootNode) then
     RootNode.EnumerateNodes(TImageTextureNode,
                             {$ifdef FPC}@{$endif}HandleNodeAnisotropic,
                             false);
-  end;
 end;
 
 procedure TNyaScene.HandleNodeAnisotropic(sceneNode: TX3DNode);
@@ -71,6 +72,16 @@ begin
 
   if ImageTexture.IsTextureImage then
     ImageTexture.TextureProperties.AnisotropicDegree:= FAnisotropicDegree;
+end;
+
+function TNyaScene.PropertySections(const PropertyName: String): TPropertySections;
+begin
+  if ArrayContainsString(PropertyName, [
+       'AnisotropicDegree'
+     ]) then
+    Result:= [psBasic]
+  else
+    Result:= inherited PropertySections(PropertyName);
 end;
 
 initialization

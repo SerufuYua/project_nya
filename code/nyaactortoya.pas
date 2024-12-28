@@ -13,8 +13,8 @@ type
   TNyaActorToyA = class(TNyaBaseActor)
   protected
     FRailingUsed: Boolean;
-    procedure SetSpeed(value: Single); override;
-    procedure SetAutoAnimation(const Value: String); override;
+    procedure ApplySpeed; override;
+    procedure ApplyAutoAnimation; override;
   public
     const
       DefaultRailingUsed = False;
@@ -39,18 +39,15 @@ begin
   FRailingUsed:= DefaultRailingUsed;
 end;
 
-procedure TNyaActorToyA.SetAutoAnimation(const Value: String);
+procedure TNyaActorToyA.ApplyAutoAnimation;
 var
   tool: TCastleScene;
 begin
-  if (FAutoAnimation = Value) then Exit;
-  FAutoAnimation:= Value;
-
-  UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Value));
+  UseRailing(NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', FAutoAnimation));
 
   tool:= MainActor;
   if Assigned(tool) then
-    tool.AutoAnimation:= Value;
+    tool.AutoAnimation:= FAutoAnimation;
 end;
 
 procedure TNyaActorToyA.PlayAnimation(const animationName: String;
@@ -110,16 +107,13 @@ begin
   end;
 end;
 
-procedure TNyaActorToyA.SetSpeed(value: Single);
+procedure TNyaActorToyA.ApplySpeed;
 var
   tool: TCastleScene;
 begin
-  if (FSpeed = value) then Exit;
-  FSpeed:= value;
-
   tool:= MainActor;
   if Assigned(tool) then
-    tool.TimePlayingSpeed:= value;
+    tool.TimePlayingSpeed:= FSpeed;
 end;
 
 initialization

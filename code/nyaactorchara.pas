@@ -14,10 +14,12 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    procedure SetSpeed(value: Single); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
-    procedure SetAutoAnimation(const Value: String); override;
+    procedure ApplyDripping;
+    procedure ApplySweating;
+    procedure ApplySpeed; override;
+    procedure ApplyAutoAnimation; override;
     procedure UpdateJizz;
   public
     const
@@ -73,15 +75,8 @@ var
 begin
   inherited;
 
-  { Dripping: Single; }
-  value:= FDripping;
-  FDripping:= value - 1.0;
-  Dripping:= value;
-
-  { Sweating: Single; }
-  value:= FSweating;
-  FSweating:= value - 1.0;
-  Sweating:= value;
+  ApplyDripping;
+  ApplySweating;
 
   Dresser.RestoreCondition(ActorName);
 end;
@@ -92,17 +87,6 @@ begin
   inherited;
 
   UpdateJizz;
-end;
-
-procedure TNyaActorChara.SetAutoAnimation(const Value: String);
-var
-  actor: TCastleScene;
-begin
-  if (FAutoAnimation = Value) then Exit;
-  FAutoAnimation:= Value;
-
-  for actor in ActorsList do
-    actor.AutoAnimation:= Value;
 end;
 
 procedure TNyaActorChara.PlayAnimation(const animationName: String;
@@ -199,27 +183,25 @@ begin
   SetLength(Result, i + 1);
 end;
 
-procedure TNyaActorChara.SetSpeed(value: Single);
-var
-  bodies: TCastleScenes;
-  body: TCastleScene;
+procedure TNyaActorChara.SetDripping(value: Single);
 begin
-  if (FSpeed = value) then Exit;
-  FSpeed:= value;
-
-  bodies:= ActorsList;
-  for body in bodies do
-    if Assigned(body) then
-      body.TimePlayingSpeed:= value;
+  if (FDripping = value) then Exit;
+  FDripping:= value;
+  ApplyDripping;
 end;
 
-procedure TNyaActorChara.SetDripping(value: Single);
+procedure TNyaActorChara.SetSweating(value: Single);
+begin
+  if (FSweating = value) then Exit;
+  FSweating:= value;
+  ApplySweating;
+end;
+
+procedure TNyaActorChara.ApplyDripping;
 var
   EmitterDrip: TCastleParticleEmitter;
   EffectDrip: TCastleParticleEffect;
 begin
-  if (FDripping = value) then Exit;
-
   EmitterDrip:= DesignedComponent('EmitterDrip', False)
                 as TCastleParticleEmitter;
   EffectDrip:= DesignedComponent('EffectDrip', False)
@@ -227,19 +209,16 @@ begin
 
   if (Assigned(EffectDrip) AND Assigned(EmitterDrip)) then
   begin
-    FDripping:= value;
     EmitterDrip.Exists:= (FDripping > 0.05);
     EffectDrip.MaxParticles:= 1 + round(20.0 * FDripping);
   end;
 end;
 
-procedure TNyaActorChara.SetSweating(value: Single);
+procedure TNyaActorChara.ApplySweating;
 var
   EmitterSweat: TCastleParticleEmitter;
   EffectSweat: TCastleParticleEffect;
 begin
-  if (FSweating = value) then Exit;
-
   EmitterSweat:= DesignedComponent('EmitterSweat', False)
                  as TCastleParticleEmitter;
   EffectSweat:= DesignedComponent('EffectSweat', False)
@@ -247,10 +226,26 @@ begin
 
   if (Assigned(EffectSweat) AND Assigned(EmitterSweat)) then
   begin
-    FSweating:= value;
     EmitterSweat.Exists:= (FSweating > 0.05);
     EffectSweat.MaxParticles:= 1 + round(5.0 * FSweating);
   end;
+end;
+
+procedure TNyaActorChara.ApplySpeed;
+var
+  body: TCastleScene;
+begin
+  for body in ActorsList do
+    if Assigned(body) then
+      body.TimePlayingSpeed:= FSpeed;
+end;
+
+procedure TNyaActorChara.ApplyAutoAnimation;
+var
+  actor: TCastleScene;
+begin
+  for actor in ActorsList do
+    actor.AutoAnimation:= FAutoAnimation;
 end;
 
 procedure TNyaActorChara.UpdateJizz;

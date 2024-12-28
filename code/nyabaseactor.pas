@@ -17,23 +17,23 @@ type
     FSpeed: Single;
     FPleasure: Single;
     FTension: Single;
-    FSelfEmission: Single;
     FLightning: Boolean;
     FPersonalColor: TCastleColorRGB;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
     function GetPersonalColorForPersistent: TCastleColorRGB;
     procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
-    procedure SetSpeed(value: Single); virtual; abstract;
-    procedure SetAutoAnimation(const Value: String); virtual; abstract;
+    procedure SetSpeed(value: Single);
+    procedure SetAutoAnimation(const Value: String);
     procedure SetLightning(enable: Boolean);
-    procedure SetSelfEmission(value: Single);
+    procedure ApplySpeed; virtual; abstract;
+    procedure ApplyAutoAnimation; virtual; abstract;
+    procedure ApplyLightning;
   public
     const
       DefaultActorName = 'unknown';
       DefaultAutoAnimation = 'none';
       DefaultLightning = True;
       DefaultSpeed = 1.0;
-      DefaultSelfEmission = 0.0;
       DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
@@ -53,8 +53,6 @@ type
     property Speed: Single read FSpeed write SetSpeed
       {$ifdef FPC}default DefaultSpeed{$endif};
     property Lightning: Boolean read FLightning write SetLightning;
-    property SelfEmission: Single read FSelfEmission write SetSelfEmission
-      {$ifdef FPC}default DefaultSelfEmission{$endif};
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
   end;
 
@@ -74,7 +72,6 @@ begin
   FAutoAnimation:= DefaultAutoAnimation;
   FSpeed:= DefaultSpeed;
   FLightning:= DefaultLightning;
-  FSelfEmission:= DefaultSelfEmission;
 
   { Persistent for PersonalColor }
   FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -92,65 +89,48 @@ end;
 
 procedure TNyaBaseActor.PrepareResources(const Options: TPrepareResourcesOptions;
                         const Params: TPrepareParams);
-var
-  animBuff: String;
-  value: Single;
-  enable: Boolean;
 begin
   inherited;
 
-  { SelfEmission: Single; }
-  value:= FSelfEmission;
-  FSelfEmission:= value - 1.0;
-  SelfEmission:= value;
+  ApplySpeed;
+  ApplyLightning;
+  ApplyAutoAnimation;
+end;
 
-  { Speed: Single; }
-  value:= FSpeed;
-  FSpeed:= value - 1.0;
-  Speed:= value;
-
-  { Lightning: Boolean; }
-  enable:= FLightning;
-  FLightning:= NOT enable;
-  Lightning:= enable;
-
-  { AutoAnimation: String; }
-  { #note : set animation need to be placed after SelfEmission }
-  animBuff:= FAutoAnimation;
-  AutoAnimation:= 'none'; { NOT FAutoAnimation }
-  AutoAnimation:= animBuff;
+procedure TNyaBaseActor.SetSpeed(value: Single);
+begin
+  if (FSpeed = value) then Exit;
+  FSpeed:= value;
+  ApplySpeed;
 end;
 
 procedure TNyaBaseActor.SetLightning(enable: Boolean);
-var
-  scene: TCastleScene;
 begin
   if (FLightning = enable) then Exit;
   FLightning:= enable;
-
-  for scene in GetAllScenes(self) do
-    scene.RenderOptions.Lighting:= enable;
+  ApplyLightning;
 end;
 
-procedure TNyaBaseActor.SetSelfEmission(value: Single);
+procedure TNyaBaseActor.SetAutoAnimation(const Value: String);
+begin
+  if (FAutoAnimation = Value) then Exit;
+  FAutoAnimation:= Value;
+  ApplyAutoAnimation;
+end;
+
+procedure TNyaBaseActor.ApplyLightning;
 var
   scene: TCastleScene;
 begin
-  if (FSelfEmission = value) then Exit;
-  FSelfEmission:= value;
-
   for scene in GetAllScenes(self) do
-  begin
-    SetEmission(scene, value, value, value, True);
-  end;
+    scene.RenderOptions.Lighting:= FLightning;
 end;
 
 function TNyaBaseActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'ActorName', 'Speed', 'Pleasure', 'Tension', 'AutoAnimation',
-       'Lightning', 'SelfEmission', 'AnisotropicDegree',
-       'PersonalColorPersistent'
+       'Lightning', 'PersonalColorPersistent'
      ]) then
     Result:= [psBasic]
   else
