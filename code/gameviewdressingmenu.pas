@@ -4,7 +4,7 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  ActorChara, CastleColors, CharaDress;
+  NyaActorChara, CastleColors, CharaDress;
 
 type
   TViewDressingMenu = class(TCastleView)
@@ -21,7 +21,7 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
-    procedure SetChara(chara: TActorChara);
+    procedure SetChara(chara: TNyaActorChara);
     procedure SetColor(color: TCastleColorRGB);
   private
     FDresser: TCharaDresser;
@@ -62,10 +62,10 @@ begin
   { Executed every frame. }
 end;
 
-procedure TViewDressingMenu.SetChara(chara: TActorChara);
+procedure TViewDressingMenu.SetChara(chara: TNyaActorChara);
 begin
   if NOT Assigned(chara) then Exit;
-  FDresser:= chara.GetDresser();
+  FDresser:= chara.Dresser();
   UpdateSuits();
   UpdateAccessories();
 
@@ -83,8 +83,11 @@ begin
 
   for item in GetAllUIImages(rootItem) do
   begin
+    if (item.Tag = 1) then
+    begin
       alpha:= item.Color.W;
       item.Color:= Vector4(color.X, color.Y, color.Z, alpha);
+    end;
   end;
 end;
 
@@ -105,7 +108,7 @@ var
   myBtnFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
 begin
-  suits:= FDresser.GetSuitsList(suitType);
+  suits:= FDresser.SuitsList(suitType);
 
   if ((groupList.ControlsCount > 0) AND
       (groupList.Controls[0] is TCastleButton)) then
@@ -159,7 +162,7 @@ var
   myChkFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
 begin
-  acessories:= FDresser.GetAcessoriesList();
+  acessories:= FDresser.AcessoriesList();
 
   if ((ListAccessories.ControlsCount > 0) AND
       (ListAccessories.Controls[0] is TCastleCheckbox)) then
