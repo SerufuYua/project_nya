@@ -17,7 +17,6 @@ type
     FPleasure: Single;
     FTension: Single;
     FSelfEmission: Single;
-    FAnisotropicDegree: Single;
     FLightning: Boolean;
     FPersonalColor: TCastleColorRGB;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
@@ -27,7 +26,6 @@ type
     procedure SetAutoAnimation(const Value: String); virtual; abstract;
     procedure SetLightning(enable: Boolean);
     procedure SetSelfEmission(value: Single);
-    procedure SetAnisotropicDegree(value: Single);
   public
     const
       DefaultActorName = 'unknown';
@@ -35,13 +33,11 @@ type
       DefaultLightning = True;
       DefaultSpeed = 1.0;
       DefaultSelfEmission = 0.0;
-      DefaultAnisotropicDegree = 0.0;
       DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure PrepareResources(const Options: TPrepareResourcesOptions;
-                               const Params: TPrepareParams); override;
+    procedure InitParameters; virtual;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual; abstract;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
@@ -57,8 +53,6 @@ type
     property Lightning: Boolean read FLightning write SetLightning;
     property SelfEmission: Single read FSelfEmission write SetSelfEmission
       {$ifdef FPC}default DefaultSelfEmission{$endif};
-    property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
-      {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
   end;
 
@@ -79,7 +73,6 @@ begin
   FSpeed:= DefaultSpeed;
   FLightning:= DefaultLightning;
   FSelfEmission:= DefaultSelfEmission;
-  FAnisotropicDegree:= DefaultAnisotropicDegree;
 
   { Persistent for PersonalColor }
   FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -95,8 +88,7 @@ begin
   inherited;
 end;
 
-procedure TNyaBaseActor.PrepareResources(const Options: TPrepareResourcesOptions;
-                                         const Params: TPrepareParams);
+procedure TNyaBaseActor.InitParameters;
 var
   animBuff: String;
   value: Single;
@@ -108,11 +100,6 @@ begin
   value:= FSelfEmission;
   FSelfEmission:= value - 1.0;
   SelfEmission:= value;
-
-  { AnisotropicDegree: Single; }
-  value:= FAnisotropicDegree;
-  FAnisotropicDegree:= value - 1.0;
-  AnisotropicDegree:= value;
 
   { Speed: Single; }
   value:= FSpeed;
@@ -152,19 +139,6 @@ begin
   for scene in GetAllScenes(self) do
   begin
     SetEmission(scene, value, value, value, True);
-  end;
-end;
-
-procedure TNyaBaseActor.SetAnisotropicDegree(value: Single);
-var
-  scene: TCastleScene;
-begin
-  if (FAnisotropicDegree = value) then Exit;
-  FAnisotropicDegree:= value;
-
-  for scene in GetAllScenes(self) do
-  begin
-    SetAnisotropicFiltering(scene, value);
   end;
 end;
 
