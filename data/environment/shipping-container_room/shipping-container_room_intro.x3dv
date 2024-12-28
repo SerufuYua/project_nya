@@ -32,6 +32,28 @@ PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
   }
 }
 
+PROTO ExtraLight [inputOutput SFVec3f lightPos 0 0 0
+                  inputOutput SFVec3f lightDir 0 0 1
+                  inputOutput SFColor lightColor 1 1 1]
+{
+  SpotLight {
+    location IS lightPos
+    cutOffAngle 1.1
+    direction IS lightDir
+    intensity 2
+    ambientIntensity 0.4
+    color IS lightColor
+    radius 200
+    beamWidth 0.1
+    shadows TRUE
+    defaultShadowMap GeneratedShadowMap {
+      size 1024
+      update "ALWAYS"
+      scale 3
+    }
+  }
+}
+
 PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
 {
   PointLight
@@ -43,12 +65,21 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
   }
 }
 
-#UpperLight { lightPos -60 75 60 lightColor 1.0 0.925 0.925 }
-#UpperLight { lightPos -60 75 -60 lightColor 0.898 0.965 1.0 }
-UpperLight { lightPos 60 75 60 lightColor 1.0 1.0 1.0 }
-#UpperLight { lightPos 60 75 -60 lightColor 1.0 0.937 0.831 }
+#UpperLight { lightPos -60 75 60  lightColor 1.0 0.767534 0.454086 }
+#UpperLight { lightPos -60 75 -60 lightColor 1.0 0.700118 0.399844 }
+UpperLight { lightPos 60 75 60   lightColor 1.0 0.851488 0.568835 }
+#UpperLight { lightPos 60 75 -60  lightColor 1.0 0.737086 0.374506 }
 
 #BottomLight { lightPos -50 30 50 }
 #BottomLight { lightPos -50 30 -50 }
-BottomLight { lightPos 50 30 50 }
+#BottomLight { lightPos 50 30 50 }
 #BottomLight { lightPos 50 30 -50 }
+BottomLight { lightPos 0 80 0 }
+
+ExtraLight { lightPos -5.65276 59.96589 58.16128
+             lightDir 0.8646 -0.47373 -0.16749
+             lightColor 1.0 0.851488 0.568835 }
+
+ExtraLight { lightPos 27.31213 54.85273 83.5478
+             lightDir 0.56949 -0.6108 -0.55009
+             lightColor 1.0 0.851488 0.568835 }
