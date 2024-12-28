@@ -205,7 +205,6 @@ constructor TDressSaver.Create(dresser: TCharaDresser; const charaName: String);
 begin
   FDresser:= dresser;
   FCharaName:= charaName;
-  RestoreProperties;
 end;
 
 procedure TDressSaver.RestoreProperties;
