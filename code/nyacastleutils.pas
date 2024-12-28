@@ -109,7 +109,7 @@ begin
     condition.Visible:= shape.Visible;
 
     Insert(condition, FoundItems, 0);
-end;
+  end;
 end;
 
 class procedure TNodeHandler.HandleShapesByNameStart(Node: TX3DNode);
