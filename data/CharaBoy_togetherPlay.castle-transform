@@ -9,14 +9,14 @@
   },
   "$Children" : [
     {
-      "$$ClassName" : "TCastleScene",
+      "$$ClassName" : "TNyaScene",
+      "AnisotropicDegree" : 8.0000000000000000E+000,
       "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
       "ExposeTransforms" : [
         "Head",
         "Penis.004"
       ],
       "Name" : "Body",
-      "PreciseCollisions" : true,
       "ProcessEvents" : true,
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -28,24 +28,38 @@
           "Name" : "Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.9796760082244873E+000,
-            "X" : 6.7930090427398682E-001,
-            "Y" : 6.1960119009017944E-001,
-            "Z" : -3.9324894547462463E-001
+            "W" : 4.0101466178894043E+000,
+            "X" : 7.0536774396896362E-001,
+            "Y" : 6.2315636873245239E-001,
+            "Z" : -3.3783495426177979E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.1000000238418579E+000,
-            "Y" : 1.1000009775161743E+000,
-            "Z" : 1.0999996662139893E+000
+            "X" : 1.0999999046325684E+000,
+            "Y" : 1.1000008583068848E+000,
+            "Z" : 1.0999997854232788E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 5.3491382598876953E+000,
-            "Y" : 6.4121947288513184E+000,
-            "Z" : -1.4043855667114258E+001
+            "X" : 5.4813938140869141E+000,
+            "Y" : 6.4474039077758789E+000,
+            "Z" : -1.3973242759704590E+001
           },
           "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "SceneHair",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "Z" : 1.0000000000000000E+000
+              },
+              "Url" : "castle-data:/chars/hair_boy/hair.gltf"
+            },
             {
               "$$ClassName" : "TCastleScene",
               "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
@@ -61,20 +75,6 @@
                 "Z" : 1.0000000000000000E+000
               },
               "Url" : "castle-data:/chars/head_boy/head_togetherPlay.gltf"
-            },
-            {
-              "$$ClassName" : "TCastleScene",
-              "ExposeTransforms" : [
-              ],
-              "Name" : "SceneHair",
-              "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-              },
-              "RotationPersistent" : {
-                "$$ClassName" : "TCastleVector4RotationPersistent",
-                "Z" : 1.0000000000000000E+000
-              },
-              "Url" : "castle-data:/chars/hair_boy/hair.gltf"
             },
             {
               "$$ClassName" : "TCastleParticleEmitter",
@@ -141,21 +141,22 @@
           "Name" : "Penis_004",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.0763838291168213E+000,
-            "X" : -6.6613954305648804E-001,
-            "Y" : 4.8573923110961914E-001,
-            "Z" : -5.6596446037292480E-001
+            "W" : 2.0633778572082520E+000,
+            "X" : -6.7121702432632446E-001,
+            "Y" : 4.8575562238693237E-001,
+            "Z" : -5.5991888046264648E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999952316284180E-001,
-            "Y" : 9.9999982118606567E-001
+            "X" : 9.9999958276748657E-001,
+            "Y" : 9.9999964237213135E-001,
+            "Z" : 9.9999964237213135E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -2.1329374313354492E+000,
-            "Y" : 5.8433775901794434E+000,
-            "Z" : 8.5989648103713989E-001
+            "X" : -1.9739332199096680E+000,
+            "Y" : 5.6454691886901855E+000,
+            "Z" : 6.2605470418930054E-001
           },
           "$Children" : [
             {
@@ -259,24 +260,6 @@
           ]
         }
       ]
-    },
-    {
-      "$$ClassName" : "TCastleImageTransform",
-      "AlphaChannel" : "acNone",
-      "CastShadows" : false,
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 3.1372550129890442E-001,
-        "Green" : 7.9607844352722168E-001,
-        "Red" : 0.0000000000000000E+000
-      },
-      "Exists" : false,
-      "Name" : "PersonalColor",
-      "TranslationPersistent" : {
-        "$$ClassName" : "TCastleVector3Persistent",
-        "X" : 1.2000000000000000E+001,
-        "Y" : 6.0000000000000000E+001
-      }
     }
   ]
 }
