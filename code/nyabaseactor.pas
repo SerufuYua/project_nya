@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, CastleSceneCore, CastleTransform, CastleVectors,
-  CastleColors, CharaDress, CastleClassUtils, CastleScene;
+  CastleColors, CharaDress, CastleClassUtils, CastleScene,
+  NyaScene;
 
 type
   TNyaBaseActor = class(TCastleTransformDesign)
@@ -37,7 +38,8 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure InitParameters; virtual;
+    procedure PrepareResources(const Options: TPrepareResourcesOptions;
+                               const Params: TPrepareParams); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual; abstract;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual; abstract;
     procedure StopAnimation(const DisableStopNotification: Boolean = false); virtual; abstract;
@@ -88,7 +90,8 @@ begin
   inherited;
 end;
 
-procedure TNyaBaseActor.InitParameters;
+procedure TNyaBaseActor.PrepareResources(const Options: TPrepareResourcesOptions;
+                        const Params: TPrepareParams);
 var
   animBuff: String;
   value: Single;

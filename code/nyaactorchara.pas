@@ -26,7 +26,8 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure InitParameters; override;
+    procedure PrepareResources(const Options: TPrepareResourcesOptions;
+                               const Params: TPrepareParams); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
@@ -65,7 +66,8 @@ begin
   inherited;
 end;
 
-procedure TNyaActorChara.InitParameters;
+procedure TNyaActorChara.PrepareResources(const Options: TPrepareResourcesOptions;
+                                          const Params: TPrepareParams);
 var
   value: Single;
 begin
