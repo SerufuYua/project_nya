@@ -131,8 +131,10 @@ var
 begin
   if NOT Assigned(scene) then Exit;
 
-  AnisotropicDegree:= degree;
   Node:= scene.RootNode;
+  if NOT Assigned(Node) then Exit;
+
+  AnisotropicDegree:= degree;
   Node.EnumerateNodes(TImageTextureNode,
     {$ifdef FPC}@{$endif} TNodeHandler {$ifdef FPC}(nil){$endif}.
     HandleNodeAnisotropic, false);
@@ -145,9 +147,11 @@ var
 begin
   if NOT Assigned(scene) then Exit;
 
+  Node:= scene.RootNode;
+  if NOT Assigned(Node) then Exit;
+
   EmissionColor:= Vector3(r, g, b);
   EmissionToSelf:= toSelf;
-  Node:= scene.RootNode;
   Node.EnumerateNodes(TPhysicalMaterialNode,
     {$ifdef FPC}@{$endif} TNodeHandler {$ifdef FPC}(nil){$endif}.
     HandleNodeEmission, false);
@@ -163,6 +167,8 @@ begin
   NameStartPattern:= NameStartWith;
 
   Node:= scene.RootNode;
+  if NOT Assigned(Node) then Exit;
+
   Node.EnumerateNodes(TShapeNode,
     {$ifdef FPC}@{$endif} TNodeHandler {$ifdef FPC}(nil){$endif}.
     HandleShapeNamesByNameStart, false);
@@ -180,6 +186,8 @@ begin
   NameStartPattern:= NameStartWith;
 
   Node:= scene.RootNode;
+  if NOT Assigned(Node) then Exit;
+
   Node.EnumerateNodes(TShapeNode,
     {$ifdef FPC}@{$endif} TNodeHandler {$ifdef FPC}(nil){$endif}.
     HandleShapesByNameStart, false);
