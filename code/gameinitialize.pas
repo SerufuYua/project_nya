@@ -51,6 +51,7 @@ begin
     Window.Container.View:= ViewTravel
   else
     Window.Container.View:= ViewMain;
+//    Window.Container.View:= ViewPlayTogether;
 //    Window.Container.View:= ViewPlayGirl;
 //    Window.Container.View:= ViewTravel;
 
