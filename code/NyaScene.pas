@@ -13,31 +13,37 @@ type
   TNyaScene = class(TCastleScene)
   protected
     FAnisotropicDegree: Single;
+    FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
     FEmissionColorPersistent: TCastleColorRGBPersistent;
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
     procedure SetAnisotropicDegree(value: Single);
+    procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
     procedure ApplyAnisotropicDegree;
+    procedure ApplyEmissionItself;
     procedure ApplyEmissionColor;
   protected
     procedure HandleNodeAnisotropic(sceneNode: TX3DNode);
+    procedure HandleNodeEmissionItself(sceneNode: TX3DNode);
     procedure HandleNodeEmissionColor(sceneNode: TX3DNode);
   public
     const
       DefaultAnisotropicDegree = 0.0;
+      DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
-    procedure DoGeometryChanged(const Change: TGeometryChange;
-                                LocalGeometryShape: TShape); override;
+{    procedure DoWhenAllReady; override;   }
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
   published
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
       {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
+    property EmissionItself: Boolean read FEmissionItself write SetEmissionItself
+      {$ifdef FPC}default DefaultEmissionItself{$endif};
     property EmissionColorPersistent: TCastleColorRGBPersistent read FEmissionColorPersistent;
   end;
 
@@ -51,6 +57,7 @@ begin
   inherited;
 
   FAnisotropicDegree:= DefaultAnisotropicDegree;
+  FEmissionItself:= DefaultEmissionItself;
 
   { Persistent for EmissionColor }
   FEmissionColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -60,20 +67,27 @@ begin
   FEmissionColorPersistent.InternalDefaultValue:= DefaultEmissionColor; // current value is default
 end;
 
-procedure TNyaScene.DoGeometryChanged(const Change: TGeometryChange;
-                                      LocalGeometryShape: TShape);
+{procedure TNyaScene.DoWhenAllReady;
 begin
   inherited;
 
   ApplyAnisotropicDegree;
+  ApplyEmissionItself;
   ApplyEmissionColor;
-end;
+end;      }
 
 procedure TNyaScene.SetAnisotropicDegree(value: Single);
 begin
   if (FAnisotropicDegree = value) then Exit;
   FAnisotropicDegree:= value;
   ApplyAnisotropicDegree;
+end;
+
+procedure TNyaScene.SetEmissionItself(const value: Boolean);
+begin
+  if (FEmissionItself = value) then Exit;
+  FEmissionItself:= value;
+  ApplyEmissionItself;
 end;
 
 procedure TNyaScene.SetEmissionColor(const value: TCastleColorRGB);
@@ -88,6 +102,14 @@ begin
   if Assigned(RootNode) then
     RootNode.EnumerateNodes(TImageTextureNode,
                             {$ifdef FPC}@{$endif}HandleNodeAnisotropic,
+                            false);
+end;
+
+procedure TNyaScene.ApplyEmissionItself;
+begin
+  if Assigned(RootNode) then
+    RootNode.EnumerateNodes(TPhysicalMaterialNode,
+                            {$ifdef FPC}@{$endif}HandleNodeEmissionItself,
                             false);
 end;
 
@@ -107,6 +129,20 @@ begin
 
   if ImageTexture.IsTextureImage then
     ImageTexture.TextureProperties.AnisotropicDegree:= FAnisotropicDegree;
+end;
+
+procedure TNyaScene.HandleNodeEmissionItself(sceneNode: TX3DNode);
+var
+  material: TPhysicalMaterialNode;
+begin
+  material:= sceneNode as TPhysicalMaterialNode;
+
+  if FEmissionItself then
+  begin
+    material.EmissiveTexture:= material.BaseTexture;
+    material.EmissiveTextureMapping:= material.BaseTextureMapping;
+  end else
+    material.EmissiveTexture:= nil;
 end;
 
 procedure TNyaScene.HandleNodeEmissionColor(sceneNode: TX3DNode);
@@ -130,7 +166,7 @@ end;
 function TNyaScene.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AnisotropicDegree', 'EmissionColorPersistent'
+       'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent'
      ]) then
     Result:= [psBasic]
   else
@@ -140,4 +176,5 @@ end;
 initialization
   RegisterSerializableComponent(TNyaScene, 'Nya Scene');
 end.
+
 
