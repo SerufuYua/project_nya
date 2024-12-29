@@ -29,6 +29,7 @@ type
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
     function GetPersonalColorForPersistent: TCastleColorRGB;
     procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
+    procedure SetActorName(const Value: String); virtual;
     procedure SetAutoAnimation(const Value: String);
     procedure SetAnimationSpeed(value: Single);
     procedure SetAnisotropicDegree(value: Single);
@@ -68,7 +69,7 @@ type
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
   published
-    property ActorName: String read FActorName write FActorName;
+    property ActorName: String read FActorName write SetActorName;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
       {$ifdef FPC}default DefaultAnimationSpeed{$endif};
@@ -189,6 +190,12 @@ begin
 
   ApplyAutoAnimation;
   ApplyAnimationSpeed;
+end;
+
+procedure TNyaActor.SetActorName(const Value: String);
+begin
+  if (FActorName = Value) then exit;
+  FActorName:= Value;
 end;
 
 procedure TNyaActor.SetAutoAnimation(const Value: String);

@@ -14,6 +14,7 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
+    procedure SetActorName(const Value: String); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
     procedure ApplyDripping;
@@ -29,6 +30,7 @@ type
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     function Dresser: TCharaDresser;
+    procedure RestoreCondition;
     procedure SaveCondition;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
@@ -77,7 +79,7 @@ begin
   ApplyDripping;
   ApplySweating;
 
-  Dresser.RestoreCondition(ActorName);
+  RestoreCondition;
 end;
 
 function TNyaActorChara.Dresser: TCharaDresser;
@@ -90,9 +92,23 @@ begin
   Result:= FDresser;
 end;
 
+procedure TNyaActorChara.RestoreCondition;
+begin
+  if Assigned(Dresser) then
+    Dresser.RestoreCondition(ActorName);
+end;
+
 procedure TNyaActorChara.SaveCondition;
 begin
-  Dresser.SaveCondition(ActorName);
+  if Assigned(Dresser) then
+    Dresser.SaveCondition(ActorName);
+end;
+
+procedure TNyaActorChara.SetActorName(const Value: String);
+begin
+  if (FActorName = Value) then exit;
+  FActorName:= Value;
+  RestoreCondition;
 end;
 
 procedure TNyaActorChara.SetDripping(value: Single);
