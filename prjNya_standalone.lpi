@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="28">
+    <Units Count="26">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -97,110 +97,101 @@
         <UnitName Value="NyaActorToyA"/>
       </Unit5>
       <Unit6>
-        <Filename Value="code/nyabaseactor.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="NyaBaseActor"/>
-      </Unit6>
-      <Unit7>
         <Filename Value="code/baseviewplay.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="BaseViewPlay"/>
-      </Unit7>
-      <Unit8>
+      </Unit6>
+      <Unit7>
         <Filename Value="code/baseviewtravel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="BaseViewTravel"/>
-      </Unit8>
-      <Unit9>
+      </Unit7>
+      <Unit8>
         <Filename Value="code/charadress.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="CharaDress"/>
-      </Unit9>
-      <Unit10>
+      </Unit8>
+      <Unit9>
         <Filename Value="code/gameviewdressingmenu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewDressingMenu"/>
-      </Unit10>
-      <Unit11>
+      </Unit9>
+      <Unit10>
         <Filename Value="code/gameviewloading.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit11>
-      <Unit12>
+      </Unit10>
+      <Unit11>
         <Filename Value="code/gameviewplaygirl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewPlayGirl"/>
-      </Unit12>
-      <Unit13>
+      </Unit11>
+      <Unit12>
         <Filename Value="code/gameviewplaytogether.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewPlayTogether"/>
-      </Unit13>
-      <Unit14>
+      </Unit12>
+      <Unit13>
         <Filename Value="code/gameviewtravel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewTravel"/>
-      </Unit14>
-      <Unit15>
+      </Unit13>
+      <Unit14>
         <Filename Value="code/nyacastleutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaCastleUtils"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="code/nyaclassutils.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit15>
       <Unit16>
-        <Filename Value="code/nyaclassutils.pas"/>
+        <Filename Value="code/nyafadeeffect.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit16>
       <Unit17>
-        <Filename Value="code/nyafadeeffect.pas"/>
+        <Filename Value="code/NyaMath.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="code/NyaMath.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit18>
-      <Unit19>
         <Filename Value="code/nyapleasuretensioneffect.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaPleasureTensionEffect"/>
-      </Unit19>
-      <Unit20>
+      </Unit18>
+      <Unit19>
         <Filename Value="code/nyaspectatorcameranavigation.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaSpectatorCameraNavigation"/>
-      </Unit20>
-      <Unit21>
+      </Unit19>
+      <Unit20>
         <Filename Value="code/nyaswitch.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaSwitch"/>
-      </Unit21>
-      <Unit22>
+      </Unit20>
+      <Unit21>
         <Filename Value="code/nyathirdpersoncameranavigation.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaThirdPersonCameraNavigation"/>
-      </Unit22>
-      <Unit23>
+      </Unit21>
+      <Unit22>
         <Filename Value="code/nyathirdpersoncharanavigation.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaThirdPersonCharaNavigation"/>
-      </Unit23>
-      <Unit24>
+      </Unit22>
+      <Unit23>
         <Filename Value="code/nyavectormath.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaVectorMath"/>
-      </Unit24>
-      <Unit25>
+      </Unit23>
+      <Unit24>
         <Filename Value="code/nyaactorchara.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaActorChara"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="code/NyaScene.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit26>
-      <Unit27>
+      </Unit24>
+      <Unit25>
         <Filename Value="code/nyaactor.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaActor"/>
-      </Unit27>
+      </Unit25>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
