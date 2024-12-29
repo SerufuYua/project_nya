@@ -46,6 +46,7 @@ begin
   begin
     FDesign:= TCastleTransformDesign.Create(Self);
     FDesign.SetTransient;
+    Add(FDesign);
   end;
 
   FDesign.Url:= value;
