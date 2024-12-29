@@ -107,33 +107,21 @@
       },
       "$Children" : [
         {
-          "$$ClassName" : "TNyaActorChara",
-          "ActorName" : "Girl",
-          "AnisotropicDegree" : 8.0000000000000000E+000,
-          "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
-          "Lightning" : true,
+          "$$ClassName" : "TCastleTransformDesign",
           "Name" : "CharaGirl",
-          "PersonalColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Green" : 3.2941177487373352E-001,
-            "Red" : 1.0000000000000000E+000
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
           },
-          "SelfEmission" : 1.5000000596046448E-001,
           "Url" : "castle-data:/CharaGirl_togetherPlay.castle-transform"
         },
         {
-          "$$ClassName" : "TNyaActorChara",
-          "ActorName" : "Boy",
-          "AnisotropicDegree" : 8.0000000000000000E+000,
-          "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
-          "Lightning" : true,
+          "$$ClassName" : "TCastleTransformDesign",
           "Name" : "CharaBoy",
-          "PersonalColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 3.8431373238563538E-001,
-            "Green" : 1.0000000000000000E+000
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
           },
-          "SelfEmission" : 1.5000000596046448E-001,
           "Url" : "castle-data:/CharaBoy_togetherPlay.castle-transform"
         }
       ]

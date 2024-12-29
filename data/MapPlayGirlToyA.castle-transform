@@ -77,31 +77,20 @@
           "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf"
         },
         {
-          "$$ClassName" : "TNyaActorChara",
-          "ActorName" : "Girl",
-          "AnisotropicDegree" : 8.0000000000000000E+000,
-          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
-          "Lightning" : true,
+          "$$ClassName" : "TCastleTransformDesign",
           "Name" : "CharaGirl",
-          "PersonalColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Green" : 3.2941177487373352E-001,
-            "Red" : 1.0000000000000000E+000
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
           },
-          "SelfEmission" : 1.5000000596046448E-001,
           "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
         },
         {
-          "$$ClassName" : "TNyaActorToyA",
-          "ActorName" : "ToyA",
-          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
-          "Lightning" : true,
+          "$$ClassName" : "TCastleTransformDesign",
           "Name" : "ToyA",
-          "PersonalColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 1.0000000000000000E+000,
-            "Green" : 2.2352941334247589E-001,
-            "Red" : 7.6470589637756348E-001
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
           },
           "Url" : "castle-data:/ToyAForGirl.castle-transform"
         }
