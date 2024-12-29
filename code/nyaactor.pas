@@ -24,7 +24,7 @@ type
     FEmissionColorPersistent: TCastleColorRGBPersistent;
     FPersonalColor: TCastleColorRGB;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
-    procedure SetUrl(const Value: String);
+    procedure SetUrl(const Value: String); virtual;
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
     function GetPersonalColorForPersistent: TCastleColorRGB;
@@ -35,7 +35,7 @@ type
     procedure SetLightning(enable: Boolean);
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
-    procedure ApplyAutoAnimation;
+    procedure ApplyAutoAnimation; virtual;
     procedure ApplyAnimationSpeed;
     procedure ApplyAnisotropicDegree;
     procedure ApplyLightning;
@@ -58,8 +58,8 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure PlayAnimation(const animationName: String; loop: boolean = true);
-    procedure PlayAnimation(const parameters: TPlayAnimationParameters);
+    procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual;
+    procedure PlayAnimation(const parameters: TPlayAnimationParameters); virtual;
     procedure StopAnimation(const disableStopNotification: Boolean = false);
     function AllScenes: TCastleScenes; virtual;
     function MainScene: TCastleScene; virtual;

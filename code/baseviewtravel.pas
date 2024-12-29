@@ -301,7 +301,7 @@ procedure TBaseViewPlay.NavigationSetAnimation(
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
   FActorMain.AutoAnimation:= AnimationName;
-  FActorMain.Speed:= AnimtionSpeed;
+  FActorMain.AnimationSpeed:= AnimtionSpeed;
 end;
 
 procedure TBaseViewPlay.TouchSwitch(const Sender: TObject; Touch: Boolean);

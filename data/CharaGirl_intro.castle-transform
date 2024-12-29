@@ -23,22 +23,22 @@
           "Name" : "Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 6.2145596742630005E-001,
-            "X" : 8.6838787794113159E-001,
-            "Y" : 3.8149690628051758E-001,
-            "Z" : -3.1680050492286682E-001
+            "W" : 6.1968767642974854E-001,
+            "X" : 8.6821573972702026E-001,
+            "Y" : 3.8229635357856750E-001,
+            "Z" : -3.1630787253379822E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.4999980926513672E-001,
+            "X" : 9.4999957084655762E-001,
             "Y" : 9.5000004768371582E-001,
-            "Z" : 9.5000004768371582E-001
+            "Z" : 9.5000028610229492E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.4183700084686279E+000,
-            "Y" : 3.1021930694580078E+001,
-            "Z" : 1.2471416473388672E+001
+            "X" : 1.4143019914627075E+000,
+            "Y" : 3.1018875122070312E+001,
+            "Z" : 1.2463469505310059E+001
           },
           "$Children" : [
             {
@@ -78,22 +78,22 @@
           "Name" : "ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.2385475635528564E+000,
-            "X" : 5.5947148799896240E-001,
-            "Y" : 5.7680583000183105E-001,
-            "Z" : 5.9521996974945068E-001
+            "W" : 2.2297663688659668E+000,
+            "X" : 5.5930811166763306E-001,
+            "Y" : 5.8139306306838989E-001,
+            "Z" : 5.9089481830596924E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 9.9999982118606567E-001,
-            "Y" : 9.9999982118606567E-001,
-            "Z" : 9.9999982118606567E-001
+            "Y" : 1.0000001192092896E+000,
+            "Z" : 9.9999898672103882E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -8.7683410644531250E+000,
-            "Y" : 2.8706672668457031E+001,
-            "Z" : 2.0305664062500000E+001
+            "X" : -8.7773694992065430E+000,
+            "Y" : 2.8653511047363281E+001,
+            "Z" : 2.0302453994750977E+001
           },
           "$Children" : [
             {
@@ -124,22 +124,22 @@
           "Name" : "ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.2131137847900391E+000,
-            "X" : 6.2161737680435181E-001,
-            "Y" : -5.7099550962448120E-001,
-            "Z" : -5.3624254465103149E-001
+            "W" : 2.1987450122833252E+000,
+            "X" : 6.2174975872039795E-001,
+            "Y" : -5.7617318630218506E-001,
+            "Z" : -5.3052020072937012E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999994039535522E-001,
+            "X" : 9.9999946355819702E-001,
             "Y" : 9.9999994039535522E-001,
-            "Z" : 9.9999994039535522E-001
+            "Z" : 9.9999952316284180E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 8.7345399856567383E+000,
-            "Y" : 2.8590572357177734E+001,
-            "Z" : 2.1003849029541016E+001
+            "X" : 8.7385950088500977E+000,
+            "Y" : 2.8523176193237305E+001,
+            "Z" : 2.0999111175537109E+001
           },
           "$Children" : [
             {
@@ -166,24 +166,6 @@
           ]
         }
       ]
-    },
-    {
-      "$$ClassName" : "TCastleImageTransform",
-      "AlphaChannel" : "acNone",
-      "CastShadows" : false,
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 0.0000000000000000E+000,
-        "Green" : 1.1764705926179886E-001
-      },
-      "Exists" : false,
-      "Name" : "PersonalColor",
-      "SmoothScaling" : false,
-      "TranslationPersistent" : {
-        "$$ClassName" : "TCastleVector3Persistent",
-        "X" : 1.2000000000000000E+001,
-        "Y" : 6.0000000000000000E+001
-      }
     }
   ]
 }

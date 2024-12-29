@@ -17,20 +17,20 @@ var
 implementation
 
 uses
-  SysUtils, CastleTransform, NyaBaseActor, ActorsLogic;
+  SysUtils, CastleTransform, NyaActor, ActorsLogic;
 
 procedure TViewPlayGirl.Start;
 var
-  actorA, actorB: TNyaBaseActor;
+  actorA, actorB: TNyaActor;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-transform';
 
   { get Girl Character instance }
-  actorA:= Map.DesignedComponent('CharaGirl') as TNyaBaseActor;
+  actorA:= Map.DesignedComponent('CharaGirl') as TNyaActor;
 
   { get Toys instance }
-  actorB:= Map.DesignedComponent('ToyA') as TNyaBaseActor;
+  actorB:= Map.DesignedComponent('ToyA') as TNyaActor;
 
   { Create Actors Logic }
     FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],

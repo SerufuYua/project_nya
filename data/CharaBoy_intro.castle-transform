@@ -27,22 +27,22 @@
           "Name" : "Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 6.8053764104843140E-001,
-            "X" : 3.7983617186546326E-001,
-            "Y" : -7.5549042224884033E-001,
-            "Z" : 5.3381532430648804E-001
+            "W" : 6.8899619579315186E-001,
+            "X" : 3.6532461643218994E-001,
+            "Y" : -7.4902701377868652E-001,
+            "Z" : 5.5271732807159424E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0999999046325684E+000,
+            "X" : 1.0999997854232788E+000,
             "Y" : 1.0999995470046997E+000,
-            "Z" : 1.0999997854232788E+000
+            "Z" : 1.0999995470046997E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -2.7584187984466553E+000,
-            "Y" : 3.8206169128417969E+001,
-            "Z" : 2.0951251983642578E+000
+            "X" : -2.7774913311004639E+000,
+            "Y" : 3.8120944976806641E+001,
+            "Z" : 2.0942239761352539E+000
           },
           "$Children" : [
             {
@@ -78,24 +78,6 @@
           ]
         }
       ]
-    },
-    {
-      "$$ClassName" : "TCastleImageTransform",
-      "AlphaChannel" : "acNone",
-      "CastShadows" : false,
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 3.1372550129890442E-001,
-        "Green" : 7.9607844352722168E-001,
-        "Red" : 0.0000000000000000E+000
-      },
-      "Exists" : false,
-      "Name" : "PersonalColor",
-      "TranslationPersistent" : {
-        "$$ClassName" : "TCastleVector3Persistent",
-        "X" : 1.2000000000000000E+001,
-        "Y" : 6.0000000000000000E+001
-      }
     }
   ]
 }

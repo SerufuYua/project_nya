@@ -6,12 +6,12 @@ interface
 
 uses
   Classes, SysUtils, CastleSceneCore, CastleColors,
-  X3DNodes, NyaFadeEffect, NyaBaseActor, NyaActorChara;
+  X3DNodes, NyaFadeEffect, NyaActor, NyaActorChara;
 
 type
   TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
 
-  TActorsList = Array of TNyaBaseActor;
+  TActorsList = Array of TNyaActor;
   TCharasList = Array of TNyaActorChara;
 
   TActorsLogic = class
@@ -158,16 +158,16 @@ end;
 
 procedure TActorsLogic.SetSpeed(value: Single);
 var
-  actor: TNyaBaseActor;
+  actor: TNyaActor;
 begin
   FSpeed:= value;
   for actor in FActors do
-    actor.Speed:= value;
+    actor.AnimationSpeed:= value;
 end;
 
 procedure TActorsLogic.Stop;
 var
-  actor: TNyaBaseActor;
+  actor: TNyaActor;
 begin
   for actor in FActors do
     actor.StopAnimation(True);
@@ -190,7 +190,7 @@ procedure TActorsLogic.PlayAnimation(const animationName: String;
                                     loop, bottomDress: boolean;
                                     footDress: boolean);
 var
-  actor: TNyaBaseActor;
+  actor: TNyaActor;
   chara: TNyaActorChara;
   dresser: TCharaDresser;
 begin
@@ -218,7 +218,7 @@ procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
                                      bottomDress: boolean;
                                      footDress: boolean);
 var
-  actor: TNyaBaseActor;
+  actor: TNyaActor;
   chara: TNyaActorChara;
   dresser: TCharaDresser;
 begin
@@ -334,7 +334,7 @@ end;
 
 function TActorsLogic.GetCharas: TCharasList;
 var
-  actor: TNyaBaseActor;
+  actor: TNyaActor;
   chara: TNyaActorChara;
 begin
   Result:= [];
@@ -349,7 +349,7 @@ end;
 
 function TActorsLogic.GetColor: TCastleColorRGB;
 var
-  actor: TNyaBaseActor;
+  actor: TNyaActor;
   chara: TNyaActorChara;
   averColor: TCastleColorRGB;
   count: Integer;

@@ -5,11 +5,11 @@ unit NyaActorChara;
 interface
 
 uses
-  Classes, SysUtils, NyaBaseActor, CastleClassUtils, CastleSceneCore,
+  Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
   CharaDress, CastleTransform, NyaCastleUtils, CastleScene;
 
 type
-  TNyaActorChara = class(TNyaBaseActor)
+  TNyaActorChara = class(TNyaActor)
   protected
     FDresser: TCharaDresser;
     FDripping: Single;
@@ -18,9 +18,8 @@ type
     procedure SetSweating(value: Single);
     procedure ApplyDripping;
     procedure ApplySweating;
-    procedure ApplySpeed; override;
-    procedure ApplyAutoAnimation; override;
     procedure UpdateJizz;
+    procedure SetUrl(const Value: String); override;
   public
     const
       DefaultDripping = 0.0;
@@ -28,14 +27,7 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure PrepareResources(const Options: TPrepareResourcesOptions;
-                               const Params: TPrepareParams); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
-    procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
-    procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
-    procedure StopAnimation(const DisableStopNotification: Boolean = false); override;
-    function MainActor: TCastleScene; override; { main actor Body }
-    function ActorsList: TCastleScenes;         { Body + Head + Hair}
     function Dresser: TCharaDresser;
     procedure SaveCondition;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -64,21 +56,7 @@ destructor TNyaActorChara.Destroy;
 begin
   if Assigned(FDresser) then
     FreeAndNil(FDresser);
-
   inherited;
-end;
-
-procedure TNyaActorChara.PrepareResources(const Options: TPrepareResourcesOptions;
-                                          const Params: TPrepareParams);
-var
-  value: Single;
-begin
-  inherited;
-
-  ApplyDripping;
-  ApplySweating;
-
-  Dresser.RestoreCondition(ActorName);
 end;
 
 procedure TNyaActorChara.Update(const SecondsPassed: Single;
@@ -89,46 +67,23 @@ begin
   UpdateJizz;
 end;
 
-procedure TNyaActorChara.PlayAnimation(const animationName: String;
-                                       loop: boolean = true);
-var
-  actor: TCastleScene;
+procedure TNyaActorChara.SetUrl(const value: String);
 begin
-  for actor in ActorsList do
-    actor.PlayAnimation(animationName, loop);
-end;
+  inherited;
 
-procedure TNyaActorChara.PlayAnimation(const Parameters: TPlayAnimationParameters);
-var
-  actor: TCastleScene;
-  body: TCastleScene;
-  noEventParam: TPlayAnimationParameters;
-begin
-  body:= MainActor;
-  for actor in ActorsList do
-  begin
-    if (actor = body) then
-      actor.PlayAnimation(Parameters)
-    else begin
-      noEventParam:= Parameters;
-      Parameters.StopNotification:= nil;
-      actor.PlayAnimation(noEventParam)
-    end;
-  end;
-end;
+  if Assigned(FDresser) then
+    FreeAndNil(FDresser);
 
-procedure TNyaActorChara.StopAnimation(const DisableStopNotification: Boolean);
-var
-  actor: TCastleScene;
-begin
-  for actor in ActorsList do
-    actor.StopAnimation(DisableStopNotification);
+  ApplyDripping;
+  ApplySweating;
 end;
 
 function TNyaActorChara.Dresser: TCharaDresser;
 begin
+  if NOT Assigned(FDesign) then Exit(nil);
+
   if NOT Assigned(FDresser) then
-    FDresser:= TCharaDresser.Create(self);
+    FDresser:= TCharaDresser.Create(FDesign);
 
   Result:= FDresser;
 end;
@@ -136,51 +91,6 @@ end;
 procedure TNyaActorChara.SaveCondition;
 begin
   Dresser.SaveCondition(ActorName);
-end;
-
-function TNyaActorChara.MainActor: TCastleScene;
-begin
-  Result:= DesignedComponent('Body', False) as TCastleScene;
-end;
-
-function TNyaActorChara.ActorsList: TCastleScenes;
-var
-  actor: TCastleScene;
-  i: Integer;
-begin
-  i:= -1;
-  Result:= [];
-  SetLength(Result, 4);
-
-  actor:= MainActor;
-  if Assigned(actor) then
-  begin
-    i:= i + 1;
-    Result[i]:= actor;
-  end;
-
-  actor:= DesignedComponent('SceneHead', False) as TCastleScene;
-  if Assigned(actor) then
-  begin
-    i:= i + 1;
-    Result[i]:= actor;
-  end;
-
-  actor:= DesignedComponent('SceneHair', False) as TCastleScene;
-  if Assigned(actor) then
-  begin
-    i:= i + 1;
-    Result[i]:= actor;
-  end;
-
-  actor:= DesignedComponent('Controller', False) as TCastleScene;
-  if Assigned(actor) then
-  begin
-    i:= i + 1;
-    Result[i]:= actor;
-  end;
-
-  SetLength(Result, i + 1);
 end;
 
 procedure TNyaActorChara.SetDripping(value: Single);
@@ -202,9 +112,11 @@ var
   EmitterDrip: TCastleParticleEmitter;
   EffectDrip: TCastleParticleEffect;
 begin
-  EmitterDrip:= DesignedComponent('EmitterDrip', False)
+  if NOT Assigned(FDesign) then Exit;
+
+  EmitterDrip:= FDesign.DesignedComponent('EmitterDrip', False)
                 as TCastleParticleEmitter;
-  EffectDrip:= DesignedComponent('EffectDrip', False)
+  EffectDrip:= FDesign.DesignedComponent('EffectDrip', False)
                as TCastleParticleEffect;
 
   if (Assigned(EffectDrip) AND Assigned(EmitterDrip)) then
@@ -219,9 +131,11 @@ var
   EmitterSweat: TCastleParticleEmitter;
   EffectSweat: TCastleParticleEffect;
 begin
-  EmitterSweat:= DesignedComponent('EmitterSweat', False)
+  if NOT Assigned(FDesign) then Exit;
+
+  EmitterSweat:= FDesign.DesignedComponent('EmitterSweat', False)
                  as TCastleParticleEmitter;
-  EffectSweat:= DesignedComponent('EffectSweat', False)
+  EffectSweat:= FDesign.DesignedComponent('EffectSweat', False)
                 as TCastleParticleEffect;
 
   if (Assigned(EffectSweat) AND Assigned(EmitterSweat)) then
@@ -231,33 +145,16 @@ begin
   end;
 end;
 
-procedure TNyaActorChara.ApplySpeed;
-var
-  body: TCastleScene;
-begin
-  for body in ActorsList do
-    if Assigned(body) then
-      body.TimePlayingSpeed:= FSpeed;
-end;
-
-procedure TNyaActorChara.ApplyAutoAnimation;
-var
-  actor: TCastleScene;
-begin
-  for actor in ActorsList do
-    actor.AutoAnimation:= FAutoAnimation;
-end;
-
 procedure TNyaActorChara.UpdateJizz;
 var
   ControlJizz: TCastleTransform;
   EmitterJizz: TCastleParticleEmitter;
 begin
-  inherited;
+  if NOT Assigned(FDesign) then Exit;
 
-  ControlJizz:= DesignedComponent('Control_Jizz', False)
+  ControlJizz:= FDesign.DesignedComponent('Control_Jizz', False)
                 as TCastleTransform;
-  EmitterJizz:= DesignedComponent('EmitterJizz', False)
+  EmitterJizz:= FDesign.DesignedComponent('EmitterJizz', False)
                 as TCastleParticleEmitter;
 
   if (Assigned(ControlJizz) AND Assigned(EmitterJizz)) then
