@@ -13,6 +13,7 @@ type
   protected
     FDesign: TCastleTransformDesign;
     FUrl: String;
+    FActorName: String;
     FAutoAnimation: String;
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
@@ -38,6 +39,7 @@ type
     procedure HandleNodeEmissionColor(sceneNode: TX3DNode);
   public
     const
+      DefaultActorName = 'unknown';
       DefaultAutoAnimation = 'none';
       DefaultAnimationSpeed = 1.0;
       DefaultAnisotropicDegree = 0.0;
@@ -50,6 +52,7 @@ type
 
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
   published
+    property ActorName: String read FActorName write FActorName;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
       {$ifdef FPC}default DefaultAnimationSpeed{$endif};
@@ -75,6 +78,7 @@ begin
 
   FDesign:= nil;
   FUrl:= '';
+  FActorName:= DefaultActorName;
   FAutoAnimation:= DefaultAutoAnimation;
   FAnimationSpeed:= DefaultAnimationSpeed;
   FAnisotropicDegree:= DefaultAnisotropicDegree;
@@ -264,7 +268,7 @@ function TNyaActor.PropertySections(const PropertyName: String): TPropertySectio
 begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
-       'AutoAnimation', 'AnimationSpeed'
+       'AutoAnimation', 'AnimationSpeed', 'ActorName'
      ]) then
     Result:= [psBasic]
   else
