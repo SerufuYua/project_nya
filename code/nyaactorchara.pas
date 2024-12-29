@@ -76,6 +76,8 @@ begin
 
   ApplyDripping;
   ApplySweating;
+
+  Dresser.RestoreCondition(ActorName);
 end;
 
 function TNyaActorChara.Dresser: TCharaDresser;
