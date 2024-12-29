@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils,
-  CastleTransform, CastleClassUtils, CastleColors, X3DNodes, CastleScene;
+  CastleTransform, CastleClassUtils, CastleColors, X3DNodes, CastleScene,
+  NyaCastleUtils;
 
 type
   TNyaActor = class(TCastleTransform)
@@ -57,7 +58,8 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    function MainActor: TCastleScene; virtual;
+    function AllScenes: TCastleScenes; virtual;
+    function MainScene: TCastleScene; virtual;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
@@ -81,7 +83,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, NyaCastleUtils
+  CastleComponentSerialize, CastleUtils
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits, CastleSceneCore
   {$endif};
@@ -190,9 +192,7 @@ procedure TNyaActor.ApplyAutoAnimation;
 var
   scene: TCastleScene;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  for scene in GetAllScenes(FDesign) do
+  for scene in AllScenes do
     scene.AutoAnimation:= FAutoAnimation;
 end;
 
@@ -200,9 +200,7 @@ procedure TNyaActor.ApplyAnimationSpeed;
 var
   scene: TCastleScene;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  for scene in GetAllScenes(FDesign) do
+  for scene in AllScenes do
     scene.TimePlayingSpeed:= FAnimationSpeed;
 end;
 
@@ -210,9 +208,7 @@ procedure TNyaActor.ApplyAnisotropicDegree;
 var
   scene: TCastleScene;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  for scene in GetAllScenes(FDesign) do
+  for scene in AllScenes do
     if Assigned(scene.RootNode) then
       scene.RootNode.EnumerateNodes(TImageTextureNode,
                                     {$ifdef FPC}@{$endif}HandleNodeAnisotropic,
@@ -223,9 +219,7 @@ procedure TNyaActor.ApplyLightning;
 var
   scene: TCastleScene;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  for scene in GetAllScenes(FDesign) do
+  for scene in AllScenes do
     scene.RenderOptions.Lighting:= FLightning;
 end;
 
@@ -233,9 +227,7 @@ procedure TNyaActor.ApplyEmissionItself;
 var
   scene: TCastleScene;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  for scene in GetAllScenes(FDesign) do
+  for scene in AllScenes do
     if Assigned(scene.RootNode) then
       scene.RootNode.EnumerateNodes(TPhysicalMaterialNode,
                                     {$ifdef FPC}@{$endif}HandleNodeEmissionItself,
@@ -246,9 +238,7 @@ procedure TNyaActor.ApplyEmissionColor;
 var
   scene: TCastleScene;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  for scene in GetAllScenes(FDesign) do
+  for scene in AllScenes do
     if Assigned(scene.RootNode) then
       scene.RootNode.EnumerateNodes(TPhysicalMaterialNode,
                                     {$ifdef FPC}@{$endif}HandleNodeEmissionColor,
@@ -307,14 +297,20 @@ begin
   PersonalColor:= AValue;
 end;
 
-function TNyaActor.MainActor: TCastleScene;
+function TNyaActor.AllScenes: TCastleScenes;
+begin
+  if NOT Assigned(FDesign) then
+    Result:= []
+  else
+    Result:= GetAllScenes(FDesign);
+end;
+
+function TNyaActor.MainScene: TCastleScene;
 var
   scenes: TCastleScenes;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
   { take only first TCastleScene }
-  scenes:= GetAllScenes(FDesign);
+  scenes:= AllScenes;
   if (Length(scenes) > 0) then
     Result:= scenes[0]
   else
