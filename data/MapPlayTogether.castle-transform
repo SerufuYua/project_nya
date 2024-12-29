@@ -107,20 +107,42 @@
       },
       "$Children" : [
         {
-          "$$ClassName" : "TCastleTransformDesign",
+          "$$ClassName" : "TNyaActorChara",
+          "ActorName" : "Girl",
+          "AnisotropicDegree" : 1.6000000000000000E+001,
+          "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
+          "EmissionColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Blue" : 1.5000000596046448E-001,
+            "Green" : 1.5000000596046448E-001,
+            "Red" : 1.5000000596046448E-001
+          },
+          "EmissionItself" : true,
           "Name" : "CharaGirl",
-          "RotationPersistent" : {
-            "$$ClassName" : "TCastleVector4RotationPersistent",
-            "Z" : 1.0000000000000000E+000
+          "PersonalColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Green" : 3.2941177487373352E-001,
+            "Red" : 1.0000000000000000E+000
           },
           "Url" : "castle-data:/CharaGirl_togetherPlay.castle-transform"
         },
         {
-          "$$ClassName" : "TCastleTransformDesign",
+          "$$ClassName" : "TNyaActorChara",
+          "ActorName" : "Boy",
+          "AnisotropicDegree" : 1.6000000000000000E+001,
+          "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
+          "EmissionColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Blue" : 1.4901961386203766E-001,
+            "Green" : 1.4901961386203766E-001,
+            "Red" : 1.4901961386203766E-001
+          },
+          "EmissionItself" : true,
           "Name" : "CharaBoy",
-          "RotationPersistent" : {
-            "$$ClassName" : "TCastleVector4RotationPersistent",
-            "Z" : 1.0000000000000000E+000
+          "PersonalColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Blue" : 3.8431373238563538E-001,
+            "Green" : 1.0000000000000000E+000
           },
           "Url" : "castle-data:/CharaBoy_togetherPlay.castle-transform"
         }
