@@ -21,9 +21,13 @@ type
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
     FEmissionColorPersistent: TCastleColorRGBPersistent;
+    FPersonalColor: TCastleColorRGB;
+    FPersonalColorPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String);
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
+    function GetPersonalColorForPersistent: TCastleColorRGB;
+    procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
     procedure SetAutoAnimation(const Value: String);
     procedure SetAnimationSpeed(value: Single);
     procedure SetAnisotropicDegree(value: Single);
@@ -49,12 +53,14 @@ type
       DefaultLightning = True;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
+      DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
     function MainActor: TCastleScene; virtual;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
+    property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
   published
     property ActorName: String read FActorName write FActorName;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
@@ -68,6 +74,7 @@ type
     property EmissionItself: Boolean read FEmissionItself write SetEmissionItself
       {$ifdef FPC}default DefaultEmissionItself{$endif};
     property EmissionColorPersistent: TCastleColorRGBPersistent read FEmissionColorPersistent;
+    property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
   end;
 
 implementation
@@ -97,6 +104,13 @@ begin
   FEmissionColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetEmissionColorForPersistent;
   FEmissionColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetEmissionColorForPersistent;
   FEmissionColorPersistent.InternalDefaultValue:= DefaultEmissionColor; // current value is default
+
+  { Persistent for PersonalColor }
+  FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
+  FPersonalColorPersistent.SetSubComponent(true);
+  FPersonalColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPersonalColorForPersistent;
+  FPersonalColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPersonalColorForPersistent;
+  FPersonalColorPersistent.InternalDefaultValue:= DefaultPersonalColor; // current value is default
 end;
 
 procedure TNyaActor.SetUrl(const value: String);
@@ -275,6 +289,16 @@ begin
   EmissionColor:= AValue;
 end;
 
+function TNyaActor.GetPersonalColorForPersistent: TCastleColorRGB;
+begin
+  Result:= PersonalColor;
+end;
+
+procedure TNyaActor.SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
+begin
+  PersonalColor:= AValue;
+end;
+
 function TNyaActor.MainActor: TCastleScene;
 var
   scenes: TCastleScenes;
@@ -293,7 +317,8 @@ function TNyaActor.PropertySections(const PropertyName: String): TPropertySectio
 begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
-       'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning'
+       'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
+       'PersonalColorPersistent'
      ]) then
     Result:= [psBasic]
   else
