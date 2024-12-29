@@ -23,7 +23,10 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils;
+  CastleComponentSerialize, CastleUtils
+  {$ifdef CASTLE_DESIGN_MODE}
+  , PropEdits, CastlePropEdits
+  {$endif};
 
 constructor TNyaActor.Create(AOwner: TComponent);
 begin
@@ -51,5 +54,10 @@ end;
 
 initialization
   RegisterSerializableComponent(TNyaActor, 'Nya Actor');
+
+  {$ifdef CASTLE_DESIGN_MODE}
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'URL',
+                         TTransformDesignURLPropertyEditor);
+  {$endif}
 end.
 
