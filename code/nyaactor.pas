@@ -11,6 +11,7 @@ uses
 type
   TNyaActor = class(TCastleTransform)
   protected
+    FDesign: TCastleTransformDesign;
     FUrl: String;
     procedure SetUrl(const Value: String);
   public
@@ -32,6 +33,7 @@ constructor TNyaActor.Create(AOwner: TComponent);
 begin
   inherited;
 
+  FDesign:= nil;
   FUrl:= '';
 end;
 
@@ -40,6 +42,13 @@ begin
   if (FUrl = value) then Exit;
   FUrl:= value;
 
+  if NOT Assigned(FDesign) then
+  begin
+    FDesign:= TCastleTransformDesign.Create(Self);
+    FDesign.SetTransient;
+  end;
+
+  FDesign.Url:= value;
 end;
 
 function TNyaActor.PropertySections(const PropertyName: String): TPropertySections;
