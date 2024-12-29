@@ -16,9 +16,11 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 NyaThirdPersonCameraNavigation,
                 NyaThirdPersonCharaNavigation,
                 NyaSpectatorCameraNavigation,
-                NyaSwitch,NyaActorToyA,
+                NyaSwitch,
+                NyaActorToyA,
                 NyaActorChara,
-                NyaScene"
+                NyaScene,
+                NyaActor"
 >
   <compiler_options>
     <search_paths>
