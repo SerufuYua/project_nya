@@ -17,6 +17,7 @@ type
     FAutoAnimation: String;
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
+    FLightning: Boolean;
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
     FEmissionColorPersistent: TCastleColorRGBPersistent;
@@ -26,11 +27,13 @@ type
     procedure SetAutoAnimation(const Value: String);
     procedure SetAnimationSpeed(value: Single);
     procedure SetAnisotropicDegree(value: Single);
+    procedure SetLightning(enable: Boolean);
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
     procedure ApplyAutoAnimation;
     procedure ApplyAnimationSpeed;
     procedure ApplyAnisotropicDegree;
+    procedure ApplyLightning;
     procedure ApplyEmissionItself;
     procedure ApplyEmissionColor;
   protected
@@ -43,6 +46,7 @@ type
       DefaultAutoAnimation = 'none';
       DefaultAnimationSpeed = 1.0;
       DefaultAnisotropicDegree = 0.0;
+      DefaultLightning = True;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
@@ -59,6 +63,8 @@ type
     property Url: String read FUrl write SetUrl;
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
       {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
+    property Lightning: Boolean read FLightning write SetLightning
+      {$ifdef FPC}default DefaultLightning{$endif};
     property EmissionItself: Boolean read FEmissionItself write SetEmissionItself
       {$ifdef FPC}default DefaultEmissionItself{$endif};
     property EmissionColorPersistent: TCastleColorRGBPersistent read FEmissionColorPersistent;
@@ -82,6 +88,7 @@ begin
   FAutoAnimation:= DefaultAutoAnimation;
   FAnimationSpeed:= DefaultAnimationSpeed;
   FAnisotropicDegree:= DefaultAnisotropicDegree;
+  FLightning:= DefaultLightning;
   FEmissionItself:= DefaultEmissionItself;
 
   { Persistent for EmissionColor }
@@ -107,6 +114,7 @@ begin
   FDesign.Url:= value;
 
   ApplyAnisotropicDegree;
+  ApplyLightning;
   ApplyEmissionItself;
   ApplyEmissionColor;
 
@@ -133,6 +141,13 @@ begin
   if (FAnisotropicDegree = value) then Exit;
   FAnisotropicDegree:= value;
   ApplyAnisotropicDegree;
+end;
+
+procedure TNyaActor.SetLightning(enable: Boolean);
+begin
+  if (FLightning = enable) then Exit;
+  FLightning:= enable;
+  ApplyLightning;
 end;
 
 procedure TNyaActor.SetEmissionItself(const value: Boolean);
@@ -180,6 +195,16 @@ begin
       scene.RootNode.EnumerateNodes(TImageTextureNode,
                                     {$ifdef FPC}@{$endif}HandleNodeAnisotropic,
                                     false);
+end;
+
+procedure TNyaActor.ApplyLightning;
+var
+  scene: TCastleScene;
+begin
+  if NOT Assigned(FDesign) then Exit;
+
+  for scene in GetAllScenes(FDesign) do
+    scene.RenderOptions.Lighting:= FLightning;
 end;
 
 procedure TNyaActor.ApplyEmissionItself;
@@ -268,7 +293,7 @@ function TNyaActor.PropertySections(const PropertyName: String): TPropertySectio
 begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
-       'AutoAnimation', 'AnimationSpeed', 'ActorName'
+       'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning'
      ]) then
     Result:= [psBasic]
   else
