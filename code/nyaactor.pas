@@ -56,6 +56,7 @@ type
       DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     function MainActor: TCastleScene; virtual;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
@@ -111,6 +112,13 @@ begin
   FPersonalColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPersonalColorForPersistent;
   FPersonalColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPersonalColorForPersistent;
   FPersonalColorPersistent.InternalDefaultValue:= DefaultPersonalColor; // current value is default
+end;
+
+destructor TNyaActor.Destroy;
+begin
+  FreeAndNil(FEmissionColorPersistent);
+  FreeAndNil(FPersonalColorPersistent);
+  inherited;
 end;
 
 procedure TNyaActor.SetUrl(const value: String);
