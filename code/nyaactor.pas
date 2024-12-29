@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils,
   CastleTransform, CastleClassUtils, CastleColors, X3DNodes, CastleScene,
-  NyaCastleUtils;
+  NyaCastleUtils, CastleSceneCore;
 
 type
   TNyaActor = class(TCastleTransform)
@@ -58,6 +58,9 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure PlayAnimation(const animationName: String; loop: boolean = true);
+    procedure PlayAnimation(const parameters: TPlayAnimationParameters);
+    procedure StopAnimation(const disableStopNotification: Boolean = false);
     function AllScenes: TCastleScenes; virtual;
     function MainScene: TCastleScene; virtual;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -85,7 +88,7 @@ implementation
 uses
   CastleComponentSerialize, CastleUtils
   {$ifdef CASTLE_DESIGN_MODE}
-  , PropEdits, CastlePropEdits, CastleSceneCore
+  , PropEdits, CastlePropEdits
   {$endif};
 
 constructor TNyaActor.Create(AOwner: TComponent);
@@ -121,6 +124,48 @@ begin
   FreeAndNil(FEmissionColorPersistent);
   FreeAndNil(FPersonalColorPersistent);
   inherited;
+end;
+
+procedure TNyaActor.PlayAnimation(const animationName: String;
+                                  loop: boolean = true);
+var
+  scene: TCastleScene;
+begin
+  for scene in AllScenes do
+    scene.PlayAnimation(animationName, loop);
+end;
+
+procedure TNyaActor.PlayAnimation(const parameters: TPlayAnimationParameters);
+var
+  scene: TCastleScene;
+  keyScene: TCastleScene;
+  noEventParam: TPlayAnimationParameters;
+begin
+  keyScene:= MainScene;
+  noEventParam:= TPlayAnimationParameters.Create;
+  noEventParam.Name:= parameters.Name;
+  noEventParam.Loop:= parameters.Loop;
+  noEventParam.Forward:= parameters.Forward;
+  noEventParam.TransitionDuration:= parameters.TransitionDuration;
+  noEventParam.InitialTime:= parameters.InitialTime;
+
+  for scene in AllScenes do
+  begin
+    if (scene = keyScene) then
+      scene.PlayAnimation(parameters)
+    else
+      scene.PlayAnimation(noEventParam)
+  end;
+
+  FreeAndNil(noEventParam);
+end;
+
+procedure TNyaActor.StopAnimation(const disableStopNotification: Boolean);
+var
+  scene: TCastleScene;
+begin
+  for scene in AllScenes do
+    scene.StopAnimation(disableStopNotification);
 end;
 
 procedure TNyaActor.SetUrl(const value: String);
@@ -351,7 +396,7 @@ var
 begin
   Proc('');
   Nav:= GetComponent(0) as TNyaActor;
-  Scene:= Nav.MainActor;
+  Scene:= Nav.MainScene;
   if Scene <> nil then
     for S in Scene.AnimationsList do
       Proc(S);
