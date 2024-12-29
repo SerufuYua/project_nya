@@ -170,6 +170,8 @@ begin
 end;
 
 procedure TNyaActor.SetUrl(const value: String);
+var
+  buff: String;
 begin
   if (FUrl = value) then Exit;
   FUrl:= value;
@@ -188,7 +190,11 @@ begin
   ApplyEmissionItself;
   ApplyEmissionColor;
 
-  ApplyAutoAnimation;
+  { restore animation }
+  buff:= FAutoAnimation;
+  AutoAnimation:= DefaultAutoAnimation;
+  AutoAnimation:= buff;
+
   ApplyAnimationSpeed;
 end;
 
