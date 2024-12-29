@@ -50,7 +50,7 @@ type
       DefaultActorName = 'unknown';
       DefaultAutoAnimation = 'none';
       DefaultAnimationSpeed = 1.0;
-      DefaultAnisotropicDegree = 0.0;
+      DefaultAnisotropicDegree = 1.0;
       DefaultLightning = True;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
@@ -208,6 +208,11 @@ end;
 procedure TNyaActor.SetAnisotropicDegree(value: Single);
 begin
   if (FAnisotropicDegree = value) then Exit;
+
+  { #note : Anisotropic Degree MUST be > 0.0 }
+  if (value < 1.0) then
+    value:= 1.0;
+
   FAnisotropicDegree:= value;
   ApplyAnisotropicDegree;
 end;

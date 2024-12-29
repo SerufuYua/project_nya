@@ -80,6 +80,7 @@
           {
             "$$ClassName" : "TNyaActorChara",
             "ActorName" : "Girl",
+            "AnisotropicDegree" : 1.6000000000000000E+001,
             "AutoAnimation" : "GAME.TOGETHER.INTRO.WAITING",
             "Dripping" : -1.0000000000000000E+000,
             "EmissionColorPersistent" : {
@@ -110,6 +111,7 @@
           {
             "$$ClassName" : "TNyaActorChara",
             "ActorName" : "Boy",
+            "AnisotropicDegree" : 1.6000000000000000E+001,
             "AutoAnimation" : "GAME.TOGETHER.INTRO.WAITING",
             "Dripping" : -1.0000000000000000E+000,
             "EmissionColorPersistent" : {
@@ -240,14 +242,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 4.0104069709777832E+000,
-          "X" : 1.3112372159957886E-001,
-          "Y" : 9.5561629533767700E-001,
-          "Z" : 2.6382613182067871E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "W" : 4.0104112625122070E+000,
+          "X" : 9.2384770512580872E-002,
+          "Y" : 9.7782486677169800E-001,
+          "Z" : 1.8794566392898560E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
