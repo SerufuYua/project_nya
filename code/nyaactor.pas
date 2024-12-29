@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils,
-  CastleTransform, CastleClassUtils, CastleColors, X3DNodes;
+  CastleTransform, CastleClassUtils, CastleColors, X3DNodes, CastleScene;
 
 type
   TNyaActor = class(TCastleTransform)
   protected
     FDesign: TCastleTransformDesign;
     FUrl: String;
+    FAutoAnimation: String;
     FAnisotropicDegree: Single;
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
@@ -20,9 +21,11 @@ type
     procedure SetUrl(const Value: String);
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
+    procedure SetAutoAnimation(const Value: String);
     procedure SetAnisotropicDegree(value: Single);
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
+    procedure ApplyAutoAnimation; virtual;
     procedure ApplyAnisotropicDegree;
     procedure ApplyEmissionItself;
     procedure ApplyEmissionColor;
@@ -32,15 +35,18 @@ type
     procedure HandleNodeEmissionColor(sceneNode: TX3DNode);
   public
     const
+      DefaultAutoAnimation = 'none';
       DefaultAnisotropicDegree = 0.0;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
     constructor Create(AOwner: TComponent); override;
+    function MainActor: TCastleScene; virtual;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
   published
+    property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property Url: String read FUrl write SetUrl;
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
       {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
@@ -52,9 +58,9 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, NyaCastleUtils, CastleScene
+  CastleComponentSerialize, CastleUtils, NyaCastleUtils
   {$ifdef CASTLE_DESIGN_MODE}
-  , PropEdits, CastlePropEdits
+  , PropEdits, CastlePropEdits, CastleSceneCore
   {$endif};
 
 constructor TNyaActor.Create(AOwner: TComponent);
@@ -63,6 +69,9 @@ begin
 
   FDesign:= nil;
   FUrl:= '';
+  FAutoAnimation:= DefaultAutoAnimation;
+  FAnisotropicDegree:= DefaultAnisotropicDegree;
+  FEmissionItself:= DefaultEmissionItself;
 
   { Persistent for EmissionColor }
   FEmissionColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -89,6 +98,15 @@ begin
   ApplyAnisotropicDegree;
   ApplyEmissionItself;
   ApplyEmissionColor;
+
+  ApplyAutoAnimation;
+end;
+
+procedure TNyaActor.SetAutoAnimation(const Value: String);
+begin
+  if (FAutoAnimation = Value) then Exit;
+  FAutoAnimation:= Value;
+  ApplyAutoAnimation;
 end;
 
 procedure TNyaActor.SetAnisotropicDegree(value: Single);
@@ -110,6 +128,16 @@ begin
   if TCastleColorRGB.Equals(FEmissionColor, value) then Exit;
   FEmissionColor:= value;
   ApplyEmissionColor;
+end;
+
+procedure TNyaActor.ApplyAutoAnimation;
+var
+  scene: TCastleScene;
+begin
+  if NOT Assigned(FDesign) then Exit;
+
+  for scene in GetAllScenes(FDesign) do
+    scene.AutoAnimation:= FAutoAnimation;
 end;
 
 procedure TNyaActor.ApplyAnisotropicDegree;
@@ -193,15 +221,59 @@ begin
   EmissionColor:= AValue;
 end;
 
+function TNyaActor.MainActor: TCastleScene;
+var
+  scenes: TCastleScenes;
+begin
+  if NOT Assigned(FDesign) then Exit;
+
+  { take only first TCastleScene }
+  scenes:= GetAllScenes(FDesign);
+  if (Length(scenes) > 0) then
+    Result:= scenes[0]
+  else
+    Result:= nil;
+end;
+
 function TNyaActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent'
+       'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
+       'AutoAnimation'
      ]) then
     Result:= [psBasic]
   else
     Result:= inherited PropertySections(PropertyName);
 end;
+
+{$ifdef CASTLE_DESIGN_MODE}
+type
+  { Property editor to select an animation on TNyaSwitch }
+  TNyaActorPropertyEditor = class(TStringPropertyEditor)
+  public
+    function GetAttributes: TPropertyAttributes; override;
+    procedure GetValues(Proc: TGetStrProc); override;
+  end;
+
+function TNyaActorPropertyEditor.GetAttributes: TPropertyAttributes;
+begin
+  Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
+end;
+
+procedure TNyaActorPropertyEditor.GetValues(Proc: TGetStrProc);
+var
+  Nav: TNyaActor;
+  Scene: TCastleSceneCore;
+  S: String;
+begin
+  Proc('');
+  Nav:= GetComponent(0) as TNyaActor;
+  Scene:= Nav.MainActor;
+  if Scene <> nil then
+    for S in Scene.AnimationsList do
+      Proc(S);
+end;
+{$endif}
 
 initialization
   RegisterSerializableComponent(TNyaActor, 'Nya Actor');
@@ -209,6 +281,8 @@ initialization
   {$ifdef CASTLE_DESIGN_MODE}
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'URL',
                          TTransformDesignURLPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'AutoAnimation',
+                         TNyaActorPropertyEditor);
   {$endif}
 end.
 
