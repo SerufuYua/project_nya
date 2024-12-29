@@ -14,6 +14,7 @@ type
     FDesign: TCastleTransformDesign;
     FUrl: String;
     FAutoAnimation: String;
+    FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
@@ -22,10 +23,12 @@ type
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
     procedure SetAutoAnimation(const Value: String);
+    procedure SetAnimationSpeed(value: Single);
     procedure SetAnisotropicDegree(value: Single);
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
-    procedure ApplyAutoAnimation; virtual;
+    procedure ApplyAutoAnimation;
+    procedure ApplyAnimationSpeed;
     procedure ApplyAnisotropicDegree;
     procedure ApplyEmissionItself;
     procedure ApplyEmissionColor;
@@ -36,6 +39,7 @@ type
   public
     const
       DefaultAutoAnimation = 'none';
+      DefaultAnimationSpeed = 1.0;
       DefaultAnisotropicDegree = 0.0;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
@@ -47,6 +51,8 @@ type
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
   published
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
+    property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
+      {$ifdef FPC}default DefaultAnimationSpeed{$endif};
     property Url: String read FUrl write SetUrl;
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
       {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
@@ -70,6 +76,7 @@ begin
   FDesign:= nil;
   FUrl:= '';
   FAutoAnimation:= DefaultAutoAnimation;
+  FAnimationSpeed:= DefaultAnimationSpeed;
   FAnisotropicDegree:= DefaultAnisotropicDegree;
   FEmissionItself:= DefaultEmissionItself;
 
@@ -100,6 +107,7 @@ begin
   ApplyEmissionColor;
 
   ApplyAutoAnimation;
+  ApplyAnimationSpeed;
 end;
 
 procedure TNyaActor.SetAutoAnimation(const Value: String);
@@ -107,6 +115,13 @@ begin
   if (FAutoAnimation = Value) then Exit;
   FAutoAnimation:= Value;
   ApplyAutoAnimation;
+end;
+
+procedure TNyaActor.SetAnimationSpeed(value: Single);
+begin
+  if (FAnimationSpeed = value) then Exit;
+  FAnimationSpeed:= value;
+  ApplyAnimationSpeed;
 end;
 
 procedure TNyaActor.SetAnisotropicDegree(value: Single);
@@ -138,6 +153,16 @@ begin
 
   for scene in GetAllScenes(FDesign) do
     scene.AutoAnimation:= FAutoAnimation;
+end;
+
+procedure TNyaActor.ApplyAnimationSpeed;
+var
+  scene: TCastleScene;
+begin
+  if NOT Assigned(FDesign) then Exit;
+
+  for scene in GetAllScenes(FDesign) do
+    scene.TimePlayingSpeed:= FAnimationSpeed;
 end;
 
 procedure TNyaActor.ApplyAnisotropicDegree;
@@ -239,7 +264,7 @@ function TNyaActor.PropertySections(const PropertyName: String): TPropertySectio
 begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
-       'AutoAnimation'
+       'AutoAnimation', 'AnimationSpeed'
      ]) then
     Result:= [psBasic]
   else
