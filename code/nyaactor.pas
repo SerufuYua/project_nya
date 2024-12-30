@@ -12,10 +12,11 @@ uses
 type
   TNyaActor = class(TCastleTransform)
   protected
+    FDesign: TCastleTransformDesign;
     FAllScenes: TCastleScenes;
     FMainScene: TCastleScene;
+    FAnimationsList: TStrings;
   protected
-    FDesign: TCastleTransformDesign;
     FUrl: String;
     FActorName: String;
     FAutoAnimation: String;
@@ -67,6 +68,7 @@ type
     procedure StopAnimation(const disableStopNotification: Boolean = false);
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
+    property AnimationsList: TStrings read FAnimationsList;
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
   published
@@ -105,6 +107,7 @@ begin
   FAnisotropicDegree:= DefaultAnisotropicDegree;
   FLightning:= DefaultLightning;
   FEmissionItself:= DefaultEmissionItself;
+  FAnimationsList:= TStringList.Create;
 
   { Persistent for EmissionColor }
   FEmissionColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -125,6 +128,7 @@ destructor TNyaActor.Destroy;
 begin
   FreeAndNil(FEmissionColorPersistent);
   FreeAndNil(FPersonalColorPersistent);
+  FreeAndNil(FAnimationsList);
   inherited;
 end;
 
@@ -192,6 +196,14 @@ begin
     FMainScene:= FAllScenes[0]
   else
     FMainScene:= nil;
+
+  { fill animations list }
+  FAnimationsList.Clear;
+  if Assigned(FMainScene) then
+  begin
+    for buff in FMainScene.AnimationsList do
+    FAnimationsList.Add(buff);
+  end;
 
 
   { apply all settings }
@@ -399,15 +411,12 @@ end;
 procedure TNyaActorPropertyEditor.GetValues(Proc: TGetStrProc);
 var
   Nav: TNyaActor;
-  Scene: TCastleSceneCore;
   S: String;
 begin
   Proc('');
   Nav:= GetComponent(0) as TNyaActor;
-  Scene:= Nav.MainScene;
-  if Scene <> nil then
-    for S in Scene.AnimationsList do
-      Proc(S);
+  for S in Nav.AnimationsList do
+    Proc(S);
 end;
 {$endif}
 
