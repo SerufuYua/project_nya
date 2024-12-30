@@ -27,8 +27,6 @@ uses
   CastleFonts, SysUtils, GameViewDressingMenu;
 
 procedure TViewTravel.Start;
-var
-  actorScene: TCastleTransformDesign;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapTravel_ContainerRoom.castle-transform';
