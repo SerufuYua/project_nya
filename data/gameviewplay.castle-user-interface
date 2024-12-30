@@ -137,6 +137,92 @@
       "VerticalAnchorSelf" : "vpMiddle"
     },
     {
+      "$$ClassName" : "TCastleFloatSlider",
+      "Background" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Blue" : 7.2549021244049072E-001,
+          "Green" : 5.8823531866073608E-001
+        },
+        "ProtectedSides" : {
+          "$$ClassName" : "TBorder",
+          "Bottom" : 5.0000000000000000E+000,
+          "Left" : 9.0000000000000000E+000,
+          "Right" : 9.0000000000000000E+000,
+          "Top" : 5.0000000000000000E+000
+        },
+        "Url" : "castle-data:/ui/scroll_light_growing.png"
+      },
+      "CustomFont" : "future_n0t_found",
+      "DisplayValue" : false,
+      "Height" : 4.5000000000000000E+001,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "FloatSliderPleasure",
+      "TextColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Blue" : 1.0000000000000000E+000,
+        "Green" : 1.0000000000000000E+000,
+        "Red" : 1.0000000000000000E+000
+      },
+      "Thumb" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Blue" : 0.0000000000000000E+000,
+          "Red" : 0.0000000000000000E+000
+        },
+        "Url" : "castle-data:/ui/scroll_cursor_growing.png"
+      },
+      "Width" : 0.0000000000000000E+000,
+      "WidthFraction" : 5.0000000000000000E-001
+    },
+    {
+      "$$ClassName" : "TCastleFloatSlider",
+      "Background" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Green" : 0.0000000000000000E+000,
+          "Red" : 4.1568627953529358E-001
+        },
+        "ProtectedSides" : {
+          "$$ClassName" : "TBorder",
+          "Bottom" : 5.0000000000000000E+000,
+          "Left" : 9.0000000000000000E+000,
+          "Right" : 9.0000000000000000E+000,
+          "Top" : 5.0000000000000000E+000
+        },
+        "Url" : "castle-data:/ui/scroll_light_growing.png"
+      },
+      "CustomFont" : "future_n0t_found",
+      "DisplayValue" : false,
+      "Height" : 4.5000000000000000E+001,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "FloatSliderTension",
+      "TextColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Blue" : 1.0000000000000000E+000,
+        "Green" : 1.0000000000000000E+000,
+        "Red" : 1.0000000000000000E+000
+      },
+      "Thumb" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Blue" : 0.0000000000000000E+000,
+          "Green" : 8.5098040103912354E-001
+        },
+        "Url" : "castle-data:/ui/scroll_cursor_growing.png"
+      },
+      "VerticalAnchorParent" : "vpTop",
+      "VerticalAnchorSelf" : "vpTop",
+      "Width" : 0.0000000000000000E+000,
+      "WidthFraction" : 5.0000000000000000E-001
+    },
+    {
       "$$ClassName" : "TCastleImageControl",
       "AutoSizeToChildren" : true,
       "Content" : {
@@ -470,7 +556,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -6.2000003814697266E+001
+                            "Y" : -6.2000000000000000E+001
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -532,7 +618,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -1.1400000762939453E+002
+                            "Y" : -1.1400000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -598,125 +684,6 @@
                   "Value" : 1.0000000000000000E+000,
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Green" : 1.0000000000000000E+000
-                  },
-                  "CustomFont" : "future_n0t_found",
-                  "Name" : "LabelPleasure",
-                  "Text" : [
-                    "Pleasure:"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -3.3200000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleFloatSlider",
-                  "Background" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 9.0000000000000000E+000,
-                      "Right" : 9.0000000000000000E+000,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/scroll_light_growing.png"
-                  },
-                  "CustomFont" : "future_n0t_found",
-                  "Height" : 4.5000000000000000E+001,
-                  "Name" : "FloatSliderPleasure",
-                  "TextColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 9.4509804248809814E-001
-                  },
-                  "Thumb" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ColorPersistent" : {
-                      "$$ClassName" : "TCastleColorPersistent",
-                      "Blue" : 0.0000000000000000E+000,
-                      "Red" : 0.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/scroll_cursor_growing.png"
-                  },
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -3.6400000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "Width" : 2.5000000000000000E+002
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Green" : 8.5098040103912354E-001,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "CustomFont" : "future_n0t_found",
-                  "Name" : "LabelTension",
-                  "Text" : [
-                    "Tension:"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -4.1900000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleFloatSlider",
-                  "Background" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ProtectedSides" : {
-                      "$$ClassName" : "TBorder",
-                      "Bottom" : 5.0000000000000000E+000,
-                      "Left" : 9.0000000000000000E+000,
-                      "Right" : 9.0000000000000000E+000,
-                      "Top" : 5.0000000000000000E+000
-                    },
-                    "Url" : "castle-data:/ui/scroll_light_growing.png"
-                  },
-                  "CustomFont" : "future_n0t_found",
-                  "Height" : 4.5000000000000000E+001,
-                  "Name" : "FloatSliderTension",
-                  "TextColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 9.4509804248809814E-001
-                  },
-                  "Thumb" : {
-                    "$$ClassName" : "TCastleImagePersistent",
-                    "ColorPersistent" : {
-                      "$$ClassName" : "TCastleColorPersistent",
-                      "Blue" : 0.0000000000000000E+000,
-                      "Green" : 8.5098040103912354E-001
-                    },
-                    "Url" : "castle-data:/ui/scroll_cursor_growing.png"
-                  },
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001,
-                    "Y" : -4.5100000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "Width" : 2.5000000000000000E+002
                 }
               ]
             }
@@ -1013,7 +980,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000003814697266E+001
+                        "Y" : -5.2000000000000000E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
