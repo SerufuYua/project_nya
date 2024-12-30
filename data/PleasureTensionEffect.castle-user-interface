@@ -79,7 +79,7 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : 1.2000000000000000E+001
+              "Y" : 8.0000000000000000E+000
             },
             "$NonVisualComponents" : [
               {
@@ -88,11 +88,13 @@
                   {
                     "$$ClassName" : "TCastleParticleEffectAnchorItem",
                     "Size" : 7.5000000000000000E-001,
+                    "SizeVariance" : 3.7500000000000000E-001,
                     "TimeNormalized" : 5.0000000000000000E-001
                   },
                   {
                     "$$ClassName" : "TCastleParticleEffectAnchorItem",
                     "Size" : 5.0000000000000000E-001,
+                    "SizeVariance" : 2.5000000000000000E-001,
                     "TimeNormalized" : 7.5000000000000000E-001
                   },
                   {
@@ -101,7 +103,8 @@
                       "$$ClassName" : "TCastleColorPersistent",
                       "Alpha" : 0.0000000000000000E+000
                     },
-                    "Size" : 4.0000000596046448E-001
+                    "Size" : 4.0000000596046448E-001,
+                    "SizeVariance" : 2.0000000298023224E-001
                   }
                 ],
                 "ColorPersistent" : {
@@ -134,6 +137,10 @@
             "$$ClassName" : "TCastleParticleEmitter",
             "Effect" : "HeartsEffect",
             "Name" : "HeartsEmitter",
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Y" : -6.0000000000000000E+000
+            },
             "$NonVisualComponents" : [
               {
                 "$$ClassName" : "TCastleParticleEffect",
@@ -145,15 +152,17 @@
                       "Blue" : 6.7058825492858887E-001,
                       "Green" : 2.6274511218070984E-001
                     },
+                    "SizeVariance" : 5.0000000000000000E-001,
                     "TimeNormalized" : 5.0000000745058060E-002
                   },
                   {
                     "$$ClassName" : "TCastleParticleEffectAnchorItem",
                     "ColorPersistent" : {
                       "$$ClassName" : "TCastleColorPersistent",
-                      "Blue" : 7.0588237047195435E-001,
-                      "Green" : 5.1372551918029785E-001
+                      "Blue" : 3.7647059559822083E-001,
+                      "Green" : 1.6078431904315948E-001
                     },
+                    "SizeVariance" : 5.0000000000000000E-001,
                     "TimeNormalized" : 4.0000000596046448E-001
                   },
                   {
@@ -164,7 +173,8 @@
                       "Blue" : 7.9607844352722168E-001,
                       "Green" : 5.1372551918029785E-001
                     },
-                    "Size" : 1.5000000000000000E+000
+                    "Size" : 1.5000000000000000E+000,
+                    "SizeVariance" : 7.5000000000000000E-001
                   }
                 ],
                 "ColorPersistent" : {
@@ -180,7 +190,7 @@
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : 1.0000000000000000E+001,
                   "Y" : 1.0000000000000000E+000,
-                  "Z" : 5.0000000000000000E+000
+                  "Z" : 0.0000000000000000E+000
                 },
                 "Speed" : 1.0000000000000000E+000,
                 "SpeedVariance" : 5.0000000000000000E-001,
@@ -198,21 +208,21 @@
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : 5.0000000000000000E-001,
                 "Y" : 5.0000000000000000E-001
-              },
-              "Width" : 1.5000000000000000E+001
+              }
             },
             "Perspective" : {
               "$$ClassName" : "TCastlePerspective",
               "FieldOfViewAxis" : "faVertical"
             },
+            "ProjectionFar" : 1.0000000000000000E+001,
+            "ProjectionType" : "ptOrthographic",
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "Z" : 1.0000000000000000E+000
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : 5.5000000000000000E+000,
-              "Z" : 1.5000000000000000E+001
+              "Z" : 1.0000000000000000E+000
             }
           }
         ]
@@ -226,7 +236,7 @@
         "Name" : "",
         "Orthographic" : {
           "$$ClassName" : "TCastleOrthographic",
-          "Height" : 1.2000000000000000E+003,
+          "Height" : 2.1258209228515625E+001,
           "OriginPersistent" : {
             "$$ClassName" : "TCastleVector2Persistent",
             "X" : 5.0000000000000000E-001,
@@ -243,6 +253,8 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 7.5899839401245117E-001,
+          "Y" : 8.0183506011962891E-001,
           "Z" : 6.0000000000000000E+002
         }
       },
