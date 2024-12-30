@@ -5,27 +5,35 @@ unit NyaPleasureTensionEffect;
 interface
 
 uses
-  Classes, SysUtils, CastleControls, CastleClassUtils;
+  Classes, SysUtils, CastleUIControls, CastleControls, CastleClassUtils,
+  CastleParticleEmitter;
 
 type
-  TNyaPleasureTensionEffect = class(TCastleDesign)
+  TNyaPleasureTensionEffect = class(TCastleUserInterface)
   protected
-    FDelta: Single;
+    FDesign: TCastleDesign;
+    FTensionFlash: TCastleImageControl;
+    FDropsEmitter: TCastleParticleEmitter;
+    FDropsEffect: TCastleParticleEffect;
+    FPleasureFlash: TCastleImageControl;
+    FHeartsEmitter: TCastleParticleEmitter;
+    FHeartsEffect: TCastleParticleEffect;
+  protected
+    FUrl: String;
     FTension: Single;
     FPleasure: Single;
+    procedure SetUrl(const Value: String); virtual;
     procedure SetTension(value: Single);
     procedure SetPleasure(value: Single);
   public
     const
-      DefaultDelta = 0.01;
       DefaultTension = 1.0;
       DefaultPleasure = 1.0;
 
       constructor Create(AOwner: TComponent); override;
       function PropertySections(const PropertyName: String): TPropertySections; override;
   published
-    property Delta: Single read FDelta write FDelta
-           {$ifdef FPC}default DefaultDelta{$endif};
+    property Url: String read FUrl write SetUrl;
     property Tension: Single read FTension write SetTension
            {$ifdef FPC}default DefaultTension{$endif};
     property Pleasure: Single read FPleasure write SetPleasure
@@ -35,72 +43,85 @@ end;
 implementation
 
 uses
-  CastleComponentSerialize, CastleColors, CastleVectors, CastleUtils,
-  CastleParticleEmitter;
+  CastleComponentSerialize, CastleColors, CastleVectors, CastleUtils
+  {$ifdef CASTLE_DESIGN_MODE}
+  , PropEdits, CastlePropEdits
+  {$endif};
 
 constructor TNyaPleasureTensionEffect.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FDelta:= DefaultDelta;
+  FDesign:= nil;
+  FUrl:= '';
   FTension:= DefaultTension;
   FPleasure:= DefaultPleasure;
 end;
 
+procedure TNyaPleasureTensionEffect.SetUrl(const value: String);
+begin
+  if (FUrl = value) then Exit;
+  FUrl:= value;
+
+  if NOT Assigned(FDesign) then
+  begin
+    FDesign:= TCastleDesign.Create(Self);
+    FDesign.SetTransient;
+    //Add(FDesign);
+    InsertFront(FDesign);
+  end;
+
+  FDesign.Url:= value;
+  FDesign.FullSize:= True;
+
+  FTensionFlash:= FDesign.DesignedComponent('TensionFlash', False) as TCastleImageControl;
+  FDropsEmitter:= FDesign.DesignedComponent('DropsEmitter', False) as TCastleParticleEmitter;
+  FDropsEffect:= FDesign.DesignedComponent('DropsEffect', False) as TCastleParticleEffect;
+  FPleasureFlash:= FDesign.DesignedComponent('PleasureFlash', False) as TCastleImageControl;
+  FHeartsEmitter:= FDesign.DesignedComponent('HeartsEmitter', False) as TCastleParticleEmitter;
+  FHeartsEffect:= FDesign.DesignedComponent('HeartsEffect', False) as TCastleParticleEffect;
+end;
+
 procedure TNyaPleasureTensionEffect.SetTension(value: Single);
 var
-  TensionFlash: TCastleImageControl;
-  Color: TCastleColor;
-  DropsEmitter: TCastleParticleEmitter;
-  DropsEffect: TCastleParticleEffect;
+  tensionColor: TCastleColor;
 begin
   ClampVar(value, 0.0, 1.0);
-  if abs(FTension - value) < Delta then Exit;
+  if (FTension = value) then Exit;
   FTension:= value;
 
-  TensionFlash:= DesignedComponent('TensionFlash', False) as TCastleImageControl;
-  if NOT Assigned(TensionFlash) then Exit;
+  if Assigned(FTensionFlash) then
+  begin
+    tensionColor:= FTensionFlash.Color;
+    FTensionFlash.Color:= Vector4(tensionColor.RGB, FTension);
+  end;
 
-  Color:= TensionFlash.Color;
-  TensionFlash.Color:= Vector4(Color.RGB, FTension);
+  if Assigned(FDropsEmitter) then
+    FDropsEmitter.Exists:= FTension > 0.0;
 
-  DropsEmitter:= DesignedComponent('DropsEmitter', False) as TCastleParticleEmitter;
-  if NOT Assigned(DropsEmitter) then Exit;
-
-  DropsEmitter.Exists:= FTension > 0.0;
-
-  DropsEffect:= DesignedComponent('DropsEffect', False) as TCastleParticleEffect;
-  if NOT Assigned(DropsEmitter) then Exit;
-
-  DropsEffect.MaxParticles:= round(50.0 * FTension);
+  if Assigned(FDropsEffect) then
+    FDropsEffect.MaxParticles:= round(50.0 * FTension);
 end;
 
 procedure TNyaPleasureTensionEffect.SetPleasure(value: Single);
 var
-  PleasureFlash: TCastleImageControl;
-  Color: TCastleColor;
-  HeartsEmitter: TCastleParticleEmitter;
-  HeartsEffect: TCastleParticleEffect;
+  pleasureColor: TCastleColor;
 begin
   ClampVar(value, 0.0, 1.0);
-  if abs(FPleasure - value) < Delta then Exit;
+  if (FPleasure = value) then Exit;
   FPleasure:= value;
 
-  PleasureFlash:= DesignedComponent('PleasureFlash', False) as TCastleImageControl;
-  if NOT Assigned(PleasureFlash) then Exit;
+  if Assigned(FPleasureFlash) then
+  begin
+    pleasureColor:= FPleasureFlash.Color;
+    FPleasureFlash.Color:= Vector4(pleasureColor.RGB, FPleasure);
+  end;
 
-  Color:= PleasureFlash.Color;
-  PleasureFlash.Color:= Vector4(Color.RGB, FPleasure);
+  if Assigned(FHeartsEmitter) then
+    FHeartsEmitter.Exists:= FPleasure > 0.0;
 
-  HeartsEmitter:= DesignedComponent('HeartsEmitter', False) as TCastleParticleEmitter;
-  if NOT Assigned(HeartsEmitter) then Exit;
-
-  HeartsEmitter.Exists:= FPleasure > 0.0;
-
-  HeartsEffect:= DesignedComponent('HeartsEffect', False) as TCastleParticleEffect;
-  if NOT Assigned(HeartsEffect) then Exit;
-
-  HeartsEffect.MaxParticles:= round(50.0 * FPleasure);
+  if Assigned(FHeartsEffect) then
+    FHeartsEffect.MaxParticles:= round(50.0 * FPleasure);
 end;
 
 function TNyaPleasureTensionEffect.PropertySections(const PropertyName: String): TPropertySections;
@@ -115,5 +136,10 @@ end;
 
 initialization
   RegisterSerializableComponent(TNyaPleasureTensionEffect, 'Nya Pleasure/Tension Effect');
+
+  {$ifdef CASTLE_DESIGN_MODE}
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaPleasureTensionEffect, 'URL',
+                         TDesignURLPropertyEditor);
+  {$endif}
 end.
 
