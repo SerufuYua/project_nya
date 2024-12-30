@@ -22,10 +22,12 @@ AndroidSigningProperties.txt
 
 # other
 .vscode
+.~*
 *.ini
 *.res
 *.bat
 *.txt
+*.blend[0-9]
 backup
 code/backup
 code/test
