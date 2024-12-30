@@ -12,6 +12,9 @@ uses
 type
   TNyaActor = class(TCastleTransform)
   protected
+    FAllScenes: TCastleScenes;
+    FMainScene: TCastleScene;
+  protected
     FDesign: TCastleTransformDesign;
     FUrl: String;
     FActorName: String;
@@ -62,8 +65,6 @@ type
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual;
     procedure PlayAnimation(const parameters: TPlayAnimationParameters); virtual;
     procedure StopAnimation(const disableStopNotification: Boolean = false);
-    function AllScenes: TCastleScenes; virtual;
-    function MainScene: TCastleScene; virtual;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
@@ -132,17 +133,15 @@ procedure TNyaActor.PlayAnimation(const animationName: String;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     scene.PlayAnimation(animationName, loop);
 end;
 
 procedure TNyaActor.PlayAnimation(const parameters: TPlayAnimationParameters);
 var
   scene: TCastleScene;
-  keyScene: TCastleScene;
   noEventParam: TPlayAnimationParameters;
 begin
-  keyScene:= MainScene;
   noEventParam:= TPlayAnimationParameters.Create;
   noEventParam.Name:= parameters.Name;
   noEventParam.Loop:= parameters.Loop;
@@ -150,9 +149,9 @@ begin
   noEventParam.TransitionDuration:= parameters.TransitionDuration;
   noEventParam.InitialTime:= parameters.InitialTime;
 
-  for scene in AllScenes do
+  for scene in FAllScenes do
   begin
-    if (scene = keyScene) then
+    if (scene = FMainScene) then
       scene.PlayAnimation(parameters)
     else
       scene.PlayAnimation(noEventParam)
@@ -165,7 +164,7 @@ procedure TNyaActor.StopAnimation(const disableStopNotification: Boolean);
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     scene.StopAnimation(disableStopNotification);
 end;
 
@@ -185,6 +184,17 @@ begin
 
   FDesign.Url:= value;
 
+  { prepare Scenes list }
+  FAllScenes:= GetAllScenes(FDesign);
+
+  { take only first Scene as Main}
+  if (Length(FAllScenes) > 0) then
+    FMainScene:= FAllScenes[0]
+  else
+    FMainScene:= nil;
+
+
+  { apply all settings }
   ApplyAnisotropicDegree;
   ApplyLightning;
   ApplyEmissionItself;
@@ -255,7 +265,7 @@ procedure TNyaActor.ApplyAutoAnimation;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     scene.AutoAnimation:= FAutoAnimation;
 end;
 
@@ -263,7 +273,7 @@ procedure TNyaActor.ApplyAnimationSpeed;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     scene.TimePlayingSpeed:= FAnimationSpeed;
 end;
 
@@ -271,7 +281,7 @@ procedure TNyaActor.ApplyAnisotropicDegree;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     if Assigned(scene.RootNode) then
       scene.RootNode.EnumerateNodes(TImageTextureNode,
                                     {$ifdef FPC}@{$endif}HandleNodeAnisotropic,
@@ -282,7 +292,7 @@ procedure TNyaActor.ApplyLightning;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     scene.RenderOptions.Lighting:= FLightning;
 end;
 
@@ -290,7 +300,7 @@ procedure TNyaActor.ApplyEmissionItself;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     if Assigned(scene.RootNode) then
       scene.RootNode.EnumerateNodes(TPhysicalMaterialNode,
                                     {$ifdef FPC}@{$endif}HandleNodeEmissionItself,
@@ -301,7 +311,7 @@ procedure TNyaActor.ApplyEmissionColor;
 var
   scene: TCastleScene;
 begin
-  for scene in AllScenes do
+  for scene in FAllScenes do
     if Assigned(scene.RootNode) then
       scene.RootNode.EnumerateNodes(TPhysicalMaterialNode,
                                     {$ifdef FPC}@{$endif}HandleNodeEmissionColor,
@@ -358,26 +368,6 @@ end;
 procedure TNyaActor.SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
 begin
   PersonalColor:= AValue;
-end;
-
-function TNyaActor.AllScenes: TCastleScenes;
-begin
-  if NOT Assigned(FDesign) then
-    Result:= []
-  else
-    Result:= GetAllScenes(FDesign);
-end;
-
-function TNyaActor.MainScene: TCastleScene;
-var
-  scenes: TCastleScenes;
-begin
-  { take only first TCastleScene }
-  scenes:= AllScenes;
-  if (Length(scenes) > 0) then
-    Result:= scenes[0]
-  else
-    Result:= nil;
 end;
 
 function TNyaActor.PropertySections(const PropertyName: String): TPropertySections;
