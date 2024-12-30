@@ -33,6 +33,7 @@ type
       DefaultPleasure = 1.0;
 
       constructor Create(AOwner: TComponent); override;
+      destructor Destroy; override;
       function PropertySections(const PropertyName: String): TPropertySections; override;
   published
     property Url: String read FUrl write SetUrl;
@@ -58,6 +59,14 @@ begin
   FUrl:= '';
   FTension:= DefaultTension;
   FPleasure:= DefaultPleasure;
+end;
+
+destructor TNyaPleasureTensionEffect.Destroy;
+begin
+  if Assigned(FDesign) then
+    FreeAndNil(FDesign);
+
+  inherited;
 end;
 
 procedure TNyaPleasureTensionEffect.SetUrl(const value: String);
