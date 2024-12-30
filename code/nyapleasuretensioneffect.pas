@@ -25,6 +25,8 @@ type
     procedure SetUrl(const Value: String); virtual;
     procedure SetTension(value: Single);
     procedure SetPleasure(value: Single);
+    procedure ApplyTension;
+    procedure ApplyPleasure;
   public
     const
       DefaultTension = 1.0;
@@ -67,7 +69,6 @@ begin
   begin
     FDesign:= TCastleDesign.Create(Self);
     FDesign.SetTransient;
-    //Add(FDesign);
     InsertFront(FDesign);
   end;
 
@@ -80,16 +81,31 @@ begin
   FPleasureFlash:= FDesign.DesignedComponent('PleasureFlash', False) as TCastleImageControl;
   FHeartsEmitter:= FDesign.DesignedComponent('HeartsEmitter', False) as TCastleParticleEmitter;
   FHeartsEffect:= FDesign.DesignedComponent('HeartsEffect', False) as TCastleParticleEffect;
+
+  ApplyTension;
+  ApplyPleasure;
 end;
 
 procedure TNyaPleasureTensionEffect.SetTension(value: Single);
-var
-  tensionColor: TCastleColor;
 begin
   ClampVar(value, 0.0, 1.0);
   if (FTension = value) then Exit;
   FTension:= value;
+  ApplyTension;
+end;
 
+procedure TNyaPleasureTensionEffect.SetPleasure(value: Single);
+begin
+  ClampVar(value, 0.0, 1.0);
+  if (FPleasure = value) then Exit;
+  FPleasure:= value;
+  ApplyPleasure;
+end;
+
+procedure TNyaPleasureTensionEffect.ApplyTension;
+var
+  tensionColor: TCastleColor;
+begin
   if Assigned(FTensionFlash) then
   begin
     tensionColor:= FTensionFlash.Color;
@@ -103,14 +119,10 @@ begin
     FDropsEffect.MaxParticles:= round(50.0 * FTension);
 end;
 
-procedure TNyaPleasureTensionEffect.SetPleasure(value: Single);
+procedure TNyaPleasureTensionEffect.ApplyPleasure;
 var
   pleasureColor: TCastleColor;
 begin
-  ClampVar(value, 0.0, 1.0);
-  if (FPleasure = value) then Exit;
-  FPleasure:= value;
-
   if Assigned(FPleasureFlash) then
   begin
     pleasureColor:= FPleasureFlash.Color;
