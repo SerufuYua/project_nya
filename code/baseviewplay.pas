@@ -19,8 +19,8 @@ type
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
-    FloatSliderPleasure: TCastleFloatSlider;
-    FloatSliderTension: TCastleFloatSlider;
+    GaugePleasure: TNyaLoadingBar;
+    GaugeTension: TNyaLoadingBar;
     ImageControlDressing: TCastleImageControl;
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
@@ -122,8 +122,8 @@ begin
 
   { upade pleasure/tension effects }
   FActorsLogic.Update(SecondsPassed);
-  FloatSliderPleasure.Value:= FActorsLogic.Pleasure;
-  FloatSliderTension.Value:= FActorsLogic.Tension;
+  GaugePleasure.GaugeValue:= FActorsLogic.Pleasure;
+  GaugeTension.GaugeValue:= FActorsLogic.Tension;
   PleasureTensionEffect.Pleasure:= FActorsLogic.Pleasure / FActorsLogic.DefaultThresholdFastGo;
   PleasureTensionEffect.Tension:= FActorsLogic.Tension;
 

@@ -101,9 +101,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.3026292324066162E+000,
+          "X" : 9.4746357202529907E-001,
           "Y" : 1.9317089080810547E+001,
-          "Z" : 3.1217331886291504E+000
+          "Z" : 3.3138279914855957E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
@@ -137,89 +137,76 @@
       "VerticalAnchorSelf" : "vpMiddle"
     },
     {
-      "$$ClassName" : "TCastleFloatSlider",
-      "Background" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Blue" : 7.2549021244049072E-001,
-          "Green" : 5.8823531866073608E-001
-        },
-        "ProtectedSides" : {
-          "$$ClassName" : "TBorder",
-          "Bottom" : 5.0000000000000000E+000,
-          "Left" : 9.0000000000000000E+000,
-          "Right" : 9.0000000000000000E+000,
-          "Top" : 5.0000000000000000E+000
-        },
-        "Url" : "castle-data:/ui/scroll_light_growing.png"
-      },
-      "CustomFont" : "future_n0t_found",
-      "DisplayValue" : false,
-      "Height" : 4.5000000000000000E+001,
-      "HorizontalAnchorParent" : "hpMiddle",
-      "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "FloatSliderPleasure",
-      "TextColorPersistent" : {
+      "$$ClassName" : "TNyaLoadingBar",
+      "BorderColorPersistent" : {
         "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 1.0000000000000000E+000,
         "Blue" : 1.0000000000000000E+000,
         "Green" : 1.0000000000000000E+000,
         "Red" : 1.0000000000000000E+000
       },
-      "Thumb" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Blue" : 0.0000000000000000E+000,
-          "Red" : 0.0000000000000000E+000
-        },
-        "Url" : "castle-data:/ui/scroll_cursor_growing.png"
+      "ColorBGHiPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 6.0000002384185791E-001,
+        "Blue" : 4.1176471114158630E-001
       },
-      "Width" : 0.0000000000000000E+000,
+      "ColorBGLowPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 6.0000002384185791E-001,
+        "Blue" : 9.2941176891326904E-001,
+        "Green" : 9.2941176891326904E-001,
+        "Red" : 1.0000000000000000E+000
+      },
+      "ColorBGMidPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 6.0000002384185791E-001,
+        "Blue" : 6.7450982332229614E-001,
+        "Green" : 4.6666666865348816E-001
+      },
+      "Height" : 1.6000000000000000E+001,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "GaugePleasure",
+      "ThresholdHi" : 9.4999998807907104E-001,
+      "Width" : 8.8000000000000000E+002,
       "WidthFraction" : 5.0000000000000000E-001
     },
     {
-      "$$ClassName" : "TCastleFloatSlider",
-      "Background" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Green" : 0.0000000000000000E+000,
-          "Red" : 4.1568627953529358E-001
-        },
-        "ProtectedSides" : {
-          "$$ClassName" : "TBorder",
-          "Bottom" : 5.0000000000000000E+000,
-          "Left" : 9.0000000000000000E+000,
-          "Right" : 9.0000000000000000E+000,
-          "Top" : 5.0000000000000000E+000
-        },
-        "Url" : "castle-data:/ui/scroll_light_growing.png"
-      },
-      "CustomFont" : "future_n0t_found",
-      "DisplayValue" : false,
-      "Height" : 4.5000000000000000E+001,
-      "HorizontalAnchorParent" : "hpMiddle",
-      "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "FloatSliderTension",
-      "TextColorPersistent" : {
+      "$$ClassName" : "TNyaLoadingBar",
+      "BorderColorPersistent" : {
         "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 1.0000000000000000E+000,
         "Blue" : 1.0000000000000000E+000,
         "Green" : 1.0000000000000000E+000,
         "Red" : 1.0000000000000000E+000
       },
-      "Thumb" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Blue" : 0.0000000000000000E+000,
-          "Green" : 8.5098040103912354E-001
-        },
-        "Url" : "castle-data:/ui/scroll_cursor_growing.png"
+      "ColorBGHiPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 7.0196080207824707E-001,
+        "Blue" : 8.4313726425170898E-001,
+        "Red" : 5.9215688705444336E-001
       },
+      "ColorBGLowPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 6.0000002384185791E-001,
+        "Blue" : 1.0000000000000000E+000,
+        "Green" : 9.6078431606292725E-001,
+        "Red" : 7.6862746477127075E-001
+      },
+      "ColorBGMidPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Blue" : 8.0000001192092896E-001,
+        "Green" : 4.0000000596046448E-001,
+        "Red" : 5.6078433990478516E-001
+      },
+      "Height" : 1.6000000000000000E+001,
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "GaugeTension",
+      "ThresholdHi" : 9.4999998807907104E-001,
       "VerticalAnchorParent" : "vpTop",
       "VerticalAnchorSelf" : "vpTop",
-      "Width" : 0.0000000000000000E+000,
+      "Width" : 8.8000000000000000E+002,
       "WidthFraction" : 5.0000000000000000E-001
     },
     {
