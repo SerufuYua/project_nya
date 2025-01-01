@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="26">
+    <Units Count="27">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -193,6 +193,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaActor"/>
       </Unit25>
+      <Unit26>
+        <Filename Value="code/nyaloadingbar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaLoadingBar"/>
+      </Unit26>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

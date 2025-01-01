@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, NyaFadeEffect,
-  ActorsLogic, NyaPleasureTensionEffect;
+  ActorsLogic, NyaPleasureTensionEffect, NyaLoadingBar;
 
 type
   TBaseViewPlay = class(TCastleView)
