@@ -25,8 +25,8 @@ type
     FLightning: Boolean;
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
-    FEmissionColorPersistent: TCastleColorRGBPersistent;
     FPersonalColor: TCastleColorRGB;
+    FEmissionColorPersistent: TCastleColorRGBPersistent;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String); virtual;
     function GetEmissionColorForPersistent: TCastleColorRGB;
@@ -59,7 +59,7 @@ type
       DefaultLightning = True;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
-      DefaultPersonalColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
+      DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -109,19 +109,22 @@ begin
   FEmissionItself:= DefaultEmissionItself;
   FAnimationsList:= TStringList.Create;
 
+  FEmissionColor:= DefaultEmissionColor;
+  FPersonalColor:= DefaultPersonalColor;
+
   { Persistent for EmissionColor }
   FEmissionColorPersistent:= TCastleColorRGBPersistent.Create(nil);
   FEmissionColorPersistent.SetSubComponent(true);
   FEmissionColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetEmissionColorForPersistent;
   FEmissionColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetEmissionColorForPersistent;
-  FEmissionColorPersistent.InternalDefaultValue:= DefaultEmissionColor; // current value is default
+  FEmissionColorPersistent.InternalDefaultValue:= EmissionColor; // current value is default
 
   { Persistent for PersonalColor }
   FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
   FPersonalColorPersistent.SetSubComponent(true);
   FPersonalColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPersonalColorForPersistent;
   FPersonalColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPersonalColorForPersistent;
-  FPersonalColorPersistent.InternalDefaultValue:= DefaultPersonalColor; // current value is default
+  FPersonalColorPersistent.InternalDefaultValue:= PersonalColor; // current value is default
 end;
 
 destructor TNyaActor.Destroy;
