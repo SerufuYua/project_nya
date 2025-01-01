@@ -148,7 +148,7 @@ end;
 function TNyaPleasureTensionEffect.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Tension', 'Pleasure'
+       'Url', 'Tension', 'Pleasure'
      ]) then
     Result:= [psBasic]
   else
