@@ -99,7 +99,10 @@
               "Pickable" : false,
               "ProcessEvents" : true,
               "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                "BlendingDestinationFactor" : "bdConstantColor",
+                "BlendingSourceFactor" : "bsConstantColor",
+                "Lighting" : false
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
@@ -178,7 +181,10 @@
               "Pickable" : false,
               "ProcessEvents" : true,
               "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                "BlendingDestinationFactor" : "bdConstantColor",
+                "BlendingSourceFactor" : "bsConstantColor",
+                "Lighting" : false
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
@@ -244,7 +250,10 @@
               "Pickable" : false,
               "ProcessEvents" : true,
               "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                "BlendingDestinationFactor" : "bdConstantColor",
+                "BlendingSourceFactor" : "bsConstantColor",
+                "Lighting" : false
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
