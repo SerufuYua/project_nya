@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleControls, CastleRectangles,
-  CastleColors, CastleClassUtils;
+  CastleColors, CastleClassUtils, CastleVectors;
 
 type
   TBarDir = (LeftToRight, RightToLeft, BottomToTop, TopToBottom);
@@ -17,11 +17,16 @@ type
     FRectBGMid: TFloatRectangle;
     FRectBGHi: TFloatRectangle;
     FRectGauge: TFloatRectangle;
+    FPointsBGLow: array of TVector2;
+    FPointsBGHi: array of TVector2;
+    FPointsGauge: array of TVector2;
+    procedure CalcPoints;
   protected
     FDirection: TBarDir;
+    FGaugeValue: Single;
     FThresholdMid: Single;
     FThresholdHi: Single;
-    FGaugeValue: Single;
+    FCornerCut: Single;
     FColorBGLow: TCastleColor;
     FColorBGMid: TCastleColor;
     FColorBGHi: TCastleColor;
@@ -47,6 +52,7 @@ type
       DefaultGaugeValue = 0.2;
       DefaultThresholdMid = 0.6;
       DefaultThresholdHi = 0.9;
+      DefaultCornerCut = 0.2;
       DefaultColorBGLow: TCastleColor = (X: 0.0; Y: 1.0; Z: 0.0; W: 1.0);
       DefaultColorBGMid: TCastleColor = (X: 1.0; Y: 1.0; Z: 0.0; W: 1.0);
       DefaultColorBGHi: TCastleColor =  (X: 1.0; Y: 0.0; Z: 0.0; W: 1.0);
@@ -70,6 +76,8 @@ type
            {$ifdef FPC}default DefaultThresholdMid{$endif};
     property ThresholdHi: Single read FThresholdHi write SetThresholdHid
            {$ifdef FPC}default DefaultThresholdHi{$endif};
+    property CornerCut: Single read FCornerCut write FCornerCut
+           {$ifdef FPC}default DefaultCornerCut{$endif};
     property ColorBGLowPersistent: TCastleColorPersistent read FColorBGLowPersistent;
     property ColorBGMidPersistent: TCastleColorPersistent read FColorBGMidPersistent;
     property ColorBGHiPersistent: TCastleColorPersistent read FColorBGHiPersistent;
@@ -79,8 +87,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleGLUtils, CastleVectors,
-  CastleUtils;
+  CastleComponentSerialize, CastleGLUtils, CastleUtils, Math;
 
 constructor TNyaLoadingBar.Create(AOwner: TComponent);
 begin
@@ -90,6 +97,7 @@ begin
   FGaugeValue:= DefaultGaugeValue;
   FThresholdMid:= DefaultThresholdMid;
   FThresholdHi:= DefaultThresholdHi;
+  FCornerCut:= DefaultCornerCut;
 
   FColorBGLow:= DefaultColorBGLow;
   FColorBGMid:= DefaultColorBGMid;
@@ -123,12 +131,20 @@ begin
   FColorGaugePersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorGaugeForPersistent;
   FColorGaugePersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorGaugeForPersistent;
   FColorGaugePersistent.InternalDefaultValue:= ColorGauge; // current value is default
+
+  { create points }
+  SetLength(FPointsGauge, 8);
+  SetLength(FPointsBGLow, 6);
+  SetLength(FPointsBGHi, 6);
 end;
 
 procedure TNyaLoadingBar.Update(const SecondsPassed: Single;
                                 var HandleInput: boolean);
+var
+  Indent: Single;
 begin
   inherited;
+  Indent:= FCornerCut * Min(RenderRect.Height, RenderRect.Width);
 
   if (FDirection = TBarDir.LeftToRight) then
   begin
@@ -149,7 +165,7 @@ begin
 
     FRectGauge.Left:= RenderRect.Left;
     FRectGauge.Bottom:= RenderRect.Bottom;
-    FRectGauge.Width:= RenderRect.Width * FGaugeValue;
+    FRectGauge.Width:= Max(RenderRect.Width * FGaugeValue, Indent * 2);
     FRectGauge.Height:= RenderRect.Height;
   end
   else if (FDirection = TBarDir.RightToLeft) then
@@ -169,9 +185,9 @@ begin
     FRectBGHi.Width:= RenderRect.Width * (1.0 - FThresholdHi);
     FRectBGHi.Height:= RenderRect.Height;
 
-    FRectGauge.Left:= RenderRect.Left + RenderRect.Width * (1.0 - FGaugeValue);
     FRectGauge.Bottom:= RenderRect.Bottom;
-    FRectGauge.Width:= RenderRect.Width * FGaugeValue;
+    FRectGauge.Width:= Max(RenderRect.Width * FGaugeValue, Indent * 2);;
+    FRectGauge.Left:= RenderRect.Left + RenderRect.Width - FRectGauge.Width;
     FRectGauge.Height:= RenderRect.Height;
   end
   else if (FDirection = TBarDir.BottomToTop) then
@@ -194,7 +210,7 @@ begin
     FRectGauge.Left:= RenderRect.Left;
     FRectGauge.Bottom:= RenderRect.Bottom;
     FRectGauge.Width:= RenderRect.Width;
-    FRectGauge.Height:= RenderRect.Height * FGaugeValue;
+    FRectGauge.Height:= Max(RenderRect.Height * FGaugeValue, Indent * 2);
   end
   else if (FDirection = TBarDir.TopToBottom) then
   begin
@@ -214,19 +230,160 @@ begin
     FRectBGHi.Height:= RenderRect.Height * (1.0 - FThresholdHi);
 
     FRectGauge.Left:= RenderRect.Left;
-    FRectGauge.Bottom:= RenderRect.Bottom + RenderRect.Height * (1.0 - FGaugeValue);
     FRectGauge.Width:= RenderRect.Width;
-    FRectGauge.Height:= RenderRect.Height * FGaugeValue;
+    FRectGauge.Height:= Max(RenderRect.Height * FGaugeValue, Indent * 2);
+    FRectGauge.Bottom:= RenderRect.Bottom + RenderRect.Height - FRectGauge.Height;
   end;
+
+  CalcPoints;
 end;
 
 procedure TNyaLoadingBar.Render;
 begin
   inherited;
-  DrawRectangle(FRectBGLow, FColorBGLow);
+  DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsBGLow, FColorBGLow);
   DrawRectangle(FRectBGMid, FColorBGMid);
-  DrawRectangle(FRectBGHi, FColorBGHi);
-  DrawRectangle(FRectGauge, FColorGauge);
+  DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsBGHi, FColorBGHi);
+  DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsGauge, FColorGauge);
+end;
+
+procedure TNyaLoadingBar.CalcPoints;
+var
+  Indent: Single;
+begin
+  Indent:= FCornerCut * Min(RenderRect.Height, RenderRect.Width);
+
+  { BGLow }
+  if (FDirection = TBarDir.LeftToRight) then
+  begin
+    FPointsBGLow[0].X:= FRectBGLow.Left;
+    FPointsBGLow[0].Y:= FRectBGLow.Bottom + Indent;
+    FPointsBGLow[1].X:= FRectBGLow.Left + Indent;
+    FPointsBGLow[1].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[2].X:= FRectBGLow.Right;
+    FPointsBGLow[2].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[3].X:= FRectBGLow.Right;
+    FPointsBGLow[3].Y:= FRectBGLow.Top;
+    FPointsBGLow[4].X:= FRectBGLow.Left + Indent;
+    FPointsBGLow[4].Y:= FRectBGLow.Top;
+    FPointsBGLow[5].X:= FRectBGLow.Left;
+    FPointsBGLow[5].Y:= FRectBGLow.Top - Indent;
+
+    FPointsBGHi[0].X:= FRectBGHi.Right;
+    FPointsBGHi[0].Y:= FRectBGHi.Top - Indent;
+    FPointsBGHi[1].X:= FRectBGHi.Right - Indent;
+    FPointsBGHi[1].Y:= FRectBGHi.Top;
+    FPointsBGHi[2].X:= FRectBGHi.Left;
+    FPointsBGHi[2].Y:= FRectBGHi.Top;
+    FPointsBGHi[3].X:= FRectBGHi.Left;
+    FPointsBGHi[3].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[4].X:= FRectBGHi.Right - Indent;
+    FPointsBGHi[4].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[5].X:= FRectBGHi.Right;
+    FPointsBGHi[5].Y:= FRectBGHi.Bottom + Indent;
+end
+  else if (FDirection = TBarDir.RightToLeft) then
+  begin
+    FPointsBGLow[0].X:= FRectBGLow.Right;
+    FPointsBGLow[0].Y:= FRectBGLow.Top - Indent;
+    FPointsBGLow[1].X:= FRectBGLow.Right - Indent;
+    FPointsBGLow[1].Y:= FRectBGLow.Top;
+    FPointsBGLow[2].X:= FRectBGLow.Left;
+    FPointsBGLow[2].Y:= FRectBGLow.Top;
+    FPointsBGLow[3].X:= FRectBGLow.Left;
+    FPointsBGLow[3].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[4].X:= FRectBGLow.Right - Indent;
+    FPointsBGLow[4].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[5].X:= FRectBGLow.Right;
+    FPointsBGLow[5].Y:= FRectBGLow.Bottom + Indent;
+
+    FPointsBGHi[0].X:= FRectBGHi.Left;
+    FPointsBGHi[0].Y:= FRectBGHi.Bottom + Indent;
+    FPointsBGHi[1].X:= FRectBGHi.Left + Indent;
+    FPointsBGHi[1].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[2].X:= FRectBGHi.Right;
+    FPointsBGHi[2].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[3].X:= FRectBGHi.Right;
+    FPointsBGHi[3].Y:= FRectBGHi.Top;
+    FPointsBGHi[4].X:= FRectBGHi.Left + Indent;
+    FPointsBGHi[4].Y:= FRectBGHi.Top;
+    FPointsBGHi[5].X:= FRectBGHi.Left;
+    FPointsBGHi[5].Y:= FRectBGHi.Top - Indent;
+end
+  else if (FDirection = TBarDir.BottomToTop) then
+  begin
+    FPointsBGLow[0].X:= FRectBGLow.Right - Indent;
+    FPointsBGLow[0].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[1].X:= FRectBGLow.Right;
+    FPointsBGLow[1].Y:= FRectBGLow.Bottom + Indent;
+    FPointsBGLow[2].X:= FRectBGLow.Right;
+    FPointsBGLow[2].Y:= FRectBGLow.Top;
+    FPointsBGLow[3].X:= FRectBGLow.Left;
+    FPointsBGLow[3].Y:= FRectBGLow.Top;
+    FPointsBGLow[4].X:= FRectBGLow.Left;
+    FPointsBGLow[4].Y:= FRectBGLow.Bottom + Indent;
+    FPointsBGLow[5].X:= FRectBGLow.Left + Indent;
+    FPointsBGLow[5].Y:= FRectBGLow.Bottom;
+
+    FPointsBGHi[0].X:= FRectBGHi.Left + Indent;
+    FPointsBGHi[0].Y:= FRectBGHi.Top;
+    FPointsBGHi[1].X:= FRectBGHi.Left;
+    FPointsBGHi[1].Y:= FRectBGHi.Top - Indent;
+    FPointsBGHi[2].X:= FRectBGHi.Left;
+    FPointsBGHi[2].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[3].X:= FRectBGHi.Right;
+    FPointsBGHi[3].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[4].X:= FRectBGHi.Right;
+    FPointsBGHi[4].Y:= FRectBGHi.Top - Indent;
+    FPointsBGHi[5].X:= FRectBGHi.Right - Indent;
+    FPointsBGHi[5].Y:= FRectBGHi.Top;
+  end
+  else if (FDirection = TBarDir.TopToBottom) then
+  begin
+    FPointsBGLow[0].X:= FRectBGLow.Left + Indent;
+    FPointsBGLow[0].Y:= FRectBGLow.Top;
+    FPointsBGLow[1].X:= FRectBGLow.Left;
+    FPointsBGLow[1].Y:= FRectBGLow.Top - Indent;
+    FPointsBGLow[2].X:= FRectBGLow.Left;
+    FPointsBGLow[2].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[3].X:= FRectBGLow.Right;
+    FPointsBGLow[3].Y:= FRectBGLow.Bottom;
+    FPointsBGLow[4].X:= FRectBGLow.Right;
+    FPointsBGLow[4].Y:= FRectBGLow.Top - Indent;
+    FPointsBGLow[5].X:= FRectBGLow.Right - Indent;
+    FPointsBGLow[5].Y:= FRectBGLow.Top;
+
+    FPointsBGHi[0].X:= FRectBGHi.Right - Indent;
+    FPointsBGHi[0].Y:= FRectBGHi.Bottom;
+    FPointsBGHi[1].X:= FRectBGHi.Right;
+    FPointsBGHi[1].Y:= FRectBGHi.Bottom + Indent;
+    FPointsBGHi[2].X:= FRectBGHi.Right;
+    FPointsBGHi[2].Y:= FRectBGHi.Top;
+    FPointsBGHi[3].X:= FRectBGHi.Left;
+    FPointsBGHi[3].Y:= FRectBGHi.Top;
+    FPointsBGHi[4].X:= FRectBGHi.Left;
+    FPointsBGHi[4].Y:= FRectBGHi.Bottom + Indent;
+    FPointsBGHi[5].X:= FRectBGHi.Left + Indent;
+    FPointsBGHi[5].Y:= FRectBGHi.Bottom;
+  end;
+
+  { gauge }
+  FPointsGauge[0].X:= FRectGauge.Left;
+  FPointsGauge[0].Y:= FRectGauge.Bottom + Indent;
+  FPointsGauge[1].X:= FRectGauge.Left + Indent;
+  FPointsGauge[1].Y:= FRectGauge.Bottom;
+  FPointsGauge[2].X:= FRectGauge.Right - Indent;
+  FPointsGauge[2].Y:= FRectGauge.Bottom;
+  FPointsGauge[3].X:= FRectGauge.Right;
+  FPointsGauge[3].Y:= FRectGauge.Bottom + Indent;
+  FPointsGauge[4].X:= FRectGauge.Right;
+  FPointsGauge[4].Y:= FRectGauge.Top - Indent;
+  FPointsGauge[5].X:= FRectGauge.Right - Indent;
+  FPointsGauge[5].Y:= FRectGauge.Top;
+  FPointsGauge[6].X:= FRectGauge.Left + Indent;
+  FPointsGauge[6].Y:= FRectGauge.Top;
+  FPointsGauge[7].X:= FRectGauge.Left;
+  FPointsGauge[7].Y:= FRectGauge.Top - Indent;
 end;
 
 procedure TNyaLoadingBar.SetGaugeValue(const value: Single);
@@ -292,7 +449,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'GaugeValue', 'ThresholdMid', 'ThresholdHi', 'ColorBGLowPersistent',
        'ColorBGMidPersistent', 'ColorBGHiPersistent', 'ColorGaugePersistent',
-       'Direction'
+       'Direction', 'CornerCut'
      ]) then
     Result:= [psBasic]
   else
@@ -302,4 +459,5 @@ end;
 initialization
   RegisterSerializableComponent(TNyaLoadingBar, 'Nya Loading Bar');
 end.
+
 
