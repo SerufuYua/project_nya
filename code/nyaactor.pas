@@ -16,6 +16,7 @@ type
     FAllScenes: TCastleScenes;
     FMainScene: TCastleScene;
     FAnimationsList: TStrings;
+    procedure UpdateAnimationsList;
   protected
     FUrl: String;
     FActorName: String;
@@ -64,8 +65,8 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual;
-    procedure PlayAnimation(const parameters: TPlayAnimationParameters); virtual;
-    procedure StopAnimation(const disableStopNotification: Boolean = false);
+    procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual;
+    procedure StopAnimation(const disableStopNotification: Boolean = False);
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property AnimationsList: TStrings read FAnimationsList;
@@ -75,14 +76,14 @@ type
     property ActorName: String read FActorName write SetActorName;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
-      {$ifdef FPC}default DefaultAnimationSpeed{$endif};
+             {$ifdef FPC}default DefaultAnimationSpeed{$endif};
     property Url: String read FUrl write SetUrl;
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
-      {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
+             {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
     property Lightning: Boolean read FLightning write SetLightning
-      {$ifdef FPC}default DefaultLightning{$endif};
+             {$ifdef FPC}default DefaultLightning{$endif};
     property EmissionItself: Boolean read FEmissionItself write SetEmissionItself
-      {$ifdef FPC}default DefaultEmissionItself{$endif};
+             {$ifdef FPC}default DefaultEmissionItself{$endif};
     property EmissionColorPersistent: TCastleColorRGBPersistent read FEmissionColorPersistent;
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
   end;
@@ -144,22 +145,22 @@ begin
     scene.PlayAnimation(animationName, loop);
 end;
 
-procedure TNyaActor.PlayAnimation(const parameters: TPlayAnimationParameters);
+procedure TNyaActor.PlayAnimation(const Parameters: TPlayAnimationParameters);
 var
   scene: TCastleScene;
   noEventParam: TPlayAnimationParameters;
 begin
   noEventParam:= TPlayAnimationParameters.Create;
-  noEventParam.Name:= parameters.Name;
-  noEventParam.Loop:= parameters.Loop;
-  noEventParam.Forward:= parameters.Forward;
-  noEventParam.TransitionDuration:= parameters.TransitionDuration;
-  noEventParam.InitialTime:= parameters.InitialTime;
+  noEventParam.Name:= Parameters.Name;
+  noEventParam.Loop:= Parameters.Loop;
+  noEventParam.Forward:= Parameters.Forward;
+  noEventParam.TransitionDuration:= Parameters.TransitionDuration;
+  noEventParam.InitialTime:= Parameters.InitialTime;
 
   for scene in FAllScenes do
   begin
     if (scene = FMainScene) then
-      scene.PlayAnimation(parameters)
+      scene.PlayAnimation(Parameters)
     else
       scene.PlayAnimation(noEventParam)
   end;
@@ -173,6 +174,19 @@ var
 begin
   for scene in FAllScenes do
     scene.StopAnimation(disableStopNotification);
+end;
+
+procedure TNyaActor.UpdateAnimationsList;
+var
+  animationName: String;
+begin
+  { fill animations list }
+  FAnimationsList.Clear;
+  if Assigned(FMainScene) then
+  begin
+    for animationName in FMainScene.AnimationsList do
+      FAnimationsList.Add(animationName);
+  end;
 end;
 
 procedure TNyaActor.SetUrl(const value: String);
@@ -200,14 +214,7 @@ begin
   else
     FMainScene:= nil;
 
-  { fill animations list }
-  FAnimationsList.Clear;
-  if Assigned(FMainScene) then
-  begin
-    for buff in FMainScene.AnimationsList do
-    FAnimationsList.Add(buff);
-  end;
-
+  UpdateAnimationsList;
 
   { apply all settings }
   ApplyAnisotropicDegree;

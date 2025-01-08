@@ -35,9 +35,9 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
     property Dripping: Single read FDripping write SetDripping
-      {$ifdef FPC}default DefaultDripping{$endif};
+             {$ifdef FPC}default DefaultDripping{$endif};
     property Sweating: Single read FSweating write SetSweating
-      {$ifdef FPC}default DefaultSweating{$endif};
+             {$ifdef FPC}default DefaultSweating{$endif};
   end;
 
 implementation
@@ -46,12 +46,25 @@ uses
   CastleComponentSerialize, CastleUtils, CastleParticleEmitter;
 
 constructor TNyaActorChara.Create(AOwner: TComponent);
+var
+  scene: TCastleScene;
 begin
   inherited;
 
   FDripping:= DefaultDripping;
   FSweating:= DefaultSweating;
   FDresser:= nil;
+
+  { make sure that Body is main }
+  for scene in FAllScenes do
+  begin
+    if (scene.Name = 'Body') then
+    begin
+      FMainScene:= scene;
+      UpdateAnimationsList;
+      Break;
+    end;
+  end;
 end;
 
 destructor TNyaActorChara.Destroy;
