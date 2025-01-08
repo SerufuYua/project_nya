@@ -3,7 +3,7 @@ unit GameViewPlayGirl;
 interface
 
 uses
-  Classes, BaseViewPlay, NyaActorChara, NyaActorToyA;
+  Classes, BaseViewPlay;
 
 type
   TViewPlayGirl = class(TBaseViewPlay)
@@ -17,25 +17,16 @@ var
 implementation
 
 uses
-  SysUtils, CastleTransform, NyaActor, ActorsLogic;
+  SysUtils, CastleTransform;
 
 procedure TViewPlayGirl.Start;
-var
-  actorA, actorB: TNyaActor;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-user-interface';
 
-  { get Girl Character instance }
-  actorA:= Map.DesignedComponent('CharaGirl') as TNyaActor;
+  { set Animations Prefix }
+  FAnimationsPrefix:= 'GAME.GIRL_TOYA.PLAY';
 
-  { get Toys instance }
-  actorB:= Map.DesignedComponent('ToyA') as TNyaActor;
-
-  { Create Actors Logic }
-    FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
-                                       'GAME.GIRL_TOYA.PLAY',
-                                       FadeEffect);
   inherited;
 end;
 

@@ -18,7 +18,7 @@ type
       TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
   protected
     FActors: TActorsList;
-    FAnimationPrefix: String;
+    FAnimationsPrefix: String;
     FActionNum: String;
     FStatus: TActorStatus;
     FScreenFader: TNyaFadeEffect;
@@ -54,7 +54,7 @@ type
       DefaultThresholdFinish = 0.95;
 
     constructor Create(actors: TActorsList;
-                       animationPrefix: String;
+                       animationsPrefix: String;
                        screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
     procedure SetAction(num: Integer);
@@ -89,11 +89,11 @@ const
   BareFoots = 'none';
 
 constructor TActorsLogic.Create(actors: TActorsList;
-                                animationPrefix: String;
+                                animationsPrefix: String;
                                 screenFader: TNyaFadeEffect);
 begin
   FActors:= actors;
-  FAnimationPrefix:= animationPrefix;
+  FAnimationsPrefix:= animationsPrefix;
   FScreenFader:= screenFader;
   FActionNum:= '';
   FPleasure:= 0.0;
@@ -248,7 +248,7 @@ procedure TActorsLogic.ActionIdle;
 begin
   FStatus:= TActorStatus.Wait;
   FScreenFader.Fade(0.75);
-  PlayAnimation(FAnimationPrefix + SuffixWait, True, True, False);
+  PlayAnimation(FAnimationsPrefix + SuffixWait, True, True, False);
 end;
 
 procedure TActorsLogic.ActionStart;
@@ -257,7 +257,7 @@ var
 begin
   AnimationParams := TPlayAnimationParameters.Create;
   try
-    AnimationParams.Name:= FAnimationPrefix + FActionNum + SuffixStart;
+    AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixStart;
     AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}ActionStartStop;
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Start;
@@ -272,14 +272,14 @@ procedure TActorsLogic.ActionGo;
 begin
   FStatus:= TActorStatus.Go;
   FScreenFader.Fade(0.25);
-  PlayAnimation(FAnimationPrefix + FActionNum + SuffixGO, True, True, True);
+  PlayAnimation(FAnimationsPrefix + FActionNum + SuffixGO, True, True, True);
 end;
 
 procedure TActorsLogic.ActionFastGo;
 begin
   FStatus:= TActorStatus.FastGo;
   FScreenFader.Fade(0.5);
-  PlayAnimation(FAnimationPrefix + FActionNum + SuffixFastGO, True, True, True);
+  PlayAnimation(FAnimationsPrefix + FActionNum + SuffixFastGO, True, True, True);
 end;
 
 procedure TActorsLogic.ActionFinish;
@@ -288,7 +288,7 @@ var
 begin
   AnimationParams := TPlayAnimationParameters.Create;
   try
-    AnimationParams.Name:= FAnimationPrefix + FActionNum + SuffixFinish;
+    AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixFinish;
     AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}ActionFinishStop;
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Finish;
@@ -304,7 +304,7 @@ begin
   FStatus:= TActorStatus.Relax;
   FScreenFader.Fade(0.6);
   Pleasure:= Pleasure - 0.5 * Tension;
-  PlayAnimation(FAnimationPrefix + FActionNum + SuffixRelax, True, True, True);
+  PlayAnimation(FAnimationsPrefix + FActionNum + SuffixRelax, True, True, True);
 end;
 
 procedure TActorsLogic.ActionStartStop(const Scene: TCastleSceneCore;

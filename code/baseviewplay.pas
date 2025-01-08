@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
-  CastleColors, CastleKeysMouse, CastleTransform, NyaFadeEffect,
-  ActorsLogic, NyaPleasureTensionEffect, NyaLoadingBar;
+  CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
+  NyaFadeEffect, ActorsLogic, NyaPleasureTensionEffect, NyaLoadingBar;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -34,8 +34,11 @@ type
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
+    function Release(const Event: TInputPressRelease): boolean; override;
   protected
     FActorsLogic: TActorsLogic;
+    FAnimationsPrefix: String;
+    FObserverNavigation: TCastleWalkNavigation;
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -52,7 +55,7 @@ implementation
 uses
   GameViewTravel, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
-  StrUtils, NyaCastleUtils, NyaActorChara;
+  StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaActorToyA;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -62,10 +65,8 @@ end;
 
 procedure TBaseViewPlay.Start;
 var
-  viewportMain: TCastleViewport;
-  cameraMain: TCastleCamera;
-  skyMain: TCastleBackground;
-  fogMain: TCastleFog;
+  actors: TActorsList;
+  actorsRoot, child: TCastleTransform;
 begin
   inherited;
 
@@ -75,6 +76,22 @@ begin
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
 
+  { get Navigation }
+  FObserverNavigation:= Map.DesignedComponent('ObserverNavigation') as TCastleWalkNavigation;
+
+  { set Actors Logic }
+  actors:= [];
+  actorsRoot:= Map.DesignedComponent('SceneActors') as TCastleTransform;
+
+  for child in actorsRoot do
+  begin
+    if (child is TNyaActor) then
+      Insert(child, actors, 0);
+  end;
+
+  FActorsLogic:= TActorsLogic.Create(actors,
+                                     FAnimationsPrefix,
+                                     FadeEffect);
   { set dress buttons }
   SetDressButtons;
 
@@ -122,6 +139,21 @@ begin
   Result := inherited;
   if Result then Exit; // allow the ancestor to handle keys
 
+  { enable camera control }
+  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
+  begin
+    FObserverNavigation.MouseLook:= True;
+    Exit(true);
+  end;
+end;
+
+function TBaseViewPlay.Release(const Event: TInputPressRelease): boolean;
+begin
+  { disable camera control }
+  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
+    FObserverNavigation.MouseLook:= False;
+
+  Result := inherited;
 end;
 
 procedure TBaseViewPlay.ClickAction(Sender: TObject);

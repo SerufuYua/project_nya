@@ -3,7 +3,7 @@ unit GameViewPlayTogether;
 interface
 
 uses
-  Classes, BaseViewPlay, NyaActorChara;
+  Classes, BaseViewPlay;
 
 type
   TViewPlayTogether = class(TBaseViewPlay)
@@ -17,25 +17,16 @@ var
 implementation
 
 uses
-  SysUtils, CastleTransform, NyaActor, ActorsLogic;
+  SysUtils, CastleTransform;
 
 procedure TViewPlayTogether.Start;
-var
-  actorA, actorB: TNyaActor;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlayTogether.castle-user-interface';
 
-  { get Girl Character instance }
-  actorA:= Map.DesignedComponent('CharaGirl') as TNyaActor;
+  { set Animations Prefix }
+  FAnimationsPrefix:= 'GAME.TOGETHER.PLAY';
 
-  { get Boy Character instance }
-  actorB:= Map.DesignedComponent('CharaBoy') as TNyaActor;
-
-  { Create Actors Logic }
-  FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
-                                     'GAME.TOGETHER.PLAY',
-                                     FadeEffect);
   inherited;
 end;
 
