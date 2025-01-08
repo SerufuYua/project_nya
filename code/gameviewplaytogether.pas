@@ -24,7 +24,7 @@ var
   actorA, actorB: TNyaActor;
 begin
   { set map }
-  Map.Url:= 'castle-data:/MapPlayTogether.castle-transform';
+  Map.Url:= 'castle-data:/MapPlayTogether.castle-user-interface';
 
   { get Girl Character instance }
   actorA:= Map.DesignedComponent('CharaGirl') as TNyaActor;
@@ -33,9 +33,9 @@ begin
   actorB:= Map.DesignedComponent('CharaBoy') as TNyaActor;
 
   { Create Actors Logic }
-    FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
-                                       'GAME.TOGETHER.PLAY',
-                                       FadeEffect);
+  FActorsLogic:= TActorsLogic.Create([ actorA, actorB ],
+                                     'GAME.TOGETHER.PLAY',
+                                     FadeEffect);
   inherited;
 end;
 

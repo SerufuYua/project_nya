@@ -25,13 +25,7 @@
           "LayerNames" : {
             "$$ClassName" : "TCastleLayerNames"
           }
-        },
-        "$Children" : [
-          {
-            "$$ClassName" : "TCastleTransformDesign",
-            "Name" : "Map"
-          }
-        ]
+        }
       },
       "Name" : "ViewportMain",
       "$NonVisualComponents" : [
@@ -120,6 +114,11 @@
         "Exists" : false,
         "Name" : ""
       }
+    },
+    {
+      "$$ClassName" : "TCastleDesign",
+      "FullSize" : true,
+      "Name" : "Map"
     },
     {
       "$$ClassName" : "TNyaFadeEffect",
@@ -632,7 +631,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.5799996948242188E+002
+                    "Y" : -2.5800000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -668,7 +667,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 2.0000000000000000E+001,
-                    "Y" : -2.8999996948242188E+002
+                    "Y" : -2.9000000000000000E+002
                   },
                   "Value" : 1.0000000000000000E+000,
                   "VerticalAnchorParent" : "vpTop",

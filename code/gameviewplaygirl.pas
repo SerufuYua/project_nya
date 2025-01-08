@@ -24,7 +24,7 @@ var
   actorA, actorB: TNyaActor;
 begin
   { set map }
-  Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-transform';
+  Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-user-interface';
 
   { get Girl Character instance }
   actorA:= Map.DesignedComponent('CharaGirl') as TNyaActor;

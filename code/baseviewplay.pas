@@ -13,7 +13,7 @@ uses
 type
   TBaseViewPlay = class(TCastleView)
   published
-    Map: TCastleTransformDesign;
+    Map: TCastleDesign;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
@@ -74,21 +74,6 @@ begin
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
-
-  { set Camera }
-  viewportMain:= DesignedComponent('ViewportMain') as TCastleViewport;
-  cameraMain:= Map.DesignedComponent('CameraMain') as TCastleCamera;
-  viewportMain.Camera:= cameraMain;
-
-  { set Sky }
-  skyMain:= Map.DesignedComponent('Sky', False) as TCastleBackground;
-  if Assigned(skyMain) then
-    viewportMain.Background:= skyMain;
-
-  { set Fog }
-  fogMain:= Map.DesignedComponent('Fog', False) as TCastleFog;
-  if Assigned(fogMain) then
-    viewportMain.Fog:= fogMain;
 
   { set dress buttons }
   SetDressButtons;

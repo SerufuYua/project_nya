@@ -9,12 +9,13 @@ uses
   X3DNodes, NyaFadeEffect, NyaActor, NyaActorChara;
 
 type
-  TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
-
   TActorsList = Array of TNyaActor;
   TCharasList = Array of TNyaActorChara;
 
   TActorsLogic = class
+  protected
+    type
+      TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
   protected
     FActors: TActorsList;
     FAnimationPrefix: String;
