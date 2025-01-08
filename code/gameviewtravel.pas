@@ -12,8 +12,8 @@ type
   public
     procedure Start; override;
   protected
-    procedure TouchSwitch(const Sender: TObject; Touch: Boolean); override;
-    procedure ActivateSwitch(Sender: TObject); override;
+    procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
+    procedure DoActivateSwitch(Sender: TObject); override;
   end;
 
 var
@@ -29,7 +29,7 @@ uses
 procedure TViewTravel.Start;
 begin
   { set map }
-  Map.Url:= 'castle-data:/MapTravel_ContainerRoom.castle-transform';
+  Map.Url:= 'castle-data:/MapTravel_ContainerRoom.castle-user-interface';
 
   { se Girl Character }
   FActorMain:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
@@ -37,13 +37,13 @@ begin
   inherited;
 end;
 
-procedure TViewTravel.TouchSwitch(const Sender: TObject; Touch: Boolean);
+procedure TViewTravel.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
 begin
   inherited;
   { any additional actions for some specail switch }
 end;
 
-procedure TViewTravel.ActivateSwitch(Sender: TObject);
+procedure TViewTravel.DoActivateSwitch(Sender: TObject);
 var
   switch: TNyaSwitch;
 begin

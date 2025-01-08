@@ -12,110 +12,6 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleViewport",
-      "Background" : "Background",
-      "FullSize" : true,
-      "Items" : {
-        "$$ClassName" : "TCastleRootTransform",
-        "PhysicsProperties" : {
-          "$$ClassName" : "TPhysicsProperties",
-          "LayerCollisions" : {
-            "$$ClassName" : "TCastleLayerCollisions"
-          },
-          "LayerNames" : {
-            "$$ClassName" : "TCastleLayerNames"
-          }
-        }
-      },
-      "Name" : "ViewportMain",
-      "$NonVisualComponents" : [
-        {
-          "$$ClassName" : "TCastleBackground",
-          "GroundBottomColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 2.7843138575553894E-001,
-            "Green" : 1.0196078568696976E-001,
-            "Red" : 1.0196078568696976E-001
-          },
-          "GroundEquatorColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 0.0000000000000000E+000,
-            "Green" : 0.0000000000000000E+000,
-            "Red" : 0.0000000000000000E+000
-          },
-          "Name" : "Background",
-          "SkyEquatorColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 0.0000000000000000E+000,
-            "Green" : 0.0000000000000000E+000,
-            "Red" : 0.0000000000000000E+000
-          },
-          "SkyTopColorPersistent" : {
-            "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 6.3529413938522339E-001,
-            "Green" : 2.0784313976764679E-001,
-            "Red" : 2.0784313976764679E-001
-          },
-          "SmoothEquator" : 2.5000000000000000E-001
-        }
-      ],
-      "$Children" : [
-        {
-          "$$ClassName" : "TCastleWalkNavigation",
-          "Gravity" : false,
-          "MouseDragMode" : "mdRotate",
-          "MouseDraggingHorizontalRotationSpeed" : 9.9999997764825821E-003,
-          "MouseDraggingMoveSpeed" : 0.0000000000000000E+000,
-          "MouseDraggingVerticalRotationSpeed" : 9.9999997764825821E-003,
-          "MoveSpeed" : 3.0000000000000000E+001,
-          "Name" : "NavigationMain",
-          "Radius" : 4.0000000000000000E+000
-        }
-      ],
-      "InternalDesignCamera" : {
-        "$$ClassName" : "TCastleCamera",
-        "Name" : "",
-        "Orthographic" : {
-          "$$ClassName" : "TCastleOrthographic"
-        },
-        "Perspective" : {
-          "$$ClassName" : "TCastlePerspective"
-        },
-        "RotationPersistent" : {
-          "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.4384580850601196E+000,
-          "X" : 6.3094109296798706E-001,
-          "Y" : -6.7961460351943970E-001,
-          "Z" : 3.7421557307243347E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Y" : 9.9999994039535522E-001
-        },
-        "TranslationPersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.4746357202529907E-001,
-          "Y" : 1.9317089080810547E+001,
-          "Z" : 3.3138279914855957E+000
-        }
-      },
-      "InternalDesignNavigations[dnFly]" : {
-        "$$ClassName" : "TCastleWalkNavigationDesign",
-        "Name" : ""
-      },
-      "InternalDesignNavigations[dnExamine]" : {
-        "$$ClassName" : "TCastleExamineNavigationDesign",
-        "Exists" : false,
-        "Name" : ""
-      },
-      "InternalDesignNavigations[dn2D]" : {
-        "$$ClassName" : "TCastle2DNavigationDesign",
-        "Exists" : false,
-        "Name" : ""
-      }
-    },
-    {
       "$$ClassName" : "TCastleDesign",
       "FullSize" : true,
       "Name" : "Map"
@@ -380,7 +276,7 @@
                       "Name" : "BtnNext",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.7000000000000000E+001
+                        "X" : 9.6999992370605469E+001
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"

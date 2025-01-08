@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, CastleScene, CastleShapes, CastleTransform,
-  CastleControls, CastleUIControls,
+  CastleControls, CastleUIControls, CastleClassUtils,
   X3DNodes, CastleKeysMouse;
 
 type
@@ -31,8 +31,8 @@ function GetShapeNamesByNameStart(const scene: TCastleScene;
 function GetShapesByNameStart(const scene: TCastleScene;
                               const NameStartWith: String): TShapeNodes;
 function GetKeyName(key: TKey): string;
-function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
-function GetAllBehavior(const rootItem: TCastleTransform;
+function GetAllScenes(const rootItem: TCastleComponent): TCastleScenes;
+function GetAllBehavior(const rootItem: TCastleComponent;
                         const BehaviorClass: TCastleBehaviorClass): TCastleBehaviors;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
@@ -201,7 +201,7 @@ begin
   Delete(Result, 1, 3);
 end;
 
-function GetAllScenes(const rootItem: TCastleTransform): TCastleScenes;
+function GetAllScenes(const rootItem: TCastleComponent): TCastleScenes;
 type
   TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TComponent>;
 var
@@ -227,7 +227,7 @@ begin
   FreeAndNil(items);
 end;
 
-function GetAllBehavior(const rootItem: TCastleTransform;
+function GetAllBehavior(const rootItem: TCastleComponent;
                         const BehaviorClass: TCastleBehaviorClass): TCastleBehaviors;
 type
   TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TComponent>;

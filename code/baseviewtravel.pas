@@ -15,12 +15,9 @@ uses
 type
   TBaseViewPlay = class(TCastleView)
   published
-    Map: TCastleTransformDesign;
+    Map: TCastleDesign;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
-    CameraNavigationSpectator: TNyaSpectatorCameraNavigation;
-    CameraNavigationFollow: TNyaThirdPersonCameraNavigation;
-    CharaNavigation: TNyaThirdPersonCharaNavigation;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
     Notifications: TCastleNotifications;
@@ -34,14 +31,15 @@ type
   protected
     FActorMain: TNyaActorChara;
     FDebugAvatar: TDebugTransform;
+    FCameraNavigationFollow: TNyaThirdPersonCameraNavigation;
     FKeyUse: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
     FGetToGo: TCastleView;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
-    procedure TouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
-    procedure ActivateSwitch(Sender: TObject); virtual; abstract;
+    procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
+    procedure DoActivateSwitch(Sender: TObject); virtual; abstract;
     procedure SetDressButtons;
     procedure SetUIColor;
     procedure SetSwitches;
@@ -67,10 +65,7 @@ end;
 
 procedure TBaseViewPlay.Start;
 var
-  viewportMain: TCastleViewport;
-  cameraMain: TCastleCamera;
-  skyMain: TCastleBackground;
-  fogMain: TCastleFog;
+  charaNavigation: TNyaThirdPersonCharaNavigation;
 begin
   inherited;
   FTouchedSwitch:= nil;
@@ -78,36 +73,18 @@ begin
   { reset go to map }
   FGetToGo:= nil;
 
-  { set Navigation }
-  CharaNavigation.AvatarHierarchy:= FActorMain;
-  CameraNavigationSpectator.AvatarHierarchy:= FActorMain;
-  CameraNavigationFollow.AvatarHierarchy:= FActorMain;
-
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
   FDebugAvatar.Parent:= FActorMain;
   FDebugAvatar.Exists:= False;
 
-  { set cahara animation event }
-  CharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
+  { set navigation }
+  charaNavigation:= Map.DesignedComponent('CharaNavigation') as TNyaThirdPersonCharaNavigation;
+  charaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
+  FCameraNavigationFollow:= Map.DesignedComponent('CameraNavigationFollow') as TNyaThirdPersonCameraNavigation;
 
   { set Buttons }
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-
-  { set Camera }
-  viewportMain:= DesignedComponent('ViewportMain') as TCastleViewport;
-  cameraMain:= Map.DesignedComponent('CameraMain') as TCastleCamera;
-  viewportMain.Camera:= cameraMain;
-
-  { set Sky }
-  skyMain:= Map.DesignedComponent('Sky', False) as TCastleBackground;
-  if Assigned(skyMain) then
-    viewportMain.Background:= skyMain;
-
-  { set Fog }
-  fogMain:= Map.DesignedComponent('Fog', False) as TCastleFog;
-  if Assigned(fogMain) then
-    viewportMain.Fog:= fogMain;
 
   { set keys }
   FKeyUse:= TKey.keyF;
@@ -155,7 +132,7 @@ begin
   { enable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
   begin
-    CameraNavigationFollow.MouseLook:= True;
+    FCameraNavigationFollow.MouseLook:= True;
     Exit(true);
   end;
 
@@ -177,7 +154,7 @@ function TBaseViewPlay.Release(const Event: TInputPressRelease): boolean;
 begin
   { disable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-    CameraNavigationFollow.MouseLook:= False;
+    FCameraNavigationFollow.MouseLook:= False;
 
   Result := inherited;
 end;
@@ -229,8 +206,8 @@ begin
     switch:= behavior as TNyaSwitch;
     if Assigned(switch) then
     begin
-      switch.OnTouch:= {$ifdef FPC}@{$endif}TouchSwitch;
-      switch.OnActivate:= {$ifdef FPC}@{$endif}ActivateSwitch;
+      switch.OnTouch:= {$ifdef FPC}@{$endif}DoTouchSwitch;
+      switch.OnActivate:= {$ifdef FPC}@{$endif}DoActivateSwitch;
     end;
   end;
 end;
@@ -304,7 +281,7 @@ begin
   FActorMain.AnimationSpeed:= AnimtionSpeed;
 end;
 
-procedure TBaseViewPlay.TouchSwitch(const Sender: TObject; Touch: Boolean);
+procedure TBaseViewPlay.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
 var
   switch: TNyaSwitch;
 begin
