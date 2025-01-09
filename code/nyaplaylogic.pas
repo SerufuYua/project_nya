@@ -25,6 +25,7 @@ type
     FPleasure: Single;
     FTension: Single;
     FSpeed: Single;
+    FActionCoeff: Single;
     FThresholdFastGo: Single;
     FThresholdFinish: Single;
     FEnableStopAction: Boolean;
@@ -50,6 +51,7 @@ type
   public
     const
       DefaultSpeed = 1.0;
+      DefaultActionCoeff = 0.01;
       DefaultPleasure = 0.0;
       DefaultTension = 0.0;
       DefaultActNum = '';
@@ -66,6 +68,7 @@ type
     property Pleasure: Single read FPleasure write SetPleasure;
     property Tension: Single read FTension write SetTension;
     property Speed: Single read FSpeed write SetSpeed;
+    property ActionCoeff: Single read FActionCoeff write FActionCoeff;
     property ThresholdFastGo: Single read FThresholdFastGo write FThresholdFastGo;
     property ThresholdFinish: Single read FThresholdFinish write FThresholdFinish;
     function Actors: TActorsList;
@@ -88,7 +91,6 @@ const
   SuffixFastGo = '.P2';
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
-  ActionCoeff = 0.01;
   WithoutPants = 'condom';
   BareFoots = 'none';
 
@@ -104,6 +106,7 @@ begin
   FTension:= DefaultTension;
   FEnableStopAction:= False;
   FSpeed:= DefaultSpeed;
+  FActionCoeff:= DefaultActionCoeff;
   FThresholdFastGo:= DefaultThresholdFastGo;
   FThresholdFinish:= DefaultThresholdFinish;
 end;
