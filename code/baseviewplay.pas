@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
-  NyaFadeEffect, ActorsLogic, NyaPleasureTensionEffect, NyaLoadingBar;
+  NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect, NyaLoadingBar;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -36,7 +36,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
-    FActorsLogic: TActorsLogic;
+    FActorsLogic: TNyaPlayLogic;
     FAnimationsPrefix: String;
     FObserverNavigation: TCastleWalkNavigation;
     procedure ClickAction(Sender: TObject);
@@ -89,7 +89,7 @@ begin
       Insert(child, actors, 0);
   end;
 
-  FActorsLogic:= TActorsLogic.Create(actors,
+  FActorsLogic:= TNyaPlayLogic.Create(actors,
                                      FAnimationsPrefix,
                                      FadeEffect);
   { set dress buttons }

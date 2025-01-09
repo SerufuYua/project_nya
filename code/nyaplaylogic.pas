@@ -1,4 +1,4 @@
-unit ActorsLogic;
+unit NyaPlayLogic;
 
 {$mode ObjFPC}{$H+}
 
@@ -12,7 +12,7 @@ type
   TActorsList = Array of TNyaActor;
   TCharasList = Array of TNyaActorChara;
 
-  TActorsLogic = class
+  TNyaPlayLogic = class
   protected
     type
       TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
@@ -88,7 +88,7 @@ const
   WithoutPants = 'condom';
   BareFoots = 'none';
 
-constructor TActorsLogic.Create(actors: TActorsList;
+constructor TNyaPlayLogic.Create(actors: TActorsList;
                                 animationsPrefix: String;
                                 screenFader: TNyaFadeEffect);
 begin
@@ -104,7 +104,7 @@ begin
   FThresholdFinish:= DefaultThresholdFinish;
 end;
 
-procedure TActorsLogic.Update(const SecondsPassed: Single);
+procedure TNyaPlayLogic.Update(const SecondsPassed: Single);
 var
   chara: TNyaActorChara;
 begin
@@ -150,14 +150,14 @@ begin
   end;
 end;
 
-procedure TActorsLogic.SetAction(num: Integer);
+procedure TNyaPlayLogic.SetAction(num: Integer);
 begin
   FActionNum:= '.A' + IntToStr(num);
   FStatus:= TActorStatus.Start;
   ActionStart;
 end;
 
-procedure TActorsLogic.SetSpeed(value: Single);
+procedure TNyaPlayLogic.SetSpeed(value: Single);
 var
   actor: TNyaActor;
 begin
@@ -166,7 +166,7 @@ begin
     actor.AnimationSpeed:= value;
 end;
 
-procedure TActorsLogic.Stop;
+procedure TNyaPlayLogic.Stop;
 var
   actor: TNyaActor;
 begin
@@ -176,7 +176,7 @@ begin
   ActionIdle;
 end;
 
-procedure TActorsLogic.NextPart;
+procedure TNyaPlayLogic.NextPart;
 begin
   Case FStatus of
     TActorStatus.Start:  ActionGo;
@@ -187,7 +187,7 @@ begin
   end;
 end;
 
-procedure TActorsLogic.PlayAnimation(const animationName: String;
+procedure TNyaPlayLogic.PlayAnimation(const animationName: String;
                                     loop, bottomDress: boolean;
                                     footDress: boolean);
 var
@@ -215,7 +215,7 @@ begin
   end;
 end;
 
-procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
+procedure TNyaPlayLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
                                      bottomDress: boolean;
                                      footDress: boolean);
 var
@@ -244,14 +244,14 @@ begin
   end;
 end;
 
-procedure TActorsLogic.ActionIdle;
+procedure TNyaPlayLogic.ActionIdle;
 begin
   FStatus:= TActorStatus.Wait;
   FScreenFader.Fade(0.75);
   PlayAnimation(FAnimationsPrefix + SuffixWait, True, True, False);
 end;
 
-procedure TActorsLogic.ActionStart;
+procedure TNyaPlayLogic.ActionStart;
 var
   AnimationParams: TPlayAnimationParameters;
 begin
@@ -268,21 +268,21 @@ begin
   end;
 end;
 
-procedure TActorsLogic.ActionGo;
+procedure TNyaPlayLogic.ActionGo;
 begin
   FStatus:= TActorStatus.Go;
   FScreenFader.Fade(0.25);
   PlayAnimation(FAnimationsPrefix + FActionNum + SuffixGO, True, True, True);
 end;
 
-procedure TActorsLogic.ActionFastGo;
+procedure TNyaPlayLogic.ActionFastGo;
 begin
   FStatus:= TActorStatus.FastGo;
   FScreenFader.Fade(0.5);
   PlayAnimation(FAnimationsPrefix + FActionNum + SuffixFastGO, True, True, True);
 end;
 
-procedure TActorsLogic.ActionFinish;
+procedure TNyaPlayLogic.ActionFinish;
 var
   AnimationParams: TPlayAnimationParameters;
 begin
@@ -299,7 +299,7 @@ begin
   end;
 end;
 
-procedure TActorsLogic.ActionRelax;
+procedure TNyaPlayLogic.ActionRelax;
 begin
   FStatus:= TActorStatus.Relax;
   FScreenFader.Fade(0.6);
@@ -307,7 +307,7 @@ begin
   PlayAnimation(FAnimationsPrefix + FActionNum + SuffixRelax, True, True, True);
 end;
 
-procedure TActorsLogic.ActionStartStop(const Scene: TCastleSceneCore;
+procedure TNyaPlayLogic.ActionStartStop(const Scene: TCastleSceneCore;
                                        const Animation: TTimeSensorNode);
 begin
   if NOT FEnableStopAction then Exit;
@@ -315,7 +315,7 @@ begin
   FEnableStopAction:= False;
 end;
 
-procedure TActorsLogic.ActionFinishStop(const Scene: TCastleSceneCore;
+procedure TNyaPlayLogic.ActionFinishStop(const Scene: TCastleSceneCore;
                                         const Animation: TTimeSensorNode);
 begin
   if NOT FEnableStopAction then Exit;
@@ -323,17 +323,17 @@ begin
   FEnableStopAction:= False;
 end;
 
-procedure TActorsLogic.SetPleasure(value: Single);
+procedure TNyaPlayLogic.SetPleasure(value: Single);
 begin
   FPleasure:= Clamped(value, 0.0, 1.0);
 end;
 
-procedure TActorsLogic.SetTension(value: Single);
+procedure TNyaPlayLogic.SetTension(value: Single);
 begin
   FTension:= Clamped(value, 0.0, 1.0);
 end;
 
-function TActorsLogic.GetCharas: TCharasList;
+function TNyaPlayLogic.GetCharas: TCharasList;
 var
   actor: TNyaActor;
   chara: TNyaActorChara;
@@ -348,7 +348,7 @@ begin
   end;
 end;
 
-function TActorsLogic.GetColor: TCastleColorRGB;
+function TNyaPlayLogic.GetColor: TCastleColorRGB;
 var
   actor: TNyaActor;
   chara: TNyaActorChara;
