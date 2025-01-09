@@ -62,8 +62,10 @@ begin
   if NOT FActive then Exit;
 
   if Assigned(FImage) then
+  begin
     FImage.Color:= Vector4(1.0, 1.0, 1.0, FIntensity);
     FImage.Draw(RenderRect);
+  end;
 end;
 
 
