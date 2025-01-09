@@ -79,10 +79,7 @@ type
 implementation
 
 uses
-  CharaDress, CastleUtils, CastleVectors, NyaClassUtils, Math;
-
-type
-  TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TNyaActorChara>;
+  CharaDress, CastleUtils, CastleVectors, Math;
 
 const
   SuffixWait = '.IDLE';
@@ -98,6 +95,7 @@ constructor TNyaPlayLogic.Create(actors: TActorsList;
                                  animationsPrefix: String;
                                  screenFader: TNyaFadeEffect);
 begin
+  inherited Create;
   FActors:= actors;
   FAnimationsPrefix:= animationsPrefix;
   FScreenFader:= screenFader;
@@ -214,24 +212,25 @@ var
   chara: TNyaActorChara;
   dresser: TCharaDresser;
 begin
-  for actor in Actors do
+  { undress charas }
+  if (NOT (bottomDress AND footDress)) then
   begin
-    if (NOT (bottomDress AND footDress)) then
+    for chara in Charas do
     begin
-      chara:= TCharaDynamic.Cast(actor);
-      if Assigned(chara) then
+      dresser:= chara.Dresser;
+      if Assigned(dresser) then
       begin
-        dresser:= chara.Dresser;
-        begin
-          if NOT bottomDress then
-            dresser.WearSuit(TSuits.Bottom, WithoutPants);
-          if NOT footDress then
-            dresser.WearSuit(TSuits.Foots, BareFoots);
-        end;
+        if NOT bottomDress then
+          dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        if NOT footDress then
+          dresser.WearSuit(TSuits.Foots, BareFoots);
       end;
     end;
-    actor.PlayAnimation(animationName, loop)
   end;
+
+  { animate charas/actors }
+  for actor in Actors do
+    actor.PlayAnimation(animationName, loop);
 end;
 
 procedure TNyaPlayLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
@@ -241,26 +240,42 @@ var
   actor: TNyaActor;
   chara: TNyaActorChara;
   dresser: TCharaDresser;
+  noEventParam: TPlayAnimationParameters;
 begin
-  for actor in Actors do
+  { undress charas }
+  if (NOT (bottomDress AND footDress)) then
   begin
-    if (NOT (bottomDress AND footDress)) then
+    for chara in Charas do
     begin
-      chara:= TCharaDynamic.Cast(actor);
-      if Assigned(chara) then
+      dresser:= chara.Dresser;
+      if Assigned(dresser) then
       begin
-        dresser:= chara.Dresser;
-        if Assigned(dresser) then
-        begin
-          if NOT bottomDress then
-            dresser.WearSuit(TSuits.Bottom, WithoutPants);
-          if NOT footDress then
-            dresser.WearSuit(TSuits.Foots, BareFoots);
-        end;
+        if NOT bottomDress then
+          dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        if NOT footDress then
+          dresser.WearSuit(TSuits.Foots, BareFoots);
       end;
     end;
-    actor.PlayAnimation(Parameters)
   end;
+
+  { animate charas/actors }
+  noEventParam:= TPlayAnimationParameters.Create;
+  noEventParam.Name:= Parameters.Name;
+  noEventParam.Loop:= Parameters.Loop;
+  noEventParam.Forward:= Parameters.Forward;
+  noEventParam.StopNotification:= nil;
+  noEventParam.TransitionDuration:= Parameters.TransitionDuration;
+  noEventParam.InitialTime:= Parameters.InitialTime;
+
+  for actor in Actors do
+  begin
+    if (actor = Actors[0]) then
+      actor.PlayAnimation(Parameters)
+    else
+      actor.PlayAnimation(noEventParam);
+  end;
+
+  FreeAndNil(noEventParam);
 end;
 
 procedure TNyaPlayLogic.ActionIdle;
@@ -360,21 +375,18 @@ end;
 function TNyaPlayLogic.Charas: TCharasList;
 var
   actor: TNyaActor;
-  chara: TNyaActorChara;
 begin
   Result:= [];
 
   for actor in Actors do
   begin
-    chara:= TCharaDynamic.Cast(actor);
-    if Assigned(chara) then
-      Insert(chara, Result, 0);
+    if (actor is TNyaActorChara) then
+      Insert((actor as TNyaActorChara), Result, 0);
   end;
 end;
 
 function TNyaPlayLogic.CombinedColor: TCastleColorRGB;
 var
-  actor: TNyaActor;
   chara: TNyaActorChara;
   averColor: TCastleColorRGB;
   count: Integer;
@@ -386,16 +398,12 @@ begin
   maxColor:= 0.0;
   maxAverColor:= 0.0;
 
-  for actor in Actors do
+  for chara in Charas do
   begin
-    chara:= TCharaDynamic.Cast(actor);
-    if Assigned(chara) then
-    begin
-      averColor:= averColor + chara.PersonalColor;
-      maxColor:= max(max(max(chara.PersonalColor.X, chara.PersonalColor.Y),
-                 chara.PersonalColor.Y), maxColor);
-      count:= count + 1;
-    end;
+    averColor:= averColor + chara.PersonalColor;
+    maxColor:= max(max(max(chara.PersonalColor.X, chara.PersonalColor.Y),
+               chara.PersonalColor.Y), maxColor);
+    count:= count + 1;
   end;
 
   if (count > 1) then
