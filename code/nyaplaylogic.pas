@@ -28,7 +28,6 @@ type
     FActionCoeff: Single;
     FThresholdFastGo: Single;
     FThresholdFinish: Single;
-    FEnableStopAction: Boolean;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean; footDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
@@ -102,7 +101,6 @@ begin
   FActionNum:= DefaultActNum;
   FPleasure:= DefaultPleasure;
   FTension:= DefaultTension;
-  FEnableStopAction:= False;
   FSpeed:= DefaultSpeed;
   FActionCoeff:= DefaultActionCoeff;
   FThresholdFastGo:= DefaultThresholdFastGo;
@@ -205,37 +203,24 @@ begin
 end;
 
 procedure TNyaPlayLogic.PlayAnimation(const animationName: String;
-                                    loop, bottomDress: boolean;
-                                    footDress: boolean);
+                                      loop, bottomDress: boolean;
+                                      footDress: boolean);
 var
-  actor: TNyaActor;
-  chara: TNyaActorChara;
-  dresser: TCharaDresser;
+  AnimationParams: TPlayAnimationParameters;
 begin
-  { undress charas }
-  if (NOT (bottomDress AND footDress)) then
-  begin
-    for chara in Charas do
-    begin
-      dresser:= chara.Dresser;
-      if Assigned(dresser) then
-      begin
-        if NOT bottomDress then
-          dresser.WearSuit(TSuits.Bottom, WithoutPants);
-        if NOT footDress then
-          dresser.WearSuit(TSuits.Foots, BareFoots);
-      end;
-    end;
+  AnimationParams:= TPlayAnimationParameters.Create;
+  try
+    AnimationParams.Name:= animationName;
+    AnimationParams.StopNotification:= nil;
+    AnimationParams.Loop:= loop;
+    PlayAnimation(AnimationParams, bottomDress, footDress);
+  finally FreeAndNil(AnimationParams)
   end;
-
-  { animate charas/actors }
-  for actor in Actors do
-    actor.PlayAnimation(animationName, loop);
 end;
 
 procedure TNyaPlayLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
-                                     bottomDress: boolean;
-                                     footDress: boolean);
+                                      bottomDress: boolean;
+                                      footDress: boolean);
 var
   actor: TNyaActor;
   chara: TNyaActorChara;
@@ -289,14 +274,13 @@ procedure TNyaPlayLogic.ActionStart;
 var
   AnimationParams: TPlayAnimationParameters;
 begin
-  AnimationParams := TPlayAnimationParameters.Create;
+  AnimationParams:= TPlayAnimationParameters.Create;
   try
     AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixStart;
     AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}DoActionStartEnded;
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Start;
     FScreenFader.Fade(0.25);
-    FEnableStopAction:= True;
     PlayAnimation(AnimationParams, False, True);
   finally FreeAndNil(AnimationParams)
   end;
@@ -320,14 +304,13 @@ procedure TNyaPlayLogic.ActionFinish;
 var
   AnimationParams: TPlayAnimationParameters;
 begin
-  AnimationParams := TPlayAnimationParameters.Create;
+  AnimationParams:= TPlayAnimationParameters.Create;
   try
     AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixFinish;
     AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}DoActionFinishEnded;
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Finish;
     FScreenFader.Fade(0.25);
-    FEnableStopAction:= True;
     PlayAnimation(AnimationParams, True, True);
   finally FreeAndNil(AnimationParams)
   end;
@@ -344,17 +327,13 @@ end;
 procedure TNyaPlayLogic.DoActionStartEnded(const Scene: TCastleSceneCore;
                                            const Animation: TTimeSensorNode);
 begin
-  if NOT FEnableStopAction then Exit;
   ActionGo;
-  FEnableStopAction:= False;
 end;
 
 procedure TNyaPlayLogic.DoActionFinishEnded(const Scene: TCastleSceneCore;
                                             const Animation: TTimeSensorNode);
 begin
-  if NOT FEnableStopAction then Exit;
   ActionRelax;
-  FEnableStopAction:= False;
 end;
 
 procedure TNyaPlayLogic.SetPleasure(const value: Single);
