@@ -164,7 +164,7 @@ begin
   if NOT Assigned(btnDress) then Exit;
 
   FActorsLogic.Stop;
-  FActorsLogic.SetAction(btnDress.Tag);
+  FActorsLogic.ActNum:= btnDress.Tag;
 end;
 
 procedure TBaseViewPlay.ClickDress(Sender: TObject);
@@ -328,7 +328,7 @@ begin
   begin
       alpha:= item.Color.W;
       if (item.Tag = 1) then
-        item.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+        item.Color:= Vector4(FActorsLogic.CombinedColor, alpha);
   end;
 end;
 
