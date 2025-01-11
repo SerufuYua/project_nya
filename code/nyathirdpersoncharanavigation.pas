@@ -122,7 +122,10 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, NyaVectorMath;
+  CastleBoxes, NyaVectorMath
+  {$ifdef CASTLE_DESIGN_MODE}
+  , PropEdits, CastlePropEdits, NyaActor
+  {$endif};
 
 constructor TNyaThirdPersonCharaNavigation.Create(AOwner: TComponent);
 begin
@@ -446,7 +449,43 @@ begin
   Result:= FAnimationRun <> DefaultAnimationRun;
 end;
 
+{$ifdef CASTLE_DESIGN_MODE}
+type
+  { Property editor to select an animation on TNyaSwitch }
+  TNyaThirdPersonCharaNavigationPropertyEditor = class(TStringPropertyEditor)
+  public
+    function GetAttributes: TPropertyAttributes; override;
+    procedure GetValues(Proc: TGetStrProc); override;
+  end;
+
+function TNyaThirdPersonCharaNavigationPropertyEditor.GetAttributes: TPropertyAttributes;
+begin
+  Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
+end;
+
+procedure TNyaThirdPersonCharaNavigationPropertyEditor.GetValues(Proc: TGetStrProc);
+var
+  Nav: TNyaThirdPersonCharaNavigation;
+  S: String;
+begin
+  Proc('');
+  Nav:= GetComponent(0) as TNyaThirdPersonCharaNavigation;
+  if (Nav.AvatarHierarchy is TNyaActor) then
+    for S in (Nav.AvatarHierarchy as TNyaActor).AnimationsList do
+      Proc(S);
+end;
+{$endif}
+
 initialization
   RegisterSerializableComponent(TNyaThirdPersonCharaNavigation, ['Navigation', 'Nya Third-Person Chara']);
+
+  {$ifdef CASTLE_DESIGN_MODE}
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonCharaNavigation, 'AnimationStand',
+                         TNyaThirdPersonCharaNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonCharaNavigation, 'AnimationWalk',
+                         TNyaThirdPersonCharaNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonCharaNavigation, 'AnimationRun',
+                         TNyaThirdPersonCharaNavigationPropertyEditor);
+  {$endif}
 end.
 
