@@ -47,6 +47,7 @@ type
     procedure SetPleasure(const value: Single);
     procedure SetTension(const value: Single);
     procedure SetSpeed(const value: Single);
+    function DetermineAnimationsPrefix: String;
   public
     const
       DefaultSpeed = 1.0;
@@ -57,9 +58,7 @@ type
       DefaultThresholdFastGo = 0.6;
       DefaultThresholdFinish = 0.95;
 
-    constructor Create(actors: TActorsList;
-                       animationsPrefix: String;
-                       screenFader: TNyaFadeEffect);
+    constructor Create(actors: TActorsList; screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
     procedure Stop;
     procedure NextPart;
@@ -78,7 +77,7 @@ type
 implementation
 
 uses
-  CharaDress, CastleUtils, CastleVectors, Math;
+  CharaDress, CastleUtils, CastleVectors, Math, StrUtils;
 
 const
   SuffixWait = '.IDLE';
@@ -91,12 +90,11 @@ const
   BareFoots = 'none';
 
 constructor TNyaPlayLogic.Create(actors: TActorsList;
-                                 animationsPrefix: String;
                                  screenFader: TNyaFadeEffect);
 begin
   inherited Create;
   FActors:= actors;
-  FAnimationsPrefix:= animationsPrefix;
+  FAnimationsPrefix:= DetermineAnimationsPrefix;
   FScreenFader:= screenFader;
   FActionNum:= DefaultActNum;
   FPleasure:= DefaultPleasure;
@@ -179,6 +177,37 @@ begin
   FSpeed:= value;
   for actor in Actors do
     actor.AnimationSpeed:= value;
+end;
+
+function TNyaPlayLogic.DetermineAnimationsPrefix: String;
+var
+  animationName: String;
+  unfinish: Boolean;
+  i: Integer;
+begin
+  Result:= '';
+  if (Length(Actors) < 1) then Exit;
+  if (Actors[0].AnimationsList.Count < 1) then Exit;
+  unfinish:= True;
+  i:= 0;
+
+  while unfinish do
+  begin
+    i:= i + 1;
+    Result:= copy(Actors[0].AnimationsList[0], 0, i);
+    for animationName in Actors[0].AnimationsList do
+    begin
+      if NOT StartsText(Result, animationName) then
+      begin
+        unfinish:= False;
+        { remove last symbol }
+        Delete(Result, Length(Result), 1);
+        { remove dot in the end of line }
+        RemoveTrailingChars(Result, ['.']);
+        Break;
+      end;
+    end;
+  end;
 end;
 
 procedure TNyaPlayLogic.Stop;

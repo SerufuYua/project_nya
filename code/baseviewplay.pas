@@ -37,7 +37,6 @@ type
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
     FActorsLogic: TNyaPlayLogic;
-    FAnimationsPrefix: String;
     FObserverNavigation: TCastleWalkNavigation;
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
@@ -89,9 +88,7 @@ begin
       Insert(child, actors, 0);
   end;
 
-  FActorsLogic:= TNyaPlayLogic.Create(actors,
-                                     FAnimationsPrefix,
-                                     FadeEffect);
+  FActorsLogic:= TNyaPlayLogic.Create(actors, FadeEffect);
   { set dress buttons }
   SetDressButtons;
 
