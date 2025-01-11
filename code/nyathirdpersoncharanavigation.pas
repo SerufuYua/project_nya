@@ -451,7 +451,7 @@ end;
 
 {$ifdef CASTLE_DESIGN_MODE}
 type
-  { Property editor to select an animation on TNyaSwitch }
+  { Property editor to select an animation on TNyaThirdPersonCharaNavigation }
   TNyaThirdPersonCharaNavigationPropertyEditor = class(TStringPropertyEditor)
   public
     function GetAttributes: TPropertyAttributes; override;
