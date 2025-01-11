@@ -14,6 +14,7 @@ type
   protected
     FDesign: TCastleTransformDesign;
     FAllScenes: TCastleScenes;
+    FAnimatedScenes: TCastleScenes;
     FMainScene: TCastleScene;
     FAnimationsList: TStrings;
     procedure UpdateAnimationsList;
@@ -141,7 +142,7 @@ procedure TNyaActor.PlayAnimation(const animationName: String;
 var
   scene: TCastleScene;
 begin
-  for scene in FAllScenes do
+  for scene in FAnimatedScenes do
     scene.PlayAnimation(animationName, loop);
 end;
 
@@ -157,7 +158,7 @@ begin
   noEventParam.TransitionDuration:= Parameters.TransitionDuration;
   noEventParam.InitialTime:= Parameters.InitialTime;
 
-  for scene in FAllScenes do
+  for scene in FAnimatedScenes do
   begin
     if (scene = FMainScene) then
       scene.PlayAnimation(Parameters)
@@ -172,7 +173,7 @@ procedure TNyaActor.StopAnimation(const disableStopNotification: Boolean);
 var
   scene: TCastleScene;
 begin
-  for scene in FAllScenes do
+  for scene in FAnimatedScenes do
     scene.StopAnimation(disableStopNotification);
 end;
 
@@ -192,6 +193,7 @@ end;
 procedure TNyaActor.SetUrl(const value: String);
 var
   buff: String;
+  scene: TCastleScene;
 begin
   if (FUrl = value) then Exit;
   FUrl:= value;
@@ -207,6 +209,12 @@ begin
 
   { prepare Scenes list }
   FAllScenes:= GetAllScenes(FDesign);
+
+  { prepare Animated Scenes list }
+  FAnimatedScenes:= [];
+  for scene in FAllScenes do
+    if (scene.AnimationsList.Count > 0) then
+      System.Insert(scene, FAnimatedScenes, 0);
 
   { take only first Scene as Main}
   if (Length(FAllScenes) > 0) then
@@ -287,7 +295,7 @@ procedure TNyaActor.ApplyAutoAnimation;
 var
   scene: TCastleScene;
 begin
-  for scene in FAllScenes do
+  for scene in FAnimatedScenes do
     scene.AutoAnimation:= FAutoAnimation;
 end;
 
@@ -295,7 +303,7 @@ procedure TNyaActor.ApplyAnimationSpeed;
 var
   scene: TCastleScene;
 begin
-  for scene in FAllScenes do
+  for scene in FAnimatedScenes do
     scene.TimePlayingSpeed:= FAnimationSpeed;
 end;
 
