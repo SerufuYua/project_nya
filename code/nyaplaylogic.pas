@@ -1,4 +1,4 @@
-unit ActorsLogic;
+unit NyaPlayLogic;
 
 {$mode ObjFPC}{$H+}
 
@@ -12,7 +12,7 @@ type
   TActorsList = Array of TNyaActor;
   TCharasList = Array of TNyaActorChara;
 
-  TActorsLogic = class
+  TNyaPlayLogic = class
   protected
     type
       TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
@@ -25,9 +25,9 @@ type
     FPleasure: Single;
     FTension: Single;
     FSpeed: Single;
+    FActionCoeff: Single;
     FThresholdFastGo: Single;
     FThresholdFinish: Single;
-    FEnableStopAction: Boolean;
     procedure PlayAnimation(const animationName: String;
                             loop, bottomDress: boolean; footDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
@@ -38,44 +38,46 @@ type
     procedure ActionFastGo; { Play Fast Go Animation. IN Cycle }
     procedure ActionFinish; { Play Finish Animation.  NO Cycle }
     procedure ActionRelax;  { Play Relax Animation.   IN Cycle }
-    procedure ActionStartStop(const Scene: TCastleSceneCore;
-                              const Animation: TTimeSensorNode);
-    procedure ActionFinishStop(const Scene: TCastleSceneCore;
-                               const Animation: TTimeSensorNode);
-    procedure SetPleasure(value: Single);
-    procedure SetTension(value: Single);
-    function GetCharas: TCharasList;
-    function GetColor: TCastleColorRGB;
-    procedure SetSpeed(value: Single);
+    procedure DoActionStartEnded(const Scene: TCastleSceneCore;
+                                 const Animation: TTimeSensorNode);
+    procedure DoActionFinishEnded(const Scene: TCastleSceneCore;
+                                  const Animation: TTimeSensorNode);
+    procedure SetActNum(const value: Integer);
+    function GetActNum: Integer;
+    procedure SetPleasure(const value: Single);
+    procedure SetTension(const value: Single);
+    procedure SetSpeed(const value: Single);
+    function DetermineAnimationsPrefix: String;
   public
     const
       DefaultSpeed = 1.0;
+      DefaultActionCoeff = 0.01;
+      DefaultPleasure = 0.0;
+      DefaultTension = 0.0;
+      DefaultActNum = '';
       DefaultThresholdFastGo = 0.6;
       DefaultThresholdFinish = 0.95;
 
-    constructor Create(actors: TActorsList;
-                       animationsPrefix: String;
-                       screenFader: TNyaFadeEffect);
+    constructor Create(actors: TActorsList; screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
-    procedure SetAction(num: Integer);
     procedure Stop;
     procedure NextPart;
+    property ActNum: Integer read GetActNum write SetActNum;
     property Pleasure: Single read FPleasure write SetPleasure;
     property Tension: Single read FTension write SetTension;
-    property Charas: TCharasList read GetCharas;
-    property CharasColor: TCastleColorRGB read GetColor;
     property Speed: Single read FSpeed write SetSpeed;
+    property ActionCoeff: Single read FActionCoeff write FActionCoeff;
     property ThresholdFastGo: Single read FThresholdFastGo write FThresholdFastGo;
     property ThresholdFinish: Single read FThresholdFinish write FThresholdFinish;
+    function Actors: TActorsList;
+    function Charas: TCharasList;
+    function CombinedColor: TCastleColorRGB;
   end;
 
 implementation
 
 uses
-  CharaDress, CastleUtils, CastleVectors, NyaClassUtils, Math;
-
-type
-  TCharaDynamic = {$ifdef FPC}specialize{$endif} TDynamic<TNyaActorChara>;
+  CharaDress, CastleUtils, CastleVectors, Math, StrUtils;
 
 const
   SuffixWait = '.IDLE';
@@ -84,27 +86,26 @@ const
   SuffixFastGo = '.P2';
   SuffixFinish = '.P3';
   SuffixRelax = '.P4';
-  ActionCoeff = 0.01;
   WithoutPants = 'condom';
   BareFoots = 'none';
 
-constructor TActorsLogic.Create(actors: TActorsList;
-                                animationsPrefix: String;
-                                screenFader: TNyaFadeEffect);
+constructor TNyaPlayLogic.Create(actors: TActorsList;
+                                 screenFader: TNyaFadeEffect);
 begin
+  inherited Create;
   FActors:= actors;
-  FAnimationsPrefix:= animationsPrefix;
+  FAnimationsPrefix:= DetermineAnimationsPrefix;
   FScreenFader:= screenFader;
-  FActionNum:= '';
-  FPleasure:= 0.0;
-  FTension:= 0.0;
-  FEnableStopAction:= False;
+  FActionNum:= DefaultActNum;
+  FPleasure:= DefaultPleasure;
+  FTension:= DefaultTension;
   FSpeed:= DefaultSpeed;
+  FActionCoeff:= DefaultActionCoeff;
   FThresholdFastGo:= DefaultThresholdFastGo;
   FThresholdFinish:= DefaultThresholdFinish;
 end;
 
-procedure TActorsLogic.Update(const SecondsPassed: Single);
+procedure TNyaPlayLogic.Update(const SecondsPassed: Single);
 var
   chara: TNyaActorChara;
 begin
@@ -150,33 +151,76 @@ begin
   end;
 end;
 
-procedure TActorsLogic.SetAction(num: Integer);
+procedure TNyaPlayLogic.SetActNum(const value: Integer);
 begin
-  FActionNum:= '.A' + IntToStr(num);
+  FActionNum:= '.A' + IntToStr(value);
   FStatus:= TActorStatus.Start;
   ActionStart;
 end;
 
-procedure TActorsLogic.SetSpeed(value: Single);
+function TNyaPlayLogic.GetActNum: Integer;
+var
+  numStr: String;
+begin
+  if (Length(FActionNum) > 2) then
+  begin
+    numStr:= copy(FActionNum, 3, (Length(FActionNum) - 2));
+    Result:= StrToInt(numStr);
+  end else
+    Result:= 0;
+end;
+
+procedure TNyaPlayLogic.SetSpeed(const value: Single);
 var
   actor: TNyaActor;
 begin
   FSpeed:= value;
-  for actor in FActors do
+  for actor in Actors do
     actor.AnimationSpeed:= value;
 end;
 
-procedure TActorsLogic.Stop;
+function TNyaPlayLogic.DetermineAnimationsPrefix: String;
+var
+  animationName: String;
+  unfinish: Boolean;
+  i: Integer;
+begin
+  Result:= '';
+  if (Length(Actors) < 1) then Exit;
+  if (Actors[0].AnimationsList.Count < 1) then Exit;
+  unfinish:= True;
+  i:= 0;
+
+  while unfinish do
+  begin
+    i:= i + 1;
+    Result:= copy(Actors[0].AnimationsList[0], 0, i);
+    for animationName in Actors[0].AnimationsList do
+    begin
+      if NOT StartsText(Result, animationName) then
+      begin
+        unfinish:= False;
+        { remove last symbol }
+        Delete(Result, Length(Result), 1);
+        { remove dot in the end of line }
+        RemoveTrailingChars(Result, ['.']);
+        Break;
+      end;
+    end;
+  end;
+end;
+
+procedure TNyaPlayLogic.Stop;
 var
   actor: TNyaActor;
 begin
-  for actor in FActors do
+  for actor in Actors do
     actor.StopAnimation(True);
 
   ActionIdle;
 end;
 
-procedure TActorsLogic.NextPart;
+procedure TNyaPlayLogic.NextPart;
 begin
   Case FStatus of
     TActorStatus.Start:  ActionGo;
@@ -187,119 +231,121 @@ begin
   end;
 end;
 
-procedure TActorsLogic.PlayAnimation(const animationName: String;
-                                    loop, bottomDress: boolean;
-                                    footDress: boolean);
+procedure TNyaPlayLogic.PlayAnimation(const animationName: String;
+                                      loop, bottomDress: boolean;
+                                      footDress: boolean);
+var
+  AnimationParams: TPlayAnimationParameters;
+begin
+  AnimationParams:= TPlayAnimationParameters.Create;
+  try
+    AnimationParams.Name:= animationName;
+    AnimationParams.StopNotification:= nil;
+    AnimationParams.Loop:= loop;
+    PlayAnimation(AnimationParams, bottomDress, footDress);
+  finally FreeAndNil(AnimationParams)
+  end;
+end;
+
+procedure TNyaPlayLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
+                                      bottomDress: boolean;
+                                      footDress: boolean);
 var
   actor: TNyaActor;
   chara: TNyaActorChara;
   dresser: TCharaDresser;
+  noEventParam: TPlayAnimationParameters;
 begin
-  for actor in FActors do
+  { undress charas }
+  if (NOT (bottomDress AND footDress)) then
   begin
-    if (NOT (bottomDress AND footDress)) then
+    for chara in Charas do
     begin
-      chara:= TCharaDynamic.Cast(actor);
-      if Assigned(chara) then
+      dresser:= chara.Dresser;
+      if Assigned(dresser) then
       begin
-        dresser:= chara.Dresser;
-        begin
-          if NOT bottomDress then
-            dresser.WearSuit(TSuits.Bottom, WithoutPants);
-          if NOT footDress then
-            dresser.WearSuit(TSuits.Foots, BareFoots);
-        end;
+        if NOT bottomDress then
+          dresser.WearSuit(TSuits.Bottom, WithoutPants);
+        if NOT footDress then
+          dresser.WearSuit(TSuits.Foots, BareFoots);
       end;
     end;
-    actor.PlayAnimation(animationName, loop)
   end;
-end;
 
-procedure TActorsLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
-                                     bottomDress: boolean;
-                                     footDress: boolean);
-var
-  actor: TNyaActor;
-  chara: TNyaActorChara;
-  dresser: TCharaDresser;
-begin
-  for actor in FActors do
+  { animate charas/actors }
+  noEventParam:= TPlayAnimationParameters.Create;
+  noEventParam.Name:= Parameters.Name;
+  noEventParam.Loop:= Parameters.Loop;
+  noEventParam.Forward:= Parameters.Forward;
+  noEventParam.StopNotification:= nil;
+  noEventParam.TransitionDuration:= Parameters.TransitionDuration;
+  noEventParam.InitialTime:= Parameters.InitialTime;
+
+  for actor in Actors do
   begin
-    if (NOT (bottomDress AND footDress)) then
-    begin
-      chara:= TCharaDynamic.Cast(actor);
-      if Assigned(chara) then
-      begin
-        dresser:= chara.Dresser;
-        if Assigned(dresser) then
-        begin
-          if NOT bottomDress then
-            dresser.WearSuit(TSuits.Bottom, WithoutPants);
-          if NOT footDress then
-            dresser.WearSuit(TSuits.Foots, BareFoots);
-        end;
-      end;
-    end;
-    actor.PlayAnimation(Parameters)
+    if (actor = Actors[0]) then
+      actor.PlayAnimation(Parameters)
+    else
+      actor.PlayAnimation(noEventParam);
   end;
+
+  FreeAndNil(noEventParam);
 end;
 
-procedure TActorsLogic.ActionIdle;
+procedure TNyaPlayLogic.ActionIdle;
 begin
   FStatus:= TActorStatus.Wait;
   FScreenFader.Fade(0.75);
   PlayAnimation(FAnimationsPrefix + SuffixWait, True, True, False);
 end;
 
-procedure TActorsLogic.ActionStart;
+procedure TNyaPlayLogic.ActionStart;
 var
   AnimationParams: TPlayAnimationParameters;
 begin
-  AnimationParams := TPlayAnimationParameters.Create;
+  AnimationParams:= TPlayAnimationParameters.Create;
   try
     AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixStart;
-    AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}ActionStartStop;
+    AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}DoActionStartEnded;
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Start;
     FScreenFader.Fade(0.25);
-    FEnableStopAction:= True;
     PlayAnimation(AnimationParams, False, True);
   finally FreeAndNil(AnimationParams)
   end;
 end;
 
-procedure TActorsLogic.ActionGo;
+procedure TNyaPlayLogic.ActionGo;
 begin
   FStatus:= TActorStatus.Go;
   FScreenFader.Fade(0.25);
   PlayAnimation(FAnimationsPrefix + FActionNum + SuffixGO, True, True, True);
 end;
 
-procedure TActorsLogic.ActionFastGo;
+procedure TNyaPlayLogic.ActionFastGo;
 begin
   FStatus:= TActorStatus.FastGo;
   FScreenFader.Fade(0.5);
   PlayAnimation(FAnimationsPrefix + FActionNum + SuffixFastGO, True, True, True);
 end;
 
-procedure TActorsLogic.ActionFinish;
+procedure TNyaPlayLogic.ActionFinish;
 var
   AnimationParams: TPlayAnimationParameters;
 begin
-  AnimationParams := TPlayAnimationParameters.Create;
+  AnimationParams:= TPlayAnimationParameters.Create;
   try
     AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixFinish;
-    AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}ActionFinishStop;
+    AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}DoActionFinishEnded;
     AnimationParams.Loop:= False;
     FStatus:= TActorStatus.Finish;
     FScreenFader.Fade(0.25);
-    FEnableStopAction:= True;
     PlayAnimation(AnimationParams, True, True);
   finally FreeAndNil(AnimationParams)
   end;
 end;
 
-procedure TActorsLogic.ActionRelax;
+procedure TNyaPlayLogic.ActionRelax;
 begin
   FStatus:= TActorStatus.Relax;
   FScreenFader.Fade(0.6);
@@ -307,50 +353,48 @@ begin
   PlayAnimation(FAnimationsPrefix + FActionNum + SuffixRelax, True, True, True);
 end;
 
-procedure TActorsLogic.ActionStartStop(const Scene: TCastleSceneCore;
-                                       const Animation: TTimeSensorNode);
+procedure TNyaPlayLogic.DoActionStartEnded(const Scene: TCastleSceneCore;
+                                           const Animation: TTimeSensorNode);
 begin
-  if NOT FEnableStopAction then Exit;
   ActionGo;
-  FEnableStopAction:= False;
 end;
 
-procedure TActorsLogic.ActionFinishStop(const Scene: TCastleSceneCore;
-                                        const Animation: TTimeSensorNode);
+procedure TNyaPlayLogic.DoActionFinishEnded(const Scene: TCastleSceneCore;
+                                            const Animation: TTimeSensorNode);
 begin
-  if NOT FEnableStopAction then Exit;
   ActionRelax;
-  FEnableStopAction:= False;
 end;
 
-procedure TActorsLogic.SetPleasure(value: Single);
+procedure TNyaPlayLogic.SetPleasure(const value: Single);
 begin
   FPleasure:= Clamped(value, 0.0, 1.0);
 end;
 
-procedure TActorsLogic.SetTension(value: Single);
+procedure TNyaPlayLogic.SetTension(const value: Single);
 begin
   FTension:= Clamped(value, 0.0, 1.0);
 end;
 
-function TActorsLogic.GetCharas: TCharasList;
+function TNyaPlayLogic.Actors: TActorsList;
+begin
+  Result:= FActors;
+end;
+
+function TNyaPlayLogic.Charas: TCharasList;
 var
   actor: TNyaActor;
-  chara: TNyaActorChara;
 begin
   Result:= [];
 
-  for actor in FActors do
+  for actor in Actors do
   begin
-    chara:= TCharaDynamic.Cast(actor);
-    if Assigned(chara) then
-      Insert(chara, Result, 0);
+    if (actor is TNyaActorChara) then
+      Insert((actor as TNyaActorChara), Result, 0);
   end;
 end;
 
-function TActorsLogic.GetColor: TCastleColorRGB;
+function TNyaPlayLogic.CombinedColor: TCastleColorRGB;
 var
-  actor: TNyaActor;
   chara: TNyaActorChara;
   averColor: TCastleColorRGB;
   count: Integer;
@@ -362,16 +406,12 @@ begin
   maxColor:= 0.0;
   maxAverColor:= 0.0;
 
-  for actor in FActors do
+  for chara in Charas do
   begin
-    chara:= TCharaDynamic.Cast(actor);
-    if Assigned(chara) then
-    begin
-      averColor:= averColor + chara.PersonalColor;
-      maxColor:= max(max(max(chara.PersonalColor.X, chara.PersonalColor.Y),
-                 chara.PersonalColor.Y), maxColor);
-      count:= count + 1;
-    end;
+    averColor:= averColor + chara.PersonalColor;
+    maxColor:= max(max(max(chara.PersonalColor.X, chara.PersonalColor.Y),
+               chara.PersonalColor.Y), maxColor);
+    count:= count + 1;
   end;
 
   if (count > 1) then

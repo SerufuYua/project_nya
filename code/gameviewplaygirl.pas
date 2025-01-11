@@ -24,9 +24,6 @@ begin
   { set map }
   Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-user-interface';
 
-  { set Animations Prefix }
-  FAnimationsPrefix:= 'GAME.GIRL_TOYA.PLAY';
-
   inherited;
 end;
 

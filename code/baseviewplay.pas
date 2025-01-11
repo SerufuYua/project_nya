@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
-  NyaFadeEffect, ActorsLogic, NyaPleasureTensionEffect, NyaLoadingBar;
+  NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect, NyaLoadingBar;
 
 type
   TBaseViewPlay = class(TCastleView)
@@ -36,8 +36,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
-    FActorsLogic: TActorsLogic;
-    FAnimationsPrefix: String;
+    FActorsLogic: TNyaPlayLogic;
     FObserverNavigation: TCastleWalkNavigation;
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
@@ -89,9 +88,7 @@ begin
       Insert(child, actors, 0);
   end;
 
-  FActorsLogic:= TActorsLogic.Create(actors,
-                                     FAnimationsPrefix,
-                                     FadeEffect);
+  FActorsLogic:= TNyaPlayLogic.Create(actors, FadeEffect);
   { set dress buttons }
   SetDressButtons;
 
@@ -164,7 +161,7 @@ begin
   if NOT Assigned(btnDress) then Exit;
 
   FActorsLogic.Stop;
-  FActorsLogic.SetAction(btnDress.Tag);
+  FActorsLogic.ActNum:= btnDress.Tag;
 end;
 
 procedure TBaseViewPlay.ClickDress(Sender: TObject);
@@ -328,7 +325,7 @@ begin
   begin
       alpha:= item.Color.W;
       if (item.Tag = 1) then
-        item.Color:= Vector4(FActorsLogic.CharasColor, alpha);
+        item.Color:= Vector4(FActorsLogic.CombinedColor, alpha);
   end;
 end;
 

@@ -414,7 +414,10 @@
           "AnimationStand" : "GAME.STAND",
           "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "CharaGirl",
-          "Name" : "CharaNavigation"
+          "Name" : "CharaNavigation",
+          "SpeedOfRun" : 2.0000000000000000E+002,
+          "SpeedOfWalk" : 4.0000000000000000E+001,
+          "SpeedOfWalkAnimation" : 2.4000000000000000E+001
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",

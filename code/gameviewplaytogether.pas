@@ -24,9 +24,6 @@ begin
   { set map }
   Map.Url:= 'castle-data:/MapPlayTogether.castle-user-interface';
 
-  { set Animations Prefix }
-  FAnimationsPrefix:= 'GAME.TOGETHER.PLAY';
-
   inherited;
 end;
 
