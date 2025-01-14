@@ -10,6 +10,7 @@
         "ForeArmTwist2.L",
         "ForeArmTwist2.R"
       ],
+      "ExposeTransformsPrefix" : "Bone_",
       "Name" : "Body",
       "PreciseCollisions" : true,
       "ProcessEvents" : true,
@@ -20,7 +21,7 @@
       "$Children" : [
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "Head",
+          "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "Z" : 1.0000000000000000E+000
@@ -37,7 +38,7 @@
               "ExposeTransforms" : [
                 "eye.C"
               ],
-              "Name" : "SceneHead",
+              "Name" : "Head",
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -101,7 +102,7 @@
               "DefaultAnimationTransition" : 1.5000000596046448E-001,
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHair",
+              "Name" : "Hair",
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -174,7 +175,7 @@
         },
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "ForeArmTwist2_R",
+          "Name" : "Bone_ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "W" : 2.6542222499847412E+000,
@@ -214,7 +215,7 @@
         },
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "ForeArmTwist2_L",
+          "Name" : "Bone_ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "W" : 3.6289632320404053E+000,

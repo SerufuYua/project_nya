@@ -15,6 +15,7 @@
         "Head",
         "Penis.004"
       ],
+      "ExposeTransformsPrefix" : "Bone_",
       "Name" : "Body",
       "PreciseCollisions" : true,
       "ProcessEvents" : true,
@@ -25,13 +26,13 @@
       "$Children" : [
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "Head",
+          "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.9770586490631104E+000,
-            "X" : 6.7735368013381958E-001,
-            "Y" : 6.1923229694366455E-001,
-            "Z" : -3.9716935157775879E-001
+            "W" : 4.0136113166809082E+000,
+            "X" : 7.0859247446060181E-001,
+            "Y" : 6.2343043088912964E-001,
+            "Z" : -3.3050116896629333E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
@@ -41,9 +42,9 @@
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 5.3405423164367676E+000,
-            "Y" : 6.4056544303894043E+000,
-            "Z" : -1.4038114547729492E+001
+            "X" : 5.4863572120666504E+000,
+            "Y" : 6.4405112266540527E+000,
+            "Z" : -1.3947214126586914E+001
           },
           "$Children" : [
             {
@@ -51,7 +52,7 @@
               "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHead",
+              "Name" : "Head",
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -66,7 +67,7 @@
               "$$ClassName" : "TCastleScene",
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHair",
+              "Name" : "Hair",
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
               },
@@ -138,25 +139,24 @@
         },
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "Penis_004",
+          "Name" : "Bone_Penis_004",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.0633625984191895E+000,
-            "X" : -6.7196577787399292E-001,
-            "Y" : 4.8614683747291565E-001,
-            "Z" : -5.5867987871170044E-001
+            "W" : 2.0846366882324219E+000,
+            "X" : -6.3410979509353638E-001,
+            "Y" : 5.0483345985412598E-001,
+            "Z" : -5.8570283651351929E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 9.9999958276748657E-001,
-            "Y" : 9.9999970197677612E-001,
-            "Z" : 9.9999964237213135E-001
+            "Y" : 9.9999970197677612E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -1.9512484073638916E+000,
-            "Y" : 5.6272201538085938E+000,
-            "Z" : 6.1999344825744629E-001
+            "X" : -2.5385971069335938E+000,
+            "Y" : 6.0960755348205566E+000,
+            "Z" : 7.2046828269958496E-001
           },
           "$Children" : [
             {

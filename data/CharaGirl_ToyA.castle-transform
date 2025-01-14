@@ -11,6 +11,7 @@
         "ForeArmTwist2.R",
         "Vagina_In.F"
       ],
+      "ExposeTransformsPrefix" : "Bone_",
       "Name" : "Body",
       "PreciseCollisions" : true,
       "ProcessEvents" : true,
@@ -21,25 +22,25 @@
       "$Children" : [
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "Head",
+          "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.0585563182830811E+000,
-            "X" : 9.9999797344207764E-001,
-            "Y" : 1.6983984096441418E-005,
-            "Z" : 1.9982517696917057E-003
+            "W" : 1.0641397237777710E+000,
+            "X" : 9.9999928474426270E-001,
+            "Y" : 1.3366977509576827E-004,
+            "Z" : 1.2309477897360921E-003
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 9.4999986886978149E-001,
-            "Y" : 9.5000040531158447E-001,
+            "Y" : 9.5000046491622925E-001,
             "Z" : 9.4999969005584717E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -2.7516013011336327E-002,
-            "Y" : 3.2654571533203125E+001,
-            "Z" : -2.6391577720642090E+000
+            "X" : -2.0198356360197067E-002,
+            "Y" : 3.2883113861083984E+001,
+            "Z" : -2.5947620868682861E+000
           },
           "$Children" : [
             {
@@ -47,7 +48,7 @@
               "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHead",
+              "Name" : "Head",
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -62,7 +63,7 @@
               "$$ClassName" : "TCastleScene",
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHair",
+              "Name" : "Hair",
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
               },
@@ -134,25 +135,25 @@
         },
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "ForeArmTwist2_R",
+          "Name" : "Bone_ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.9493889808654785E+000,
-            "X" : 6.2881809473037720E-001,
-            "Y" : 1.1194258183240891E-001,
-            "Z" : 7.6945215463638306E-001
+            "W" : 2.9494199752807617E+000,
+            "X" : 6.2770467996597290E-001,
+            "Y" : 9.8879680037498474E-002,
+            "Z" : 7.7214616537094116E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999970197677612E-001,
-            "Y" : 1.0000001192092896E+000,
+            "X" : 9.9999994039535522E-001,
+            "Y" : 1.0000003576278687E+000,
             "Z" : 1.0000002384185791E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -1.1000366210937500E+001,
-            "Y" : 2.0889631271362305E+001,
-            "Z" : -7.3132128715515137E+000
+            "X" : -1.0931992530822754E+001,
+            "Y" : 2.0872509002685547E+001,
+            "Z" : -7.3249921798706055E+000
           },
           "$Children" : [
             {
@@ -180,25 +181,25 @@
         },
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "ForeArmTwist2_L",
+          "Name" : "Bone_ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.3405911922454834E+000,
-            "X" : -6.2855035066604614E-001,
-            "Y" : 1.0986951738595963E-001,
-            "Z" : 7.6996958255767822E-001
+            "W" : 3.3383340835571289E+000,
+            "X" : -6.2745332717895508E-001,
+            "Y" : 9.7244359552860260E-002,
+            "Z" : 7.7255803346633911E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0000005960464478E+000,
+            "X" : 1.0000004768371582E+000,
             "Y" : 1.0000004768371582E+000,
-            "Z" : 1.0000005960464478E+000
+            "Z" : 1.0000004768371582E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0968663215637207E+001,
-            "Y" : 2.0888315200805664E+001,
-            "Z" : -7.3160028457641602E+000
+            "X" : 1.0909299850463867E+001,
+            "Y" : 2.0871593475341797E+001,
+            "Z" : -7.3260211944580078E+000
           },
           "$Children" : [
             {
@@ -226,24 +227,25 @@
         },
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "Vagina_In_F",
+          "Name" : "Bone_Vagina_In_F",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.5450117588043213E+000,
-            "X" : 9.9994313716888428E-001,
-            "Y" : -1.0388424620032310E-002,
-            "Z" : 2.4160270113497972E-003
+            "W" : 2.5710182189941406E+000,
+            "X" : 9.9997687339782715E-001,
+            "Y" : -6.6029625013470650E-003,
+            "Z" : 1.6327621415257454E-003
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 1.0000001192092896E+000,
-            "Y" : 9.9999958276748657E-001
+            "Y" : 9.9999958276748657E-001,
+            "Z" : 9.9999994039535522E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -2.2096784785389900E-002,
-            "Y" : 1.6739831924438477E+001,
-            "Z" : -6.1750817298889160E+000
+            "X" : -1.4894463121891022E-002,
+            "Y" : 1.6733257293701172E+001,
+            "Z" : -6.1971173286437988E+000
           },
           "$Children" : [
             {

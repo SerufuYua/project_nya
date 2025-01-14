@@ -14,6 +14,7 @@
       "ExposeTransforms" : [
         "Head"
       ],
+      "ExposeTransformsPrefix" : "Bone_",
       "Name" : "Body",
       "PreciseCollisions" : true,
       "ProcessEvents" : true,
@@ -24,25 +25,25 @@
       "$Children" : [
         {
           "$$ClassName" : "TCastleTransform",
-          "Name" : "Head",
+          "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 6.8899619579315186E-001,
-            "X" : 3.6532461643218994E-001,
-            "Y" : -7.4902701377868652E-001,
-            "Z" : 5.5271732807159424E-001
+            "W" : 6.8081694841384888E-001,
+            "X" : 3.7794184684753418E-001,
+            "Y" : -7.5535047054290771E-001,
+            "Z" : 5.3535574674606323E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0999997854232788E+000,
-            "Y" : 1.0999995470046997E+000,
+            "X" : 1.0999996662139893E+000,
+            "Y" : 1.0999996662139893E+000,
             "Z" : 1.0999995470046997E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -2.7774913311004639E+000,
-            "Y" : 3.8120944976806641E+001,
-            "Z" : 2.0942239761352539E+000
+            "X" : -2.7540850639343262E+000,
+            "Y" : 3.8174743652343750E+001,
+            "Z" : 2.1007359027862549E+000
           },
           "$Children" : [
             {
@@ -50,7 +51,7 @@
               "AutoAnimation" : "GAME.TOGETHER.INTRO.WAITING",
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHead",
+              "Name" : "Head",
               "ProcessEvents" : true,
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -65,7 +66,7 @@
               "$$ClassName" : "TCastleScene",
               "ExposeTransforms" : [
               ],
-              "Name" : "SceneHair",
+              "Name" : "Hair",
               "RenderOptions" : {
                 "$$ClassName" : "TCastleScene.TSceneRenderOptions"
               },
