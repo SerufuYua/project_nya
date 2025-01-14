@@ -85,7 +85,7 @@ begin
       FGetToGo:= ViewPlaySolo;
     end;}
   else
-    Notifications.Show('There is nothing to use');
+    Notifications.Show('There is nothing to do');
   end;
 end;
 

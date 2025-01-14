@@ -127,8 +127,6 @@ begin
   Result := inherited;
   if Result then Exit; // allow the ancestor to handle keys
 
-  Notifications.Show(Event.ToString);
-
   { enable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
   begin
