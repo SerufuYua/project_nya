@@ -1,0 +1,45 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+DEF PDA Transform
+{
+  children
+  [
+    Inline { url "pda_body.gltf" }
+
+    DEF PDA_lid Transform
+    {
+      translation 0 0.308748 -1.52659
+      rotation 1 0 0 -1.9
+      children [
+        Inline { url "pda_lid.gltf" }
+
+        DEF PDA_screen Transform
+        {
+          translation 0 -0.137221 1.68096
+          scale 2.36114 1.2363 1
+          rotation 1 0 0 1.5707963267948966192313216916398
+          children Shape
+          {
+            appearance Appearance
+            {
+              material Material { }
+              shaders CommonSurfaceShader
+              {
+                multiDiffuseAlphaTexture
+                  MovieTexture
+                  {
+                    url "screen@counter(4).png"
+                    loop TRUE
+                    speed 0.075
+                  }
+                specularFactor 0 0 0
+              }
+            }
+            geometry Plane { }
+          }
+        }
+      ]
+    }
+  ]
+}
