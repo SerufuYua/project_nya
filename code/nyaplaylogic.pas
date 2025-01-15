@@ -5,7 +5,7 @@ unit NyaPlayLogic;
 interface
 
 uses
-  Classes, SysUtils, CastleSceneCore, CastleColors,
+  Classes, SysUtils, CastleSceneCore, CastleColors, CastleTimeUtils,
   X3DNodes, NyaFadeEffect, NyaActor, NyaActorChara;
 
 type
@@ -48,6 +48,7 @@ type
     procedure SetTension(const value: Single);
     procedure SetSpeed(const value: Single);
     function DetermineAnimationsPrefix: String;
+    procedure Fade(duration: TFloatTime = 0.5);
   public
     const
       DefaultSpeed = 1.0;
@@ -210,6 +211,12 @@ begin
   end;
 end;
 
+procedure TNyaPlayLogic.Fade(duration: TFloatTime = 0.5);
+begin
+  if Assigned(FScreenFader) then
+    FScreenFader.Fade(duration);
+end;
+
 procedure TNyaPlayLogic.Stop;
 var
   actor: TNyaActor;
@@ -304,7 +311,7 @@ begin
     AnimationParams.Loop:= True;
     AnimationParams.Forward:= True;
     AnimationParams.TransitionDuration:= 0.0;
-    FScreenFader.Fade(0.75);
+    Fade(0.75);
     PlayAnimation(AnimationParams, False, True);
   finally
     FreeAndNil(AnimationParams)
@@ -324,7 +331,7 @@ begin
     AnimationParams.Loop:= False;
     AnimationParams.Forward:= True;
     AnimationParams.TransitionDuration:= 0.0;
-    FScreenFader.Fade(0.25);
+    Fade(0.25);
     PlayAnimation(AnimationParams, False, True);
   finally
     FreeAndNil(AnimationParams)
@@ -401,7 +408,7 @@ begin
     AnimationParams.Loop:= True;
     AnimationParams.Forward:= True;
     AnimationParams.TransitionDuration:= 0.0;
-    FScreenFader.Fade(0.6);
+    Fade(0.6);
     PlayAnimation(AnimationParams, True, True);
   finally
     FreeAndNil(AnimationParams)
