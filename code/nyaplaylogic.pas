@@ -243,7 +243,8 @@ begin
     AnimationParams.StopNotification:= nil;
     AnimationParams.Loop:= loop;
     PlayAnimation(AnimationParams, bottomDress, footDress);
-  finally FreeAndNil(AnimationParams)
+  finally
+    FreeAndNil(AnimationParams)
   end;
 end;
 
@@ -272,7 +273,7 @@ begin
     end;
   end;
 
-  { animate charas/actors }
+  { animate actors }
   noEventParam:= TPlayAnimationParameters.Create;
   noEventParam.Name:= Parameters.Name;
   noEventParam.Loop:= Parameters.Loop;
@@ -293,10 +294,23 @@ begin
 end;
 
 procedure TNyaPlayLogic.ActionIdle;
+var
+  AnimationParams: TPlayAnimationParameters;
 begin
+  AnimationParams:= TPlayAnimationParameters.Create;
+  try
+    AnimationParams.Name:= FAnimationsPrefix + SuffixWait;
+    AnimationParams.StopNotification:= nil;
+    AnimationParams.Loop:= True;
+    AnimationParams.Forward:= True;
+    AnimationParams.TransitionDuration:= 0.0;
+    FScreenFader.Fade(0.75);
+    PlayAnimation(AnimationParams, False, True);
+  finally
+    FreeAndNil(AnimationParams)
+  end;
+
   FStatus:= TActorStatus.Wait;
-  FScreenFader.Fade(0.75);
-  PlayAnimation(FAnimationsPrefix + SuffixWait, True, True, False);
 end;
 
 procedure TNyaPlayLogic.ActionStart;
@@ -308,25 +322,53 @@ begin
     AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixStart;
     AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}DoActionStartEnded;
     AnimationParams.Loop:= False;
-    FStatus:= TActorStatus.Start;
+    AnimationParams.Forward:= True;
+    AnimationParams.TransitionDuration:= 0.0;
     FScreenFader.Fade(0.25);
     PlayAnimation(AnimationParams, False, True);
-  finally FreeAndNil(AnimationParams)
+  finally
+    FreeAndNil(AnimationParams)
   end;
+
+  FStatus:= TActorStatus.Start;
 end;
 
 procedure TNyaPlayLogic.ActionGo;
+var
+  AnimationParams: TPlayAnimationParameters;
 begin
+  AnimationParams:= TPlayAnimationParameters.Create;
+  try
+    AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixGO;
+    AnimationParams.StopNotification:= nil;
+    AnimationParams.Loop:= True;
+    AnimationParams.Forward:= True;
+    AnimationParams.TransitionDuration:= 1.0;
+    PlayAnimation(AnimationParams, True, True);
+  finally
+    FreeAndNil(AnimationParams)
+  end;
+
   FStatus:= TActorStatus.Go;
-  FScreenFader.Fade(0.25);
-  PlayAnimation(FAnimationsPrefix + FActionNum + SuffixGO, True, True, True);
 end;
 
 procedure TNyaPlayLogic.ActionFastGo;
+var
+  AnimationParams: TPlayAnimationParameters;
 begin
+  AnimationParams:= TPlayAnimationParameters.Create;
+  try
+    AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixFastGO;
+    AnimationParams.StopNotification:= nil;
+    AnimationParams.Loop:= True;
+    AnimationParams.Forward:= True;
+    AnimationParams.TransitionDuration:= 1.0;
+    PlayAnimation(AnimationParams, True, True);
+  finally
+    FreeAndNil(AnimationParams)
+  end;
+
   FStatus:= TActorStatus.FastGo;
-  FScreenFader.Fade(0.5);
-  PlayAnimation(FAnimationsPrefix + FActionNum + SuffixFastGO, True, True, True);
 end;
 
 procedure TNyaPlayLogic.ActionFinish;
@@ -338,19 +380,35 @@ begin
     AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixFinish;
     AnimationParams.StopNotification:= {$ifdef FPC}@{$endif}DoActionFinishEnded;
     AnimationParams.Loop:= False;
-    FStatus:= TActorStatus.Finish;
-    FScreenFader.Fade(0.25);
+    AnimationParams.Forward:= True;
+    AnimationParams.TransitionDuration:= 0.1;
     PlayAnimation(AnimationParams, True, True);
-  finally FreeAndNil(AnimationParams)
+  finally
+    FreeAndNil(AnimationParams)
   end;
+
+  FStatus:= TActorStatus.Finish;
 end;
 
 procedure TNyaPlayLogic.ActionRelax;
+var
+  AnimationParams: TPlayAnimationParameters;
 begin
+  AnimationParams:= TPlayAnimationParameters.Create;
+  try
+    AnimationParams.Name:= FAnimationsPrefix + FActionNum + SuffixRelax;
+    AnimationParams.StopNotification:= nil;
+    AnimationParams.Loop:= True;
+    AnimationParams.Forward:= True;
+    AnimationParams.TransitionDuration:= 0.0;
+    FScreenFader.Fade(0.6);
+    PlayAnimation(AnimationParams, True, True);
+  finally
+    FreeAndNil(AnimationParams)
+  end;
+
   FStatus:= TActorStatus.Relax;
-  FScreenFader.Fade(0.6);
   Pleasure:= Pleasure - 0.5 * Tension;
-  PlayAnimation(FAnimationsPrefix + FActionNum + SuffixRelax, True, True, True);
 end;
 
 procedure TNyaPlayLogic.DoActionStartEnded(const Scene: TCastleSceneCore;
