@@ -65,7 +65,6 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure PlayAnimation(const animationName: String; loop: boolean = true); virtual;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual;
     procedure StopAnimation(const disableStopNotification: Boolean = False);
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -135,15 +134,6 @@ begin
   FreeAndNil(FPersonalColorPersistent);
   FreeAndNil(FAnimationsList);
   inherited;
-end;
-
-procedure TNyaActor.PlayAnimation(const animationName: String;
-                                  loop: boolean = true);
-var
-  scene: TCastleScene;
-begin
-  for scene in FAnimatedScenes do
-    scene.PlayAnimation(animationName, loop);
 end;
 
 procedure TNyaActor.PlayAnimation(const Parameters: TPlayAnimationParameters);
