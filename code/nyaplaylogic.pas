@@ -292,7 +292,7 @@ begin
     AnimationParams.Forward:= True;
     AnimationParams.TransitionDuration:= 0.0;
     Fade(0.75);
-    PlayAnimation(AnimationParams, True, False);
+    PlayAnimation(AnimationParams, False, False);
   finally
     FreeAndNil(AnimationParams)
   end;
