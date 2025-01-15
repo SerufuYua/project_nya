@@ -20,7 +20,6 @@ type
       DefaultUseRailing = False;
 
     constructor Create(AOwner: TComponent); override;
-    procedure PlayAnimation(const animationName: String; loop: boolean = true); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
@@ -56,14 +55,6 @@ end;
 procedure TNyaActorToyA.ApplyAutoAnimation;
 begin
   UseRailing:= NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', FAutoAnimation);
-
-  inherited;
-end;
-
-procedure TNyaActorToyA.PlayAnimation(const animationName: String;
-                                      loop: boolean = true);
-begin
-  UseRailing:= NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', animationName);
 
   inherited;
 end;
