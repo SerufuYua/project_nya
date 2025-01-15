@@ -39,6 +39,13 @@ DEF PDA Transform
             geometry Plane { }
           }
         }
+
+        PointLight
+        {
+          location 0 -1 1.8
+          intensity 1
+          radius 6
+        }
       ]
     }
   ]
