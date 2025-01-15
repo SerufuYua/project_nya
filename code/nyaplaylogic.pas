@@ -28,8 +28,6 @@ type
     FActionCoeff: Single;
     FThresholdFastGo: Single;
     FThresholdFinish: Single;
-    procedure PlayAnimation(const animationName: String;
-                            loop, bottomDress: boolean; footDress: boolean);
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
                             bottomDress: boolean; footDress: boolean);
     procedure ActionIdle;   { Play Idle Animation.    IN Cycle }
@@ -235,23 +233,6 @@ begin
     TActorStatus.FastGo: ActionFinish;
     TActorStatus.Finish: ActionRelax;
     TActorStatus.Relax:  ActionIdle;
-  end;
-end;
-
-procedure TNyaPlayLogic.PlayAnimation(const animationName: String;
-                                      loop, bottomDress: boolean;
-                                      footDress: boolean);
-var
-  AnimationParams: TPlayAnimationParameters;
-begin
-  AnimationParams:= TPlayAnimationParameters.Create;
-  try
-    AnimationParams.Name:= animationName;
-    AnimationParams.StopNotification:= nil;
-    AnimationParams.Loop:= loop;
-    PlayAnimation(AnimationParams, bottomDress, footDress);
-  finally
-    FreeAndNil(AnimationParams)
   end;
 end;
 
