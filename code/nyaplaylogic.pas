@@ -29,7 +29,7 @@ type
     FThresholdFastGo: Single;
     FThresholdFinish: Single;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
-                            bottomDress: boolean; footDress: boolean);
+                            bottomDress, footDress: boolean);
     procedure ActionIdle;   { Play Idle Animation.    IN Cycle }
     procedure ActionStart;  { Play Start Animation.   NO Cycle }
     procedure ActionGo;     { Play Go Animation.      IN Cycle }
@@ -237,8 +237,7 @@ begin
 end;
 
 procedure TNyaPlayLogic.PlayAnimation(const Parameters: TPlayAnimationParameters;
-                                      bottomDress: boolean;
-                                      footDress: boolean);
+                                      bottomDress, footDress: boolean);
 var
   actor: TNyaActor;
   chara: TNyaActorChara;
@@ -293,7 +292,7 @@ begin
     AnimationParams.Forward:= True;
     AnimationParams.TransitionDuration:= 0.0;
     Fade(0.75);
-    PlayAnimation(AnimationParams, False, True);
+    PlayAnimation(AnimationParams, False, False);
   finally
     FreeAndNil(AnimationParams)
   end;
