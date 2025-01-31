@@ -47,7 +47,7 @@ type
       DefaultAnimationInactive  = 'inactive';
       DefaultAnimationTouched   = 'touched';
       DefaultAnimationActivated = 'activated';
-      DefaultDistance = 1;
+      DefaultDistance = 1.0;
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -137,7 +137,7 @@ begin
 
   SwitchBox:= Parent.BoundingBox;
 
-  if SwitchBox.Grow(20.0).Contains(Activator.Translation) then
+  if SwitchBox.Grow(Distance).Contains(Activator.Translation) then
     Result:= TSwitchStatus.touched
   else
     Result:= TSwitchStatus.inactive;

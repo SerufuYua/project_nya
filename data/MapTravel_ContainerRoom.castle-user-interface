@@ -156,7 +156,7 @@
                     "$$ClassName" : "TNyaFrontSwitch",
                     "ActionString" : "Play Together",
                     "Activator" : "CharaGirl",
-                    "Distance" : 1.0000000149011612E-001,
+                    "Distance" : 6.0000002384185791E-001,
                     "Indicator" : "BoyIndicator",
                     "Name" : "BoySwitch",
                     "VisibleAngle" : 4.5000000000000000E+001
@@ -225,7 +225,7 @@
                     "$$ClassName" : "TNyaFrontSwitch",
                     "ActionString" : "play in Bed",
                     "Activator" : "CharaGirl",
-                    "Distance" : 2.9999999329447746E-002,
+                    "Distance" : 6.0000002384185791E-001,
                     "Indicator" : "BedIndicator",
                     "Name" : "BedSwitch",
                     "VisibleAngle" : 9.0000000000000000E+001
@@ -395,7 +395,7 @@
                     "$$ClassName" : "TNyaSwitch",
                     "ActionString" : "go out",
                     "Activator" : "CharaGirl",
-                    "Distance" : 2.9999999329447746E-002,
+                    "Distance" : 6.0000002384185791E-001,
                     "Indicator" : "GoOutIndicator",
                     "Name" : "GoOutSwitch"
                   }
@@ -544,15 +544,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.2415416240692139E+000,
-          "X" : 5.2328463643789291E-003,
-          "Y" : 9.9152821302413940E-001,
-          "Z" : 1.2978610396385193E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Y" : 1.0000002384185791E+000
+          "W" : 3.8506042957305908E+000,
+          "X" : 5.2721165120601654E-002,
+          "Y" : 9.8807078599929810E-001,
+          "Z" : 1.4469452202320099E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
