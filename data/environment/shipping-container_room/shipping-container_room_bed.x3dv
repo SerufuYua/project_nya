@@ -18,10 +18,10 @@ PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
     location IS lightPos
     cutOffAngle 1.25
     direction 0 -1 0
-    intensity 5
+    intensity 8
     ambientIntensity 0.4
     color IS lightColor
-    radius 500
+    radius 15
     beamWidth 0.1
     shadows TRUE
     defaultShadowMap GeneratedShadowMap {
@@ -37,18 +37,16 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
   PointLight
   {
     location IS lightPos
-    intensity 0.005
+    intensity 1
+    color 1.0 0.7 0.4
     ambientIntensity 0.4
-    radius 500
+    radius 10
   }
 }
 
-#UpperLight { lightPos -60 75 60 lightColor 1.0 0.925 0.925 }
-UpperLight { lightPos -60 75 -60 lightColor 0.898 0.965 1.0 }
-#UpperLight { lightPos 60 75 60 lightColor 1.0 1.0 1.0 }
-UpperLight { lightPos 60 75 -60 lightColor 1.0 0.937 0.831 }
+#UpperLight { lightPos -1.749 2.2154  1.749 lightColor 1.0 0.767534 0.454086 }
+#UpperLight { lightPos -1.749 2.2154 -1.749 lightColor 1.0 0.700118 0.399844 }
+#UpperLight { lightPos  1.749 2.2154  1.749 lightColor 1.0 0.851488 0.568835 }
+UpperLight { lightPos  1.749 2.2154 -1.749 lightColor 1.0 0.737086 0.374506 }
 
-#BottomLight { lightPos -50 30 50 }
-BottomLight { lightPos -50 30 -50 }
-#BottomLight { lightPos 50 30 50 }
-BottomLight { lightPos 50 30 -50 }
+BottomLight { lightPos 0 0.1 0 }

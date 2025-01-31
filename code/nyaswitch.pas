@@ -47,7 +47,7 @@ type
       DefaultAnimationInactive  = 'inactive';
       DefaultAnimationTouched   = 'touched';
       DefaultAnimationActivated = 'activated';
-      DefaultDistance = 20;
+      DefaultDistance = 1;
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
