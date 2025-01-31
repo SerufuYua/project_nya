@@ -47,7 +47,7 @@ begin
     Window.Container.View:= ViewPlayGirl
   else if Application.hasOption('t', 'PlayTogether') then
     Window.Container.View:= ViewPlayTogether
-  else if Application.hasOption('r', 'Travel') then
+  else if Application.hasOption('h', 'Home') then
     Window.Container.View:= ViewTravel
   else
     Window.Container.View:= ViewMain;

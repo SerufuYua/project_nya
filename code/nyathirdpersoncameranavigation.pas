@@ -34,12 +34,12 @@ type
     function Zoom(const Factor: Single): Boolean; override;
   public
     const
-      DefaultAvatarTarget: TVector3 = (X: 0; Y: 20; Z: 0);
-      DefaultDistanceToAvatarTarget = 40.0;
-      DefaultDistanceToAvatarTargetMin = 10.0;
-      DefaultDistanceToAvatarTargetMax = 180.0;
+      DefaultAvatarTarget: TVector3 = (X: 0; Y: 1.0; Z: 0);
+      DefaultDistanceToAvatarTarget = 1.0;
+      DefaultDistanceToAvatarTargetMin = 0.5;
+      DefaultDistanceToAvatarTargetMax = 4.0;
       DefaultFollowSpeed = 10;
-      DefaultZoomStep = 5;
+      DefaultZoomStep = 0.1;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
