@@ -33,7 +33,7 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "Y" : -1.8000000000000000E+001
+              "Y" : -5.0000000000000000E-001
             },
             "Url" : "castle-data:/environment/map_test_control/map_test_control.gltf",
             "$Children" : [
@@ -44,15 +44,15 @@
                   "Blue" : 7.0980393886566162E-001,
                   "Green" : 9.1372549533843994E-001
                 },
-                "Intensity" : 1.0000000000000000E+005,
+                "Intensity" : 8.0000000000000000E+001,
                 "Name" : "PointLight1",
-                "Radius" : 4.0000000000000000E+003,
+                "Radius" : 1.5000000000000000E+001,
                 "Shadows" : true,
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -1.1444782257080078E+002,
-                  "Y" : 1.6172155761718750E+002,
-                  "Z" : -1.4398747253417969E+002
+                  "X" : -3.3361539840698242E+000,
+                  "Y" : 4.7141833305358887E+000,
+                  "Z" : -4.1972346305847168E+000
                 }
               },
               {
@@ -62,9 +62,9 @@
                   "Blue" : 0.0000000000000000E+000,
                   "Green" : 3.2549020648002625E-001
                 },
-                "Intensity" : 2.0000000000000000E+005,
+                "Intensity" : 8.0000000000000000E+001,
                 "Name" : "PointLight2",
-                "Radius" : 3.0000000000000000E+003,
+                "Radius" : 1.5000000000000000E+001,
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "Z" : 1.0000000000000000E+000
@@ -72,9 +72,9 @@
                 "Shadows" : true,
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 1.0000000000000000E+002,
-                  "Y" : 8.2704742431640625E+001,
-                  "Z" : 1.0000000000000000E+002
+                  "X" : 2.9149999618530273E+000,
+                  "Y" : 2.4108431339263916E+000,
+                  "Z" : 2.9149999618530273E+000
                 }
               }
             ],
@@ -86,6 +86,8 @@
               },
               {
                 "$$ClassName" : "TCastleRigidBody",
+                "Dynamic" : false,
+                "Gravity" : false,
                 "Name" : "RoomRigidBody"
               }
             ]
@@ -119,9 +121,9 @@
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 2.3333690643310547E+001,
-                  "Y" : 5.0000000000000000E+000,
-                  "Z" : 2.6359310150146484E+001
+                  "X" : 6.8017709255218506E-001,
+                  "Y" : 1.4575000107288361E-001,
+                  "Z" : 7.6837390661239624E-001
                 },
                 "Url" : "castle-data:/CharaGirl_common.castle-transform",
                 "$Behaviors" : [
@@ -132,13 +134,10 @@
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
-                    "Animated" : true,
                     "LockRotation" : [
                       0,
                       2
                     ],
-                    "MaxAngularVelocity" : 5.0000000000000000E+000,
-                    "MaxLinearVelocity" : 8.0000000000000000E+001,
                     "Name" : "RigidBodyChara"
                   }
                 ]
@@ -167,9 +166,9 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -6.5744293212890625E+001,
-              "Y" : 6.5733177185058594E+001,
-              "Z" : 8.4718429565429688E+001
+              "X" : -1.9164460897445679E+000,
+              "Y" : 1.9161221981048584E+000,
+              "Z" : 2.4695422649383545E+000
             }
           }
         ]
@@ -195,19 +194,18 @@
           "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "CharaGirl",
           "Name" : "CharaNavigation",
-          "SpeedOfRun" : 2.0000000000000000E+002,
-          "SpeedOfWalk" : 4.0000000000000000E+001,
-          "SpeedOfWalkAnimation" : 2.4000000000000000E+001
+          "SpeedOfJump" : 1.0000000149011612E-001,
+          "SpeedOfWalk" : 1.2000000476837158E+000,
+          "SpeedOfWalkAnimation" : 6.9999998807907104E-001
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",
           "AvatarHierarchy" : "CharaGirl",
           "AvatarTargetPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 4.5000000000000000E+001
+            "Y" : 1.2999999523162842E+000
           },
-          "DistanceToAvatarTarget" : 6.0000000000000000E+001,
-          "DistanceToAvatarTargetMin" : 2.0000000000000000E+001,
+          "DistanceToAvatarTarget" : 1.7500000000000000E+000,
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
           "Name" : "CameraNavigationFollow",
@@ -225,16 +223,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 5.4572302103042603E-001,
-          "X" : -2.8615367412567139E-001,
-          "Y" : -9.5467644929885864E-001,
-          "Z" : -8.1908777356147766E-002
+          "W" : 6.8119782209396362E-001,
+          "X" : -4.3318068981170654E-001,
+          "Y" : -8.9028829336166382E-001,
+          "Z" : -1.4050857722759247E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -1.4255323791503906E+002,
-          "Y" : 8.0678543090820312E+001,
-          "Z" : 2.0818565368652344E+002
+          "X" : -3.1499950885772705E+000,
+          "Y" : 2.4660668373107910E+000,
+          "Z" : 4.5652146339416504E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
