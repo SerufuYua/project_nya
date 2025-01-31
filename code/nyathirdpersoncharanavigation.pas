@@ -56,16 +56,15 @@ type
     function AnimationRunStored: Boolean;
   public
     const
-      DefaultGravityAlignSpeed = 20000;
+      DefaultGravityAlignSpeed = 10.0;
       DefaultTurnSpeed = 20.0;
-      DefaultWalkSpeed = 30.0;
-      DefaultWalkSpeedAnimation = 30.0;
-      DefaultRunSpeed = 100.0;
-      DefaultRunSpeedAnimation = 100.0;
-      DefaultJumpSpeed = 10000.0;
-      DefaultMoveInAirForce = 4.0;
-      DefaultGravityForce = 500.0;
-      DefaultJumpImpulse = 50.0;
+      DefaultWalkSpeed = 1.0;
+      DefaultWalkSpeedAnimation = 1.0;
+      DefaultRunSpeed = 3.0;
+      DefaultRunSpeedAnimation = 3.0;
+      DefaultJumpSpeed = 1.0;
+      DefaultMoveInAirForce = 1.0;
+      DefaultJumpImpulse = 1.0;
       DefaultAnimationStand = 'stand';
       DefaultAnimationWalk = 'walk';
       DefaultAnimationRun = 'run';
@@ -102,8 +101,6 @@ type
              {$ifdef FPC}default DefaultJumpSpeed{$endif};
     property ForceOfMoveInAir: Single read FMoveInAirForce write FMoveInAirForce
              {$ifdef FPC}default DefaultMoveInAirForce{$endif};
-    property ForceOfGravity: Single read FGravityForce write FGravityForce
-             {$ifdef FPC}default DefaultGravityForce{$endif};
     property ImpulseOfJump: Single read FJumpImpulse write FJumpImpulse
              {$ifdef FPC}default DefaultJumpImpulse{$endif};
 
@@ -172,7 +169,6 @@ begin
   FRunSpeedAnimation:= DefaultRunSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
   FMoveInAirForce:= DefaultMoveInAirForce;
-  FGravityForce:= DefaultGravityForce;
   FJumpImpulse:= DefaultJumpImpulse;
 
   FOnAnimation:= nil;
@@ -302,9 +298,6 @@ begin
     RBody.LinearVelocity:= RBody.LinearVelocity +
                            (AvatarHierarchy.Up + FLookTargetDir) * SpeedOfJump +
                            GravityVelocity;
-
-  { gravity }
-  RBody.AddForce(-Camera.GravityUp * ForceOfGravity, False);
 end;
 
 function TNyaThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;

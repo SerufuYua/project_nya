@@ -55,7 +55,6 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleMeshCollider",
-                    "Friction" : 1.0000000149011612E-001,
                     "Mesh" : "Collider",
                     "Name" : "MeshCollider"
                   },
@@ -157,7 +156,7 @@
                     "$$ClassName" : "TNyaFrontSwitch",
                     "ActionString" : "Play Together",
                     "Activator" : "CharaGirl",
-                    "Distance" : 6.0000002384185791E-001,
+                    "Distance" : 1.0000000149011612E-001,
                     "Indicator" : "BoyIndicator",
                     "Name" : "BoySwitch",
                     "VisibleAngle" : 4.5000000000000000E+001
@@ -441,7 +440,6 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleCapsuleCollider",
-                    "Mass" : 1.0000000000000000E+000,
                     "Name" : "ColliderChara"
                   },
                   {
@@ -451,8 +449,6 @@
                       0,
                       2
                     ],
-                    "MaxAngularVelocity" : 5.0000000000000000E+000,
-                    "MaxLinearVelocity" : 8.0000000000000000E+001,
                     "Name" : "RigidBodyChara"
                   }
                 ]
@@ -520,9 +516,8 @@
           "AnimationWalk" : "GAME.WALK.FORWARD",
           "AvatarHierarchy" : "CharaGirl",
           "Name" : "CharaNavigation",
-          "SpeedOfRun" : 2.0000000000000000E+002,
-          "SpeedOfWalk" : 4.0000000000000000E+001,
-          "SpeedOfWalkAnimation" : 2.4000000000000000E+001
+          "SpeedOfWalk" : 1.2000000476837158E+000,
+          "SpeedOfWalkAnimation" : 6.9999998807907104E-001
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",
@@ -532,13 +527,10 @@
             "Y" : 1.2999999523162842E+000
           },
           "DistanceToAvatarTarget" : 1.7500000000000000E+000,
-          "DistanceToAvatarTargetMax" : 4.0000000000000000E+000,
-          "DistanceToAvatarTargetMin" : 5.0000000000000000E-001,
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
           "Name" : "CameraNavigationFollow",
-          "ZoomEnabled" : true,
-          "ZoomStep" : 1.0000000149011612E-001
+          "ZoomEnabled" : true
         }
       ],
       "InternalDesignCamera" : {
@@ -552,20 +544,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.6302108764648438E+000,
-          "X" : -7.2960862889885902E-003,
-          "Y" : 9.9972277879714966E-001,
-          "Z" : 2.2391600534319878E-002
+          "W" : 3.2415416240692139E+000,
+          "X" : 5.2328463643789291E-003,
+          "Y" : 9.9152821302413940E-001,
+          "Z" : 1.2978610396385193E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 9.9999994039535522E-001
+          "X" : 9.9999994039535522E-001,
+          "Y" : 1.0000002384185791E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -3.6231622099876404E-002,
-          "Y" : 1.3744657039642334E+000,
-          "Z" : 8.2250192761421204E-002
+          "X" : -6.6809499263763428E-001,
+          "Y" : 1.8967268466949463E+000,
+          "Z" : -1.1350228786468506E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
