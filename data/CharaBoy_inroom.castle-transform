@@ -30,22 +30,22 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 4.5424431562423706E-001,
-            "X" : 9.1281753778457642E-001,
-            "Y" : 3.8161766529083252E-001,
-            "Z" : -1.4537051320075989E-001
+            "W" : 4.9810671806335449E-001,
+            "X" : 9.1589039564132690E-001,
+            "Y" : 3.7952989339828491E-001,
+            "Z" : -1.3077013194561005E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0999997854232788E+000,
-            "Y" : 1.1000000238418579E+000,
-            "Z" : 1.0999997854232788E+000
+            "X" : 1.1000001430511475E+000,
+            "Y" : 1.0999993085861206E+000,
+            "Z" : 1.1000006198883057E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -2.4351975917816162E+000,
-            "Y" : 3.7714256286621094E+001,
-            "Z" : 2.8360404968261719E+000
+            "X" : -7.1885868906974792E-002,
+            "Y" : 1.1032544374465942E+000,
+            "Z" : 1.1850997060537338E-001
           },
           "$Children" : [
             {
@@ -77,7 +77,7 @@
                 "$$ClassName" : "TCastleVector4RotationPersistent",
                 "Z" : 1.0000000000000000E+000
               },
-              "Url" : "castle-data:/chars/hair_boy/hair.gltf"
+              "Url" : "castle-data:/chars/hair_boy/hair_inroom.gltf"
             }
           ]
         },
@@ -86,22 +86,21 @@
           "Name" : "Bone_Hand_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.7068030834197998E+000,
-            "X" : -5.4110120981931686E-002,
-            "Y" : 5.8139413595199585E-001,
-            "Z" : 8.1182080507278442E-001
+            "W" : 3.7286958694458008E+000,
+            "X" : -2.0962820854038000E-003,
+            "Y" : 5.6401818990707397E-001,
+            "Z" : 8.2575988769531250E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0000001192092896E+000,
-            "Y" : 1.0000003576278687E+000,
-            "Z" : 9.9999976158142090E-001
+            "X" : 9.9999964237213135E-001,
+            "Z" : 9.9999940395355225E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -4.9142179489135742E+000,
-            "Y" : 3.1406877517700195E+001,
-            "Z" : 1.3865296363830566E+001
+            "X" : -1.5064345300197601E-001,
+            "Y" : 9.2210108041763306E-001,
+            "Z" : 4.1283705830574036E-001
           },
           "$Children" : [
             {
@@ -128,9 +127,9 @@
               },
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
-                "X" : -3.5648274421691895E+000,
-                "Y" : 3.5557854175567627E+000,
-                "Z" : -7.6326924562454224E-001
+                "X" : -1.0391479730606079E-001,
+                "Y" : 1.0365127772092819E-001,
+                "Z" : -2.2249320521950722E-002
               },
               "Url" : "castle-data:/furniture/pda/pda.x3dv"
             }

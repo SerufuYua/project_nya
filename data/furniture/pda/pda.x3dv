@@ -9,15 +9,15 @@ DEF PDA Transform
 
     DEF PDA_lid Transform
     {
-      translation 0 0.308748 -1.52659
+      translation 0 0.009 -0.0445
       rotation 1 0 0 -1.9
       children [
         Inline { url "pda_lid.gltf" }
 
         DEF PDA_screen Transform
         {
-          translation 0 -0.137221 1.68096
-          scale 2.36114 1.2363 1
+          translation 0 -0.004 0.049
+          scale 0.068827 0.036038 1
           rotation 1 0 0 1.5707963267948966192313216916398
           children Shape
           {
@@ -38,13 +38,6 @@ DEF PDA Transform
             }
             geometry Plane { }
           }
-        }
-
-        PointLight
-        {
-          location 0 -1 1.8
-          intensity 1
-          radius 6
         }
       ]
     }
