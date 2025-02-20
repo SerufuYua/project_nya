@@ -26,13 +26,42 @@
       "$Children" : [
         {
           "$$ClassName" : "TCastleScene",
+          "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.Idle",
           "ExposeTransforms" : [
+            "Control_Railing"
           ],
-          "Name" : "Railing",
+          "Name" : "Controller_Railing",
+          "ProcessEvents" : true,
           "RenderOptions" : {
             "$$ClassName" : "TCastleScene.TSceneRenderOptions"
           },
-          "Url" : "castle-data:/toys/railing/railing.gltf"
+          "Url" : "castle-data:/chars/controller_girl/controller_Railing.gltf",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleTransform",
+              "Name" : "Control_Railing",
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "Z" : 1.0000000000000000E+000
+              },
+              "$Children" : [
+                {
+                  "$$ClassName" : "TCastleScene",
+                  "ExposeTransforms" : [
+                  ],
+                  "Name" : "Railing",
+                  "RenderOptions" : {
+                    "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                  },
+                  "RotationPersistent" : {
+                    "$$ClassName" : "TCastleVector4RotationPersistent",
+                    "Z" : 1.0000000000000000E+000
+                  },
+                  "Url" : "castle-data:/toys/railing/railing.gltf"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

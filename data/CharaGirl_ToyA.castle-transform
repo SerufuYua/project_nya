@@ -25,10 +25,10 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.0819029808044434E+000,
-            "X" : 9.9999976158142090E-001,
-            "Y" : 2.0317685266491026E-004,
-            "Z" : 6.7657569888979197E-004
+            "W" : 1.0731797218322754E+000,
+            "X" : 9.9999767541885376E-001,
+            "Y" : 9.3912647571414709E-004,
+            "Z" : 1.9395699491724372E-003
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
@@ -38,9 +38,9 @@
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -3.8117711665108800E-004,
-            "Y" : 9.5740294456481934E-001,
-            "Z" : -5.9232164174318314E-002
+            "X" : -1.4308225363492966E-003,
+            "Y" : 9.4078880548477173E-001,
+            "Z" : -5.7944130152463913E-002
           },
           "$Children" : [
             {
@@ -140,22 +140,22 @@
           "Name" : "Bone_ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.9456954002380371E+000,
-            "X" : 6.2435626983642578E-001,
-            "Y" : 7.4167884886264801E-002,
-            "Z" : 7.7761059999465942E-001
+            "W" : 2.9508032798767090E+000,
+            "X" : 6.2730759382247925E-001,
+            "Y" : 1.0405105352401733E-001,
+            "Z" : 7.7178919315338135E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0000007152557373E+000,
+            "X" : 1.0000004768371582E+000,
             "Y" : 1.0000004768371582E+000,
-            "Z" : 1.0000002384185791E+000
+            "Z" : 1.0000001192092896E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -3.1455099582672119E-001,
-            "Y" : 6.0775721073150635E-001,
-            "Z" : -2.1272324025630951E-001
+            "X" : -3.1957301497459412E-001,
+            "Y" : 6.0952872037887573E-001,
+            "Z" : -2.1156263351440430E-001
           },
           "$Children" : [
             {
@@ -186,22 +186,22 @@
           "Name" : "Bone_ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.3390781879425049E+000,
-            "X" : -6.2406176328659058E-001,
-            "Y" : 7.2991803288459778E-002,
-            "Z" : 7.7795833349227905E-001
+            "W" : 3.3403425216674805E+000,
+            "X" : -6.2639904022216797E-001,
+            "Y" : 9.8580554127693176E-002,
+            "Z" : 7.7324396371841431E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999916553497314E-001,
-            "Y" : 9.9999928474426270E-001,
-            "Z" : 9.9999821186065674E-001
+            "X" : 9.9999910593032837E-001,
+            "Y" : 9.9999940395355225E-001,
+            "Z" : 9.9999839067459106E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 3.1422632932662964E-001,
-            "Y" : 6.0776269435882568E-001,
-            "Z" : -2.1260999143123627E-001
+            "X" : 3.1797498464584351E-001,
+            "Y" : 6.0954809188842773E-001,
+            "Z" : -2.1119277179241180E-001
           },
           "$Children" : [
             {
@@ -232,22 +232,22 @@
           "Name" : "Bone_Vagina_In_F",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.6688296794891357E+000,
-            "X" : 9.9999642372131348E-001,
-            "Y" : -2.5601326487958431E-003,
-            "Z" : 7.1491388371214271E-004
+            "W" : 2.6050503253936768E+000,
+            "X" : 9.9986940622329712E-001,
+            "Y" : -1.5609684400260448E-002,
+            "Z" : 4.1777482256293297E-003
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 9.9999988079071045E-001,
             "Y" : 9.9999910593032837E-001,
-            "Z" : 9.9999994039535522E-001
+            "Z" : 9.9999982118606567E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -1.9701199198607355E-004,
-            "Y" : 4.8322522640228271E-001,
-            "Z" : -1.8176956474781036E-001
+            "X" : -1.0969046270474792E-003,
+            "Y" : 4.8388442397117615E-001,
+            "Z" : -1.7998875677585602E-001
           },
           "$Children" : [
             {
@@ -406,7 +406,6 @@
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
       },
       "Url" : "castle-data:/chars/controller_girl/controller_ToyA.gltf",
-      "Visible" : false,
       "$Children" : [
         {
           "$$ClassName" : "TCastleTransform",

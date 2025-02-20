@@ -15,7 +15,7 @@
 	],
 	"nodes":[
 		{
-			"name":"Control_Jizz"
+			"name":"Control_Railing"
 		}
 	],
 	"animations":[
@@ -89,19 +89,19 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A1.Go",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":4
-				},
-				{
-					"input":0,
+					"input":4,
 					"interpolation":"STEP",
 					"output":5
 				},
 				{
-					"input":0,
+					"input":4,
 					"interpolation":"STEP",
 					"output":6
+				},
+				{
+					"input":4,
+					"interpolation":"STEP",
+					"output":7
 				}
 			]
 		},
@@ -132,19 +132,19 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A1.FastGo",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":7
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":8
-				},
-				{
-					"input":0,
+					"input":8,
 					"interpolation":"STEP",
 					"output":9
+				},
+				{
+					"input":8,
+					"interpolation":"STEP",
+					"output":10
+				},
+				{
+					"input":8,
+					"interpolation":"STEP",
+					"output":11
 				}
 			]
 		},
@@ -175,11 +175,6 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A1.Finish",
 			"samplers":[
 				{
-					"input":10,
-					"interpolation":"LINEAR",
-					"output":11
-				},
-				{
 					"input":12,
 					"interpolation":"STEP",
 					"output":13
@@ -188,6 +183,11 @@
 					"input":12,
 					"interpolation":"STEP",
 					"output":14
+				},
+				{
+					"input":12,
+					"interpolation":"STEP",
+					"output":15
 				}
 			]
 		},
@@ -220,17 +220,17 @@
 				{
 					"input":0,
 					"interpolation":"STEP",
-					"output":15
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
 					"output":16
 				},
 				{
 					"input":0,
 					"interpolation":"STEP",
 					"output":17
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":18
 				}
 			]
 		},
@@ -261,19 +261,19 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A2.Start",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":18
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":19
-				},
-				{
-					"input":0,
+					"input":19,
 					"interpolation":"STEP",
 					"output":20
+				},
+				{
+					"input":19,
+					"interpolation":"STEP",
+					"output":21
+				},
+				{
+					"input":19,
+					"interpolation":"STEP",
+					"output":22
 				}
 			]
 		},
@@ -304,19 +304,19 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A2.Go",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":21
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":22
-				},
-				{
-					"input":0,
+					"input":4,
 					"interpolation":"STEP",
 					"output":23
+				},
+				{
+					"input":4,
+					"interpolation":"STEP",
+					"output":24
+				},
+				{
+					"input":4,
+					"interpolation":"STEP",
+					"output":25
 				}
 			]
 		},
@@ -344,22 +344,22 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A2.FastGo.Body",
+			"name":"GAME.GIRL_TOYA.PLAY.A2.FastGo",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":24
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":25
-				},
-				{
-					"input":0,
+					"input":8,
 					"interpolation":"STEP",
 					"output":26
+				},
+				{
+					"input":8,
+					"interpolation":"STEP",
+					"output":27
+				},
+				{
+					"input":8,
+					"interpolation":"STEP",
+					"output":28
 				}
 			]
 		},
@@ -390,11 +390,6 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A2.Finish",
 			"samplers":[
 				{
-					"input":27,
-					"interpolation":"LINEAR",
-					"output":28
-				},
-				{
 					"input":29,
 					"interpolation":"STEP",
 					"output":30
@@ -403,6 +398,11 @@
 					"input":29,
 					"interpolation":"STEP",
 					"output":31
+				},
+				{
+					"input":29,
+					"interpolation":"STEP",
+					"output":32
 				}
 			]
 		},
@@ -433,19 +433,19 @@
 			"name":"GAME.GIRL_TOYA.PLAY.A2.Relax",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":32
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":33
-				},
-				{
-					"input":0,
+					"input":33,
 					"interpolation":"STEP",
 					"output":34
+				},
+				{
+					"input":33,
+					"interpolation":"STEP",
+					"output":35
+				},
+				{
+					"input":33,
+					"interpolation":"STEP",
+					"output":36
 				}
 			]
 		},
@@ -476,19 +476,19 @@
 			"name":"GAME.GIRL_TOYA.PLAY.Idle",
 			"samplers":[
 				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":35
-				},
-				{
-					"input":0,
-					"interpolation":"STEP",
-					"output":36
-				},
-				{
-					"input":0,
+					"input":33,
 					"interpolation":"STEP",
 					"output":37
+				},
+				{
+					"input":33,
+					"interpolation":"STEP",
+					"output":38
+				},
+				{
+					"input":33,
+					"interpolation":"STEP",
+					"output":39
 				}
 			]
 		}
@@ -499,7 +499,7 @@
 			"componentType":5126,
 			"count":2,
 			"max":[
-				0.8333333333333334
+				3.375
 			],
 			"min":[
 				0.041666666666666664
@@ -528,19 +528,25 @@
 			"bufferView":4,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"max":[
+				1.7083333333333333
+			],
+			"min":[
+				0.041666666666666664
+			],
+			"type":"SCALAR"
 		},
 		{
 			"bufferView":5,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":7,
@@ -552,7 +558,13 @@
 			"bufferView":8,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"max":[
+				0.6666666666666666
+			],
+			"min":[
+				0.041666666666666664
+			],
+			"type":"SCALAR"
 		},
 		{
 			"bufferView":9,
@@ -563,19 +575,13 @@
 		{
 			"bufferView":10,
 			"componentType":5126,
-			"count":101,
-			"max":[
-				4.208333333333333
-			],
-			"min":[
-				0.041666666666666664
-			],
-			"type":"SCALAR"
+			"count":2,
+			"type":"VEC4"
 		},
 		{
 			"bufferView":11,
 			"componentType":5126,
-			"count":101,
+			"count":2,
 			"type":"VEC3"
 		},
 		{
@@ -594,13 +600,13 @@
 			"bufferView":13,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":14,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":15,
@@ -612,13 +618,13 @@
 			"bufferView":16,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":17,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":18,
@@ -630,7 +636,13 @@
 			"bufferView":19,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"max":[
+				5.458333333333333
+			],
+			"min":[
+				0.041666666666666664
+			],
+			"type":"SCALAR"
 		},
 		{
 			"bufferView":20,
@@ -642,13 +654,13 @@
 			"bufferView":21,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":22,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":23,
@@ -660,13 +672,13 @@
 			"bufferView":24,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":25,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":26,
@@ -677,19 +689,13 @@
 		{
 			"bufferView":27,
 			"componentType":5126,
-			"count":121,
-			"max":[
-				5.041666666666667
-			],
-			"min":[
-				0.041666666666666664
-			],
-			"type":"SCALAR"
+			"count":2,
+			"type":"VEC4"
 		},
 		{
 			"bufferView":28,
 			"componentType":5126,
-			"count":121,
+			"count":2,
 			"type":"VEC3"
 		},
 		{
@@ -697,7 +703,7 @@
 			"componentType":5126,
 			"count":2,
 			"max":[
-				5.041666666666667
+				5.25
 			],
 			"min":[
 				0.041666666666666664
@@ -708,13 +714,13 @@
 			"bufferView":30,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":31,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":32,
@@ -726,7 +732,13 @@
 			"bufferView":33,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"max":[
+				2.5416666666666665
+			],
+			"min":[
+				0.041666666666666664
+			],
+			"type":"SCALAR"
 		},
 		{
 			"bufferView":34,
@@ -738,16 +750,28 @@
 			"bufferView":35,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC3"
+			"type":"VEC4"
 		},
 		{
 			"bufferView":36,
 			"componentType":5126,
 			"count":2,
-			"type":"VEC4"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":37,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":38,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":39,
 			"componentType":5126,
 			"count":2,
 			"type":"VEC3"
@@ -776,179 +800,189 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":24,
+			"byteLength":8,
 			"byteOffset":88
 		},
 		{
 			"buffer":0,
-			"byteLength":32,
-			"byteOffset":112
-		},
-		{
-			"buffer":0,
 			"byteLength":24,
-			"byteOffset":144
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":168
+			"byteOffset":96
 		},
 		{
 			"buffer":0,
 			"byteLength":32,
-			"byteOffset":192
+			"byteOffset":120
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":224
-		},
-		{
-			"buffer":0,
-			"byteLength":404,
-			"byteOffset":248
-		},
-		{
-			"buffer":0,
-			"byteLength":1212,
-			"byteOffset":652
+			"byteOffset":152
 		},
 		{
 			"buffer":0,
 			"byteLength":8,
-			"byteOffset":1864
+			"byteOffset":176
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":184
 		},
 		{
 			"buffer":0,
 			"byteLength":32,
-			"byteOffset":1872
+			"byteOffset":208
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":1904
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":1928
-		},
-		{
-			"buffer":0,
-			"byteLength":32,
-			"byteOffset":1952
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":1984
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":2008
-		},
-		{
-			"buffer":0,
-			"byteLength":32,
-			"byteOffset":2032
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":2064
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":2088
-		},
-		{
-			"buffer":0,
-			"byteLength":32,
-			"byteOffset":2112
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":2144
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":2168
-		},
-		{
-			"buffer":0,
-			"byteLength":32,
-			"byteOffset":2192
-		},
-		{
-			"buffer":0,
-			"byteLength":24,
-			"byteOffset":2224
-		},
-		{
-			"buffer":0,
-			"byteLength":484,
-			"byteOffset":2248
-		},
-		{
-			"buffer":0,
-			"byteLength":1452,
-			"byteOffset":2732
+			"byteOffset":240
 		},
 		{
 			"buffer":0,
 			"byteLength":8,
-			"byteOffset":4184
+			"byteOffset":264
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":272
 		},
 		{
 			"buffer":0,
 			"byteLength":32,
-			"byteOffset":4192
+			"byteOffset":296
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":4224
+			"byteOffset":328
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":4248
+			"byteOffset":352
 		},
 		{
 			"buffer":0,
 			"byteLength":32,
-			"byteOffset":4272
+			"byteOffset":376
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":4304
+			"byteOffset":408
+		},
+		{
+			"buffer":0,
+			"byteLength":8,
+			"byteOffset":432
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":4328
+			"byteOffset":440
 		},
 		{
 			"buffer":0,
 			"byteLength":32,
-			"byteOffset":4352
+			"byteOffset":464
 		},
 		{
 			"buffer":0,
 			"byteLength":24,
-			"byteOffset":4384
+			"byteOffset":496
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":520
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":544
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":576
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":600
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":624
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":656
+		},
+		{
+			"buffer":0,
+			"byteLength":8,
+			"byteOffset":680
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":688
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":712
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":744
+		},
+		{
+			"buffer":0,
+			"byteLength":8,
+			"byteOffset":768
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":776
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":800
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":832
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":856
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":880
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":912
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":4408,
-			"uri":"controller_ToyA.bin"
+			"byteLength":936,
+			"uri":"controller_Railing.bin"
 		}
 	]
 }

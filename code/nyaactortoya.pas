@@ -13,18 +13,8 @@ type
   TNyaActorToyA = class(TNyaActor)
   protected
     FUseRailing: Boolean;
-    procedure ApplyAutoAnimation; override;
-    procedure SetRailing(enable: Boolean);
   public
-    const
-      DefaultUseRailing = False;
-
     constructor Create(AOwner: TComponent); override;
-    procedure PlayAnimation(const Parameters: TPlayAnimationParameters); override;
-    function PropertySections(const PropertyName: String): TPropertySections; override;
-  published
-    property UseRailing: Boolean read FUseRailing write SetRailing
-             {$ifdef FPC}default DefaultUseRailing{$endif};
   end;
 
 implementation
@@ -38,8 +28,6 @@ var
 begin
   inherited;
 
-  UseRailing:= DefaultUseRailing;
-
   { make sure that ToyA is main }
   for scene in FAllScenes do
   begin
@@ -50,52 +38,6 @@ begin
       Break;
     end;
   end;
-end;
-
-procedure TNyaActorToyA.ApplyAutoAnimation;
-begin
-  UseRailing:= NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', FAutoAnimation);
-
-  inherited;
-end;
-
-procedure TNyaActorToyA.PlayAnimation(const Parameters: TPlayAnimationParameters);
-begin
-  UseRailing:= NOT StartsText('GAME.GIRL_TOYA.PLAY.A2', Parameters.Name);
-
-  inherited;
-end;
-
-procedure TNyaActorToyA.SetRailing(enable: Boolean);
-var
-  railing: TCastleScene;
-begin
-  if NOT Assigned(FDesign) then Exit;
-
-  if (FUseRailing = enable) then Exit;
-  FUseRailing:= enable;
-
-  railing:= FDesign.DesignedComponent('Railing', False) as TCastleScene;
-  if NOT Assigned(railing) then Exit;
-
-  if enable then
-  begin
-    railing.Translation:= Vector3(0, 0, 0);
-    railing.Rotation:= Vector4(1, 0, 0, 0);
-  end else begin
-    railing.Translation:= Vector3(-28, 0, -10);
-    railing.Rotation:= Vector4(0, 1, 0, -30);
-  end;
-end;
-
-function TNyaActorToyA.PropertySections(const PropertyName: String): TPropertySections;
-begin
-  if ArrayContainsString(PropertyName, [
-       'UseRailing'
-     ]) then
-    Result:= [psBasic]
-  else
-    Result:= inherited PropertySections(PropertyName);
 end;
 
 initialization
