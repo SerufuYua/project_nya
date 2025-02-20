@@ -16,12 +16,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Control_Jizz",
-			"translation":[
-				30,
-				0,
-				0
-			]
+			"name":"Control_Jizz"
 		}
 	],
 	"animations":[
@@ -49,7 +44,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A1.P0",
+			"name":"GAME.GIRL_TOYA.PLAY.A1.Start",
 			"samplers":[
 				{
 					"input":5,
@@ -92,7 +87,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A1.P1",
+			"name":"GAME.GIRL_TOYA.PLAY.A1.Go",
 			"samplers":[
 				{
 					"input":5,
@@ -135,7 +130,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A1.P2",
+			"name":"GAME.GIRL_TOYA.PLAY.A1.FastGo",
 			"samplers":[
 				{
 					"input":5,
@@ -178,7 +173,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A1.P3",
+			"name":"GAME.GIRL_TOYA.PLAY.A1.Finish",
 			"samplers":[
 				{
 					"input":15,
@@ -221,7 +216,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A1.P4",
+			"name":"GAME.GIRL_TOYA.PLAY.A1.Relax",
 			"samplers":[
 				{
 					"input":5,
@@ -264,7 +259,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A2.P0",
+			"name":"GAME.GIRL_TOYA.PLAY.A2.Start",
 			"samplers":[
 				{
 					"input":5,
@@ -307,7 +302,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A2.P1",
+			"name":"GAME.GIRL_TOYA.PLAY.A2.Go",
 			"samplers":[
 				{
 					"input":5,
@@ -350,7 +345,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A2.P2",
+			"name":"GAME.GIRL_TOYA.PLAY.A2.FastGo.Body",
 			"samplers":[
 				{
 					"input":5,
@@ -393,7 +388,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A2.P3",
+			"name":"GAME.GIRL_TOYA.PLAY.A2.Finish",
 			"samplers":[
 				{
 					"input":32,
@@ -436,7 +431,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.A2.P4",
+			"name":"GAME.GIRL_TOYA.PLAY.A2.Relax",
 			"samplers":[
 				{
 					"input":5,
@@ -479,7 +474,7 @@
 					}
 				}
 			],
-			"name":"GAME.GIRL_TOYA.PLAY.IDLE",
+			"name":"GAME.GIRL_TOYA.PLAY.Idle",
 			"samplers":[
 				{
 					"input":5,
@@ -521,14 +516,14 @@
 			"componentType":5126,
 			"count":24,
 			"max":[
-				1,
-				1,
-				1
+				0.029150009155273438,
+				0.029150009155273438,
+				0.029150009155273438
 			],
 			"min":[
-				-1,
-				-1,
-				-1
+				-0.029150009155273438,
+				-0.029150009155273438,
+				-0.029150009155273438
 			],
 			"type":"VEC3"
 		},

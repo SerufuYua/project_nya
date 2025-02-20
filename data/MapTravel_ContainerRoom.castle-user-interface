@@ -117,10 +117,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263348854612559E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 2.2024419307708740E+000,
+                      "Y" : 9.9999994039535522E-001
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -197,10 +195,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 7.1895402669906616E-001,
+                      "Y" : 9.9999982118606567E-001
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -244,7 +240,7 @@
               },
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.IDLE",
+                "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.Idle",
                 "ExposeTransforms" : [
                 ],
                 "Name" : "ToyA",
@@ -256,12 +252,6 @@
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "W" : 6.0229212045669556E-001,
                   "Y" : -1.0000015497207642E+000
-                },
-                "ScalePersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 2.9149999842047691E-002,
-                  "Y" : 2.9149999842047691E-002,
-                  "Z" : 2.9149999842047691E-002
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
@@ -281,15 +271,14 @@
                     "RenderOptions" : {
                       "$$ClassName" : "TCastleScene.TSceneRenderOptions",
                       "BlendingDestinationFactor" : "bdConstantColor",
-                      "BlendingSourceFactor" : "bsConstantColor",
-                      "Lighting" : false
+                      "BlendingSourceFactor" : "bsConstantColor"
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
+                      "W" : 1.3212460279464722E+000,
                       "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "Y" : 1.0000000000000000E+000,
+                      "Z" : -2.2214985801838338E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -299,7 +288,7 @@
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 5.0000000000000000E+001
+                      "Y" : 1.5000000000000000E+000
                     },
                     "Url" : "castle-data:/effects/indicator/indicator_pink.gltf",
                     "$Behaviors" : [
@@ -354,10 +343,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 7.1895402669906616E-001,
+                      "Y" : 9.9999982118606567E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -477,9 +464,9 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -6.5744293212890625E+001,
-              "Y" : 6.5733177185058594E+001,
-              "Z" : 8.4718429565429688E+001
+              "X" : -1.9164460897445679E+000,
+              "Y" : 1.9161221981048584E+000,
+              "Z" : 2.4695422649383545E+000
             }
           }
         ]
@@ -544,16 +531,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.8506042957305908E+000,
-          "X" : 5.2721165120601654E-002,
-          "Y" : 9.8807078599929810E-001,
-          "Z" : 1.4469452202320099E-001
+          "W" : 7.4499970674514771E-001,
+          "X" : -2.5948616862297058E-001,
+          "Y" : 9.6128863096237183E-001,
+          "Z" : 9.2689163982868195E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -6.6809499263763428E-001,
+          "X" : 1.1734408140182495E+000,
           "Y" : 1.8967268466949463E+000,
-          "Z" : -1.1350228786468506E+000
+          "Z" : 3.2631725072860718E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
