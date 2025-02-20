@@ -79,12 +79,12 @@ uses
   CharaDress, CastleUtils, CastleVectors, Math, StrUtils;
 
 const
-  SuffixWait = '.IDLE';
-  SuffixStart = '.P0';
-  SuffixGo = '.P1';
-  SuffixFastGo = '.P2';
-  SuffixFinish = '.P3';
-  SuffixRelax = '.P4';
+  SuffixIdle = '.Idle';
+  SuffixStart = '.Start';
+  SuffixGo = '.Go';
+  SuffixFastGo = '.FastGo';
+  SuffixFinish = '.Finish';
+  SuffixRelax = '.Relax';
   WithoutPants = 'condom';
   BareFoots = 'none';
 
@@ -286,7 +286,7 @@ var
 begin
   AnimationParams:= TPlayAnimationParameters.Create;
   try
-    AnimationParams.Name:= FAnimationsPrefix + SuffixWait;
+    AnimationParams.Name:= FAnimationsPrefix + SuffixIdle;
     AnimationParams.StopNotification:= nil;
     AnimationParams.Loop:= True;
     AnimationParams.Forward:= True;
