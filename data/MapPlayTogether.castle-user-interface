@@ -35,55 +35,16 @@
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "Z" : 1.0000000000000000E+000
             },
-            "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_bed.x3dv",
-            "$Children" : [
-              {
-                "$$ClassName" : "TCastleScene",
-                "ExposeTransforms" : [
-                ],
-                "Name" : "Mat",
-                "RenderOptions" : {
-                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-                },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -3.8000000000000000E+001,
-                  "Z" : -4.5000000000000000E+001
-                },
-                "Url" : "castle-data:/furniture/floor_mat/FloorMatRainbow.gltf",
-                "$Children" : [
-                  {
-                    "$$ClassName" : "TCastleScene",
-                    "ExposeTransforms" : [
-                    ],
-                    "Name" : "Railing",
-                    "RenderOptions" : {
-                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-                    },
-                    "RotationPersistent" : {
-                      "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 4.5378561019897461E+000,
-                      "Y" : 1.0000000000000000E+000
-                    },
-                    "TranslationPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : -3.8000000000000000E+001,
-                      "Z" : -1.2000000000000000E+001
-                    },
-                    "Url" : "castle-data:/toys/railing/railing.gltf"
-                  }
-                ]
-              }
-            ]
+            "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_bed.x3dv"
           },
           {
             "$$ClassName" : "TCastleTransform",
             "Name" : "SceneActors",
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : 4.5000000000000000E+001,
-              "Y" : 1.2000000000000000E+001,
-              "Z" : -5.7000000000000000E+001
+              "X" : 1.3117500543594360E+000,
+              "Y" : 3.4979999065399170E-001,
+              "Z" : -1.6615500450134277E+000
             },
             "$Children" : [
               {
@@ -146,9 +107,9 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : 6.2837219238281250E+001,
-              "Y" : 5.6101455688476562E+001,
-              "Z" : -2.2304796218872070E+001
+              "X" : 1.8317049741744995E+000,
+              "Y" : 1.6353576183319092E+000,
+              "Z" : -6.5018492937088013E-001
             }
           }
         ]
@@ -198,9 +159,7 @@
           "$$ClassName" : "TCastleWalkNavigation",
           "Gravity" : false,
           "MouseDragMode" : "mdNone",
-          "MoveSpeed" : 2.0000000000000000E+001,
-          "Name" : "ObserverNavigation",
-          "Radius" : 2.0000000000000000E+000
+          "Name" : "ObserverNavigation"
         }
       ],
       "InternalDesignCamera" : {
@@ -214,16 +173,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 7.9292911291122437E-001,
-          "X" : -3.4749671816825867E-002,
-          "Y" : -9.9926161766052246E-001,
-          "Z" : -1.6386792063713074E-002
+          "W" : 1.2045353651046753E+000,
+          "X" : -1.5837350487709045E-001,
+          "Y" : -9.8136454820632935E-001,
+          "Z" : -1.0881811380386353E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 2.3295362472534180E+001,
-          "Y" : 2.2677059173583984E+001,
-          "Z" : -3.1402147293090820E+001
+          "X" : -8.7760460376739502E-001,
+          "Y" : 1.4257411956787109E+000,
+          "Z" : 3.3096942305564880E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
