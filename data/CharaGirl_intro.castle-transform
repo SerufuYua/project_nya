@@ -24,22 +24,22 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 6.6081207990646362E-001,
-            "X" : 8.7887090444564819E-001,
-            "Y" : 3.6384186148643494E-001,
-            "Z" : -3.0855324864387512E-001
+            "W" : 6.1451071500778198E-001,
+            "X" : 8.8784557580947876E-001,
+            "Y" : 3.7983775138854980E-001,
+            "Z" : -2.5971907377243042E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.4999969005584717E-001,
-            "Y" : 9.5000010728836060E-001,
-            "Z" : 9.5000028610229492E-001
+            "X" : 9.5000010728836060E-001,
+            "Y" : 9.4999921321868896E-001,
+            "Z" : 9.4999969005584717E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.4456597566604614E+000,
-            "Y" : 3.1132499694824219E+001,
-            "Z" : 1.2658034324645996E+001
+            "X" : 3.7747573107481003E-002,
+            "Y" : 9.0041685104370117E-001,
+            "Z" : 3.7725403904914856E-001
           },
           "$Children" : [
             {
@@ -70,7 +70,7 @@
                 "$$ClassName" : "TCastleVector4RotationPersistent",
                 "Z" : 1.0000000000000000E+000
               },
-              "Url" : "castle-data:/chars/hair_girl/hair.gltf"
+              "Url" : "castle-data:/chars/hair_girl/hair_intro.gltf"
             }
           ]
         },
@@ -79,21 +79,22 @@
           "Name" : "Bone_ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.2459356784820557E+000,
-            "X" : 5.5638426542282104E-001,
-            "Y" : 5.8820712566375732E-001,
-            "Z" : 5.8689749240875244E-001
+            "W" : 2.2455890178680420E+000,
+            "X" : 5.6445527076721191E-001,
+            "Y" : 5.8164775371551514E-001,
+            "Z" : 5.8572691679000854E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 9.9999916553497314E-001,
             "Y" : 1.0000001192092896E+000,
-            "Z" : 9.9999898672103882E-001
+            "Z" : 1.0000007152557373E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -8.8460073471069336E+000,
-            "Y" : 2.8638080596923828E+001,
-            "Z" : 2.0305864334106445E+001
+            "X" : -2.5804513692855835E-001,
+            "Y" : 8.3589971065521240E-001,
+            "Z" : 5.9205329418182373E-001
           },
           "$Children" : [
             {
@@ -113,7 +114,7 @@
               },
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
-                "Y" : 3.5000000000000000E+000
+                "Y" : 1.0203000158071518E-001
               },
               "Url" : "castle-data:/accessories/shackle/shackle.gltf"
             }
@@ -124,22 +125,22 @@
           "Name" : "Bone_ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.2203223705291748E+000,
-            "X" : 6.2270653247833252E-001,
-            "Y" : -5.8080321550369263E-001,
-            "Z" : -5.2431327104568481E-001
+            "W" : 2.2208468914031982E+000,
+            "X" : 6.2667089700698853E-001,
+            "Y" : -5.7849812507629395E-001,
+            "Z" : -5.2213376760482788E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999958276748657E-001,
+            "X" : 9.9999868869781494E-001,
             "Y" : 9.9999994039535522E-001,
-            "Z" : 9.9999946355819702E-001
+            "Z" : 1.0000002384185791E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 8.8268289566040039E+000,
-            "Y" : 2.8541301727294922E+001,
-            "Z" : 2.1015682220458984E+001
+            "X" : 2.5791841745376587E-001,
+            "Y" : 8.3212858438491821E-001,
+            "Z" : 6.1270242929458618E-001
           },
           "$Children" : [
             {
@@ -159,7 +160,7 @@
               },
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector3Persistent",
-                "Y" : 3.5000000000000000E+000
+                "Y" : 1.0203000158071518E-001
               },
               "Url" : "castle-data:/accessories/shackle/shackle.gltf"
             }

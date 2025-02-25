@@ -44,7 +44,7 @@
             "Perspective" : {
               "$$ClassName" : "TCastlePerspective"
             },
-            "ProjectionNear" : 6.0000000000000000E+001,
+            "ProjectionNear" : 1.5000000000000000E+000,
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "W" : 6.6482567787170410E-001,
@@ -54,17 +54,10 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -1.7647099494934082E+000,
-              "Y" : 5.1692298889160156E+001,
-              "Z" : 1.1250599670410156E+002
-            },
-            "$Children" : [
-              {
-                "$$ClassName" : "TCastleSpotLight",
-                "Name" : "HeadLight",
-                "Radius" : 5.0000000000000000E+002
-              }
-            ]
+              "X" : -5.1440000534057617E-002,
+              "Y" : 1.5068299770355225E+000,
+              "Z" : 3.2795500755310059E+000
+            }
           },
           {
             "$$ClassName" : "TCastleScene",
@@ -103,8 +96,8 @@
             "Sweating" : -1.0000000000000000E+000,
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : 5.9000000000000000E+001,
-              "Z" : 1.3000000000000000E+001
+              "X" : 1.7198499441146851E+000,
+              "Z" : 3.7894999980926514E-001
             },
             "Url" : "castle-data:/CharaGirl_intro.castle-transform"
           },
@@ -135,8 +128,8 @@
             "Sweating" : -1.0000000000000000E+000,
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : 8.1000000000000000E+001,
-              "Z" : 5.6000000000000000E+001
+              "X" : 2.3611500263214111E+000,
+              "Z" : 1.6324000358581543E+000
             },
             "Url" : "castle-data:/CharaBoy_intro.castle-transform"
           },
@@ -147,10 +140,9 @@
               "Blue" : 5.6883502006530762E-001,
               "Green" : 8.5148799419403076E-001
             },
-            "Exists" : false,
-            "Intensity" : 2.0000000000000000E+004,
+            "Intensity" : 8.0000000000000000E+000,
             "Name" : "SpotLight1",
-            "Radius" : 2.0000000000000000E+002,
+            "Radius" : 1.5000000000000000E+001,
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "W" : 1.4362751245498657E+000,
@@ -160,9 +152,9 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -5.6527619361877441E+000,
-              "Y" : 5.9965892791748047E+001,
-              "Z" : 5.8161281585693359E+001
+              "X" : -1.6478000581264496E-001,
+              "Y" : 1.7480100393295288E+000,
+              "Z" : 1.6953999996185303E+000
             }
           },
           {
@@ -172,9 +164,9 @@
               "Blue" : 5.6862747669219971E-001,
               "Green" : 8.5098040103912354E-001
             },
-            "Exists" : false,
-            "Intensity" : 1.5000000000000000E+004,
+            "Intensity" : 1.6000000000000000E+001,
             "Name" : "SpotLight2",
+            "Radius" : 1.5000000000000000E+001,
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "W" : 1.2153538465499878E+000,
@@ -184,9 +176,9 @@
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : 2.7312128067016602E+001,
-              "Y" : 5.4852725982666016E+001,
-              "Z" : 8.3547798156738281E+001
+              "X" : 7.9614859819412231E-001,
+              "Y" : 1.5989570617675781E+000,
+              "Z" : 2.4354183673858643E+000
             }
           }
         ]
@@ -228,7 +220,7 @@
             "Red" : 0.0000000000000000E+000
           },
           "Name" : "Darkness",
-          "VisibilityRange" : 6.0000000000000000E+002
+          "VisibilityRange" : 1.2000000000000000E+001
         }
       ],
       "InternalDesignCamera" : {
@@ -242,16 +234,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 4.0104112625122070E+000,
-          "X" : 9.2384770512580872E-002,
-          "Y" : 9.7782486677169800E-001,
-          "Z" : 1.8794566392898560E-001
+          "W" : 3.5724620819091797E+000,
+          "X" : 2.5430392473936081E-002,
+          "Y" : 9.9424785375595093E-001,
+          "Z" : 1.0404169559478760E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -6.4092803955078125E+001,
-          "Y" : 7.4007354736328125E+001,
-          "Z" : -3.2779972076416016E+001
+          "X" : -2.3807129859924316E+000,
+          "Y" : 1.6082456111907959E+000,
+          "Z" : -1.8409707546234131E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
