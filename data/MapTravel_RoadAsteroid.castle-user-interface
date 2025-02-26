@@ -26,7 +26,8 @@
             "CastGlobalLights" : true,
             "Collides" : false,
             "ExposeTransforms" : [
-              "Empty.Lamp"
+              "Empty.Lamp",
+              "Empty.Door"
             ],
             "Name" : "Room",
             "PreciseCollisions" : true,
@@ -68,74 +69,6 @@
                 ]
               },
               {
-                "$$ClassName" : "TCastleTransform",
-                "Name" : "PortalGoRoom",
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -1.5303750038146973E+000,
-                  "Z" : 2.7983999252319336E+000
-                },
-                "$Children" : [
-                  {
-                    "$$ClassName" : "TCastleScene",
-                    "ExposeTransforms" : [
-                    ],
-                    "Name" : "GoRoomIndicator",
-                    "Pickable" : false,
-                    "ProcessEvents" : true,
-                    "RenderOptions" : {
-                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
-                      "BlendingDestinationFactor" : "bdConstantColor",
-                      "BlendingSourceFactor" : "bsConstantColor"
-                    },
-                    "RotationPersistent" : {
-                      "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.1361388862133026E-001,
-                      "Y" : -1.0000014305114746E+000
-                    },
-                    "TranslationPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 1.8947499990463257E+000
-                    },
-                    "Url" : "castle-data:/effects/indicator/indicator_blue.gltf",
-                    "$Behaviors" : [
-                      {
-                        "$$ClassName" : "TCastleBillboard",
-                        "Name" : "GoRoomIndicatorBillboard"
-                      }
-                    ]
-                  },
-                  {
-                    "$$ClassName" : "TCastleBox",
-                    "Name" : "GoRoomSwitchExtender",
-                    "RenderOptions" : {
-                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-                    },
-                    "SizePersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : 5.8299999684095383E-002,
-                      "Y" : 1.4574999809265137E+000,
-                      "Z" : 5.8299999684095383E-002
-                    },
-                    "TranslationPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 7.2874999046325684E-001
-                    },
-                    "Visible" : false
-                  }
-                ],
-                "$Behaviors" : [
-                  {
-                    "$$ClassName" : "TNyaSwitch",
-                    "ActionString" : "go to Home",
-                    "Activator" : "CharaGirl",
-                    "Distance" : 6.0000002384185791E-001,
-                    "Indicator" : "GoRoomIndicator",
-                    "Name" : "GoRoomSwitch"
-                  }
-                ]
-              },
-              {
                 "$$ClassName" : "TCastlePointLight",
                 "Intensity" : 1.0000000000000000E+003,
                 "Name" : "PointLight1",
@@ -173,6 +106,89 @@
                     "Radius" : 3.0000000000000000E+001
                   }
                 ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "Empty_Door",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -1.5267299413681030E+000,
+                  "Y" : 2.8608702123165131E-002,
+                  "Z" : -2.2682634353637695E+001
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "PortalGoRoom",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "$Children" : [
+                      {
+                        "$$ClassName" : "TCastleScene",
+                        "ExposeTransforms" : [
+                        ],
+                        "Name" : "GoRoomIndicator",
+                        "Pickable" : false,
+                        "ProcessEvents" : true,
+                        "RenderOptions" : {
+                          "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                          "BlendingDestinationFactor" : "bdConstantColor",
+                          "BlendingSourceFactor" : "bsConstantColor"
+                        },
+                        "RotationPersistent" : {
+                          "$$ClassName" : "TCastleVector4RotationPersistent",
+                          "W" : 1.0141882896423340E+000,
+                          "Y" : -9.9999988079071045E-001
+                        },
+                        "TranslationPersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "Y" : 1.8947499990463257E+000
+                        },
+                        "Url" : "castle-data:/effects/indicator/indicator_blue.gltf",
+                        "$Behaviors" : [
+                          {
+                            "$$ClassName" : "TCastleBillboard",
+                            "Name" : "GoRoomIndicatorBillboard"
+                          }
+                        ]
+                      },
+                      {
+                        "$$ClassName" : "TCastleBox",
+                        "Name" : "GoRoomSwitchExtender",
+                        "RenderOptions" : {
+                          "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                        },
+                        "SizePersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : 5.8299999684095383E-002,
+                          "Y" : 1.4574999809265137E+000,
+                          "Z" : 5.8299999684095383E-002
+                        },
+                        "TranslationPersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "Y" : 7.2874999046325684E-001
+                        },
+                        "Visible" : false
+                      }
+                    ],
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TNyaSwitch",
+                        "ActionString" : "go to Home",
+                        "Activator" : "CharaGirl",
+                        "Distance" : 6.0000002384185791E-001,
+                        "Indicator" : "GoRoomIndicator",
+                        "Name" : "GoRoomSwitch"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -205,9 +221,9 @@
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -2.2532017230987549E+000,
-                  "Y" : 1.4575000107288361E-001,
-                  "Z" : -7.8982157707214355E+000
+                  "X" : -4.3223017454147339E-001,
+                  "Y" : 8.7783738970756531E-002,
+                  "Z" : -2.0110969543457031E+001
                 },
                 "Url" : "castle-data:/CharaGirl_common.castle-transform",
                 "$Behaviors" : [
@@ -317,20 +333,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.7367133498191833E-001,
-          "X" : -7.5364178419113159E-001,
-          "Y" : -6.5444338321685791E-001,
-          "Z" : -6.1058245599269867E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 9.9999994039535522E-001
+          "W" : 1.0419720411300659E+000,
+          "X" : -2.1560880541801453E-001,
+          "Y" : -9.6858710050582886E-001,
+          "Z" : -1.2390319257974625E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.1244567632675171E+000,
-          "Y" : 2.0482780933380127E+000,
-          "Z" : -1.5728959083557129E+001
+          "X" : -5.0740885734558105E+000,
+          "Y" : 2.0482783317565918E+000,
+          "Z" : -1.8431724548339844E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

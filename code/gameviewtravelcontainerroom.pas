@@ -22,9 +22,9 @@ var
 implementation
 
 uses
-  GameViewPlayGirl, GameViewPlayTogether, GameViewMain,
-  CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
-  CastleFonts, SysUtils, GameViewDressingMenu;
+  GameViewPlayGirl, GameViewPlayTogether, GameViewTravelRoadAsteroid,
+  GameViewMain, CastleViewport, CastleScene, NyaCastleUtils,
+  CastleComponentSerialize, CastleFonts, SysUtils, GameViewDressingMenu;
 
 procedure TViewTravelContainerRoom.Start;
 begin
@@ -77,6 +77,11 @@ begin
     begin
       Notifications.Show('Lets play Together!');
       FGetToGo:= ViewPlayTogether;
+    end;
+  'GoOutSwitch':
+    begin
+      Notifications.Show('What is outside?');
+      FGetToGo:= ViewTravelRoadAsteroid;
     end;
   { #todo : Solo Play Scene }
 {  'BedSwitch':

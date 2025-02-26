@@ -21,7 +21,7 @@ var
 implementation
 
 uses
-  GameViewPlayGirl, GameViewPlayTogether, GameViewMain,
+  GameViewTravelContainerRoom, GameViewMain,
   CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
   CastleFonts, SysUtils, GameViewDressingMenu;
 
@@ -53,20 +53,15 @@ begin
   switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
 
-{  Case switch.Name of
-  'ToyASwitch':
+  Case switch.Name of
+  'GoRoomSwitch':
     begin
-      Notifications.Show('Lets play with my Toy!');
-      FGetToGo:= ViewPlayGirl;
-    end;
-  'BoySwitch':
-    begin
-      Notifications.Show('Lets play Together!');
-      FGetToGo:= ViewPlayTogether;
+      Notifications.Show('Im home!');
+      FGetToGo:= ViewTravelContainerRoom;
     end;
   else
     Notifications.Show('There is nothing to do');
-  end;}
+  end;
 end;
 
 end.
