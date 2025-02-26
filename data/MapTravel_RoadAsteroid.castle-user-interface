@@ -26,6 +26,7 @@
             "CastGlobalLights" : true,
             "Collides" : false,
             "ExposeTransforms" : [
+              "Empty.Lamp"
             ],
             "Name" : "Room",
             "PreciseCollisions" : true,
@@ -89,8 +90,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 3.1016075611114502E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.1361388862133026E-001,
+                      "Y" : -1.0000014305114746E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -126,7 +127,7 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TNyaSwitch",
-                    "ActionString" : "go out",
+                    "ActionString" : "go to Home",
                     "Activator" : "CharaGirl",
                     "Distance" : 6.0000002384185791E-001,
                     "Indicator" : "GoRoomIndicator",
@@ -146,6 +147,32 @@
                   "$$ClassName" : "TCastleVector3Persistent",
                   "Y" : 2.0000000000000000E+001
                 }
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "Empty_Lamp",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 2.1166000366210937E+000,
+                  "Z" : -2.1728391647338867E+001
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastlePointLight",
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorRGBPersistent",
+                      "Blue" : 8.5098040103912354E-001,
+                      "Green" : 9.7647058963775635E-001
+                    },
+                    "Intensity" : 2.0000000000000000E+001,
+                    "Name" : "PointLight2",
+                    "Radius" : 3.0000000000000000E+001
+                  }
+                ]
               }
             ]
           },
@@ -290,20 +317,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.1806411743164063E+000,
-          "X" : 6.0638407012447715E-004,
-          "Y" : 9.9084347486495972E-001,
-          "Z" : 1.3501396775245667E-001
+          "W" : 1.7367133498191833E-001,
+          "X" : -7.5364178419113159E-001,
+          "Y" : -6.5444338321685791E-001,
+          "Z" : -6.1058245599269867E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "Y" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -2.4281766414642334E+000,
-          "Y" : 2.7237756252288818E+000,
-          "Z" : -1.2341489791870117E+001
+          "X" : 1.1244567632675171E+000,
+          "Y" : 2.0482780933380127E+000,
+          "Z" : -1.5728959083557129E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
