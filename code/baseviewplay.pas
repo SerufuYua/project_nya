@@ -52,7 +52,7 @@ type
 implementation
 
 uses
-  GameViewTravel, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  GameViewTravelContainerRoom, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaActorToyA;
 
@@ -203,7 +203,7 @@ begin
     begin
       Notifications.Show('saving characters condition...');
       SaveCharasCondition();
-      ViewLoading.SetToLoad(ViewTravel);
+      ViewLoading.SetToLoad(ViewTravelContainerRoom);
       Container.View:= ViewLoading;
     end;
   'BtnStop':

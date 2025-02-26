@@ -48,7 +48,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleUtils, GameViewLoading, GameViewTravel;
+  SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -91,7 +91,7 @@ end;
 
 procedure TViewMain.ClickStart(Sender: TObject);
 begin
-  ViewLoading.SetToLoad(ViewTravel);
+  ViewLoading.SetToLoad(ViewTravelContainerRoom);
   Container.View:= ViewLoading;
 end;
 

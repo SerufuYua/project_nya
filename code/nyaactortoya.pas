@@ -11,8 +11,6 @@ uses
 
 type
   TNyaActorToyA = class(TNyaActor)
-  protected
-    FUseRailing: Boolean;
   public
     constructor Create(AOwner: TComponent); override;
   end;

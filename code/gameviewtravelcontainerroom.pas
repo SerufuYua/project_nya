@@ -1,4 +1,4 @@
-unit GameViewTravel;
+unit GameViewTravelContainerRoom;
 
 interface
 
@@ -7,7 +7,7 @@ uses Classes, BaseViewTravel,
   CastleTransform, NyaActorChara, NyaSwitch;
 
 type
-  TViewTravel = class(TBaseViewPlay)
+  TViewTravelContainerRoom = class(TBaseViewPlay)
   public
     procedure Start; override;
   protected
@@ -17,7 +17,7 @@ type
   end;
 
 var
-  ViewTravel: TViewTravel;
+  ViewTravelContainerRoom: TViewTravelContainerRoom;
 
 implementation
 
@@ -26,7 +26,7 @@ uses
   CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
   CastleFonts, SysUtils, GameViewDressingMenu;
 
-procedure TViewTravel.Start;
+procedure TViewTravelContainerRoom.Start;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapTravel_ContainerRoom.castle-user-interface';
@@ -40,7 +40,7 @@ begin
   inherited;
 end;
 
-procedure TViewTravel.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
+procedure TViewTravelContainerRoom.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
 var
   switch: TNyaSwitch;
 begin
@@ -60,7 +60,7 @@ begin
   end;
 end;
 
-procedure TViewTravel.DoActivateSwitch(Sender: TObject);
+procedure TViewTravelContainerRoom.DoActivateSwitch(Sender: TObject);
 var
   switch: TNyaSwitch;
 begin
