@@ -1,0 +1,49 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo { headlight FALSE }
+
+DEF asteroid Transform
+{
+  children Inline
+  {
+    url "road_asteroid.gltf"
+  }
+}
+
+PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
+                  inputOutput SFColor lightColor 1 1 1]
+{
+  SpotLight {
+    location IS lightPos
+    cutOffAngle 1.5
+    direction 0 -1 0
+    intensity 8
+    ambientIntensity 0.4
+    color IS lightColor
+    radius 15
+    beamWidth 0.1
+    shadows TRUE
+    defaultShadowMap GeneratedShadowMap {
+      size 1024
+      update "ALWAYS"
+      scale 3
+    }
+  }
+}
+
+PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
+{
+  PointLight
+  {
+    location IS lightPos
+    intensity 1
+    color 1.0 0.7 0.4
+    ambientIntensity 0.4
+    radius 10
+  }
+}
+
+UpperLight { lightPos 0.0 2.05 -21.7284 lightColor 1.0 0.700118 0.399844 }
+
+BottomLight { lightPos 0.0 1.0 -21.7284 }
