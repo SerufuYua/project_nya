@@ -98,7 +98,7 @@ uses
   {$endif};
 
 { ========= ------------------------------------------------------------------ }
-{ TNyaSwitch ------------------------------------------------------------------ }
+{ TNyaSwitch ----------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
 constructor TNyaSwitch.Create(AOwner: TComponent);
@@ -135,9 +135,9 @@ begin
   if NOT (Assigned(Parent) AND Assigned(Activator)) then
     Exit(TSwitchStatus.inactive);
 
-  SwitchBox:= Parent.BoundingBox;
+  SwitchBox:= Parent.WorldBoundingBox;
 
-  if SwitchBox.Grow(Distance).Contains(Activator.Translation) then
+  if SwitchBox.Grow(Distance).Contains(Activator.WorldTranslation) then
     Result:= TSwitchStatus.touched
   else
     Result:= TSwitchStatus.inactive;
@@ -283,7 +283,7 @@ begin
 end;
 
 { ========= ------------------------------------------------------------------ }
-{ TNyaFrontSwitch ------------------------------------------------------------- }
+{ TNyaFrontSwitch ------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
 constructor TNyaFrontSwitch.Create(AOwner: TComponent);
