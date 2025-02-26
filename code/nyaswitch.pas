@@ -301,12 +301,12 @@ begin
   Result:= inherited;
   if (Result = TSwitchStatus.inactive) then Exit;
 
-  ActivatorBox:= Activator.BoundingBox;
-  SwitchBox:= Parent.BoundingBox;
+  ActivatorBox:= Activator.WorldBoundingBox;
+  SwitchBox:= Parent.WorldBoundingBox;
 
   SwitchCenter:= SwitchBox.Center;
-  FromRootActivator:= (SwitchCenter - Activator.Translation);
-  ProjPoint:= Activator.Translation + ProjectionVectorAtoB(FromRootActivator, Activator.Up);
+  FromRootActivator:= (SwitchCenter - Activator.WorldTranslation);
+  ProjPoint:= Activator.WorldTranslation + ProjectionVectorAtoB(FromRootActivator, Activator.Up);
 
   if ActivatorBox.Contains(ProjPoint) then
   begin
