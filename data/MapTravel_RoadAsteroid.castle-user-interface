@@ -131,8 +131,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 1.1694985628128052E+000,
-                          "Y" : -1.0000001192092896E+000
+                          "W" : 2.6779451370239258E+000,
+                          "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -177,19 +177,6 @@
                     ]
                   }
                 ]
-              },
-              {
-                "$$ClassName" : "TCastlePointLight",
-                "Intensity" : 1.0000000000000000E+003,
-                "Name" : "PointLight1",
-                "RotationPersistent" : {
-                  "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "Z" : 1.0000000000000000E+000
-                },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "Y" : 2.0000000000000000E+001
-                }
               }
             ]
           },
@@ -334,21 +321,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.1910231113433838E+000,
-          "X" : -1.7466630041599274E-001,
-          "Y" : -9.7740209102630615E-001,
-          "Z" : -1.1906631290912628E-001
+          "W" : 1.3957754373550415E+000,
+          "X" : -1.0498815029859543E-001,
+          "Y" : -9.9034553766250610E-001,
+          "Z" : -9.0516097843647003E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Z" : 9.9999994039535522E-001
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -4.4301829338073730E+000,
-          "Y" : 1.8637962341308594E+000,
-          "Z" : -1.8667991638183594E+001
+          "X" : -6.5680727958679199E+000,
+          "Y" : 1.8637964725494385E+000,
+          "Z" : -1.9203775405883789E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
