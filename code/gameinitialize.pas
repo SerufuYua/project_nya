@@ -21,6 +21,7 @@ uses SysUtils, CustApp,
   , GameViewDressingMenu
   , GameViewLoading
   , GameViewTravelContainerRoom
+  , GameViewTravelRoadAsteroid
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -41,6 +42,7 @@ begin
   ViewDressingMenu:= TViewDressingMenu.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
+  ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('g', 'PlayGirl') then
@@ -49,11 +51,14 @@ begin
     Window.Container.View:= ViewPlayTogether
   else if Application.hasOption('h', 'Home') then
     Window.Container.View:= ViewTravelContainerRoom
+  else if Application.hasOption('a', 'Asteroid') then
+    Window.Container.View:= ViewTravelRoadAsteroid
   else
     Window.Container.View:= ViewMain;
 //    Window.Container.View:= ViewPlayTogether;
 //    Window.Container.View:= ViewPlayGirl;
 //    Window.Container.View:= ViewTravelContainerRoom;
+//    Window.Container.View:= ViewTravelRoadAsteroid;
 
 end;
 

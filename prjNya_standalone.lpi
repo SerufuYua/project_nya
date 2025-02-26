@@ -67,7 +67,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="28">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -199,6 +199,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaLoadingBar"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="code/gameviewtravelroadasteroid.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewTravelRoadAsteroid"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
