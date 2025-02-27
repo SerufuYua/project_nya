@@ -104,9 +104,9 @@
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -1.5267299413681030E+000,
+                  "X" : -9.1093599796295166E-001,
                   "Y" : 2.8608702123165131E-002,
-                  "Z" : -2.2682634353637695E+001
+                  "Z" : -2.2463973999023438E+001
                 },
                 "$Children" : [
                   {
@@ -131,8 +131,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.0070028305053711E+000,
-                          "Y" : 1.0000000000000000E+000
+                          "W" : 2.6779451370239258E+000,
+                          "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -168,7 +168,7 @@
                     "$Behaviors" : [
                       {
                         "$$ClassName" : "TNyaSwitch",
-                        "ActionString" : "go to Home",
+                        "ActionString" : "enter in Home",
                         "Activator" : "CharaGirl",
                         "Distance" : 6.0000002384185791E-001,
                         "Indicator" : "GoRoomIndicator",
