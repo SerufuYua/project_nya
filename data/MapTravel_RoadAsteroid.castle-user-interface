@@ -131,8 +131,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
-                          "Y" : -1.0000000000000000E+000
+                          "W" : 1.1677780151367187E+000,
+                          "Y" : -9.9999988079071045E-001
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -198,6 +198,12 @@
                       },
                       {
                         "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorVariancePersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 1.0000000000000000E+000,
+                          "Green" : 8.1568628549575806E-001,
+                          "Red" : 7.4509805440902710E-001
+                        },
                         "Size" : 6.0000002384185791E-001,
                         "SizeVariance" : 4.0000000596046448E-001,
                         "TimeNormalized" : 6.0000002384185791E-001
@@ -229,6 +235,18 @@
                     "MaxParticles" : 60,
                     "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid/ghost_road.gltf",
                     "Name" : "GhostRoadParticleEffect1",
+                    "RotationSpeedPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 2.5000000000000000E-001
+                    },
+                    "RotationSpeedVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 1.2500000000000000E-001
+                    },
+                    "RotationVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 4.0000000000000000E+000
+                    },
                     "SourcePositionLocalVariancePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
                       "X" : 1.0000000000000000E+000,
@@ -244,7 +262,7 @@
                     "SourceType" : "pstBoxSurface",
                     "Speed" : 1.2500000000000000E-001,
                     "SpeedVariance" : 7.5000002980232239E-002,
-                    "Texture" : "castle-data:/effects/shine.png"
+                    "Texture" : "castle-data:/effects/star.png"
                   }
                 ]
               },
@@ -273,6 +291,12 @@
                       },
                       {
                         "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorVariancePersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 1.0000000000000000E+000,
+                          "Green" : 8.1568628549575806E-001,
+                          "Red" : 7.4509805440902710E-001
+                        },
                         "Size" : 6.0000002384185791E-001,
                         "SizeVariance" : 4.0000000596046448E-001,
                         "TimeNormalized" : 6.0000002384185791E-001
@@ -304,6 +328,18 @@
                     "MaxParticles" : 60,
                     "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid/ghost_road.gltf",
                     "Name" : "GhostRoadParticleEffect2",
+                    "RotationSpeedPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 2.5000000000000000E-001
+                    },
+                    "RotationSpeedVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 1.2500000000000000E-001
+                    },
+                    "RotationVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 4.0000000000000000E+000
+                    },
                     "SourcePositionLocalVariancePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
                       "X" : 1.0000000000000000E+000,
@@ -319,7 +355,7 @@
                     "SourceType" : "pstBoxSurface",
                     "Speed" : 1.2500000000000000E-001,
                     "SpeedVariance" : 7.5000002980232239E-002,
-                    "Texture" : "castle-data:/effects/shine.png"
+                    "Texture" : "castle-data:/effects/star.png"
                   }
                 ]
               }
@@ -466,20 +502,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.0136888027191162E+000,
-          "X" : -6.7008018493652344E-002,
-          "Y" : 9.9241721630096436E-001,
-          "Z" : 1.0304340720176697E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "W" : 1.1944844722747803E+000,
+          "X" : -1.9545963406562805E-001,
+          "Y" : -9.7185552120208740E-001,
+          "Z" : -1.3150143623352051E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -7.6827697753906250E+001,
-          "Y" : 1.9580876827239990E+000,
-          "Z" : -2.7113745212554932E+000
+          "X" : 7.0070899963378906E+001,
+          "Y" : 2.9930121898651123E+000,
+          "Z" : 3.2748162746429443E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
