@@ -55,10 +55,6 @@ begin
     Window.Container.View:= ViewTravelRoadAsteroid
   else
     Window.Container.View:= ViewMain;
-//    Window.Container.View:= ViewPlayTogether;
-//    Window.Container.View:= ViewPlayGirl;
-//    Window.Container.View:= ViewTravelContainerRoom;
-//    Window.Container.View:= ViewTravelRoadAsteroid;
 
 end;
 
