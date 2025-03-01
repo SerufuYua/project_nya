@@ -65,6 +65,8 @@ uses
       AmdPowerXpressRequestHighPerformance;
 {$ifend}
 
+{$R emblem.rc}
+
 begin
   Application.MainWindow.OpenAndRun;
 end.
