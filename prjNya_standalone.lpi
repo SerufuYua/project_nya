@@ -189,7 +189,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="code;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="code;code/particle"/>
+      <OtherUnitFiles Value="code;code/particle;code/loading"/>
       <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

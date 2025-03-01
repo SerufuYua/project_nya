@@ -12,7 +12,7 @@ interface
 implementation
 
 uses SysUtils, CustApp,
-  CastleWindow, CastleLog, CastleUIControls
+  CastleWindow, CastleLog, CastleUIControls, GameAdjustLoadingScreen
   {$region 'Castle Initialization Uses'}
   // The content here may be automatically updated by CGE editor.
   , GameViewMain

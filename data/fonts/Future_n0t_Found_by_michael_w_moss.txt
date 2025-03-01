@@ -1,3 +1,7 @@
+Future n0t Found Version 1.2
+
+Fixed by Serufu Yua
+
 Future n0t Found Version 1.1
 
 Designed by Michael Moss
