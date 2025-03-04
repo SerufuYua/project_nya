@@ -54,7 +54,7 @@ implementation
 uses
   GameViewTravelContainerRoom, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
-  StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaActorToyA;
+  StrUtils, NyaCastleUtils, NyaActor, NyaActorChara;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin

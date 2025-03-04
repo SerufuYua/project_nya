@@ -51,7 +51,7 @@
                 "$$ClassName" : "TNyaActorChara",
                 "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
-                "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
+                "AutoAnimation" : "GAME.TOGETHER.PLAY.Idle",
                 "EmissionColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
                   "Blue" : 1.5000000596046448E-001,
@@ -59,6 +59,7 @@
                   "Red" : 1.5000000596046448E-001
                 },
                 "EmissionItself" : true,
+                "MainScene" : "Body",
                 "Name" : "CharaGirl",
                 "PersonalColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
@@ -71,7 +72,7 @@
                 "$$ClassName" : "TNyaActorChara",
                 "ActorName" : "Boy",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
-                "AutoAnimation" : "GAME.TOGETHER.PLAY.IDLE",
+                "AutoAnimation" : "GAME.TOGETHER.PLAY.Idle",
                 "EmissionColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
                   "Blue" : 1.4901961386203766E-001,
@@ -79,6 +80,7 @@
                   "Red" : 1.4901961386203766E-001
                 },
                 "EmissionItself" : true,
+                "MainScene" : "Body",
                 "Name" : "CharaBoy",
                 "PersonalColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",

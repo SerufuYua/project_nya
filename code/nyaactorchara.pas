@@ -46,25 +46,12 @@ uses
   CastleComponentSerialize, CastleUtils, CastleParticleEmitter;
 
 constructor TNyaActorChara.Create(AOwner: TComponent);
-var
-  scene: TCastleScene;
 begin
   inherited;
 
   FDripping:= DefaultDripping;
   FSweating:= DefaultSweating;
   FDresser:= nil;
-
-  { make sure that Body is main }
-  for scene in FAllScenes do
-  begin
-    if (scene.Name = 'Body') then
-    begin
-      FMainScene:= scene;
-      UpdateAnimationsList;
-      Break;
-    end;
-  end;
 end;
 
 destructor TNyaActorChara.Destroy;

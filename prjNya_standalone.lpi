@@ -66,7 +66,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="28">
+    <Units Count="27">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -87,6 +87,7 @@
       <Unit4>
         <Filename Value="code/baseviewplay.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="BaseViewPlay"/>
       </Unit4>
       <Unit5>
         <Filename Value="code/baseviewtravel.pas"/>
@@ -123,63 +124,65 @@
       <Unit13>
         <Filename Value="code/nyaactor.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaActor"/>
       </Unit13>
       <Unit14>
         <Filename Value="code/nyaactorchara.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaActorChara"/>
       </Unit14>
       <Unit15>
-        <Filename Value="code/nyaactortoya.pas"/>
+        <Filename Value="code/nyacastleutils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaCastleUtils"/>
       </Unit15>
       <Unit16>
-        <Filename Value="code/nyacastleutils.pas"/>
+        <Filename Value="code/nyaclassutils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit16>
       <Unit17>
-        <Filename Value="code/nyaclassutils.pas"/>
+        <Filename Value="code/nyafadeeffect.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="code/nyafadeeffect.pas"/>
+        <Filename Value="code/nyaloadingbar.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit18>
       <Unit19>
-        <Filename Value="code/nyaloadingbar.pas"/>
+        <Filename Value="code/NyaMath.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit19>
       <Unit20>
-        <Filename Value="code/NyaMath.pas"/>
+        <Filename Value="code/nyaplaylogic.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaPlayLogic"/>
       </Unit20>
       <Unit21>
-        <Filename Value="code/nyaplaylogic.pas"/>
+        <Filename Value="code/nyapleasuretensioneffect.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="code/nyapleasuretensioneffect.pas"/>
+        <Filename Value="code/nyaspectatorcameranavigation.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit22>
       <Unit23>
-        <Filename Value="code/nyaspectatorcameranavigation.pas"/>
+        <Filename Value="code/nyaswitch.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit23>
       <Unit24>
-        <Filename Value="code/nyaswitch.pas"/>
+        <Filename Value="code/nyathirdpersoncameranavigation.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit24>
       <Unit25>
-        <Filename Value="code/nyathirdpersoncameranavigation.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit25>
-      <Unit26>
         <Filename Value="code/nyathirdpersoncharanavigation.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit26>
-      <Unit27>
+        <UnitName Value="NyaThirdPersonCharaNavigation"/>
+      </Unit25>
+      <Unit26>
         <Filename Value="code/nyavectormath.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit27>
+        <UnitName Value="NyaVectorMath"/>
+      </Unit26>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

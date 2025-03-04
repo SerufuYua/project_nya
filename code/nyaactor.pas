@@ -16,7 +16,9 @@ type
     FAllScenes: TCastleScenes;
     FAnimatedScenes: TCastleScenes;
     FMainScene: TCastleScene;
+    FMainSceneName: String;
     FAnimationsList: TStrings;
+    procedure UpdateMainScene;
     procedure UpdateAnimationsList;
   protected
     FUrl: String;
@@ -30,13 +32,14 @@ type
     FPersonalColor: TCastleColorRGB;
     FEmissionColorPersistent: TCastleColorRGBPersistent;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
-    procedure SetUrl(const Value: String); virtual;
+    procedure SetUrl(const value: String); virtual;
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
     function GetPersonalColorForPersistent: TCastleColorRGB;
     procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
-    procedure SetActorName(const Value: String); virtual;
-    procedure SetAutoAnimation(const Value: String);
+    procedure SetActorName(const value: String); virtual;
+    procedure SetMainScene(const value: String);
+    procedure SetAutoAnimation(const value: String);
     procedure SetAnimationSpeed(value: Single);
     procedure SetAnisotropicDegree(value: Single);
     procedure SetLightning(enable: Boolean);
@@ -56,6 +59,7 @@ type
     const
       DefaultActorName = 'unknown';
       DefaultAutoAnimation = 'none';
+      DefaultMainSceneName = 'none';
       DefaultAnimationSpeed = 1.0;
       DefaultAnisotropicDegree = 1.0;
       DefaultLightning = True;
@@ -69,11 +73,13 @@ type
     procedure StopAnimation(const disableStopNotification: Boolean = False);
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
+    property AllScenes: TCastleScenes read FAllScenes;
     property AnimationsList: TStrings read FAnimationsList;
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
   published
     property ActorName: String read FActorName write SetActorName;
+    property MainScene: String read FMainSceneName write SetMainScene;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
              {$ifdef FPC}default DefaultAnimationSpeed{$endif};
@@ -104,6 +110,7 @@ begin
   FUrl:= '';
   FActorName:= DefaultActorName;
   FAutoAnimation:= DefaultAutoAnimation;
+  FMainSceneName:= DefaultMainSceneName;
   FAnimationSpeed:= DefaultAnimationSpeed;
   FAnisotropicDegree:= DefaultAnisotropicDegree;
   FLightning:= DefaultLightning;
@@ -167,6 +174,22 @@ begin
     scene.StopAnimation(disableStopNotification);
 end;
 
+procedure TNyaActor.UpdateMainScene;
+var
+  scene: TCastleScene;
+begin
+  for scene in FAllScenes do
+  begin
+    if (scene.Name = FMainSceneName) then
+    begin
+      FMainScene:= scene;
+      Break;
+    end;
+  end;
+
+  UpdateAnimationsList;
+end;
+
 procedure TNyaActor.UpdateAnimationsList;
 var
   animationName: String;
@@ -206,13 +229,13 @@ begin
     if (scene.AnimationsList.Count > 0) then
       System.Insert(scene, FAnimatedScenes, 0);
 
-  { take only first Scene as Main}
+  { take only first Scene as Main }
   if (Length(FAllScenes) > 0) then
     FMainScene:= FAllScenes[0]
   else
     FMainScene:= nil;
 
-  UpdateAnimationsList;
+  UpdateMainScene;
 
   { apply all settings }
   ApplyAnisotropicDegree;
@@ -228,16 +251,25 @@ begin
   ApplyAnimationSpeed;
 end;
 
-procedure TNyaActor.SetActorName(const Value: String);
+procedure TNyaActor.SetActorName(const value: String);
 begin
-  if (FActorName = Value) then exit;
-  FActorName:= Value;
+  if (FActorName = value) then exit;
+  FActorName:= value;
 end;
 
-procedure TNyaActor.SetAutoAnimation(const Value: String);
+procedure TNyaActor.SetMainScene(const value: String);
 begin
-  if (FAutoAnimation = Value) then Exit;
-  FAutoAnimation:= Value;
+  if (FMainSceneName <> value) then
+  begin
+    FMainSceneName:= value;
+    UpdateMainScene;
+  end;
+end;
+
+procedure TNyaActor.SetAutoAnimation(const value: String);
+begin
+  if (FAutoAnimation = value) then Exit;
+  FAutoAnimation:= value;
   ApplyAutoAnimation;
 end;
 
@@ -395,7 +427,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
        'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
-       'PersonalColorPersistent'
+       'PersonalColorPersistent', 'MainScene'
      ]) then
     Result:= [psBasic]
   else
@@ -410,6 +442,14 @@ type
     function GetAttributes: TPropertyAttributes; override;
     procedure GetValues(Proc: TGetStrProc); override;
   end;
+
+  { Property editor to select an MainScene in TNyaSwitch }
+  TNyaActorMainSceneEditor = class(TStringPropertyEditor)
+  public
+    function GetAttributes: TPropertyAttributes; override;
+    procedure GetValues(Proc: TGetStrProc); override;
+  end;
+
 
 function TNyaActorPropertyEditor.GetAttributes: TPropertyAttributes;
 begin
@@ -426,6 +466,24 @@ begin
   for S in Nav.AnimationsList do
     Proc(S);
 end;
+
+
+
+function TNyaActorMainSceneEditor.GetAttributes: TPropertyAttributes;
+begin
+  Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
+end;
+
+procedure TNyaActorMainSceneEditor.GetValues(Proc: TGetStrProc);
+var
+  Nav: TNyaActor;
+  S: TCastleScene;
+begin
+  Proc('');
+  Nav:= GetComponent(0) as TNyaActor;
+  for S in Nav.AllScenes do
+    Proc(S.Name);
+end;
 {$endif}
 
 initialization
@@ -436,6 +494,8 @@ initialization
                          TTransformDesignURLPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'AutoAnimation',
                          TNyaActorPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'MainScene',
+                         TNyaActorMainSceneEditor);
   {$endif}
 end.
 

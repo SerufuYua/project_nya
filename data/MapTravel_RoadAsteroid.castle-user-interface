@@ -131,8 +131,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 1.1677780151367187E+000,
-                          "Y" : -9.9999988079071045E-001
+                          "W" : 1.7800817489624023E+000,
+                          "Y" : 1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -377,6 +377,7 @@
                   "Red" : 1.5000000596046448E-001
                 },
                 "EmissionItself" : true,
+                "MainScene" : "Body",
                 "Name" : "CharaGirl",
                 "PersonalColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
@@ -502,16 +503,22 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.1944844722747803E+000,
-          "X" : -1.9545963406562805E-001,
-          "Y" : -9.7185552120208740E-001,
-          "Z" : -1.3150143623352051E-001
+          "W" : 1.7841893434524536E+000,
+          "X" : -5.9812027961015701E-002,
+          "Y" : 9.9564117193222046E-001,
+          "Z" : 7.1562208235263824E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 7.0070899963378906E+001,
-          "Y" : 2.9930121898651123E+000,
-          "Z" : 3.2748162746429443E+000
+          "X" : 6.2296118736267090E+000,
+          "Y" : 2.1321527957916260E+000,
+          "Z" : -2.1134891510009766E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
