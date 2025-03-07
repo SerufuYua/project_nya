@@ -18,6 +18,8 @@ type
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
+    BtnMinus: TCastleButton;
+    BtnPlus: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
     GaugePleasure: TNyaLoadingBar;
     GaugeTension: TNyaLoadingBar;
@@ -74,6 +76,8 @@ begin
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
+  BtnMinus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
+  BtnPlus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
 
   { get Navigation }
   FObserverNavigation:= Map.DesignedComponent('ObserverNavigation') as TCastleWalkNavigation;
@@ -304,13 +308,40 @@ begin
 end;
 
 procedure TBaseViewPlay.ChangedSpeed(Sender: TObject);
+const
+  step = 0.1;
 var
   slider: TCastleFloatSlider;
+  button: TCastleButton;
 begin
-  slider:= Sender as TCastleFloatSlider;
-  if NOT Assigned(slider) then Exit;
-
-  FActorsLogic.Speed:= slider.Value;
+  if (Sender is TCastleFloatSlider) then
+  begin
+    slider:= Sender as TCastleFloatSlider;
+    FActorsLogic.Speed:= slider.Value;
+    Exit;
+  end
+  else if (Sender is TCastleButton) then
+  begin
+    button:= Sender as TCastleButton;
+    Case button.Name of
+    'BtnMinus':
+      begin
+        if (Abs(FloatSliderSpeed.Value - FloatSliderSpeed.Min) > step) then
+          FloatSliderSpeed.Value:= FloatSliderSpeed.Value - step
+        else
+          FloatSliderSpeed.Value:= FloatSliderSpeed.Min;
+      end;
+    'BtnPlus':
+      begin
+        if (Abs(FloatSliderSpeed.Value - FloatSliderSpeed.Max) > step) then
+          FloatSliderSpeed.Value:= FloatSliderSpeed.Value + step
+        else
+          FloatSliderSpeed.Value:= FloatSliderSpeed.Max;
+      end;
+    end;
+    FActorsLogic.Speed:= FloatSliderSpeed.Value;
+    Exit;
+  end;
 end;
 
 procedure TBaseViewPlay.SetUIColor;
