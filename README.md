@@ -1,6 +1,16 @@
-# Project Nya
+# Project Nya (Indie game)
 
-Using [Castle Game Engine](https://castle-engine.io/).
+![Nya Title](./data/loading/cover.png)
+
+This game contains age-restricted materials including nudity and explicit scenes with sexual activity... but without violence.
+
+Anyway, I warned You.
+
+The project is currently in development mode ^_^
+
+At this version of the game, you can move through the locations and interact with actors marked with special signs V, thereby activating animated scenes.
+
+This Game using [Castle Game Engine](https://castle-engine.io/).
 
 ## Building
 
