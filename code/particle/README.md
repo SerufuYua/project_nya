@@ -1,4 +1,4 @@
-GPU-based Particle System for Castle Game Engine
+[GPU-based Particle System for Castle Game Engine](https://github.com/Kagamma/cge-3d-particle-emitter)
 
 ### Notes ###
 
