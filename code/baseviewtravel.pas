@@ -98,6 +98,9 @@ begin
 
   { set dress buttons }
   SetDressButtons;
+
+  { show info }
+  Notifications.Show('Info: use WASD for move');
 end;
 
 procedure TBaseViewPlay.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -116,6 +119,7 @@ begin
   { change map }
   if Assigned(FGetToGo) then
   begin
+    Notifications.Show('saving characters condition...');
     SaveCharasCondition();
     ViewLoading.SetToLoad(FGetToGo);
     Container.View:= ViewLoading;
