@@ -66,7 +66,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="28">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -92,6 +92,7 @@
       <Unit5>
         <Filename Value="code/baseviewtravel.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="BaseViewTravel"/>
       </Unit5>
       <Unit6>
         <Filename Value="code/charadress.pas"/>
@@ -100,6 +101,7 @@
       <Unit7>
         <Filename Value="code/gameviewdressingmenu.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewDressingMenu"/>
       </Unit7>
       <Unit8>
         <Filename Value="code/gameviewloading.pas"/>
@@ -116,6 +118,7 @@
       <Unit11>
         <Filename Value="code/gameviewtravelcontainerroom.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewTravelContainerRoom"/>
       </Unit11>
       <Unit12>
         <Filename Value="code/gameviewtravelroadasteroid.pas"/>
@@ -168,6 +171,7 @@
       <Unit23>
         <Filename Value="code/nyaswitch.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaSwitch"/>
       </Unit23>
       <Unit24>
         <Filename Value="code/nyathirdpersoncameranavigation.pas"/>
@@ -183,6 +187,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaVectorMath"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="code/gameviewconversationmenu.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewConversationMenu"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

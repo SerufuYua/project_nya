@@ -44,7 +44,6 @@ begin
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
-  ViewConversationMenu := TViewConversationMenu.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('g', 'PlayGirl') then
