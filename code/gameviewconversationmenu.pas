@@ -21,7 +21,6 @@ type
     type
       TViewConversationDialog = class(TCastleUserInterface)
       strict private
-        FParentView: TViewConversationMenu;
         FMessages: TMessages;
         FRootItem: TCastleUserInterface;
         FActorName: TCastleLabel;
@@ -34,11 +33,10 @@ type
       public
         OnOk: TOnAnswer;
         OnCancel: TOnAnswer;
+        ParentView: TViewConversationMenu;
+        procedure SetMessages(AMessages: TMessages);
       public
         constructor Create(AOwner: TComponent); override;
-        constructor Create(AOwner: TComponent;
-                           AParentView: TViewConversationMenu;
-                           AMessages: TMessages);
       end;
     var
       FDialog: TViewConversationDialog;
@@ -68,13 +66,6 @@ const
 { ========= ------------------------------------------------------------------ }
 
 constructor TViewConversationMenu.TViewConversationDialog.Create(AOwner: TComponent);
-begin
-  Create(AOwner, nil, []);
-end;
-
-constructor TViewConversationMenu.TViewConversationDialog.Create(AOwner: TComponent;
-                                                                 AParentView: TViewConversationMenu;
-                                                                 AMessages: TMessages);
 var
   UiOwner: TComponent;
   Ui: TCastleUserInterface;
@@ -82,10 +73,8 @@ var
   ButtonCancel: TCastleButton;
 begin
   inherited Create(AOwner);
-  FParentView:= AParentView;
-  FMessages:= AMessages;
 
-  // UiOwner is useful to keep reference to all components loaded from the design
+  { UiOwner is useful to keep reference to all components loaded from the design }
   UiOwner:= TComponent.Create(Self);
 
   { Load designed user interface }
@@ -103,8 +92,12 @@ begin
   ButtonCancel.OnClick:= {$ifdef FPC}@{$endif}ClickCancel;
 
   AutoSizeToChildren:= True;
+end;
 
+procedure TViewConversationMenu.TViewConversationDialog.SetMessages(AMessages: TMessages);
+begin
   FCounter:= 0;
+  FMessages:= AMessages;
   if Length(FMessages) > FCounter then
     ShowMessage(FMessages[FCounter]);
 end;
@@ -146,14 +139,14 @@ begin
   else
   begin
     if Assigned(OnOk) then OnOk;
-    Container.PopView(FParentView);
+    Container.PopView(ParentView);
   end;
 end;
 
 procedure TViewConversationMenu.TViewConversationDialog.ClickCancel(Sender: TObject);
 begin
   if Assigned(OnCancel) then OnCancel;
-  Container.PopView(FParentView);
+  Container.PopView(ParentView);
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -176,9 +169,11 @@ begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TViewConversationDialog.Create(FreeAtStop, Self, FMessages);
+  FDialog:= TViewConversationDialog.Create(FreeAtStop);
   FDialog.OnOk:= FOnOk;
   FDialog.OnCancel:= FOnCancel;
+  FDialog.ParentView:= Self;
+  FDialog.SetMessages(FMessages);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpBottom);
   InsertFront(FDialog);
