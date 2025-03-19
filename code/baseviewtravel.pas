@@ -29,6 +29,8 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
+    procedure Pause; override;
+    procedure Resume; override;
   protected
     FActorMain: TNyaActorChara;
     FDebugAvatar: TDebugTransform;
@@ -48,8 +50,6 @@ type
     procedure NavigationSetAnimation(
       const Sender: TNyaThirdPersonCharaNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
-    procedure Pause; override;
-    procedure Resume; override;
   end;
 
 implementation
