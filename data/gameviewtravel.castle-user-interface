@@ -8,6 +8,12 @@
       "Name" : "future_n0t_found",
       "OptimalSize" : 24,
       "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
+    },
+    {
+      "$$ClassName" : "TCastleFont",
+      "Name" : "future_n0t_found_32",
+      "OptimalSize" : 32,
+      "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
     }
   ],
   "$Children" : [
@@ -355,7 +361,7 @@
     },
     {
       "$$ClassName" : "TCastleNotifications",
-      "CustomFont" : "future_n0t_found",
+      "CustomFont" : "future_n0t_found_32",
       "MaxMessages" : 8,
       "Name" : "Notifications",
       "Timeout" : 8.0000000000000000E+000,
@@ -420,8 +426,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "future_n0t_found",
-                  "FontSize" : 3.2000000000000000E+001,
+                  "CustomFont" : "future_n0t_found_32",
                   "HorizontalAnchorParent" : "hpRight",
                   "HorizontalAnchorSelf" : "hpRight",
                   "Name" : "Status",

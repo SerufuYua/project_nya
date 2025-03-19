@@ -8,6 +8,12 @@
       "Name" : "future_n0t_found",
       "OptimalSize" : 24,
       "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
+    },
+    {
+      "$$ClassName" : "TCastleFont",
+      "Name" : "future_n0t_found_32",
+      "OptimalSize" : 32,
+      "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
     }
   ],
   "$Children" : [
@@ -276,7 +282,7 @@
                       "Name" : "BtnNext",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.7000000000000000E+001
+                        "X" : 9.6999992370605469E+001
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -440,7 +446,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -6.2000003814697266E+001
+                            "Y" : -6.1999996185302734E+001
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -502,7 +508,7 @@
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "X" : 1.0000000000000000E+001,
-                            "Y" : -1.1400000762939453E+002
+                            "Y" : -1.1399999237060547E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop"
@@ -993,7 +999,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000003814697266E+001
+                        "Y" : -5.1999996185302734E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
@@ -1040,7 +1046,7 @@
     },
     {
       "$$ClassName" : "TCastleNotifications",
-      "CustomFont" : "future_n0t_found",
+      "CustomFont" : "future_n0t_found_32",
       "Name" : "Notifications",
       "TranslationPersistent" : {
         "$$ClassName" : "TCastleVector2Persistent",
