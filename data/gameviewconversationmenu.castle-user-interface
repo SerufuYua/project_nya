@@ -1,13 +1,13 @@
 {
   "$$ClassName" : "TCastleUserInterface",
-  "Height" : 5.0000000000000000E+002,
-  "Name" : "GroupRoot",
+  "Height" : 4.0000000000000000E+002,
+  "Name" : "MenuRoot",
   "Width" : 1.0000000000000000E+003,
   "$NonVisualComponents" : [
     {
       "$$ClassName" : "TCastleFont",
       "Name" : "future_n0t_found",
-      "OptimalSize" : 24,
+      "OptimalSize" : 32,
       "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
     }
   ],
@@ -33,7 +33,8 @@
           },
           "FullSize" : true,
           "Name" : "ImageBG",
-          "Stretch" : true
+          "Stretch" : true,
+          "Tag" : 1
         },
         {
           "$$ClassName" : "TCastleLabel",
@@ -187,14 +188,18 @@
             },
             "Url" : "castle-data:/ui/submenu.png"
           },
-          "HeightFraction" : 7.5000000000000000E-001,
-          "HorizontalAnchorParent" : "hpMiddle",
-          "HorizontalAnchorSelf" : "hpMiddle",
+          "Height" : 2.4000000000000000E+002,
           "Name" : "ImageMsgBG",
           "Stretch" : true,
-          "VerticalAnchorParent" : "vpMiddle",
-          "VerticalAnchorSelf" : "vpMiddle",
-          "WidthFraction" : 9.4999998807907104E-001,
+          "Tag" : 1,
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "X" : 2.5000000000000000E+001,
+            "Y" : -7.5000000000000000E+001
+          },
+          "VerticalAnchorParent" : "vpTop",
+          "VerticalAnchorSelf" : "vpTop",
+          "Width" : 9.5000000000000000E+002,
           "$Children" : [
             {
               "$$ClassName" : "TCastleScrollView",
@@ -218,7 +223,7 @@
                     "CustomFont" : "future_n0t_found",
                     "Html" : true,
                     "MaxWidth" : 9.5000000000000000E+002,
-                    "Name" : "LabelMessage",
+                    "Name" : "TextMessage",
                     "Text" : [
                       "text line 01",
                       "very LFaodefa0 very very very very very very long long long long ling long long long line and additional long line",

@@ -2,9 +2,9 @@ unit GameViewTravelContainerRoom;
 
 interface
 
-uses Classes, BaseViewTravel,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform, NyaActorChara, NyaSwitch;
+uses
+  Classes, BaseViewTravel, CastleVectors, CastleUIControls, CastleControls,
+  CastleKeysMouse, CastleTransform, NyaActorChara, NyaSwitch;
 
 type
   TViewTravelContainerRoom = class(TBaseViewPlay)
@@ -14,6 +14,15 @@ type
     FActorBoy: TNyaActorChara;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
+  protected
+    procedure ConversationToyA;
+    procedure ConversationBed;
+    procedure ConversationBoy;
+  protected
+    procedure GetToGoToyA;
+    procedure GetToGoBed;
+    procedure GetToGoBoy;
+    procedure GetToGoOut;
   end;
 
 var
@@ -22,9 +31,9 @@ var
 implementation
 
 uses
-  GameViewPlayGirl, GameViewPlayTogether, GameViewTravelRoadAsteroid,
-  GameViewMain, CastleViewport, CastleScene, NyaCastleUtils,
-  CastleComponentSerialize, CastleFonts, SysUtils, GameViewDressingMenu;
+  GameViewPlayGirl, GameViewPlayTogether, GameViewConversationMenu,
+  GameViewTravelRoadAsteroid, GameViewMain, CastleViewport, CastleScene,
+  NyaCastleUtils, CastleComponentSerialize, CastleFonts, SysUtils;
 
 procedure TViewTravelContainerRoom.Start;
 begin
@@ -69,29 +78,88 @@ begin
 
   Case switch.Name of
   'ToyASwitch':
-    begin
-      Notifications.Show('Lets play with my Toy!');
-      FGetToGo:= ViewPlayGirl;
-    end;
+    ConversationToyA;
   'BoySwitch':
-    begin
-      Notifications.Show('Lets play Together!');
-      FGetToGo:= ViewPlayTogether;
-    end;
+    ConversationBoy;
   'GoOutSwitch':
-    begin
-      Notifications.Show('What is outside?');
-      FGetToGo:= ViewTravelRoadAsteroid;
-    end;
-  { #todo : Solo Play Scene }
-{  'BedSwitch':
-    begin
-      Notifications.Show('Lets play in my Bed!');
-      FGetToGo:= ViewPlaySolo;
-    end;}
+    GetToGoOut;
+  'BedSwitch':
+    ConversationBed;
   else
     Notifications.Show('There is nothing to do');
   end;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ Conversations -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelContainerRoom.ConversationToyA;
+var
+  messages: TMessages;
+begin
+  SetLength(messages, 1);
+  messages[0].FActor:= FActorMain;
+  messages[0].FMessage:= 'Lets play with my Toy!';
+  Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                     messages,
+                     {$ifdef FPC}@{$endif}GetToGoToyA,
+                     nil));
+end;
+
+procedure TViewTravelContainerRoom.ConversationBed;
+var
+  messages: TMessages;
+begin
+  SetLength(messages, 2);
+  messages[0].FActor:= FActorMain;
+  messages[0].FMessage:= 'Maybe little relax in bed...';
+  messages[1].FActor:= FActorMain;
+  messages[1].FMessage:= 'Next time';
+  Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                     messages,
+                     {$ifdef FPC}@{$endif}GetToGoBed,
+                     nil));
+end;
+
+procedure TViewTravelContainerRoom.ConversationBoy;
+var
+  messages: TMessages;
+begin
+  SetLength(messages, 2);
+  messages[0].FActor:= FActorMain;
+  messages[0].FMessage:= 'Hey! Lets play together! Nya!';
+  messages[1].FActor:= FActorBoy;
+  messages[1].FMessage:= 'Ah... What... Yeah! Lets do it! Nya!';
+  Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                     messages,
+                     {$ifdef FPC}@{$endif}GetToGoBoy,
+                     nil));
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ Get To Go ------------------------------------------------------------------ }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelContainerRoom.GetToGoToyA;
+begin
+  FGetToGo:= ViewPlayGirl;
+end;
+
+procedure TViewTravelContainerRoom.GetToGoBed;
+begin
+  { #todo : Solo Play Scene }
+  //FGetToGo:= ViewPlaySolo;
+end;
+
+procedure TViewTravelContainerRoom.GetToGoBoy;
+begin
+  FGetToGo:= ViewPlayTogether;
+end;
+
+procedure TViewTravelContainerRoom.GetToGoOut;
+begin
+  FGetToGo:= ViewTravelRoadAsteroid;
 end;
 
 end.
