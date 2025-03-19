@@ -8,14 +8,15 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
-  NyaActorChara,
-  NyaThirdPersonCameraNavigation, NyaSpectatorCameraNavigation,
+  CastleViewport,
+  NyaActorChara, NyaThirdPersonCameraNavigation, NyaSpectatorCameraNavigation,
   NyaThirdPersonCharaNavigation, NyaSwitch;
 
 type
   TBaseViewPlay = class(TCastleView)
   published
     Map: TCastleDesign;
+    MainViewport: TCastleViewport;
     LabelFps: TCastleLabel;
     BtnBack: TCastleButton;
     GroupDressingButtons: TCastlePackedGroup;
@@ -47,13 +48,15 @@ type
     procedure NavigationSetAnimation(
       const Sender: TNyaThirdPersonCharaNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
+    procedure Pause; override;
+    procedure Resume; override;
   end;
 
 implementation
 
 uses
   GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
-  CastleScene, CastleFonts, CastleViewport, CastleVectors,
+  CastleScene, CastleFonts, CastleVectors,
   StrUtils, NyaCastleUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
@@ -69,6 +72,9 @@ var
 begin
   inherited;
   FTouchedSwitch:= nil;
+
+  { set Main Viewport }
+  MainViewport:= Map.DesignedComponent('ViewportMain') as TCastleViewport;
 
   { reset go to map }
   FGetToGo:= nil;
@@ -305,6 +311,18 @@ begin
     if(FTouchedSwitch = switch) then
       FTouchedSwitch:= nil;
   end;
+end;
+
+procedure TBaseViewPlay.Pause;
+begin
+  inherited;
+  MainViewport.Items.TimeScale:= 0;
+end;
+
+procedure TBaseViewPlay.Resume;
+begin
+  inherited;
+  MainViewport.Items.TimeScale:= 1;
 end;
 
 end.
