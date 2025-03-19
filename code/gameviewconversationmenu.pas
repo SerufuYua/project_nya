@@ -13,8 +13,6 @@ type
     type
       TViewConversationDialog = class(TCastleUserInterface)
       strict private
-        ButtonNext: TCastleButton;
-        ButtonCancel: TCastleButton;
         procedure ClickNext(Sender: TObject);
         procedure ClickCancel(Sender: TObject);
       public
@@ -45,6 +43,8 @@ constructor TViewConversationMenu.TViewConversationDialog.Create(AOwner: TCompon
 var
   UiOwner: TComponent;
   Ui: TCastleUserInterface;
+  ButtonNext: TCastleButton;
+  ButtonCancel: TCastleButton;
 begin
   inherited Create(AOwner);
 
