@@ -12,6 +12,10 @@ At this version of the game, you can move through the locations and interact wit
 
 This Game using [Castle Game Engine](https://castle-engine.io/).
 
+## Binaries
+
+Binaries available on [itch.io](https://serufuyua.itch.io/project-nya) and [GitHub](https://github.com/SerufuYua/project_nya/releases)
+
 ## Building
 
 Compile by:
