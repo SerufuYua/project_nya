@@ -22,7 +22,7 @@ uses
 procedure TViewPlayGirl.Start;
 begin
   { set map }
-  Map.Url:= 'castle-data:/MapPlayGirlToyA.castle-user-interface';
+  Map.Url:= 'castle-data:/MapPlay_GirlToyA.castle-user-interface';
 
   inherited;
 end;

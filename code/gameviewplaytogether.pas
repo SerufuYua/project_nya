@@ -22,7 +22,7 @@ uses
 procedure TViewPlayTogether.Start;
 begin
   { set map }
-  Map.Url:= 'castle-data:/MapPlayTogether.castle-user-interface';
+  Map.Url:= 'castle-data:/MapPlay_Together.castle-user-interface';
 
   inherited;
 end;
