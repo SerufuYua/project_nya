@@ -129,7 +129,7 @@ begin
   messages[0].FActor:= FActorMain;
   messages[0].FMessage:= 'Hey! Lets play together! Nya!';
   messages[1].FActor:= FActorBoy;
-  messages[1].FMessage:= 'Ah... What... Yeah! Lets do it! Nya!';
+  messages[1].FMessage:= 'Ah... what... shure. Lets play! Nya!';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBoy,
