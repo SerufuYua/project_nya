@@ -17,6 +17,7 @@ uses SysUtils, CustApp,
   // The content here may be automatically updated by CGE editor.
   , GameViewMain
   , GameViewPlayGirl
+  , GameViewPlaySolo
   , GameViewPlayTogether
   , GameViewDressingMenu
   , GameViewLoading
@@ -39,6 +40,7 @@ begin
   // The content here may be automatically updated by CGE editor.
   ViewMain:= TViewMain.Create(Application);
   ViewPlayGirl:= TViewPlayGirl.Create(Application);
+  ViewPlaySolo:= TViewPlaySolo.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewDressingMenu:= TViewDressingMenu.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
@@ -46,8 +48,10 @@ begin
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}
 
-  if Application.hasOption('g', 'PlayGirl') then
+  if Application.hasOption('y', 'PlayToy') then
     Window.Container.View:= ViewPlayGirl
+  else if Application.hasOption('s', 'PlaySolo') then
+    Window.Container.View:= ViewPlaySolo
   else if Application.hasOption('t', 'PlayTogether') then
     Window.Container.View:= ViewPlayTogether
   else if Application.hasOption('h', 'Home') then

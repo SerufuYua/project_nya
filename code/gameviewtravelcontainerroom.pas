@@ -31,9 +31,10 @@ var
 implementation
 
 uses
-  GameViewPlayGirl, GameViewPlayTogether, GameViewConversationMenu,
-  GameViewTravelRoadAsteroid, GameViewMain, CastleViewport, CastleScene,
-  NyaCastleUtils, CastleComponentSerialize, CastleFonts, SysUtils;
+  GameViewPlayGirl, GameViewPlaySolo, GameViewPlayTogether,
+  GameViewTravelRoadAsteroid, GameViewConversationMenu, GameViewMain,
+  CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
+  CastleFonts, SysUtils;
 
 procedure TViewTravelContainerRoom.Start;
 begin
@@ -111,11 +112,9 @@ procedure TViewTravelContainerRoom.ConversationBed;
 var
   messages: TMessages;
 begin
-  SetLength(messages, 2);
+  SetLength(messages, 1);
   messages[0].FActor:= FActorMain;
   messages[0].FMessage:= 'Maybe little relax in bed...';
-  messages[1].FActor:= FActorMain;
-  messages[1].FMessage:= 'Next time';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBed,
@@ -148,8 +147,7 @@ end;
 
 procedure TViewTravelContainerRoom.GetToGoBed;
 begin
-  { #todo : Solo Play Scene }
-  //FGetToGo:= ViewPlaySolo;
+  FGetToGo:= ViewPlaySolo;
 end;
 
 procedure TViewTravelContainerRoom.GetToGoBoy;
