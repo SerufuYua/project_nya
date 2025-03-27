@@ -114,7 +114,7 @@ var
 begin
   SetLength(messages, 1);
   messages[0].FActor:= FActorMain;
-  messages[0].FMessage:= '<p>Maybe little relax in bed...</p>';
+  messages[0].FMessage:= '<p>Maybe relax a little in bed...</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBed,
@@ -129,7 +129,7 @@ begin
   messages[0].FActor:= FActorMain;
   messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
   messages[1].FActor:= FActorBoy;
-  messages[1].FMessage:= '<p>Ah... what... shure. Let&apos;s play! Nya!</p>';
+  messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBoy,
