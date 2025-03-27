@@ -1,0 +1,17 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "Name" : "Vechicle",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleScene",
+      "ExposeTransforms" : [
+      ],
+      "Name" : "SpacePlane",
+      "PreciseCollisions" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/furniture/space_plane/space_plane.gltf"
+    }
+  ]
+}

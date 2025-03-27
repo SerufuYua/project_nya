@@ -131,8 +131,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 1.7800817489624023E+000,
-                          "Y" : 1.0000000000000000E+000
+                          "W" : 1.4418598413467407E+000,
+                          "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -173,6 +173,58 @@
                         "Distance" : 6.0000002384185791E-001,
                         "Indicator" : "GoRoomIndicator",
                         "Name" : "GoRoomSwitch"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TNyaActor",
+                "ActorName" : "Space Plane",
+                "AutoAnimation" : "none",
+                "MainScene" : "SpacePlane",
+                "Name" : "SpacePlane",
+                "PersonalColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 4.6666666865348816E-001,
+                  "Green" : 9.3725490570068359E-001,
+                  "Red" : 0.0000000000000000E+000
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 6.4577180147171021E-001,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 4.3268198966979980E+000,
+                  "Y" : 9.2500001192092896E-001,
+                  "Z" : -1.8011779785156250E+001
+                },
+                "Url" : "castle-data:/SpacePlane.castle-transform",
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "SpacePlaneCollider",
+                    "PreciseCollisions" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "Url" : "castle-data:/furniture/space_plane/space_plane_collider.gltf",
+                    "Visible" : false,
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleMeshCollider",
+                        "Mesh" : "SpacePlaneCollider",
+                        "Name" : "SpacePlaneMeshCollider"
+                      },
+                      {
+                        "$$ClassName" : "TCastleRigidBody",
+                        "Dynamic" : false,
+                        "Gravity" : false,
+                        "Name" : "SpacePlaneRigidBody"
                       }
                     ]
                   }
@@ -503,22 +555,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.7841893434524536E+000,
-          "X" : -5.9812027961015701E-002,
-          "Y" : 9.9564117193222046E-001,
-          "Z" : 7.1562208235263824E-002
+          "W" : 1.5330597162246704E+000,
+          "X" : -3.0471011996269226E-001,
+          "Y" : -9.1327565908432007E-001,
+          "Z" : -2.7033200860023499E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.0000001192092896E+000,
-          "Y" : 1.0000001192092896E+000,
-          "Z" : 1.0000001192092896E+000
+          "X" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 6.2296118736267090E+000,
-          "Y" : 2.1321527957916260E+000,
-          "Z" : -2.1134891510009766E+001
+          "X" : -4.9307632446289062E+000,
+          "Y" : 6.2885527610778809E+000,
+          "Z" : -1.7910884857177734E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
