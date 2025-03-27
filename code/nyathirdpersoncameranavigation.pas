@@ -159,6 +159,7 @@ end;
 procedure TNyaThirdPersonCameraNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
 var
   TargetWorldPos: TVector3;
+  Collider: TCastleTransform;
   CollisionDistance: Single;
   SavedPickable: Boolean;
 begin
@@ -166,11 +167,12 @@ begin
   TargetWorldPos:= AvatarHierarchy.WorldTransform.MultPoint(AvatarTarget);
 
   SavedPickable:= AvatarHierarchy.Pickable;
-  AvatarHierarchy.Pickable := false;
+  AvatarHierarchy.Pickable:= false;
   try
-    if (AvatarHierarchy.World.WorldRayCast(TargetWorldPos, -CameraDir, CollisionDistance) = nil) then
+    Collider:= AvatarHierarchy.World.WorldRayCast(TargetWorldPos, -CameraDir, CollisionDistance);
+    if NOT Assigned(Collider) then
       CollisionDistance:= MaxSingle;
-  finally
+finally
     AvatarHierarchy.Pickable:= SavedPickable;
   end;
 
