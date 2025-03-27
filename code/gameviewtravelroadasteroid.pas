@@ -83,13 +83,13 @@ begin
   messages[0].FActor:= FActorMain;
   messages[0].FMessage:= '<p>Hi!</p><p>How are you?!</p>';
   messages[1].FActor:= FActorSpacePlane;
-  messages[1].FMessage:= '<p>Yo! I am fine.</p>';
+  messages[1].FMessage:= '<p>Yo! I&apos;m fine.</p>';
   messages[2].FActor:= FActorMain;
   messages[2].FMessage:= '<p>Did you seen my friend?</p>';
   messages[3].FActor:= FActorSpacePlane;
-  messages[3].FMessage:= '<p>Why you asking <b>me</b>? I dont spy for him. ' +
-                         'I am just him vehicle. Look him yourself...</p>' +
-                         '<p>Maybe he in your home, I dnot know.</p>';
+  messages[3].FMessage:= '<p>Why you asking <b>me</b>? I don&apos;t spy for him. ' +
+                         'I&apos;m just him vehicle. Look him yourself...</p>' +
+                         '<p>Maybe he in your home, I don&apos;t know.</p>';
   messages[4].FActor:= FActorMain;
   messages[4].FMessage:= '<p>Thanks! See ya!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(

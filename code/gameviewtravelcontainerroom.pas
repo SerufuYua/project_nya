@@ -101,7 +101,7 @@ var
 begin
   SetLength(messages, 1);
   messages[0].FActor:= FActorMain;
-  messages[0].FMessage:= '<p>Lets play with my Toy!</p>';
+  messages[0].FMessage:= '<p>Let&apos;s play with my Toy!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoToyA,
@@ -127,9 +127,9 @@ var
 begin
   SetLength(messages, 2);
   messages[0].FActor:= FActorMain;
-  messages[0].FMessage:= '<p>Hey! Lets play together! Nya!</p>';
+  messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
   messages[1].FActor:= FActorBoy;
-  messages[1].FMessage:= '<p>Ah... what... shure. Lets play! Nya!</p>';
+  messages[1].FMessage:= '<p>Ah... what... shure. Let&apos;s play! Nya!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBoy,
