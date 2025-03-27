@@ -4,15 +4,20 @@ interface
 
 uses Classes, BaseViewTravel,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform, NyaActorChara, NyaSwitch;
+  CastleTransform, NyaActor;
 
 type
   TViewTravelRoadAsteroid = class(TBaseViewPlay)
   public
     procedure Start; override;
   protected
+    FActorSpacePlane: TNyaActor;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
+  protected
+    procedure ConversationSpacePlane;
+  protected
+    procedure GetToGoHome;
   end;
 
 var
@@ -21,9 +26,9 @@ var
 implementation
 
 uses
-  GameViewTravelContainerRoom, GameViewMain,
-  CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
-  CastleFonts, SysUtils, GameViewDressingMenu;
+  GameViewTravelContainerRoom, GameViewMain, GameViewConversationMenu,
+  NyaActorChara, NyaSwitch, CastleViewport, CastleScene, NyaCastleUtils,
+  CastleComponentSerialize, CastleFonts, SysUtils, GameViewDressingMenu;
 
 procedure TViewTravelRoadAsteroid.Start;
 begin
@@ -32,6 +37,9 @@ begin
 
   { set Girl Character }
   FActorMain:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
+
+  { set Space Plane Character }
+  FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
 
   inherited;
 end;
@@ -55,13 +63,48 @@ begin
 
   Case switch.Name of
   'GoRoomSwitch':
-    begin
-      Notifications.Show('Im home!');
-      FGetToGo:= ViewTravelContainerRoom;
-    end;
+    GetToGoHome;
+  'SpacePlaneSwitch':
+    ConversationSpacePlane;
   else
     Notifications.Show('There is nothing to do');
   end;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ Conversations -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelRoadAsteroid.ConversationSpacePlane;
+var
+  messages: TMessages;
+begin
+  SetLength(messages, 5);
+  messages[0].FActor:= FActorMain;
+  messages[0].FMessage:= '<p>Hi!</p><p>How are you?!</p>';
+  messages[1].FActor:= FActorSpacePlane;
+  messages[1].FMessage:= '<p>Yo! I am fine.</p>';
+  messages[2].FActor:= FActorMain;
+  messages[2].FMessage:= '<p>Did you seen my friend?</p>';
+  messages[3].FActor:= FActorSpacePlane;
+  messages[3].FMessage:= '<p>Why you asking <b>me</b>? I dont spy for him. ' +
+                         'I am just him vehicle. Look him yourself...</p>' +
+                         '<p>Maybe he in your home, I dnot know.</p>';
+  messages[4].FActor:= FActorMain;
+  messages[4].FMessage:= '<p>Thanks! See ya!</p>';
+  Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                     messages,
+                     nil,
+                     nil));
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ Get To Go ------------------------------------------------------------------ }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelRoadAsteroid.GetToGoHome;
+begin
+  FGetToGo:= ViewTravelContainerRoom;
 end;
 
 end.

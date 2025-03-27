@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, BaseViewTravel, CastleVectors, CastleUIControls, CastleControls,
-  CastleKeysMouse, CastleTransform, NyaActorChara, NyaSwitch;
+  CastleKeysMouse, CastleTransform, NyaActorChara;
 
 type
   TViewTravelContainerRoom = class(TBaseViewPlay)
@@ -31,7 +31,7 @@ var
 implementation
 
 uses
-  GameViewPlayGirl, GameViewPlaySolo, GameViewPlayTogether,
+  GameViewPlayGirl, GameViewPlaySolo, GameViewPlayTogether, NyaSwitch,
   GameViewTravelRoadAsteroid, GameViewConversationMenu, GameViewMain,
   CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
   CastleFonts, SysUtils;
@@ -101,7 +101,7 @@ var
 begin
   SetLength(messages, 1);
   messages[0].FActor:= FActorMain;
-  messages[0].FMessage:= 'Lets play with my Toy!';
+  messages[0].FMessage:= '<p>Lets play with my Toy!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoToyA,
@@ -114,7 +114,7 @@ var
 begin
   SetLength(messages, 1);
   messages[0].FActor:= FActorMain;
-  messages[0].FMessage:= 'Maybe little relax in bed...';
+  messages[0].FMessage:= '<p>Maybe little relax in bed...</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBed,
@@ -127,9 +127,9 @@ var
 begin
   SetLength(messages, 2);
   messages[0].FActor:= FActorMain;
-  messages[0].FMessage:= 'Hey! Lets play together! Nya!';
+  messages[0].FMessage:= '<p>Hey! Lets play together! Nya!</p>';
   messages[1].FActor:= FActorBoy;
-  messages[1].FMessage:= 'Ah... what... shure. Lets play! Nya!';
+  messages[1].FMessage:= '<p>Ah... what... shure. Lets play! Nya!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBoy,
