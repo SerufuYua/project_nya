@@ -131,12 +131,12 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 1.4418598413467407E+000,
+                          "W" : 2.6779451370239258E+000,
                           "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
-                          "Y" : 1.8947499990463257E+000
+                          "Y" : 1.8999999761581421E+000
                         },
                         "Url" : "castle-data:/effects/indicator/indicator_blue.gltf",
                         "$Behaviors" : [
@@ -227,6 +227,46 @@
                         "Name" : "SpacePlaneRigidBody"
                       }
                     ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "SpacePlaneIndicator",
+                    "Pickable" : false,
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 2.0321731567382812E+000,
+                      "Y" : -1.0000000000000000E+000
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 1.3999999761581421E+000
+                    },
+                    "Url" : "castle-data:/effects/indicator/indicator_yellow.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleBillboard",
+                        "Name" : "SpacePlaneIndicatorBillboard"
+                      }
+                    ]
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaFrontSwitch",
+                    "ActionString" : "use",
+                    "Activator" : "CharaGirl",
+                    "Distance" : 2.0000000298023224E-001,
+                    "Indicator" : "SpacePlaneIndicator",
+                    "Name" : "SpacePlaneSwitch",
+                    "VisibleAngle" : 6.0000000000000000E+001
                   }
                 ]
               },
@@ -555,20 +595,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5330597162246704E+000,
-          "X" : -3.0471011996269226E-001,
-          "Y" : -9.1327565908432007E-001,
-          "Z" : -2.7033200860023499E-001
+          "W" : 1.0249289274215698E+000,
+          "X" : -1.2341029942035675E-001,
+          "Y" : -9.8976451158523560E-001,
+          "Z" : -7.1666106581687927E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.0000001192092896E+000
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -4.9307632446289062E+000,
-          "Y" : 6.2885527610778809E+000,
-          "Z" : -1.7910884857177734E+001
+          "X" : -4.4021868705749512E+000,
+          "Y" : 3.1189060211181641E+000,
+          "Z" : -1.3944310188293457E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
