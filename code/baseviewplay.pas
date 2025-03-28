@@ -8,10 +8,11 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
-  NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect, NyaLoadingBar;
+  ViewWarper, NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect,
+  NyaLoadingBar;
 
 type
-  TBaseViewPlay = class(TCastleView)
+  TBaseViewPlay = class(TViewWarper)
   published
     Map: TCastleDesign;
     LabelFps: TCastleLabel;

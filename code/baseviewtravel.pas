@@ -9,11 +9,11 @@ uses
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   CastleViewport,
-  NyaActorChara, NyaThirdPersonCameraNavigation, NyaSpectatorCameraNavigation,
-  NyaThirdPersonCharaNavigation, NyaSwitch;
+  ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
+  NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch;
 
 type
-  TBaseViewPlay = class(TCastleView)
+  TBaseViewPlay = class(TViewWarper)
   published
     Map: TCastleDesign;
     MainViewport: TCastleViewport;
