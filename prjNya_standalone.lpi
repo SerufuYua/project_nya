@@ -66,7 +66,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="30">
+    <Units Count="31">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -98,6 +98,7 @@
       <Unit6>
         <Filename Value="code/charadress.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="CharaDress"/>
       </Unit6>
       <Unit7>
         <Filename Value="code/gameviewdressingmenu.pas"/>
@@ -208,6 +209,10 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ViewWarper"/>
       </Unit29>
+      <Unit30>
+        <Filename Value="code/nyaworldconsts.inc"/>
+        <IsPartOfProject Value="True"/>
+      </Unit30>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -47,7 +47,8 @@ const
   PrefixFoots = 'foots.';
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
-  IniFileName = 'condition.ini';
+
+{$I nyaworldconsts.inc}
 
 { ---------------------------------------------------------------------------- }
 { TCharaDresser -------------------------------------------------------------- }
