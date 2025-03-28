@@ -42,7 +42,7 @@ begin
   Map.Url:= 'castle-data:/MapTravel_ContainerRoom.castle-user-interface';
 
   { set Girl Character }
-  FActorMain:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
+  MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
@@ -100,7 +100,7 @@ var
   messages: TMessages;
 begin
   SetLength(messages, 1);
-  messages[0].FActor:= FActorMain;
+  messages[0].FActor:= MainActor;
   messages[0].FMessage:= '<p>Let&apos;s play with my Toy!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
@@ -113,7 +113,7 @@ var
   messages: TMessages;
 begin
   SetLength(messages, 1);
-  messages[0].FActor:= FActorMain;
+  messages[0].FActor:= MainActor;
   messages[0].FMessage:= '<p>Maybe relax a little in bed...</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
@@ -126,7 +126,7 @@ var
   messages: TMessages;
 begin
   SetLength(messages, 2);
-  messages[0].FActor:= FActorMain;
+  messages[0].FActor:= MainActor;
   messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
   messages[1].FActor:= FActorBoy;
   messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';

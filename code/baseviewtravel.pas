@@ -32,7 +32,6 @@ type
     procedure Pause; override;
     procedure Resume; override;
   protected
-    FActorMain: TNyaActorChara;
     FDebugAvatar: TDebugTransform;
     FCameraNavigationFollow: TNyaThirdPersonCameraNavigation;
     FKeyUse: TKey;
@@ -81,7 +80,7 @@ begin
 
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
-  FDebugAvatar.Parent:= FActorMain;
+  FDebugAvatar.Parent:= MainActor;
   FDebugAvatar.Exists:= False;
 
   { set navigation }
@@ -197,7 +196,7 @@ begin
   begin
     alpha:= item.Color.W;
     if (item.Tag = 1) then
-      item.Color:= Vector4(FActorMain.PersonalColor, alpha);
+      item.Color:= Vector4(MainActor.PersonalColor, alpha);
   end;
 end;
 
@@ -222,7 +221,7 @@ end;
 
 procedure TBaseViewPlay.SaveCharasCondition;
 begin
-  FActorMain.SaveCondition;
+  MainActor.SaveCondition;
 end;
 
 procedure TBaseViewPlay.ClickDress(Sender: TObject);
@@ -238,8 +237,8 @@ begin
     Container.PushView(ViewDressingMenu);
 
     { check selected chara }
-    if (FActorMain.ActorName = btnDress.Caption) then
-      ViewDressingMenu.SetChara(FActorMain);
+    if (MainActor.ActorName = btnDress.Caption) then
+      ViewDressingMenu.SetChara(MainActor);
 
     ImageControlDressing.Exists:= False;
   end;
@@ -273,7 +272,7 @@ begin
   end else
     newBtn:= TCastleButton.Create(GroupDressingButtons);
 
-  newBtn.Caption:= FActorMain.ActorName;
+  newBtn.Caption:= MainActor.ActorName;
   newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
   GroupDressingButtons.InsertFront(newBtn);
 
@@ -285,8 +284,8 @@ procedure TBaseViewPlay.NavigationSetAnimation(
                         const Sender: TNyaThirdPersonCharaNavigation;
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
-  FActorMain.AutoAnimation:= AnimationName;
-  FActorMain.AnimationSpeed:= AnimtionSpeed;
+  MainActor.AutoAnimation:= AnimationName;
+  MainActor.AnimationSpeed:= AnimtionSpeed;
 end;
 
 procedure TBaseViewPlay.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
