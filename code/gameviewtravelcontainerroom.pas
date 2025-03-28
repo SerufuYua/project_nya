@@ -7,7 +7,7 @@ uses
   CastleKeysMouse, CastleTransform, NyaActorChara;
 
 type
-  TViewTravelContainerRoom = class(TBaseViewPlay)
+  TViewTravelContainerRoom = class(TBaseViewTravel)
   public
     procedure Start; override;
   protected
@@ -142,22 +142,26 @@ end;
 
 procedure TViewTravelContainerRoom.GetToGoToyA;
 begin
-  FGetToGo:= ViewPlayGirl;
+  SaveCharasCondition();
+  GetToGo(ViewPlayGirl);
 end;
 
 procedure TViewTravelContainerRoom.GetToGoBed;
 begin
-  FGetToGo:= ViewPlaySolo;
+  SaveCharasCondition();
+  GetToGo(ViewPlaySolo);
 end;
 
 procedure TViewTravelContainerRoom.GetToGoBoy;
 begin
-  FGetToGo:= ViewPlayTogether;
+  SaveCharasCondition();
+  GetToGo(ViewPlayTogether);
 end;
 
 procedure TViewTravelContainerRoom.GetToGoOut;
 begin
-  FGetToGo:= ViewTravelRoadAsteroid;
+  SaveCharasCondition();
+  GetToGo(ViewTravelRoadAsteroid);
 end;
 
 end.

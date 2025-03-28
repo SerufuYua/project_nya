@@ -117,7 +117,6 @@ end;
 procedure TBaseViewPlay.Update(const SecondsPassed: Single;
                                var HandleInput: boolean);
 begin
-  inherited;
   { Executed every frame. }
 
   { update FPS }
@@ -134,6 +133,8 @@ begin
   { Release Dressing Menu Buttons }
   if NOT (Container.FrontView = ViewDressingMenu) then
     ImageControlDressing.Exists:= True;
+
+  inherited;
 end;
 
 function TBaseViewPlay.Press(const Event: TInputPressRelease): Boolean;
@@ -208,8 +209,7 @@ begin
     begin
       Notifications.Show('saving characters condition...');
       SaveCharasCondition();
-      ViewLoading.SetToLoad(ViewTravelContainerRoom);
-      Container.View:= ViewLoading;
+      GetToGo(ViewTravelContainerRoom);
     end;
   'BtnStop':
     begin

@@ -13,7 +13,7 @@ uses
   NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch;
 
 type
-  TBaseViewPlay = class(TViewWarper)
+  TBaseViewTravel = class(TViewWarper)
   published
     Map: TCastleDesign;
     MainViewport: TCastleViewport;
@@ -37,7 +37,6 @@ type
     FKeyUse: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
-    FGetToGo: TCastleView;
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
@@ -58,14 +57,13 @@ uses
   CastleScene, CastleFonts, CastleVectors,
   StrUtils, NyaCastleUtils;
 
-constructor TBaseViewPlay.Create(AOwner: TComponent);
+constructor TBaseViewTravel.Create(AOwner: TComponent);
 begin
   inherited;
-  FGetToGo:= nil;
   DesignUrl := 'castle-data:/gameviewtravel.castle-user-interface';
 end;
 
-procedure TBaseViewPlay.Start;
+procedure TBaseViewTravel.Start;
 var
   charaNavigation: TNyaThirdPersonCharaNavigation;
 begin
@@ -108,9 +106,8 @@ begin
   Notifications.Show('Info: use WASD for move');
 end;
 
-procedure TBaseViewPlay.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TBaseViewTravel.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
-  inherited;
   { Executed every frame. }
 
   { update FPS }
@@ -121,17 +118,10 @@ begin
   if NOT (Container.FrontView = ViewDressingMenu) then
     ImageControlDressing.Exists:= True;
 
-  { change map }
-  if Assigned(FGetToGo) then
-  begin
-    Notifications.Show('saving characters condition...');
-    SaveCharasCondition();
-    ViewLoading.SetToLoad(FGetToGo);
-    Container.View:= ViewLoading;
-  end;
+  inherited;
 end;
 
-function TBaseViewPlay.Press(const Event: TInputPressRelease): Boolean;
+function TBaseViewTravel.Press(const Event: TInputPressRelease): Boolean;
 begin
   Result := inherited;
   if Result then Exit; // allow the ancestor to handle keys
@@ -157,7 +147,7 @@ begin
   end;
 end;
 
-function TBaseViewPlay.Release(const Event: TInputPressRelease): boolean;
+function TBaseViewTravel.Release(const Event: TInputPressRelease): boolean;
 begin
   { disable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
@@ -166,7 +156,7 @@ begin
   Result := inherited;
 end;
 
-procedure TBaseViewPlay.ClickControl(Sender: TObject);
+procedure TBaseViewTravel.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
@@ -178,13 +168,12 @@ begin
     begin
       Notifications.Show('saving characters condition...');
       SaveCharasCondition();
-      ViewLoading.SetToLoad(ViewMain);
-      Container.View:= ViewLoading;
+      GetToGo(ViewMain);
     end;
   end;
 end;
 
-procedure TBaseViewPlay.SetUIColor;
+procedure TBaseViewTravel.SetUIColor;
 var
   rootItem: TCastleUserInterface;
   item: TCastleImageControl;
@@ -200,7 +189,7 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.SetSwitches;
+procedure TBaseViewTravel.SetSwitches;
 var
   behaviors: TCastleBehaviors;
   behavior: TCastleBehavior;
@@ -219,12 +208,12 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.SaveCharasCondition;
+procedure TBaseViewTravel.SaveCharasCondition;
 begin
   MainActor.SaveCondition;
 end;
 
-procedure TBaseViewPlay.ClickDress(Sender: TObject);
+procedure TBaseViewTravel.ClickDress(Sender: TObject);
 var
   btnDress: TCastleButton;
 begin
@@ -244,7 +233,7 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.SetDressButtons;
+procedure TBaseViewTravel.SetDressButtons;
 var
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
@@ -280,7 +269,7 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
-procedure TBaseViewPlay.NavigationSetAnimation(
+procedure TBaseViewTravel.NavigationSetAnimation(
                         const Sender: TNyaThirdPersonCharaNavigation;
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
@@ -288,7 +277,7 @@ begin
   MainActor.AnimationSpeed:= AnimtionSpeed;
 end;
 
-procedure TBaseViewPlay.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
+procedure TBaseViewTravel.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
 var
   switch: TNyaSwitch;
 begin
@@ -312,13 +301,13 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.Pause;
+procedure TBaseViewTravel.Pause;
 begin
   inherited;
   MainViewport.Items.TimeScale:= 0;
 end;
 
-procedure TBaseViewPlay.Resume;
+procedure TBaseViewTravel.Resume;
 begin
   inherited;
   MainViewport.Items.TimeScale:= 1;

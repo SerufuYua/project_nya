@@ -11,11 +11,11 @@ uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
   CastleTransform, CastleQuaternions, CastleScene, CastleFlashEffect,
-  NyaActorChara;
+  ViewWarper, NyaActorChara;
 
 type
   { Main view, where most of the application logic takes place. }
-  TViewMain = class(TCastleView)
+  TViewMain = class(TViewWarper)
   published
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
@@ -76,12 +76,13 @@ end;
 
 procedure TViewMain.Update(const SecondsPassed: Single; var HandleInput: Boolean);
 begin
-  inherited;
   { This virtual method is executed every frame (many times per second). }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
   UpdateCamera(SecondsPassed);
+
+  inherited;
 end;
 
 procedure TViewMain.ClickExit(Sender: TObject);
@@ -91,8 +92,7 @@ end;
 
 procedure TViewMain.ClickStart(Sender: TObject);
 begin
-  ViewLoading.SetToLoad(ViewTravelContainerRoom);
-  Container.View:= ViewLoading;
+  GetToGo(ViewTravelContainerRoom);
 end;
 
 procedure TViewMain.ClicSettings(Sender: TObject);

@@ -7,7 +7,7 @@ uses Classes, BaseViewTravel,
   CastleTransform, NyaActor;
 
 type
-  TViewTravelRoadAsteroid = class(TBaseViewPlay)
+  TViewTravelRoadAsteroid = class(TBaseViewTravel)
   public
     procedure Start; override;
   protected
@@ -104,7 +104,8 @@ end;
 
 procedure TViewTravelRoadAsteroid.GetToGoHome;
 begin
-  FGetToGo:= ViewTravelContainerRoom;
+  SaveCharasCondition();
+  GetToGo(ViewTravelContainerRoom);
 end;
 
 end.
