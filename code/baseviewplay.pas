@@ -50,12 +50,14 @@ type
     procedure SetUIColor;
     procedure SaveCharasCondition;
     procedure DoStart(Sender: TObject);
+  protected
+    procedure GetToGoBack; virtual;
   end;
 
 implementation
 
 uses
-  GameViewTravelContainerRoom, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara;
 
@@ -206,19 +208,11 @@ begin
 
   Case button.Name of
   'BtnBack':
-    begin
-      Notifications.Show('saving characters condition...');
-      SaveCharasCondition();
-      GetToGo(ViewTravelContainerRoom);
-    end;
+    GetToGoBack;
   'BtnStop':
-    begin
-      FActorsLogic.Stop;
-    end;
+    FActorsLogic.Stop;
   'BtnNext':
-    begin
-      FActorsLogic.NextPart;
-    end;
+    FActorsLogic.NextPart;
   end;
 end;
 
@@ -376,6 +370,11 @@ begin
   Notifications.Show('Info: use WASD for move');
   Notifications.Show('Info: use C for move down');
   Notifications.Show('Info: use Space for move up');
+end;
+
+procedure TBaseViewPlay.GetToGoBack;
+begin
+  SaveCharasCondition();
 end;
 
 end.
