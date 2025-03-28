@@ -3,8 +3,8 @@ unit GameViewTravelContainerRoom;
 interface
 
 uses
-  Classes, BaseViewTravel, CastleVectors, CastleUIControls, CastleControls,
-  CastleKeysMouse, CastleTransform, NyaActorChara;
+  Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
+  BaseViewTravel, NyaActor, NyaActorChara;
 
 type
   TViewTravelContainerRoom = class(TBaseViewTravel)
@@ -31,10 +31,12 @@ var
 implementation
 
 uses
-  GameViewPlayGirl, GameViewPlaySolo, GameViewPlayTogether, NyaSwitch,
-  GameViewTravelRoadAsteroid, GameViewConversationMenu, GameViewMain,
-  CastleViewport, CastleScene, NyaCastleUtils, CastleComponentSerialize,
-  CastleFonts, SysUtils;
+  SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
+  CastleComponentSerialize,
+  NyaSwitch, NyaCastleUtils,
+  GameViewDressingMenu, GameViewPlayGirl, GameViewPlaySolo,
+  GameViewPlayTogether, GameViewTravelRoadAsteroid, GameViewMain,
+  GameViewConversationMenu;
 
 procedure TViewTravelContainerRoom.Start;
 begin
@@ -161,7 +163,8 @@ end;
 procedure TViewTravelContainerRoom.GetToGoOut;
 begin
   SaveCharasCondition();
-  GetToGo(ViewTravelRoadAsteroid);
+  GetToGo(ViewTravelRoadAsteroid, Vector3(-1.1, 0.1, -21.0),
+                                  Vector4(0.0, 1.0, 0.0, Deg(25.0)));
 end;
 
 end.

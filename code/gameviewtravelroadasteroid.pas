@@ -2,9 +2,9 @@ unit GameViewTravelRoadAsteroid;
 
 interface
 
-uses Classes, BaseViewTravel,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleTransform, NyaActor;
+uses
+  Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
+  BaseViewTravel, NyaActor;
 
 type
   TViewTravelRoadAsteroid = class(TBaseViewTravel)
@@ -26,9 +26,11 @@ var
 implementation
 
 uses
-  GameViewTravelContainerRoom, GameViewMain, GameViewConversationMenu,
-  NyaActorChara, NyaSwitch, CastleViewport, CastleScene, NyaCastleUtils,
-  CastleComponentSerialize, CastleFonts, SysUtils, GameViewDressingMenu;
+  SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
+  CastleComponentSerialize,
+  NyaActorChara, NyaSwitch, NyaCastleUtils,
+  GameViewDressingMenu, GameViewTravelContainerRoom, GameViewMain,
+  GameViewConversationMenu;
 
 procedure TViewTravelRoadAsteroid.Start;
 begin
@@ -105,7 +107,8 @@ end;
 procedure TViewTravelRoadAsteroid.GetToGoHome;
 begin
   SaveCharasCondition();
-  GetToGo(ViewTravelContainerRoom);
+  GetToGo(ViewTravelContainerRoom, Vector3(-0.66, 0.15, 1.66),
+                                   Vector4(0.0, 1.0, 0.0, Deg(150.0)));
 end;
 
 end.
