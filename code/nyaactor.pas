@@ -74,12 +74,13 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property AllScenes: TCastleScenes read FAllScenes;
+    property MainScene: TCastleScene read FMainScene;
     property AnimationsList: TStrings read FAnimationsList;
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
   published
     property ActorName: String read FActorName write SetActorName;
-    property MainScene: String read FMainSceneName write SetMainScene;
+    property MainSceneName: String read FMainSceneName write SetMainScene;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
              {$ifdef FPC}default DefaultAnimationSpeed{$endif};
@@ -427,7 +428,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
        'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
-       'PersonalColorPersistent', 'MainScene'
+       'PersonalColorPersistent', 'MainSceneName'
      ]) then
     Result:= [psBasic]
   else
@@ -494,7 +495,7 @@ initialization
                          TTransformDesignURLPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'AutoAnimation',
                          TNyaActorPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'MainScene',
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'MainSceneName',
                          TNyaActorMainSceneEditor);
   {$endif}
 end.
