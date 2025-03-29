@@ -123,7 +123,7 @@ end;
 
 function TBaseViewTravel.Press(const Event: TInputPressRelease): Boolean;
 begin
-  Result := inherited;
+  Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
 
   { enable camera control }
