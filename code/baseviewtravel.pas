@@ -10,7 +10,8 @@ uses
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   CastleViewport,
   ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
-  NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch;
+  NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch,
+  NyaWorldCondition;
 
 type
   TBaseViewTravel = class(TViewWarper)
@@ -23,6 +24,7 @@ type
     ImageControlDressing: TCastleImageControl;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
+    WorldCondition: TNyaWorldCondition;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;

@@ -314,7 +314,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.1999996185302734E+001
+                        "Y" : -5.2000003814697266E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
@@ -442,6 +442,10 @@
           ]
         }
       ]
+    },
+    {
+      "$$ClassName" : "TNyaWorldCondition",
+      "Name" : "WorldCondition"
     }
   ]
 }
