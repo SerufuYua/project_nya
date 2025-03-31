@@ -114,26 +114,53 @@ procedure TViewTravelContainerRoom.ConversationToyA;
 var
   messages: TMessages;
 begin
-  SetLength(messages, 1);
-  messages[0].FActor:= MainActor;
-  messages[0].FMessage:= '<p>Let&apos;s play with my Toy!</p>';
-  Container.PushView(TViewConversationMenu.CreateUntilStopped(
-                     messages,
-                     {$ifdef FPC}@{$endif}GetToGoToyA,
-                     nil));
+  if FActorBoy.Exists then
+  begin
+    SetLength(messages, 1);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Maybe I&apos;ll play alone</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       nil,
+                       nil));
+  end
+  else
+  begin
+    SetLength(messages, 1);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Let&apos;s play with my Toy!</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       {$ifdef FPC}@{$endif}GetToGoToyA,
+                       nil));
+  end;
 end;
 
 procedure TViewTravelContainerRoom.ConversationBed;
 var
   messages: TMessages;
 begin
-  SetLength(messages, 1);
-  messages[0].FActor:= MainActor;
-  messages[0].FMessage:= '<p>Maybe relax a little in bed...</p>';
-  Container.PushView(TViewConversationMenu.CreateUntilStopped(
-                     messages,
-                     {$ifdef FPC}@{$endif}GetToGoBed,
-                     nil));
+  if FActorBoy.Exists then
+  begin
+    SetLength(messages, 1);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>I don&apos;t think that sleep ' +
+                           'when I have guest is good idea</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       nil,
+                       nil));
+  end
+  else
+  begin
+    SetLength(messages, 1);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Maybe relax a little in bed...</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       {$ifdef FPC}@{$endif}GetToGoBed,
+                       nil));
+  end;
 end;
 
 procedure TViewTravelContainerRoom.ConversationBoy;
