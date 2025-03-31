@@ -10,6 +10,7 @@ type
   TViewTravelRoadAsteroid = class(TBaseViewTravel)
   public
     procedure Start; override;
+    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorSpacePlane: TNyaActor;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
@@ -42,6 +43,18 @@ begin
 
   { set Space Plane Character }
   FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
+  FActorSpacePlane.Exists:= WorldCondition.BoyExists;
+
+  inherited;
+end;
+
+procedure TViewTravelRoadAsteroid.Update(const SecondsPassed: Single;
+                                          var HandleInput: boolean);
+begin
+
+  { update Boy Exists only when area where Boy is not in view }
+  if NOT PointVisible(FActorSpacePlane.Translation) then
+    FActorSpacePlane.Exists:= WorldCondition.BoyExists;
 
   inherited;
 end;
