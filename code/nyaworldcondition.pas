@@ -35,6 +35,7 @@ type
     function GetBoyExists: Boolean;
     function GetBoySearched: Boolean;
     procedure SetBoySearched(value: Boolean);
+    function GetSpacePlaneExists: Boolean;
     procedure RestoreCondition;
     procedure SaveCondition;
   public
@@ -46,6 +47,7 @@ type
   public
     property BoyExists: boolean read GetBoyExists;
     property BoySearched: boolean read GetBoySearched write SetBoySearched;
+    property SpacePlaneExists: boolean read GetSpacePlaneExists;
   end;
 
 
@@ -135,7 +137,7 @@ end;
 
 function TNyaWorldCondition.GetBoyExists: Boolean;
 begin
-  Result:= FBoyCondition.FBoyExists;
+  Result:= FBoyCondition.FBoyExists AND FBoyCondition.FBoySearched;
 end;
 
 function TNyaWorldCondition.GetBoySearched: Boolean;
@@ -146,6 +148,11 @@ end;
 procedure TNyaWorldCondition.SetBoySearched(value: Boolean);
 begin
   FBoyCondition.FBoySearched:= value;
+end;
+
+function TNyaWorldCondition.GetSpacePlaneExists: Boolean;
+begin
+  Result:= FBoyCondition.FBoyExists;
 end;
 
 procedure TNyaWorldCondition.RestoreCondition;

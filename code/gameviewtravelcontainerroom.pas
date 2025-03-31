@@ -49,7 +49,7 @@ begin
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
-  FActorBoy.Exists:= WorldCondition.BoyExists AND WorldCondition.BoySearched;
+  FActorBoy.Exists:= WorldCondition.BoyExists;
 
   inherited;
 end;
@@ -60,7 +60,7 @@ begin
 
   { update Boy Exists only when area where Boy is not in view }
   if NOT PointVisible(FActorBoy.Translation) then
-    FActorBoy.Exists:= WorldCondition.BoyExists AND WorldCondition.BoySearched;
+    FActorBoy.Exists:= WorldCondition.BoyExists;
 
   inherited;
 end;

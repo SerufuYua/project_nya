@@ -45,7 +45,7 @@ begin
 
   { set Space Plane Character }
   FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
-  FActorSpacePlane.Exists:= WorldCondition.BoyExists;
+  FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
 
   inherited;
 end;
@@ -56,7 +56,7 @@ begin
 
   { update Boy Exists only when area where Boy is not in view }
   if NOT PointVisible(FActorSpacePlane.Translation) then
-    FActorSpacePlane.Exists:= WorldCondition.BoyExists;
+    FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
 
   inherited;
 end;
