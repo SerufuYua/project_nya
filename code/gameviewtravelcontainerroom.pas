@@ -49,6 +49,7 @@ begin
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
+  FActorBoy.Exists:= WorldCondition.BoyExists;
 
   inherited;
 end;
