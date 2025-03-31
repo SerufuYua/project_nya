@@ -10,26 +10,37 @@ uses
 
 type
   TNyaWorldCondition = class(TCastleUserInterface)
-  protected { Boy Exists }
-    FBoyExists: boolean;
-    FBoyExistsRemaining: TFloatTime;
-    function BoyExistsInterval: TFloatTime;
-    procedure OnBoyExists;
   protected
+    type
+      { Boy Condition }
+      TBoyCondition = class
+      public
+        const
+          DefaultBoyExists = False;
+          DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
+          DefaultBoyExistsIntervalVariance: TFloatTime = 30.0;
+      public
+        FBoyExists: Boolean;
+        FBoyExistsRemaining: TFloatTime;
+        constructor Create;
+        procedure Update(const SecondsPassed: Single);
+        function BoyExistsInterval: TFloatTime;
+        procedure OnBoyExists;
+      end;
+    var
+      BoyCondition: TBoyCondition;
+  protected
+    function GetBoyExists: Boolean;
     procedure RestoreCondition;
     procedure SaveCondition;
   public
-    const
-      DefaultBoyExists = False;
-      DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
-
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   public
-    property BoyExists: boolean read FBoyExists;
+    property BoyExists: boolean read GetBoyExists;
   end;
 
 
@@ -45,16 +56,52 @@ const
   BoyExistsStr = 'BoyExists';
   BoyTimerStr = 'BoyTimer';
 
+{ ========= ------------------------------------------------------------------ }
+{ TBoyCondition -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+constructor TNyaWorldCondition.TBoyCondition.Create;
+begin
+  FBoyExists:= DefaultBoyExists;
+  FBoyExistsRemaining:= BoyExistsInterval;
+end;
+
+procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);
+begin
+  FBoyExistsRemaining:= FBoyExistsRemaining - SecondsPassed;
+  if (FBoyExistsRemaining <= 0.0) then
+    OnBoyExists;
+end;
+
+function TNyaWorldCondition.TBoyCondition.BoyExistsInterval: TFloatTime;
+begin
+  Result:= RandomFloatRange(
+             DefaultBoyExistsInterval - DefaultBoyExistsIntervalVariance,
+             DefaultBoyExistsInterval + DefaultBoyExistsIntervalVariance);
+end;
+
+procedure TNyaWorldCondition.TBoyCondition.OnBoyExists;
+begin
+  FBoyExistsRemaining:= BoyExistsInterval;
+  FBoyExists:= NOT FBoyExists;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TNyaWorldCondition --------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
 constructor TNyaWorldCondition.Create(AOwner: TComponent);
 begin
   inherited;
 
+  BoyCondition:= TBoyCondition.Create;
   RestoreCondition;
 end;
 
 destructor TNyaWorldCondition.Destroy;
 begin
   SaveCondition;
+  freeAndNil(BoyCondition);
 
   inherited;
 end;
@@ -64,22 +111,7 @@ procedure TNyaWorldCondition.Update(const SecondsPassed: Single;
 begin
   inherited;
 
-  { processing Boy Exists Time }
-  FBoyExistsRemaining:= FBoyExistsRemaining - SecondsPassed;
-  if (FBoyExistsRemaining <= 0.0) then
-    OnBoyExists;
-end;
-
-function TNyaWorldCondition.BoyExistsInterval: TFloatTime;
-begin
-  Result:= RandomFloatRange(DefaultBoyExistsInterval * 0.5,
-                            DefaultBoyExistsInterval * 1.5);
-end;
-
-procedure TNyaWorldCondition.OnBoyExists;
-begin
-  FBoyExistsRemaining:= BoyExistsInterval;
-  FBoyExists:= NOT FBoyExists;
+  BoyCondition.Update(SecondsPassed);
 end;
 
 function TNyaWorldCondition.PropertySections(const PropertyName: String): TPropertySections;
@@ -92,6 +124,11 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
+function TNyaWorldCondition.GetBoyExists: Boolean;
+begin
+  Result:= BoyCondition.FBoyExists;
+end;
+
 procedure TNyaWorldCondition.RestoreCondition;
 var
   ini: TCustomIniFile;
@@ -100,8 +137,9 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  FBoyExists:= ini.ReadBool(Section, BoyExistsStr, False);
-  FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr, BoyExistsInterval);
+  BoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr, False);
+  BoyCondition.FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr,
+                                       BoyCondition.BoyExistsInterval);
 
   ini.Free;
 end;
@@ -114,8 +152,8 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  ini.WriteBool(Section, BoyExistsStr, FBoyExists);
-  ini.WriteFloat(Section, BoyTimerStr, FBoyExistsRemaining);
+  ini.WriteBool(Section, BoyExistsStr, BoyCondition.FBoyExists);
+  ini.WriteFloat(Section, BoyTimerStr, BoyCondition.FBoyExistsRemaining);
 
   ini.Free;
 end;
