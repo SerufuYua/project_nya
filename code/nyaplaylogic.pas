@@ -27,6 +27,7 @@ type
     FSpeed: Single;
     FActionCoeff: Single;
     FThresholdFastGo: Single;
+    FThresholdTired: Single;
     FThresholdFinish: Single;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters;
                             bottomDress, footDress: boolean);
@@ -55,7 +56,8 @@ type
       DefaultTension = 0.0;
       DefaultActNum = '';
       DefaultThresholdFastGo = 0.6;
-      DefaultThresholdFinish = 0.95;
+      DefaultThresholdTired = 0.85;
+      DefaultThresholdFinish = 0.999;
 
     constructor Create(actors: TActorsList; screenFader: TNyaFadeEffect);
     procedure Update(const SecondsPassed: Single);
@@ -101,6 +103,7 @@ begin
   FSpeed:= DefaultSpeed;
   FActionCoeff:= DefaultActionCoeff;
   FThresholdFastGo:= DefaultThresholdFastGo;
+  FThresholdTired:= DefaultThresholdTired;
   FThresholdFinish:= DefaultThresholdFinish;
 end;
 
@@ -120,18 +123,20 @@ begin
     begin
       Pleasure:= Pleasure + FSpeed * ActionCoeff * SecondsPassed;
       Tension:= Tension + 0.5 *  FSpeed *  FSpeed * ActionCoeff * SecondsPassed;
-      if ((Pleasure > FThresholdFastGo) AND (Tension < 0.95)) then
+
+      if ((Pleasure > FThresholdFastGo) AND (Tension <= FThresholdTired)) then
         ActionFastGo
-      else if (Pleasure > FThresholdFinish) then
-        ActionFinish;
+      else if (Pleasure > FThresholdTired) then
+        ActionFastGo;
     end;
   TActorStatus.FastGo:
     begin
       Pleasure:= Pleasure + 3.0 *  FSpeed * ActionCoeff * SecondsPassed;
       Tension:= Tension + 4.0 *  FSpeed *  FSpeed * ActionCoeff * SecondsPassed;
-      if (Tension > FThresholdFinish) then
+
+      if ((Tension > FThresholdTired) AND (Pleasure < FThresholdTired)) then
         ActionGo
-      else if (Pleasure > FThresholdFinish) then
+      else if (Pleasure >= FThresholdFinish) then
         ActionFinish;
     end;
 //  TActorStatus.Finish:
