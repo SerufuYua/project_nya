@@ -118,7 +118,8 @@ begin
   begin
     SetLength(messages, 1);
     messages[0].FActor:= MainActor;
-    messages[0].FMessage:= '<p>Maybe I&apos;ll play alone</p>';
+    messages[0].FMessage:= '<p>Well... Maybe I&apos;ll play sometime ' +
+                           'later... when I&apos;ll be alone with myself.</p>';
     Container.PushView(TViewConversationMenu.CreateUntilStopped(
                        messages,
                        nil,
@@ -144,8 +145,7 @@ begin
   begin
     SetLength(messages, 1);
     messages[0].FActor:= MainActor;
-    messages[0].FMessage:= '<p>I don&apos;t think that sleep ' +
-                           'when I have guest is good idea</p>';
+    messages[0].FMessage:= '<p>I can&apos;t just go to bed when I have guests.</p>';
     Container.PushView(TViewConversationMenu.CreateUntilStopped(
                        messages,
                        nil,
