@@ -12,7 +12,6 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
-    FCamera: TCastleCamera;
     FActorBoy: TNyaActorChara;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
@@ -51,26 +50,16 @@ begin
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
 
-  { set Camera }
-  FCamera:= (Map.DesignedComponent('ViewportMain') as TCastleViewport).Camera;
-
   inherited;
 end;
 
 procedure TViewTravelContainerRoom.Update(const SecondsPassed: Single;
                                           var HandleInput: boolean);
-var
-  dot: Single;
 begin
 
-  { update Boy Exists only when area where Boy in not in view }
-  dot:= TVector3.DotProduct(
-          FCamera.Direction,
-          (FActorBoy.Translation - FCamera.Translation).Normalize);
-
-  if (dot < 0) then
+  { update Boy Exists only when area where Boy is not in view }
+  if NOT PointVisible(FActorBoy.Translation) then
     FActorBoy.Exists:= WorldCondition.BoyExists;
-
 
   inherited;
 end;

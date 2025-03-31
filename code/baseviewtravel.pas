@@ -8,7 +8,7 @@ uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
-  CastleViewport,
+  CastleViewport, CastleVectors,
   ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
   NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch,
   NyaWorldCondition;
@@ -36,6 +36,7 @@ type
   protected
     FDebugAvatar: TDebugTransform;
     FCameraNavigationFollow: TNyaThirdPersonCameraNavigation;
+    FCamera: TCastleCamera;
     FKeyUse: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
@@ -50,13 +51,14 @@ type
     procedure NavigationSetAnimation(
       const Sender: TNyaThirdPersonCharaNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
+    function PointVisible(const value: TVector3): boolean;
   end;
 
 implementation
 
 uses
   GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
-  CastleScene, CastleFonts, CastleVectors,
+  CastleScene, CastleFonts,
   StrUtils, NyaCastleUtils;
 
 constructor TBaseViewTravel.Create(AOwner: TComponent);
@@ -77,6 +79,9 @@ begin
 
   { reset go to map }
   FGetToGo:= nil;
+
+  { set Camera }
+  FCamera:= (Map.DesignedComponent('ViewportMain') as TCastleViewport).Camera;
 
   { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
   FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
@@ -277,6 +282,15 @@ procedure TBaseViewTravel.NavigationSetAnimation(
 begin
   MainActor.AutoAnimation:= AnimationName;
   MainActor.AnimationSpeed:= AnimtionSpeed;
+end;
+
+function TBaseViewTravel.PointVisible(const value: TVector3): boolean;
+var
+  dot: Single;
+begin
+  dot:= TVector3.DotProduct(FCamera.Direction,
+                            (value - FCamera.Translation).Normalize);
+  Result:= (dot >= 0.0);
 end;
 
 procedure TBaseViewTravel.DoTouchSwitch(const Sender: TObject; Touch: Boolean);

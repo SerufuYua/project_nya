@@ -12,8 +12,8 @@ type
   TNyaWorldCondition = class(TCastleUserInterface)
   protected { Boy Exists }
     FBoyExists: boolean;
-    FBoyExistsTimeRemaining: TFloatTime;
-    function BoyExistsTimeInterval: TFloatTime;
+    FBoyExistsRemaining: TFloatTime;
+    function BoyExistsInterval: TFloatTime;
     procedure OnBoyExists;
   protected
     procedure RestoreCondition;
@@ -21,7 +21,7 @@ type
   public
     const
       DefaultBoyExists = False;
-      DefaultBoyExistsTimeInterval: TFloatTime = 3.0 * 60.0;
+      DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -65,20 +65,20 @@ begin
   inherited;
 
   { processing Boy Exists Time }
-  FBoyExistsTimeRemaining:= FBoyExistsTimeRemaining - SecondsPassed;
-  if (FBoyExistsTimeRemaining <= 0.0) then
+  FBoyExistsRemaining:= FBoyExistsRemaining - SecondsPassed;
+  if (FBoyExistsRemaining <= 0.0) then
     OnBoyExists;
 end;
 
-function TNyaWorldCondition.BoyExistsTimeInterval: TFloatTime;
+function TNyaWorldCondition.BoyExistsInterval: TFloatTime;
 begin
-  Result:= RandomFloatRange(DefaultBoyExistsTimeInterval * 0.5,
-                            DefaultBoyExistsTimeInterval * 1.5);
+  Result:= RandomFloatRange(DefaultBoyExistsInterval * 0.5,
+                            DefaultBoyExistsInterval * 1.5);
 end;
 
 procedure TNyaWorldCondition.OnBoyExists;
 begin
-  FBoyExistsTimeRemaining:= BoyExistsTimeInterval;
+  FBoyExistsRemaining:= BoyExistsInterval;
   FBoyExists:= NOT FBoyExists;
 end;
 
@@ -101,7 +101,7 @@ begin
   ini.Options:= [ifoFormatSettingsActive];
 
   FBoyExists:= ini.ReadBool(Section, BoyExistsStr, False);
-  FBoyExistsTimeRemaining:= ini.ReadFloat(Section, BoyTimerStr, BoyExistsTimeInterval);
+  FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr, BoyExistsInterval);
 
   ini.Free;
 end;
@@ -115,7 +115,7 @@ begin
   ini.Options:= [ifoFormatSettingsActive];
 
   ini.WriteBool(Section, BoyExistsStr, FBoyExists);
-  ini.WriteFloat(Section, BoyTimerStr, FBoyExistsTimeRemaining);
+  ini.WriteFloat(Section, BoyTimerStr, FBoyExistsRemaining);
 
   ini.Free;
 end;
