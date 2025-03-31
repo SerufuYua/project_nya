@@ -18,6 +18,8 @@ type
   protected
     procedure ConversationSpacePlane;
   protected
+    procedure TalkToPlaneOk;
+  protected
     procedure GetToGoHome;
   end;
 
@@ -109,8 +111,17 @@ begin
   messages[4].FMessage:= '<p>Thanks! See ya!</p>';
   Container.PushView(TViewConversationMenu.CreateUntilStopped(
                      messages,
-                     nil,
+                     {$ifdef FPC}@{$endif}TalkToPlaneOk,
                      nil));
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TalkTo Result -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelRoadAsteroid.TalkToPlaneOk;
+begin
+  WorldCondition.BoySearched:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }

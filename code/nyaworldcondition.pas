@@ -19,9 +19,11 @@ type
           DefaultBoyExists = False;
           DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
           DefaultBoyExistsIntervalVariance: TFloatTime = 30.0;
+          DefaultBoySearched = False;
       public
         FBoyExists: Boolean;
         FBoyExistsRemaining: TFloatTime;
+        FBoySearched: Boolean;
         constructor Create;
         procedure Update(const SecondsPassed: Single);
         function BoyExistsInterval: TFloatTime;
@@ -31,6 +33,8 @@ type
       BoyCondition: TBoyCondition;
   protected
     function GetBoyExists: Boolean;
+    function GetBoySearched: Boolean;
+    procedure SetBoySearched(value: Boolean);
     procedure RestoreCondition;
     procedure SaveCondition;
   public
@@ -41,6 +45,7 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
   public
     property BoyExists: boolean read GetBoyExists;
+    property BoySearched: boolean read GetBoySearched write SetBoySearched;
   end;
 
 
@@ -53,17 +58,21 @@ uses
 
 const
   Section = 'World';
-  BoyExistsStr = 'BoyExists';
-  BoyTimerStr = 'BoyTimer';
 
 { ========= ------------------------------------------------------------------ }
 { TBoyCondition -------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TNyaWorldCondition.TBoyCondition.Create;
+const
+  BoyExistsStr = 'BoyExists';
+  BoyTimerStr = 'BoyTimer';
+  BoySearchedStr = 'BoySearched';
+
+  constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
   FBoyExists:= DefaultBoyExists;
   FBoyExistsRemaining:= BoyExistsInterval;
+  FBoySearched:= DefaultBoySearched;
 end;
 
 procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);
@@ -129,6 +138,16 @@ begin
   Result:= BoyCondition.FBoyExists;
 end;
 
+function TNyaWorldCondition.GetBoySearched: Boolean;
+begin
+  Result:= BoyCondition.FBoySearched;
+end;
+
+procedure TNyaWorldCondition.SetBoySearched(value: Boolean);
+begin
+  BoyCondition.FBoySearched:= value;
+end;
+
 procedure TNyaWorldCondition.RestoreCondition;
 var
   ini: TCustomIniFile;
@@ -137,9 +156,11 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  BoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr, False);
+  BoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr,
+                              BoyCondition.DefaultBoyExists);
   BoyCondition.FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr,
                                        BoyCondition.BoyExistsInterval);
+  BoyCondition.FBoySearched:= ini.ReadBool(Section, BoySearchedStr, BoyCondition.DefaultBoySearched);
 
   ini.Free;
 end;
@@ -154,6 +175,7 @@ begin
 
   ini.WriteBool(Section, BoyExistsStr, BoyCondition.FBoyExists);
   ini.WriteFloat(Section, BoyTimerStr, BoyCondition.FBoyExistsRemaining);
+  ini.WriteBool(Section, BoySearchedStr, BoyCondition.FBoySearched);
 
   ini.Free;
 end;
