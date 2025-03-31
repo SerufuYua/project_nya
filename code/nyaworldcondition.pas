@@ -30,7 +30,7 @@ type
         procedure OnBoyExists;
       end;
     var
-      BoyCondition: TBoyCondition;
+      FBoyCondition: TBoyCondition;
   protected
     function GetBoyExists: Boolean;
     function GetBoySearched: Boolean;
@@ -103,14 +103,14 @@ constructor TNyaWorldCondition.Create(AOwner: TComponent);
 begin
   inherited;
 
-  BoyCondition:= TBoyCondition.Create;
+  FBoyCondition:= TBoyCondition.Create;
   RestoreCondition;
 end;
 
 destructor TNyaWorldCondition.Destroy;
 begin
   SaveCondition;
-  freeAndNil(BoyCondition);
+  freeAndNil(FBoyCondition);
 
   inherited;
 end;
@@ -120,7 +120,7 @@ procedure TNyaWorldCondition.Update(const SecondsPassed: Single;
 begin
   inherited;
 
-  BoyCondition.Update(SecondsPassed);
+  FBoyCondition.Update(SecondsPassed);
 end;
 
 function TNyaWorldCondition.PropertySections(const PropertyName: String): TPropertySections;
@@ -135,17 +135,17 @@ end;
 
 function TNyaWorldCondition.GetBoyExists: Boolean;
 begin
-  Result:= BoyCondition.FBoyExists;
+  Result:= FBoyCondition.FBoyExists;
 end;
 
 function TNyaWorldCondition.GetBoySearched: Boolean;
 begin
-  Result:= BoyCondition.FBoySearched;
+  Result:= FBoyCondition.FBoySearched;
 end;
 
 procedure TNyaWorldCondition.SetBoySearched(value: Boolean);
 begin
-  BoyCondition.FBoySearched:= value;
+  FBoyCondition.FBoySearched:= value;
 end;
 
 procedure TNyaWorldCondition.RestoreCondition;
@@ -156,11 +156,11 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  BoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr,
-                              BoyCondition.DefaultBoyExists);
-  BoyCondition.FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr,
-                                       BoyCondition.BoyExistsInterval);
-  BoyCondition.FBoySearched:= ini.ReadBool(Section, BoySearchedStr, BoyCondition.DefaultBoySearched);
+  FBoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr,
+                              FBoyCondition.DefaultBoyExists);
+  FBoyCondition.FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr,
+                                       FBoyCondition.BoyExistsInterval);
+  FBoyCondition.FBoySearched:= ini.ReadBool(Section, BoySearchedStr, FBoyCondition.DefaultBoySearched);
 
   ini.Free;
 end;
@@ -173,9 +173,9 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  ini.WriteBool(Section, BoyExistsStr, BoyCondition.FBoyExists);
-  ini.WriteFloat(Section, BoyTimerStr, BoyCondition.FBoyExistsRemaining);
-  ini.WriteBool(Section, BoySearchedStr, BoyCondition.FBoySearched);
+  ini.WriteBool(Section, BoyExistsStr, FBoyCondition.FBoyExists);
+  ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FBoyExistsRemaining);
+  ini.WriteBool(Section, BoySearchedStr, FBoyCondition.FBoySearched);
 
   ini.Free;
 end;
