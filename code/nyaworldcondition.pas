@@ -17,6 +17,7 @@ type
       protected
         const
           DefaultBoyExists = False;
+          DefaultFirstTalkDone = False;
           DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
           DefaultBoyExistsIntervalVariance: TFloatTime = 30.0;
           DefaultBoySearched = False;
@@ -24,6 +25,7 @@ type
         FBoyExists: Boolean;
         FBoyExistsRemaining: TFloatTime;
         FBoySearched: Boolean;
+        FFirstTalkDone: Boolean;
         function BoyExistsInterval: TFloatTime;
         procedure OnBoyExists;
       public
@@ -31,6 +33,7 @@ type
         procedure Update(const SecondsPassed: Single);
         property Exists: boolean read FBoyExists;
         property Searched: boolean read FBoySearched write FBoySearched;
+        property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
       end;
     var
       FBoyCondition: TBoyCondition;
@@ -66,12 +69,14 @@ const
 
 const
   BoyExistsStr = 'BoyExists';
+  BoyFirstTalkDone = 'BoyFirstTalkDone';
   BoyTimerStr = 'BoyTimer';
   BoySearchedStr = 'BoySearched';
 
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
   FBoyExists:= DefaultBoyExists;
+  FFirstTalkDone:= DefaultFirstTalkDone;
   FBoyExistsRemaining:= BoyExistsInterval;
   FBoySearched:= DefaultBoySearched;
 end;
@@ -148,9 +153,14 @@ begin
   ini.Options:= [ifoFormatSettingsActive];
 
   FBoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr,
-                              FBoyCondition.DefaultBoyExists);
+                             FBoyCondition.DefaultBoyExists);
+
+  FBoyCondition.FFirstTalkDone:=  ini.ReadBool(Section, BoyFirstTalkDone,
+                                  FBoyCondition.DefaultFirstTalkDone);
+
   FBoyCondition.FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr,
-                                       FBoyCondition.BoyExistsInterval);
+                                      FBoyCondition.BoyExistsInterval);
+
   FBoyCondition.FBoySearched:= ini.ReadBool(Section, BoySearchedStr, FBoyCondition.DefaultBoySearched);
 
   ini.Free;
@@ -165,6 +175,7 @@ begin
   ini.Options:= [ifoFormatSettingsActive];
 
   ini.WriteBool(Section, BoyExistsStr, FBoyCondition.FBoyExists);
+  ini.WriteBool(Section, BoyFirstTalkDone, FBoyCondition.FFirstTalkDone);
   ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FBoyExistsRemaining);
   ini.WriteBool(Section, BoySearchedStr, FBoyCondition.FBoySearched);
 
