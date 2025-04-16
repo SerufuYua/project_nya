@@ -26,12 +26,13 @@ type
         FBoyExistsRemaining: TFloatTime;
         FBoySearched: Boolean;
         FFirstTalkDone: Boolean;
+        function GetBoyExists: Boolean;
         function BoyExistsInterval: TFloatTime;
         procedure OnBoyExists;
       public
         constructor Create;
         procedure Update(const SecondsPassed: Single);
-        property Exists: boolean read FBoyExists;
+        property Exists: boolean read GetBoyExists;
         property Searched: boolean read FBoySearched write FBoySearched;
         property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
       end;
@@ -86,6 +87,11 @@ begin
   FBoyExistsRemaining:= FBoyExistsRemaining - SecondsPassed;
   if (FBoyExistsRemaining <= 0.0) then
     OnBoyExists;
+end;
+
+function TNyaWorldCondition.TBoyCondition.GetBoyExists: Boolean;
+begin
+  Result:= FBoyExists AND FBoySearched;
 end;
 
 function TNyaWorldCondition.TBoyCondition.BoyExistsInterval: TFloatTime;
