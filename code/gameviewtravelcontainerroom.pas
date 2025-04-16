@@ -20,6 +20,8 @@ type
     procedure ConversationBed;
     procedure ConversationBoy;
   protected
+    procedure TalkToBoyOk;
+  protected
     procedure GetToGoToyA;
     procedure GetToGoBed;
     procedure GetToGoBoy;
@@ -167,15 +169,52 @@ procedure TViewTravelContainerRoom.ConversationBoy;
 var
   messages: TMessages;
 begin
-  SetLength(messages, 2);
-  messages[0].FActor:= MainActor;
-  messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
-  messages[1].FActor:= FActorBoy;
-  messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';
-  Container.PushView(TViewConversationMenu.CreateUntilStopped(
-                     messages,
-                     {$ifdef FPC}@{$endif}GetToGoBoy,
-                     nil));
+  if WorldCondition.Boy.FirstTalkDone then
+  begin
+    SetLength(messages, 2);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
+    messages[1].FActor:= FActorBoy;
+    messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       {$ifdef FPC}@{$endif}GetToGoBoy,
+                       nil));
+  end else
+  begin
+    SetLength(messages, 9);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi Nya! Super cool that you stopped by!</p>';
+    messages[1].FActor:= FActorBoy;
+    messages[1].FMessage:= '<p>Yo! You look nya!</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Ha! Thanks! And you&apos;re really super cute!</p>';
+    messages[3].FActor:= FActorBoy;
+    messages[3].FMessage:= '<p>Have you been waiting for me for a long time?</p>';
+    messages[4].FActor:= MainActor;
+    messages[4].FMessage:= '<p>I don&apos;t know, maybe forever or maybe a few minutes. I know we should be together, but where are we?</p>';
+    messages[5].FActor:= FActorBoy;
+    messages[5].FMessage:= '<p>What do you mean where? We&apos;re in post-mortalis. We&apos;re dead, have you forgotten?</p>';
+    messages[6].FActor:= MainActor;
+    messages[6].FMessage:= '<p>Um... I remember how you are leaving. It was... it was terrible. I don&apos;t remember what happened to me after that. I just remember waking up, knowing you&apos;d be here somewhere.</p>';
+    messages[7].FActor:= FActorBoy;
+    messages[7].FMessage:= '<p>If you remember, I warned you many times that could happen that I would leave much earlier than you. You should have been ready for this.</p>';
+    messages[8].FActor:= MainActor;
+    messages[8].FMessage:= '<p>Yes, I remember that... I remember... But in the end, here we are. We are together again! I am ultra happy!</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       {$ifdef FPC}@{$endif}TalkToBoyOk,
+                       nil));
+  end;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TalkTo Result -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelContainerRoom.TalkToBoyOk;
+begin
+  WorldCondition.Boy.FirstTalkDone:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }

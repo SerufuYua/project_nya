@@ -96,23 +96,39 @@ procedure TViewTravelRoadAsteroid.ConversationSpacePlane;
 var
   messages: TMessages;
 begin
-  SetLength(messages, 5);
-  messages[0].FActor:= MainActor;
-  messages[0].FMessage:= '<p>Hi!</p><p>How are you?!</p>';
-  messages[1].FActor:= FActorSpacePlane;
-  messages[1].FMessage:= '<p>Yo! I&apos;m fine.</p>';
-  messages[2].FActor:= MainActor;
-  messages[2].FMessage:= '<p>Have you seen my friend?</p>';
-  messages[3].FActor:= FActorSpacePlane;
-  messages[3].FMessage:= '<p>Why are you asking me? I&apos;m not a spy for him. ' +
-                         'I&apos;m just his vehicle. Look for him yourself...</p>' +
-                         '<p>Maybe he&apos;s at your home, I don&apos;t know.</p>';
-  messages[4].FActor:= MainActor;
-  messages[4].FMessage:= '<p>Thanks! See ya!</p>';
-  Container.PushView(TViewConversationMenu.CreateUntilStopped(
-                     messages,
-                     {$ifdef FPC}@{$endif}TalkToPlaneOk,
-                     nil));
+  if WorldCondition.Boy.FirstTalkDone then
+  begin
+    SetLength(messages, 3);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi! How are you!</p>';
+    messages[1].FActor:= FActorSpacePlane;
+    messages[1].FMessage:= '<p>Fine! How are you?</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Nya!</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       nil,
+                       nil));
+  end else
+  begin
+    SetLength(messages, 5);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi!</p><p>How are you?!</p>';
+    messages[1].FActor:= FActorSpacePlane;
+    messages[1].FMessage:= '<p>Yo! I&apos;m fine.</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Have you seen my friend?</p>';
+    messages[3].FActor:= FActorSpacePlane;
+    messages[3].FMessage:= '<p>Why are you asking me? I&apos;m not a spy for him. ' +
+                           'I&apos;m just his vehicle. Look for him yourself...</p>' +
+                           '<p>Maybe he&apos;s at your home, I don&apos;t know.</p>';
+    messages[4].FActor:= MainActor;
+    messages[4].FMessage:= '<p>Thanks! See ya!</p>';
+    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                       messages,
+                       {$ifdef FPC}@{$endif}TalkToPlaneOk,
+                       nil));
+  end;
 end;
 
 { ========= ------------------------------------------------------------------ }
