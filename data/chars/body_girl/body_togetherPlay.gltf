@@ -59740,11 +59740,16 @@
 				}
 			},
 			"name":"breeches.tex",
+			"normalTexture":{
+				"index":4
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":4
+					"index":5
 				},
-				"metallicFactor":0
+				"metallicRoughnessTexture":{
+					"index":6
+				}
 			}
 		},
 		{
@@ -59766,7 +59771,7 @@
 			"name":"briefs.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":5,
+					"index":7,
 					"texCoord":3
 				},
 				"metallicFactor":0
@@ -59777,7 +59782,7 @@
 			"name":"swimsuit.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":6
+					"index":8
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.75
@@ -59798,12 +59803,19 @@
 				}
 			},
 			"name":"boots.tex",
+			"normalTexture":{
+				"index":9,
+				"texCoord":2
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":7,
+					"index":10,
 					"texCoord":2
 				},
-				"metallicFactor":0
+				"metallicRoughnessTexture":{
+					"index":11,
+					"texCoord":2
+				}
 			}
 		},
 		{
@@ -59811,7 +59823,7 @@
 			"name":"sneakers.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":8
+					"index":12
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -59834,7 +59846,7 @@
 			"name":"summer_shirt.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":9
+					"index":13
 				},
 				"metallicFactor":0
 			}
@@ -59842,11 +59854,16 @@
 		{
 			"doubleSided":true,
 			"name":"weskit.tex",
+			"normalTexture":{
+				"index":14
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":10
+					"index":15
 				},
-				"metallicFactor":0,
+				"metallicRoughnessTexture":{
+					"index":16
+				},
 				"roughnessFactor":0.44999998807907104
 			}
 		},
@@ -59855,7 +59872,7 @@
 			"name":"weskit_metal.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":11
+					"index":17
 				},
 				"roughnessFactor":0.5
 			}
@@ -60118,7 +60135,31 @@
 		},
 		{
 			"sampler":0,
-			"source":10
+			"source":11
+		},
+		{
+			"sampler":0,
+			"source":12
+		},
+		{
+			"sampler":0,
+			"source":13
+		},
+		{
+			"sampler":0,
+			"source":14
+		},
+		{
+			"sampler":0,
+			"source":15
+		},
+		{
+			"sampler":0,
+			"source":16
+		},
+		{
+			"sampler":0,
+			"source":15
 		}
 	],
 	"images":[
@@ -60144,8 +60185,18 @@
 		},
 		{
 			"mimeType":"image/png",
+			"name":"breeches_n",
+			"uri":"breeches_n.png"
+		},
+		{
+			"mimeType":"image/png",
 			"name":"breeches",
 			"uri":"breeches.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"breeches_m-breeches_r",
+			"uri":"breeches_m-breeches_r.png"
 		},
 		{
 			"mimeType":"image/png",
@@ -60159,8 +60210,18 @@
 		},
 		{
 			"mimeType":"image/png",
+			"name":"boots_n",
+			"uri":"boots_n.png"
+		},
+		{
+			"mimeType":"image/png",
 			"name":"boots",
 			"uri":"boots.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"boots_m-boots_r",
+			"uri":"boots_m-boots_r.png"
 		},
 		{
 			"mimeType":"image/png",
@@ -60174,8 +60235,18 @@
 		},
 		{
 			"mimeType":"image/png",
+			"name":"weskit_n",
+			"uri":"weskit_n.png"
+		},
+		{
+			"mimeType":"image/png",
 			"name":"weskit",
 			"uri":"weskit.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"weskit_m",
+			"uri":"weskit_m.png"
 		}
 	],
 	"skins":[
