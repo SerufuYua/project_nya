@@ -14,27 +14,27 @@ type
     type
       { Boy Condition }
       TBoyCondition = class
-      public
+      protected
         const
           DefaultBoyExists = False;
           DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
           DefaultBoyExistsIntervalVariance: TFloatTime = 30.0;
           DefaultBoySearched = False;
-      public
+      protected
         FBoyExists: Boolean;
         FBoyExistsRemaining: TFloatTime;
         FBoySearched: Boolean;
-        constructor Create;
-        procedure Update(const SecondsPassed: Single);
         function BoyExistsInterval: TFloatTime;
         procedure OnBoyExists;
+      public
+        constructor Create;
+        procedure Update(const SecondsPassed: Single);
+        property Exists: boolean read FBoyExists;
+        property Searched: boolean read FBoySearched write FBoySearched;
       end;
     var
       FBoyCondition: TBoyCondition;
   protected
-    function GetBoyExists: Boolean;
-    function GetBoySearched: Boolean;
-    procedure SetBoySearched(value: Boolean);
     function GetSpacePlaneExists: Boolean;
     procedure RestoreCondition;
     procedure SaveCondition;
@@ -45,8 +45,7 @@ type
                      var HandleInput: Boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   public
-    property BoyExists: boolean read GetBoyExists;
-    property BoySearched: boolean read GetBoySearched write SetBoySearched;
+    property Boy: TBoyCondition read FBoyCondition;
     property SpacePlaneExists: boolean read GetSpacePlaneExists;
   end;
 
@@ -133,21 +132,6 @@ begin
     Result:= [psBasic]
   else
     Result:= inherited PropertySections(PropertyName);
-end;
-
-function TNyaWorldCondition.GetBoyExists: Boolean;
-begin
-  Result:= FBoyCondition.FBoyExists AND FBoyCondition.FBoySearched;
-end;
-
-function TNyaWorldCondition.GetBoySearched: Boolean;
-begin
-  Result:= FBoyCondition.FBoySearched;
-end;
-
-procedure TNyaWorldCondition.SetBoySearched(value: Boolean);
-begin
-  FBoyCondition.FBoySearched:= value;
 end;
 
 function TNyaWorldCondition.GetSpacePlaneExists: Boolean;

@@ -121,7 +121,7 @@ end;
 
 procedure TViewTravelRoadAsteroid.TalkToPlaneOk;
 begin
-  WorldCondition.BoySearched:= True;
+  WorldCondition.Boy.Searched:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }
