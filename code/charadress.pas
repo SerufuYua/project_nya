@@ -48,7 +48,7 @@ const
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
 
-{$I nyaworldconsts.inc}
+{$I nyaworldconst.inc}
 
 { ---------------------------------------------------------------------------- }
 { TCharaDresser -------------------------------------------------------------- }

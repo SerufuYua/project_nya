@@ -56,7 +56,7 @@ implementation
 uses
   CastleComponentSerialize, CastleUtils, IniFiles, Math;
 
-{$I nyaworldconsts.inc}
+{$I nyaworldconst.inc}
 
 const
   Section = 'World';

@@ -1,4 +1,4 @@
-{ NyaWorldConsts.inc
+{ NyaWorldConst.inc
   Nya World's Constants }
 
 const

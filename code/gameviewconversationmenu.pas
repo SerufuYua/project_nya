@@ -58,7 +58,7 @@ implementation
 uses
   CastleComponentSerialize, NyaCastleUtils;
 
-{$I nyaworldconsts.inc}
+{$I nyaworldconst.inc}
 
 { ========= ------------------------------------------------------------------ }
 { TViewConversationDialog ---------------------------------------------------- }
