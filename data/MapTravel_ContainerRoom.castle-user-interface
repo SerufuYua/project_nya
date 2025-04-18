@@ -118,8 +118,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 3.6829349398612976E-001,
-                      "Y" : 1.0000007152557373E+000
+                      "W" : 2.3214559257030487E-001,
+                      "Y" : 9.9999922513961792E-001
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -153,7 +153,7 @@
                   },
                   {
                     "$$ClassName" : "TNyaFrontSwitch",
-                    "ActionString" : "Play Together",
+                    "ActionString" : "talk",
                     "Activator" : "CharaGirl",
                     "Distance" : 6.0000002384185791E-001,
                     "Indicator" : "BoyIndicator",
@@ -196,7 +196,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.1153602600097656E+000,
+                      "W" : 1.2514988183975220E+000,
                       "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
@@ -220,7 +220,7 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TNyaFrontSwitch",
-                    "ActionString" : "play in Bed",
+                    "ActionString" : "go to bed",
                     "Activator" : "CharaGirl",
                     "Distance" : 6.0000002384185791E-001,
                     "Indicator" : "BedIndicator",
@@ -276,8 +276,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 5.1306807994842529E-001,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 6.4920693635940552E-001,
+                      "X" : -1.7263343033846468E-004,
+                      "Y" : -9.9999958276748657E-001,
+                      "Z" : 5.1301717758178711E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -342,7 +344,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.1153602600097656E+000,
+                      "W" : 1.2514988183975220E+000,
                       "Y" : -1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
@@ -531,10 +533,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.1690894365310669E+000,
-          "X" : -2.8005281090736389E-001,
-          "Y" : -9.4329339265823364E-001,
-          "Z" : -1.7823635041713715E-001
+          "W" : 1.2891654968261719E+000,
+          "X" : -2.1996571123600006E-001,
+          "Y" : -9.6190011501312256E-001,
+          "Z" : -1.6236762702465057E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",

@@ -131,7 +131,7 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
+                          "W" : 1.0596135854721069E+000,
                           "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
@@ -242,8 +242,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.0321731567382812E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 4.1384172439575195E-001,
+                      "Y" : -1.0000003576278687E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -261,7 +261,7 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TNyaFrontSwitch",
-                    "ActionString" : "use",
+                    "ActionString" : "talk",
                     "Activator" : "CharaGirl",
                     "Distance" : 2.0000000298023224E-001,
                     "Indicator" : "SpacePlaneIndicator",
@@ -595,20 +595,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 7.7163320779800415E-001,
-          "X" : -2.0387223362922668E-001,
-          "Y" : -9.7535932064056396E-001,
-          "Z" : -8.4323354065418243E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Z" : 1.0000001192092896E+000
+          "W" : 1.0866342782974243E+000,
+          "X" : -2.0833207666873932E-001,
+          "Y" : -9.7006595134735107E-001,
+          "Z" : -1.2477903813123703E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -4.4021868705749512E+000,
-          "Y" : 3.1189060211181641E+000,
-          "Z" : -1.3944310188293457E+001
+          "X" : -4.4021840095520020E+000,
+          "Y" : 3.1189064979553223E+000,
+          "Z" : -1.3944311141967773E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
