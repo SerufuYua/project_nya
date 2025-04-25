@@ -80,9 +80,9 @@ begin
   'BoySwitch':
     begin
       if Touch then
-        FActorBoy.AutoAnimation:= 'GAME.INROOM.SEAT_WITH_PDA.LOOKING'
+        FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.SEAT_WITH_PDA.LOOKING'
       else
-        FActorBoy.AutoAnimation:= 'GAME.INROOM.SEAT_WITH_PDA.WORKING';
+        FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING';
     end;
   end;
 end;

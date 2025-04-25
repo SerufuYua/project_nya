@@ -10,7 +10,7 @@
   "$Children" : [
     {
       "$$ClassName" : "TCastleScene",
-      "AutoAnimation" : "GAME.INROOM.SEAT_WITH_PDA.WORKING",
+      "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
       "DefaultAnimationTransition" : 2.0000000298023224E-001,
       "ExposeTransforms" : [
         "Head",
@@ -23,7 +23,7 @@
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
       },
-      "Url" : "castle-data:/chars/body_boy/body_inroom.gltf",
+      "Url" : "castle-data:/chars/body_boy/body_visiting.gltf",
       "$Children" : [
         {
           "$$ClassName" : "TCastleTransform",
@@ -50,7 +50,7 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleScene",
-              "AutoAnimation" : "GAME.INROOM.SEAT_WITH_PDA.WORKING",
+              "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
               "DefaultAnimationTransition" : 9.9999997764825821E-003,
               "ExposeTransforms" : [
               ],
