@@ -160,7 +160,7 @@ initialization
 
   {$ifdef CASTLE_DESIGN_MODE}
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaPleasureTensionEffect, 'URL',
-                         TDesignURLPropertyEditor);
+                         TUiDesignUrlPropertyEditor);
   {$endif}
 end.
 
