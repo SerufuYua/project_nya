@@ -43,7 +43,6 @@ uses CastleScene, CastleComponentSerialize, CastleFonts, NyaCastleUtils,
 
 const
   RootItemStr = 'MenuRoot';
-  NoSuitPartStr = 'none';
   ListTopStr = 'ListTop';
   ListBottomStr = 'ListBottom';
   ListArmsStr = 'ListArms';

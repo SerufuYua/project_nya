@@ -36,6 +36,9 @@ type
     procedure SaveProperties;
   end;
 
+const
+  NoSuitPartStr = 'none';
+
 implementation
 
 uses
@@ -123,7 +126,7 @@ begin
       Exit
     end;
   end;
-  Result:= 'none';
+  Result:= NoSuitPartStr;
 end;
 
 procedure TCharaDresser.WearSuitPart(suitPartType: TSuitPart; const suitPartName: String);
