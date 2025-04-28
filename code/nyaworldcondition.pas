@@ -9,6 +9,8 @@ uses
   CastleTimeUtils;
 
 type
+  TBoyLocation = (Away, InRoom, InHovel);
+
   TNyaWorldCondition = class(TCastleUserInterface)
   protected
     type
@@ -16,23 +18,23 @@ type
       TBoyCondition = class
       protected
         const
-          DefaultBoyExists = False;
+          DefaultBoyLocation = Away;
           DefaultFirstTalkDone = False;
-          DefaultBoyExistsInterval: TFloatTime = 3.0 * 60.0;
-          DefaultBoyExistsIntervalVariance: TFloatTime = 30.0;
+          DefaultBoyLocationInterval: TFloatTime = 60.0;
+          DefaultBoyLocationIntervalVariance: TFloatTime = 15.0;
           DefaultBoySearched = False;
       protected
-        FBoyExists: Boolean;
-        FBoyExistsRemaining: TFloatTime;
+        FBoyLocation: TBoyLocation;
+        FBoyLocationRemaining: TFloatTime;
         FBoySearched: Boolean;
         FFirstTalkDone: Boolean;
-        function GetBoyExists: Boolean;
-        function BoyExistsInterval: TFloatTime;
-        procedure OnBoyExists;
+        function GetBoyLocation: TBoyLocation;
+        function BoyLocationInterval: TFloatTime;
+        procedure OnBoyLocation;
       public
         constructor Create;
         procedure Update(const SecondsPassed: Single);
-        property Exists: boolean read GetBoyExists;
+        property Location: TBoyLocation read GetBoyLocation;
         property Searched: boolean read FBoySearched write FBoySearched;
         property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
       end;
@@ -69,42 +71,52 @@ const
 { ========= ------------------------------------------------------------------ }
 
 const
-  BoyExistsStr = 'BoyExists';
+  BoyLocationStr = 'BoyLocation';
   BoyFirstTalkDone = 'BoyFirstTalkDone';
   BoyTimerStr = 'BoyTimer';
   BoySearchedStr = 'BoySearched';
 
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
-  FBoyExists:= DefaultBoyExists;
+  FBoyLocation:= DefaultBoyLocation;
   FFirstTalkDone:= DefaultFirstTalkDone;
-  FBoyExistsRemaining:= BoyExistsInterval;
+  FBoyLocationRemaining:= BoyLocationInterval;
   FBoySearched:= DefaultBoySearched;
 end;
 
 procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);
 begin
-  FBoyExistsRemaining:= FBoyExistsRemaining - SecondsPassed;
-  if (FBoyExistsRemaining <= 0.0) then
-    OnBoyExists;
+  FBoyLocationRemaining:= FBoyLocationRemaining - SecondsPassed;
+  if (FBoyLocationRemaining <= 0.0) then
+    OnBoyLocation;
 end;
 
-function TNyaWorldCondition.TBoyCondition.GetBoyExists: Boolean;
+function TNyaWorldCondition.TBoyCondition.GetBoyLocation: TBoyLocation;
 begin
-  Result:= FBoyExists AND FBoySearched;
+  if FBoySearched then
+    Result:= FBoyLocation
+  else
+    Result:= DefaultBoyLocation;
 end;
 
-function TNyaWorldCondition.TBoyCondition.BoyExistsInterval: TFloatTime;
+function TNyaWorldCondition.TBoyCondition.BoyLocationInterval: TFloatTime;
 begin
   Result:= RandomFloatRange(
-             DefaultBoyExistsInterval - DefaultBoyExistsIntervalVariance,
-             DefaultBoyExistsInterval + DefaultBoyExistsIntervalVariance);
+             DefaultBoyLocationInterval - DefaultBoyLocationIntervalVariance,
+             DefaultBoyLocationInterval + DefaultBoyLocationIntervalVariance);
 end;
 
-procedure TNyaWorldCondition.TBoyCondition.OnBoyExists;
+procedure TNyaWorldCondition.TBoyCondition.OnBoyLocation;
+var
+  locNum, nHigh, nLow: Integer;
 begin
-  FBoyExistsRemaining:= BoyExistsInterval;
-  FBoyExists:= NOT FBoyExists;
+  FBoyLocationRemaining:= BoyLocationInterval;
+
+  nLow:= Ord(Low(TBoyLocation));
+  nHigh:= Ord(High(TBoyLocation)) + 1;
+
+  locNum:= RandomRange(nLow, nHigh);
+  FBoyLocation:=  TBoyLocation(locNum);
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -115,6 +127,7 @@ constructor TNyaWorldCondition.Create(AOwner: TComponent);
 begin
   inherited;
 
+  Randomize;
   FBoyCondition:= TBoyCondition.Create;
   RestoreCondition;
 end;
@@ -147,7 +160,7 @@ end;
 
 function TNyaWorldCondition.GetSpacePlaneExists: Boolean;
 begin
-  Result:= FBoyCondition.FBoyExists;
+  Result:= FBoyCondition.FBoyLocation <> TBoyLocation.Away;
 end;
 
 procedure TNyaWorldCondition.RestoreCondition;
@@ -158,14 +171,15 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  FBoyCondition.FBoyExists:= ini.ReadBool(Section, BoyExistsStr,
-                             FBoyCondition.DefaultBoyExists);
+  FBoyCondition.FBoyLocation:= TBoyLocation(
+                               ini.ReadInteger(Section, BoyLocationStr,
+                               Ord(FBoyCondition.DefaultBoyLocation)));
 
   FBoyCondition.FFirstTalkDone:=  ini.ReadBool(Section, BoyFirstTalkDone,
                                   FBoyCondition.DefaultFirstTalkDone);
 
-  FBoyCondition.FBoyExistsRemaining:= ini.ReadFloat(Section, BoyTimerStr,
-                                      FBoyCondition.BoyExistsInterval);
+  FBoyCondition.FBoyLocationRemaining:= ini.ReadFloat(Section, BoyTimerStr,
+                                        FBoyCondition.BoyLocationInterval);
 
   FBoyCondition.FBoySearched:= ini.ReadBool(Section, BoySearchedStr, FBoyCondition.DefaultBoySearched);
 
@@ -180,9 +194,9 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  ini.WriteBool(Section, BoyExistsStr, FBoyCondition.FBoyExists);
+  ini.WriteInteger(Section, BoyLocationStr, Ord(FBoyCondition.FBoyLocation));
   ini.WriteBool(Section, BoyFirstTalkDone, FBoyCondition.FFirstTalkDone);
-  ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FBoyExistsRemaining);
+  ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FBoyLocationRemaining);
   ini.WriteBool(Section, BoySearchedStr, FBoyCondition.FBoySearched);
 
   ini.Free;

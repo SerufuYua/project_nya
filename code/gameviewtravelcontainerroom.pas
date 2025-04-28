@@ -36,7 +36,7 @@ implementation
 uses
   SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
   CastleComponentSerialize,
-  NyaSwitch, NyaCastleUtils,
+  NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressingMenu, GameViewPlayGirl, GameViewPlaySolo,
   GameViewPlayTogether, GameViewTravelRoadAsteroid, GameViewMain,
   GameViewConversationMenu;
@@ -51,7 +51,7 @@ begin
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
-  FActorBoy.Exists:= WorldCondition.Boy.Exists;
+  FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InRoom;
 
   inherited;
 end;
@@ -62,7 +62,7 @@ begin
 
   { update Boy Exists only when area where Boy is not in view }
   if NOT PointVisible(FActorBoy.Translation) then
-    FActorBoy.Exists:= WorldCondition.Boy.Exists;
+    FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InRoom;
 
   inherited;
 end;

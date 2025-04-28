@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewTravel, NyaActor;
+  BaseViewTravel, NyaActor, NyaActorChara;
 
 type
   TViewTravelRoadAsteroid = class(TBaseViewTravel)
@@ -12,6 +12,7 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
+    FActorBoy: TNyaActorChara;
     FActorSpacePlane: TNyaActor;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
@@ -31,7 +32,7 @@ implementation
 uses
   SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
   CastleComponentSerialize,
-  NyaActorChara, NyaSwitch, NyaCastleUtils,
+  NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressingMenu, GameViewTravelContainerRoom, GameViewMain,
   GameViewConversationMenu;
 
@@ -47,6 +48,10 @@ begin
   FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
   FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
 
+  { set Boy Character }
+  FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
+  FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
+
   inherited;
 end;
 
@@ -57,6 +62,10 @@ begin
   { update Boy Exists only when area where Boy is not in view }
   if NOT PointVisible(FActorSpacePlane.Translation) then
     FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
+
+  { update Boy Exists only when area where Boy is not in view }
+  if NOT PointVisible(FActorBoy.Translation) then
+    FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
 
   inherited;
 end;
