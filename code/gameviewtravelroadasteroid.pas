@@ -208,6 +208,7 @@ end;
 
 procedure TViewTravelRoadAsteroid.GetToGoBoy;
 begin
+  WorldCondition.Boy.Location:= TBoyLocation.InRoom;
   SaveCharasCondition();
   GetToGo(ViewPlayTogether);
 end;

@@ -34,7 +34,7 @@ type
       public
         constructor Create;
         procedure Update(const SecondsPassed: Single);
-        property Location: TBoyLocation read GetBoyLocation;
+        property Location: TBoyLocation read GetBoyLocation write FBoyLocation;
         property Searched: boolean read FBoySearched write FBoySearched;
         property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
       end;
