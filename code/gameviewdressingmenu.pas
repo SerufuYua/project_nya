@@ -25,10 +25,10 @@ type
     procedure SetColor(color: TCastleColorRGB);
   private
     FDresser: TCharaDresser;
-    procedure UpdateSuits();
-    procedure UpdateSuits(suitType: TSuits; groupList: TCastleVerticalGroup);
+    procedure UpdateSuitParts();
+    procedure UpdateSuitParts(suitType: TSuitPart; groupList: TCastleVerticalGroup);
     procedure UpdateAccessories();
-    procedure ClickSuit(Sender: TObject);
+    procedure ClickSuitPart(Sender: TObject);
     procedure ClickAccesories(Sender: TObject);
     procedure ClickClose(Sender: TObject);
   end;
@@ -40,6 +40,14 @@ implementation
 
 uses CastleScene, CastleComponentSerialize, CastleFonts, NyaCastleUtils,
   SysUtils;
+
+const
+  RootItemStr = 'MenuRoot';
+  NoSuitPartStr = 'none';
+  ListTopStr = 'ListTop';
+  ListBottomStr = 'ListBottom';
+  ListArmsStr = 'ListArms';
+  ListFootsStr = 'ListFoots';
 
 constructor TViewDressingMenu.Create(AOwner: TComponent);
 begin
@@ -66,7 +74,7 @@ procedure TViewDressingMenu.SetChara(chara: TNyaActorChara);
 begin
   if NOT Assigned(chara) then Exit;
   FDresser:= chara.Dresser();
-  UpdateSuits();
+  UpdateSuitParts();
   UpdateAccessories();
 
   { Set personal color as background }
@@ -79,7 +87,7 @@ var
   item: TCastleImageControl;
   alpha: single;
 begin
-  rootItem:= DesignedComponent('MenuRoot') as TCastleUserInterface;
+  rootItem:= DesignedComponent(RootItemStr) as TCastleUserInterface;
 
   for item in GetAllUIImages(rootItem) do
   begin
@@ -91,15 +99,15 @@ begin
   end;
 end;
 
-procedure TViewDressingMenu.UpdateSuits();
+procedure TViewDressingMenu.UpdateSuitParts();
 begin
-  UpdateSuits(TSuits.Top, ListTop);
-  UpdateSuits(TSuits.Bottom, ListBottom);
-  UpdateSuits(TSuits.Arms, ListArms);
-  UpdateSuits(TSuits.Foots, ListFoots);
+  UpdateSuitParts(TSuitPart.Top, ListTop);
+  UpdateSuitParts(TSuitPart.Bottom, ListBottom);
+  UpdateSuitParts(TSuitPart.Arms, ListArms);
+  UpdateSuitParts(TSuitPart.Foots, ListFoots);
 end;
 
-procedure TViewDressingMenu.UpdateSuits(suitType: TSuits;
+procedure TViewDressingMenu.UpdateSuitParts(suitType: TSuitPart;
                                         groupList: TCastleVerticalGroup);
 var
   suits: TItemConditions;
@@ -108,7 +116,7 @@ var
   myBtnFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
 begin
-  suits:= FDresser.SuitsList(suitType);
+  suits:= FDresser.SuitPartsList(suitType);
 
   if ((groupList.ControlsCount > 0) AND
       (groupList.Controls[0] is TCastleButton)) then
@@ -132,8 +140,8 @@ begin
   end else
     newBtn:= TCastleButton.Create(groupList);
 
-  newBtn.Caption:= 'none';
-  newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
+  newBtn.Caption:= NoSuitPartStr;
+  newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuitPart;
   groupList.InsertFront(newBtn);
 
   for suit in suits do
@@ -146,7 +154,7 @@ begin
       newBtn:= TCastleButton.Create(groupList);
 
     newBtn.Caption:= suit.Name;
-    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuitPart;
     groupList.InsertFront(newBtn);
   end;
 
@@ -195,24 +203,24 @@ begin
   end;
 end;
 
-procedure TViewDressingMenu.ClickSuit(Sender: TObject);
+procedure TViewDressingMenu.ClickSuitPart(Sender: TObject);
 var
   button: TCastleButton;
-  suitType: TSuits;
+  suitType: TSuitPart;
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
 
   Case button.Parent.Name of
-  'ListTop': suitType:= TSuits.Top;
-  'ListBottom': suitType:= TSuits.Bottom;
-  'ListArms': suitType:= TSuits.Arms;
-  'ListFoots': suitType:= TSuits.Foots;
+    ListTopStr: suitType:= TSuitPart.Top;
+    ListBottomStr: suitType:= TSuitPart.Bottom;
+    ListArmsStr: suitType:= TSuitPart.Arms;
+    ListFootsStr: suitType:= TSuitPart.Foots;
   else
-    suitType:= TSuits.All;
+    suitType:= TSuitPart.All;
   end;
 
-  FDresser.WearSuit(suitType, button.Caption);
+  FDresser.WearSuitPart(suitType, button.Caption);
 end;
 
 procedure TViewDressingMenu.ClickAccesories(Sender: TObject);

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, CastleTransform, CastleScene, NyaCastleUtils;
 
 type
-  TSuits = (All, Top, Bottom, Foots, Arms);
+  TSuitPart = (All, Top, Bottom, Foots, Arms);
   TDressSaver = class;
 
   TCharaDresser = class
@@ -17,9 +17,9 @@ type
     function MainBody: TCastleScene; { main chara Body }
   public
     constructor Create(scene: TCastleTransformDesign);
-    function SuitsList(suitType: TSuits): TItemConditions;
-    function DressedSuit(suitType: TSuits): String;
-    procedure WearSuit(suitType: TSuits; const suitName: String);
+    function SuitPartsList(suitPartType: TSuitPart): TItemConditions;
+    function DressedSuitPart(suitPartType: TSuitPart): String;
+    procedure WearSuitPart(suitPartType: TSuitPart; const suitPartName: String);
     function AcessoriesList: TItemConditions;
     procedure WearAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
@@ -59,15 +59,15 @@ begin
   FScene:= scene;
 end;
 
-function TCharaDresser.SuitsList(suitType: TSuits): TItemConditions;
+function TCharaDresser.SuitPartsList(suitPartType: TSuitPart): TItemConditions;
 var
   i: Integer;
   found: Boolean;
   fullNames: TItemConditions;
   shortName, newName: TItemCondition;
 begin
-  { get list of full suit shape names }
-  Case suitType of
+  { get list of full suit parts shape names }
+  Case suitPartType of
   Top: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixTop);
   Bottom: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixBottom);
   Foots: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixFoots);
@@ -88,7 +88,7 @@ begin
     fullNames:= [];
   end;
 
-  { extract suit names from full names and remove dupe}
+  { extract suit parts names from full names and remove dupe}
   Result:=[];
 
   for i:= 0 to (Length(fullNames) - 1) do
@@ -109,28 +109,28 @@ begin
   end;
 end;
 
-function TCharaDresser.DressedSuit(suitType: TSuits): String;
+function TCharaDresser.DressedSuitPart(suitPartType: TSuitPart): String;
 var
-  suit: TItemCondition;
+  suitPart: TItemCondition;
 begin
-  for suit in SuitsList(suitType) do
+  for suitPart in SuitPartsList(suitPartType) do
   begin
-    if suit.Visible then
+    if suitPart.Visible then
     begin
-      Result:= suit.Name;
+      Result:= suitPart.Name;
       Exit
     end;
   end;
   Result:= 'none';
 end;
 
-procedure TCharaDresser.WearSuit(suitType: TSuits; const suitName: String);
+procedure TCharaDresser.WearSuitPart(suitPartType: TSuitPart; const suitPartName: String);
 var
   shapes: TShapeNodes;
   shape: TShapeNode;
   shapeName: String;
 begin
-  Case suitType of
+  Case suitPartType of
   Top: shapes:= GetShapesByNameStart(MainBody, PrefixTop);
   Bottom: shapes:= GetShapesByNameStart(MainBody, PrefixBottom);
   Foots: shapes:= GetShapesByNameStart(MainBody, PrefixFoots);
@@ -142,7 +142,7 @@ begin
   for shape in shapes do
   begin
     shapeName:= shape.X3DName;
-    if shapeName.Contains(suitName) then
+    if shapeName.Contains(suitPartName) then
       shape.Visible:= True
     else
       shape.Visible:= False;
@@ -213,24 +213,24 @@ var
   ini: TCustomIniFile;
   accessory: TItemCondition;
   visible: boolean;
-  suitName: String;
+  suitPartName: String;
 begin
   ini:= TMemIniFile.Create(IniFileName);
   ini.FormatSettings.DecimalSeparator := '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  { suits }
-  suitName:= ini.ReadString(FCharaName, PrefixTop, 'summer_shirt');
-  FDresser.WearSuit(Top, suitName);
+  { suit parts }
+  suitPartName:= ini.ReadString(FCharaName, PrefixTop, 'summer_shirt');
+  FDresser.WearSuitPart(Top, suitPartName);
 
-  suitName:= ini.ReadString(FCharaName, PrefixBottom, 'jorts');
-  FDresser.WearSuit(Bottom, suitName);
+  suitPartName:= ini.ReadString(FCharaName, PrefixBottom, 'jorts');
+  FDresser.WearSuitPart(Bottom, suitPartName);
 
-  suitName:= ini.ReadString(FCharaName, PrefixFoots, 'sneakers');
-  FDresser.WearSuit(Foots, suitName);
+  suitPartName:= ini.ReadString(FCharaName, PrefixFoots, 'sneakers');
+  FDresser.WearSuitPart(Foots, suitPartName);
 
-  suitName:= ini.ReadString(FCharaName, PrefixArms, 'none');
-  FDresser.WearSuit(Arms, suitName);
+  suitPartName:= ini.ReadString(FCharaName, PrefixArms, 'none');
+  FDresser.WearSuitPart(Arms, suitPartName);
 
   { accessories }
   for accessory in FDresser.AcessoriesList do
@@ -246,24 +246,24 @@ procedure TDressSaver.SaveProperties;
 var
   ini: TCustomIniFile;
   accessory: TItemCondition;
-  suitName: String;
+  suitPartName: String;
 begin
   ini:= TMemIniFile.Create(IniFileName);
   ini.FormatSettings.DecimalSeparator := '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  { suits }
-  suitName:= FDresser.DressedSuit(Top);
-  ini.WriteString(FCharaName, PrefixTop, suitName);
+  { suit parts }
+  suitPartName:= FDresser.DressedSuitPart(Top);
+  ini.WriteString(FCharaName, PrefixTop, suitPartName);
 
-  suitName:= FDresser.DressedSuit(Bottom);
-  ini.WriteString(FCharaName, PrefixBottom, suitName);
+  suitPartName:= FDresser.DressedSuitPart(Bottom);
+  ini.WriteString(FCharaName, PrefixBottom, suitPartName);
 
-  suitName:= FDresser.DressedSuit(Foots);
-  ini.WriteString(FCharaName, PrefixFoots, suitName);
+  suitPartName:= FDresser.DressedSuitPart(Foots);
+  ini.WriteString(FCharaName, PrefixFoots, suitPartName);
 
-  suitName:= FDresser.DressedSuit(Arms);
-  ini.WriteString(FCharaName, PrefixArms, suitName);
+  suitPartName:= FDresser.DressedSuitPart(Arms);
+  ini.WriteString(FCharaName, PrefixArms, suitPartName);
 
   { accessories }
   for accessory in FDresser.AcessoriesList do
