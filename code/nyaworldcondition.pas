@@ -116,7 +116,12 @@ begin
   nHigh:= Ord(High(TBoyLocation)) + 1;
 
   locNum:= RandomRange(nLow, nHigh);
-  FBoyLocation:=  TBoyLocation(locNum);
+
+  { if FirstTalk with Boy isn't done then boy isn't go in Girl's Home itself }
+  if ((NOT FirstTalkDone) AND (TBoyLocation(locNum) = TBoyLocation.InRoom)) then
+    FBoyLocation:= TBoyLocation.InHovel
+  else
+    FBoyLocation:= TBoyLocation(locNum);
 end;
 
 { ========= ------------------------------------------------------------------ }
