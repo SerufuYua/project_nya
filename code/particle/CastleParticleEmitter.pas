@@ -2202,7 +2202,7 @@ begin
       // We only care the first shape
       ShapeList := Scene.Shapes.TraverseList(True);
       if ShapeList.Count = 0 then
-        raise Exception.Create('No mesh found in this model');
+        Exit;
       Shape := ShapeList.Items[0];
       ShapeNode := Shape.Node as TShapeNode;
       //
