@@ -258,9 +258,9 @@ begin
       if Assigned(dresser) then
       begin
         if NOT bottomDress then
-          dresser.WearSuitPart(TSuitPart.Bottom, WithoutPants);
+          dresser.DressSuitPart(TSuitPart.Bottom, WithoutPants);
         if NOT footDress then
-          dresser.WearSuitPart(TSuitPart.Foots, BareFoots);
+          dresser.DressSuitPart(TSuitPart.Foots, BareFoots);
       end;
     end;
   end;

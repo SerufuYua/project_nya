@@ -9,7 +9,7 @@ uses
 
 type
   TSuitPart = (All, Top, Bottom, Foots, Arms);
-  TDressSaver = class;
+  AllSuitPartTypes = set of TSuitPart;
 
   TCharaDresser = class
   protected
@@ -19,9 +19,10 @@ type
     constructor Create(scene: TCastleTransformDesign);
     function SuitPartsList(suitPartType: TSuitPart): TItemConditions;
     function DressedSuitPart(suitPartType: TSuitPart): String;
-    procedure WearSuitPart(suitPartType: TSuitPart; const suitPartName: String);
+    function SuitList: TStringArray;
+    procedure DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
     function AcessoriesList: TItemConditions;
-    procedure WearAcessory(const accessoryName: String; visible: boolean);
+    procedure DressAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
     procedure RestoreCondition(const name:string);
   end;
@@ -129,7 +130,40 @@ begin
   Result:= NoSuitPartStr;
 end;
 
-procedure TCharaDresser.WearSuitPart(suitPartType: TSuitPart; const suitPartName: String);
+function TCharaDresser.SuitList: TStringArray;
+var
+  suitPartType: TSuitPart;
+  suitPart: TItemCondition;
+  suitName: String;
+  found: Boolean;
+begin
+  Result:= [];
+  SetLength(Result, 0);
+
+  { look all suit parts in all suit types }
+  for suitPartType in AllSuitPartTypes do
+  begin
+    { check is suit name already in list }
+    for suitPart in SuitPartsList(suitPartType) do
+    begin
+      found:= False;
+      for suitName in Result do
+      begin
+        if (suitName = suitPart.Name) then
+        begin
+          found:= True;
+          Break;
+        end;
+      end;
+
+      { append new suit name }
+      if NOT found then
+        Insert(suitPart.Name, Result, Length(Result));
+    end;
+  end;
+end;
+
+procedure TCharaDresser.DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
 var
   shapes: TShapeNodes;
   shape: TShapeNode;
@@ -169,7 +203,7 @@ begin
   Result:= acessoryNames;
 end;
 
-procedure TCharaDresser.WearAcessory(const accessoryName: String; visible: boolean);
+procedure TCharaDresser.DressAcessory(const accessoryName: String; visible: boolean);
 var
   item: TCastleScene;
 begin
@@ -226,22 +260,22 @@ begin
 
   { suit parts }
   suitPartName:= ini.ReadString(FCharaName, PrefixTop, DefaultSuitStr);
-  FDresser.WearSuitPart(Top, suitPartName);
+  FDresser.DressSuitPart(Top, suitPartName);
 
   suitPartName:= ini.ReadString(FCharaName, PrefixBottom, DefaultSuitStr);
-  FDresser.WearSuitPart(Bottom, suitPartName);
+  FDresser.DressSuitPart(Bottom, suitPartName);
 
   suitPartName:= ini.ReadString(FCharaName, PrefixFoots, DefaultSuitStr);
-  FDresser.WearSuitPart(Foots, suitPartName);
+  FDresser.DressSuitPart(Foots, suitPartName);
 
   suitPartName:= ini.ReadString(FCharaName, PrefixArms, DefaultSuitStr);
-  FDresser.WearSuitPart(Arms, suitPartName);
+  FDresser.DressSuitPart(Arms, suitPartName);
 
   { accessories }
   for accessory in FDresser.AcessoriesList do
   begin
     visible:= ini.ReadBool(FCharaName, accessory.Name, False);
-    FDresser.WearAcessory(accessory.Name, visible);
+    FDresser.DressAcessory(accessory.Name, visible);
   end;
 
   ini.Free;

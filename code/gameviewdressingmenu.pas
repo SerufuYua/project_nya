@@ -10,6 +10,7 @@ type
   TViewDressingMenu = class(TCastleView)
   published
     ImageControl: TCastleImageControl;
+    ListSuit: TCastleVerticalGroup;
     ListTop: TCastleVerticalGroup;
     ListBottom: TCastleVerticalGroup;
     ListArms: TCastleVerticalGroup;
@@ -27,8 +28,10 @@ type
     FDresser: TCharaDresser;
     procedure UpdateSuitParts();
     procedure UpdateSuitParts(suitType: TSuitPart; groupList: TCastleVerticalGroup);
+    procedure UpdateSuits();
     procedure UpdateAccessories();
     procedure ClickSuitPart(Sender: TObject);
+    procedure ClickSuit(Sender: TObject);
     procedure ClickAccesories(Sender: TObject);
     procedure ClickClose(Sender: TObject);
   end;
@@ -39,7 +42,7 @@ var
 implementation
 
 uses CastleScene, CastleComponentSerialize, CastleFonts, NyaCastleUtils,
-  SysUtils;
+  SysUtils, StrUtils;
 
 const
   RootItemStr = 'MenuRoot';
@@ -104,19 +107,18 @@ begin
   UpdateSuitParts(TSuitPart.Bottom, ListBottom);
   UpdateSuitParts(TSuitPart.Arms, ListArms);
   UpdateSuitParts(TSuitPart.Foots, ListFoots);
+  UpdateSuits();
 end;
 
 procedure TViewDressingMenu.UpdateSuitParts(suitType: TSuitPart;
-                                        groupList: TCastleVerticalGroup);
+                                            groupList: TCastleVerticalGroup);
 var
-  suits: TItemConditions;
-  suit: TItemCondition;
+  suitPart: TItemCondition;
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
 begin
-  suits:= FDresser.SuitPartsList(suitType);
-
+  { take appearance of button }
   if ((groupList.ControlsCount > 0) AND
       (groupList.Controls[0] is TCastleButton)) then
   begin
@@ -132,6 +134,8 @@ begin
 
   groupList.ClearControls;
 
+
+  { create remove Suit Part button }
   if Assigned(myBtnFactory) then
   begin
     newBtn:= myBtnFactory.ComponentLoad(groupList) as TCastleButton;
@@ -143,7 +147,8 @@ begin
   newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuitPart;
   groupList.InsertFront(newBtn);
 
-  for suit in suits do
+  { create button suit part list }
+  for suitPart in FDresser.SuitPartsList(suitType) do
   begin
     if Assigned(myBtnFactory) then
     begin
@@ -152,7 +157,7 @@ begin
     end else
       newBtn:= TCastleButton.Create(groupList);
 
-    newBtn.Caption:= suit.Name;
+    newBtn.Caption:= suitPart.Name;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuitPart;
     groupList.InsertFront(newBtn);
   end;
@@ -161,16 +166,56 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
+procedure TViewDressingMenu.UpdateSuits();
+var
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
+  suit: String;
+begin
+  { take appearance of button }
+  if ((ListSuit.ControlsCount > 0) AND
+      (ListSuit.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= ListSuit.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
+
+  ListSuit.ClearControls;
+
+  { create button suit list }
+  for suit in FDresser.SuitList do
+  begin
+    if Assigned(myBtnFactory) then
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(ListSuit) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
+      newBtn:= TCastleButton.Create(ListSuit);
+
+    newBtn.Caption:= suit;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
+    ListSuit.InsertFront(newBtn);
+  end;
+
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
+end;
+
 procedure TViewDressingMenu.UpdateAccessories();
 var
-  acessories: TItemConditions;
   acessory: TItemCondition;
   newChk, sampleChk: TCastleCheckbox;
   myChkFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
 begin
-  acessories:= FDresser.AcessoriesList();
-
+  { take appearance of button }
   if ((ListAccessories.ControlsCount > 0) AND
       (ListAccessories.Controls[0] is TCastleCheckbox)) then
   begin
@@ -186,7 +231,8 @@ begin
 
   ListAccessories.ClearControls;
 
-  for acessory in acessories do
+  { create switch accessory list }
+  for acessory in FDresser.AcessoriesList do
   begin
     if Assigned(myChkFactory) then
     begin
@@ -219,7 +265,19 @@ begin
     suitType:= TSuitPart.All;
   end;
 
-  FDresser.WearSuitPart(suitType, button.Caption);
+  FDresser.DressSuitPart(suitType, button.Caption);
+end;
+
+procedure TViewDressingMenu.ClickSuit(Sender: TObject);
+var
+  button: TCastleButton;
+  suitPartType: TSuitPart;
+begin
+  button:= Sender as TCastleButton;
+  if NOT Assigned(button) then exit;
+
+  for suitPartType in AllSuitPartTypes do
+    FDresser.DressSuitPart(suitPartType, button.Caption);
 end;
 
 procedure TViewDressingMenu.ClickAccesories(Sender: TObject);
@@ -229,7 +287,7 @@ begin
   check:= Sender as TCastleCheckbox;
   if NOT Assigned(check) then exit;
 
-  FDresser.WearAcessory(check.Caption, check.Checked);
+  FDresser.DressAcessory(check.Caption, check.Checked);
 end;
 
 procedure TViewDressingMenu.ClickClose(Sender: TObject);
