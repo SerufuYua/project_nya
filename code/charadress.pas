@@ -47,6 +47,8 @@ const
   PrefixFoots = 'foots.';
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
+  DefaultSuitStr = 'summer';
+  BodynameStr = 'Body';
 
 {$I nyaworldconst.inc}
 
@@ -195,7 +197,7 @@ end;
 
 function TCharaDresser.MainBody: TCastleScene;
 begin
-  Result:= FScene.DesignedComponent('Body', False) as TCastleScene;
+  Result:= FScene.DesignedComponent(BodynameStr, False) as TCastleScene;
 end;
 
 { ---------------------------------------------------------------------------- }
@@ -220,16 +222,16 @@ begin
   ini.Options:= [ifoFormatSettingsActive];
 
   { suit parts }
-  suitPartName:= ini.ReadString(FCharaName, PrefixTop, 'summer_shirt');
+  suitPartName:= ini.ReadString(FCharaName, PrefixTop, DefaultSuitStr);
   FDresser.WearSuitPart(Top, suitPartName);
 
-  suitPartName:= ini.ReadString(FCharaName, PrefixBottom, 'jorts');
+  suitPartName:= ini.ReadString(FCharaName, PrefixBottom, DefaultSuitStr);
   FDresser.WearSuitPart(Bottom, suitPartName);
 
-  suitPartName:= ini.ReadString(FCharaName, PrefixFoots, 'sneakers');
+  suitPartName:= ini.ReadString(FCharaName, PrefixFoots, DefaultSuitStr);
   FDresser.WearSuitPart(Foots, suitPartName);
 
-  suitPartName:= ini.ReadString(FCharaName, PrefixArms, 'none');
+  suitPartName:= ini.ReadString(FCharaName, PrefixArms, DefaultSuitStr);
   FDresser.WearSuitPart(Arms, suitPartName);
 
   { accessories }
