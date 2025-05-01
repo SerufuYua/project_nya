@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, CastleTransform, CastleScene, NyaCastleUtils;
 
 type
-  TSuitPart = (All, Top, Bottom, Foots, Arms);
+  TSuitPart = (Top, Bottom, Foots, Arms);
   AllSuitPartTypes = set of TSuitPart;
 
   TCharaDresser = class
@@ -74,22 +74,10 @@ var
 begin
   { get list of full suit parts shape names }
   Case suitPartType of
-  Top: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixTop);
-  Bottom: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixBottom);
-  Foots: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixFoots);
-  Arms: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixArms);
-  All:
-    begin
-      fullNames:= [];
-      Insert(GetShapeNamesByNameStart(MainBody, PrefixTop),
-             fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(MainBody, PrefixBottom),
-             fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(MainBody, PrefixFoots),
-             fullNames, Length(fullNames));
-      Insert(GetShapeNamesByNameStart(MainBody, PrefixArms),
-             fullNames, Length(fullNames));
-    end
+    Top: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixTop);
+    Bottom: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixBottom);
+    Foots: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixFoots);
+    Arms: fullNames:= GetShapeNamesByNameStart(MainBody, PrefixArms);
   else
     fullNames:= [];
   end;
@@ -134,20 +122,24 @@ function TCharaDresser.SuitList: TStringArray;
 var
   suitPartType: TSuitPart;
   suitPart: TItemCondition;
+  suitPartList: Array of String;
   suitName: String;
   found: Boolean;
 begin
   Result:= [];
   SetLength(Result, 0);
 
+  suitPartList:= [];
+  SetLength(suitPartList, 0);
+
   { look all suit parts in all suit types }
   for suitPartType in AllSuitPartTypes do
   begin
-    { check is suit name already in list }
+    { check is suit name already in part list }
     for suitPart in SuitPartsList(suitPartType) do
     begin
       found:= False;
-      for suitName in Result do
+      for suitName in suitPartList do
       begin
         if (suitName = suitPart.Name) then
         begin
@@ -156,9 +148,24 @@ begin
         end;
       end;
 
-      { append new suit name }
       if NOT found then
-        Insert(suitPart.Name, Result, Length(Result));
+        Insert(suitPart.Name, suitPartList, Length(suitPartList))
+      else
+        begin
+          { check is suit name already in suit list }
+          found:= False;
+          for suitName in Result do
+          begin
+            if (suitName = suitPart.Name) then
+            begin
+              found:= True;
+              Break;
+            end;
+          end;
+
+          if NOT found then
+            Insert(suitPart.Name, Result, Length(Result));
+        end;
     end;
   end;
 end;

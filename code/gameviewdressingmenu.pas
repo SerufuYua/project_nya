@@ -261,8 +261,6 @@ begin
     ListBottomStr: suitType:= TSuitPart.Bottom;
     ListArmsStr: suitType:= TSuitPart.Arms;
     ListFootsStr: suitType:= TSuitPart.Foots;
-  else
-    suitType:= TSuitPart.All;
   end;
 
   FDresser.DressSuitPart(suitType, button.Caption);
