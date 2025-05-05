@@ -15,6 +15,7 @@ type
     FActorBoy: TNyaActorChara;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
+    procedure SaveCharasCondition; override;
   protected
     procedure ConversationToyA;
     procedure ConversationBed;
@@ -108,6 +109,12 @@ begin
   end;
 end;
 
+procedure TViewTravelContainerRoom.SaveCharasCondition;
+begin
+  inherited;
+  FActorBoy.SaveCondition;
+end;
+
 { ========= ------------------------------------------------------------------ }
 { Conversations -------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
@@ -186,25 +193,21 @@ end;
 
 procedure TViewTravelContainerRoom.GetToGoToyA;
 begin
-  SaveCharasCondition();
   GetToGo(ViewPlayGirl);
 end;
 
 procedure TViewTravelContainerRoom.GetToGoBed;
 begin
-  SaveCharasCondition();
   GetToGo(ViewPlaySolo);
 end;
 
 procedure TViewTravelContainerRoom.GetToGoBoy;
 begin
-  SaveCharasCondition();
   GetToGo(ViewPlayTogether);
 end;
 
 procedure TViewTravelContainerRoom.GetToGoOut;
 begin
-  SaveCharasCondition();
   GetToGo(ViewTravelRoadAsteroid, Vector3(-1.1, 0.1, -21.0),
                                   Vector4(0.0, 1.0, 0.0, Deg(25.0)));
 end;

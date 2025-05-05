@@ -51,7 +51,7 @@ type
     procedure SaveCharasCondition;
     procedure DoStart(Sender: TObject);
   protected
-    procedure GetToGoBack; virtual;
+    procedure GetToGoBack; virtual; abstract;
   end;
 
 implementation
@@ -111,6 +111,7 @@ end;
 
 procedure TBaseViewPlay.Stop;
 begin
+  SaveCharasCondition;
   if Assigned(FActorsLogic) then
     FreeAndNil(FActorsLogic);
   inherited;
@@ -370,11 +371,6 @@ begin
   Notifications.Show('Info: use WASD for move');
   Notifications.Show('Info: use C for move down');
   Notifications.Show('Info: use Space for move up');
-end;
-
-procedure TBaseViewPlay.GetToGoBack;
-begin
-  SaveCharasCondition();
 end;
 
 end.

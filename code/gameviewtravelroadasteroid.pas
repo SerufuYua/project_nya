@@ -16,6 +16,7 @@ type
     FActorSpacePlane: TNyaActor;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
+    procedure SaveCharasCondition; override;
   protected
     procedure ConversationSpacePlane;
     procedure ConversationBoy;
@@ -102,6 +103,12 @@ begin
   else
     Notifications.Show('There is nothing to do');
   end;
+end;
+
+procedure TViewTravelRoadAsteroid.SaveCharasCondition;
+begin
+  inherited;
+  FActorBoy.SaveCondition;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -211,13 +218,11 @@ end;
 procedure TViewTravelRoadAsteroid.GetToGoBoy;
 begin
   WorldCondition.Boy.Location:= TBoyLocation.InRoom;
-  SaveCharasCondition();
   GetToGo(ViewPlayTogether);
 end;
 
 procedure TViewTravelRoadAsteroid.GetToGoHome;
 begin
-  SaveCharasCondition();
   GetToGo(ViewTravelContainerRoom, Vector3(-0.66, 0.15, 1.66),
                                    Vector4(0.0, 1.0, 0.0, Deg(150.0)));
 end;

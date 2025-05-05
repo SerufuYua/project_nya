@@ -48,7 +48,7 @@ type
     procedure SetDressButtons;
     procedure SetUIColor;
     procedure SetSwitches;
-    procedure SaveCharasCondition;
+    procedure SaveCharasCondition; virtual;
     procedure NavigationSetAnimation(
       const Sender: TNyaThirdPersonCharaNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
@@ -116,9 +116,9 @@ end;
 
 procedure TBaseViewTravel.Stop;
 begin
-  inherited;
-
+  SaveCharasCondition;
   WorldCondition.Boy.Dresser:= nil;
+  inherited;
 end;
 
 procedure TBaseViewTravel.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -180,11 +180,7 @@ begin
 
   Case button.Name of
   'BtnBack':
-    begin
-      Notifications.Show('saving characters condition...');
-      SaveCharasCondition();
       GetToGo(ViewMain);
-    end;
   end;
 end;
 
