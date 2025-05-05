@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
-  CastleTimeUtils;
+  CastleTimeUtils, CharaDress;
 
 type
   TBoyLocation = (Away, InRoom, InHovel);
@@ -30,6 +30,7 @@ type
         FLocationRemaining: TFloatTime;
         FSearched: Boolean;
         FFirstTalkDone: Boolean;
+        FDresser: TCharaDresser;
         function GetLocation: TBoyLocation;
         function LocationInterval: TFloatTime;
         procedure OnLocation;
@@ -40,6 +41,7 @@ type
         property Searched: boolean read FSearched write FSearched;
         property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
         property Visible: boolean read FVisible write FVisible;
+        property Dresser: TCharaDresser write FDresser;
       end;
     var
       FBoyCondition: TBoyCondition;
@@ -86,6 +88,7 @@ begin
   FLocationRemaining:= LocationInterval;
   FSearched:= DefaultSearched;
   FVisible:= DefaultVisible;
+  FDresser:= nil;
 end;
 
 procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);

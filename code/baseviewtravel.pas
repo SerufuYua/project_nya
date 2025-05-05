@@ -28,6 +28,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
+    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
@@ -111,6 +112,13 @@ begin
 
   { show info }
   Notifications.Show('Info: use WASD for move');
+end;
+
+procedure TBaseViewTravel.Stop;
+begin
+  inherited;
+
+  WorldCondition.Boy.Dresser:= nil;
 end;
 
 procedure TBaseViewTravel.Update(const SecondsPassed: Single; var HandleInput: boolean);
