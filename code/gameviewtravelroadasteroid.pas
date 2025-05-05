@@ -84,6 +84,16 @@ begin
 
   switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
+
+  Case switch.Name of
+  'BoySwitch':
+    begin
+      if Touch then
+        FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.STAND_WITH_PDA.LOOKING'
+      else
+        FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.STAND_WITH_PDA.WORKING';
+    end;
+  end;
 end;
 
 procedure TViewTravelRoadAsteroid.DoActivateSwitch(Sender: TObject);
