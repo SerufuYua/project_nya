@@ -269,13 +269,11 @@ end;
 procedure TViewDressingMenu.ClickSuit(Sender: TObject);
 var
   button: TCastleButton;
-  suitPartType: TSuitPart;
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
 
-  for suitPartType in AllSuitPartTypes do
-    FDresser.DressSuitPart(suitPartType, button.Caption);
+  FDresser.DressSuit(button.Caption);
 end;
 
 procedure TViewDressingMenu.ClickAccesories(Sender: TObject);

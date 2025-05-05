@@ -9,7 +9,6 @@ uses
 
 type
   TSuitPart = (Top, Bottom, Foots, Arms);
-  AllSuitPartTypes = set of TSuitPart;
 
   TCharaDresser = class
   protected
@@ -19,8 +18,9 @@ type
     constructor Create(scene: TCastleTransformDesign);
     function SuitPartsList(suitPartType: TSuitPart): TItemConditions;
     function DressedSuitPart(suitPartType: TSuitPart): String;
-    function SuitList: TStringArray;
     procedure DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
+    function SuitList: TStringArray;
+    procedure DressSuit(const suitName: String);
     function AcessoriesList: TItemConditions;
     procedure DressAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
@@ -44,6 +44,9 @@ implementation
 
 uses
   X3DNodes, StrUtils, IniFiles;
+
+type
+  AllSuitPartTypes = set of TSuitPart;
 
 const
   PrefixTop = 'top.';
@@ -168,6 +171,14 @@ begin
         end;
     end;
   end;
+end;
+
+procedure TCharaDresser.DressSuit(const suitName: String);
+var
+  suitPartType: TSuitPart;
+begin
+  for suitPartType in AllSuitPartTypes do
+    DressSuitPart(suitPartType, suitName);
 end;
 
 procedure TCharaDresser.DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
