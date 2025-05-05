@@ -18,24 +18,24 @@ type
       TBoyCondition = class
       protected
         const
-          DefaultBoyLocation = Away;
+          DefaultLocation = Away;
           DefaultFirstTalkDone = False;
-          DefaultBoyLocationInterval: TFloatTime = 60.0;
-          DefaultBoyLocationIntervalVariance: TFloatTime = 15.0;
-          DefaultBoySearched = False;
+          DefaultLocationInterval: TFloatTime = 60.0;
+          DefaultLocationIntervalVariance: TFloatTime = 15.0;
+          DefaultSearched = False;
       protected
-        FBoyLocation: TBoyLocation;
-        FBoyLocationRemaining: TFloatTime;
-        FBoySearched: Boolean;
+        FLocation: TBoyLocation;
+        FLocationRemaining: TFloatTime;
+        FSearched: Boolean;
         FFirstTalkDone: Boolean;
-        function GetBoyLocation: TBoyLocation;
-        function BoyLocationInterval: TFloatTime;
-        procedure OnBoyLocation;
+        function GetLocation: TBoyLocation;
+        function LocationInterval: TFloatTime;
+        procedure OnLocation;
       public
         constructor Create;
         procedure Update(const SecondsPassed: Single);
-        property Location: TBoyLocation read GetBoyLocation write FBoyLocation;
-        property Searched: boolean read FBoySearched write FBoySearched;
+        property Location: TBoyLocation read GetLocation write FLocation;
+        property Searched: boolean read FSearched write FSearched;
         property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
       end;
     var
@@ -78,39 +78,39 @@ const
 
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
-  FBoyLocation:= DefaultBoyLocation;
+  FLocation:= DefaultLocation;
   FFirstTalkDone:= DefaultFirstTalkDone;
-  FBoyLocationRemaining:= BoyLocationInterval;
-  FBoySearched:= DefaultBoySearched;
+  FLocationRemaining:= LocationInterval;
+  FSearched:= DefaultSearched;
 end;
 
 procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);
 begin
-  FBoyLocationRemaining:= FBoyLocationRemaining - SecondsPassed;
-  if (FBoyLocationRemaining <= 0.0) then
-    OnBoyLocation;
+  FLocationRemaining:= FLocationRemaining - SecondsPassed;
+  if (FLocationRemaining <= 0.0) then
+    OnLocation;
 end;
 
-function TNyaWorldCondition.TBoyCondition.GetBoyLocation: TBoyLocation;
+function TNyaWorldCondition.TBoyCondition.GetLocation: TBoyLocation;
 begin
-  if FBoySearched then
-    Result:= FBoyLocation
+  if FSearched then
+    Result:= FLocation
   else
-    Result:= DefaultBoyLocation;
+    Result:= DefaultLocation;
 end;
 
-function TNyaWorldCondition.TBoyCondition.BoyLocationInterval: TFloatTime;
+function TNyaWorldCondition.TBoyCondition.LocationInterval: TFloatTime;
 begin
   Result:= RandomFloatRange(
-             DefaultBoyLocationInterval - DefaultBoyLocationIntervalVariance,
-             DefaultBoyLocationInterval + DefaultBoyLocationIntervalVariance);
+             DefaultLocationInterval - DefaultLocationIntervalVariance,
+             DefaultLocationInterval + DefaultLocationIntervalVariance);
 end;
 
-procedure TNyaWorldCondition.TBoyCondition.OnBoyLocation;
+procedure TNyaWorldCondition.TBoyCondition.OnLocation;
 var
   locNum, nHigh, nLow: Integer;
 begin
-  FBoyLocationRemaining:= BoyLocationInterval;
+  FLocationRemaining:= LocationInterval;
 
   nLow:= Ord(Low(TBoyLocation));
   nHigh:= Ord(High(TBoyLocation)) + 1;
@@ -119,9 +119,9 @@ begin
 
   { if FirstTalk with Boy isn't done then boy isn't go in Girl's Home itself }
   if ((NOT FirstTalkDone) AND (TBoyLocation(locNum) = TBoyLocation.InRoom)) then
-    FBoyLocation:= TBoyLocation.InHovel
+    FLocation:= TBoyLocation.InHovel
   else
-    FBoyLocation:= TBoyLocation(locNum);
+    FLocation:= TBoyLocation(locNum);
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -165,7 +165,7 @@ end;
 
 function TNyaWorldCondition.GetSpacePlaneExists: Boolean;
 begin
-  Result:= FBoyCondition.FBoyLocation <> TBoyLocation.Away;
+  Result:= FBoyCondition.FLocation <> TBoyLocation.Away;
 end;
 
 procedure TNyaWorldCondition.RestoreCondition;
@@ -176,17 +176,17 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  FBoyCondition.FBoyLocation:= TBoyLocation(
+  FBoyCondition.FLocation:= TBoyLocation(
                                ini.ReadInteger(Section, BoyLocationStr,
-                               Ord(FBoyCondition.DefaultBoyLocation)));
+                               Ord(FBoyCondition.DefaultLocation)));
 
   FBoyCondition.FFirstTalkDone:=  ini.ReadBool(Section, BoyFirstTalkDone,
                                   FBoyCondition.DefaultFirstTalkDone);
 
-  FBoyCondition.FBoyLocationRemaining:= ini.ReadFloat(Section, BoyTimerStr,
-                                        FBoyCondition.BoyLocationInterval);
+  FBoyCondition.FLocationRemaining:= ini.ReadFloat(Section, BoyTimerStr,
+                                        FBoyCondition.LocationInterval);
 
-  FBoyCondition.FBoySearched:= ini.ReadBool(Section, BoySearchedStr, FBoyCondition.DefaultBoySearched);
+  FBoyCondition.FSearched:= ini.ReadBool(Section, BoySearchedStr, FBoyCondition.DefaultSearched);
 
   ini.Free;
 end;
@@ -199,10 +199,10 @@ begin
   ini.FormatSettings.DecimalSeparator:= '|';
   ini.Options:= [ifoFormatSettingsActive];
 
-  ini.WriteInteger(Section, BoyLocationStr, Ord(FBoyCondition.FBoyLocation));
+  ini.WriteInteger(Section, BoyLocationStr, Ord(FBoyCondition.FLocation));
   ini.WriteBool(Section, BoyFirstTalkDone, FBoyCondition.FFirstTalkDone);
-  ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FBoyLocationRemaining);
-  ini.WriteBool(Section, BoySearchedStr, FBoyCondition.FBoySearched);
+  ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FLocationRemaining);
+  ini.WriteBool(Section, BoySearchedStr, FBoyCondition.FSearched);
 
   ini.Free;
 end;
