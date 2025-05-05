@@ -61,14 +61,15 @@ end;
 procedure TViewTravelRoadAsteroid.Update(const SecondsPassed: Single;
                                           var HandleInput: boolean);
 begin
+  { update Boy visibility }
+  WorldCondition.Boy.Visible:= PointVisible(FActorBoy.Translation) OR
+                               PointVisible(FActorSpacePlane.Translation);
 
-  { update Boy Exists only when area where Boy is not in view }
-  if NOT PointVisible(FActorSpacePlane.Translation) then
-    FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
+  { update Space Plane Exists }
+  FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
 
-  { update Boy Exists only when area where Boy is not in view }
-  if NOT PointVisible(FActorBoy.Translation) then
-    FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
+  { update Boy Exists }
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InHovel);
 
   inherited;
 end;

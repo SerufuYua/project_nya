@@ -23,7 +23,9 @@ type
           DefaultLocationInterval: TFloatTime = 60.0;
           DefaultLocationIntervalVariance: TFloatTime = 15.0;
           DefaultSearched = False;
+          DefaultVisible = False;
       protected
+        FVisible: Boolean;
         FLocation: TBoyLocation;
         FLocationRemaining: TFloatTime;
         FSearched: Boolean;
@@ -37,6 +39,7 @@ type
         property Location: TBoyLocation read GetLocation write FLocation;
         property Searched: boolean read FSearched write FSearched;
         property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
+        property Visible: boolean read FVisible write FVisible;
       end;
     var
       FBoyCondition: TBoyCondition;
@@ -82,12 +85,13 @@ begin
   FFirstTalkDone:= DefaultFirstTalkDone;
   FLocationRemaining:= LocationInterval;
   FSearched:= DefaultSearched;
+  FVisible:= DefaultVisible;
 end;
 
 procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);
 begin
   FLocationRemaining:= FLocationRemaining - SecondsPassed;
-  if (FLocationRemaining <= 0.0) then
+  if ((FLocationRemaining <= 0.0) AND (NOT Visible)) then
     OnLocation;
 end;
 

@@ -49,7 +49,7 @@ begin
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
-  FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InRoom;
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InRoom);
 
   inherited;
 end;
@@ -57,10 +57,11 @@ end;
 procedure TViewTravelContainerRoom.Update(const SecondsPassed: Single;
                                           var HandleInput: boolean);
 begin
+  { update Boy visibility }
+  WorldCondition.Boy.Visible:= PointVisible(FActorBoy.Translation);
 
-  { update Boy Exists only when area where Boy is not in view }
-  if NOT PointVisible(FActorBoy.Translation) then
-    FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InRoom;
+  { update Boy Exists }
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InRoom);
 
   inherited;
 end;
