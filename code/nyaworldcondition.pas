@@ -116,6 +116,8 @@ end;
 procedure TNyaWorldCondition.TBoyCondition.OnLocation;
 var
   locNum, nHigh, nLow: Integer;
+  suitList: Array of String;
+  newSuit: String;
 begin
   FLocationRemaining:= LocationInterval;
 
@@ -129,6 +131,11 @@ begin
     FLocation:= TBoyLocation.InHovel
   else
     FLocation:= TBoyLocation(locNum);
+
+  { change dressing }
+  suitList:= FDresser.SuitList;
+  newSuit:= suitList[RandomRange(0, High(suitList))];
+  FDresser.DressSuit(newSuit);
 end;
 
 { ========= ------------------------------------------------------------------ }
