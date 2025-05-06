@@ -25,6 +25,7 @@ uses SysUtils, CustApp,
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
   , GameViewConversationMenu
+  , GameViewSettingsMenu
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -52,6 +53,7 @@ begin
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
+  ViewSettingsMenu := TViewSettingsMenu.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('y', 'PlayToy') then

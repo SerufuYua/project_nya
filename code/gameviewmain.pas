@@ -50,7 +50,7 @@ implementation
 
 uses
   SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom,
-  CastleSoundEngine, GameSound;
+  CastleSoundEngine, GameSound, GameViewSettingsMenu;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -110,7 +110,8 @@ end;
 
 procedure TViewMain.ClicSettings(Sender: TObject);
 begin
-  { #todo : need game settings }
+  if NOT (Container.FrontView = ViewSettingsMenu) then
+    Container.PushView(ViewSettingsMenu);
 end;
 
 procedure TViewMain.UpdateCamera(const SecondsPassed: Single);
