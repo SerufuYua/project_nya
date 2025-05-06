@@ -13,7 +13,7 @@ implementation
 
 uses SysUtils, CustApp,
   CastleWindow, CastleLog, CastleUIControls, GameAdjustLoadingScreen,
-  GameSound, CastleSoundEngine
+  GameSound, CastleSoundEngine, CastleConfig
   {$region 'Castle Initialization Uses'}
   // The content here may be automatically updated by CGE editor.
   , GameViewMain
@@ -28,6 +28,8 @@ uses SysUtils, CustApp,
   , GameViewSettingsMenu
   {$endregion 'Castle Initialization Uses'};
 
+{$I nyaworldconst.inc}
+
 var
   Window: TCastleWindow;
 
@@ -37,10 +39,13 @@ begin
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
 
+  { Load settings }
+  UserConfig.Load;
+
   { Sounds initialization }
   InitializeSounds;
-  SoundEngine.Volume:= 1.0;
-  SoundEngine.LoopingChannel[0].Volume:= 1.0;
+  SoundEngine.Volume:= UserConfig.GetFloat(SfxStr, DefaultSfxValue);
+  SoundEngine.LoopingChannel[0].Volume:= UserConfig.GetFloat(MusicStr, DefaultMusicvalue);
 
   { Create views (see https://castle-engine.io/views ). }
   {$region 'Castle View Creation'}

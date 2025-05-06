@@ -23,6 +23,8 @@ type
     procedure ChangeSoundSlider(Sender: TObject);
   private
     procedure StepChangeSlider(slider: TCastleFloatSlider; step: Single);
+    procedure SetSfx(value: Single);
+    procedure SetMusic(value: Single);
   end;
 
 var
@@ -31,7 +33,9 @@ var
 implementation
 
 uses
-  CastleWindow, CastleSoundEngine;
+  CastleWindow, CastleSoundEngine, CastleConfig;
+
+{$I nyaworldconst.inc}
 
 var
   Window: TCastleWindow;
@@ -47,6 +51,9 @@ begin
   inherited;
   InterceptInput:= True;
   Window:= Application.MainWindow;
+
+  SfxSlider.Value:= UserConfig.GetFloat(SfxStr, DefaultSfxValue);
+  MusicSlider.Value:= UserConfig.GetFloat(MusicStr, DefaultMusicvalue);
 
   BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
   FullScreenCheck.OnChange:= {$ifdef FPC}@{$endif}ClickScreen;
@@ -89,8 +96,8 @@ begin
   if NOT Assigned(slider) then exit;
 
   Case slider.Name of
-    'SfxSlider':   SoundEngine.Volume:= SfxSlider.Value;
-    'MusicSlider': SoundEngine.LoopingChannel[0].Volume:= MusicSlider.Value;
+    'SfxSlider':   SetSfx(SfxSlider.Value);
+    'MusicSlider': SetMusic(MusicSlider.Value);
   end;
 end;
 
@@ -104,10 +111,26 @@ begin
   if NOT Assigned(button) then exit;
 
   Case button.Name of
-    'BtnSfxMinus':   StepChangeSlider(SfxSlider, -step);
-    'BtnSfxPlus':    StepChangeSlider(SfxSlider, step);
-    'BtnMusicMinus': StepChangeSlider(MusicSlider, -step);
-    'BtnMusicPlus':  StepChangeSlider(MusicSlider, step);
+    'BtnSfxMinus':
+      begin
+        StepChangeSlider(SfxSlider, -step);
+        SetSfx(SfxSlider.Value);
+      end;
+    'BtnSfxPlus':
+      begin
+        StepChangeSlider(SfxSlider, step);
+        SetSfx(SfxSlider.Value);
+      end;
+    'BtnMusicMinus':
+      begin
+        StepChangeSlider(MusicSlider, -step);
+        SetMusic(MusicSlider.Value);
+      end;
+    'BtnMusicPlus':
+      begin
+        StepChangeSlider(MusicSlider, step);
+        SetMusic(MusicSlider.Value);
+      end;
   end;
 end;
 
@@ -122,6 +145,20 @@ begin
   else if (value > slider.Max) then value:= slider.Max;
 
   slider.Value:= value;
+end;
+
+procedure TViewSettingsMenu.SetSfx(value: Single);
+begin
+  SoundEngine.Volume:= value;
+  UserConfig.SetFloat(SfxStr, value);
+  UserConfig.Save;
+end;
+
+procedure TViewSettingsMenu.SetMusic(value: Single);
+begin
+  SoundEngine.LoopingChannel[0].Volume:= value;
+  UserConfig.SetFloat(MusicStr, value);
+  UserConfig.Save;
 end;
 
 end.
