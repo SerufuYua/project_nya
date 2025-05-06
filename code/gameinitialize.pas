@@ -40,7 +40,7 @@ begin
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
 
   { Load settings }
-  UserConfig.Load;
+  UserConfig.Load(ApplicationName + '.conf');
 
   { Sounds initialization }
   InitializeSounds;
