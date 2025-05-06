@@ -12,7 +12,8 @@ interface
 implementation
 
 uses SysUtils, CustApp,
-  CastleWindow, CastleLog, CastleUIControls, GameAdjustLoadingScreen
+  CastleWindow, CastleLog, CastleUIControls, GameAdjustLoadingScreen,
+  GameSound, CastleSoundEngine
   {$region 'Castle Initialization Uses'}
   // The content here may be automatically updated by CGE editor.
   , GameViewMain
@@ -34,6 +35,11 @@ procedure ApplicationInitialize;
 begin
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
+
+  { Sounds initialization }
+  InitializeSounds;
+  SoundEngine.Volume:= 1.0;
+  SoundEngine.LoopingChannel[0].Volume:= 1.0;
 
   { Create views (see https://castle-engine.io/views ). }
   {$region 'Castle View Creation'}

@@ -32,6 +32,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
+    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
   private
     FCurPos: TVector2;
@@ -48,7 +49,8 @@ var
 implementation
 
 uses
-  SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom;
+  SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom,
+  CastleSoundEngine, GameSound;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -72,6 +74,17 @@ begin
 
   { remember initial camera rotation }
   FCameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
+
+  { Play Main Menu music }
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicMain');
+end;
+
+procedure TViewMain.Stop;
+begin
+  { Stop Main Menu music }
+  SoundEngine.LoopingChannel[0].Sound:= nil;
+
+  inherited;
 end;
 
 procedure TViewMain.Update(const SecondsPassed: Single; var HandleInput: Boolean);

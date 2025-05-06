@@ -1,0 +1,12 @@
+{
+  "$$ClassName" : "TCastleComponent",
+  "Name" : "Sounds",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "MusicMain",
+      "Stream" : true,
+      "Url" : "castle-data:/audio/music/intro.ogg"
+    }
+  ]
+}
