@@ -10,7 +10,7 @@ type
   published
     BtnClose: TCastleButton;
     FullScreenCheck: TCastleCheckbox;
-    FloatSfxSlider, FloatMusicSlider: TCastleFloatSlider;
+    SfxSlider, MusicSlider: TCastleFloatSlider;
     BtnSfxMinus, BtnSfxPlus, BtnMusicMinus, BtnMusicPlus: TCastleButton;
   public
     constructor Create(AOwner: TComponent); override;
@@ -20,6 +20,7 @@ type
     procedure ClickClose(Sender: TObject);
     procedure ClickScreen(Sender: TObject);
     procedure ClickPlusMinus(Sender: TObject);
+    procedure ChangeSoundSlider(Sender: TObject);
   private
     procedure StepChangeSlider(slider: TCastleFloatSlider; step: Single);
   end;
@@ -30,7 +31,7 @@ var
 implementation
 
 uses
-  CastleWindow;
+  CastleWindow, CastleSoundEngine;
 
 var
   Window: TCastleWindow;
@@ -49,6 +50,8 @@ begin
 
   BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
   FullScreenCheck.OnChange:= {$ifdef FPC}@{$endif}ClickScreen;
+  SfxSlider.OnChange:= {$ifdef FPC}@{$endif}ChangeSoundSlider;
+  MusicSlider.OnChange:= {$ifdef FPC}@{$endif}ChangeSoundSlider;
   BtnSfxMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
   BtnSfxPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
   BtnMusicMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
@@ -78,6 +81,19 @@ begin
   end;
 end;
 
+procedure TViewSettingsMenu.ChangeSoundSlider(Sender: TObject);
+var
+  slider: TCastleFloatSlider;
+begin
+  slider:= Sender as TCastleFloatSlider;
+  if NOT Assigned(slider) then exit;
+
+  Case slider.Name of
+    'SfxSlider':   SoundEngine.Volume:= SfxSlider.Value;
+    'MusicSlider': SoundEngine.LoopingChannel[0].Volume:= MusicSlider.Value;
+  end;
+end;
+
 procedure TViewSettingsMenu.ClickPlusMinus(Sender: TObject);
 const
   step = 0.1;
@@ -88,10 +104,10 @@ begin
   if NOT Assigned(button) then exit;
 
   Case button.Name of
-    'BtnSfxMinus':   StepChangeSlider(FloatSfxSlider, -step);
-    'BtnSfxPlus':    StepChangeSlider(FloatSfxSlider, step);
-    'BtnMusicMinus': StepChangeSlider(FloatMusicSlider, -step);
-    'BtnMusicPlus':  StepChangeSlider(FloatMusicSlider, step);
+    'BtnSfxMinus':   StepChangeSlider(SfxSlider, -step);
+    'BtnSfxPlus':    StepChangeSlider(SfxSlider, step);
+    'BtnMusicMinus': StepChangeSlider(MusicSlider, -step);
+    'BtnMusicPlus':  StepChangeSlider(MusicSlider, step);
   end;
 end;
 
