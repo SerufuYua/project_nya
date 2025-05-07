@@ -75,13 +75,13 @@ begin
   { remember initial camera rotation }
   FCameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
 
-  { Play Main Menu music }
+  { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicMain');
 end;
 
 procedure TViewMain.Stop;
 begin
-  { Stop Main Menu music }
+  { Stop music }
   SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;

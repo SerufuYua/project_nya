@@ -54,7 +54,7 @@ begin
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
   FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InRoom);
 
-  { Play InRoom music }
+  { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
 
   inherited;

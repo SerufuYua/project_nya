@@ -20,12 +20,16 @@ implementation
 
 uses
   SysUtils, CastleTransform, CastleUtils, CastleVectors,
+  CastleSoundEngine, GameSound,
   GameViewTravelContainerRoom;
 
 procedure TViewPlayTogether.Start;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlay_Together.castle-user-interface';
+
+  { Play music }
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
 
   inherited;
 end;

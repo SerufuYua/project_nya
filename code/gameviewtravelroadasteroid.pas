@@ -58,7 +58,7 @@ begin
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
   FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
 
-  { Play Outdoors music }
+  { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
 
   inherited;

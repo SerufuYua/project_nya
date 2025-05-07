@@ -28,7 +28,7 @@ begin
   { set map }
   Map.Url:= 'castle-data:/MapPlay_Solo.castle-user-interface';
 
-  { Play InRoom music }
+  { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
 
   inherited;
