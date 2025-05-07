@@ -10,6 +10,7 @@ type
   TViewTravelContainerRoom = class(TBaseViewTravel)
   public
     procedure Start; override;
+    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorBoy: TNyaActorChara;
@@ -35,6 +36,7 @@ implementation
 uses
   SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
   CastleComponentSerialize,
+  CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressingMenu, GameViewPlayGirl, GameViewPlaySolo,
   GameViewPlayTogether, GameViewTravelRoadAsteroid, GameViewMain,
@@ -52,6 +54,17 @@ begin
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
   FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InRoom);
+
+  { Play InRoom music }
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
+
+  inherited;
+end;
+
+procedure TViewTravelContainerRoom.Stop;
+begin
+  { Stop InRoom music }
+  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;

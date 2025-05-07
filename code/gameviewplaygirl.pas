@@ -9,6 +9,7 @@ type
   TViewPlayGirl = class(TBaseViewPlay)
   public
     procedure Start; override;
+    procedure Stop; override;
   protected
     procedure GetToGoBack; override;
   end;
@@ -20,12 +21,24 @@ implementation
 
 uses
   SysUtils, CastleTransform, CastleUtils, CastleVectors,
+  CastleSoundEngine, GameSound,
   GameViewTravelContainerRoom;
 
 procedure TViewPlayGirl.Start;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlay_GirlToyA.castle-user-interface';
+
+  { Play InRoom music }
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
+
+  inherited;
+end;
+
+procedure TViewPlayGirl.Stop;
+begin
+  { Stop InRoom music }
+  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;

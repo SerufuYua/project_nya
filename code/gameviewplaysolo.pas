@@ -9,6 +9,7 @@ type
   TViewPlaySolo = class(TBaseViewPlay)
   public
     procedure Start; override;
+    procedure Stop; override;
   protected
     procedure GetToGoBack; override;
   end;
@@ -20,12 +21,24 @@ implementation
 
 uses
   SysUtils, CastleTransform, CastleUtils, CastleVectors,
+  CastleSoundEngine, GameSound,
   GameViewTravelContainerRoom;
 
 procedure TViewPlaySolo.Start;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapPlay_Solo.castle-user-interface';
+
+  { Play InRoom music }
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
+
+  inherited;
+end;
+
+procedure TViewPlaySolo.Stop;
+begin
+  { Stop InRoom music }
+  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;

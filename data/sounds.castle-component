@@ -7,6 +7,12 @@
       "Name" : "MusicMain",
       "Stream" : true,
       "Url" : "castle-data:/audio/music/intro.ogg"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "MusicInRoom",
+      "Stream" : true,
+      "Url" : "castle-data:/audio/music/inroom.ogg"
     }
   ]
 }
