@@ -13,6 +13,12 @@
       "Name" : "MusicInRoom",
       "Stream" : true,
       "Url" : "castle-data:/audio/music/inroom.ogg"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "MusicOutdoors",
+      "Stream" : true,
+      "Url" : "castle-data:/audio/music/outdoors.ogg"
     }
   ]
 }

@@ -10,6 +10,7 @@ type
   TViewTravelRoadAsteroid = class(TBaseViewTravel)
   public
     procedure Start; override;
+    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorBoy: TNyaActorChara;
@@ -36,6 +37,7 @@ implementation
 uses
   SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
   CastleComponentSerialize,
+  CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressingMenu, GameViewTravelContainerRoom, GameViewMain,
   GameViewPlayTogether, GameViewConversationMenu;
@@ -56,6 +58,17 @@ begin
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
   FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
+
+  { Play Outdoors music }
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
+
+  inherited;
+end;
+
+procedure TViewTravelRoadAsteroid.Stop;
+begin
+ { Stop Outdoors music }
+  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;

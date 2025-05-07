@@ -2,9 +2,16 @@ File: intro.ogg
 Band Name: "Порез на Собаке"
 Track Title: "Теперь Мы Снова Вдвоём"
 Album Title: "Выход со Взломом"
+URL:
 
 File: inroom.ogg
 Artist Name: "LunarMoth"
 Track Title: Track #3
 Album Title: "Cityscape Delusions"
-https://youtube.com/@LunarMoth
+URL: https://youtube.com/@LunarMoth
+
+File: outdoors.ogg
+Artist Name: "LunarMoth"
+Track Title: Track #7
+Album Title: "Cityscape Delusions"
+URL: https://youtube.com/@LunarMoth
