@@ -10,7 +10,6 @@ type
   TViewTravelRoadAsteroid = class(TBaseViewTravel)
   public
     procedure Start; override;
-    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorBoy: TNyaActorChara;
@@ -61,14 +60,6 @@ begin
 
   { Play Outdoors music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
-
-  inherited;
-end;
-
-procedure TViewTravelRoadAsteroid.Stop;
-begin
- { Stop Outdoors music }
-  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;

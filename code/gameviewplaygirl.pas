@@ -9,7 +9,6 @@ type
   TViewPlayGirl = class(TBaseViewPlay)
   public
     procedure Start; override;
-    procedure Stop; override;
   protected
     procedure GetToGoBack; override;
   end;
@@ -31,14 +30,6 @@ begin
 
   { Play InRoom music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
-
-  inherited;
-end;
-
-procedure TViewPlayGirl.Stop;
-begin
-  { Stop InRoom music }
-  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;
