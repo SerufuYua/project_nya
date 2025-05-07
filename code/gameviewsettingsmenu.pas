@@ -51,6 +51,8 @@ begin
   InterceptInput:= True;
   Window:= Application.MainWindow;
 
+  FullScreenCheck.Checked:= UserConfig.GetValue(FullScreenStr,
+                                                DefaultFullScreen);
   SfxSlider.Value:= UserConfig.GetFloat(SfxStr, DefaultSfxValue);
   MusicSlider.Value:= UserConfig.GetFloat(MusicStr, DefaultMusicvalue);
 
@@ -83,7 +85,12 @@ begin
   if NOT Assigned(check) then exit;
 
   Case check.Name of
-    'FullScreenCheck': Window.FullScreen:= check.Checked;
+    'FullScreenCheck':
+      begin
+        Window.FullScreen:= check.Checked;
+        UserConfig.SetValue(FullScreenStr, check.Checked);
+        UserConfig.Save;
+      end;
   end;
 end;
 

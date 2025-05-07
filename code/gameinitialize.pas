@@ -39,9 +39,6 @@ begin
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
 
-  { Load settings }
-  UserConfig.Load(ApplicationName + '.conf');
-
   { Sounds initialization }
   InitializeSounds;
   SoundEngine.Volume:= UserConfig.GetFloat(SfxStr, DefaultSfxValue);
@@ -77,6 +74,9 @@ begin
 end;
 
 initialization
+  { Load settings }
+  UserConfig.Load(ApplicationName + '.conf');
+
   { This initialization section configures:
     - Application.OnInitialize
     - Application.MainWindow
@@ -89,7 +89,7 @@ initialization
   Application.OnInitialize:= @ApplicationInitialize;
 
   Window:= TCastleWindow.Create(Application);
-  Window.FullScreen:= false; // default
+  Window.FullScreen:= UserConfig.GetValue(FullScreenStr, DefaultFullScreen);
   Window.Width:= 1024;
   Window.Height:= 768;
   Window.AntiAliasing:= aa4SamplesNicer;
