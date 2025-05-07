@@ -59,7 +59,7 @@ implementation
 uses
   GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
-  StrUtils, NyaCastleUtils, NyaActor, NyaActorChara;
+  StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaCastleUiUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
 begin
@@ -314,29 +314,17 @@ begin
   begin
     slider:= Sender as TCastleFloatSlider;
     FActorsLogic.Speed:= slider.Value;
-    Exit;
   end
   else if (Sender is TCastleButton) then
   begin
     button:= Sender as TCastleButton;
+
     Case button.Name of
-    'BtnMinus':
-      begin
-        if (Abs(FloatSliderSpeed.Value - FloatSliderSpeed.Min) > step) then
-          FloatSliderSpeed.Value:= FloatSliderSpeed.Value - step
-        else
-          FloatSliderSpeed.Value:= FloatSliderSpeed.Min;
-      end;
-    'BtnPlus':
-      begin
-        if (Abs(FloatSliderSpeed.Value - FloatSliderSpeed.Max) > step) then
-          FloatSliderSpeed.Value:= FloatSliderSpeed.Value + step
-        else
-          FloatSliderSpeed.Value:= FloatSliderSpeed.Max;
-      end;
+      'BtnMinus': StepChangeSlider(FloatSliderSpeed, -step);
+      'BtnPlus': StepChangeSlider(FloatSliderSpeed, step);
     end;
+
     FActorsLogic.Speed:= FloatSliderSpeed.Value;
-    Exit;
   end;
 end;
 

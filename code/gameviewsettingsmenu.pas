@@ -22,7 +22,6 @@ type
     procedure ClickPlusMinus(Sender: TObject);
     procedure ChangeSoundSlider(Sender: TObject);
   private
-    procedure StepChangeSlider(slider: TCastleFloatSlider; step: Single);
     procedure SetSfx(value: Single);
     procedure SetMusic(value: Single);
   end;
@@ -33,7 +32,7 @@ var
 implementation
 
 uses
-  CastleWindow, CastleSoundEngine, CastleConfig;
+  CastleWindow, CastleSoundEngine, CastleConfig, NyaCastleUiUtils;
 
 {$I nyaworldconst.inc}
 
@@ -132,19 +131,6 @@ begin
         SetMusic(MusicSlider.Value);
       end;
   end;
-end;
-
-procedure TViewSettingsMenu.StepChangeSlider(slider: TCastleFloatSlider; step: Single);
-var
-  value: Single;
-begin
-  value:= slider.Value;
-  value:= value + step;
-
-  if (value < slider.Min) then value:= slider.Min
-  else if (value > slider.Max) then value:= slider.Max;
-
-  slider.Value:= value;
 end;
 
 procedure TViewSettingsMenu.SetSfx(value: Single);
