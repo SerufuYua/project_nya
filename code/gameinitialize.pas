@@ -28,8 +28,6 @@ uses SysUtils, CustApp,
   , GameViewSettingsMenu
   {$endregion 'Castle Initialization Uses'};
 
-{$I nyaworldconst.inc}
-
 var
   Window: TCastleWindow;
 

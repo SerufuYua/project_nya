@@ -5,6 +5,14 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse;
 
+const
+  FullScreenStr = 'settings/screen/FullScreen';
+  SfxStr = 'settings/sound/SFX';
+  MusicStr = 'settings/sound/Music';
+  DefaultFullScreen = False;
+  DefaultSfxValue = 1.0;
+  DefaultMusicvalue = 0.8;
+
 type
   TViewSettingsMenu = class(TCastleView)
   published
@@ -33,8 +41,6 @@ implementation
 
 uses
   CastleWindow, CastleSoundEngine, CastleConfig, NyaCastleUiUtils;
-
-{$I nyaworldconst.inc}
 
 var
   Window: TCastleWindow;
