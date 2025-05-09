@@ -12,6 +12,6 @@ URL: https://www.youtube.com/@LunarMoth
 
 File: outdoors.ogg
 Artist Name: "Callix Lunaris"
-Track Title: Track #7
+Track Title: "Wired Dreams from 2058"
 Album Title: "Cityscape Delusions"
 URL: https://www.youtube.com/@LunarMoth
