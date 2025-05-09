@@ -324,6 +324,7 @@ end;
 procedure TBaseViewTravel.Pause;
 begin
   inherited;
+  FCameraNavigationFollow.MouseLook:= False;
   MainViewport.Items.TimeScale:= 0;
 end;
 
