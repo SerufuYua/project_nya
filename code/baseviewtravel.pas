@@ -41,6 +41,7 @@ type
     FKeyUse: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
+    procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
@@ -59,6 +60,7 @@ implementation
 
 uses
   GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  CastleSoundEngine, GameSound,
   CastleScene, CastleFonts,
   StrUtils, NyaCastleUtils;
 
@@ -96,6 +98,7 @@ begin
 
   { set Buttons }
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { set keys }
   FKeyUse:= TKey.keyF;
@@ -171,12 +174,19 @@ begin
   Result := inherited;
 end;
 
+procedure TBaseViewTravel.FocusButton(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonFocus'));
+end;
+
 procedure TBaseViewTravel.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
+
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
   'BtnBack':
@@ -231,6 +241,8 @@ begin
   btnDress:= Sender as TCastleButton;
   if NOT Assigned(btnDress) then Exit;
 
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
   { Show Dressing Menu }
   if NOT (Container.FrontView = ViewDressingMenu) then
   begin
@@ -274,6 +286,7 @@ begin
 
   newBtn.Caption:= MainActor.ActorName;
   newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
+  newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   GroupDressingButtons.InsertFront(newBtn);
 
   if Assigned(myBtnFactory) then

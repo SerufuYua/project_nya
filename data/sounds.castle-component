@@ -25,6 +25,26 @@
       "Name" : "MusicTogether",
       "Stream" : true,
       "Url" : "castle-data:/audio/music/together.ogg"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "SfxButtonFocus",
+      "Url" : "castle-data:/audio/sfx/feyooff.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "SfxButtonPress",
+      "Url" : "castle-data:/audio/sfx/broop.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "SfxListFocus",
+      "Url" : "castle-data:/audio/sfx/shlep.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "SfxListPress",
+      "Url" : "castle-data:/audio/sfx/breep.wav"
     }
   ]
 }

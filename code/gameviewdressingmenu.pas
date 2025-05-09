@@ -30,6 +30,8 @@ type
     procedure UpdateSuitParts(suitType: TSuitPart; groupList: TCastleVerticalGroup);
     procedure UpdateSuits();
     procedure UpdateAccessories();
+    procedure FocusButton(const Sender: TCastleUserInterface);
+    procedure FocusList(const Sender: TCastleUserInterface);
     procedure ClickSuitPart(Sender: TObject);
     procedure ClickSuit(Sender: TObject);
     procedure ClickAccesories(Sender: TObject);
@@ -41,7 +43,9 @@ var
 
 implementation
 
-uses CastleScene, CastleComponentSerialize, CastleFonts, NyaCastleUtils,
+uses
+  CastleScene, CastleComponentSerialize, CastleFonts, NyaCastleUtils,
+  CastleSoundEngine, GameSound,
   SysUtils, StrUtils;
 
 const
@@ -63,6 +67,7 @@ begin
   { Executed once when view starts. }
 
   BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
+  BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
 procedure TViewDressingMenu.Update(const SecondsPassed: Single;
@@ -145,6 +150,7 @@ begin
 
   newBtn.Caption:= NoSuitPartStr;
   newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuitPart;
+  newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
   groupList.InsertFront(newBtn);
 
   { create button suit part list }
@@ -159,6 +165,7 @@ begin
 
     newBtn.Caption:= suitPart.Name;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuitPart;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     groupList.InsertFront(newBtn);
   end;
 
@@ -201,6 +208,7 @@ begin
 
     newBtn.Caption:= suit;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickSuit;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     ListSuit.InsertFront(newBtn);
   end;
 
@@ -243,9 +251,20 @@ begin
 
     newChk.Caption:= acessory.Name;
     newChk.Checked:= acessory.Visible;
-    newChk.OnChange:= {$ifdef FPC}@{$endif} ClickAccesories;
+    newChk.OnChange:= {$ifdef FPC}@{$endif}ClickAccesories;
+    newChk.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     ListAccessories.InsertFront(newChk);
   end;
+end;
+
+procedure TViewDressingMenu.FocusButton(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonFocus'));
+end;
+
+procedure TViewDressingMenu.FocusList(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxListFocus'));
 end;
 
 procedure TViewDressingMenu.ClickSuitPart(Sender: TObject);
@@ -255,6 +274,8 @@ var
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
+
+  SoundEngine.Play(NamedSound('SfxListPress'));
 
   Case button.Parent.Name of
     ListTopStr: suitType:= TSuitPart.Top;
@@ -273,6 +294,8 @@ begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
 
+  SoundEngine.Play(NamedSound('SfxListPress'));
+
   FDresser.DressSuit(button.Caption);
 end;
 
@@ -283,11 +306,14 @@ begin
   check:= Sender as TCastleCheckbox;
   if NOT Assigned(check) then exit;
 
+  SoundEngine.Play(NamedSound('SfxListPress'));
+
   FDresser.DressAcessory(check.Caption, check.Checked);
 end;
 
 procedure TViewDressingMenu.ClickClose(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
   Container.PopView(self);
 end;
 
