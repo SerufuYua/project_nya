@@ -29,7 +29,7 @@ begin
   Map.Url:= 'castle-data:/MapPlay_Together.castle-user-interface';
 
   { Play music }
-  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicTogether');
 
   inherited;
 end;
