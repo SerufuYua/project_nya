@@ -42,6 +42,7 @@ type
     FActorsLogic: TNyaPlayLogic;
     FObserverNavigation: TCastleWalkNavigation;
     procedure FocusButton(const Sender: TCastleUserInterface);
+    procedure FocusList(const Sender: TCastleUserInterface);
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -176,6 +177,11 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
+procedure TBaseViewPlay.FocusList(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxListFocus'));
+end;
+
 procedure TBaseViewPlay.ClickAction(Sender: TObject);
 var
   btnDress: TCastleButton;
@@ -197,7 +203,7 @@ begin
   btnDress:= Sender as TCastleButton;
   if NOT Assigned(btnDress) then Exit;
 
-  SoundEngine.Play(NamedSound('SfxButtonPress'));
+  SoundEngine.Play(NamedSound('SfxListPress'));
 
   { Show Dressing Menu }
   if NOT (Container.FrontView = ViewDressingMenu) then
@@ -317,7 +323,7 @@ begin
     newBtn.Caption:= ReplaceStr(actionDescr.Name, '_', ' ');
     newBtn.Tag:= actionDescr.Tag;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
-    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     GroupActionSelect.InsertFront(newBtn);
   end;
 
