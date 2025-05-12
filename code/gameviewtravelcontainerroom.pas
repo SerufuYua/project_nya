@@ -99,6 +99,8 @@ begin
   switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
 
+  inherited;
+
   Case switch.Name of
   'ToyASwitch':
     ConversationToyA;

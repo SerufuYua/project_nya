@@ -45,7 +45,7 @@ type
     procedure ClickControl(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
-    procedure DoActivateSwitch(Sender: TObject); virtual; abstract;
+    procedure DoActivateSwitch(Sender: TObject); virtual;
     procedure SetDressButtons;
     procedure SetUIColor;
     procedure SetSwitches;
@@ -112,9 +112,6 @@ begin
 
   { set dress buttons }
   SetDressButtons;
-
-  { show info }
-  Notifications.Show('Info: use WASD for move');
 end;
 
 procedure TBaseViewTravel.Stop;
@@ -321,20 +318,27 @@ begin
   if NOT Assigned(switch) then Exit;
 
   if Touch then
-    Status.Caption:= 'Press "' + GetKeyName(FKeyUse) + '" to ' +
-                     switch.ActionString
-  else
-    Status.Caption:= '';
-
-  if Touch then
   begin
     if(FTouchedSwitch <> switch) then
+    begin
+      Status.Caption:= 'Press "' + GetKeyName(FKeyUse) + '" to ' +
+                       switch.ActionString;
       FTouchedSwitch:= switch;
+      SoundEngine.Play(NamedSound('SfxInspect'));
+    end;
   end else
   begin
     if(FTouchedSwitch = switch) then
+    begin
       FTouchedSwitch:= nil;
+      Status.Caption:= '';
+    end;
   end;
+end;
+
+procedure TBaseViewTravel.DoActivateSwitch(Sender: TObject);
+begin
+  SoundEngine.Play(NamedSound('SfcActivate'));
 end;
 
 procedure TBaseViewTravel.Pause;

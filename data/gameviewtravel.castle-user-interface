@@ -314,7 +314,7 @@
                       "PaddingHorizontal" : 2.0000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.2000003814697266E+001
+                        "Y" : -5.2000000000000000E+001
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop"
@@ -410,11 +410,10 @@
             {
               "$$ClassName" : "TCastleVerticalGroup",
               "Alignment" : "hpRight",
-              "AutoSizeToChildren" : true,
               "HorizontalAnchorParent" : "hpMiddle",
               "HorizontalAnchorSelf" : "hpMiddle",
               "Name" : "GroupStatus",
-              "Spacing" : 1.0000000000000000E+001,
+              "Padding" : 1.0000000000000000E+000,
               "VerticalAnchorParent" : "vpMiddle",
               "VerticalAnchorSelf" : "vpMiddle",
               "$Children" : [
@@ -434,6 +433,11 @@
                     "use WASD for move",
                     "hold Left Mouse Button to rotate"
                   ],
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : -1.0000000000000000E+000,
+                    "Y" : -1.0000000000000000E+000
+                  },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
                 }

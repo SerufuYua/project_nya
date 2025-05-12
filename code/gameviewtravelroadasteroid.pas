@@ -84,10 +84,10 @@ procedure TViewTravelRoadAsteroid.DoTouchSwitch(const Sender: TObject; Touch: Bo
 var
   switch: TNyaSwitch;
 begin
-  inherited;
-
   switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
+
+  inherited;
 
   Case switch.Name of
   'BoySwitch':
@@ -106,6 +106,8 @@ var
 begin
   switch:= Sender as TNyaSwitch;
   if NOT Assigned(switch) then Exit;
+
+  inherited;
 
   Case switch.Name of
   'GoRoomSwitch':
