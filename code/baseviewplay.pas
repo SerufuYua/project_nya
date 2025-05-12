@@ -41,6 +41,7 @@ type
   protected
     FActorsLogic: TNyaPlayLogic;
     FObserverNavigation: TCastleWalkNavigation;
+    procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
@@ -58,6 +59,7 @@ implementation
 
 uses
   GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  CastleSoundEngine, GameSound,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaCastleUiUtils;
 
@@ -81,6 +83,13 @@ begin
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnMinus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnPlus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
+
+  BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnStop.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnNext.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  FloatSliderSpeed.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { get Navigation }
   FObserverNavigation:= Map.DesignedComponent('ObserverNavigation') as TCastleWalkNavigation;
@@ -142,7 +151,7 @@ end;
 
 function TBaseViewPlay.Press(const Event: TInputPressRelease): Boolean;
 begin
-  Result := inherited;
+  Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
 
   { enable camera control }
@@ -159,7 +168,12 @@ begin
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
     FObserverNavigation.MouseLook:= False;
 
-  Result := inherited;
+  Result:= inherited;
+end;
+
+procedure TBaseViewPlay.FocusButton(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
 procedure TBaseViewPlay.ClickAction(Sender: TObject);
@@ -168,6 +182,8 @@ var
 begin
   btnDress:= Sender as TCastleButton;
   if NOT Assigned(btnDress) then Exit;
+
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   FActorsLogic.Stop;
   FActorsLogic.ActNum:= btnDress.Tag;
@@ -180,6 +196,8 @@ var
 begin
   btnDress:= Sender as TCastleButton;
   if NOT Assigned(btnDress) then Exit;
+
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   { Show Dressing Menu }
   if NOT (Container.FrontView = ViewDressingMenu) then
@@ -206,6 +224,8 @@ var
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
+
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
   'BtnBack':
@@ -250,6 +270,7 @@ begin
 
     newBtn.Caption:= chara.ActorName;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
     GroupDressingButtons.InsertFront(newBtn);
   end;
 
@@ -296,6 +317,7 @@ begin
     newBtn.Caption:= ReplaceStr(actionDescr.Name, '_', ' ');
     newBtn.Tag:= actionDescr.Tag;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickAction;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
     GroupActionSelect.InsertFront(newBtn);
   end;
 
@@ -310,6 +332,8 @@ var
   slider: TCastleFloatSlider;
   button: TCastleButton;
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
   if (Sender is TCastleFloatSlider) then
   begin
     slider:= Sender as TCastleFloatSlider;
