@@ -21,11 +21,14 @@ type
     type
       TViewConversationDialog = class(TCastleUserInterface)
       strict private
+        FKeyOk: TKey;
+        FKeyCancel: TKey;
         FMessages: TMessages;
         FRootItem: TCastleUserInterface;
         FActorName: TCastleLabel;
         FTextMessage: TCastleLabel;
         FCounter: Integer;
+        function Press(const Event: TInputPressRelease): Boolean; override;
         procedure ShowMessage(AMessage: TMessage);
         procedure SetColor(color: TCastleColorRGB);
         procedure FocusButton(const Sender: TCastleUserInterface);
@@ -81,6 +84,10 @@ begin
   Ui:= UserInterfaceLoad('castle-data:/gameviewconversationmenu.castle-user-interface', UiOwner);
   InsertFront(Ui);
 
+  { set keys }
+  FKeyOk:= TKey.keyEnter;
+  FKeyCancel:= TKey.keyEscape;
+
   { Find components, by name, that we need to access from code }
   FRootItem:= UiOwner.FindRequiredComponent('MenuRoot') as TCastleUserInterface;
   FActorName:= UiOwner.FindRequiredComponent('ActorName') as TCastleLabel;
@@ -103,6 +110,26 @@ begin
   FMessages:= AMessages;
   if Length(FMessages) > FCounter then
     ShowMessage(FMessages[FCounter]);
+end;
+
+function TViewConversationMenu.TViewConversationDialog.Press(const Event: TInputPressRelease): Boolean;
+begin
+  Result:= inherited;
+  if Result then Exit; // allow the ancestor to handle keys
+
+  { Continue conversation }
+  if Event.IsKey(FKeyOk) then
+  begin
+    ClickNext(nil);
+    Exit(true);
+  end;
+
+  { Cancel conversation }
+  if Event.IsKey(FKeyCancel) then
+  begin
+    ClickCancel(nil);
+    Exit(true);
+  end;
 end;
 
 procedure TViewConversationMenu.TViewConversationDialog.ShowMessage(AMessage: TMessage);
