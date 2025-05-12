@@ -25,6 +25,7 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   private
+    procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickClose(Sender: TObject);
     procedure ClickScreen(Sender: TObject);
     procedure ClickPlusMinus(Sender: TObject);
@@ -40,7 +41,7 @@ var
 implementation
 
 uses
-  CastleWindow, CastleSoundEngine, CastleConfig, NyaCastleUiUtils;
+  CastleWindow, CastleSoundEngine, GameSound, CastleConfig, NyaCastleUiUtils;
 
 var
   Window: TCastleWindow;
@@ -70,6 +71,15 @@ begin
   BtnSfxPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
   BtnMusicMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
   BtnMusicPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
+
+  BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  FullScreenCheck.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  SfxSlider.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  MusicSlider.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnSfxMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnSfxPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnMusicMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnMusicPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
 procedure TViewSettingsMenu.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -78,8 +88,14 @@ begin
   { Executed every frame. }
 end;
 
+procedure TViewSettingsMenu.FocusButton(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonFocus'));
+end;
+
 procedure TViewSettingsMenu.ClickClose(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
   Container.PopView(self);
 end;
 
@@ -89,6 +105,8 @@ var
 begin
   check:= Sender as TCastleCheckbox;
   if NOT Assigned(check) then exit;
+
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case check.Name of
     'FullScreenCheck':
@@ -107,6 +125,8 @@ begin
   slider:= Sender as TCastleFloatSlider;
   if NOT Assigned(slider) then exit;
 
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
   Case slider.Name of
     'SfxSlider':   SetSfx(SfxSlider.Value);
     'MusicSlider': SetMusic(MusicSlider.Value);
@@ -121,6 +141,8 @@ var
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
+
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
     'BtnSfxMinus':

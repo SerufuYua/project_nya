@@ -37,6 +37,7 @@ type
   private
     FCurPos: TVector2;
     FCameraRatation: TQuaternion;
+    procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickExit(Sender: TObject);
     procedure ClickStart(Sender: TObject);
     procedure ClicSettings(Sender: TObject);
@@ -69,6 +70,10 @@ begin
   BtnStart.OnClick:= {$ifdef FPC}@{$endif}ClickStart;
   BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClicSettings;
 
+  BtnExit.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+
   { appear fade animator }
   FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 0.9), True);
 
@@ -98,18 +103,27 @@ begin
   inherited;
 end;
 
+procedure TViewMain.FocusButton(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonFocus'));
+end;
+
 procedure TViewMain.ClickExit(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
   Application.MainWindow.Close();
 end;
 
 procedure TViewMain.ClickStart(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
   GetToGo(ViewTravelContainerRoom);
 end;
 
 procedure TViewMain.ClicSettings(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
   if NOT (Container.FrontView = ViewSettingsMenu) then
     Container.PushView(ViewSettingsMenu);
 end;
