@@ -28,6 +28,7 @@ type
         FCounter: Integer;
         procedure ShowMessage(AMessage: TMessage);
         procedure SetColor(color: TCastleColorRGB);
+        procedure FocusButton(const Sender: TCastleUserInterface);
         procedure ClickNext(Sender: TObject);
         procedure ClickCancel(Sender: TObject);
       public
@@ -56,7 +57,7 @@ var
 implementation
 
 uses
-  CastleComponentSerialize, NyaCastleUtils;
+  CastleComponentSerialize, NyaCastleUtils, CastleSoundEngine, GameSound;
 
 {$I nyaworldconst.inc}
 
@@ -89,6 +90,9 @@ begin
 
   ButtonNext.OnClick:= {$ifdef FPC}@{$endif}ClickNext;
   ButtonCancel.OnClick:= {$ifdef FPC}@{$endif}ClickCancel;
+
+  ButtonNext.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonCancel.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   AutoSizeToChildren:= True;
 end;
@@ -130,8 +134,15 @@ begin
   end;
 end;
 
+procedure TViewConversationMenu.TViewConversationDialog.FocusButton(const Sender: TCastleUserInterface);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonFocus'));
+end;
+
 procedure TViewConversationMenu.TViewConversationDialog.ClickNext(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
   FCounter:= FCounter + 1;
   if Length(FMessages) > FCounter then
     ShowMessage(FMessages[FCounter])
@@ -144,6 +155,8 @@ end;
 
 procedure TViewConversationMenu.TViewConversationDialog.ClickCancel(Sender: TObject);
 begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
   if Assigned(OnCancel) then OnCancel;
   Container.PopView(ParentView);
 end;
