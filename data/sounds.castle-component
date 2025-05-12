@@ -29,22 +29,26 @@
     {
       "$$ClassName" : "TCastleSound",
       "Name" : "SfxButtonFocus",
-      "Url" : "castle-data:/audio/sfx/feyooff.wav"
+      "Url" : "castle-data:/audio/sfx/feyooff.wav",
+      "Volume" : 5.0000000000000000E-001
     },
     {
       "$$ClassName" : "TCastleSound",
       "Name" : "SfxButtonPress",
-      "Url" : "castle-data:/audio/sfx/broop.wav"
+      "Url" : "castle-data:/audio/sfx/broop.wav",
+      "Volume" : 5.0000000000000000E-001
     },
     {
       "$$ClassName" : "TCastleSound",
       "Name" : "SfxListFocus",
-      "Url" : "castle-data:/audio/sfx/shlep.wav"
+      "Url" : "castle-data:/audio/sfx/shlep.wav",
+      "Volume" : 5.0000000000000000E-001
     },
     {
       "$$ClassName" : "TCastleSound",
       "Name" : "SfxListPress",
-      "Url" : "castle-data:/audio/sfx/breep.wav"
+      "Url" : "castle-data:/audio/sfx/breep.wav",
+      "Volume" : 5.0000000000000000E-001
     }
   ]
 }
