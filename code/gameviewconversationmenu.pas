@@ -28,7 +28,6 @@ type
         FActorName: TCastleLabel;
         FTextMessage: TCastleLabel;
         FCounter: Integer;
-        function Press(const Event: TInputPressRelease): Boolean; override;
         procedure ShowMessage(AMessage: TMessage);
         procedure SetColor(color: TCastleColorRGB);
         procedure FocusButton(const Sender: TCastleUserInterface);
@@ -38,6 +37,7 @@ type
         OnOk: TOnAnswer;
         OnCancel: TOnAnswer;
         ParentView: TViewConversationMenu;
+        function Press(const Event: TInputPressRelease): Boolean; override;
         procedure SetMessages(AMessages: TMessages);
       public
         constructor Create(AOwner: TComponent); override;
