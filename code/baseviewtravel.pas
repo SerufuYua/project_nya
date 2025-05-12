@@ -153,7 +153,10 @@ begin
 
   { show debug }
   if Event.IsKey(FKeyDebug) then
+  begin
     FDebugAvatar.Exists:= NOT FDebugAvatar.Exists;
+    Exit(true);
+  end;
 
   { activate switch }
   if Event.IsKey(FKeyUse) then
