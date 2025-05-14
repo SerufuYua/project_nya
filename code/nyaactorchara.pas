@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
-  CharaDress, CastleTransform, NyaCastleUtils, CastleScene;
+  CharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleBehaviors;
 
 type
   TNyaActorChara = class(TNyaActor)
@@ -14,13 +14,16 @@ type
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    procedure SetActorName(const Value: String); override;
+    FSoundStep: TCastleSoundSource;
+    procedure SetActorName(const value: String); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
     procedure ApplyDripping;
     procedure ApplySweating;
     procedure UpdateJizz;
-    procedure SetUrl(const Value: String); override;
+    procedure UpdateSound;
+    procedure SetSoundStep(value: TCastleSoundSource);
+    procedure SetUrl(const value: String); override;
   public
     const
       DefaultDripping = 0.0;
@@ -38,6 +41,7 @@ type
              {$ifdef FPC}default DefaultDripping{$endif};
     property Sweating: Single read FSweating write SetSweating
              {$ifdef FPC}default DefaultSweating{$endif};
+    property SoundStep: TCastleSoundSource read FSoundStep write SetSoundStep;
   end;
 
 implementation
@@ -66,6 +70,7 @@ procedure TNyaActorChara.Update(const SecondsPassed: Single;
 begin
   inherited;
 
+  UpdateSound;
   UpdateJizz;
 end;
 
@@ -104,10 +109,10 @@ begin
     Dresser.SaveCondition(ActorName);
 end;
 
-procedure TNyaActorChara.SetActorName(const Value: String);
+procedure TNyaActorChara.SetActorName(const value: String);
 begin
-  if (FActorName = Value) then exit;
-  FActorName:= Value;
+  if (FActorName = value) then exit;
+  FActorName:= value;
   RestoreCondition;
 end;
 
@@ -123,6 +128,13 @@ begin
   if (FSweating = value) then Exit;
   FSweating:= value;
   ApplySweating;
+end;
+
+procedure TNyaActorChara.SetSoundStep(value: TCastleSoundSource);
+begin
+  if (FSoundStep = value) then Exit;
+
+  FSoundStep:= value;
 end;
 
 procedure TNyaActorChara.ApplyDripping;
@@ -179,10 +191,23 @@ begin
     EmitterJizz.Exists:= (ControlJizz.Translation.Y > 0.5);
 end;
 
+procedure TNyaActorChara.UpdateSound;
+var
+  ControlStep: TCastleTransform;
+begin
+  if NOT Assigned(FDesign) then Exit;
+
+  ControlStep:= FDesign.DesignedComponent('Control_Step', False)
+                as TCastleTransform;
+
+  if (Assigned(ControlStep) AND Assigned(SoundStep)) then
+    SoundStep.SoundPlaying:= (ControlStep.Translation.Y > 0.1);
+end;
+
 function TNyaActorChara.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Dripping', 'Sweating'
+       'Dripping', 'Sweating', 'SoundStep'
      ]) then
     Result:= [psBasic]
   else

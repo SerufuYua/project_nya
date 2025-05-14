@@ -131,8 +131,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.7729573845863342E-001,
-                          "Y" : 1.0000015497207642E+000
+                          "W" : 9.3702882528305054E-001,
+                          "Y" : 1.0000001192092896E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -228,8 +228,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.7729573845863342E-001,
-                      "Y" : 1.0000015497207642E+000
+                      "W" : 9.3702882528305054E-001,
+                      "Y" : 1.0000001192092896E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -350,7 +350,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 9.2306774854660034E-001,
+                      "W" : 1.5828007459640503E+000,
                       "Y" : 1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
@@ -589,6 +589,7 @@
                   "W" : 4.3805891275405884E-001,
                   "Y" : -9.9998873472213745E-001
                 },
+                "SoundStep" : "GirlSoundStep",
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : -4.3223017454147339E-001,
@@ -609,6 +610,19 @@
                       2
                     ],
                     "Name" : "RigidBodyChara"
+                  },
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "GirlSoundStep",
+                    "Sound" : "SfxStep",
+                    "SoundPlaying" : false,
+                    "$NonVisualComponents" : [
+                      {
+                        "$$ClassName" : "TCastleSound",
+                        "Name" : "SfxStep",
+                        "Url" : "castle-data:/audio/sfx/step_mud.wav"
+                      }
+                    ]
                   }
                 ]
               }
@@ -704,15 +718,19 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.9273641109466553E-001,
-          "X" : -3.2362440228462219E-001,
-          "Y" : 9.4575947523117065E-001,
-          "Z" : 2.8395777568221092E-002
+          "W" : 9.9701291322708130E-001,
+          "X" : -3.3312296867370605E-001,
+          "Y" : 9.2869216203689575E-001,
+          "Z" : 1.6297255456447601E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.1521226167678833E+000,
-          "Y" : 1.6507285833358765E+000,
+          "X" : 1.1521224975585937E+000,
+          "Y" : 1.6507301330566406E+000,
           "Z" : -1.8779195785522461E+001
         }
       },

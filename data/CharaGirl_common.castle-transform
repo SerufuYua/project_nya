@@ -275,6 +275,28 @@
           ]
         }
       ]
+    },
+    {
+      "$$ClassName" : "TCastleScene",
+      "ExposeTransforms" : [
+        "Control_Step"
+      ],
+      "Name" : "Controller",
+      "ProcessEvents" : true,
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/chars/controller_girl/controller_common.gltf",
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Step",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          }
+        }
+      ]
     }
   ]
 }
