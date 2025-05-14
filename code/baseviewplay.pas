@@ -16,6 +16,7 @@ type
   published
     Map: TCastleDesign;
     LabelFps: TCastleLabel;
+    BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
     BtnStop: TCastleButton;
     BtnNext: TCastleButton;
@@ -59,7 +60,8 @@ type
 implementation
 
 uses
-  GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
+  CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   CastleScene, CastleFonts, CastleViewport, CastleVectors,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaCastleUiUtils;
@@ -78,6 +80,7 @@ begin
   inherited;
 
   { set Buttons }
+  BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnStop.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnNext.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -85,6 +88,7 @@ begin
   BtnMinus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnPlus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
 
+  BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnStop.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnNext.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
@@ -234,12 +238,15 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
-  'BtnBack':
-    GetToGoBack;
-  'BtnStop':
-    FActorsLogic.Stop;
-  'BtnNext':
-    FActorsLogic.NextPart;
+    'BtnSettings':
+        if NOT (Container.FrontView = ViewSettingsMenu) then
+          Container.PushView(ViewSettingsMenu);
+    'BtnBack':
+      GetToGoBack;
+    'BtnStop':
+      FActorsLogic.Stop;
+    'BtnNext':
+      FActorsLogic.NextPart;
   end;
 end;
 

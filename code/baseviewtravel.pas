@@ -19,6 +19,7 @@ type
     Map: TCastleDesign;
     MainViewport: TCastleViewport;
     LabelFps: TCastleLabel;
+    BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
     GroupDressingButtons: TCastlePackedGroup;
     ImageControlDressing: TCastleImageControl;
@@ -59,7 +60,8 @@ type
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, GameViewLoading, CastleComponentSerialize,
+  GameViewMain, GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
+  CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   CastleScene, CastleFonts,
   StrUtils, NyaCastleUtils;
@@ -97,7 +99,10 @@ begin
   FCameraNavigationFollow:= Map.DesignedComponent('CameraNavigationFollow') as TNyaThirdPersonCameraNavigation;
 
   { set Buttons }
+  BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   BtnBack.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+
+  BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { set keys }
@@ -189,8 +194,11 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
-  'BtnBack':
-      GetToGo(ViewMain);
+    'BtnSettings':
+        if NOT (Container.FrontView = ViewSettingsMenu) then
+          Container.PushView(ViewSettingsMenu);
+    'BtnBack':
+        GetToGo(ViewMain);
   end;
 end;
 

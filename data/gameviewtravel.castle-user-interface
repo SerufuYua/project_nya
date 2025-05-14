@@ -29,10 +29,7 @@
         "$$ClassName" : "TCastleImagePersistent",
         "ColorPersistent" : {
           "$$ClassName" : "TCastleColorPersistent",
-          "Alpha" : 6.0000002384185791E-001,
-          "Blue" : 1.6078431904315948E-001,
-          "Green" : 1.6078431904315948E-001,
-          "Red" : 1.6078431904315948E-001
+          "Alpha" : 6.0000002384185791E-001
         },
         "ProtectedSides" : {
           "$$ClassName" : "TBorder",
@@ -53,11 +50,72 @@
           "Name" : "RectangleControlNavigation",
           "$Children" : [
             {
-              "$$ClassName" : "TCastleHorizontalGroup",
+              "$$ClassName" : "TCastleVerticalGroup",
               "Name" : "GroupNavigation",
               "Padding" : 2.0000000000000000E+001,
               "Spacing" : 1.0000000000000000E+001,
               "$Children" : [
+                {
+                  "$$ClassName" : "TCastleButton",
+                  "Caption" : "Settings",
+                  "CustomBackground" : true,
+                  "CustomBackgroundDisabled" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundFocused" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 1.0000000000000000E+001,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 1.0000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/button_light_focus.png"
+                  },
+                  "CustomBackgroundNormal" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 1.0000000000000000E+001,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 1.0000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/button_light.png"
+                  },
+                  "CustomBackgroundPressed" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 1.0000000000000000E+001,
+                      "Left" : 1.5000000000000000E+001,
+                      "Right" : 1.5000000000000000E+001,
+                      "Top" : 1.0000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/button_light_press.png"
+                  },
+                  "CustomFont" : "future_n0t_found",
+                  "CustomTextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "CustomTextColorUse" : true,
+                  "Html" : true,
+                  "Image" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "BtnSettings",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -2.0000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
                 {
                   "$$ClassName" : "TCastleButton",
                   "Caption" : "Back to Main",
@@ -103,7 +161,7 @@
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
                     "Green" : 1.0000000000000000E+000,
-                    "Red" : 9.4509804248809814E-001
+                    "Red" : 1.0000000000000000E+000
                   },
                   "CustomTextColorUse" : true,
                   "Html" : true,
@@ -113,10 +171,11 @@
                   "Name" : "BtnBack",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.0000000000000000E+001
+                    "X" : 2.0000000000000000E+001,
+                    "Y" : -7.2000000000000000E+001
                   },
-                  "VerticalAnchorParent" : "vpMiddle",
-                  "VerticalAnchorSelf" : "vpMiddle"
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
                 }
               ]
             }
@@ -196,7 +255,7 @@
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : -2.0000000000000000E+001,
-                    "Y" : -5.2000000000000000E+001
+                    "Y" : -5.2000003814697266E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
