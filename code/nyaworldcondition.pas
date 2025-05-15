@@ -75,10 +75,10 @@ const
 { ========= ------------------------------------------------------------------ }
 
 const
-  BoyLocationStr = 'BoyLocation';
-  BoyFirstTalkDone = 'BoyFirstTalkDone';
-  BoyTimerStr = 'BoyTimer';
-  BoySearchedStr = 'BoySearched';
+  LocationStr = 'Location';
+  FirstTalkDone = 'FirstTalkDone';
+  TimerStr = 'Timer';
+  SearchedStr = 'Searched';
 
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
@@ -188,17 +188,17 @@ begin
   path:= Section + '/' + BoyStr + '/';
 
   FBoyCondition.FLocation:= TBoyLocation(UserConfig.GetValue(path +
-                                         BoyLocationStr,
+                                         LocationStr,
                                          Ord(FBoyCondition.DefaultLocation)));
 
   FBoyCondition.FFirstTalkDone:=  UserConfig.GetValue(path +
-                                    BoyFirstTalkDone,
+                                    FirstTalkDone,
                                     FBoyCondition.DefaultFirstTalkDone);
 
-  FBoyCondition.FLocationRemaining:= UserConfig.GetFloat(path + BoyTimerStr,
+  FBoyCondition.FLocationRemaining:= UserConfig.GetFloat(path + TimerStr,
                                        FBoyCondition.LocationInterval);
 
-  FBoyCondition.FSearched:= UserConfig.GetValue(path + BoySearchedStr,
+  FBoyCondition.FSearched:= UserConfig.GetValue(path + SearchedStr,
                                                 FBoyCondition.DefaultSearched);
 end;
 
@@ -208,10 +208,10 @@ var
 begin
   path:= Section + '/' + BoyStr + '/';
 
-  UserConfig.SetValue(path + BoyLocationStr, Ord(FBoyCondition.FLocation));
-  UserConfig.SetValue(path + BoyFirstTalkDone, FBoyCondition.FFirstTalkDone);
-  UserConfig.SetFloat(path + BoyTimerStr, FBoyCondition.FLocationRemaining);
-  UserConfig.SetValue(path + BoySearchedStr, FBoyCondition.FSearched);
+  UserConfig.SetValue(path + LocationStr, Ord(FBoyCondition.FLocation));
+  UserConfig.SetValue(path + FirstTalkDone, FBoyCondition.FFirstTalkDone);
+  UserConfig.SetFloat(path + TimerStr, FBoyCondition.FLocationRemaining);
+  UserConfig.SetValue(path + SearchedStr, FBoyCondition.FSearched);
 
   UserConfig.Save;
 end;
