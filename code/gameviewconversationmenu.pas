@@ -62,7 +62,8 @@ implementation
 uses
   CastleComponentSerialize, NyaCastleUtils, CastleSoundEngine, GameSound;
 
-{$I nyaworldconst.inc}
+const
+  SystemName = 'System';
 
 { ========= ------------------------------------------------------------------ }
 { TViewConversationDialog ---------------------------------------------------- }

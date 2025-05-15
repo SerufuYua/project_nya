@@ -66,8 +66,6 @@ implementation
 uses
   CastleComponentSerialize, CastleUtils, CastleConfig, Math;
 
-{$I nyaworldconst.inc}
-
 const
   Section = 'World';
   BoyStr = 'Boy';

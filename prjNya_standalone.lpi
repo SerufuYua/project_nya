@@ -22,7 +22,6 @@
             <Filename Value="prjNya"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="code"/>
             <OtherUnitFiles Value="code"/>
             <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -66,7 +65,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="35">
+    <Units Count="34">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -213,29 +212,25 @@
         <UnitName Value="ViewWarper"/>
       </Unit29>
       <Unit30>
-        <Filename Value="code/nyaworldconst.inc"/>
-        <IsPartOfProject Value="True"/>
-      </Unit30>
-      <Unit31>
         <Filename Value="code/nyaworldcondition.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaWorldCondition"/>
-      </Unit31>
-      <Unit32>
+      </Unit30>
+      <Unit31>
         <Filename Value="code/gamesound.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameSound"/>
-      </Unit32>
-      <Unit33>
+      </Unit31>
+      <Unit32>
         <Filename Value="code/gameviewsettingsmenu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewSettingsMenu"/>
-      </Unit33>
-      <Unit34>
+      </Unit32>
+      <Unit33>
         <Filename Value="code/nyacastleuiutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaCastleUiUtils"/>
-      </Unit34>
+      </Unit33>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -244,7 +239,7 @@
       <Filename Value="prjNya"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="code;$(ProjOutDir)"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="code;code/particle;code/loading"/>
       <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
