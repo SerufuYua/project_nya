@@ -64,12 +64,13 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, IniFiles, Math;
+  CastleComponentSerialize, CastleUtils, CastleConfig, Math;
 
 {$I nyaworldconst.inc}
 
 const
   Section = 'World';
+  BoyStr = 'Boy';
 
 { ========= ------------------------------------------------------------------ }
 { TBoyCondition -------------------------------------------------------------- }
@@ -184,41 +185,37 @@ end;
 
 procedure TNyaWorldCondition.RestoreCondition;
 var
-  ini: TCustomIniFile;
+  path: String;
 begin
-  ini:= TMemIniFile.Create(IniFileName);
-  ini.FormatSettings.DecimalSeparator:= '|';
-  ini.Options:= [ifoFormatSettingsActive];
+  path:= Section + '/' + BoyStr + '/';
 
-  FBoyCondition.FLocation:= TBoyLocation(
-                               ini.ReadInteger(Section, BoyLocationStr,
-                               Ord(FBoyCondition.DefaultLocation)));
+  FBoyCondition.FLocation:= TBoyLocation(UserConfig.GetValue(path +
+                                         BoyLocationStr,
+                                         Ord(FBoyCondition.DefaultLocation)));
 
-  FBoyCondition.FFirstTalkDone:=  ini.ReadBool(Section, BoyFirstTalkDone,
-                                  FBoyCondition.DefaultFirstTalkDone);
+  FBoyCondition.FFirstTalkDone:=  UserConfig.GetValue(path +
+                                    BoyFirstTalkDone,
+                                    FBoyCondition.DefaultFirstTalkDone);
 
-  FBoyCondition.FLocationRemaining:= ini.ReadFloat(Section, BoyTimerStr,
-                                        FBoyCondition.LocationInterval);
+  FBoyCondition.FLocationRemaining:= UserConfig.GetFloat(path + BoyTimerStr,
+                                       FBoyCondition.LocationInterval);
 
-  FBoyCondition.FSearched:= ini.ReadBool(Section, BoySearchedStr, FBoyCondition.DefaultSearched);
-
-  ini.Free;
+  FBoyCondition.FSearched:= UserConfig.GetValue(path + BoySearchedStr,
+                                                FBoyCondition.DefaultSearched);
 end;
 
 procedure TNyaWorldCondition.SaveCondition;
 var
-  ini: TCustomIniFile;
+  path: String;
 begin
-  ini:= TMemIniFile.Create(IniFileName);
-  ini.FormatSettings.DecimalSeparator:= '|';
-  ini.Options:= [ifoFormatSettingsActive];
+  path:= Section + '/' + BoyStr + '/';
 
-  ini.WriteInteger(Section, BoyLocationStr, Ord(FBoyCondition.FLocation));
-  ini.WriteBool(Section, BoyFirstTalkDone, FBoyCondition.FFirstTalkDone);
-  ini.WriteFloat(Section, BoyTimerStr, FBoyCondition.FLocationRemaining);
-  ini.WriteBool(Section, BoySearchedStr, FBoyCondition.FSearched);
+  UserConfig.SetValue(path + BoyLocationStr, Ord(FBoyCondition.FLocation));
+  UserConfig.SetValue(path + BoyFirstTalkDone, FBoyCondition.FFirstTalkDone);
+  UserConfig.SetFloat(path + BoyTimerStr, FBoyCondition.FLocationRemaining);
+  UserConfig.SetValue(path + BoySearchedStr, FBoyCondition.FSearched);
 
-  ini.Free;
+  UserConfig.Save;
 end;
 
 initialization

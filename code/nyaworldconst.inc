@@ -3,5 +3,4 @@
 
 const
   SystemName = 'System';
-  IniFileName = 'condition.ini';
 

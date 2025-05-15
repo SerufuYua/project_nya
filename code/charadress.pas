@@ -43,12 +43,13 @@ const
 implementation
 
 uses
-  X3DNodes, StrUtils, IniFiles;
+  X3DNodes, StrUtils, CastleConfig;
 
 type
   AllSuitPartTypes = set of TSuitPart;
 
 const
+  DressingStr = 'dressing';
   PrefixTop = 'top.';
   PrefixBottom = 'bottom.';
   PrefixFoots = 'foots.';
@@ -267,68 +268,56 @@ end;
 
 procedure TDressSaver.RestoreProperties;
 var
-  ini: TCustomIniFile;
+  path: String;
   accessory: TItemCondition;
-  visible: boolean;
   suitPartName: String;
+  visible: Boolean;
 begin
-  ini:= TMemIniFile.Create(IniFileName);
-  ini.FormatSettings.DecimalSeparator := '|';
-  ini.Options:= [ifoFormatSettingsActive];
+  path:= DressingStr + '/' + FCharaName + '/';
 
   { suit parts }
-  suitPartName:= ini.ReadString(FCharaName, PrefixTop, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixTop, DefaultSuitStr);
   FDresser.DressSuitPart(Top, suitPartName);
 
-  suitPartName:= ini.ReadString(FCharaName, PrefixBottom, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixBottom, DefaultSuitStr);
   FDresser.DressSuitPart(Bottom, suitPartName);
 
-  suitPartName:= ini.ReadString(FCharaName, PrefixFoots, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixFoots, DefaultSuitStr);
   FDresser.DressSuitPart(Foots, suitPartName);
 
-  suitPartName:= ini.ReadString(FCharaName, PrefixArms, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixArms, DefaultSuitStr);
   FDresser.DressSuitPart(Arms, suitPartName);
 
   { accessories }
   for accessory in FDresser.AcessoriesList do
   begin
-    visible:= ini.ReadBool(FCharaName, accessory.Name, False);
+    visible:= UserConfig.GetValue(path + accessory.Name, False);
     FDresser.DressAcessory(accessory.Name, visible);
   end;
-
-  ini.Free;
 end;
 
 procedure TDressSaver.SaveProperties;
 var
-  ini: TCustomIniFile;
+  path: String;
   accessory: TItemCondition;
-  suitPartName: String;
 begin
-  ini:= TMemIniFile.Create(IniFileName);
-  ini.FormatSettings.DecimalSeparator := '|';
-  ini.Options:= [ifoFormatSettingsActive];
+  path:= DressingStr + '/' + FCharaName + '/';
 
   { suit parts }
-  suitPartName:= FDresser.DressedSuitPart(Top);
-  ini.WriteString(FCharaName, PrefixTop, suitPartName);
 
-  suitPartName:= FDresser.DressedSuitPart(Bottom);
-  ini.WriteString(FCharaName, PrefixBottom, suitPartName);
+  UserConfig.SetValue(path + PrefixTop, FDresser.DressedSuitPart(Top));
+  UserConfig.SetValue(path + PrefixBottom, FDresser.DressedSuitPart(Bottom));
+  UserConfig.SetValue(path + PrefixFoots, FDresser.DressedSuitPart(Foots));
+  UserConfig.SetValue(path + PrefixArms, FDresser.DressedSuitPart(Arms));
 
-  suitPartName:= FDresser.DressedSuitPart(Foots);
-  ini.WriteString(FCharaName, PrefixFoots, suitPartName);
-
-  suitPartName:= FDresser.DressedSuitPart(Arms);
-  ini.WriteString(FCharaName, PrefixArms, suitPartName);
 
   { accessories }
   for accessory in FDresser.AcessoriesList do
   begin
-    ini.WriteBool(FCharaName, accessory.Name, accessory.Visible);
+    UserConfig.SetValue(path + accessory.Name, accessory.Visible);
   end;
 
-  ini.Free;
+  UserConfig.Save;
 end;
 
 end.
