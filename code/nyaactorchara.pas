@@ -6,10 +6,20 @@ interface
 
 uses
   Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
-  CharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleBehaviors;
+  CharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleBehaviors,
+  CastleParticleEmitter;
 
 type
   TNyaActorChara = class(TNyaActor)
+  protected
+    { controllers }
+    FEmitterDrip: TCastleParticleEmitter;
+    FEffectDrip: TCastleParticleEffect;
+    FEmitterSweat: TCastleParticleEmitter;
+    FEffectSweat: TCastleParticleEffect;
+    FControlJizz: TCastleTransform;
+    FEmitterJizz: TCastleParticleEmitter;
+    FControlStep: TCastleTransform;
   protected
     FDresser: TCharaDresser;
     FDripping: Single;
@@ -47,7 +57,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleParticleEmitter;
+  CastleComponentSerialize, CastleUtils;
 
 constructor TNyaActorChara.Create(AOwner: TComponent);
 begin
@@ -83,6 +93,21 @@ begin
 
   ApplyDripping;
   ApplySweating;
+
+  FEmitterDrip:= FDesign.DesignedComponent('EmitterDrip', False)
+                as TCastleParticleEmitter;
+  FEffectDrip:= FDesign.DesignedComponent('EffectDrip', False)
+               as TCastleParticleEffect;
+  FEmitterSweat:= FDesign.DesignedComponent('EmitterSweat', False)
+                 as TCastleParticleEmitter;
+  FEffectSweat:= FDesign.DesignedComponent('EffectSweat', False)
+                as TCastleParticleEffect;
+  FControlJizz:= FDesign.DesignedComponent('Control_Jizz', False)
+                as TCastleTransform;
+  FEmitterJizz:= FDesign.DesignedComponent('EmitterJizz', False)
+                as TCastleParticleEmitter;
+  FControlStep:= FDesign.DesignedComponent('Control_Step', False)
+                as TCastleTransform;
 
   RestoreCondition;
 end;
@@ -138,70 +163,33 @@ begin
 end;
 
 procedure TNyaActorChara.ApplyDripping;
-var
-  EmitterDrip: TCastleParticleEmitter;
-  EffectDrip: TCastleParticleEffect;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  EmitterDrip:= FDesign.DesignedComponent('EmitterDrip', False)
-                as TCastleParticleEmitter;
-  EffectDrip:= FDesign.DesignedComponent('EffectDrip', False)
-               as TCastleParticleEffect;
-
-  if (Assigned(EffectDrip) AND Assigned(EmitterDrip)) then
+  if (Assigned(FEffectDrip) AND Assigned(FEmitterDrip)) then
   begin
-    EmitterDrip.Exists:= (FDripping > 0.05);
-    EffectDrip.MaxParticles:= 1 + round(20.0 * FDripping);
+    FEmitterDrip.Exists:= (FDripping > 0.05);
+    FEffectDrip.MaxParticles:= 1 + round(20.0 * FDripping);
   end;
 end;
 
 procedure TNyaActorChara.ApplySweating;
-var
-  EmitterSweat: TCastleParticleEmitter;
-  EffectSweat: TCastleParticleEffect;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  EmitterSweat:= FDesign.DesignedComponent('EmitterSweat', False)
-                 as TCastleParticleEmitter;
-  EffectSweat:= FDesign.DesignedComponent('EffectSweat', False)
-                as TCastleParticleEffect;
-
-  if (Assigned(EffectSweat) AND Assigned(EmitterSweat)) then
+  if (Assigned(FEffectSweat) AND Assigned(FEmitterSweat)) then
   begin
-    EmitterSweat.Exists:= (FSweating > 0.05);
-    EffectSweat.MaxParticles:= 1 + round(5.0 * FSweating);
+    FEmitterSweat.Exists:= (FSweating > 0.05);
+    FEffectSweat.MaxParticles:= 1 + round(5.0 * FSweating);
   end;
 end;
 
 procedure TNyaActorChara.UpdateJizz;
-var
-  ControlJizz: TCastleTransform;
-  EmitterJizz: TCastleParticleEmitter;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  ControlJizz:= FDesign.DesignedComponent('Control_Jizz', False)
-                as TCastleTransform;
-  EmitterJizz:= FDesign.DesignedComponent('EmitterJizz', False)
-                as TCastleParticleEmitter;
-
-  if (Assigned(ControlJizz) AND Assigned(EmitterJizz)) then
-    EmitterJizz.Exists:= (ControlJizz.Translation.Y > 0.5);
+  if (Assigned(FControlJizz) AND Assigned(FEmitterJizz)) then
+    FEmitterJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
 end;
 
 procedure TNyaActorChara.UpdateSound;
-var
-  ControlStep: TCastleTransform;
 begin
-  if NOT Assigned(FDesign) then Exit;
-
-  ControlStep:= FDesign.DesignedComponent('Control_Step', False)
-                as TCastleTransform;
-
-  if (Assigned(ControlStep) AND Assigned(SoundStep)) then
-    SoundStep.SoundPlaying:= (ControlStep.Translation.Y > 0.1);
+  if (Assigned(FControlStep) AND Assigned(SoundStep)) then
+    SoundStep.SoundPlaying:= (FControlStep.Translation.Y > 0.1);
 end;
 
 function TNyaActorChara.PropertySections(const PropertyName: String): TPropertySections;
