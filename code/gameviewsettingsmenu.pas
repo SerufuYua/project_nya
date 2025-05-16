@@ -6,9 +6,9 @@ uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse;
 
 const
-  FullScreenStr = 'settings/screen/FullScreen';
-  SfxStr = 'settings/sound/SFX';
-  MusicStr = 'settings/sound/Music';
+  FullScreenPath = 'settings/screen/FullScreen';
+  SfxPath = 'settings/sound/SFX';
+  MusicPath = 'settings/sound/Music';
   DefaultFullScreen = False;
   DefaultSfxValue = 1.0;
   DefaultMusicvalue = 0.8;
@@ -58,10 +58,10 @@ begin
   InterceptInput:= True;
   Window:= Application.MainWindow;
 
-  FullScreenCheck.Checked:= UserConfig.GetValue(FullScreenStr,
+  FullScreenCheck.Checked:= UserConfig.GetValue(FullScreenPath,
                                                 DefaultFullScreen);
-  SfxSlider.Value:= UserConfig.GetFloat(SfxStr, DefaultSfxValue);
-  MusicSlider.Value:= UserConfig.GetFloat(MusicStr, DefaultMusicvalue);
+  SfxSlider.Value:= UserConfig.GetFloat(SfxPath, DefaultSfxValue);
+  MusicSlider.Value:= UserConfig.GetFloat(MusicPath, DefaultMusicvalue);
 
   BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
   FullScreenCheck.OnChange:= {$ifdef FPC}@{$endif}ClickScreen;
@@ -112,7 +112,7 @@ begin
     'FullScreenCheck':
       begin
         Window.FullScreen:= check.Checked;
-        UserConfig.SetValue(FullScreenStr, check.Checked);
+        UserConfig.SetValue(FullScreenPath, check.Checked);
         UserConfig.Save;
       end;
   end;
@@ -171,14 +171,14 @@ end;
 procedure TViewSettingsMenu.SetSfx(value: Single);
 begin
   SoundEngine.Volume:= value;
-  UserConfig.SetFloat(SfxStr, value);
+  UserConfig.SetFloat(SfxPath, value);
   UserConfig.Save;
 end;
 
 procedure TViewSettingsMenu.SetMusic(value: Single);
 begin
   SoundEngine.LoopingChannel[0].Volume:= value;
-  UserConfig.SetFloat(MusicStr, value);
+  UserConfig.SetFloat(MusicPath, value);
   UserConfig.Save;
 end;
 

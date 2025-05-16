@@ -39,8 +39,8 @@ begin
 
   { Sounds initialization }
   InitializeSounds;
-  SoundEngine.Volume:= UserConfig.GetFloat(SfxStr, DefaultSfxValue);
-  SoundEngine.LoopingChannel[0].Volume:= UserConfig.GetFloat(MusicStr, DefaultMusicvalue);
+  SoundEngine.Volume:= UserConfig.GetFloat(SfxPath, DefaultSfxValue);
+  SoundEngine.LoopingChannel[0].Volume:= UserConfig.GetFloat(MusicPath, DefaultMusicvalue);
 
   { Create views (see https://castle-engine.io/views ). }
   {$region 'Castle View Creation'}
@@ -87,7 +87,7 @@ initialization
   Application.OnInitialize:= @ApplicationInitialize;
 
   Window:= TCastleWindow.Create(Application);
-  Window.FullScreen:= UserConfig.GetValue(FullScreenStr, DefaultFullScreen);
+  Window.FullScreen:= UserConfig.GetValue(FullScreenPath, DefaultFullScreen);
   Window.Width:= 1024;
   Window.Height:= 768;
   Window.AntiAliasing:= aa4SamplesNicer;
