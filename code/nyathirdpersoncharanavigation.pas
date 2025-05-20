@@ -303,7 +303,7 @@ end;
 function TNyaThirdPersonCharaNavigation.IsOnGround(RBody: TCastleRigidBody;
                                                   CBody: TCastleCollider): Boolean;
 var
-  GroundRayCast: TPhysicsRayCastResult;
+  GroundRayCast: TRayCastResult;
   AvatarBBox: TBox3D;
   ProbeLength: Single;
   RayDirection, RayOrigin: TVector3;
