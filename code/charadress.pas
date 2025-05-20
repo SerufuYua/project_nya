@@ -13,6 +13,7 @@ type
   TCharaDresser = class
   protected
     FScene: TCastleTransformDesign;
+    FDefaultSuitName: String;
     function MainBody: TCastleScene; { main chara Body }
   public
     constructor Create(scene: TCastleTransformDesign);
@@ -25,6 +26,7 @@ type
     procedure DressAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
     procedure RestoreCondition(const name:string);
+    property DefaultSuitName: String read FDefaultSuitName;
   end;
 
   TDressSaver = class
@@ -43,7 +45,7 @@ const
 implementation
 
 uses
-  X3DNodes, StrUtils, CastleConfig;
+  X3DNodes, StrUtils, CastleConfig, CastleClassUtils;
 
 type
   AllSuitPartTypes = set of TSuitPart;
@@ -63,8 +65,19 @@ const
 { ---------------------------------------------------------------------------- }
 
 constructor TCharaDresser.Create(scene: TCastleTransformDesign);
+var
+  suitNameRepo: TCastleComponent;
 begin
   FScene:= scene;
+
+  { find Default Suit Name }
+  suitNameRepo:= FScene.DesignedComponent('DefaultSuit', False)
+                   as TCastleComponent;
+
+  if Assigned(suitNameRepo) AND (suitNameRepo.NonVisualComponentsCount > 0) then
+    FDefaultSuitName:= suitNameRepo.NonVisualComponents[0].Name
+  else
+    FDefaultSuitName:= DefaultSuitStr;
 end;
 
 function TCharaDresser.SuitPartsList(suitPartType: TSuitPart): TItemConditions;
@@ -274,16 +287,16 @@ begin
   path:= DressingStr + '/' + FCharaName + '/';
 
   { suit parts }
-  suitPartName:= UserConfig.GetValue(path + PrefixTop, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixTop, FDresser.DefaultSuitName);
   FDresser.DressSuitPart(Top, suitPartName);
 
-  suitPartName:= UserConfig.GetValue(path + PrefixBottom, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixBottom, FDresser.DefaultSuitName);
   FDresser.DressSuitPart(Bottom, suitPartName);
 
-  suitPartName:= UserConfig.GetValue(path + PrefixFoots, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixFoots, FDresser.DefaultSuitName);
   FDresser.DressSuitPart(Foots, suitPartName);
 
-  suitPartName:= UserConfig.GetValue(path + PrefixArms, DefaultSuitStr);
+  suitPartName:= UserConfig.GetValue(path + PrefixArms, FDresser.DefaultSuitName);
   FDresser.DressSuitPart(Arms, suitPartName);
 
   { accessories }

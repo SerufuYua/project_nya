@@ -1,6 +1,18 @@
 {
   "$$ClassName" : "TCastleTransform",
   "Name" : "CharaGirl",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleComponent",
+      "Name" : "DefaultSuit",
+      "$NonVisualComponents" : [
+        {
+          "$$ClassName" : "TCastleComponent",
+          "Name" : "biker"
+        }
+      ]
+    }
+  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleScene",
@@ -59,21 +71,21 @@
                   "Name" : "eye_C",
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
-                    "W" : 3.1415922641754150E+000,
-                    "X" : -5.0854879418693599E-007,
-                    "Y" : 7.0710676908493042E-001,
-                    "Z" : 7.0710676908493042E-001
+                    "W" : 3.1415913105010986E+000,
+                    "X" : -1.0147530247195391E-006,
+                    "Y" : 7.0710659027099609E-001,
+                    "Z" : 7.0710694789886475E-001
                   },
                   "ScalePersistent" : {
                     "$$ClassName" : "TCastleVector3Persistent",
-                    "Y" : 9.9999988079071045E-001,
-                    "Z" : 9.9999994039535522E-001
+                    "Y" : 9.9999964237213135E-001,
+                    "Z" : 9.9999988079071045E-001
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector3Persistent",
-                    "X" : -2.2924535603152663E-009,
-                    "Y" : 7.7539019286632538E-002,
-                    "Z" : 6.0834698379039764E-002
+                    "X" : -2.0201931238972293E-009,
+                    "Y" : 7.7539011836051941E-002,
+                    "Z" : 6.0834687203168869E-002
                   },
                   "$Children" : [
                     {
