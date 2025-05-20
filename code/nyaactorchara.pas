@@ -95,19 +95,19 @@ begin
   ApplySweating;
 
   FEmitterDrip:= FDesign.DesignedComponent('EmitterDrip', False)
-                as TCastleParticleEmitter;
-  FEffectDrip:= FDesign.DesignedComponent('EffectDrip', False)
-               as TCastleParticleEffect;
-  FEmitterSweat:= FDesign.DesignedComponent('EmitterSweat', False)
                  as TCastleParticleEmitter;
-  FEffectSweat:= FDesign.DesignedComponent('EffectSweat', False)
+  FEffectDrip:= FDesign.DesignedComponent('EffectDrip', False)
                 as TCastleParticleEffect;
+  FEmitterSweat:= FDesign.DesignedComponent('EmitterSweat', False)
+                  as TCastleParticleEmitter;
+  FEffectSweat:= FDesign.DesignedComponent('EffectSweat', False)
+                 as TCastleParticleEffect;
   FControlJizz:= FDesign.DesignedComponent('Control_Jizz', False)
-                as TCastleTransform;
+                 as TCastleTransform;
   FEmitterJizz:= FDesign.DesignedComponent('EmitterJizz', False)
-                as TCastleParticleEmitter;
+                 as TCastleParticleEmitter;
   FControlStep:= FDesign.DesignedComponent('Control_Step', False)
-                as TCastleTransform;
+                 as TCastleTransform;
 
   RestoreCondition;
 end;
