@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
-  CastleTimeUtils, CharaDress;
+  CastleTimeUtils, NyaCharaDress;
 
 type
   TBoyLocation = (Away, InRoom, InHovel);

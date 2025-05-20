@@ -78,7 +78,7 @@ type
 implementation
 
 uses
-  CharaDress, CastleUtils, CastleVectors, Math, StrUtils;
+  NyaCharaDress, CastleUtils, CastleVectors, Math, StrUtils;
 
 const
   SuffixIdle = '.Idle';

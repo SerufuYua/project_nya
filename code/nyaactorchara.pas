@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
-  CharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleBehaviors,
+  NyaCharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleBehaviors,
   CastleParticleEmitter;
 
 type

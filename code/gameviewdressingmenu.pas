@@ -4,7 +4,7 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  NyaActorChara, CastleColors, CharaDress;
+  NyaActorChara, CastleColors, NyaCharaDress;
 
 type
   TViewDressingMenu = class(TCastleView)
