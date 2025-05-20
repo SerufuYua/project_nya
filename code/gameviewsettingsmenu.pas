@@ -41,10 +41,8 @@ var
 implementation
 
 uses
-  CastleWindow, CastleSoundEngine, GameSound, CastleConfig, NyaCastleUiUtils;
-
-var
-  Window: TCastleWindow;
+  CastleWindow, CastleSoundEngine, GameSound, CastleConfig, NyaCastleUiUtils,
+  CastleMessages;
 
 constructor TViewSettingsMenu.Create(AOwner: TComponent);
 begin
@@ -56,7 +54,6 @@ procedure TViewSettingsMenu.Start;
 begin
   inherited;
   InterceptInput:= True;
-  Window:= Application.MainWindow;
 
   FullScreenCheck.Checked:= UserConfig.GetValue(FullScreenPath,
                                                 DefaultFullScreen);
@@ -111,9 +108,10 @@ begin
   Case check.Name of
     'FullScreenCheck':
       begin
-        Window.FullScreen:= check.Checked;
         UserConfig.SetValue(FullScreenPath, check.Checked);
         UserConfig.Save;
+        MessageOK(Application.MainWindow,
+                  'To switch the screen mode, you need to restart the game');
       end;
   end;
 end;
