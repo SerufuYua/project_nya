@@ -85,6 +85,7 @@
                 "SoundPlayFastGo" : "SoundPlayFastGo",
                 "SoundPlayFinish" : "SoundPlayFinish",
                 "SoundPlayGo" : "SoundPlayGo",
+                "SoundPlaySlap" : "SoundPlaySlap",
                 "SoundPlayStart" : "SoundPlayStart",
                 "Url" : "castle-data:/CharaGirl_ToyA.castle-transform",
                 "$Children" : [
@@ -146,6 +147,19 @@
                             "$$ClassName" : "TCastleSound",
                             "Name" : "sfxFastFinish",
                             "Url" : "castle-data:/audio/sfx/ToyA_Finish.wav"
+                          }
+                        ]
+                      },
+                      {
+                        "$$ClassName" : "TCastleSoundSource",
+                        "Name" : "SoundPlaySlap",
+                        "Sound" : "sfxFastSlap",
+                        "SoundPlaying" : false,
+                        "$NonVisualComponents" : [
+                          {
+                            "$$ClassName" : "TCastleSound",
+                            "Name" : "sfxFastSlap",
+                            "Url" : "castle-data:/audio/sfx/wet_slap.wav"
                           }
                         ]
                       }
