@@ -65,7 +65,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="34">
+    <Units Count="35">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -231,6 +231,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaCastleUiUtils"/>
       </Unit33>
+      <Unit34>
+        <Filename Value="code/nyasoundcontrol.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaSoundControl"/>
+      </Unit34>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -6,8 +6,9 @@ interface
 
 uses
   Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
-  NyaCharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleBehaviors,
-  CastleParticleEmitter;
+  NyaCharaDress, CastleTransform, NyaCastleUtils, CastleScene,
+  CastleParticleEmitter,
+  NyaSoundControl;
 
 type
   TNyaActorChara = class(TNyaActor)
@@ -19,31 +20,16 @@ type
     FEffectSweat: TCastleParticleEffect;
     FControlJizz: TCastleTransform;
     FEmitterJizz: TCastleParticleEmitter;
-    FControlStep: TCastleTransform;
-    FControl_Play_Start, FControl_Play_Go,
-      FControl_Play_FastGo, FControl_Play_Finish,
-      FControl_Play_Slap: TCastleTransform;
   protected
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    FSoundWalkStep: TCastleSoundSource;
-    FSoundPlayStart, FSoundPlayGo,
-      FSoundFastPlayGo, FSoundPlayFinish,
-      FSoundPlaySlap: TCastleSoundSource;
     procedure SetActorName(const value: String); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
     procedure ApplyDripping;
     procedure ApplySweating;
     procedure UpdateJizz;
-    procedure UpdateSound;
-    procedure SetSoundWalkStep(value: TCastleSoundSource);
-    procedure SetSoundPlayStart(value: TCastleSoundSource);
-    procedure SetSoundPlayGo(value: TCastleSoundSource);
-    procedure SetSoundPlayFastGo(value: TCastleSoundSource);
-    procedure SetSoundPlayFinish(value: TCastleSoundSource);
-    procedure SetSoundPlaySlap(value: TCastleSoundSource);
     procedure SetUrl(const value: String); override;
   public
     const
@@ -62,18 +48,6 @@ type
              {$ifdef FPC}default DefaultDripping{$endif};
     property Sweating: Single read FSweating write SetSweating
              {$ifdef FPC}default DefaultSweating{$endif};
-    property SoundWalkStep: TCastleSoundSource read FSoundWalkStep
-                                               write SetSoundWalkStep;
-    property SoundPlayStart: TCastleSoundSource read FSoundPlayStart
-                                                write SetSoundPlayStart;
-    property SoundPlayGo: TCastleSoundSource read FSoundPlayGo
-                                             write SetSoundPlayGo;
-    property SoundPlayFastGo: TCastleSoundSource read FSoundFastPlayGo
-                                                 write SetSoundPlayFastGo;
-    property SoundPlayFinish: TCastleSoundSource read FSoundPlayFinish
-                                                 write SetSoundPlayFinish;
-    property SoundPlaySlap: TCastleSoundSource read FSoundPlaySlap
-                                               write SetSoundPlaySlap;
   end;
 
 implementation
@@ -102,7 +76,6 @@ procedure TNyaActorChara.Update(const SecondsPassed: Single;
 begin
   inherited;
 
-  UpdateSound;
   UpdateJizz;
 end;
 
@@ -128,18 +101,6 @@ begin
                  as TCastleTransform;
   FEmitterJizz:= FDesign.DesignedComponent('EmitterJizz', False)
                  as TCastleParticleEmitter;
-  FControlStep:= FDesign.DesignedComponent('Control_Step', False)
-                 as TCastleTransform;
-  FControl_Play_Start:= FDesign.DesignedComponent('Control_Play_Start', False)
-                 as TCastleTransform;
-  FControl_Play_Go:= FDesign.DesignedComponent('Control_Play_Go', False)
-                 as TCastleTransform;
-  FControl_Play_FastGo:= FDesign.DesignedComponent('Control_Play_FastGo', False)
-                 as TCastleTransform;
-  FControl_Play_Finish:= FDesign.DesignedComponent('Control_Play_Finish', False)
-                 as TCastleTransform;
-  FControl_Play_Slap:= FDesign.DesignedComponent('Control_Play_Slap', False)
-                 as TCastleTransform;
 
   RestoreCondition;
 end;
@@ -187,42 +148,6 @@ begin
   ApplySweating;
 end;
 
-procedure TNyaActorChara.SetSoundWalkStep(value: TCastleSoundSource);
-begin
-  if (FSoundWalkStep = value) then Exit;
-  FSoundWalkStep:= value;
-end;
-
-procedure TNyaActorChara.SetSoundPlayStart(value: TCastleSoundSource);
-begin
-  if (FSoundPlayStart = value) then Exit;
-  FSoundPlayStart:= value;
-end;
-
-procedure TNyaActorChara.SetSoundPlayGo(value: TCastleSoundSource);
-begin
-  if (FSoundPlayGo = value) then Exit;
-  FSoundPlayGo:= value;
-end;
-
-procedure TNyaActorChara.SetSoundPlayFastGo(value: TCastleSoundSource);
-begin
-  if (FSoundFastPlayGo = value) then Exit;
-  FSoundFastPlayGo:= value;
-end;
-
-procedure TNyaActorChara.SetSoundPlayFinish(value: TCastleSoundSource);
-begin
-  if (FSoundPlayFinish = value) then Exit;
-  FSoundPlayFinish:= value;
-end;
-
-procedure TNyaActorChara.SetSoundPlaySlap(value: TCastleSoundSource);
-begin
-  if (FSoundPlaySlap = value) then Exit;
-  FSoundPlaySlap:= value;
-end;
-
 procedure TNyaActorChara.ApplyDripping;
 begin
   if (Assigned(FEffectDrip) AND Assigned(FEmitterDrip)) then
@@ -247,32 +172,10 @@ begin
     FEmitterJizz.Exists:= (FControlJizz.Translation.Y > 0.5);
 end;
 
-procedure TNyaActorChara.UpdateSound;
-begin
-  if (Assigned(FControlStep) AND Assigned(SoundWalkStep)) then
-    SoundWalkStep.SoundPlaying:= (FControlStep.Translation.Y > 0.1);
-
-  if (Assigned(FControl_Play_Start) AND Assigned(SoundPlayStart)) then
-    SoundPlayStart.SoundPlaying:= (FControl_Play_Start.Translation.Y > 0.1);
-
-  if (Assigned(FControl_Play_Go) AND Assigned(SoundPlayGo)) then
-    SoundPlayGo.SoundPlaying:= (FControl_Play_Go.Translation.Y > 0.1);
-
-  if (Assigned(FControl_Play_FastGo) AND Assigned(SoundPlayFastGo)) then
-    SoundPlayFastGo.SoundPlaying:= (FControl_Play_FastGo.Translation.Y > 0.1);
-
-  if (Assigned(FControl_Play_Finish) AND Assigned(SoundPlayFinish)) then
-    SoundPlayFinish.SoundPlaying:= (FControl_Play_Finish.Translation.Y > 0.1);
-
-  if (Assigned(FControl_Play_Slap) AND Assigned(SoundPlaySlap)) then
-    SoundPlaySlap.SoundPlaying:= (FControl_Play_Slap.Translation.Y > 0.1);
-end;
-
 function TNyaActorChara.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Dripping', 'Sweating', 'SoundWalkStep', 'SoundPlayStart', 'SoundPlayGo',
-       'SoundPlayFastGo', 'SoundPlayFinish', 'SoundPlaySlap'
+       'Dripping', 'Sweating'
      ]) then
     Result:= [psBasic]
   else

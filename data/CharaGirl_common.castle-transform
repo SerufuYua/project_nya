@@ -286,6 +286,21 @@
             }
           ]
         }
+      ],
+      "$Behaviors" : [
+        {
+          "$$ClassName" : "TCastleSoundSource",
+          "Name" : "SoundSourceWalkStep",
+          "Sound" : "SoundWalkStep",
+          "SoundPlaying" : false,
+          "$NonVisualComponents" : [
+            {
+              "$$ClassName" : "TCastleSound",
+              "Name" : "SoundWalkStep",
+              "Url" : "castle-data:/audio/sfx/step.wav"
+            }
+          ]
+        }
       ]
     },
     {
@@ -307,6 +322,21 @@
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "Z" : 1.0000000000000000E+000
           }
+        }
+      ]
+    }
+  ],
+  "$Behaviors" : [
+    {
+      "$$ClassName" : "TNyaSoundMap",
+      "Name" : "SoundMap",
+      "$NonVisualComponents" : [
+        {
+          "$$ClassName" : "TNyaSounder",
+          "Controller" : "Control_Step",
+          "Name" : "SounderWalkStep",
+          "Sound" : "SoundSourceWalkStep",
+          "Treshold" : 1.0000000149011612E-001
         }
       ]
     }

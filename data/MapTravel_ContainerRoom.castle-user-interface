@@ -438,7 +438,6 @@
                   "W" : 5.5647435188293457E+000,
                   "Y" : 9.9999922513961792E-001
                 },
-                "SoundStep" : "GirlSoundStep",
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : 7.2661131620407104E-001,
@@ -459,20 +458,6 @@
                       2
                     ],
                     "Name" : "RigidBodyChara"
-                  },
-                  {
-                    "$$ClassName" : "TCastleSoundSource",
-                    "Name" : "GirlSoundStep",
-                    "Sound" : "SfxStep",
-                    "SoundPlaying" : false,
-                    "$NonVisualComponents" : [
-                      {
-                        "$$ClassName" : "TCastleSound",
-                        "Name" : "SfxStep",
-                        "Url" : "castle-data:/audio/sfx/step.wav",
-                        "Volume" : 2.0000000000000000E+000
-                      }
-                    ]
                   }
                 ]
               }
