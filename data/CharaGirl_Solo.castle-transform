@@ -18,6 +18,7 @@
       "$$ClassName" : "TCastleScene",
       "AutoAnimation" : "GAME.GIRL_SOLO.PLAY.Idle",
       "ExposeTransforms" : [
+        "Pelvis",
         "Head",
         "ForeArmTwist2.L",
         "ForeArmTwist2.R",
@@ -37,22 +38,22 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.9269036054611206E+000,
-            "X" : -5.1233714818954468E-001,
-            "Y" : 6.9007515907287598E-001,
-            "Z" : -5.1118206977844238E-001
+            "W" : 1.9250015020370483E+000,
+            "X" : -5.1388138532638550E-001,
+            "Y" : 6.8962681293487549E-001,
+            "Z" : -5.1023608446121216E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.5000058412551880E-001,
-            "Y" : 9.5000004768371582E-001,
-            "Z" : 9.5000046491622925E-001
+            "X" : 9.5000046491622925E-001,
+            "Y" : 9.4999992847442627E-001,
+            "Z" : 9.5000058412551880E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 3.8656201213598251E-002,
-            "Y" : 2.1687740087509155E-001,
-            "Z" : -5.5249041318893433E-001
+            "X" : 3.8807902485132217E-002,
+            "Y" : 2.1675610542297363E-001,
+            "Z" : -5.5253869295120239E-001
           },
           "$Children" : [
             {
@@ -152,22 +153,22 @@
           "Name" : "Bone_ForeArmTwist2_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.5247886180877686E+000,
-            "X" : 9.3643784523010254E-001,
-            "Y" : 2.9999101161956787E-001,
-            "Z" : -1.8190541863441467E-001
+            "W" : 3.5240108966827393E+000,
+            "X" : 9.3676817417144775E-001,
+            "Y" : 2.9812169075012207E-001,
+            "Z" : -1.8327258527278900E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999994039535522E-001,
-            "Y" : 9.9999958276748657E-001,
-            "Z" : 1.0000004768371582E+000
+            "X" : 9.9999970197677612E-001,
+            "Y" : 9.9999952316284180E-001,
+            "Z" : 1.0000002384185791E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.9588112831115723E-001,
-            "Y" : 1.4034685492515564E-001,
-            "Z" : -1.9084019958972931E-001
+            "X" : 1.9677422940731049E-001,
+            "Y" : 1.4134177565574646E-001,
+            "Z" : -1.9099257886409760E-001
           },
           "$Children" : [
             {
@@ -198,21 +199,22 @@
           "Name" : "Bone_ForeArmTwist2_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.9126942157745361E+000,
-            "X" : -1.6740940511226654E-001,
-            "Y" : -7.0241689682006836E-001,
-            "Z" : 6.9179815053939819E-001
+            "W" : 1.9124441146850586E+000,
+            "X" : -1.6651366651058197E-001,
+            "Y" : -7.0210945606231689E-001,
+            "Z" : 6.9232618808746338E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999988079071045E-001,
-            "Y" : 1.0000004768371582E+000
+            "X" : 9.9999976158142090E-001,
+            "Y" : 1.0000003576278687E+000,
+            "Z" : 1.0000001192092896E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 2.4917198717594147E-001,
-            "Y" : 9.0810097754001617E-002,
-            "Z" : -5.3689032793045044E-001
+            "X" : 2.4936243891716003E-001,
+            "Y" : 9.0871907770633698E-002,
+            "Z" : -5.3698772192001343E-001
           },
           "$Children" : [
             {
@@ -243,21 +245,22 @@
           "Name" : "Bone_Vagina_In_F",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.9903916120529175E+000,
-            "X" : 4.1113364696502686E-001,
-            "Y" : -6.7614853382110596E-001,
-            "Z" : -6.1138552427291870E-001
+            "W" : 1.9951648712158203E+000,
+            "X" : 4.1476577520370483E-001,
+            "Y" : -6.7658019065856934E-001,
+            "Z" : -6.0844784975051880E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 9.9999994039535522E-001,
-            "Z" : 1.0000001192092896E+000
+            "X" : 9.9999988079071045E-001,
+            "Y" : 9.9999982118606567E-001,
+            "Z" : 1.0000002384185791E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 6.2680132687091827E-002,
-            "Y" : 1.5314793586730957E-001,
-            "Z" : 4.0200363844633102E-002
+            "X" : 6.2377005815505981E-002,
+            "Y" : 1.5325769782066345E-001,
+            "Z" : 4.1002921760082245E-002
           },
           "$Children" : [
             {
@@ -400,15 +403,101 @@
                 }
               ]
             }
+          ],
+          "$Behaviors" : [
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourceJizz",
+              "Sound" : "SoundJizz",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundJizz",
+                  "Pitch" : 1.5000000000000000E+000,
+                  "Url" : "castle-data:/audio/sfx/ToyA_Finish.wav"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Bone_Pelvis",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 3.9202058315277100E+000,
+            "X" : 5.6320255994796753E-001,
+            "Y" : -5.1571691036224365E-001,
+            "Z" : 6.4563059806823730E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 9.9999988079071045E-001,
+            "Y" : 9.9999964237213135E-001,
+            "Z" : 9.9999994039535522E-001
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 1.4901161193847656E-008,
+            "Y" : 1.5433722734451294E-001,
+            "Z" : 4.4867820106446743E-003
+          },
+          "$Behaviors" : [
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourcePlayGo",
+              "Sound" : "SoundPlayGo",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundPlayGo",
+                  "Url" : "castle-data:/audio/sfx/Solo_Go.wav"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourcePlayFastGo",
+              "Sound" : "SoundPlayFastGo",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundPlayFastGo",
+                  "Url" : "castle-data:/audio/sfx/Solo_FastGo.wav"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourcePlayFinish",
+              "Sound" : "SoundPlayFinish",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundPlayFinish",
+                  "Pitch" : 1.5000000000000000E+000,
+                  "Url" : "castle-data:/audio/sfx/Solo_FastGo.wav"
+                }
+              ]
+            }
           ]
         }
       ]
     },
     {
       "$$ClassName" : "TCastleScene",
-      "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.Idle",
+      "AutoAnimation" : "GAME.GIRL_SOLO.PLAY.Idle",
       "ExposeTransforms" : [
-        "Control_Jizz"
+        "Control_Jizz",
+        "Control_Play_Start",
+        "Control_Play_Go",
+        "Control_Play_FastGo",
+        "Control_Play_Finish",
+        "Control_Play_Slap"
       ],
       "Name" : "Controller",
       "ProcessEvents" : true,
@@ -424,6 +513,81 @@
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "Z" : 1.0000000000000000E+000
           }
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Play_Start",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          }
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Play_Go",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          }
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Play_FastGo",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          }
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Play_Finish",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          }
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Control_Play_Slap",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "Z" : 1.0000000000000000E+000
+          }
+        }
+      ]
+    }
+  ],
+  "$Behaviors" : [
+    {
+      "$$ClassName" : "TNyaSoundMap",
+      "Name" : "SoundMap",
+      "$NonVisualComponents" : [
+        {
+          "$$ClassName" : "TNyaSounder",
+          "Controller" : "Control_Play_Go",
+          "Name" : "SounderPlayGo",
+          "Sound" : "SoundSourcePlayGo",
+          "Treshold" : 1.0000000149011612E-001
+        },
+        {
+          "$$ClassName" : "TNyaSounder",
+          "Controller" : "Control_Play_FastGo",
+          "Name" : "SounderPlayFastGo",
+          "Sound" : "SoundSourcePlayFastGo",
+          "Treshold" : 1.0000000149011612E-001
+        },
+        {
+          "$$ClassName" : "TNyaSounder",
+          "Controller" : "Control_Play_Finish",
+          "Name" : "SounderPlayFinish",
+          "Sound" : "SoundSourcePlayFinish",
+          "Treshold" : 4.0000000596046448E-001
+        },
+        {
+          "$$ClassName" : "TNyaSounder",
+          "Controller" : "Control_Jizz",
+          "Name" : "SounderJizz",
+          "Sound" : "SoundSourceJizz"
         }
       ]
     }
