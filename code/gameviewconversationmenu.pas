@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleColors, NyaActor;
+  CastleColors, NyaActor, NyaSlowText;
 
 type
   TOnAnswer = procedure of object;
@@ -26,7 +26,7 @@ type
         FMessages: TMessages;
         FRootItem: TCastleUserInterface;
         FActorName: TCastleLabel;
-        FTextMessage: TCastleLabel;
+        FTextMessage: TNyaSlowText;
         FCounter: Integer;
         procedure ShowMessage(AMessage: TMessage);
         procedure SetColor(color: TCastleColorRGB);
@@ -92,7 +92,7 @@ begin
   { Find components, by name, that we need to access from code }
   FRootItem:= UiOwner.FindRequiredComponent('MenuRoot') as TCastleUserInterface;
   FActorName:= UiOwner.FindRequiredComponent('ActorName') as TCastleLabel;
-  FTextMessage:= UiOwner.FindRequiredComponent('TextMessage') as TCastleLabel;
+  FTextMessage:= UiOwner.FindRequiredComponent('TextMessage') as TNyaSlowText;
   ButtonNext:= UiOwner.FindRequiredComponent('ButtonNext') as TCastleButton;
   ButtonCancel:= UiOwner.FindRequiredComponent('ButtonCancel') as TCastleButton;
 
@@ -131,11 +131,20 @@ begin
     ClickCancel(nil);
     Exit(true);
   end;
+
+  { Show Full Massage }
+  if Event.IsMouseButton(buttonRight) OR
+     Event.IsMouseButton(buttonLeft) OR
+     Event.IsKey(keySpace) then
+  begin
+    FTextMessage.ShowAll;
+    Exit(true);
+  end;
 end;
 
 procedure TViewConversationMenu.TViewConversationDialog.ShowMessage(AMessage: TMessage);
 begin
-  FTextMessage.Caption:= AMessage.FMessage;
+  FTextMessage.SlowCaption:= AMessage.FMessage;
   if Assigned(AMessage.FActor) then
   begin
     FActorName.Caption:= AMessage.FActor.ActorName;

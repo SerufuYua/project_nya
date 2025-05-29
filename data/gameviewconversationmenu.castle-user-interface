@@ -213,7 +213,7 @@
                 "$$ClassName" : "TCastleScrollArea",
                 "$Children" : [
                   {
-                    "$$ClassName" : "TCastleLabel",
+                    "$$ClassName" : "TNyaSlowText",
                     "ColorPersistent" : {
                       "$$ClassName" : "TCastleColorPersistent",
                       "Blue" : 1.0000000000000000E+000,
@@ -224,6 +224,7 @@
                     "Html" : true,
                     "MaxWidth" : 9.0000000000000000E+002,
                     "Name" : "TextMessage",
+                    "SecondsDelay" : 6.2500000000000000E-002,
                     "Text" : [
                       "text line 01",
                       "very LFaodefa0 very very very very very very long long long long ling long long long line and additional long line",

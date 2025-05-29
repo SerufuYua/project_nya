@@ -21,8 +21,8 @@ type
     procedure SetSound(value: TCastleSoundSource);
     procedure SetController(value: TCastleTransform);
   public
-  const
-    DefaultTreshold = 0.5;
+    const
+      DefaultTreshold = 0.5;
 
     constructor Create(AOwner: TComponent); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
