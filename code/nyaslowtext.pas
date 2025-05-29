@@ -23,6 +23,7 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
     procedure ShowAll;
+    function AllShowed: Boolean;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
     property SlowCaption: String read GetSlowCaption write SetSlowCaption stored False;
@@ -92,6 +93,11 @@ begin
     FCount:= 0;
     Caption:= FMessage;
   end;
+end;
+
+function TNyaSlowText.AllShowed: Boolean;
+begin
+  Result:= (FCount <= 0);
 end;
 
 procedure TNyaSlowText.SetSlowCaption(value: String);

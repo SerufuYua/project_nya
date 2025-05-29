@@ -180,13 +180,18 @@ procedure TViewConversationMenu.TViewConversationDialog.ClickNext(Sender: TObjec
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
-  FCounter:= FCounter + 1;
-  if Length(FMessages) > FCounter then
-    ShowMessage(FMessages[FCounter])
+  if NOT FTextMessage.AllShowed then
+    FTextMessage.ShowAll
   else
   begin
-    if Assigned(OnOk) then OnOk;
-    Container.PopView(ParentView);
+    FCounter:= FCounter + 1;
+    if Length(FMessages) > FCounter then
+      ShowMessage(FMessages[FCounter])
+    else
+    begin
+      if Assigned(OnOk) then OnOk;
+      Container.PopView(ParentView);
+    end;
   end;
 end;
 
