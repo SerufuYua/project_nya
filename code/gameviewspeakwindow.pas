@@ -129,6 +129,7 @@ begin
   inherited;
 
   FWin:= TViewSpeakWindow.Create(FreeAtStop, FChara, FMessage);
+  FWin.SetTransparency(0.0);
 
   scrHorPos:= RandomFloatRange(-Container.UnscaledHeight * FAllowedArea / 2,
                                Container.UnscaledHeight * FAllowedArea / 2);

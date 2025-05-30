@@ -11,16 +11,15 @@ uses
 type
   TActorsList = Array of TNyaActor;
   TCharasList = Array of TNyaActorChara;
+  TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
 
   TNyaPlayLogic = class
-  protected
-    type
-      TActorStatus = (Wait, Start, Go, FastGo, Finish, Relax);
   protected
     FActors: TActorsList;
     FAnimationsPrefix: String;
     FActionNum: String;
     FStatus: TActorStatus;
+    FStatusChanged: Boolean;
     FScreenFader: TNyaFadeEffect;
     FPleasure: Single;
     FTension: Single;
@@ -46,6 +45,8 @@ type
     procedure SetPleasure(const value: Single);
     procedure SetTension(const value: Single);
     procedure SetSpeed(const value: Single);
+    procedure SetSatus(const value: TActorStatus);
+    function GetStatusChanged: Boolean;
     function DetermineAnimationsPrefix: String;
     procedure Fade(duration: TFloatTime = 0.5);
   public
@@ -70,6 +71,8 @@ type
     property ActionCoeff: Single read FActionCoeff write FActionCoeff;
     property ThresholdFastGo: Single read FThresholdFastGo write FThresholdFastGo;
     property ThresholdFinish: Single read FThresholdFinish write FThresholdFinish;
+    property Status: TActorStatus read FStatus write SetSatus;
+    property StatusChanged: Boolean read GetStatusChanged;
     function Actors: TActorsList;
     function Charas: TCharasList;
     function CombinedColor: TCastleColorRGB;
@@ -105,6 +108,7 @@ begin
   FThresholdFastGo:= DefaultThresholdFastGo;
   FThresholdTired:= DefaultThresholdTired;
   FThresholdFinish:= DefaultThresholdFinish;
+  FStatusChanged:= False;
 end;
 
 procedure TNyaPlayLogic.Update(const SecondsPassed: Single);
@@ -112,7 +116,7 @@ var
   chara: TNyaActorChara;
 begin
   { Update Pleasure/Tension Statuses }
-  Case FStatus of
+  Case Status of
   TActorStatus.Wait:
     begin
       Pleasure:= Pleasure - 4.0 * ActionCoeff * SecondsPassed;
@@ -158,7 +162,7 @@ end;
 procedure TNyaPlayLogic.SetActNum(const value: Integer);
 begin
   FActionNum:= '.A' + IntToStr(value);
-  FStatus:= TActorStatus.Start;
+  Status:= TActorStatus.Start;
   ActionStart;
 end;
 
@@ -181,6 +185,20 @@ begin
   FSpeed:= value;
   for actor in Actors do
     actor.AnimationSpeed:= value;
+end;
+
+procedure TNyaPlayLogic.SetSatus(const value: TActorStatus);
+begin
+  if (FStatus = value) then Exit;
+
+  FStatus:= value;
+  FStatusChanged:= True;
+end;
+
+function TNyaPlayLogic.GetStatusChanged: Boolean;
+begin
+  Result:= FStatusChanged;
+  FStatusChanged:= False;
 end;
 
 function TNyaPlayLogic.DetermineAnimationsPrefix: String;
@@ -232,7 +250,7 @@ end;
 
 procedure TNyaPlayLogic.NextPart;
 begin
-  Case FStatus of
+  Case Status of
     TActorStatus.Start:  ActionGo;
     TActorStatus.Go:     ActionFastGo;
     TActorStatus.FastGo: ActionFinish;
@@ -302,7 +320,7 @@ begin
     FreeAndNil(AnimationParams)
   end;
 
-  FStatus:= TActorStatus.Wait;
+  Status:= TActorStatus.Wait;
 end;
 
 procedure TNyaPlayLogic.ActionStart;
@@ -322,7 +340,7 @@ begin
     FreeAndNil(AnimationParams)
   end;
 
-  FStatus:= TActorStatus.Start;
+  Status:= TActorStatus.Start;
 end;
 
 procedure TNyaPlayLogic.ActionGo;
@@ -341,7 +359,7 @@ begin
     FreeAndNil(AnimationParams)
   end;
 
-  FStatus:= TActorStatus.Go;
+  Status:= TActorStatus.Go;
 end;
 
 procedure TNyaPlayLogic.ActionFastGo;
@@ -360,7 +378,7 @@ begin
     FreeAndNil(AnimationParams)
   end;
 
-  FStatus:= TActorStatus.FastGo;
+  Status:= TActorStatus.FastGo;
 end;
 
 procedure TNyaPlayLogic.ActionFinish;
@@ -379,7 +397,7 @@ begin
     FreeAndNil(AnimationParams)
   end;
 
-  FStatus:= TActorStatus.Finish;
+  Status:= TActorStatus.Finish;
 end;
 
 procedure TNyaPlayLogic.ActionRelax;
@@ -399,7 +417,7 @@ begin
     FreeAndNil(AnimationParams)
   end;
 
-  FStatus:= TActorStatus.Relax;
+  Status:= TActorStatus.Relax;
   Pleasure:= Pleasure - 0.5 * Tension;
 end;
 

@@ -392,7 +392,6 @@ end;
 procedure TBaseViewPlay.DoStart(Sender: TObject);
 begin
   FActorsLogic.Stop;
-  Notifications.Show('Lets Play!');
   Notifications.Show('Info: use WASD for move');
   Notifications.Show('Info: use C for move down');
   Notifications.Show('Info: use Space for move up');
