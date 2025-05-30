@@ -15,7 +15,6 @@ type
         ImageBG: TCastleImageControl;
         ActorName, TextMessage: TCastleLabel;
       public
-        ParentView: TViewSpeakMenu;
         constructor Create(AOwner: TComponent;
                            chara: TNyaActorChara;
                            message: String); reintroduce;
@@ -26,14 +25,17 @@ type
       FChara: TNyaActorChara;
       FMessage: String;
       FTime, FAppearTime, FLiveTime, FVanishTime: Single;
+      FAllowedArea: Single;
   public
     const
       DefaultAppearTime = 0.25;
       DefaultLiveTime = 0.25;
       DefaultFVanishTime = 4.0;
+      DefaultAllowedArea = 0.5;
 
     constructor CreateUntilStopped(chara: TNyaActorChara; message: String;
-                                   timePerSymbol: Single = DefaultLiveTime);
+                                   timePerSymbol: Single = DefaultLiveTime;
+                                   allowedArea: Single = DefaultAllowedArea);
     procedure Start; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
@@ -45,7 +47,7 @@ var
 implementation
 
 uses
-  CastleComponentSerialize, CastleColors;
+  CastleComponentSerialize, CastleColors, CastleUtils;
 
 { ========= ------------------------------------------------------------------ }
 { TViewSpeakWindow ----------------------------------------------------------- }
@@ -107,7 +109,8 @@ end;
 
 constructor TViewSpeakMenu.CreateUntilStopped(chara: TNyaActorChara;
                                               message: String;
-                                              timePerSymbol: Single);
+                                              timePerSymbol: Single;
+                                              allowedArea: Single);
 begin
   inherited CreateUntilStopped;
   FChara:= chara;
@@ -116,16 +119,24 @@ begin
   FAppearTime:= DefaultAppearTime;
   FLiveTime:= timePerSymbol * Length(message);
   FVanishTime:= DefaultFVanishTime;
+  FAllowedArea:= allowedArea;
 end;
 
 procedure TViewSpeakMenu.Start;
+var
+  scrHorPos, scrVerPos: Single;
 begin
   inherited;
 
   FWin:= TViewSpeakWindow.Create(FreeAtStop, FChara, FMessage);
-  FWin.ParentView:= Self;
-  FWin.Anchor(hpMiddle, 0);
-  FWin.Anchor(vpMiddle, 0);
+
+  scrHorPos:= RandomFloatRange(-Container.UnscaledHeight * FAllowedArea / 2,
+                               Container.UnscaledHeight * FAllowedArea / 2);
+  scrVerPos:= RandomFloatRange(-Container.UnscaledHeight * FAllowedArea / 2,
+                               Container.UnscaledHeight * FAllowedArea / 2);
+
+  FWin.Anchor(hpMiddle, scrHorPos);
+  FWin.Anchor(vpMiddle, scrVerPos);
   InsertFront(FWin);
 end;
 
