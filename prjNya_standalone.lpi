@@ -65,7 +65,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="36">
+    <Units Count="37">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -241,6 +241,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaSlowText"/>
       </Unit35>
+      <Unit36>
+        <Filename Value="code/gameviewspeakwindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewSpeakWindow"/>
+      </Unit36>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
