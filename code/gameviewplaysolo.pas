@@ -54,12 +54,13 @@ begin
       Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'A-a-ah.. Damn...'));
   TActorStatus.FastGo:
     if FActorsLogic.StatusChanged then
-      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Oh... M-m-m... C&apos;mon'));
+      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Oh... M-m-m... C&apos;mon!'));
   TActorStatus.Finish:
     if FActorsLogic.StatusChanged then
       Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Nyaaaaa... ah...'));
   TActorStatus.Relax:
-    ;
+    if FActorsLogic.StatusChanged then
+      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Zzz...'));
   end;
 end;
 
