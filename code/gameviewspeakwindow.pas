@@ -14,11 +14,14 @@ type
       private
         ImageBG: TCastleImageControl;
         ActorName, TextMessage: TCastleLabel;
+        FTime, FAppearTime, FLiveTime, FVanishTime: Single;
+        procedure SetTransparency(value: Single);
       public
         ParentView: TViewSpeakMenu;
         constructor Create(AOwner: TComponent;
                            chara: TNyaActorChara;
-                           message: String); reintroduce;
+                           message: String;
+                           timePerSymbol: Single); reintroduce;
         //procedure Start; override;
         procedure Update(const SecondsPassed: Single;
                          var HandleInput: boolean); override;
@@ -26,9 +29,16 @@ type
     var
       FWin: TViewSpeakWindow;
       FChara: TNyaActorChara;
+      FTimePerSymbol: Single;
       FMessage: String;
   public
-    constructor CreateUntilStopped(chara: TNyaActorChara; message: String);
+    const
+      DefaultAppearTime = 0.25;
+      DefaultLiveTime = 0.5;
+      DefaultFVanishTime = 4.0;
+
+    constructor CreateUntilStopped(chara: TNyaActorChara; message: String;
+                                   timePerSymbol: Single = DefaultLiveTime);
     procedure Start; override;
   end;
 
@@ -38,7 +48,7 @@ var
 implementation
 
 uses
-  CastleComponentSerialize;
+  CastleComponentSerialize, CastleColors;
 
 { ========= ------------------------------------------------------------------ }
 { TViewSpeakWindow ----------------------------------------------------------- }
@@ -46,13 +56,18 @@ uses
 
 constructor TViewSpeakMenu.TViewSpeakWindow.Create(AOwner: TComponent;
                                                    chara: TNyaActorChara;
-                                                   message: String);
+                                                   message: String;
+                                                   timePerSymbol: Single);
 var
   UiOwner: TComponent;
   Ui: TCastleUserInterface;
   alpha: single;
 begin
   inherited Create(AOwner);
+  FTime:= 0.0;
+  FAppearTime:= DefaultAppearTime;
+  FLiveTime:= timePerSymbol * Length(message);
+  FVanishTime:= DefaultFVanishTime;
 
   // UiOwner is useful to keep reference to all components loaded from the design
   UiOwner := TComponent.Create(Self);
@@ -82,6 +97,30 @@ procedure TViewSpeakMenu.TViewSpeakWindow.Update(const SecondsPassed: Single;
 begin
   inherited;
   { Executed every frame. }
+
+  FTime:= FTime + SecondsPassed;
+
+  if (FTime <= FAppearTime) then
+    SetTransparency(FTime / FAppearTime)
+  else if ((FTime >= (FAppearTime + FLiveTime)) AND (FTime <= (FAppearTime + FLiveTime + FVanishTime))) then
+    SetTransparency((FVanishTime - (FTime - (FAppearTime + FLiveTime))) / FVanishTime);
+end;
+
+procedure TViewSpeakMenu.TViewSpeakWindow.SetTransparency(value: Single);
+var
+  tmpColor: TCastleColor;
+begin
+  tmpColor:= ImageBG.Color;
+  tmpColor.W:= value;
+  ImageBG.Color:= tmpColor;
+
+  tmpColor:= ActorName.Color;
+  tmpColor.W:= value;
+  ActorName.Color:= tmpColor;
+
+  tmpColor:= TextMessage.Color;
+  tmpColor.W:= value;
+  TextMessage.Color:= tmpColor;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -89,18 +128,20 @@ end;
 { ========= ------------------------------------------------------------------ }
 
 constructor TViewSpeakMenu.CreateUntilStopped(chara: TNyaActorChara;
-                                              message: String);
+                                              message: String;
+                                              timePerSymbol: Single);
 begin
   inherited CreateUntilStopped;
   FChara:= chara;
   FMessage:= message;
+  FTimePerSymbol:= timePerSymbol;
 end;
 
 procedure TViewSpeakMenu.Start;
 begin
   inherited;
 
-  FWin:= TViewSpeakWindow.Create(FreeAtStop, FChara, FMessage);
+  FWin:= TViewSpeakWindow.Create(FreeAtStop, FChara, FMessage, FTimePerSymbol);
   FWin.ParentView := Self;
   FWin.Anchor(hpMiddle);
   FWin.Anchor(vpMiddle);
