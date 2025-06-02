@@ -71,10 +71,10 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 4);
         case i of
-          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'nya...', 1.0));
-          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'c&apos;mon...', 1.0));
-          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'ah... so big...', 1.0));
-          4: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'cutie...', 1.0));
+          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'nya...'));
+          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'c&apos;mon...'));
+          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'ah... so big...'));
+          4: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'cutie...'));
         end;
         FTime1:= 0.0;
       end;
@@ -84,9 +84,9 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[1], 'nya...', 1.0));
-          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[1], 'nya-nya...', 1.0));
-          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[1], 'aaah...', 1.0));
+          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[1], 'nya...'));
+          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[1], 'nya-nya...'));
+          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[1], 'aaah...'));
         end;
         FTime2:= 0.0;
       end;
