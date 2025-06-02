@@ -4,16 +4,15 @@
   "Name" : "GroupBG",
   "$Children" : [
     {
-      "$$ClassName" : "TCastleRectangleControl",
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 5.0000000000000000E-001,
-        "Blue" : 9.8039217293262482E-002,
-        "Green" : 9.8039217293262482E-002,
-        "Red" : 9.8039217293262482E-002
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "Url" : "castle-data:/ui/dialog_bg.png"
       },
-      "FullSize" : true,
-      "Name" : "RectangleBG"
+      "Height" : 5.0000000000000000E+002,
+      "Name" : "ImageBG",
+      "Stretch" : true,
+      "WidthFraction" : 1.0000000000000000E+000
     }
   ]
 }
