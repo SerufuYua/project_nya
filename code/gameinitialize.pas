@@ -50,12 +50,10 @@ begin
   ViewPlayGirl:= TViewPlayGirl.Create(Application);
   ViewPlaySolo:= TViewPlaySolo.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
-  ViewDressingMenu:= TViewDressingMenu.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   ViewSettingsMenu := TViewSettingsMenu.Create(Application);
-  ViewSpeakWindow := TViewSpeakMenu.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('y', 'PlayToy') then

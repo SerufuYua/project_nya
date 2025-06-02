@@ -135,7 +135,7 @@ begin
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
   { Release Dressing Menu Buttons }
-  if NOT (Container.FrontView = ViewDressingMenu) then
+  if NOT (Container.FrontView is TViewDressingMenu) then
     ImageControlDressing.Exists:= True;
 
   inherited;
@@ -252,13 +252,11 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   { Show Dressing Menu }
-  if NOT (Container.FrontView = ViewDressingMenu) then
+  if NOT (Container.FrontView is TViewDressingMenu) then
   begin
-    Container.PushView(ViewDressingMenu);
-
     { check selected chara }
     if (MainActor.ActorName = btnDress.Caption) then
-      ViewDressingMenu.SetChara(MainActor);
+      Container.PushView(TViewDressingMenu.CreateUntilStopped(MainActor));
 
     ImageControlDressing.Exists:= False;
   end;

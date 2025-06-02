@@ -8,34 +8,42 @@ uses Classes,
 
 type
   TViewDressingMenu = class(TCastleView)
-  published
-    ImageControl: TCastleImageControl;
-    ListSuit: TCastleVerticalGroup;
-    ListTop: TCastleVerticalGroup;
-    ListBottom: TCastleVerticalGroup;
-    ListArms: TCastleVerticalGroup;
-    ListFoots: TCastleVerticalGroup;
-    ListAccessories: TCastleVerticalGroup;
-    BtnClose: TcastleButton;
+  strict private
+    type
+      TViewDressingDialog = class(TCastleUserInterface)
+      private
+        MenuRoot: TCastleUserInterface;
+        ListSuit: TCastleVerticalGroup;
+        ListTop: TCastleVerticalGroup;
+        ListBottom: TCastleVerticalGroup;
+        ListArms: TCastleVerticalGroup;
+        ListFoots: TCastleVerticalGroup;
+        ListAccessories: TCastleVerticalGroup;
+        BtnClose: TcastleButton;
+      private
+        FDresser: TCharaDresser;
+        procedure UpdateSuitParts();
+        procedure UpdateSuitParts(suitType: TSuitPart; groupList: TCastleVerticalGroup);
+        procedure UpdateSuits();
+        procedure UpdateAccessories();
+        procedure FocusButton(const Sender: TCastleUserInterface);
+        procedure FocusList(const Sender: TCastleUserInterface);
+        procedure ClickSuitPart(Sender: TObject);
+        procedure ClickSuit(Sender: TObject);
+        procedure ClickAccesories(Sender: TObject);
+        procedure ClickClose(Sender: TObject);
+        procedure SetChara(chara: TNyaActorChara);
+        procedure SetColor(color: TCastleColorRGB);
+      public
+        ParentView: TViewDressingMenu;
+        constructor Create(AOwner: TComponent; chara: TNyaActorChara); reintroduce;
+      end;
+    var
+      FDialog: TViewDressingDialog;
+      FChara: TNyaActorChara;
   public
-    constructor Create(AOwner: TComponent); override;
+    constructor CreateUntilStopped(chara: TNyaActorChara);
     procedure Start; override;
-    procedure Update(const SecondsPassed: Single;
-                     var HandleInput: boolean); override;
-    procedure SetChara(chara: TNyaActorChara);
-    procedure SetColor(color: TCastleColorRGB);
-  private
-    FDresser: TCharaDresser;
-    procedure UpdateSuitParts();
-    procedure UpdateSuitParts(suitType: TSuitPart; groupList: TCastleVerticalGroup);
-    procedure UpdateSuits();
-    procedure UpdateAccessories();
-    procedure FocusButton(const Sender: TCastleUserInterface);
-    procedure FocusList(const Sender: TCastleUserInterface);
-    procedure ClickSuitPart(Sender: TObject);
-    procedure ClickSuit(Sender: TObject);
-    procedure ClickAccesories(Sender: TObject);
-    procedure ClickClose(Sender: TObject);
   end;
 
 var
@@ -49,35 +57,47 @@ uses
   SysUtils, StrUtils;
 
 const
-  RootItemStr = 'MenuRoot';
   ListTopStr = 'ListTop';
   ListBottomStr = 'ListBottom';
   ListArmsStr = 'ListArms';
   ListFootsStr = 'ListFoots';
 
-constructor TViewDressingMenu.Create(AOwner: TComponent);
-begin
-  inherited;
-  DesignUrl := 'castle-data:/gameviewdressingmenu.castle-user-interface';
-end;
+{ ========= ------------------------------------------------------------------ }
+{ TViewDressingDialog -------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
 
-procedure TViewDressingMenu.Start;
+constructor TViewDressingMenu.TViewDressingDialog.Create(AOwner: TComponent;
+                                                         chara: TNyaActorChara);
+var
+  UiOwner: TComponent;
+  Ui: TCastleUserInterface;
 begin
-  inherited;
-  { Executed once when view starts. }
+  inherited Create(AOwner);
+
+  // UiOwner is useful to keep reference to all components loaded from the design
+  UiOwner := TComponent.Create(Self);
+
+  { Load designed user interface }
+  Ui := UserInterfaceLoad('castle-data:/gameviewdressingmenu.castle-user-interface', UiOwner);
+  InsertFront(Ui);
+
+  { Find components, by name, that we need to access from code }
+  MenuRoot:= UiOwner.FindRequiredComponent('MenuRoot') as TCastleUserInterface;
+  ListSuit:= UiOwner.FindRequiredComponent('ListSuit') as TCastleVerticalGroup;
+  ListTop:= UiOwner.FindRequiredComponent(ListTopStr) as TCastleVerticalGroup;
+  ListBottom:= UiOwner.FindRequiredComponent(ListBottomStr) as TCastleVerticalGroup;
+  ListArms:= UiOwner.FindRequiredComponent(ListArmsStr) as TCastleVerticalGroup;
+  ListFoots:= UiOwner.FindRequiredComponent(ListFootsStr) as TCastleVerticalGroup;
+  ListAccessories:= UiOwner.FindRequiredComponent('ListAccessories') as TCastleVerticalGroup;
+  BtnClose:= UiOwner.FindRequiredComponent('BtnClose') as TcastleButton;
 
   BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
   BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+
+  SetChara(chara);
 end;
 
-procedure TViewDressingMenu.Update(const SecondsPassed: Single;
-                                   var HandleInput: boolean);
-begin
-  inherited;
-  { Executed every frame. }
-end;
-
-procedure TViewDressingMenu.SetChara(chara: TNyaActorChara);
+procedure TViewDressingMenu.TViewDressingDialog.SetChara(chara: TNyaActorChara);
 begin
   if NOT Assigned(chara) then Exit;
   FDresser:= chara.Dresser();
@@ -88,15 +108,12 @@ begin
   SetColor(chara.PersonalColor);
 end;
 
-procedure TViewDressingMenu.SetColor(color: TCastleColorRGB);
+procedure TViewDressingMenu.TViewDressingDialog.SetColor(color: TCastleColorRGB);
 var
-  rootItem: TCastleUserInterface;
   item: TCastleImageControl;
   alpha: single;
 begin
-  rootItem:= DesignedComponent(RootItemStr) as TCastleUserInterface;
-
-  for item in GetAllUIImages(rootItem) do
+  for item in GetAllUIImages(MenuRoot) do
   begin
     if (item.Tag = 1) then
     begin
@@ -106,7 +123,7 @@ begin
   end;
 end;
 
-procedure TViewDressingMenu.UpdateSuitParts();
+procedure TViewDressingMenu.TViewDressingDialog.UpdateSuitParts();
 begin
   UpdateSuitParts(TSuitPart.Top, ListTop);
   UpdateSuitParts(TSuitPart.Bottom, ListBottom);
@@ -115,7 +132,7 @@ begin
   UpdateSuits();
 end;
 
-procedure TViewDressingMenu.UpdateSuitParts(suitType: TSuitPart;
+procedure TViewDressingMenu.TViewDressingDialog.UpdateSuitParts(suitType: TSuitPart;
                                             groupList: TCastleVerticalGroup);
 var
   suitPart: TItemCondition;
@@ -173,7 +190,7 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
-procedure TViewDressingMenu.UpdateSuits();
+procedure TViewDressingMenu.TViewDressingDialog.UpdateSuits();
 var
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
@@ -216,7 +233,7 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
-procedure TViewDressingMenu.UpdateAccessories();
+procedure TViewDressingMenu.TViewDressingDialog.UpdateAccessories();
 var
   acessory: TItemCondition;
   newChk, sampleChk: TCastleCheckbox;
@@ -257,17 +274,17 @@ begin
   end;
 end;
 
-procedure TViewDressingMenu.FocusButton(const Sender: TCastleUserInterface);
+procedure TViewDressingMenu.TViewDressingDialog.FocusButton(const Sender: TCastleUserInterface);
 begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
-procedure TViewDressingMenu.FocusList(const Sender: TCastleUserInterface);
+procedure TViewDressingMenu.TViewDressingDialog.FocusList(const Sender: TCastleUserInterface);
 begin
   SoundEngine.Play(NamedSound('SfxListFocus'));
 end;
 
-procedure TViewDressingMenu.ClickSuitPart(Sender: TObject);
+procedure TViewDressingMenu.TViewDressingDialog.ClickSuitPart(Sender: TObject);
 var
   button: TCastleButton;
   suitType: TSuitPart;
@@ -287,7 +304,7 @@ begin
   FDresser.DressSuitPart(suitType, button.Caption);
 end;
 
-procedure TViewDressingMenu.ClickSuit(Sender: TObject);
+procedure TViewDressingMenu.TViewDressingDialog.ClickSuit(Sender: TObject);
 var
   button: TCastleButton;
 begin
@@ -299,7 +316,7 @@ begin
   FDresser.DressSuit(button.Caption);
 end;
 
-procedure TViewDressingMenu.ClickAccesories(Sender: TObject);
+procedure TViewDressingMenu.TViewDressingDialog.ClickAccesories(Sender: TObject);
 var
   check: TCastleCheckbox;
 begin
@@ -311,10 +328,34 @@ begin
   FDresser.DressAcessory(check.Caption, check.Checked);
 end;
 
-procedure TViewDressingMenu.ClickClose(Sender: TObject);
+procedure TViewDressingMenu.TViewDressingDialog.ClickClose(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
-  Container.PopView(self);
+  Container.PopView(ParentView);
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TViewDressingMenu ---------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+constructor TViewDressingMenu.CreateUntilStopped(chara: TNyaActorChara);
+begin
+  inherited CreateUntilStopped;
+  DesignUrl:= 'castle-data:/bgdressing.castle-user-interface';
+  FChara:= chara;
+end;
+
+procedure TViewDressingMenu.Start;
+begin
+  inherited;
+  InterceptInput:= True;
+
+  FDialog:= TViewDressingDialog.Create(FreeAtStop, FChara);
+  FDialog.ParentView:= Self;
+  FDialog.Anchor(hpRight);
+  FDialog.Anchor(vpBottom);
+  FDialog.FullSize:= True;
+  InsertFront(FDialog);
 end;
 
 end.

@@ -1,0 +1,32 @@
+{
+  "$$ClassName" : "TCastleUserInterface",
+  "FullSize" : true,
+  "Name" : "GroupBG",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "Url" : "castle-data:/ui/dress_bg.png"
+      },
+      "HeightFraction" : 1.0000000000000000E+000,
+      "Name" : "ImageBG_L",
+      "Stretch" : true,
+      "Width" : 4.0000000000000000E+002
+    },
+    {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "FlipHorizontal" : true,
+        "Url" : "castle-data:/ui/dress_bg.png"
+      },
+      "HeightFraction" : 1.0000000000000000E+000,
+      "HorizontalAnchorParent" : "hpRight",
+      "HorizontalAnchorSelf" : "hpRight",
+      "Name" : "ImageBG_R",
+      "Stretch" : true,
+      "Width" : 4.0000000000000000E+002
+    }
+  ]
+}

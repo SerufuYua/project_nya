@@ -148,7 +148,7 @@ begin
   PleasureTensionEffect.Tension:= FActorsLogic.Tension;
 
   { Release Dressing Menu Buttons }
-  if NOT (Container.FrontView = ViewDressingMenu) then
+  if NOT (Container.FrontView is TViewDressingMenu) then
     ImageControlDressing.Exists:= True;
 
   inherited;
@@ -210,16 +210,14 @@ begin
   SoundEngine.Play(NamedSound('SfxListPress'));
 
   { Show Dressing Menu }
-  if NOT (Container.FrontView = ViewDressingMenu) then
+  if NOT (Container.FrontView is TViewDressingMenu) then
   begin
-    Container.PushView(ViewDressingMenu);
-
     { find selected chara }
     for chara in FActorsLogic.Charas do
     begin
       if (chara.ActorName = btnDress.Caption) then
       begin
-        ViewDressingMenu.SetChara(chara);
+        Container.PushView(TViewDressingMenu.CreateUntilStopped(chara));
         Break;
       end;
     end;

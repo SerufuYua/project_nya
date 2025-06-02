@@ -31,7 +31,7 @@ type
       DefaultAppearTime = 0.25;
       DefaultLiveTime = 0.25;
       DefaultFVanishTime = 4.0;
-      DefaultAllowedArea = 0.5;
+      DefaultAllowedArea = 0.6;
 
     constructor CreateUntilStopped(chara: TNyaActorChara; message: String;
                                    timePerSymbol: Single = DefaultLiveTime;
@@ -64,16 +64,16 @@ begin
   inherited Create(AOwner);
 
   // UiOwner is useful to keep reference to all components loaded from the design
-  UiOwner := TComponent.Create(Self);
+  UiOwner:= TComponent.Create(Self);
 
   { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/gameviewspeakwindow.castle-user-interface', UiOwner);
+  Ui:= UserInterfaceLoad('castle-data:/gameviewspeakwindow.castle-user-interface', UiOwner);
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
-  ImageBG := UiOwner.FindRequiredComponent('ImageBG') as TCastleImageControl;
-  ActorName := UiOwner.FindRequiredComponent('ActorName') as TCastleLabel;
-  TextMessage := UiOwner.FindRequiredComponent('TextMessage') as TCastleLabel;
+  ImageBG:= UiOwner.FindRequiredComponent('ImageBG') as TCastleImageControl;
+  ActorName:= UiOwner.FindRequiredComponent('ActorName') as TCastleLabel;
+  TextMessage:= UiOwner.FindRequiredComponent('TextMessage') as TCastleLabel;
 
   { set speaker Name }
   ActorName.Caption:= chara.ActorName;
