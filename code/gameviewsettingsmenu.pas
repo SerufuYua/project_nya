@@ -32,7 +32,7 @@ type
         procedure SetSfx(value: Single);
         procedure SetMusic(value: Single);
       public
-        ParentView: TViewSettingsMenu;
+        Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
       end;
     var
@@ -40,6 +40,7 @@ type
   public
     constructor CreateUntilStopped;
     procedure Start; override;
+    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
 
 implementation
@@ -58,6 +59,7 @@ var
   Ui: TCastleUserInterface;
 begin
   inherited Create(AOwner);
+  Closed:= False;
 
   // UiOwner is useful to keep reference to all components loaded from the design
   UiOwner := TComponent.Create(Self);
@@ -108,7 +110,7 @@ end;
 procedure TViewSettingsMenu.TViewSettingsDialog.ClickClose(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
-  Container.PopView(ParentView);
+  Closed:= True;
 end;
 
 procedure TViewSettingsMenu.TViewSettingsDialog.ClickScreen(Sender: TObject);
@@ -211,11 +213,21 @@ begin
   InterceptInput:= True;
 
   FDialog:= TViewSettingsDialog.Create(FreeAtStop);
-  FDialog.ParentView:= Self;
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
   InsertFront(FDialog);
+end;
+
+procedure TViewSettingsMenu.Update(const SecondsPassed: Single; var HandleInput: boolean);
+begin
+  inherited;
+
+  if FDialog.Closed then
+  begin
+    Exists:= False;
+    Container.PopView(Self);
+  end;
 end;
 
 end.
