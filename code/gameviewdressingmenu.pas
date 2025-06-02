@@ -47,9 +47,6 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
 
-var
-  ViewDressingMenu: TViewDressingMenu;
-
 implementation
 
 uses

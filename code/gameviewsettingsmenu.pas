@@ -42,10 +42,6 @@ type
     procedure Start; override;
   end;
 
-
-var
-  ViewSettingsMenu: TViewSettingsMenu;
-
 implementation
 
 uses

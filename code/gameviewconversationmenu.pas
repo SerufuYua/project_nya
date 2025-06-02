@@ -54,9 +54,6 @@ type
     procedure Start; override;
   end;
 
-var
-  ViewConversationMenu: TViewConversationMenu;
-
 implementation
 
 uses

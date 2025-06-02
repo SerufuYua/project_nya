@@ -41,9 +41,6 @@ type
                      var HandleInput: boolean); override;
   end;
 
-var
-  ViewSpeakWindow: TViewSpeakMenu;
-
 implementation
 
 uses
