@@ -108,7 +108,7 @@ begin
   FThresholdFastGo:= DefaultThresholdFastGo;
   FThresholdTired:= DefaultThresholdTired;
   FThresholdFinish:= DefaultThresholdFinish;
-  FStatusChanged:= False;
+  FStatusChanged:= True;
 end;
 
 procedure TNyaPlayLogic.Update(const SecondsPassed: Single);
