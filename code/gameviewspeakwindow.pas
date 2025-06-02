@@ -28,7 +28,7 @@ type
       FAllowedArea: Single;
   public
     const
-      DefaultAppearTime = 0.25;
+      DefaultAppearTime = 0.5;
       DefaultLiveTime = 0.25;
       DefaultFVanishTime = 4.0;
       DefaultAllowedArea = 0.6;
@@ -113,9 +113,9 @@ begin
   FChara:= chara;
   FMessage:= message;
   FTime:= 0.0;
-  FAppearTime:= DefaultAppearTime;
   FLiveTime:= timePerSymbol * Length(message);
-  FVanishTime:= DefaultFVanishTime;
+  FAppearTime:= timePerSymbol * DefaultAppearTime;
+  FVanishTime:= timePerSymbol * DefaultFVanishTime;
   FAllowedArea:= allowedArea;
 end;
 
@@ -147,6 +147,8 @@ begin
 
   if (FTime <= FAppearTime) then
     FWin.SetTransparency(FTime / FAppearTime)
+  else if ((FTime > FAppearTime) AND (FTime < (FAppearTime + FLiveTime))) then
+      FWin.SetTransparency(1.0)
   else if ((FTime >= (FAppearTime + FLiveTime)) AND (FTime <= (FAppearTime + FLiveTime + FVanishTime))) then
     FWin.SetTransparency((FVanishTime - (FTime - (FAppearTime + FLiveTime))) / FVanishTime)
   else if (FTime > (FAppearTime + FLiveTime + FVanishTime)) then

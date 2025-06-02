@@ -117,13 +117,13 @@ begin
     end;
   TActorStatus.Finish:
     if FActorsLogic.StatusChanged then
-      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Nyaaaaa!!. ah!..', 0.125));
+      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Nyaaaaa!!. ah!..'));
   TActorStatus.Relax:
     begin
       if FActorsLogic.StatusChanged then
-        FTime:= 0.0;
+        FTime:= 8.0;
 
-      timeOut:= RandomFloatRange(6, 24.0);
+      timeOut:= RandomFloatRange(12, 24.0);
       if (FTime > timeOut) then
       begin
         Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Zzz...', 1.0));

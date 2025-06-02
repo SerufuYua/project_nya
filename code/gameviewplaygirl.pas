@@ -117,7 +117,7 @@ begin
     end;
   TActorStatus.Finish:
     if FActorsLogic.StatusChanged then
-      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'A-U-u-ufh! NYA-A-A-A!', 0.125));
+      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'A-U-u-ufh! NYA-A-A-A!'));
   TActorStatus.Relax:
     begin
       if FActorsLogic.StatusChanged then
