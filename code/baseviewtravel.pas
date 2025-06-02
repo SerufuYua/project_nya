@@ -240,14 +240,27 @@ end;
 procedure TBaseViewTravel.ClickDress(Sender: TObject);
 var
   btnDress: TCastleButton;
+  i: integer;
+  dressFound: Boolean;
 begin
   btnDress:= Sender as TCastleButton;
   if NOT Assigned(btnDress) then Exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
+  { Check if Dreesing menu already opened }
+  dressFound:= False;
+  for i:= 0 to (Container.ViewStackCount - 1) do
+  begin
+    if (Container.ViewStack[i] is TViewDressingMenu) then
+    begin
+      dressFound:= False;
+      break;
+    end;
+  end;
+
   { Show Dressing Menu }
-  if NOT (Container.FrontView is TViewDressingMenu) then
+  if NOT dressFound then
   begin
     { check selected chara }
     if (MainActor.ActorName = btnDress.Caption) then

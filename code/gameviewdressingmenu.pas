@@ -35,7 +35,7 @@ type
         procedure SetChara(chara: TNyaActorChara);
         procedure SetColor(color: TCastleColorRGB);
       public
-        ParentView: TViewDressingMenu;
+        Closed: Boolean;
         constructor Create(AOwner: TComponent; chara: TNyaActorChara); reintroduce;
       end;
     var
@@ -44,6 +44,7 @@ type
   public
     constructor CreateUntilStopped(chara: TNyaActorChara);
     procedure Start; override;
+    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
 
 var
@@ -73,6 +74,7 @@ var
   Ui: TCastleUserInterface;
 begin
   inherited Create(AOwner);
+  Closed:= False;
 
   // UiOwner is useful to keep reference to all components loaded from the design
   UiOwner := TComponent.Create(Self);
@@ -331,7 +333,7 @@ end;
 procedure TViewDressingMenu.TViewDressingDialog.ClickClose(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
-  Container.PopView(ParentView);
+  Closed:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -351,11 +353,21 @@ begin
   InterceptInput:= True;
 
   FDialog:= TViewDressingDialog.Create(FreeAtStop, FChara);
-  FDialog.ParentView:= Self;
   FDialog.Anchor(hpRight);
   FDialog.Anchor(vpBottom);
   FDialog.FullSize:= True;
   InsertFront(FDialog);
+end;
+
+procedure TViewDressingMenu.Update(const SecondsPassed: Single; var HandleInput: boolean);
+begin
+  inherited;
+
+  if FDialog.Closed then
+  begin
+    Exists:= False;
+    Container.PopView(Self);
+  end;
 end;
 
 end.
