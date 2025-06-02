@@ -22,7 +22,6 @@ type
     BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
     GroupDressingButtons: TCastlePackedGroup;
-    ImageControlDressing: TCastleImageControl;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
     WorldCondition: TNyaWorldCondition;
@@ -133,10 +132,6 @@ begin
   { update FPS }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
-
-  { Release Dressing Menu Buttons }
-  if NOT (Container.FrontView is TViewDressingMenu) then
-    ImageControlDressing.Exists:= True;
 
   inherited;
 end;
@@ -257,8 +252,6 @@ begin
     { check selected chara }
     if (MainActor.ActorName = btnDress.Caption) then
       Container.PushView(TViewDressingMenu.CreateUntilStopped(MainActor));
-
-    ImageControlDressing.Exists:= False;
   end;
 end;
 

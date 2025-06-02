@@ -25,7 +25,6 @@ type
     FloatSliderSpeed: TCastleFloatSlider;
     GaugePleasure: TNyaLoadingBar;
     GaugeTension: TNyaLoadingBar;
-    ImageControlDressing: TCastleImageControl;
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
     FadeEffect: TNyaFadeEffect;
@@ -147,10 +146,6 @@ begin
   PleasureTensionEffect.Pleasure:= FActorsLogic.Pleasure / FActorsLogic.DefaultThresholdFastGo;
   PleasureTensionEffect.Tension:= FActorsLogic.Tension;
 
-  { Release Dressing Menu Buttons }
-  if NOT (Container.FrontView is TViewDressingMenu) then
-    ImageControlDressing.Exists:= True;
-
   inherited;
 end;
 
@@ -221,8 +216,6 @@ begin
         Break;
       end;
     end;
-
-    ImageControlDressing.Exists:= False;
   end;
 end;
 
