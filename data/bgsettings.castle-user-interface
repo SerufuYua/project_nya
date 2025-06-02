@@ -1,0 +1,17 @@
+{
+  "$$ClassName" : "TCastleUserInterface",
+  "FullSize" : true,
+  "Name" : "GroupBG",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "Url" : "castle-data:/ui/settings_bg.png"
+      },
+      "FullSize" : true,
+      "Name" : "ImageBG",
+      "Stretch" : true
+    }
+  ]
+}

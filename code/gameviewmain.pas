@@ -124,8 +124,8 @@ procedure TViewMain.ClicSettings(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
-  if NOT (Container.FrontView = ViewSettingsMenu) then
-    Container.PushView(ViewSettingsMenu);
+  if NOT (Container.FrontView is TViewSettingsMenu) then
+    Container.PushView(TViewSettingsMenu.CreateUntilStopped);
 end;
 
 procedure TViewMain.UpdateCamera(const SecondsPassed: Single);

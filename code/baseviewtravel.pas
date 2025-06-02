@@ -190,8 +190,8 @@ begin
 
   Case button.Name of
     'BtnSettings':
-        if NOT (Container.FrontView = ViewSettingsMenu) then
-          Container.PushView(ViewSettingsMenu);
+        if NOT (Container.FrontView is TViewSettingsMenu) then
+          Container.PushView(TViewSettingsMenu.CreateUntilStopped);
     'BtnBack':
         GetToGo(ViewMain);
   end;

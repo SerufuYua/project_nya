@@ -1,7 +1,11 @@
 {
   "$$ClassName" : "TCastleUserInterface",
-  "FullSize" : true,
+  "AutoSizeToChildren" : true,
+  "HorizontalAnchorParent" : "hpMiddle",
+  "HorizontalAnchorSelf" : "hpMiddle",
   "Name" : "SettingsRoot",
+  "VerticalAnchorParent" : "vpMiddle",
+  "VerticalAnchorSelf" : "vpMiddle",
   "$NonVisualComponents" : [
     {
       "$$ClassName" : "TCastleFont",
@@ -11,19 +15,6 @@
     }
   ],
   "$Children" : [
-    {
-      "$$ClassName" : "TCastleImageControl",
-      "Content" : {
-        "$$ClassName" : "TCastleImagePersistent",
-        "ColorPersistent" : {
-          "$$ClassName" : "TCastleColorPersistent",
-          "Alpha" : 7.0196080207824707E-001
-        },
-        "Url" : "castle-data:/ui/loading01.png"
-      },
-      "FullSize" : true,
-      "Name" : "ScreenBG"
-    },
     {
       "$$ClassName" : "TCastleRectangleControl",
       "AutoSizeToChildren" : true,
@@ -481,7 +472,7 @@
                                   },
                                   "TranslationPersistent" : {
                                     "$$ClassName" : "TCastleVector2Persistent",
-                                    "X" : 5.6999996185302734E+001
+                                    "X" : 5.7000000000000000E+001
                                   },
                                   "Value" : 5.0000000000000000E-001,
                                   "VerticalAnchorParent" : "vpMiddle",
@@ -555,7 +546,7 @@
                               "Spacing" : 6.0000000000000000E+000,
                               "TranslationPersistent" : {
                                 "$$ClassName" : "TCastleVector2Persistent",
-                                "Y" : -5.8000000000000000E+001
+                                "Y" : -5.7999996185302734E+001
                               },
                               "VerticalAnchorParent" : "vpTop",
                               "VerticalAnchorSelf" : "vpTop",
@@ -644,7 +635,7 @@
                                   },
                                   "TranslationPersistent" : {
                                     "$$ClassName" : "TCastleVector2Persistent",
-                                    "X" : 5.6999996185302734E+001
+                                    "X" : 5.7000000000000000E+001
                                   },
                                   "Value" : 5.0000000000000000E-001,
                                   "VerticalAnchorParent" : "vpMiddle",
