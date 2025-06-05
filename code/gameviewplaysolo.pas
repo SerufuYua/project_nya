@@ -26,7 +26,7 @@ implementation
 uses
   SysUtils, CastleTransform, CastleUtils, CastleVectors,
   CastleSoundEngine, GameSound,
-  GameViewTravelContainerRoom, GameViewSpeakWindow, NyaPlayLogic;
+  GameViewTravelContainerRoom, GameViewSpeakWindow, NyaSpeechBubble, NyaPlayLogic;
 
 procedure TViewPlaySolo.Start;
 begin

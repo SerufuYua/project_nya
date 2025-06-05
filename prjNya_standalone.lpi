@@ -65,7 +65,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="37">
+    <Units Count="38">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -156,6 +156,7 @@
       <Unit18>
         <Filename Value="code/nyaloadingbar.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaLoadingBar"/>
       </Unit18>
       <Unit19>
         <Filename Value="code/NyaMath.pas"/>
@@ -246,6 +247,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewSpeakWindow"/>
       </Unit36>
+      <Unit37>
+        <Filename Value="code/nyaspeechbubble.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaSpeechBubble"/>
+      </Unit37>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
