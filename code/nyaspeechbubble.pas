@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
-  CastleColors;
+  CastleColors, CastleFonts;
 
 type
   TNyaSpeechBubble = class(TCastleUserInterface)
@@ -18,6 +18,8 @@ type
     procedure SetColor(const value: TCastleColorRGB);
     function GetColorForPersistent: TCastleColorRGB;
     procedure SetColorForPersistent(const AValue: TCastleColorRGB);
+    procedure SetCustomFont(const value: TCastleAbstractFont);
+    function GetCustomFont: TCastleAbstractFont;
   public
     const
       DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
@@ -28,6 +30,7 @@ type
     property Color: TCastleColorRGB read FColor write SetColor;
   published
     property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
+    property CustomFont: TCastleAbstractFont read GetCustomFont write SetCustomFont;
   end;
 
 implementation
@@ -83,6 +86,17 @@ begin
   inherited;
 end;
 
+procedure TNyaSpeechBubble.SetCustomFont(const value: TCastleAbstractFont);
+begin
+  ActorName.CustomFont:= value;
+  TextMessage.CustomFont:= value;
+end;
+
+function TNyaSpeechBubble.GetCustomFont: TCastleAbstractFont;
+begin
+  Result:= TextMessage.CustomFont;
+end;
+
 procedure TNyaSpeechBubble.SetColor(const value: TCastleColorRGB);
 var
   alpha: Single;
@@ -118,7 +132,7 @@ end;
 function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'nya'
+       'ColorPersistent', 'CustomFont'
      ]) then
     Result:= [psBasic]
   else
