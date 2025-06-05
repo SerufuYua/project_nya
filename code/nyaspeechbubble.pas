@@ -5,17 +5,29 @@ unit NyaSpeechBubble;
 interface
 
 uses
-  Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls;
+  Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
+  CastleColors;
 
 type
   TNyaSpeechBubble = class(TCastleUserInterface)
   protected
     RectangleBG: TCastleRectangleControl;
     ActorName, TextMessage: TCastleLabel;
+    FColor: TCastleColorRGB;
+    FColorPersistent: TCastleColorRGBPersistent;
+    procedure SetColor(const value: TCastleColorRGB);
+    function GetColorForPersistent: TCastleColorRGB;
+    procedure SetColorForPersistent(const AValue: TCastleColorRGB);
   public
+    const
+      DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
+
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
+    property Color: TCastleColorRGB read FColor write SetColor;
+  published
+    property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
   end;
 
 implementation
@@ -28,6 +40,7 @@ var
   group: TCastlePackedGroup;
 begin
   inherited;
+
   AutoSizeToChildren:= True;
   HorizontalAnchorParent:= THorizontalPosition.hpMiddle;
   HorizontalAnchorSelf:= THorizontalPosition.hpMiddle;
@@ -55,11 +68,51 @@ begin
   TextMessage.SetTransient;
   TextMessage.Caption:= 'Hello World!';
   group.InsertFront(TextMessage);
+
+  { Persistent for Color }
+  FColorPersistent:= TCastleColorRGBPersistent.Create(nil);
+  FColorPersistent.SetSubComponent(true);
+  FColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorForPersistent;
+  FColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorForPersistent;
+  FColorPersistent.InternalDefaultValue:= Color;
+  Color:= DefaultColor;
 end;
 
 procedure TNyaSpeechBubble.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
+end;
+
+procedure TNyaSpeechBubble.SetColor(const value: TCastleColorRGB);
+var
+  alpha: Single;
+begin
+  FColor:= value;
+
+  alpha:= RectangleBG.Color.W;
+  RectangleBG.Color:= Vector4(FColor, alpha);
+
+  alpha:= ActorName.Color.W;
+  ActorName.Color:= Vector4(0.75 + FColor.X * 0.25,
+                            0.75 + FColor.Y * 0.25,
+                            0.75 + FColor.Z * 0.25,
+                            alpha);
+
+  alpha:= TextMessage.Color.W;
+  TextMessage.Color:= Vector4(0.75 + FColor.X * 0.25,
+                              0.75 + FColor.Y * 0.25,
+                              0.75 + FColor.Z * 0.25,
+                              alpha);
+end;
+
+function TNyaSpeechBubble.GetColorForPersistent: TCastleColorRGB;
+begin
+  Result:= Color;
+end;
+
+procedure TNyaSpeechBubble.SetColorForPersistent(const AValue: TCastleColorRGB);
+begin
+  Color:= AValue;
 end;
 
 function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropertySections;
