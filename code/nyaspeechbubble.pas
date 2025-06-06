@@ -24,8 +24,10 @@ type
     function GetColorForPersistent: TCastleColorRGB;
     procedure SetColorForPersistent(const AValue: TCastleColorRGB);
     procedure SetTimePerSymbol(const value: Single);
-    procedure SetRound(const value: Single);
-    function GetRound: Single;
+    procedure SetRound1(const value: Single);
+    function GetRound1: Single;
+    procedure SetRound2(const value: Single);
+    function GetRound2: Single;
     procedure SetCustomFont(const value: TCastleAbstractFont);
     function GetCustomFont: TCastleAbstractFont;
     procedure SetTransparency(const value: Single);
@@ -37,7 +39,8 @@ type
   public
     const
       DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
-      DefaultRound = 15;
+      DefaultRound1 = 15;
+      DefaultRound2 = 8;
       DefaultTimeAppear = 0.125;
       DefaultTimePerSymbol = 0.25;
       DefaultTimeVanish = 0.25;
@@ -64,8 +67,10 @@ type
     property Message: String read FMessage write SetMessage;
     property Transparency: Single read FTransparency write SetTransparency
              {$ifdef FPC}default DefaultTransparency{$endif};
-    property Round: Single read GetRound write SetRound
-             {$ifdef FPC}default DefaultRound{$endif};
+    property Round1: Single read GetRound1 write SetRound1
+             {$ifdef FPC}default DefaultRound1{$endif};
+    property Round2: Single read GetRound2 write SetRound2
+             {$ifdef FPC}default DefaultRound2{$endif};
     property OutlineWidth: Single read GetOutlineWidth write SetOutlineWidth
              {$ifdef FPC}default DefaultOutlineWidth{$endif};
     property TimeAppear: Single read FTimeAppear write FTimeAppear
@@ -81,7 +86,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleVectors;
+  CastleComponentSerialize, CastleUtils, CastleVectors, Math;
 
 constructor TNyaSpeechBubble.Create(AOwner: TComponent;
                                     AActror: TNyaActor; AMsg: String;
@@ -125,13 +130,14 @@ begin
   RectangleBG:= TNyaRoundRectangle.Create(self);
   RectangleBG.SetTransient;
   RectangleBG.AutoSizeToChildren:= True;
-  RectangleBG.Round:= DefaultRound;
+  RectangleBG.Round1:= DefaultRound1;
+  RectangleBG.Round2:= DefaultRound2;
   RectangleBG.OutlineWidth:= DefaultOutlineWidth;
   InsertFront(RectangleBG);
 
   FGroup:= TCastleVerticalGroup.Create(RectangleBG);
   FGroup.SetTransient;
-  FGroup.Padding:= DefaultPadding + RectangleBG.Round / 2.0;
+  FGroup.Padding:= DefaultPadding + RectangleBG.Round1 / 2.0;
   FGroup.Spacing:= DefaultSpacing;
   RectangleBG.InsertFront(FGroup);
 
@@ -194,15 +200,28 @@ begin
   FTimeLive:= TextMessage.Caption.Length * FTimePerSymbol;
 end;
 
-procedure TNyaSpeechBubble.SetRound(const value: Single);
+procedure TNyaSpeechBubble.SetRound1(const value: Single);
 begin
-  RectangleBG.Round:= value;
-  FGroup.Padding:= DefaultPadding + RectangleBG.Round / 2.0;
+  RectangleBG.Round1:= value;
+  FGroup.Padding:= DefaultPadding +
+                   Max(RectangleBG.Round1, RectangleBG.Round2) / 2.0;
 end;
 
-function TNyaSpeechBubble.GetRound: Single;
+function TNyaSpeechBubble.GetRound1: Single;
 begin
-  Result:= RectangleBG.Round;
+  Result:= RectangleBG.Round1;
+end;
+
+procedure TNyaSpeechBubble.SetRound2(const value: Single);
+begin
+  RectangleBG.Round2:= value;
+  FGroup.Padding:= DefaultPadding +
+                   Max(RectangleBG.Round1, RectangleBG.Round2) / 2.0;
+end;
+
+function TNyaSpeechBubble.GetRound2: Single;
+begin
+  Result:= RectangleBG.Round2;
 end;
 
 procedure TNyaSpeechBubble.SetCustomFont(const value: TCastleAbstractFont);
@@ -318,8 +337,8 @@ function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropert
 begin
   if ArrayContainsString(PropertyName, [
        'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
-       'TimePerSymbol', 'TimeVanish', 'Round', 'ActorName', 'Message',
-       'OutlineWidth'
+       'TimePerSymbol', 'TimeVanish', 'Round1', 'Round2', 'ActorName',
+       'Message', 'OutlineWidth'
      ]) then
     Result:= [psBasic]
   else

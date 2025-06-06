@@ -16,11 +16,12 @@ type
     FPointsBGp2: array of TVector2;
     FPointsSpeckle: array of TVector2;
     FPointsOutline: array of TVector2;
-    FRound: Single;
+    FRound1, FRound2: Single;
     FOutlineWidth: Single;
     FColor, FColorSpeckle: TCastleColor;
     FColorPersistent, FColorSpecklePersistent: TCastleColorPersistent;
-    procedure SetRound(const value: Single);
+    procedure SetRound1(const value: Single);
+    procedure SetRound2(const value: Single);
     function GetColorForPersistent: TCastleColor;
     procedure SetColorForPersistent(const AValue: TCastleColor);
     function GetColorSpeckleForPersistent: TCastleColor;
@@ -30,7 +31,8 @@ type
     const
       DefaultColor: TCastleColor = (X: 1.0; Y: 0.25; Z: 0.75; W: 0.5);
       DefaultColorSpeckle: TCastleColor = (X: 1.0; Y: 1.0; Z: 1.0; W: 0.5);
-      DefaultRound = 20;
+      DefaultRound1 = 20;
+      DefaultRound2 = 15;
       DefaultOutlineWidth = 2.0;
 
     constructor Create(AOwner: TComponent); override;
@@ -40,8 +42,10 @@ type
     property Color: TCastleColor read FColor write FColor;
     property ColorSpeckle: TCastleColor read FColorSpeckle write FColorSpeckle;
   published
-    property Round: Single read FRound write SetRound
-             {$ifdef FPC}default DefaultRound{$endif};
+    property Round1: Single read FRound1 write SetRound1
+             {$ifdef FPC}default DefaultRound1{$endif};
+    property Round2: Single read FRound2 write SetRound2
+             {$ifdef FPC}default DefaultRound2{$endif};
     property OutlineWidth: Single read FOutlineWidth write FOutlineWidth
              {$ifdef FPC}default DefaultOutlineWidth{$endif};
     property ColorPersistent: TCastleColorPersistent read FColorPersistent;
@@ -59,7 +63,8 @@ begin
   inherited;
   FColor:= DefaultColor;
   FColorSpeckle:= DefaultColorSpeckle;
-  FRound:= DefaultRound;
+  FRound1:= DefaultRound1;
+  FRound2:= DefaultRound2;
   FOutlineWidth:= DefaultOutlineWidth;
 
   { Persistent for Color }
@@ -106,52 +111,52 @@ procedure TNyaRoundRectangle.CalcPoints;
 var
   i: Integer;
 begin
-  FPoints[0].X:= RenderRect.Left + FRound;
+  FPoints[0].X:= RenderRect.Left + FRound2;
   FPoints[0].Y:= RenderRect.Top;
 
-  if (FPoints[0].X > (RenderRect.Right - FRound)) then
+  if (FPoints[0].X > (RenderRect.Right - FRound2)) then
     FPoints[0].X:= (RenderRect.Right - RenderRect.Width / 2.0);
 
   FPoints[1].X:= RenderRect.Left;
-  FPoints[1].Y:= RenderRect.Top - FRound;
+  FPoints[1].Y:= RenderRect.Top - FRound2;
 
-  if (FPoints[1].Y < (RenderRect.Bottom + FRound)) then
+  if (FPoints[1].Y < (RenderRect.Bottom + FRound2)) then
     FPoints[1].Y:= (RenderRect.Bottom + RenderRect.Height / 2.0);
 
   FPoints[2].X:= RenderRect.Left;
-  FPoints[2].Y:= RenderRect.Bottom + FRound;
+  FPoints[2].Y:= RenderRect.Bottom + FRound1;
 
-  if (FPoints[2].Y > (RenderRect.Top - FRound)) then
+  if (FPoints[2].Y > (RenderRect.Top - FRound1)) then
     FPoints[2].Y:= (RenderRect.Top - RenderRect.Height / 2.0);
 
-  FPoints[3].X:= RenderRect.Left + FRound;
+  FPoints[3].X:= RenderRect.Left + FRound1;
   FPoints[3].Y:= RenderRect.Bottom;
 
-  if (FPoints[3].X > (RenderRect.Right - FRound)) then
+  if (FPoints[3].X > (RenderRect.Right - FRound1)) then
     FPoints[3].X:= (RenderRect.Right - RenderRect.Width / 2.0);
 
-  FPoints[4].X:= RenderRect.Right - FRound;
+  FPoints[4].X:= RenderRect.Right - FRound2;
   FPoints[4].Y:= RenderRect.Bottom;
 
-  if (FPoints[4].X < (RenderRect.Left + FRound)) then
+  if (FPoints[4].X < (RenderRect.Left + FRound2)) then
     FPoints[4].X:= (RenderRect.Left + RenderRect.Width / 2.0);
 
   FPoints[5].X:= RenderRect.Right;
-  FPoints[5].Y:= RenderRect.Bottom + FRound;
+  FPoints[5].Y:= RenderRect.Bottom + FRound2;
 
-  if (FPoints[5].Y > (RenderRect.Top - FRound)) then
+  if (FPoints[5].Y > (RenderRect.Top - FRound2)) then
     FPoints[5].Y:= (RenderRect.Top - RenderRect.Height / 2.0);
 
   FPoints[6].X:= RenderRect.Right;
-  FPoints[6].Y:= RenderRect.Top - FRound;
+  FPoints[6].Y:= RenderRect.Top - FRound1;
 
-  if (FPoints[6].Y < (RenderRect.Bottom + FRound)) then
+  if (FPoints[6].Y < (RenderRect.Bottom + FRound1)) then
     FPoints[6].Y:= (RenderRect.Bottom + RenderRect.Height / 2.0);
 
-  FPoints[7].X:= RenderRect.Right - FRound;
+  FPoints[7].X:= RenderRect.Right - FRound1;
   FPoints[7].Y:= RenderRect.Top;
 
-  if (FPoints[7].X < (RenderRect.Left + FRound)) then
+  if (FPoints[7].X < (RenderRect.Left + FRound1)) then
     FPoints[7].X:= (RenderRect.Left + RenderRect.Width / 2.0);
 
   FPointsBGp1[0]:= FPoints[0];
@@ -173,7 +178,7 @@ begin
     FPointsOutline[i]:= FPoints[i];
 end;
 
-procedure TNyaRoundRectangle.SetRound(const value: Single);
+procedure TNyaRoundRectangle.SetRound1(const value: Single);
 var
   cRound: Single;
 begin
@@ -182,8 +187,21 @@ begin
   if (cRound < 0.0) then
     cRound:= -cRound;
 
-  if (FRound <> cRound) then
-    FRound:= cRound;
+  if (FRound1 <> cRound) then
+    FRound1:= cRound;
+end;
+
+procedure TNyaRoundRectangle.SetRound2(const value: Single);
+var
+  cRound: Single;
+begin
+  cRound:= value;
+
+  if (cRound < 0.0) then
+    cRound:= -cRound;
+
+  if (FRound2 <> cRound) then
+    FRound2:= cRound;
 end;
 
 function TNyaRoundRectangle.GetColorForPersistent: TCastleColor;
@@ -209,7 +227,8 @@ end;
 function TNyaRoundRectangle.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'ColorPersistent', 'ColorSpecklePersistent', 'Round', 'OutlineWidth'
+       'ColorPersistent', 'ColorSpecklePersistent', 'Round1', 'Round2',
+       'OutlineWidth'
      ]) then
     Result:= [psBasic]
   else
