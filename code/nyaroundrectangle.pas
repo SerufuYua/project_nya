@@ -36,6 +36,7 @@ type
       DefaultOutlineWidth = 2.0;
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     procedure Render; override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -87,6 +88,13 @@ begin
   SetLength(FPointsBGp1, 4);
   SetLength(FPointsBGp2, 4);
   SetLength(FPointsOutline, 8);
+end;
+
+destructor TNyaRoundRectangle.Destroy;
+begin
+  FreeAndNil(FColorPersistent);
+  FreeAndNil(FColorSpecklePersistent);
+  inherited;
 end;
 
 procedure TNyaRoundRectangle.Update(const SecondsPassed: Single; var HandleInput: boolean);

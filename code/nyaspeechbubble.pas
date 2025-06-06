@@ -59,6 +59,7 @@ type
                        AFont: TCastleAbstractFont;
                        ATimePerSymbol: Single = DefaultTimePerSymbol);
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
     property Color: TCastleColorRGB read FColor write SetColor;
@@ -162,6 +163,12 @@ begin
   Color:= DefaultColor;
 
   ApplyTransparency;
+end;
+
+destructor TNyaSpeechBubble.Destroy;
+begin
+  FreeAndNil(FColorPersistent);
+  inherited;
 end;
 
 procedure TNyaSpeechBubble.Update(const SecondsPassed: Single; var HandleInput: boolean);
