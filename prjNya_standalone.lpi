@@ -65,7 +65,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="39">
+    <Units Count="38">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -243,20 +243,15 @@
         <UnitName Value="NyaSlowText"/>
       </Unit35>
       <Unit36>
-        <Filename Value="code/gameviewspeakwindow.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="GameViewSpeakWindow"/>
-      </Unit36>
-      <Unit37>
         <Filename Value="code/nyaspeechbubble.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaSpeechBubble"/>
-      </Unit37>
-      <Unit38>
+      </Unit36>
+      <Unit37>
         <Filename Value="code/nyaroundrectangle.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NyaRoundRectangle"/>
-      </Unit38>
+      </Unit37>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

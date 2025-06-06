@@ -26,7 +26,6 @@ uses SysUtils, CustApp,
   , GameViewTravelRoadAsteroid
   , GameViewConversationMenu
   , GameViewSettingsMenu
-  , GameViewSpeakWindow
   {$endregion 'Castle Initialization Uses'};
 
 var
