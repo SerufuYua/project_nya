@@ -11,6 +11,7 @@ uses
 type
   TNyaSpeechBubble = class(TCastleUserInterface)
   protected
+    FTime, FTimeAppear, FTimePerSymbol, FTimeLive, FTimeVanish: Single;
     RectangleBG: TCastleRectangleControl;
     ActorName, TextMessage: TCastleLabel;
     FTransparency: Single;
@@ -19,6 +20,7 @@ type
     procedure SetColor(const value: TCastleColorRGB);
     function GetColorForPersistent: TCastleColorRGB;
     procedure SetColorForPersistent(const AValue: TCastleColorRGB);
+    procedure SetTimePerSymbol(const value: Single);
     procedure SetCustomFont(const value: TCastleAbstractFont);
     function GetCustomFont: TCastleAbstractFont;
     procedure SetTransparency(const value: Single);
@@ -26,6 +28,9 @@ type
   public
     const
       DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
+      DefaultTimeAppear = 0.125;
+      DefaultTimePerSymbol = 0.25;
+      DefaultTimeVanish = 0.25;
       {$ifdef CASTLE_DESIGN_MODE}
       DefaultTransparency = 1.0;
       {$else}
@@ -39,6 +44,12 @@ type
   published
     property Transparency: Single read FTransparency write SetTransparency
              {$ifdef FPC}default DefaultTransparency{$endif};
+    property TimeAppear: Single read FTimeAppear write FTimeAppear
+             {$ifdef FPC}default DefaultTimeAppear{$endif};
+    property TimePerSymbol: Single read FTimePerSymbol write SetTimePerSymbol
+             {$ifdef FPC}default DefaultTimePerSymbol{$endif};
+    property TimeVanish: Single read FTimeVanish write FTimeVanish
+             {$ifdef FPC}default DefaultTimeVanish{$endif};
     property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
     property CustomFont: TCastleAbstractFont read GetCustomFont write SetCustomFont;
   end;
@@ -53,6 +64,10 @@ var
   group: TCastlePackedGroup;
 begin
   inherited;
+  FTime:= 0.0;
+  FTimeAppear:= DefaultTimeAppear;
+  FTimePerSymbol:= DefaultTimePerSymbol;
+  FTimeVanish:= DefaultTimeVanish;
   FTransparency:= DefaultTransparency;
 
   AutoSizeToChildren:= True;
@@ -95,8 +110,39 @@ begin
 end;
 
 procedure TNyaSpeechBubble.Update(const SecondsPassed: Single; var HandleInput: boolean);
+var
+  ready, old, fin: Single;
 begin
   inherited;
+
+  {$ifndef CASTLE_DESIGN_MODE}
+  FTime:= FTime + SecondsPassed;
+
+  ready:= FTimeAppear;
+  old:= FTimeAppear + FTimeLive;
+  fin:= FTimeAppear + FTimeLive + FTimeVanish;
+
+
+  if (FTime <= ready) then
+  begin
+    Transparency:= (FTime / ready);
+  end
+  else if ((FTime > ready) AND (FTime < old)) then
+  begin
+    Transparency:= 1.0;
+  end
+  else if ((FTime >= old) AND (FTime <= fin)) then
+  begin
+    Transparency:= ((FTimeVanish - (FTime - (old))) / FTimeVanish);
+  end
+  else if (FTime > fin) then
+    Parent.RemoveControl(self);
+  {$endif};
+end;
+
+procedure TNyaSpeechBubble.SetTimePerSymbol(const value: Single);
+begin
+  FTimeLive:= TextMessage.Caption.Length * FTimePerSymbol;
 end;
 
 procedure TNyaSpeechBubble.SetCustomFont(const value: TCastleAbstractFont);
@@ -173,7 +219,8 @@ end;
 function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'ColorPersistent', 'CustomFont', 'Transparency'
+       'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
+       'TimePerSymbol', 'TimeVanish'
      ]) then
     Result:= [psBasic]
   else
