@@ -64,7 +64,7 @@ uses
   GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
-  CastleScene, CastleViewport, CastleVectors,
+  CastleScene, CastleVectors,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaCastleUiUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
@@ -104,9 +104,6 @@ begin
   actors:= [];
   actorsRoot:= Map.DesignedComponent('SceneActors') as TCastleTransform;
 
-  { set Font }
-  FFont:= DesignedComponent('future_n0t_found_32') as TCastleAbstractFont;
-
   for child in actorsRoot do
   begin
     if (child is TNyaActor) then
@@ -114,6 +111,10 @@ begin
   end;
 
   FActorsLogic:= TNyaPlayLogic.Create(actors, FadeEffect);
+
+  { set Font }
+  FFont:= DesignedComponent('future_n0t_found_32') as TCastleAbstractFont;
+
   { set dress buttons }
   SetDressButtons;
 
