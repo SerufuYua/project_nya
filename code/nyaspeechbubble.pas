@@ -31,6 +31,8 @@ type
     procedure SetTransparency(const value: Single);
     procedure SetActorName(const value: String);
     procedure SetMessage(const value: String);
+    function GetOutlineWidth: Single;
+    procedure SetOutlineWidth(const value: Single);
     procedure ApplyTransparency;
   public
     const
@@ -43,6 +45,7 @@ type
       DefaultSpacing = 14;
       DefaultActorName = 'Actor';
       DefaultMessage = 'Hello World!';
+      DefaultOutlineWidth = 2.0;
       {$ifdef CASTLE_DESIGN_MODE}
       DefaultTransparency = 1.0;
       {$else}
@@ -63,6 +66,8 @@ type
              {$ifdef FPC}default DefaultTransparency{$endif};
     property Round: Single read GetRound write SetRound
              {$ifdef FPC}default DefaultRound{$endif};
+    property OutlineWidth: Single read GetOutlineWidth write SetOutlineWidth
+             {$ifdef FPC}default DefaultOutlineWidth{$endif};
     property TimeAppear: Single read FTimeAppear write FTimeAppear
              {$ifdef FPC}default DefaultTimeAppear{$endif};
     property TimePerSymbol: Single read FTimePerSymbol write SetTimePerSymbol
@@ -121,6 +126,7 @@ begin
   RectangleBG.SetTransient;
   RectangleBG.AutoSizeToChildren:= True;
   RectangleBG.Round:= DefaultRound;
+  RectangleBG.OutlineWidth:= DefaultOutlineWidth;
   InsertFront(RectangleBG);
 
   FGroup:= TCastleVerticalGroup.Create(RectangleBG);
@@ -212,8 +218,10 @@ end;
 
 procedure TNyaSpeechBubble.SetColor(const value: TCastleColorRGB);
 const
-  base = 0.9;
-  fill = 1.0 - base;
+  tbase = 0.9;
+  tfill = 1.0 - tbase;
+  sbase = 0.3;
+  sfill = 1.0 - sbase;
 var
   alpha: Single;
 begin
@@ -222,16 +230,22 @@ begin
   alpha:= RectangleBG.Color.W;
   RectangleBG.Color:= Vector4(FColor, alpha);
 
+  alpha:= RectangleBG.ColorSpeckle.W;
+  RectangleBG.ColorSpeckle:= Vector4(sbase + FColor.X * sfill,
+                                     sbase + FColor.Y * sfill,
+                                     sbase + FColor.Z * sfill,
+                                     alpha);
+
   alpha:= TextActorName.Color.W;
-  TextActorName.Color:= Vector4(base + FColor.X * fill,
-                                base + FColor.Y * fill,
-                                base + FColor.Z * fill,
+  TextActorName.Color:= Vector4(tbase + FColor.X * tfill,
+                                tbase + FColor.Y * tfill,
+                                tbase + FColor.Z * tfill,
                                 alpha);
 
   alpha:= TextMessage.Color.W;
-  TextMessage.Color:= Vector4(base + FColor.X * fill,
-                              base + FColor.Y * fill,
-                              base + FColor.Z * fill,
+  TextMessage.Color:= Vector4(tbase + FColor.X * tfill,
+                              tbase + FColor.Y * tfill,
+                              tbase + FColor.Z * tfill,
                               alpha);
 end;
 
@@ -259,6 +273,16 @@ begin
   TextMessage.Caption:= value;
 end;
 
+procedure TNyaSpeechBubble.SetOutlineWidth(const value: Single);
+begin
+  RectangleBG.OutlineWidth:= value;
+end;
+
+function TNyaSpeechBubble.GetOutlineWidth: Single;
+begin
+  Result:= RectangleBG.OutlineWidth;
+end;
+
 procedure TNyaSpeechBubble.ApplyTransparency;
 var
   c: TCastleColor;
@@ -266,6 +290,10 @@ begin
   c:= RectangleBG.Color;
   c.W:= FTransparency * 0.5;
   RectangleBG.Color:= c;
+
+  c:= RectangleBG.ColorSpeckle;
+  c.W:= FTransparency * 0.65;
+  RectangleBG.ColorSpeckle:= c;
 
   c:= TextActorName.Color;
   c.W:= FTransparency;
@@ -290,7 +318,8 @@ function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropert
 begin
   if ArrayContainsString(PropertyName, [
        'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
-       'TimePerSymbol', 'TimeVanish', 'Round', 'ActorName', 'Message'
+       'TimePerSymbol', 'TimeVanish', 'Round', 'ActorName', 'Message',
+       'OutlineWidth'
      ]) then
     Result:= [psBasic]
   else
