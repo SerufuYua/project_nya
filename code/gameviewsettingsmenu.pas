@@ -224,10 +224,7 @@ begin
   inherited;
 
   if FDialog.Closed then
-  begin
-    Exists:= False;
     Container.PopView(Self);
-  end;
 end;
 
 end.
