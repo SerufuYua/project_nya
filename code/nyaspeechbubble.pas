@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
-  CastleColors, CastleFonts, NyaRoundRectangle;
+  CastleColors, CastleFonts, NyaRoundRectangle, CastleRectangles,
+  NyaActor;
 
 type
   TNyaSpeechBubble = class(TCastleUserInterface)
@@ -48,6 +49,9 @@ type
       DefaultTransparency = 0.0;
       {$endif}
 
+    constructor Create(AOwner: TComponent; AActror: TNyaActor; AMsg: String;
+                       AFont: TCastleAbstractFont;
+                       ATimePerSymbol: Single = DefaultTimePerSymbol);
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -72,7 +76,34 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleRectangles, CastleVectors;
+  CastleComponentSerialize, CastleUtils, CastleVectors;
+
+constructor TNyaSpeechBubble.Create(AOwner: TComponent;
+                                    AActror: TNyaActor; AMsg: String;
+                                    AFont: TCastleAbstractFont;
+                                    ATimePerSymbol: Single);
+var
+  areaRect: TFloatRectangle;
+begin
+  Create(AOwner);
+
+  if Assigned(AFont) then
+    CustomFont:= AFont;
+
+  Color:= AActror.PersonalColor;
+
+  TextActorName.Caption:= AActror.ActorName + ':';
+  TextMessage.Caption:= AMsg;
+
+  if (AOwner is TCastleUserInterface) then
+  begin
+    areaRect:= (AOwner as TCastleUserInterface).RenderRect;
+    Translation:= Vector2(RandomFloatRange(areaRect.Left,   areaRect.Right),
+                          RandomFloatRange(areaRect.Bottom, areaRect.Top));
+  end;
+
+  TimePerSymbol:= ATimePerSymbol;
+end;
 
 constructor TNyaSpeechBubble.Create(AOwner: TComponent);
 begin
@@ -84,13 +115,7 @@ begin
   FTransparency:= DefaultTransparency;
   FActorName:= DefaultActorName;
   FMessage:= DefaultMessage;
-
   AutoSizeToChildren:= True;
-  HorizontalAnchorParent:= THorizontalPosition.hpMiddle;
-  HorizontalAnchorSelf:= THorizontalPosition.hpMiddle;
-  VerticalAnchorParent:= TVerticalPosition.vpMiddle;
-  VerticalAnchorSelf:= TVerticalPosition.vpMiddle;
-  Translation:= Vector2(0.0, 0.0);
 
   RectangleBG:= TNyaRoundRectangle.Create(self);
   RectangleBG.SetTransient;

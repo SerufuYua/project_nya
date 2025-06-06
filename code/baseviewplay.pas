@@ -9,7 +9,7 @@ uses
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
   ViewWarper, NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect,
-  NyaLoadingBar;
+  NyaLoadingBar, CastleFonts;
 
 type
   TBaseViewPlay = class(TViewWarper)
@@ -30,6 +30,7 @@ type
     FadeEffect: TNyaFadeEffect;
     PleasureTensionEffect: TNyaPleasureTensionEffect;
     Notifications: TCastleNotifications;
+    SpeechArea: TCastleUserInterface;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -39,6 +40,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
+    FFont: TCastleAbstractFont;
     FActorsLogic: TNyaPlayLogic;
     FObserverNavigation: TCastleWalkNavigation;
     procedure FocusButton(const Sender: TCastleUserInterface);
@@ -62,7 +64,7 @@ uses
   GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
-  CastleScene, CastleFonts, CastleViewport, CastleVectors,
+  CastleScene, CastleViewport, CastleVectors,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaCastleUiUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
@@ -101,6 +103,9 @@ begin
   { set Actors Logic }
   actors:= [];
   actorsRoot:= Map.DesignedComponent('SceneActors') as TCastleTransform;
+
+  { set Font }
+  FFont:= DesignedComponent('future_n0t_found_32') as TCastleAbstractFont;
 
   for child in actorsRoot do
   begin
