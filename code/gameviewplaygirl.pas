@@ -26,7 +26,7 @@ implementation
 uses
   SysUtils, CastleTransform, CastleUtils, CastleVectors,
   CastleSoundEngine, GameSound,
-  GameViewTravelContainerRoom, GameViewSpeakWindow, NyaPlayLogic;
+  GameViewTravelContainerRoom, NyaSpeechBubble, NyaPlayLogic;
 
 procedure TViewPlayGirl.Start;
 begin
@@ -69,7 +69,8 @@ begin
         timeOut:= RandomFloatRange(1.0, 3.0);
         if (FTime > timeOut) then
         begin
-          Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'A-a-aw!... Yeah >.<'));
+          SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+            FActorsLogic.Charas[0], 'A-a-aw!... Yeah >.<', FFont));
           FSpeakOnceDone:= True;
           FTime:= 0.0;
         end;
@@ -79,7 +80,8 @@ begin
     begin
       if FActorsLogic.StatusChanged then
       begin
-        Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'O-o-oh!'));
+        SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+          FActorsLogic.Charas[0], 'O-o-oh!', FFont));
         FTime:= 0.0;
       end;
 
@@ -88,9 +90,12 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'M-m-mha! A-a-ah!'));
-          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Nya-a-a-a!'));
-          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Yeah... Yeah!'));
+          1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'M-m-mha! A-a-ah!', FFont));
+          2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'Nya-a-a-a!', FFont));
+          3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'Yeah... Yeah!', FFont));
         end;
         FTime:= 0.0;
       end;
@@ -99,7 +104,8 @@ begin
     begin
       if FActorsLogic.StatusChanged then
       begin
-        Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'U-u-urf! Aha! Nya!'));
+        SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'U-u-urf! Aha! Nya!', FFont));
         FTime:= 0.0;
       end;
 
@@ -108,16 +114,20 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Ah! Ah!', 0.125));
-          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Ayeah! Nyah!', 0.125));
-          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'Ayeh-Ayeh-Ayeh!', 0.125));
+          1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'Ah! Ah!', FFont, 0.125));
+          2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'Ayeah! Nyah!', FFont, 0.125));
+          3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'Ayeh-Ayeh-Ayeh!', FFont, 0.125));
         end;
         FTime:= 0.0;
       end;
     end;
   TActorStatus.Finish:
     if FActorsLogic.StatusChanged then
-      Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'A-U-u-ufh! NYA-A-A-A!'));
+      SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+        FActorsLogic.Charas[0], 'A-U-u-ufh! NYA-A-A-A!', FFont, 0.125));
   TActorStatus.Relax:
     begin
       if FActorsLogic.StatusChanged then
@@ -128,9 +138,12 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'm-m-m...', 1.0));
-          2: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], 'ha-a-ah... ha-a-ah...', 1.0));
-          3: Container.PushView(TViewSpeakMenu.CreateUntilStopped(FActorsLogic.Charas[0], '...want to more...', 1.0));
+          1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'm-m-m...', FFont, 1.0));
+          2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], 'ha-a-ah... ha-a-ah...', FFont, 1.0));
+          3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
+               FActorsLogic.Charas[0], '...want to more...', FFont, 1.0));
         end;
         FTime:= 0.0;
       end;

@@ -70,9 +70,7 @@ begin
         if (FTime > timeOut) then
         begin
           SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                         FActorsLogic.Charas[0],
-                                                         'Damn...',
-                                                         FFont));
+            FActorsLogic.Charas[0], 'Damn...', FFont));
 
           FSpeakOnceDone:= True;
           FTime:= 0.0;
@@ -84,9 +82,7 @@ begin
       if FActorsLogic.StatusChanged then
       begin
         SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                       FActorsLogic.Charas[0],
-                                                       'A-ah... Damn...',
-                                                       FFont));
+          FActorsLogic.Charas[0], 'A-ah... Damn...', FFont));
         FTime:= 0.0;
       end;
 
@@ -96,17 +92,11 @@ begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
           1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                            FActorsLogic.Charas[0],
-                                                            'A-a-ah...',
-                                                            FFont));
+               FActorsLogic.Charas[0], 'A-a-ah...', FFont));
           2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                            FActorsLogic.Charas[0],
-                                                            'M-m-mph...',
-                                                            FFont));
+               FActorsLogic.Charas[0], 'M-m-mph...', FFont));
           3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                            FActorsLogic.Charas[0],
-                                                            'Yeah...',
-                                                            FFont));
+               FActorsLogic.Charas[0], 'Yeah...', FFont));
         end;
         FTime:= 0.0;
       end;
@@ -116,9 +106,7 @@ begin
       if FActorsLogic.StatusChanged then
       begin
         SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                       FActorsLogic.Charas[0],
-                                                       'O-o-oh!.. Come on!',
-                                                       FFont));
+          FActorsLogic.Charas[0], 'O-o-oh!.. Come on!', FFont));
         FTime:= 0.0;
       end;
 
@@ -128,17 +116,11 @@ begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
           1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                            FActorsLogic.Charas[0],
-                                                            'Argh!.. F-f-f!.. ',
-                                                            FFont, 0.125));
+               FActorsLogic.Charas[0], 'Argh!.. F-f-f!.. ', FFont, 0.125));
           2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                            FActorsLogic.Charas[0],
-                                                            'A-ah! Ayeah!',
-                                                            FFont, 0.125));
+               FActorsLogic.Charas[0], 'A-ah! Ayeah!', FFont, 0.125));
           3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                            FActorsLogic.Charas[0],
-                                                            'Come on!',
-                                                            FFont, 0.125));
+               FActorsLogic.Charas[0], 'Come on!', FFont, 0.125));
         end;
         FTime:= 0.0;
       end;
@@ -146,9 +128,7 @@ begin
   TActorStatus.Finish:
     if FActorsLogic.StatusChanged then
       SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                     FActorsLogic.Charas[0],
-                                                     'Nyaaaaa!!. ah!..',
-                                                     FFont));
+        FActorsLogic.Charas[0], 'Nyaaaaa!!. ah!..', FFont));
   TActorStatus.Relax:
     begin
       if FActorsLogic.StatusChanged then
@@ -158,9 +138,7 @@ begin
       if (FTime > timeOut) then
       begin
         SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-                                                       FActorsLogic.Charas[0],
-                                                       'Zzz...',
-                                                       FFont, 1.0));
+          FActorsLogic.Charas[0], 'Zzz...', FFont, 1.0));
         FTime:= 0.0;
       end;
 
