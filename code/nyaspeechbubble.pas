@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
-  CastleColors, CastleFonts;
+  CastleColors, CastleFonts, NyaRoundRectangle;
 
 type
   TNyaSpeechBubble = class(TCastleUserInterface)
   protected
     FTime, FTimeAppear, FTimePerSymbol, FTimeLive, FTimeVanish: Single;
-    RectangleBG: TCastleRectangleControl;
+    RectangleBG: TNyaRoundRectangle;
+    FGroup: TCastlePackedGroup;
     ActorName, TextMessage: TCastleLabel;
     FTransparency: Single;
     FColor: TCastleColorRGB;
@@ -21,6 +22,8 @@ type
     function GetColorForPersistent: TCastleColorRGB;
     procedure SetColorForPersistent(const AValue: TCastleColorRGB);
     procedure SetTimePerSymbol(const value: Single);
+    procedure SetRound(const value: Single);
+    function GetRound: Single;
     procedure SetCustomFont(const value: TCastleAbstractFont);
     function GetCustomFont: TCastleAbstractFont;
     procedure SetTransparency(const value: Single);
@@ -28,9 +31,12 @@ type
   public
     const
       DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
+      DefaultRound = 15;
       DefaultTimeAppear = 0.125;
       DefaultTimePerSymbol = 0.25;
       DefaultTimeVanish = 0.25;
+      DefaultPadding = 16;
+      DefaultSpacing = 14;
       {$ifdef CASTLE_DESIGN_MODE}
       DefaultTransparency = 1.0;
       {$else}
@@ -44,6 +50,8 @@ type
   published
     property Transparency: Single read FTransparency write SetTransparency
              {$ifdef FPC}default DefaultTransparency{$endif};
+    property Round: Single read GetRound write SetRound
+             {$ifdef FPC}default DefaultRound{$endif};
     property TimeAppear: Single read FTimeAppear write FTimeAppear
              {$ifdef FPC}default DefaultTimeAppear{$endif};
     property TimePerSymbol: Single read FTimePerSymbol write SetTimePerSymbol
@@ -60,8 +68,6 @@ uses
   CastleComponentSerialize, CastleUtils, CastleRectangles, CastleVectors;
 
 constructor TNyaSpeechBubble.Create(AOwner: TComponent);
-var
-  group: TCastlePackedGroup;
 begin
   inherited;
   FTime:= 0.0;
@@ -77,26 +83,27 @@ begin
   VerticalAnchorSelf:= TVerticalPosition.vpMiddle;
   Translation:= Vector2(0.0, 0.0);
 
-  RectangleBG:= TCastleRectangleControl.Create(self);
+  RectangleBG:= TNyaRoundRectangle.Create(self);
   RectangleBG.SetTransient;
   RectangleBG.AutoSizeToChildren:= True;
+  RectangleBG.Round:= DefaultRound;
   InsertFront(RectangleBG);
 
-  group:= TCastleVerticalGroup.Create(RectangleBG);
-  group.SetTransient;
-  group.Padding:= 16;
-  group.Spacing:= 14;
-  RectangleBG.InsertFront(group);
+  FGroup:= TCastleVerticalGroup.Create(RectangleBG);
+  FGroup.SetTransient;
+  FGroup.Padding:= DefaultPadding + RectangleBG.Round / 2.0;
+  FGroup.Spacing:= DefaultSpacing;
+  RectangleBG.InsertFront(FGroup);
 
-  ActorName:= TCastleLabel.Create(group);
+  ActorName:= TCastleLabel.Create(FGroup);
   ActorName.SetTransient;
   ActorName.Caption:= 'Actor:';
-  group.InsertFront(ActorName);
+  FGroup.InsertFront(ActorName);
 
-  TextMessage:= TCastleLabel.Create(group);
+  TextMessage:= TCastleLabel.Create(FGroup);
   TextMessage.SetTransient;
   TextMessage.Caption:= 'Hello World!';
-  group.InsertFront(TextMessage);
+  FGroup.InsertFront(TextMessage);
 
   { Persistent for Color }
   FColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -143,6 +150,17 @@ end;
 procedure TNyaSpeechBubble.SetTimePerSymbol(const value: Single);
 begin
   FTimeLive:= TextMessage.Caption.Length * FTimePerSymbol;
+end;
+
+procedure TNyaSpeechBubble.SetRound(const value: Single);
+begin
+  RectangleBG.Round:= value;
+  FGroup.Padding:= DefaultPadding + RectangleBG.Round / 2.0;
+end;
+
+function TNyaSpeechBubble.GetRound: Single;
+begin
+  Result:= RectangleBG.Round;
 end;
 
 procedure TNyaSpeechBubble.SetCustomFont(const value: TCastleAbstractFont);
@@ -220,7 +238,7 @@ function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropert
 begin
   if ArrayContainsString(PropertyName, [
        'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
-       'TimePerSymbol', 'TimeVanish'
+       'TimePerSymbol', 'TimeVanish', 'Round'
      ]) then
     Result:= [psBasic]
   else
