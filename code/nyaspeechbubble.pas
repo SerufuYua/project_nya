@@ -14,7 +14,8 @@ type
     FTime, FTimeAppear, FTimePerSymbol, FTimeLive, FTimeVanish: Single;
     RectangleBG: TNyaRoundRectangle;
     FGroup: TCastlePackedGroup;
-    ActorName, TextMessage: TCastleLabel;
+    TextActorName, TextMessage: TCastleLabel;
+    FActorName, FMessage: String;
     FTransparency: Single;
     FColor: TCastleColorRGB;
     FColorPersistent: TCastleColorRGBPersistent;
@@ -27,6 +28,8 @@ type
     procedure SetCustomFont(const value: TCastleAbstractFont);
     function GetCustomFont: TCastleAbstractFont;
     procedure SetTransparency(const value: Single);
+    procedure SetActorName(const value: String);
+    procedure SetMessage(const value: String);
     procedure ApplyTransparency;
   public
     const
@@ -37,6 +40,8 @@ type
       DefaultTimeVanish = 0.25;
       DefaultPadding = 16;
       DefaultSpacing = 14;
+      DefaultActorName = 'Actor';
+      DefaultMessage = 'Hello World!';
       {$ifdef CASTLE_DESIGN_MODE}
       DefaultTransparency = 1.0;
       {$else}
@@ -48,6 +53,8 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
     property Color: TCastleColorRGB read FColor write SetColor;
   published
+    property ActorName: String read FActorName write SetActorName;
+    property Message: String read FMessage write SetMessage;
     property Transparency: Single read FTransparency write SetTransparency
              {$ifdef FPC}default DefaultTransparency{$endif};
     property Round: Single read GetRound write SetRound
@@ -75,6 +82,8 @@ begin
   FTimePerSymbol:= DefaultTimePerSymbol;
   FTimeVanish:= DefaultTimeVanish;
   FTransparency:= DefaultTransparency;
+  FActorName:= DefaultActorName;
+  FMessage:= DefaultMessage;
 
   AutoSizeToChildren:= True;
   HorizontalAnchorParent:= THorizontalPosition.hpMiddle;
@@ -95,14 +104,14 @@ begin
   FGroup.Spacing:= DefaultSpacing;
   RectangleBG.InsertFront(FGroup);
 
-  ActorName:= TCastleLabel.Create(FGroup);
-  ActorName.SetTransient;
-  ActorName.Caption:= 'Actor:';
-  FGroup.InsertFront(ActorName);
+  TextActorName:= TCastleLabel.Create(FGroup);
+  TextActorName.SetTransient;
+  TextActorName.Caption:= FActorName + ':';
+  FGroup.InsertFront(TextActorName);
 
   TextMessage:= TCastleLabel.Create(FGroup);
   TextMessage.SetTransient;
-  TextMessage.Caption:= 'Hello World!';
+  TextMessage.Caption:= FMessage;
   FGroup.InsertFront(TextMessage);
 
   { Persistent for Color }
@@ -165,7 +174,7 @@ end;
 
 procedure TNyaSpeechBubble.SetCustomFont(const value: TCastleAbstractFont);
 begin
-  ActorName.CustomFont:= value;
+  TextActorName.CustomFont:= value;
   TextMessage.CustomFont:= value;
 end;
 
@@ -186,11 +195,11 @@ begin
   alpha:= RectangleBG.Color.W;
   RectangleBG.Color:= Vector4(FColor, alpha);
 
-  alpha:= ActorName.Color.W;
-  ActorName.Color:= Vector4(base + FColor.X * fill,
-                            base + FColor.Y * fill,
-                            base + FColor.Z * fill,
-                            alpha);
+  alpha:= TextActorName.Color.W;
+  TextActorName.Color:= Vector4(base + FColor.X * fill,
+                                base + FColor.Y * fill,
+                                base + FColor.Z * fill,
+                                alpha);
 
   alpha:= TextMessage.Color.W;
   TextMessage.Color:= Vector4(base + FColor.X * fill,
@@ -207,6 +216,22 @@ begin
   ApplyTransparency;
 end;
 
+procedure TNyaSpeechBubble.SetActorName(const value: String);
+begin
+  if (FActorName = value) then Exit;
+
+  FActorName:= value;
+  TextActorName.Caption:= value + ':';
+end;
+
+procedure TNyaSpeechBubble.SetMessage(const value: String);
+begin
+  if (FMessage = value) then Exit;
+
+  FMessage:= value;
+  TextMessage.Caption:= value;
+end;
+
 procedure TNyaSpeechBubble.ApplyTransparency;
 var
   c: TCastleColor;
@@ -215,9 +240,9 @@ begin
   c.W:= FTransparency * 0.5;
   RectangleBG.Color:= c;
 
-  c:= ActorName.Color;
+  c:= TextActorName.Color;
   c.W:= FTransparency;
-  ActorName.Color:= c;
+  TextActorName.Color:= c;
 
   c:= TextMessage.Color;
   c.W:= FTransparency;
@@ -238,7 +263,7 @@ function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropert
 begin
   if ArrayContainsString(PropertyName, [
        'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
-       'TimePerSymbol', 'TimeVanish', 'Round'
+       'TimePerSymbol', 'TimeVanish', 'Round', 'ActorName', 'Message'
      ]) then
     Result:= [psBasic]
   else
