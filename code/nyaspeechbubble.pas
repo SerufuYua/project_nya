@@ -131,11 +131,13 @@ begin
 
   TextActorName:= TCastleLabel.Create(FGroup);
   TextActorName.SetTransient;
+  TextActorName.Html:= True;
   TextActorName.Caption:= FActorName + ':';
   FGroup.InsertFront(TextActorName);
 
   TextMessage:= TCastleLabel.Create(FGroup);
   TextMessage.SetTransient;
+  TextMessage.Html:= True;
   TextMessage.Caption:= FMessage;
   FGroup.InsertFront(TextMessage);
 
