@@ -14,6 +14,7 @@ type
   TNyaSpeechBubble = class(TCastleUserInterface)
   protected
     FTime, FTimeAppear, FTimePerSymbol, FTimeLive, FTimeVanish: Single;
+    FAllowedArea: Single;
     RectangleBG: TNyaRoundRectangle;
     FGroup: TCastlePackedGroup;
     TextActorName, TextMessage: TCastleLabel;
@@ -51,6 +52,7 @@ type
       DefaultTimeAppear = 0.125;
       DefaultTimePerSymbol = 0.25;
       DefaultTimeVanish = 0.25;
+      DefaultAllowedArea = 0.975;
       DefaultPadding = 16;
       DefaultSpacing = 14;
       DefaultActorName = 'Actor';
@@ -92,6 +94,8 @@ type
              {$ifdef FPC}default DefaultTimePerSymbol{$endif};
     property TimeVanish: Single read FTimeVanish write FTimeVanish
              {$ifdef FPC}default DefaultTimeVanish{$endif};
+    property AllowedArea: Single read FAllowedArea write FAllowedArea
+             {$ifdef FPC}default DefaultAllowedArea{$endif};
     property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
     property CustomFont: TCastleAbstractFont read GetCustomFont write SetCustomFont;
     property PointInWorldPersistent: TCastleVector3Persistent read FPointInWorldPersistent stored True;
@@ -169,6 +173,7 @@ begin
   FTimeAppear:= DefaultTimeAppear;
   FTimePerSymbol:= DefaultTimePerSymbol;
   FTimeVanish:= DefaultTimeVanish;
+  FAllowedArea:= DefaultAllowedArea;
   FTransparency:= DefaultTransparency;
   FActorName:= DefaultActorName;
   FMessage:= DefaultMessage;
@@ -229,19 +234,45 @@ end;
 procedure TNyaSpeechBubble.Update(const SecondsPassed: Single; var HandleInput: boolean);
 var
   ready, old, fin: Single;
+  edgeLeft, edgeRight, edgeTop, edgeBottom: Single;
+  pos: TVector2;
 begin
   inherited;
 
+  { assign position to 3D-point }
   if Assigned(FViewport) then
     try
       Translation:= FViewport.PositionFromWorld(FPointInWorld);
     except
-      Translation:= Vector2(FViewport.EffectiveRect.Width / 2.0,
-                            FViewport.EffectiveRect.Height / 2.0);
+      Translation:= Vector2((FViewport.EffectiveRect.Width - EffectiveRect.Width) / 2.0,
+                            (FViewport.EffectiveRect.Height - EffectiveRect.Height) / 2.0);
     end;
 
+  { limit area of Bubble appearing on screen }
+  if (FAllowedArea > 0.0) then
+  begin
+    edgeLeft:= (FViewport.EffectiveRect.Width) * (1.0 - FAllowedArea);
+    edgeRight:= (FViewport.EffectiveRect.Width - EffectiveRect.Width) * FAllowedArea;
+    edgeTop:= (FViewport.EffectiveRect.Height - EffectiveRect.Height) * FAllowedArea;
+    edgeBottom:= (FViewport.EffectiveRect.Height) * (1.0 - FAllowedArea);
+
+    pos:= Translation;
+
+    if (pos.X < edgeLeft) then
+      pos.X:= edgeLeft
+    else if (pos.X > edgeRight) then
+      pos.X:= edgeRight;
+
+    if (pos.Y > edgeTop) then
+      pos.Y:= edgeTop
+    else if (pos.Y < edgeBottom) then
+      pos.Y:= edgeBottom;
+
+    Translation:= pos;
+  end;
 
   {$ifndef CASTLE_DESIGN_MODE}
+  { Appear-Vanish animation }
   FTime:= FTime + SecondsPassed;
 
   ready:= FTimeAppear;
@@ -419,7 +450,8 @@ begin
   if ArrayContainsString(PropertyName, [
        'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
        'TimePerSymbol', 'TimeVanish', 'Round1', 'Round2', 'ActorName',
-       'Message', 'OutlineWidth', 'PointInWorldPersistent', 'Viewport'
+       'Message', 'OutlineWidth', 'PointInWorldPersistent', 'Viewport',
+       'AllowedArea'
      ]) then
     Result:= [psBasic]
   else
