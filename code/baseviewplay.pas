@@ -30,7 +30,6 @@ type
     FadeEffect: TNyaFadeEffect;
     PleasureTensionEffect: TNyaPleasureTensionEffect;
     Notifications: TCastleNotifications;
-    SpeechArea: TCastleUserInterface;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
