@@ -71,6 +71,7 @@ type
     destructor Destroy; override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual;
     procedure StopAnimation(const disableStopNotification: Boolean = False);
+    function Cameras: TCastleCameras;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property AllScenes: TCastleScenes read FAllScenes;
@@ -173,6 +174,11 @@ var
 begin
   for scene in FAnimatedScenes do
     scene.StopAnimation(disableStopNotification);
+end;
+
+function TNyaActor.Cameras: TCastleCameras;
+begin
+  Result:= GetAllCameras(FDesign);
 end;
 
 procedure TNyaActor.UpdateMainScene;

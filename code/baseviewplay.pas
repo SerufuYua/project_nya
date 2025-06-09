@@ -22,6 +22,7 @@ type
     BtnNext: TCastleButton;
     BtnMinus: TCastleButton;
     BtnPlus: TCastleButton;
+    BtnCamera: TCastleButton;
     FloatSliderSpeed: TCastleFloatSlider;
     GaugePleasure: TNyaLoadingBar;
     GaugeTension: TNyaLoadingBar;
@@ -39,6 +40,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
+    FCameraList: array of TCastleCamera;
     FMainViewport: TCastleViewport;
     FFont: TCastleAbstractFont;
     FActorsLogic: TNyaPlayLogic;
@@ -49,6 +51,7 @@ type
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
+    procedure ChangeCamera(Sender: TObject);
     procedure SetDressButtons;
     procedure SetActionsList(actList: TCastleComponent);
     procedure SetUIColor;
@@ -75,8 +78,10 @@ end;
 
 procedure TBaseViewPlay.Start;
 var
+  actor: TNyaActor;
   actors: TActorsList;
   actorsRoot, child: TCastleTransform;
+  cam: TCastleCamera;
 begin
   inherited;
 
@@ -88,6 +93,7 @@ begin
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnMinus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnPlus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
+  BtnCamera.OnClick:= {$ifdef FPC}@{$endif}ChangeCamera;
 
   BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
@@ -96,6 +102,7 @@ begin
   FloatSliderSpeed.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnCamera.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { get Navigation }
   FObserverNavigation:= Map.DesignedComponent('ObserverNavigation') as TCastleWalkNavigation;
@@ -117,6 +124,15 @@ begin
 
   { set Viewport }
   FMainViewport:= Map.DesignedComponent('ViewportMain') as TCastleViewport;
+
+  { set Camera List }
+  FCameraList:= [];
+  if Assigned(FMainViewport.Camera) then
+    Insert(FMainViewport.Camera, FCameraList, Length(FCameraList));
+
+  for actor in actors do
+    for cam in actor.Cameras do
+      Insert(cam, FCameraList, Length(FCameraList));
 
   { set dress buttons }
   SetDressButtons;
@@ -376,6 +392,25 @@ begin
 
     FActorsLogic.Speed:= FloatSliderSpeed.Value;
   end;
+end;
+
+procedure TBaseViewPlay.ChangeCamera(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:= Low(FCameraList) to High(FCameraList) do
+  begin
+    if (FCameraList[i] = FMainViewport.Camera) then
+    begin
+      if ((i + 1) > High(FCameraList)) then
+        FMainViewport.Camera:= FCameraList[Low(FCameraList)]
+      else
+        FMainViewport.Camera:= FCameraList[i + 1];
+      Break;
+    end;
+  end;
+
+  FObserverNavigation.Exists:= (FMainViewport.Camera = FCameraList[Low(FCameraList)]);
 end;
 
 procedure TBaseViewPlay.SetUIColor;

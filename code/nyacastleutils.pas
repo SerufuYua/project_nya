@@ -18,6 +18,7 @@ type
   TItemConditions = Array of TItemCondition;
   TCastleScenes = Array of TCastleScene;
   TCastleBehaviors = Array of TCastleBehavior;
+  TCastleCameras = Array of TCastleCamera;
   TShapeNodes = Array of TShapeNode;
   TUIRectangles = Array of TCastleRectangleControl;
   TUIImages = Array of TCastleImageControl;
@@ -34,6 +35,7 @@ function GetKeyName(key: TKey): string;
 function GetAllScenes(const rootItem: TCastleComponent): TCastleScenes;
 function GetAllBehavior(const rootItem: TCastleComponent;
                         const BehaviorClass: TCastleBehaviorClass): TCastleBehaviors;
+function GetAllCameras(const rootItem: TCastleComponent): TCastleCameras;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
                                   const NameStartWith: String): TItemConditions;
 function GetAllUIRectangles(const rootItem: TCastleUserInterface): TUIRectangles;
@@ -249,6 +251,32 @@ begin
     { pick up target }
     if (item is BehaviorClass) then
       Insert((item as BehaviorClass), Result, 0);
+  end;
+
+  FreeAndNil(items);
+end;
+
+function GetAllCameras(const rootItem: TCastleComponent): TCastleCameras;
+type
+  TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TComponent>;
+var
+  item, child: TComponent;
+  items: TItemsStack;
+begin
+  Result:= [];
+  items:= TItemsStack.Create(False);
+  items.Push(rootItem);
+
+  { iterate over all elements of tree }
+  while (items.Count > 0) do
+  begin
+    item:= items.Pop;
+    for child in item do
+      items.Push(child);
+
+    { pick up target }
+    if (item is TCastleCamera) then
+      Insert((item as TCastleCamera), Result, 0);
   end;
 
   FreeAndNil(items);

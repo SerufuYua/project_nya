@@ -233,7 +233,13 @@ begin
   inherited;
 
   if Assigned(FViewport) then
-    Translation:= FViewport.PositionFromWorld(FPointInWorld);
+    try
+      Translation:= FViewport.PositionFromWorld(FPointInWorld);
+    except
+      Translation:= Vector2(FViewport.EffectiveRect.Width / 2.0,
+                            FViewport.EffectiveRect.Height / 2.0);
+    end;
+
 
   {$ifndef CASTLE_DESIGN_MODE}
   FTime:= FTime + SecondsPassed;
