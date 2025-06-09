@@ -12,13 +12,12 @@ type
   TNyaRoundRectangle = class(TCastleUserInterface)
   protected
     FPoints: array of TVector2;
-    FPointsBGp1: array of TVector2;
-    FPointsBGp2: array of TVector2;
-    FPointsSpeckle: array of TVector2;
+    FPointsBGp1, FPointsBGp2: array of TVector2;
+    FPointsSpeckle, FPointsSpeckleLow1, FPointsSpeckleLow2: array of TVector2;
     FPointsOutline: array of TVector2;
     FRound1, FRound2: Single;
     FOutlineWidth: Single;
-    FColor, FColorSpeckle: TCastleColor;
+    FColor, FColorSpeckle, FColorSpeckleLow: TCastleColor;
     FColorPersistent, FColorSpecklePersistent: TCastleColorPersistent;
     procedure SetRound1(const value: Single);
     procedure SetRound2(const value: Single);
@@ -26,6 +25,9 @@ type
     procedure SetColorForPersistent(const AValue: TCastleColor);
     function GetColorSpeckleForPersistent: TCastleColor;
     procedure SetColorSpeckleForPersistent(const AValue: TCastleColor);
+    procedure SetColor(value: TCastleColor);
+    procedure SetColorSpeckle(value: TCastleColor);
+    procedure CalcColorSpeckleLow;
     procedure CalcPoints;
   public
     const
@@ -40,8 +42,8 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     procedure Render; override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-    property Color: TCastleColor read FColor write FColor;
-    property ColorSpeckle: TCastleColor read FColorSpeckle write FColorSpeckle;
+    property Color: TCastleColor read FColor write SetColor;
+    property ColorSpeckle: TCastleColor read FColorSpeckle write SetColorSpeckle;
   published
     property Round1: Single read FRound1 write SetRound1
              {$ifdef FPC}default DefaultRound1{$endif};
@@ -85,6 +87,8 @@ begin
   { create points }
   SetLength(FPoints, 8);
   SetLength(FPointsSpeckle, 4);
+  SetLength(FPointsSpeckleLow1, 4);
+  SetLength(FPointsSpeckleLow2, 4);
   SetLength(FPointsBGp1, 4);
   SetLength(FPointsBGp2, 4);
   SetLength(FPointsOutline, 8);
@@ -109,6 +113,8 @@ begin
   DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsBGp1, FColor);
   DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsBGp2, FColor);
   DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsSpeckle, FColorSpeckle);
+  DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsSpeckleLow1, FColorSpeckleLow);
+  DrawPrimitive2D(TPrimitiveMode.pmTriangleFan, FPointsSpeckleLow2, FColorSpeckleLow);
 
   if (FOutlineWidth > 0.0) then
     DrawPrimitive2D(TPrimitiveMode.pmLineLoop, FPointsOutline, FColorSpeckle,
@@ -116,6 +122,9 @@ begin
 end;
 
 procedure TNyaRoundRectangle.CalcPoints;
+const
+  low1 = 0.2;
+  low2 = 0.6;
 var
   i: Integer;
 begin
@@ -177,10 +186,20 @@ begin
   FPointsBGp2[2]:= FPoints[5];
   FPointsBGp2[3]:= FPoints[6];
 
-  FPointsSpeckle[0]:= FPoints[2];
-  FPointsSpeckle[1]:= FPoints[3];
-  FPointsSpeckle[2]:= FPoints[6];
-  FPointsSpeckle[3]:= FPoints[7];
+  FPointsSpeckle[0]:= Lerp(low1, FPoints[2], FPoints[3]);
+  FPointsSpeckle[1]:= Lerp(low2, FPoints[2], FPoints[3]);
+  FPointsSpeckle[2]:= Lerp(low2, FPoints[7], FPoints[6]);
+  FPointsSpeckle[3]:= Lerp(low1, FPoints[7], FPoints[6]);
+
+  FPointsSpeckleLow1[0]:= FPoints[2];
+  FPointsSpeckleLow1[1]:= FPointsSpeckle[0];
+  FPointsSpeckleLow1[2]:= FPointsSpeckle[3];
+  FPointsSpeckleLow1[3]:= FPoints[7];
+
+  FPointsSpeckleLow2[0]:= FPointsSpeckle[1];
+  FPointsSpeckleLow2[1]:= FPoints[3];
+  FPointsSpeckleLow2[2]:= FPoints[6];
+  FPointsSpeckleLow2[3]:= FPointsSpeckle[2];
 
   for i:= Low(FPointsOutline) to High(FPointsOutline) do
     FPointsOutline[i]:= FPoints[i];
@@ -210,6 +229,27 @@ begin
 
   if (FRound2 <> cRound) then
     FRound2:= cRound;
+end;
+
+procedure TNyaRoundRectangle.SetColor(value: TCastleColor);
+begin
+  if TVector4.Equals(FColor,  value) then Exit;
+  FColor:= value;
+
+  CalcColorSpeckleLow;
+end;
+
+procedure TNyaRoundRectangle.SetColorSpeckle(value: TCastleColor);
+begin
+  if TVector4.Equals(FColorSpeckle, value) then Exit;
+  FColorSpeckle:= value;
+
+  CalcColorSpeckleLow;
+end;
+
+procedure TNyaRoundRectangle.CalcColorSpeckleLow;
+begin
+  FColorSpeckleLow:= Lerp(0.5, FColor, FColorSpeckle);
 end;
 
 function TNyaRoundRectangle.GetColorForPersistent: TCastleColor;
