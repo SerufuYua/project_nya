@@ -59,7 +59,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleGLUtils, CastleRenderOptions,
-  Math;
+  CastleRectangles, Math;
 
 constructor TNyaRoundRectangle.Create(AOwner: TComponent);
 begin
@@ -127,54 +127,62 @@ const
   low2 = 0.6;
 var
   i: Integer;
+  innerRect: TFloatRectangle;
+  ident: single;
 begin
-  FPoints[0].X:= RenderRect.Left + FRound2;
-  FPoints[0].Y:= RenderRect.Top;
+  ident:= FOutlineWidth / 2.0;
+  innerRect.Left:= RenderRect.Left + ident;
+  innerRect.Bottom:= RenderRect.Bottom + ident;
+  innerRect.Width:= RenderRect.Width - FOutlineWidth;
+  innerRect.Height:= RenderRect.Height - FOutlineWidth;
 
-  if (FPoints[0].X > (RenderRect.Right - FRound2)) then
-    FPoints[0].X:= (RenderRect.Right - RenderRect.Width / 2.0);
+  FPoints[0].X:= innerRect.Left + FRound2;
+  FPoints[0].Y:= innerRect.Top;
 
-  FPoints[1].X:= RenderRect.Left;
-  FPoints[1].Y:= RenderRect.Top - FRound2;
+  if (FPoints[0].X > (innerRect.Right - FRound2)) then
+    FPoints[0].X:= (innerRect.Right - innerRect.Width / 2.0);
 
-  if (FPoints[1].Y < (RenderRect.Bottom + FRound2)) then
-    FPoints[1].Y:= (RenderRect.Bottom + RenderRect.Height / 2.0);
+  FPoints[1].X:= innerRect.Left;
+  FPoints[1].Y:= innerRect.Top - FRound2;
 
-  FPoints[2].X:= RenderRect.Left;
-  FPoints[2].Y:= RenderRect.Bottom + FRound1;
+  if (FPoints[1].Y < (innerRect.Bottom + FRound2)) then
+    FPoints[1].Y:= (innerRect.Bottom + innerRect.Height / 2.0);
 
-  if (FPoints[2].Y > (RenderRect.Top - FRound1)) then
-    FPoints[2].Y:= (RenderRect.Top - RenderRect.Height / 2.0);
+  FPoints[2].X:= innerRect.Left;
+  FPoints[2].Y:= innerRect.Bottom + FRound1;
 
-  FPoints[3].X:= RenderRect.Left + FRound1;
-  FPoints[3].Y:= RenderRect.Bottom;
+  if (FPoints[2].Y > (innerRect.Top - FRound1)) then
+    FPoints[2].Y:= (innerRect.Top - innerRect.Height / 2.0);
 
-  if (FPoints[3].X > (RenderRect.Right - FRound1)) then
-    FPoints[3].X:= (RenderRect.Right - RenderRect.Width / 2.0);
+  FPoints[3].X:= innerRect.Left + FRound1;
+  FPoints[3].Y:= innerRect.Bottom;
 
-  FPoints[4].X:= RenderRect.Right - FRound2;
-  FPoints[4].Y:= RenderRect.Bottom;
+  if (FPoints[3].X > (innerRect.Right - FRound1)) then
+    FPoints[3].X:= (innerRect.Right - innerRect.Width / 2.0);
 
-  if (FPoints[4].X < (RenderRect.Left + FRound2)) then
-    FPoints[4].X:= (RenderRect.Left + RenderRect.Width / 2.0);
+  FPoints[4].X:= innerRect.Right - FRound2;
+  FPoints[4].Y:= innerRect.Bottom;
 
-  FPoints[5].X:= RenderRect.Right;
-  FPoints[5].Y:= RenderRect.Bottom + FRound2;
+  if (FPoints[4].X < (innerRect.Left + FRound2)) then
+    FPoints[4].X:= (innerRect.Left + innerRect.Width / 2.0);
 
-  if (FPoints[5].Y > (RenderRect.Top - FRound2)) then
-    FPoints[5].Y:= (RenderRect.Top - RenderRect.Height / 2.0);
+  FPoints[5].X:= innerRect.Right;
+  FPoints[5].Y:= innerRect.Bottom + FRound2;
 
-  FPoints[6].X:= RenderRect.Right;
-  FPoints[6].Y:= RenderRect.Top - FRound1;
+  if (FPoints[5].Y > (innerRect.Top - FRound2)) then
+    FPoints[5].Y:= (innerRect.Top - innerRect.Height / 2.0);
 
-  if (FPoints[6].Y < (RenderRect.Bottom + FRound1)) then
-    FPoints[6].Y:= (RenderRect.Bottom + RenderRect.Height / 2.0);
+  FPoints[6].X:= innerRect.Right;
+  FPoints[6].Y:= innerRect.Top - FRound1;
 
-  FPoints[7].X:= RenderRect.Right - FRound1;
-  FPoints[7].Y:= RenderRect.Top;
+  if (FPoints[6].Y < (innerRect.Bottom + FRound1)) then
+    FPoints[6].Y:= (innerRect.Bottom + innerRect.Height / 2.0);
 
-  if (FPoints[7].X < (RenderRect.Left + FRound1)) then
-    FPoints[7].X:= (RenderRect.Left + RenderRect.Width / 2.0);
+  FPoints[7].X:= innerRect.Right - FRound1;
+  FPoints[7].Y:= innerRect.Top;
+
+  if (FPoints[7].X < (innerRect.Left + FRound1)) then
+    FPoints[7].X:= (innerRect.Left + innerRect.Width / 2.0);
 
   FPointsBGp1[0]:= FPoints[0];
   FPointsBGp1[1]:= FPoints[1];
