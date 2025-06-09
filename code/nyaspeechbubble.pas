@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleClassUtils, CastleControls,
-  CastleColors, CastleFonts, NyaRoundRectangle, CastleRectangles,
+  CastleColors, CastleFonts, NyaRoundRectangle, CastleRectangles, CastleVectors,
+  CastleTransform, CastleViewport, CastleBoxes,
   NyaActor;
 
 type
@@ -18,8 +19,13 @@ type
     TextActorName, TextMessage: TCastleLabel;
     FActorName, FMessage: String;
     FTransparency: Single;
+    FViewport: TCastleViewport;
     FColor: TCastleColorRGB;
     FColorPersistent: TCastleColorRGBPersistent;
+    FPointInWorld: TVector3;
+    FPointInWorldPersistent: TCastleVector3Persistent;
+    function GetPointInWorldForPersistent: TVector3;
+    procedure SetPointInWorldForPersistent(const AValue: TVector3);
     procedure SetColor(const value: TCastleColorRGB);
     function GetColorForPersistent: TCastleColorRGB;
     procedure SetColorForPersistent(const AValue: TCastleColorRGB);
@@ -39,6 +45,7 @@ type
   public
     const
       DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
+      DefaultPointInWorld: TVector3 = (X: 0.0; Y: 0.0; Z: 0.0);
       DefaultRound1 = 15;
       DefaultRound2 = 8;
       DefaultTimeAppear = 0.125;
@@ -55,14 +62,19 @@ type
       DefaultTransparency = 0.0;
       {$endif}
 
-    constructor Create(AOwner: TComponent; AActror: TNyaActor; AMsg: String;
+    constructor Create(AOwner: TComponent; AArea: TBox3D;
+                       AActror: TNyaActor; const AMsg: String;
                        AFont: TCastleAbstractFont;
+                       ATimePerSymbol: Single = DefaultTimePerSymbol);
+    constructor Create(AOwner: TComponent; AActror: TNyaActor;
+                       const AMsg: String; AFont: TCastleAbstractFont;
                        ATimePerSymbol: Single = DefaultTimePerSymbol);
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
     property Color: TCastleColorRGB read FColor write SetColor;
+    property PointInWorld: TVector3 read FPointInWorld write FPointInWorld;
   published
     property ActorName: String read FActorName write SetActorName;
     property Message: String read FMessage write SetMessage;
@@ -82,19 +94,21 @@ type
              {$ifdef FPC}default DefaultTimeVanish{$endif};
     property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
     property CustomFont: TCastleAbstractFont read GetCustomFont write SetCustomFont;
+    property PointInWorldPersistent: TCastleVector3Persistent read FPointInWorldPersistent stored True;
+    property Viewport: TCastleViewport read FViewport write FViewport;
   end;
 
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleVectors, Math;
+  CastleComponentSerialize, CastleUtils, Math;
 
-constructor TNyaSpeechBubble.Create(AOwner: TComponent;
-                                    AActror: TNyaActor; AMsg: String;
+constructor TNyaSpeechBubble.Create(AOwner: TComponent; AArea: TBox3D;
+                                    AActror: TNyaActor; const AMsg: String;
                                     AFont: TCastleAbstractFont;
-                                    ATimePerSymbol: Single);
+                                    ATimePerSymbol: Single = DefaultTimePerSymbol);
 var
-  areaRect: TFloatRectangle;
+  vport: TCastleViewport;
 begin
   Create(AOwner);
 
@@ -105,15 +119,47 @@ begin
 
   TextActorName.Caption:= AActror.ActorName + ':';
   TextMessage.Caption:= AMsg;
+  TimePerSymbol:= ATimePerSymbol;
 
-  if (AOwner is TCastleUserInterface) then
+  FPointInWorld:= Vector3(RandomFloatRange(AArea.Min.X, AArea.Max.X),
+                          RandomFloatRange(AArea.Min.Y, AArea.Max.Y),
+                          RandomFloatRange(AArea.Min.Z, AArea.Max.Z));
+
+  if (Assigned(AOwner) AND (AOwner is TCastleViewport)) then
   begin
-    areaRect:= (AOwner as TCastleUserInterface).RenderRect;
+    vport:= (AOwner as TCastleViewport);
+    vport.InsertFront(self);
+    FViewport:= vport;
+  end;
+end;
+
+constructor TNyaSpeechBubble.Create(AOwner: TComponent;
+                                    AActror: TNyaActor; const AMsg: String;
+                                    AFont: TCastleAbstractFont;
+                                    ATimePerSymbol: Single);
+var
+  areaRect: TFloatRectangle;
+  ownerUI: TCastleUserInterface;
+begin
+  Create(AOwner);
+
+  if Assigned(AFont) then
+    CustomFont:= AFont;
+
+  Color:= AActror.PersonalColor;
+
+  TextActorName.Caption:= AActror.ActorName + ':';
+  TextMessage.Caption:= AMsg;
+  TimePerSymbol:= ATimePerSymbol;
+
+  if (Assigned(AOwner) AND (AOwner is TCastleUserInterface)) then
+  begin
+    ownerUI:= AOwner as TCastleUserInterface;
+    areaRect:= ownerUI.RenderRect;
     Translation:= Vector2(RandomFloatRange(areaRect.Left,   areaRect.Right),
                           RandomFloatRange(areaRect.Bottom, areaRect.Top));
+    ownerUI.InsertFront(self);
   end;
-
-  TimePerSymbol:= ATimePerSymbol;
 end;
 
 constructor TNyaSpeechBubble.Create(AOwner: TComponent);
@@ -126,6 +172,7 @@ begin
   FTransparency:= DefaultTransparency;
   FActorName:= DefaultActorName;
   FMessage:= DefaultMessage;
+  FPointInWorld:= DefaultPointInWorld;
   AutoSizeToChildren:= True;
 
   RectangleBG:= TNyaRoundRectangle.Create(self);
@@ -162,12 +209,20 @@ begin
   FColorPersistent.InternalDefaultValue:= Color;
   Color:= DefaultColor;
 
+  { Persistent for PointInWorld }
+  FPointInWorldPersistent:= TCastleVector3Persistent.Create(nil);
+  FPointInWorldPersistent.SetSubComponent(true);
+  FPointInWorldPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPointInWorldForPersistent;
+  FPointInWorldPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPointInWorldForPersistent;
+  FPointInWorldPersistent.InternalDefaultValue:= PointInWorld;
+
   ApplyTransparency;
 end;
 
 destructor TNyaSpeechBubble.Destroy;
 begin
   FreeAndNil(FColorPersistent);
+  FreeAndNil(FPointInWorldPersistent);
   inherited;
 end;
 
@@ -176,6 +231,9 @@ var
   ready, old, fin: Single;
 begin
   inherited;
+
+  if Assigned(FViewport) then
+    Translation:= FViewport.PositionFromWorld(FPointInWorld);
 
   {$ifndef CASTLE_DESIGN_MODE}
   FTime:= FTime + SecondsPassed;
@@ -340,12 +398,22 @@ begin
   Color:= AValue;
 end;
 
+function TNyaSpeechBubble.GetPointInWorldForPersistent: TVector3;
+begin
+  Result:= PointInWorld;
+end;
+
+procedure TNyaSpeechBubble.SetPointInWorldForPersistent(const AValue: TVector3);
+begin
+  PointInWorld:= AValue;
+end;
+
 function TNyaSpeechBubble.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'ColorPersistent', 'CustomFont', 'Transparency', 'TimeAppear',
        'TimePerSymbol', 'TimeVanish', 'Round1', 'Round2', 'ActorName',
-       'Message', 'OutlineWidth'
+       'Message', 'OutlineWidth', 'PointInWorldPersistent', 'Viewport'
      ]) then
     Result:= [psBasic]
   else

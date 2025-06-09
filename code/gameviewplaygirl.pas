@@ -3,11 +3,12 @@ unit GameViewPlayGirl;
 interface
 
 uses
-  Classes, BaseViewPlay;
+  Classes, BaseViewPlay, CastleScene;
 
 type
   TViewPlayGirl = class(TBaseViewPlay)
   protected
+    FSpeechArea: TCastleBox;
     FTime: Single;
     FSpeakOnceDone: Boolean;
 
@@ -35,6 +36,9 @@ begin
 
   { set map }
   Map.Url:= 'castle-data:/MapPlay_GirlToyA.castle-user-interface';
+
+  { Speech Area }
+  FSpeechArea:= Map.DesignedComponent('SpeechArea') as TCastleBox;
 
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
@@ -69,8 +73,8 @@ begin
         timeOut:= RandomFloatRange(1.0, 3.0);
         if (FTime > timeOut) then
         begin
-          SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-            FActorsLogic.Charas[0], 'A-a-aw!... Yeah >.<', FFont));
+          TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                  FActorsLogic.Charas[0], 'A-a-aw!... Yeah >.<', FFont);
           FSpeakOnceDone:= True;
           FTime:= 0.0;
         end;
@@ -80,8 +84,8 @@ begin
     begin
       if FActorsLogic.StatusChanged then
       begin
-        SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-          FActorsLogic.Charas[0], 'O-o-oh!', FFont));
+        TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                FActorsLogic.Charas[0], 'O-o-oh!', FFont);
         FTime:= 0.0;
       end;
 
@@ -90,12 +94,12 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'M-m-mha! A-a-ah!', FFont));
-          2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'Nya-a-a-a!', FFont));
-          3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'Yeah... Yeah!', FFont));
+          1: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'M-m-mha! A-a-ah!', FFont);
+          2: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'Nya-a-a-a!', FFont);
+          3: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'Yeah... Yeah!', FFont);
         end;
         FTime:= 0.0;
       end;
@@ -104,8 +108,8 @@ begin
     begin
       if FActorsLogic.StatusChanged then
       begin
-        SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'U-u-urf! Aha! Nya!', FFont));
+        TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                FActorsLogic.Charas[0], 'U-u-urf! Aha! Nya!', FFont);
         FTime:= 0.0;
       end;
 
@@ -114,20 +118,20 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'Ah! Ah!', FFont, 0.125));
-          2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'Ayeah! Nyah!', FFont, 0.125));
-          3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'Ayeh-Ayeh-Ayeh!', FFont, 0.125));
+          1: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'Ah! Ah!', FFont, 0.125);
+          2: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'Ayeah! Nyah!', FFont, 0.125);
+          3: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'Ayeh-Ayeh-Ayeh!', FFont, 0.125);
         end;
         FTime:= 0.0;
       end;
     end;
   TActorStatus.Finish:
     if FActorsLogic.StatusChanged then
-      SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-        FActorsLogic.Charas[0], 'A-U-u-ufh! NYA-A-A-A!', FFont, 0.125));
+      TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                              FActorsLogic.Charas[0], 'A-U-u-ufh! NYA-A-A-A!', FFont, 0.125);
   TActorStatus.Relax:
     begin
       if FActorsLogic.StatusChanged then
@@ -138,12 +142,12 @@ begin
       begin
         i:= RandomIntRangeInclusive(1, 3);
         case i of
-          1: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'm-m-m...', FFont, 1.0));
-          2: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], 'ha-a-ah... ha-a-ah...', FFont, 1.0));
-          3: SpeechArea.InsertFront(TNyaSpeechBubble.Create(SpeechArea,
-               FActorsLogic.Charas[0], '...want to more...', FFont, 1.0));
+          1: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'm-m-m...', FFont, 1.0);
+          2: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], 'ha-a-ah... ha-a-ah...', FFont, 1.0);
+          3: TNyaSpeechBubble.Create(FMainViewport, FSpeechArea.WorldBoundingBox,
+                                     FActorsLogic.Charas[0], '...want to more...', FFont, 1.0);
         end;
         FTime:= 0.0;
       end;

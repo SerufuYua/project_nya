@@ -9,7 +9,7 @@ uses
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
   CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
   ViewWarper, NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect,
-  NyaLoadingBar, CastleFonts;
+  NyaLoadingBar, CastleFonts, CastleViewport;
 
 type
   TBaseViewPlay = class(TViewWarper)
@@ -40,6 +40,7 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     function Release(const Event: TInputPressRelease): boolean; override;
   protected
+    FMainViewport: TCastleViewport;
     FFont: TCastleAbstractFont;
     FActorsLogic: TNyaPlayLogic;
     FObserverNavigation: TCastleWalkNavigation;
@@ -114,6 +115,9 @@ begin
 
   { set Font }
   FFont:= DesignedComponent('future_n0t_found_32') as TCastleAbstractFont;
+
+  { set Viewport }
+  FMainViewport:= Map.DesignedComponent('ViewportMain') as TCastleViewport;
 
   { set dress buttons }
   SetDressButtons;

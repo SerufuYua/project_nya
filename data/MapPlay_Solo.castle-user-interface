@@ -113,6 +113,25 @@
                   "Green" : 3.2941177487373352E-001
                 },
                 "Url" : "castle-data:/CharaGirl_Solo.castle-transform"
+              },
+              {
+                "$$ClassName" : "TCastleBox",
+                "Name" : "SpeechArea",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 5.0000000000000000E-001,
+                  "Y" : 2.5000000000000000E-001,
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 4.5583045482635498E-001,
+                  "Z" : -3.6159199476242065E-001
+                },
+                "Visible" : false
               }
             ]
           },
@@ -195,16 +214,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 4.7292628884315491E-001,
-          "X" : -5.6686788797378540E-001,
-          "Y" : -8.1515264511108398E-001,
-          "Z" : -1.1910843104124069E-001
+          "W" : 1.1980239152908325E+000,
+          "X" : -9.0370558202266693E-002,
+          "Y" : -9.9378144741058350E-001,
+          "Z" : -6.5051063895225525E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -3.4355446696281433E-002,
-          "Y" : 1.5322144031524658E+000,
-          "Z" : 4.0790674090385437E-001
+          "X" : -5.0299638509750366E-001,
+          "Y" : 7.8279238939285278E-001,
+          "Z" : -1.1817884445190430E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

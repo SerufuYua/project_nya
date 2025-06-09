@@ -97,6 +97,25 @@
                   "Red" : 6.7058825492858887E-001
                 },
                 "Url" : "castle-data:/ToyAForGirl.castle-transform"
+              },
+              {
+                "$$ClassName" : "TCastleBox",
+                "Name" : "SpeechArea",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 5.0000000000000000E-001,
+                  "Y" : 6.9999998807907104E-001,
+                  "Z" : 5.0000000000000000E-001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 8.1557852029800415E-001,
+                  "Z" : -3.7607654929161072E-002
+                },
+                "Visible" : false
               }
             ]
           },
@@ -190,20 +209,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.7694186568260193E-001,
-          "X" : -5.4701822996139526E-001,
-          "Y" : 8.3551430702209473E-001,
-          "Z" : 5.1836270838975906E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001
+          "W" : 5.7146382331848145E-001,
+          "X" : -5.5536709725856781E-002,
+          "Y" : 9.9842214584350586E-001,
+          "Z" : 8.3106160163879395E-003
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -6.3170737028121948E-001,
+          "X" : 1.0117672681808472E+000,
           "Y" : 7.4706518650054932E-001,
-          "Z" : 7.1793496608734131E-001
+          "Z" : 1.1752461642026901E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

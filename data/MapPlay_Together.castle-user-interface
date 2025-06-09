@@ -136,6 +136,25 @@
                   "Red" : 0.0000000000000000E+000
                 },
                 "Url" : "castle-data:/CharaBoy_togetherPlay.castle-transform"
+              },
+              {
+                "$$ClassName" : "TCastleBox",
+                "Name" : "SpeechArea",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 5.0000000000000000E-001,
+                  "Y" : 2.5000000000000000E-001,
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 4.5583045482635498E-001,
+                  "Z" : -3.6159199476242065E-001
+                },
+                "Visible" : false
               }
             ]
           },
