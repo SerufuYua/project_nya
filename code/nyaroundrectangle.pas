@@ -136,8 +136,8 @@ begin
   ident:= FOutlineWidthScaled / 2.0;
   innerRect.Left:= RenderRect.Left + ident;
   innerRect.Bottom:= RenderRect.Bottom + ident;
-  innerRect.Width:= RenderRect.Width - FOutlineWidth;
-  innerRect.Height:= RenderRect.Height - FOutlineWidth;
+  innerRect.Width:= RenderRect.Width - FOutlineWidthScaled;
+  innerRect.Height:= RenderRect.Height - FOutlineWidthScaled;
 
   lRound1:= FRound1 * UIScale;
   lRound2:= FRound2 * UIScale;
