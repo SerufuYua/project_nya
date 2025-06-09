@@ -16,7 +16,7 @@ type
     FPointsSpeckle, FPointsSpeckleLow1, FPointsSpeckleLow2: array of TVector2;
     FPointsOutline: array of TVector2;
     FRound1, FRound2: Single;
-    FOutlineWidth: Single;
+    FOutlineWidth, FOutlineWidthScaled: Single;
     FColor, FColorSpeckle, FColorSpeckleLow: TCastleColor;
     FColorPersistent, FColorSpecklePersistent: TCastleColorPersistent;
     procedure SetRound1(const value: Single);
@@ -69,6 +69,7 @@ begin
   FRound1:= DefaultRound1;
   FRound2:= DefaultRound2;
   FOutlineWidth:= DefaultOutlineWidth;
+  FOutlineWidthScaled:= FOutlineWidth * UIScale;
 
   { Persistent for Color }
   FColorPersistent:= TCastleColorPersistent.Create(nil);
@@ -118,7 +119,8 @@ begin
 
   if (FOutlineWidth > 0.0) then
     DrawPrimitive2D(TPrimitiveMode.pmLineLoop, FPointsOutline, FColorSpeckle,
-      bsSrcAlpha, bdOneMinusSrcAlpha, False, FOutlineWidth);
+                    bsSrcAlpha, bdOneMinusSrcAlpha, False,
+                    FOutlineWidthScaled);
 end;
 
 procedure TNyaRoundRectangle.CalcPoints;
@@ -128,60 +130,64 @@ const
 var
   i: Integer;
   innerRect: TFloatRectangle;
-  ident: single;
+  ident, lRound1, lRound2: single;
 begin
-  ident:= FOutlineWidth / 2.0;
+  FOutlineWidthScaled:= FOutlineWidth * UIScale;
+  ident:= FOutlineWidthScaled / 2.0;
   innerRect.Left:= RenderRect.Left + ident;
   innerRect.Bottom:= RenderRect.Bottom + ident;
   innerRect.Width:= RenderRect.Width - FOutlineWidth;
   innerRect.Height:= RenderRect.Height - FOutlineWidth;
 
-  FPoints[0].X:= innerRect.Left + FRound2;
+  lRound1:= FRound1 * UIScale;
+  lRound2:= FRound2 * UIScale;
+
+  FPoints[0].X:= innerRect.Left + lRound2;
   FPoints[0].Y:= innerRect.Top;
 
-  if (FPoints[0].X > (innerRect.Right - FRound2)) then
+  if (FPoints[0].X > (innerRect.Right - lRound2)) then
     FPoints[0].X:= (innerRect.Right - innerRect.Width / 2.0);
 
   FPoints[1].X:= innerRect.Left;
-  FPoints[1].Y:= innerRect.Top - FRound2;
+  FPoints[1].Y:= innerRect.Top - lRound2;
 
-  if (FPoints[1].Y < (innerRect.Bottom + FRound2)) then
+  if (FPoints[1].Y < (innerRect.Bottom + lRound2)) then
     FPoints[1].Y:= (innerRect.Bottom + innerRect.Height / 2.0);
 
   FPoints[2].X:= innerRect.Left;
-  FPoints[2].Y:= innerRect.Bottom + FRound1;
+  FPoints[2].Y:= innerRect.Bottom + lRound1;
 
-  if (FPoints[2].Y > (innerRect.Top - FRound1)) then
+  if (FPoints[2].Y > (innerRect.Top - lRound1)) then
     FPoints[2].Y:= (innerRect.Top - innerRect.Height / 2.0);
 
-  FPoints[3].X:= innerRect.Left + FRound1;
+  FPoints[3].X:= innerRect.Left + lRound1;
   FPoints[3].Y:= innerRect.Bottom;
 
-  if (FPoints[3].X > (innerRect.Right - FRound1)) then
+  if (FPoints[3].X > (innerRect.Right - lRound1)) then
     FPoints[3].X:= (innerRect.Right - innerRect.Width / 2.0);
 
-  FPoints[4].X:= innerRect.Right - FRound2;
+  FPoints[4].X:= innerRect.Right - lRound2;
   FPoints[4].Y:= innerRect.Bottom;
 
-  if (FPoints[4].X < (innerRect.Left + FRound2)) then
+  if (FPoints[4].X < (innerRect.Left + lRound2)) then
     FPoints[4].X:= (innerRect.Left + innerRect.Width / 2.0);
 
   FPoints[5].X:= innerRect.Right;
-  FPoints[5].Y:= innerRect.Bottom + FRound2;
+  FPoints[5].Y:= innerRect.Bottom + lRound2;
 
-  if (FPoints[5].Y > (innerRect.Top - FRound2)) then
+  if (FPoints[5].Y > (innerRect.Top - lRound2)) then
     FPoints[5].Y:= (innerRect.Top - innerRect.Height / 2.0);
 
   FPoints[6].X:= innerRect.Right;
-  FPoints[6].Y:= innerRect.Top - FRound1;
+  FPoints[6].Y:= innerRect.Top - lRound1;
 
-  if (FPoints[6].Y < (innerRect.Bottom + FRound1)) then
+  if (FPoints[6].Y < (innerRect.Bottom + lRound1)) then
     FPoints[6].Y:= (innerRect.Bottom + innerRect.Height / 2.0);
 
-  FPoints[7].X:= innerRect.Right - FRound1;
+  FPoints[7].X:= innerRect.Right - lRound1;
   FPoints[7].Y:= innerRect.Top;
 
-  if (FPoints[7].X < (innerRect.Left + FRound1)) then
+  if (FPoints[7].X < (innerRect.Left + lRound1)) then
     FPoints[7].X:= (innerRect.Left + innerRect.Width / 2.0);
 
   FPointsBGp1[0]:= FPoints[0];
