@@ -239,8 +239,9 @@ var
 begin
   inherited;
 
-  { assign position to 3D-point }
   if Assigned(FViewport) then
+  begin
+    { assign position to 3D-point }
     try
       Translation:= FViewport.PositionFromWorld(FPointInWorld);
     except
@@ -248,27 +249,28 @@ begin
                             (FViewport.EffectiveRect.Height - EffectiveRect.Height) / 2.0);
     end;
 
-  { limit area of Bubble appearing on screen }
-  if (FAllowedArea > 0.0) then
-  begin
-    edgeLeft:= (FViewport.EffectiveRect.Width) * (1.0 - FAllowedArea);
-    edgeRight:= (FViewport.EffectiveRect.Width - EffectiveRect.Width) * FAllowedArea;
-    edgeTop:= (FViewport.EffectiveRect.Height - EffectiveRect.Height) * FAllowedArea;
-    edgeBottom:= (FViewport.EffectiveRect.Height) * (1.0 - FAllowedArea);
+    { limit area of Bubble appearing on screen }
+    if (FAllowedArea > 0.0) then
+    begin
+      edgeLeft:= (FViewport.EffectiveRect.Width) * (1.0 - FAllowedArea);
+      edgeRight:= (FViewport.EffectiveRect.Width - EffectiveRect.Width) * FAllowedArea;
+      edgeTop:= (FViewport.EffectiveRect.Height - EffectiveRect.Height) * FAllowedArea;
+      edgeBottom:= (FViewport.EffectiveRect.Height) * (1.0 - FAllowedArea);
 
-    pos:= Translation;
+      pos:= Translation;
 
-    if (pos.X < edgeLeft) then
-      pos.X:= edgeLeft
-    else if (pos.X > edgeRight) then
-      pos.X:= edgeRight;
+      if (pos.X < edgeLeft) then
+        pos.X:= edgeLeft
+      else if (pos.X > edgeRight) then
+        pos.X:= edgeRight;
 
-    if (pos.Y > edgeTop) then
-      pos.Y:= edgeTop
-    else if (pos.Y < edgeBottom) then
-      pos.Y:= edgeBottom;
+      if (pos.Y > edgeTop) then
+        pos.Y:= edgeTop
+      else if (pos.Y < edgeBottom) then
+        pos.Y:= edgeBottom;
 
-    Translation:= pos;
+      Translation:= pos;
+    end;
   end;
 
   {$ifndef CASTLE_DESIGN_MODE}
