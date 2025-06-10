@@ -28,6 +28,8 @@ type
     GaugeTension: TNyaLoadingBar;
     GroupDressingButtons: TCastlePackedGroup;
     GroupActionSelect: TCastlePackedGroup;
+    GroupCameraList: TCastlePackedGroup;
+    ImageControlCamList: TCastleImageControl;
     FadeEffect: TNyaFadeEffect;
     PleasureTensionEffect: TNyaPleasureTensionEffect;
     Notifications: TCastleNotifications;
@@ -50,10 +52,12 @@ type
     procedure ClickAction(Sender: TObject);
     procedure ClickDress(Sender: TObject);
     procedure ClickControl(Sender: TObject);
+    procedure ClickCam(Sender: TObject);
     procedure ChangedSpeed(Sender: TObject);
-    procedure ChangeCamera(Sender: TObject);
+    procedure ShowCameraList(Sender: TObject);
     procedure SetDressButtons;
     procedure SetActionsList(actList: TCastleComponent);
+    procedure SetCamButtons;
     procedure SetUIColor;
     procedure SaveCharasCondition;
     procedure DoStart(Sender: TObject);
@@ -93,7 +97,7 @@ begin
   FloatSliderSpeed.OnChange:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnMinus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
   BtnPlus.OnClick:= {$ifdef FPC}@{$endif}ChangedSpeed;
-  BtnCamera.OnClick:= {$ifdef FPC}@{$endif}ChangeCamera;
+  BtnCamera.OnClick:= {$ifdef FPC}@{$endif}ShowCameraList;
 
   BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
@@ -139,6 +143,9 @@ begin
 
   { set actions list }
   SetActionsList(Map.DesignedComponent('ActionsList') as TCastleComponent);
+
+  { set cameras buttons }
+  SetCamButtons;
 
   { set color }
   SetUIColor;
@@ -279,6 +286,24 @@ begin
   end;
 end;
 
+procedure TBaseViewPlay.ClickCam(Sender: TObject);
+var
+  cam: TCastleCamera;
+  button: TCastleButton;
+begin
+  button:= Sender as TCastleButton;
+  if NOT Assigned(button) then exit;
+
+  for cam in FCameraList do
+    if (button.Caption = cam.Name) then
+    begin
+      FMainViewport.Camera:= cam;
+      Break;
+    end;
+
+  FObserverNavigation.Exists:= (FMainViewport.Camera = FCameraList[Low(FCameraList)]);
+end;
+
 procedure TBaseViewPlay.SetDressButtons;
 var
   chara: TNyaActorChara;
@@ -312,7 +337,7 @@ begin
 
     newBtn.Caption:= chara.ActorName;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
-    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     GroupDressingButtons.InsertFront(newBtn);
   end;
 
@@ -367,6 +392,47 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
+procedure TBaseViewPlay.SetCamButtons;
+var
+  cam: TCastleCamera;
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
+begin
+  if ((GroupCameraList.ControlsCount > 0) AND
+      (GroupCameraList.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= GroupDressingButtons.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
+
+  GroupCameraList.ClearControls;
+
+  for cam in FCameraList do
+  begin
+    if Assigned(myBtnFactory) then
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
+      newBtn:= TCastleButton.Create(GroupDressingButtons);
+
+    newBtn.Caption:= cam.Name;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickCam;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
+    GroupCameraList.InsertFront(newBtn);
+  end;
+
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
+end;
+
 procedure TBaseViewPlay.ChangedSpeed(Sender: TObject);
 const
   step = 0.1;
@@ -394,23 +460,9 @@ begin
   end;
 end;
 
-procedure TBaseViewPlay.ChangeCamera(Sender: TObject);
-var
-  i: Integer;
+procedure TBaseViewPlay.ShowCameraList(Sender: TObject);
 begin
-  for i:= Low(FCameraList) to High(FCameraList) do
-  begin
-    if (FCameraList[i] = FMainViewport.Camera) then
-    begin
-      if ((i + 1) > High(FCameraList)) then
-        FMainViewport.Camera:= FCameraList[Low(FCameraList)]
-      else
-        FMainViewport.Camera:= FCameraList[i + 1];
-      Break;
-    end;
-  end;
-
-  FObserverNavigation.Exists:= (FMainViewport.Camera = FCameraList[Low(FCameraList)]);
+  ImageControlCamList.Exists:= NOT ImageControlCamList.Exists;
 end;
 
 procedure TBaseViewPlay.SetUIColor;
