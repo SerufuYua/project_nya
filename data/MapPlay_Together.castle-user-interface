@@ -6,7 +6,7 @@
     {
       "$$ClassName" : "TCastleViewport",
       "Background" : "Sky",
-      "Camera" : "CameraMain",
+      "Camera" : "Observer",
       "Fog" : "Fog",
       "FullSize" : true,
       "Items" : {
@@ -160,7 +160,7 @@
           },
           {
             "$$ClassName" : "TCastleCamera",
-            "Name" : "CameraMain",
+            "Name" : "Observer",
             "Orthographic" : {
               "$$ClassName" : "TCastleOrthographic"
             },
