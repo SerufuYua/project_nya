@@ -17,9 +17,9 @@
       "$$ClassName" : "TCastleRectangleControl",
       "ColorPersistent" : {
         "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 3.0980393290519714E-001,
-        "Green" : 1.9607843831181526E-002,
-        "Red" : 1.0980392247438431E-001
+        "Blue" : 6.5098041296005249E-001,
+        "Green" : 3.9215687662363052E-002,
+        "Red" : 4.2745098471641541E-001
       },
       "FullSize" : true,
       "Name" : "RectangleControl",
@@ -28,6 +28,17 @@
           "$$ClassName" : "TCastleImageControl",
           "Content" : {
             "$$ClassName" : "TCastleImagePersistent",
+            "AlphaChannel" : "acBlending",
+            "Url" : "castle-data:/ui/loading_color.png"
+          },
+          "FullSize" : true,
+          "Name" : "ImageColor"
+        },
+        {
+          "$$ClassName" : "TCastleImageControl",
+          "Content" : {
+            "$$ClassName" : "TCastleImagePersistent",
+            "AlphaChannel" : "acBlending",
             "Url" : "castle-data:/ui/loading01.png"
           },
           "FullSize" : true,
