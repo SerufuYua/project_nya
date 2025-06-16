@@ -14,76 +14,111 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleRectangleControl",
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 6.5098041296005249E-001,
-        "Green" : 3.9215687662363052E-002,
-        "Red" : 4.2745098471641541E-001
-      },
+      "$$ClassName" : "TCastleUserInterface",
       "FullSize" : true,
-      "Name" : "RectangleControl",
+      "Name" : "GroupLoadings",
       "$Children" : [
         {
-          "$$ClassName" : "TCastleImageControl",
-          "Content" : {
-            "$$ClassName" : "TCastleImagePersistent",
-            "AlphaChannel" : "acBlending",
-            "Url" : "castle-data:/ui/loading_color.png"
-          },
+          "$$ClassName" : "TCastleUserInterface",
           "FullSize" : true,
-          "Name" : "ImageColor"
+          "Name" : "GroupRainbow",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_color.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageColor"
+            }
+          ]
         },
         {
-          "$$ClassName" : "TCastleImageControl",
-          "Content" : {
-            "$$ClassName" : "TCastleImagePersistent",
-            "AlphaChannel" : "acBlending",
-            "Url" : "castle-data:/ui/loading01.png"
-          },
+          "$$ClassName" : "TCastleUserInterface",
           "FullSize" : true,
-          "Name" : "ImageBG"
+          "Name" : "GroupConcentric",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_concentric.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageConcentric"
+            }
+          ]
         },
         {
-          "$$ClassName" : "TCastleLabel",
-          "Alignment" : "hpMiddle",
-          "CustomFont" : "future_n0t_found_regular",
-          "HorizontalAnchorParent" : "hpMiddle",
-          "HorizontalAnchorSelf" : "hpMiddle",
-          "Name" : "LabelMessageShadow",
-          "Text" : [
-            "L0ADING..."
-          ],
-          "TranslationPersistent" : {
-            "$$ClassName" : "TCastleVector2Persistent",
-            "X" : 4.0000000000000000E+000,
-            "Y" : -4.0000000000000000E+000
-          },
-          "VerticalAlignment" : "vpMiddle",
-          "VerticalAnchorParent" : "vpMiddle",
-          "VerticalAnchorSelf" : "vpMiddle"
-        },
-        {
-          "$$ClassName" : "TCastleLabel",
-          "Alignment" : "hpMiddle",
-          "ColorPersistent" : {
-            "$$ClassName" : "TCastleColorPersistent",
-            "Blue" : 1.0000000000000000E+000,
-            "Green" : 1.0000000000000000E+000,
-            "Red" : 1.0000000000000000E+000
-          },
-          "CustomFont" : "future_n0t_found_regular",
-          "HorizontalAnchorParent" : "hpMiddle",
-          "HorizontalAnchorSelf" : "hpMiddle",
-          "Name" : "LabelMessage",
-          "Text" : [
-            "L0ADING..."
-          ],
-          "VerticalAlignment" : "vpMiddle",
-          "VerticalAnchorParent" : "vpMiddle",
-          "VerticalAnchorSelf" : "vpMiddle"
+          "$$ClassName" : "TCastleUserInterface",
+          "FullSize" : true,
+          "Name" : "GroupLevels",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_levels.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageLevels"
+            }
+          ]
         }
       ]
+    },
+    {
+      "$$ClassName" : "TCastleImageControl",
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "AlphaChannel" : "acBlending",
+        "Url" : "castle-data:/ui/loading_frame.png"
+      },
+      "FullSize" : true,
+      "Name" : "ImageFrame"
+    },
+    {
+      "$$ClassName" : "TCastleLabel",
+      "Alignment" : "hpMiddle",
+      "CustomFont" : "future_n0t_found_regular",
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "LabelMessageShadow",
+      "Text" : [
+        "L0ADING..."
+      ],
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector2Persistent",
+        "X" : 4.0000000000000000E+000,
+        "Y" : -4.0000000000000000E+000
+      },
+      "VerticalAlignment" : "vpMiddle",
+      "VerticalAnchorParent" : "vpMiddle",
+      "VerticalAnchorSelf" : "vpMiddle"
+    },
+    {
+      "$$ClassName" : "TCastleLabel",
+      "Alignment" : "hpMiddle",
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Blue" : 1.0000000000000000E+000,
+        "Green" : 1.0000000000000000E+000,
+        "Red" : 1.0000000000000000E+000
+      },
+      "CustomFont" : "future_n0t_found_regular",
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "LabelMessage",
+      "Text" : [
+        "L0ADING..."
+      ],
+      "VerticalAlignment" : "vpMiddle",
+      "VerticalAnchorParent" : "vpMiddle",
+      "VerticalAnchorSelf" : "vpMiddle"
     }
   ]
 }

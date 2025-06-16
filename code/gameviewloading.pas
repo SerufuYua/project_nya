@@ -8,7 +8,7 @@ uses Classes,
 type
   TViewLoading = class(TCastleView)
   published
-    { Components designed using CGE editor }
+    GroupLoadings: TCastleUserInterface;
     LabelMessage: TCastleLabel;
     LabelMessageShadow: TCastleLabel;
   private
@@ -28,7 +28,7 @@ var
 implementation
 
 uses
-  GameViewMain;
+  GameViewMain, CastleUtils;
 
 constructor TViewLoading.Create(AOwner: TComponent);
 begin
@@ -38,10 +38,19 @@ begin
 end;
 
 procedure TViewLoading.Start;
+var
+  i, currentLoading, numLoadings: Integer;
 begin
   inherited;
-  { Executed once when view starts. }
 
+  { Select random loading image }
+  numLoadings:= GroupLoadings.ControlsCount;
+  currentLoading:= RandomIntRange(0, numLoadings);
+
+  for i:= 0 to (numLoadings - 1) do
+    GroupLoadings.Controls[i].Exists:= (i = currentLoading);
+
+  { Wait when images will be showed then do map change }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoLoading);
 end;
 
