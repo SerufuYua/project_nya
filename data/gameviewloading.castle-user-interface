@@ -68,6 +68,23 @@
               "Name" : "ImageLevels"
             }
           ]
+        },
+        {
+          "$$ClassName" : "TCastleUserInterface",
+          "FullSize" : true,
+          "Name" : "GroupHologram",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_hologram.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageHologram"
+            }
+          ]
         }
       ]
     },

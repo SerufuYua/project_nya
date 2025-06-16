@@ -39,16 +39,16 @@ end;
 
 procedure TViewLoading.Start;
 var
-  i, currentLoading, numLoadings: Integer;
+  i, chosenLoading, numLoadings: Integer;
 begin
   inherited;
 
   { Select random loading image }
   numLoadings:= GroupLoadings.ControlsCount;
-  currentLoading:= RandomIntRange(0, numLoadings);
+  chosenLoading:= RandomIntRange(0, numLoadings);
 
   for i:= 0 to (numLoadings - 1) do
-    GroupLoadings.Controls[i].Exists:= (i = currentLoading);
+    GroupLoadings.Controls[i].Exists:= (i = chosenLoading);
 
   { Wait when images will be showed then do map change }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoLoading);
