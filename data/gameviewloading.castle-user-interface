@@ -37,6 +37,60 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "FullSize" : true,
+          "Name" : "GroupRubySpectrum",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_full_spectrum.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageFullSpectrum4Ruby"
+            },
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_spectrum_ruby.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageRubySpectrum"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleUserInterface",
+          "FullSize" : true,
+          "Name" : "GroupEmeraldSpectrum",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_full_spectrum.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageFullSpectrum4Emerald"
+            },
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_spectrum_emerald.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageEmeraldSpectrum"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleUserInterface",
           "Exists" : false,
           "FullSize" : true,
           "Name" : "GroupConcentric",
