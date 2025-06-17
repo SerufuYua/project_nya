@@ -90,6 +90,34 @@
               "Name" : "ImageEmeraldSpectrum"
             }
           ]
+        },
+        {
+          "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
+          "FullSize" : true,
+          "Name" : "GroupNeodymiumSpectrum",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_full_spectrum.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageFullSpectrum4Neodymium"
+            },
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_spectrum_neodymium.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageNeodymiumSpectrum"
+            }
+          ]
         }
       ]
     },
