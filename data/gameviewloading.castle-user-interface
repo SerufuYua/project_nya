@@ -37,6 +37,7 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
           "FullSize" : true,
           "Name" : "GroupRubySpectrum",
           "$Children" : [
@@ -64,6 +65,7 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
           "FullSize" : true,
           "Name" : "GroupEmeraldSpectrum",
           "$Children" : [
@@ -86,60 +88,6 @@
               },
               "FullSize" : true,
               "Name" : "ImageEmeraldSpectrum"
-            }
-          ]
-        },
-        {
-          "$$ClassName" : "TCastleUserInterface",
-          "Exists" : false,
-          "FullSize" : true,
-          "Name" : "GroupConcentric",
-          "$Children" : [
-            {
-              "$$ClassName" : "TCastleImageControl",
-              "Content" : {
-                "$$ClassName" : "TCastleImagePersistent",
-                "AlphaChannel" : "acBlending",
-                "Url" : "castle-data:/ui/loading_concentric.png"
-              },
-              "FullSize" : true,
-              "Name" : "ImageConcentric"
-            }
-          ]
-        },
-        {
-          "$$ClassName" : "TCastleUserInterface",
-          "Exists" : false,
-          "FullSize" : true,
-          "Name" : "GroupLevels",
-          "$Children" : [
-            {
-              "$$ClassName" : "TCastleImageControl",
-              "Content" : {
-                "$$ClassName" : "TCastleImagePersistent",
-                "AlphaChannel" : "acBlending",
-                "Url" : "castle-data:/ui/loading_levels.png"
-              },
-              "FullSize" : true,
-              "Name" : "ImageLevels"
-            }
-          ]
-        },
-        {
-          "$$ClassName" : "TCastleUserInterface",
-          "Exists" : false,
-          "FullSize" : true,
-          "Name" : "GroupHologram",
-          "$Children" : [
-            {
-              "$$ClassName" : "TCastleImageControl",
-              "Content" : {
-                "$$ClassName" : "TCastleImagePersistent",
-                "AlphaChannel" : "acBlending",
-                "Url" : "castle-data:/ui/loading_hologram.png"
-              },
-              "FullSize" : true,
-              "Name" : "ImageHologram"
             }
           ]
         }
