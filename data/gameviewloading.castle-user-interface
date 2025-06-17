@@ -118,6 +118,33 @@
               "Name" : "ImageNeodymiumSpectrum"
             }
           ]
+        },
+        {
+          "$$ClassName" : "TCastleUserInterface",
+          "FullSize" : true,
+          "Name" : "GroupNeonSpectrum",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_full_spectrum.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageFullSpectrum4Neon"
+            },
+            {
+              "$$ClassName" : "TCastleImageControl",
+              "Content" : {
+                "$$ClassName" : "TCastleImagePersistent",
+                "AlphaChannel" : "acBlending",
+                "Url" : "castle-data:/ui/loading_spectrum_neon.png"
+              },
+              "FullSize" : true,
+              "Name" : "ImageNeonSpectrum"
+            }
+          ]
         }
       ]
     },
