@@ -21,22 +21,23 @@
         {
           "$$ClassName" : "TCastleUserInterface",
           "FullSize" : true,
-          "Name" : "GroupRainbow",
+          "Name" : "GroupFullSpectrum",
           "$Children" : [
             {
               "$$ClassName" : "TCastleImageControl",
               "Content" : {
                 "$$ClassName" : "TCastleImagePersistent",
                 "AlphaChannel" : "acBlending",
-                "Url" : "castle-data:/ui/loading_color.png"
+                "Url" : "castle-data:/ui/loading_full_spectrum.png"
               },
               "FullSize" : true,
-              "Name" : "ImageColor"
+              "Name" : "ImageFullSpectrum"
             }
           ]
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
           "FullSize" : true,
           "Name" : "GroupConcentric",
           "$Children" : [
@@ -54,6 +55,7 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
           "FullSize" : true,
           "Name" : "GroupLevels",
           "$Children" : [
@@ -71,6 +73,7 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
           "FullSize" : true,
           "Name" : "GroupHologram",
           "$Children" : [
