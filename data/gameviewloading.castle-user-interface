@@ -93,9 +93,8 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
-          "Exists" : false,
           "FullSize" : true,
-          "Name" : "GroupNeodymiumSpectrum",
+          "Name" : "GroupYellowCitrineSpectrum",
           "$Children" : [
             {
               "$$ClassName" : "TCastleImageControl",
@@ -105,17 +104,17 @@
                 "Url" : "castle-data:/ui/loading_full_spectrum.png"
               },
               "FullSize" : true,
-              "Name" : "ImageFullSpectrum4Neodymium"
+              "Name" : "ImageFullSpectrum4YellowCitrine"
             },
             {
               "$$ClassName" : "TCastleImageControl",
               "Content" : {
                 "$$ClassName" : "TCastleImagePersistent",
                 "AlphaChannel" : "acBlending",
-                "Url" : "castle-data:/ui/loading_spectrum_neodymium.png"
+                "Url" : "castle-data:/ui/loading_spectrum_yellow_citrine.png"
               },
               "FullSize" : true,
-              "Name" : "ImageNeodymiumSpectrum"
+              "Name" : "ImageYellowCitrineSpectrum"
             }
           ]
         },
