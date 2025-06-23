@@ -121,8 +121,9 @@
         },
         {
           "$$ClassName" : "TCastleUserInterface",
+          "Exists" : false,
           "FullSize" : true,
-          "Name" : "GroupNeonSpectrum",
+          "Name" : "GroupPurpleSapphireSpectrum",
           "$Children" : [
             {
               "$$ClassName" : "TCastleImageControl",
@@ -132,17 +133,17 @@
                 "Url" : "castle-data:/ui/loading_full_spectrum.png"
               },
               "FullSize" : true,
-              "Name" : "ImageFullSpectrum4Neon"
+              "Name" : "ImageFullSpectrum4PurpleSapphire"
             },
             {
               "$$ClassName" : "TCastleImageControl",
               "Content" : {
                 "$$ClassName" : "TCastleImagePersistent",
                 "AlphaChannel" : "acBlending",
-                "Url" : "castle-data:/ui/loading_spectrum_neon.png"
+                "Url" : "castle-data:/ui/loading_spectrum_purple_sapphire.png"
               },
               "FullSize" : true,
-              "Name" : "ImageNeonSpectrum"
+              "Name" : "ImagePurpleSapphireSpectrum"
             }
           ]
         }
