@@ -5261,9 +5261,13 @@
 				}
 			},
 			"name":"hair.tex",
+			"normalTexture":{
+				"index":0,
+				"texCoord":2
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":0,
+					"index":1,
 					"texCoord":2
 				},
 				"metallicFactor":0,
@@ -5295,9 +5299,18 @@
 		{
 			"sampler":0,
 			"source":0
+		},
+		{
+			"sampler":0,
+			"source":1
 		}
 	],
 	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"hair_n",
+			"uri":"hair_n.png"
+		},
 		{
 			"mimeType":"image/png",
 			"name":"hair",
