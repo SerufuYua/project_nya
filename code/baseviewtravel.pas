@@ -50,6 +50,7 @@ type
     procedure SetUIColor;
     procedure SetSwitches;
     procedure SaveCharasCondition; virtual;
+    procedure DoStart(Sender: TObject);
     procedure NavigationSetAnimation(
       const Sender: TNyaThirdPersonCharaNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
@@ -116,6 +117,12 @@ begin
 
   { set dress buttons }
   SetDressButtons;
+
+  { clear status info }
+  Status.Caption:= '';
+
+  { set initial action }
+  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
 end;
 
 procedure TBaseViewTravel.Stop;
@@ -364,6 +371,13 @@ procedure TBaseViewTravel.Resume;
 begin
   inherited;
   MainViewport.Items.TimeScale:= 1;
+end;
+
+procedure TBaseViewTravel.DoStart(Sender: TObject);
+begin
+  Notifications.Show('Info: use WASD to move');
+  Notifications.Show('Info: hold Left Mouse Button to rotate');
+  Notifications.Show('Info: use SHIFT to run');
 end;
 
 end.

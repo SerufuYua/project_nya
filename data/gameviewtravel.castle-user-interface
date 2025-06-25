@@ -401,7 +401,7 @@
       "TranslationPersistent" : {
         "$$ClassName" : "TCastleVector2Persistent",
         "X" : 1.0000000000000000E+001,
-        "Y" : 1.0000000000000000E+002
+        "Y" : 1.4000000000000000E+002
       }
     },
     {
@@ -448,8 +448,7 @@
               "HorizontalAnchorSelf" : "hpRight",
               "Name" : "Status",
               "Text" : [
-                "use WASD for move",
-                "hold Left Mouse Button to rotate"
+                "Info: any status"
               ],
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
