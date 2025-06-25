@@ -132,9 +132,12 @@ begin
     FLocation:= TBoyLocation(locNum);
 
   { change dressing }
-  suitList:= FDresser.SuitList;
-  newSuit:= suitList[RandomRange(0, High(suitList))];
-  FDresser.DressSuit(newSuit);
+  if Assigned(FDresser) then
+  begin
+    suitList:= FDresser.SuitList;
+    newSuit:= suitList[RandomRange(0, High(suitList))];
+    FDresser.DressSuit(newSuit);
+  end;
 end;
 
 { ========= ------------------------------------------------------------------ }
