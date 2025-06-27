@@ -22,6 +22,7 @@ uses SysUtils, CustApp,
   , GameViewPlayTogether
   , GameViewDressingMenu
   , GameViewLoading
+  , GameViewRideRoadAsteroid
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
   , GameViewConversationMenu
@@ -50,6 +51,7 @@ begin
   ViewPlaySolo:= TViewPlaySolo.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
+  ViewRideRoadAsteroid:= TViewRideRoadAsteroid.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}

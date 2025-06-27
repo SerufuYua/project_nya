@@ -1,0 +1,463 @@
+{
+  "$$ClassName" : "TCastleUserInterface",
+  "FullSize" : true,
+  "Name" : "TravelContainerRoom",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleViewport",
+      "Background" : "Sky",
+      "Camera" : "CameraMain",
+      "Fog" : "Fog",
+      "FullSize" : true,
+      "Items" : {
+        "$$ClassName" : "TCastleRootTransform",
+        "PhysicsProperties" : {
+          "$$ClassName" : "TPhysicsProperties",
+          "LayerCollisions" : {
+            "$$ClassName" : "TCastleLayerCollisions"
+          },
+          "LayerNames" : {
+            "$$ClassName" : "TCastleLayerNames"
+          }
+        },
+        "$Children" : [
+          {
+            "$$ClassName" : "TCastleScene",
+            "CastGlobalLights" : true,
+            "Collides" : false,
+            "ExposeTransforms" : [
+              "Empty.Lamp",
+              "Empty.Door"
+            ],
+            "Name" : "Asteroid",
+            "PreciseCollisions" : true,
+            "RenderOptions" : {
+              "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+            },
+            "Url" : "castle-data:/environment/road_asteroid/road_asteroid.x3dv",
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastleScene",
+                "CastShadows" : false,
+                "Collides" : false,
+                "ExposeTransforms" : [
+                ],
+                "Name" : "Collider",
+                "PreciseCollisions" : true,
+                "ReceiveShadowVolumes" : false,
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "Textures" : false
+                },
+                "SceneFrustumCulling" : false,
+                "ShadowMaps" : false,
+                "ShapeFrustumCulling" : false,
+                "Url" : "castle-data:/environment/road_asteroid/road_asteroid_collider.gltf",
+                "Visible" : false,
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleMeshCollider",
+                    "Mesh" : "Collider",
+                    "Name" : "MeshCollider"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Dynamic" : false,
+                    "Gravity" : false,
+                    "Name" : "RigidBody"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "Empty_Lamp",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 2.1166000366210938E+000,
+                  "Z" : -2.1728391647338867E+001
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "CastShadows" : false,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "HovelLighter",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "Lighting" : false
+                    },
+                    "Url" : "castle-data:/environment/road_asteroid/hovel_lighter.gltf"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleParticleEmitter",
+                "Effect" : "GhostRoadParticleEffect1",
+                "Name" : "GhostRoadParticleEmitter1",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 8.1086700439453125E+001,
+                  "Y" : 2.2168800234794617E-001,
+                  "Z" : -1.3185000047087669E-002
+                },
+                "$NonVisualComponents" : [
+                  {
+                    "$$ClassName" : "TCastleParticleEffect",
+                    "Anchors" : [
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "TimeNormalized" : 1.0000000149011612E-001
+                      },
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorVariancePersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 1.0000000000000000E+000,
+                          "Green" : 8.1568628549575806E-001,
+                          "Red" : 7.4509805440902710E-001
+                        },
+                        "Size" : 6.0000002384185791E-001,
+                        "SizeVariance" : 4.0000000596046448E-001,
+                        "TimeNormalized" : 6.0000002384185791E-001
+                      },
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorPersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 0.0000000000000000E+000,
+                          "Green" : 0.0000000000000000E+000,
+                          "Red" : 0.0000000000000000E+000
+                        },
+                        "Size" : 1.0000000149011612E-001,
+                        "SizeVariance" : 1.0000000149011612E-001
+                      }
+                    ],
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorPersistent",
+                      "Blue" : 0.0000000000000000E+000,
+                      "Green" : 0.0000000000000000E+000,
+                      "Red" : 0.0000000000000000E+000
+                    },
+                    "GravityPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : -1.2500000000000000E-001
+                    },
+                    "LifeSpan" : 4.0000000000000000E+000,
+                    "LifeSpanVariance" : 2.0000000000000000E+000,
+                    "MaxParticles" : 60,
+                    "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid/ghost_road.gltf",
+                    "Name" : "GhostRoadParticleEffect1",
+                    "RotationSpeedPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 2.5000000000000000E-001
+                    },
+                    "RotationSpeedVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 1.2500000000000000E-001
+                    },
+                    "RotationVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 4.0000000000000000E+000
+                    },
+                    "SourcePositionLocalVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000000000000000E+000,
+                      "Y" : 1.2500000000000000E-001,
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "SourcePositionVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000000000000000E+000,
+                      "Y" : 1.0000000000000000E+000,
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "SourceType" : "pstBoxSurface",
+                    "Speed" : 1.2500000000000000E-001,
+                    "SpeedVariance" : 7.5000002980232239E-002,
+                    "Texture" : "castle-data:/effects/star.png"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleParticleEmitter",
+                "Effect" : "GhostRoadParticleEffect2",
+                "Name" : "GhostRoadParticleEmitter2",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 3.1415927410125732E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -8.3162498474121094E+001,
+                  "Y" : 1.8970400094985962E-001,
+                  "Z" : 8.9694999158382416E-002
+                },
+                "$NonVisualComponents" : [
+                  {
+                    "$$ClassName" : "TCastleParticleEffect",
+                    "Anchors" : [
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "TimeNormalized" : 1.0000000149011612E-001
+                      },
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorVariancePersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 1.0000000000000000E+000,
+                          "Green" : 8.1568628549575806E-001,
+                          "Red" : 7.4509805440902710E-001
+                        },
+                        "Size" : 6.0000002384185791E-001,
+                        "SizeVariance" : 4.0000000596046448E-001,
+                        "TimeNormalized" : 6.0000002384185791E-001
+                      },
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorPersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 0.0000000000000000E+000,
+                          "Green" : 0.0000000000000000E+000,
+                          "Red" : 0.0000000000000000E+000
+                        },
+                        "Size" : 1.0000000149011612E-001,
+                        "SizeVariance" : 1.0000000149011612E-001
+                      }
+                    ],
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorPersistent",
+                      "Blue" : 0.0000000000000000E+000,
+                      "Green" : 0.0000000000000000E+000,
+                      "Red" : 0.0000000000000000E+000
+                    },
+                    "GravityPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : -1.2500000000000000E-001
+                    },
+                    "LifeSpan" : 4.0000000000000000E+000,
+                    "LifeSpanVariance" : 2.0000000000000000E+000,
+                    "MaxParticles" : 60,
+                    "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid/ghost_road.gltf",
+                    "Name" : "GhostRoadParticleEffect2",
+                    "RotationSpeedPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 2.5000000000000000E-001
+                    },
+                    "RotationSpeedVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 1.2500000000000000E-001
+                    },
+                    "RotationVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 4.0000000000000000E+000
+                    },
+                    "SourcePositionLocalVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000000000000000E+000,
+                      "Y" : 1.2500000000000000E-001,
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "SourcePositionVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000000000000000E+000,
+                      "Y" : 1.0000000000000000E+000,
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "SourceType" : "pstBoxSurface",
+                    "Speed" : 1.2500000000000000E-001,
+                    "SpeedVariance" : 7.5000002980232239E-002,
+                    "Texture" : "castle-data:/effects/star.png"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "Empty_Door",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -9.1093599796295166E-001,
+                  "Y" : 2.8608702123165131E-002,
+                  "Z" : -2.2463973999023438E+001
+                }
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "SceneActors",
+            "$Children" : [
+              {
+                "$$ClassName" : "TNyaActorChara",
+                "ActorName" : "Girl",
+                "AnisotropicDegree" : 1.6000000000000000E+001,
+                "AutoAnimation" : "GAME.STAND",
+                "EmissionColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 1.5000000596046448E-001,
+                  "Green" : 1.5000000596046448E-001,
+                  "Red" : 1.5000000596046448E-001
+                },
+                "EmissionItself" : true,
+                "MainSceneName" : "Body",
+                "Name" : "CharaGirl",
+                "PersonalColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 0.0000000000000000E+000,
+                  "Green" : 3.2941177487373352E-001
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 4.3805891275405884E-001,
+                  "Y" : -9.9998873472213745E-001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -4.3223017454147339E-001,
+                  "Y" : 8.7783738970756531E-002,
+                  "Z" : -2.0110969543457031E+001
+                },
+                "Url" : "castle-data:/CharaGirl_common.castle-transform"
+              },
+              {
+                "$$ClassName" : "TNyaActorVehicle",
+                "ActorName" : "unknown",
+                "AutoAnimation" : "none",
+                "MainSceneName" : "none",
+                "Name" : "VehicleMoto"
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleCamera",
+            "CastShadows" : false,
+            "Collides" : false,
+            "CollisionSphereRadius" : 1.0000000000000000E+000,
+            "Name" : "CameraMain",
+            "Orthographic" : {
+              "$$ClassName" : "TCastleOrthographic"
+            },
+            "Perspective" : {
+              "$$ClassName" : "TCastlePerspective",
+              "FieldOfView" : 1.2000000476837158E+000
+            },
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "W" : 1.3439247608184814E+000,
+              "X" : -2.4229687452316284E-001,
+              "Y" : -9.5273512601852417E-001,
+              "Z" : -1.8327188491821289E-001
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "X" : -7.6428875923156738E+000,
+              "Y" : 1.9088127613067627E+000,
+              "Z" : -1.7916538238525391E+001
+            }
+          }
+        ]
+      },
+      "Name" : "ViewportMain",
+      "$NonVisualComponents" : [
+        {
+          "$$ClassName" : "TCastleBackground",
+          "Name" : "Sky",
+          "TextureNegativeX" : "castle-data:/environment/star_sky/star_sky_0001.png",
+          "TextureNegativeY" : "castle-data:/environment/star_sky/star_sky_0006.png",
+          "TextureNegativeZ" : "castle-data:/environment/star_sky/star_sky_0002.png",
+          "TexturePositiveX" : "castle-data:/environment/star_sky/star_sky_0003.png",
+          "TexturePositiveY" : "castle-data:/environment/star_sky/star_sky_0005.png",
+          "TexturePositiveZ" : "castle-data:/environment/star_sky/star_sky_0004.png"
+        },
+        {
+          "$$ClassName" : "TCastleFog",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Blue" : 0.0000000000000000E+000,
+            "Green" : 0.0000000000000000E+000,
+            "Red" : 0.0000000000000000E+000
+          },
+          "Name" : "Fog",
+          "VisibilityRange" : 4.5000000000000000E+001
+        }
+      ],
+      "$Children" : [
+        {
+          "$$ClassName" : "TNyaThirdPersonCharaNavigation",
+          "AnimationRun" : "GAME.RUN.FORWARD",
+          "AnimationStand" : "GAME.STAND",
+          "AnimationWalk" : "GAME.WALK.FORWARD",
+          "AvatarHierarchy" : "CharaGirl",
+          "Name" : "CharaNavigation",
+          "SpeedOfJump" : 0.0000000000000000E+000,
+          "SpeedOfWalk" : 1.2000000476837158E+000,
+          "SpeedOfWalkAnimation" : 6.9999998807907104E-001
+        },
+        {
+          "$$ClassName" : "TNyaThirdPersonCameraNavigation",
+          "AvatarHierarchy" : "CharaGirl",
+          "AvatarTargetPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : 1.2999999523162842E+000
+          },
+          "DistanceToAvatarTarget" : 1.7500000000000000E+000,
+          "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
+          "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
+          "Name" : "CameraNavigationFollow",
+          "ZoomEnabled" : true
+        }
+      ],
+      "InternalDesignCamera" : {
+        "$$ClassName" : "TCastleCamera",
+        "Name" : "",
+        "Orthographic" : {
+          "$$ClassName" : "TCastleOrthographic"
+        },
+        "Perspective" : {
+          "$$ClassName" : "TCastlePerspective"
+        },
+        "RotationPersistent" : {
+          "$$ClassName" : "TCastleVector4RotationPersistent",
+          "W" : 2.8335051536560059E+000,
+          "X" : -1.8116384744644165E-002,
+          "Y" : 9.9482250213623047E-001,
+          "Z" : 9.9999800324440002E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000004768371582E+000,
+          "Z" : 9.9999994039535522E-001
+        },
+        "TranslationPersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 3.5476400852203369E+000,
+          "Y" : 2.8301153182983398E+000,
+          "Z" : -1.4627964973449707E+001
+        }
+      },
+      "InternalDesignNavigations[dnFly]" : {
+        "$$ClassName" : "TCastleWalkNavigationDesign",
+        "Name" : ""
+      },
+      "InternalDesignNavigations[dnExamine]" : {
+        "$$ClassName" : "TCastleExamineNavigationDesign",
+        "Exists" : false,
+        "Name" : ""
+      },
+      "InternalDesignNavigations[dn2D]" : {
+        "$$ClassName" : "TCastle2DNavigationDesign",
+        "Exists" : false,
+        "Name" : ""
+      }
+    }
+  ]
+}
