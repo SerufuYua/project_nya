@@ -346,7 +346,9 @@
                   "$$ClassName" : "TCastleVector3Persistent",
                   "Y" : 2.5000000000000000E-001
                 },
-                "Url" : "castle-data:/Vehicle_Motorbike.castle-transform"
+                "Url" : "castle-data:/Vehicle_Motorbike.castle-transform",
+                "Wheel1SceneName" : "Wheel_Front",
+                "Wheel2SceneName" : "Wheel_Rear"
               }
             ]
           },
@@ -539,16 +541,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.0557757616043091E+000,
-          "X" : -2.6432994008064270E-001,
-          "Y" : -9.5204228162765503E-001,
-          "Z" : -1.5409478545188904E-001
+          "W" : 5.1835703849792480E-001,
+          "X" : -4.3359595537185669E-001,
+          "Y" : 8.9661240577697754E-001,
+          "Z" : 8.9893475174903870E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -2.4589149951934814E+000,
+          "X" : 2.4077248573303223E+000,
           "Y" : 1.9326608180999756E+000,
-          "Z" : 1.2699291706085205E+000
+          "Z" : 2.6734004020690918E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
