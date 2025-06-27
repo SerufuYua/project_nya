@@ -1,0 +1,93 @@
+{
+  "$$ClassName" : "TCastleTransform",
+  "Name" : "VehicleMotorbike",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleScene",
+      "ExposeTransforms" : [
+        "Wheel.Rear",
+        "Wheel.Front"
+      ],
+      "ExposeTransformsPrefix" : "Bone_",
+      "Name" : "Body",
+      "RenderOptions" : {
+        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+      },
+      "Url" : "castle-data:/vehicle/motorbike/motorbike.gltf",
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Bone_Wheel_Rear",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 2.0943951606750488E+000,
+            "X" : -5.7735025882720947E-001,
+            "Y" : 5.7735025882720947E-001,
+            "Z" : 5.7735025882720947E-001
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : 2.9150006175041199E-001,
+            "Z" : -5.2470016479492188E-001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "Wheel_Rear",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.5707963705062866E+000,
+                "Z" : -9.9999994039535522E-001
+              },
+              "Url" : "castle-data:/vehicle/motorbike/motorbike_wheel_rear.gltf"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Bone_Wheel_Front",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 1.5720815658569336E+000,
+            "X" : -3.5823263227939606E-002,
+            "Y" : 3.5824671387672424E-002,
+            "Z" : 9.9871593713760376E-001
+          },
+          "ScalePersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 1.0000001192092896E+000,
+            "Y" : 1.0000001192092896E+000
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 8.9908294143015155E-009,
+            "Y" : 3.6437556147575378E-001,
+            "Z" : 1.4283504486083984E+000
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleScene",
+              "ExposeTransforms" : [
+              ],
+              "Name" : "Wheel_Front",
+              "RenderOptions" : {
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+              },
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 1.5707962512969971E+000,
+                "Z" : -9.9999994039535522E-001
+              },
+              "Url" : "castle-data:/vehicle/motorbike/motorbike_wheel_front.gltf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
