@@ -162,7 +162,7 @@ end;
 
 {$ifdef CASTLE_DESIGN_MODE}
 type
-  { Property editor to select an MainScene in TNyaSwitch }
+  { Property editor to select an Wheel }
   TNyaActorWheelSceneEditor = class(TStringPropertyEditor)
   public
     function GetAttributes: TPropertyAttributes; override;

@@ -443,14 +443,14 @@ end;
 
 {$ifdef CASTLE_DESIGN_MODE}
 type
-  { Property editor to select an animation on TNyaSwitch }
+  { Property editor to select Animation }
   TNyaActorPropertyEditor = class(TStringPropertyEditor)
   public
     function GetAttributes: TPropertyAttributes; override;
     procedure GetValues(Proc: TGetStrProc); override;
   end;
 
-  { Property editor to select an MainScene in TNyaSwitch }
+  { Property editor to select MainScene }
   TNyaActorMainSceneEditor = class(TStringPropertyEditor)
   public
     function GetAttributes: TPropertyAttributes; override;

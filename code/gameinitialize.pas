@@ -66,6 +66,8 @@ begin
     Window.Container.View:= ViewTravelContainerRoom
   else if Application.hasOption('a', 'Asteroid') then
     Window.Container.View:= ViewTravelRoadAsteroid
+  else if Application.hasOption('r', 'Ride') then
+    Window.Container.View:= ViewRideRoadAsteroid
   else
     Window.Container.View:= ViewMain;
 
