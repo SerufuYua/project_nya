@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
   NyaCharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleTimeUtils,
-  CastleVectors, CastleParticleEmitter, NyaMath,
+  CastleParticleEmitter,
   NyaSoundControl;
 
 type
@@ -26,9 +26,6 @@ type
     FWheel3Speed: Single;
     FWheel4Speed: Single;
     FMaxSpeed: Single;
-    FRealSpeed: Single;
-    FLastPos: TVector3;
-    FSpeedNoiseSuppressor: TNoiseSuppressor;
     procedure SetWheel1Scene(const value: String);
     procedure SetWheel2Scene(const value: String);
     procedure SetWheel3Scene(const value: String);
@@ -41,10 +38,8 @@ type
       DefaultMaxSpeed = 25.0; // m/s
 
     constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-    property RealSpeed: Single read FRealSpeed;
   published
     property Wheel1SceneName: String read FWheel1SceneName write SetWheel1Scene;
     property Wheel2SceneName: String read FWheel2SceneName write SetWheel2Scene;
@@ -65,7 +60,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, NyaVectorMath
+  CastleComponentSerialize, CastleUtils, CastleVectors
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -83,31 +78,12 @@ begin
   FWheel3Speed:= DefaultWheelSpeed;
   FWheel4Speed:= DefaultWheelSpeed;
   FMaxSpeed:= DefaultMaxSpeed;
-  FRealSpeed:= 0.0;
-  FLastPos:= Translation;
-
-  FSpeedNoiseSuppressor:= TNoiseSuppressor.Create;
-  FSpeedNoiseSuppressor.CountLimit:= 4;
-end;
-
-destructor TNyaActorVehicle.Destroy;
-begin
-  FreeAndNil(FSpeedNoiseSuppressor);
-  inherited;
 end;
 
 procedure TNyaActorVehicle.Update(const SecondsPassed: Single;
                                   var RemoveMe: TRemoveType);
 begin
   inherited;
-
-  { calculate real Speed }
-  FRealSpeed:= ProjectionVectorAtoBLength((Translation - FLastPos) / SecondsPassed,
-                                          Direction);
-  FLastPos:= Translation;
-
-  FSpeedNoiseSuppressor.Update(FRealSpeed);
-  FRealSpeed:= FSpeedNoiseSuppressor.Value;
 
   WheelRotor(SecondsPassed);
 end;
@@ -172,16 +148,16 @@ procedure TNyaActorVehicle.WheelRotor(const SecondsPassed: Single);
 begin
   if Assigned(FWheel1Scene) then
     FWheel1Scene.Rotation:= Vector4(FWheel1Scene.Rotation.XYZ,
-                                    FWheel1Scene.Rotation.W + RealSpeed * FWheel1Speed);
+                                    FWheel1Scene.Rotation.W + ForwardVelocity * FWheel1Speed);
   if Assigned(FWheel2Scene) then
     FWheel2Scene.Rotation:= Vector4(FWheel2Scene.Rotation.XYZ,
-                                    FWheel2Scene.Rotation.W + RealSpeed * FWheel2Speed);
+                                    FWheel2Scene.Rotation.W + ForwardVelocity * FWheel2Speed);
   if Assigned(FWheel3Scene) then
     FWheel3Scene.Rotation:= Vector4(FWheel3Scene.Rotation.XYZ,
-                                    FWheel3Scene.Rotation.W + RealSpeed * FWheel3Speed);
+                                    FWheel3Scene.Rotation.W + ForwardVelocity * FWheel3Speed);
   if Assigned(FWheel4Scene) then
     FWheel4Scene.Rotation:= Vector4(FWheel4Scene.Rotation.XYZ,
-                                    FWheel4Scene.Rotation.W + RealSpeed * FWheel4Speed);
+                                    FWheel4Scene.Rotation.W + ForwardVelocity * FWheel4Speed);
 end;
 
 function TNyaActorVehicle.PropertySections(const PropertyName: String): TPropertySections;

@@ -23,6 +23,7 @@ type
     BtnBack: TCastleButton;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
+    LabelSpeedValue: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -129,6 +130,9 @@ begin
   { update FPS }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
+
+  { Speed }
+//  LabelSpeedValue.Caption:= MainActor;
 
   inherited;
 end;

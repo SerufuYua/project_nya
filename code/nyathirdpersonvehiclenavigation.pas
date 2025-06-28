@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleCameras, CastleTransform, CastleClassUtils,
-  CastleInputs, CastleVectors, NyaMath;
+  CastleInputs, CastleVectors;
 
 type
   TNyaThirdPersonVehicleNavigation = class;
@@ -18,12 +18,10 @@ type
   TNyaThirdPersonVehicleNavigation = class(TCastleNavigation)
   protected
     FRunFlag: Boolean; { True - Run; False - Walk }
-    FVelocityNoiseSuppressor: TNoiseSuppressor;
     FAnimationStand: String;
     FAnimationWalk: String;
     FAnimationRun: String;
     FLookTargetDir: TVector3;
-    FAvatarPos: TVector3;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
@@ -119,9 +117,9 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, NyaVectorMath
+  CastleBoxes, NyaVectorMath, NyaActor
   {$ifdef CASTLE_DESIGN_MODE}
-  , PropEdits, CastlePropEdits, NyaActor
+  , PropEdits, CastlePropEdits
   {$endif};
 
 constructor TNyaThirdPersonVehicleNavigation.Create(AOwner: TComponent);
@@ -156,11 +154,7 @@ begin
   Input_FastMove               .Name:= 'Input_FastMove';
   Input_Jump                   .Name:= 'Input_Jump';
 
-  FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
-  FVelocityNoiseSuppressor.CountLimit:= 8;
-
   FLookTargetDir:= TVector3.Zero;
-  FAvatarPos:= TVector3.Zero;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
@@ -184,7 +178,6 @@ end;
 destructor TNyaThirdPersonVehicleNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
-  FreeAndNil(FVelocityNoiseSuppressor);
   inherited;
 end;
 
@@ -353,23 +346,17 @@ procedure TNyaThirdPersonVehicleNavigation.Animate(const SecondsPassed: Single;
                                                 const OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
-  ForwardVelocity, RealForwardVelocity: Single;
+  ForwardVelocity: Single;
 begin
   if NOT Assigned(OnAnimation) then Exit;
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
 
-  { calculate Velocity from Rigid Body }
-  ForwardVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
-                                               AvatarHierarchy.Direction);
-
   { calculate real Velocity from Avatar Hierarchy }
-  RealForwardVelocity:= ProjectionVectorAtoBLength((AvatarHierarchy.Translation - FAvatarPos) / SecondsPassed,
-                                                   AvatarHierarchy.Direction);
-  FAvatarPos:= AvatarHierarchy.Translation;
-
-  FVelocityNoiseSuppressor.Update(RealForwardVelocity);
-  RealForwardVelocity:= FVelocityNoiseSuppressor.Value;
+  if (AvatarHierarchy is TNyaActor) then
+    ForwardVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+  else
+    ForwardVelocity:= 0.0;
 
   { processing animations }
   if OnGround then
@@ -377,22 +364,22 @@ begin
     { switch walk/run state }
     { W + (R - W) * 0.6 }
     { W * 0.4 + R * 0.6 }
-    if (NOT FRunFlag) AND (RealForwardVelocity > (SpeedOfWalkAnimation* 0.4 + SpeedOfRunAnimation * 0.6)) then
+    if (NOT FRunFlag) AND (ForwardVelocity > (SpeedOfWalkAnimation* 0.4 + SpeedOfRunAnimation * 0.6)) then
       FRunFlag:= True;
-    if FRunFlag AND (RealForwardVelocity < (SpeedOfWalkAnimation* 0.6 + SpeedOfRunAnimation * 0.4)) then
+    if FRunFlag AND (ForwardVelocity < (SpeedOfWalkAnimation* 0.6 + SpeedOfRunAnimation * 0.4)) then
       FRunFlag:= False;
 
-    if RealForwardVelocity < 0.2 * SpeedOfWalkAnimation then
+    if ForwardVelocity < 0.2 * SpeedOfWalkAnimation then
       { stand }
       OnAnimation(self, AnimationStand, 1.0)
     else begin
       { enable move animation }
       if FRunFlag then
         { run }
-        OnAnimation(self, AnimationRun, RealForwardVelocity / SpeedOfRunAnimation)
+        OnAnimation(self, AnimationRun, ForwardVelocity / SpeedOfRunAnimation)
       else
         { walk }
-        OnAnimation(self, AnimationWalk, RealForwardVelocity / SpeedOfWalkAnimation);
+        OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalkAnimation);
     end
   end else
     OnAnimation(self, AnimationStand, 1.0);

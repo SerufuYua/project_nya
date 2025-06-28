@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils,
   CastleTransform, CastleClassUtils, CastleColors, X3DNodes, CastleScene,
-  NyaCastleUtils, CastleSceneCore;
+  NyaCastleUtils, CastleSceneCore, CastleVectors, NyaMath;
 
 type
   TNyaActor = class(TCastleTransform)
@@ -27,6 +27,9 @@ type
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
     FLightning: Boolean;
+    FForwardVelocity: Single;
+    FVelocityNoiseSuppressor: TNoiseSuppressor;
+    FLastPos: TVector3;
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
     FPersonalColor: TCastleColorRGB;
@@ -45,6 +48,8 @@ type
     procedure SetLightning(enable: Boolean);
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
+    function GetVelocityNoiseSuppressorCount: Integer;
+    procedure SetVelocityNoiseSuppressorCount(value: Integer);
     procedure ApplyAutoAnimation; virtual;
     procedure ApplyAnimationSpeed;
     procedure ApplyAnisotropicDegree;
@@ -66,9 +71,11 @@ type
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
       DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
+      DefaultVelocityNoiseSuppressorCount = 8;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure PlayAnimation(const Parameters: TPlayAnimationParameters); virtual;
     procedure StopAnimation(const disableStopNotification: Boolean = False);
     function Cameras: TCastleCameras;
@@ -79,6 +86,7 @@ type
     property AnimationsList: TStrings read FAnimationsList;
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
+    property ForwardVelocity: Single read FForwardVelocity;
   published
     property ActorName: String read FActorName write SetActorName;
     property MainSceneName: String read FMainSceneName write SetMainScene;
@@ -94,12 +102,14 @@ type
              {$ifdef FPC}default DefaultEmissionItself{$endif};
     property EmissionColorPersistent: TCastleColorRGBPersistent read FEmissionColorPersistent;
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
+    property VelocityNoiseSuppressorCount: Integer read GetVelocityNoiseSuppressorCount write SetVelocityNoiseSuppressorCount
+             {$ifdef FPC}default DefaultVelocityNoiseSuppressorCount{$endif};
   end;
 
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils
+  CastleComponentSerialize, CastleUtils, NyaVectorMath
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -122,6 +132,10 @@ begin
   FEmissionColor:= DefaultEmissionColor;
   FPersonalColor:= DefaultPersonalColor;
 
+  FLastPos:= Translation;
+  FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
+  FVelocityNoiseSuppressor.CountLimit:= DefaultVelocityNoiseSuppressorCount;
+
   { Persistent for EmissionColor }
   FEmissionColorPersistent:= TCastleColorRGBPersistent.Create(nil);
   FEmissionColorPersistent.SetSubComponent(true);
@@ -139,10 +153,25 @@ end;
 
 destructor TNyaActor.Destroy;
 begin
+  FreeAndNil(FVelocityNoiseSuppressor);
   FreeAndNil(FEmissionColorPersistent);
   FreeAndNil(FPersonalColorPersistent);
   FreeAndNil(FAnimationsList);
   inherited;
+end;
+
+procedure TNyaActor.Update(const SecondsPassed: Single;
+                           var RemoveMe: TRemoveType);
+begin
+  inherited;
+
+  { calculate real Velocity from Avatar Hierarchy }
+  FForwardVelocity:= ProjectionVectorAtoBLength((Translation - FLastPos) / SecondsPassed,
+                                                Direction);
+  FLastPos:= Translation;
+
+  FVelocityNoiseSuppressor.Update(FForwardVelocity);
+  FForwardVelocity:= FVelocityNoiseSuppressor.Value;
 end;
 
 procedure TNyaActor.PlayAnimation(const Parameters: TPlayAnimationParameters);
@@ -320,6 +349,16 @@ begin
   ApplyEmissionColor;
 end;
 
+function TNyaActor.GetVelocityNoiseSuppressorCount: Integer;
+begin
+  Result:= FVelocityNoiseSuppressor.CountLimit;
+end;
+
+procedure TNyaActor.SetVelocityNoiseSuppressorCount(value: Integer);
+begin
+  FVelocityNoiseSuppressor.CountLimit:= value;
+end;
+
 procedure TNyaActor.ApplyAutoAnimation;
 var
   scene: TCastleScene;
@@ -434,7 +473,8 @@ begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
        'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
-       'PersonalColorPersistent', 'MainSceneName'
+       'PersonalColorPersistent', 'MainSceneName',
+       'VelocityNoiseSuppressorCount'
      ]) then
     Result:= [psBasic]
   else
