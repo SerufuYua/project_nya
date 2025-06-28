@@ -5,18 +5,18 @@ unit ViewWarper;
 interface
 
 uses
-  Classes, SysUtils, CastleUIControls, CastleVectors, NyaActorChara;
+  Classes, SysUtils, CastleUIControls, CastleVectors, NyaActor;
 
 type
   TViewWarper = class(TCastleView)
   protected
     FGetToGo: TViewWarper;
-    FActorMain: TNyaActorChara;
+    FActorMain: TNyaActor;
     FMainActorTrans: TVector3;
     FMainActorRot: TVector4;
     FMainActorNewTrans: Boolean;
     FMainActorNewRot: Boolean;
-    procedure SetMainActor(AActor: TNyaActorChara);
+    procedure SetMainActor(AActor: TNyaActor);
     procedure SetMainActorTrans(value: TVector3);
     procedure SetMainActorRot(value: TVector4);
   public
@@ -26,7 +26,7 @@ type
     procedure GetToGo(ALocation: TViewWarper;
                       ATranslation: TVector3;
                       ARotation: TVector4);
-    property MainActor: TNyaActorChara read FActorMain write SetMainActor;
+    property MainActor: TNyaActor read FActorMain write SetMainActor;
     property MainActorTrans: TVector3 read FMainActorTrans write SetMainActorTrans;
     property MainActorRot: TVector4 read FMainActorRot write SetMainActorRot;
   end;
@@ -67,7 +67,7 @@ begin
   end;
 end;
 
-procedure TViewWarper.SetMainActor(AActor: TNyaActorChara);
+procedure TViewWarper.SetMainActor(AActor: TNyaActor);
 begin
   if (FActorMain = AActor) then Exit;
 

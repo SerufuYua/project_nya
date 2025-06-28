@@ -1,4 +1,4 @@
-unit BaseViewTravel;
+unit BaseViewRide;
 
 {$mode ObjFPC}{$H+}
 
@@ -10,21 +10,19 @@ uses
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   CastleViewport, CastleVectors,
   ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
-  NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch,
+  NyaSpectatorCameraNavigation, NyaThirdPersonVehicleNavigation, NyaSwitch,
   NyaWorldCondition;
 
 type
-  TBaseViewTravel = class(TViewWarper)
+  TBaseViewRide = class(TViewWarper)
   published
     Map: TCastleDesign;
     MainViewport: TCastleViewport;
     LabelFps: TCastleLabel;
     BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
-    GroupDressingButtons: TCastlePackedGroup;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
-    WorldCondition: TNyaWorldCondition;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -43,16 +41,13 @@ type
     FTouchedSwitch: TNyaSwitch;
     procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickControl(Sender: TObject);
-    procedure ClickDress(Sender: TObject);
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
     procedure DoActivateSwitch(Sender: TObject); virtual;
-    procedure SetDressButtons;
     procedure SetUIColor;
     procedure SetSwitches;
-    procedure SaveCharasCondition; virtual;
     procedure DoStart(Sender: TObject);
     procedure NavigationSetAnimation(
-      const Sender: TNyaThirdPersonCharaNavigation;
+      const Sender: TNyaThirdPersonVehicleNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
     function PointVisible(const value: TVector3): boolean;
   end;
@@ -66,15 +61,15 @@ uses
   CastleScene, CastleFonts,
   StrUtils, NyaCastleUtils;
 
-constructor TBaseViewTravel.Create(AOwner: TComponent);
+constructor TBaseViewRide.Create(AOwner: TComponent);
 begin
   inherited;
-  DesignUrl := 'castle-data:/gameviewtravel.castle-user-interface';
+  DesignUrl := 'castle-data:/gameviewride.castle-user-interface';
 end;
 
-procedure TBaseViewTravel.Start;
+procedure TBaseViewRide.Start;
 var
-  charaNavigation: TNyaThirdPersonCharaNavigation;
+  charaNavigation: TNyaThirdPersonVehicleNavigation;
 begin
   inherited;
   FTouchedSwitch:= nil;
@@ -94,7 +89,7 @@ begin
   FDebugAvatar.Exists:= False;
 
   { set navigation }
-  charaNavigation:= Map.DesignedComponent('CharaNavigation') as TNyaThirdPersonCharaNavigation;
+  charaNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaThirdPersonVehicleNavigation;
   charaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
   FCameraNavigationFollow:= Map.DesignedComponent('CameraNavigationFollow') as TNyaThirdPersonCameraNavigation;
 
@@ -115,9 +110,6 @@ begin
   { set Switches }
   SetSwitches;
 
-  { set dress buttons }
-  SetDressButtons;
-
   { clear status info }
   Status.Caption:= '';
 
@@ -125,14 +117,12 @@ begin
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
 end;
 
-procedure TBaseViewTravel.Stop;
+procedure TBaseViewRide.Stop;
 begin
-  SaveCharasCondition;
-  WorldCondition.Boy.Dresser:= nil;
   inherited;
 end;
 
-procedure TBaseViewTravel.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TBaseViewRide.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   { Executed every frame. }
 
@@ -143,7 +133,7 @@ begin
   inherited;
 end;
 
-function TBaseViewTravel.Press(const Event: TInputPressRelease): Boolean;
+function TBaseViewRide.Press(const Event: TInputPressRelease): Boolean;
 begin
   Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
@@ -172,7 +162,7 @@ begin
   end;
 end;
 
-function TBaseViewTravel.Release(const Event: TInputPressRelease): boolean;
+function TBaseViewRide.Release(const Event: TInputPressRelease): boolean;
 begin
   { disable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
@@ -181,12 +171,12 @@ begin
   Result := inherited;
 end;
 
-procedure TBaseViewTravel.FocusButton(const Sender: TCastleUserInterface);
+procedure TBaseViewRide.FocusButton(const Sender: TCastleUserInterface);
 begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
-procedure TBaseViewTravel.ClickControl(Sender: TObject);
+procedure TBaseViewRide.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
@@ -204,7 +194,7 @@ begin
   end;
 end;
 
-procedure TBaseViewTravel.SetUIColor;
+procedure TBaseViewRide.SetUIColor;
 var
   rootItem: TCastleUserInterface;
   item: TCastleImageControl;
@@ -220,7 +210,7 @@ begin
   end;
 end;
 
-procedure TBaseViewTravel.SetSwitches;
+procedure TBaseViewRide.SetSwitches;
 var
   behaviors: TCastleBehaviors;
   behavior: TCastleBehavior;
@@ -239,94 +229,15 @@ begin
   end;
 end;
 
-procedure TBaseViewTravel.SaveCharasCondition;
-begin
-  if (MainActor is TNyaActorChara) then
-    (MainActor as TNyaActorChara).SaveCondition;
-end;
-
-procedure TBaseViewTravel.ClickDress(Sender: TObject);
-var
-  btnDress: TCastleButton;
-  i: integer;
-  dressFound: Boolean;
-  actorChara: TNyaActorChara;
-begin
-  btnDress:= Sender as TCastleButton;
-  if NOT Assigned(btnDress) then Exit;
-
-  SoundEngine.Play(NamedSound('SfxButtonPress'));
-
-  { Check if Dreesing menu already opened }
-  dressFound:= False;
-  for i:= 0 to (Container.ViewStackCount - 1) do
-  begin
-    if (Container.ViewStack[i] is TViewDressingMenu) then
-    begin
-      dressFound:= False;
-      break;
-    end;
-  end;
-
-  { Show Dressing Menu }
-  if NOT dressFound then
-  begin
-    { check selected chara }
-    if (MainActor is TNyaActorChara) then
-    begin
-      actorChara:= MainActor as TNyaActorChara;
-      if (actorChara.ActorName = btnDress.Caption) then
-        Container.PushView(TViewDressingMenu.CreateUntilStopped(actorChara));
-    end;
-  end;
-end;
-
-procedure TBaseViewTravel.SetDressButtons;
-var
-  newBtn, sampleBtn: TCastleButton;
-  myBtnFactory: TCastleComponentFactory;
-  myFont: TCastleAbstractFont;
-begin
-  if ((GroupDressingButtons.ControlsCount > 0) AND
-      (GroupDressingButtons.Controls[0] is TCastleButton)) then
-  begin
-    sampleBtn:= GroupDressingButtons.Controls[0] as TCastleButton;
-    myFont:= sampleBtn.CustomFont;
-    myBtnFactory:= TCastleComponentFactory.Create(self);
-    myBtnFactory.LoadFromComponent(sampleBtn);
-  end else
-  begin
-    sampleBtn:= nil;
-    myBtnFactory:= nil;
-  end;
-
-  GroupDressingButtons.ClearControls;
-
-  if Assigned(myBtnFactory) then
-  begin
-    newBtn:= myBtnFactory.ComponentLoad(GroupDressingButtons) as TCastleButton;
-    newBtn.CustomFont:= myFont;
-  end else
-    newBtn:= TCastleButton.Create(GroupDressingButtons);
-
-  newBtn.Caption:= MainActor.ActorName;
-  newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickDress;
-  newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  GroupDressingButtons.InsertFront(newBtn);
-
-  if Assigned(myBtnFactory) then
-    FreeAndNil(myBtnFactory);
-end;
-
-procedure TBaseViewTravel.NavigationSetAnimation(
-                        const Sender: TNyaThirdPersonCharaNavigation;
+procedure TBaseViewRide.NavigationSetAnimation(
+                        const Sender: TNyaThirdPersonVehicleNavigation;
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
   MainActor.AutoAnimation:= AnimationName;
   MainActor.AnimationSpeed:= AnimtionSpeed;
 end;
 
-function TBaseViewTravel.PointVisible(const value: TVector3): boolean;
+function TBaseViewRide.PointVisible(const value: TVector3): boolean;
 var
   dot: Single;
 begin
@@ -335,7 +246,7 @@ begin
   Result:= (dot >= 0.0);
 end;
 
-procedure TBaseViewTravel.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
+procedure TBaseViewRide.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
 var
   switch: TNyaSwitch;
 begin
@@ -361,29 +272,27 @@ begin
   end;
 end;
 
-procedure TBaseViewTravel.DoActivateSwitch(Sender: TObject);
+procedure TBaseViewRide.DoActivateSwitch(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfcActivate'));
 end;
 
-procedure TBaseViewTravel.Pause;
+procedure TBaseViewRide.Pause;
 begin
   inherited;
   FCameraNavigationFollow.MouseLook:= False;
   MainViewport.Items.TimeScale:= 0;
 end;
 
-procedure TBaseViewTravel.Resume;
+procedure TBaseViewRide.Resume;
 begin
   inherited;
   MainViewport.Items.TimeScale:= 1;
 end;
 
-procedure TBaseViewTravel.DoStart(Sender: TObject);
+procedure TBaseViewRide.DoStart(Sender: TObject);
 begin
   Notifications.Show('Info: use WASD to move');
-  Notifications.Show('Info: hold Left Mouse Button to rotate');
-  Notifications.Show('Info: use SHIFT to run');
 end;
 
 end.

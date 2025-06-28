@@ -534,15 +534,12 @@
       ],
       "$Children" : [
         {
-          "$$ClassName" : "TNyaThirdPersonCharaNavigation",
+          "$$ClassName" : "TNyaThirdPersonVehicleNavigation",
           "AnimationRun" : "GAME.MOTO.MOVE.FORWARD",
           "AnimationStand" : "GAME.MOTO.PARKING",
           "AnimationWalk" : "GAME.MOTO.MOVE.FORWARD",
           "AvatarHierarchy" : "VehicleMoto",
-          "Name" : "CharaNavigation",
-          "SpeedOfJump" : 0.0000000000000000E+000,
-          "SpeedOfWalk" : 1.2000000476837158E+000,
-          "SpeedOfWalkAnimation" : 6.9999998807907104E-001
+          "Name" : "VehicleNavigation"
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",

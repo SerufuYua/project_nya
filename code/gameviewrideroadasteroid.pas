@@ -4,15 +4,13 @@ interface
 
 uses
   Classes,
-  BaseViewTravel, NyaActorChara, NyaActorVehicle;
+  BaseViewRide, NyaActorChara, NyaActorVehicle;
 
 type
-  TViewRideRoadAsteroid = class(TBaseViewTravel)
+  TViewRideRoadAsteroid = class(TBaseViewRide)
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
-  protected
-    procedure SaveCharasCondition; override;
   end;
 
 var
@@ -34,7 +32,7 @@ begin
   Map.Url:= 'castle-data:/MapRide_RoadAsteroid.castle-user-interface';
 
   { set Girl Character }
-  MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
+  MainActor:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
 
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
@@ -44,11 +42,6 @@ end;
 
 procedure TViewRideRoadAsteroid.Update(const SecondsPassed: Single;
                                        var HandleInput: boolean);
-begin
-  inherited;
-end;
-
-procedure TViewRideRoadAsteroid.SaveCharasCondition;
 begin
   inherited;
 end;
