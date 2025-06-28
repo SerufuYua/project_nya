@@ -184,6 +184,7 @@ end;
 destructor TNyaThirdPersonCharaNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
+  FreeAndNil(FVelocityNoiseSuppressor);
   inherited;
 end;
 
