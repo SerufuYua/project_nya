@@ -131,8 +131,8 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
 
-  { Speed }
-//  LabelSpeedValue.Caption:= MainActor;
+  { Show Speed. Convert m/s to km/h }
+  LabelSpeedValue.Caption:= (MainActor.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
 
   inherited;
 end;
