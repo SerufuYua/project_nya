@@ -20,10 +20,8 @@
           "Name" : "Bone_Wheel_Rear",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.0943951606750488E+000,
-            "X" : -5.7735025882720947E-001,
-            "Y" : 5.7735025882720947E-001,
-            "Z" : 5.7735025882720947E-001
+            "W" : 3.1415925025939941E+000,
+            "X" : 1.0000000000000000E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
@@ -41,8 +39,7 @@
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.5707963705062866E+000,
-                "Z" : -9.9999994039535522E-001
+                "X" : 1.0000000000000000E+000
               },
               "Url" : "castle-data:/vehicle/motorbike/motorbike_wheel_rear.gltf"
             }
@@ -53,15 +50,10 @@
           "Name" : "Bone_Wheel_Front",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 1.5720815658569336E+000,
-            "X" : -3.5823263227939606E-002,
-            "Y" : 3.5824671387672424E-002,
-            "Z" : 9.9871593713760376E-001
-          },
-          "ScalePersistent" : {
-            "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0000001192092896E+000,
-            "Y" : 1.0000001192092896E+000
+            "W" : 3.1415915489196777E+000,
+            "X" : 1.0000000000000000E+000,
+            "Y" : 1.7763568394002505E-015,
+            "Z" : -1.2434497875801753E-014
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
@@ -80,8 +72,7 @@
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 1.5707962512969971E+000,
-                "Z" : -9.9999994039535522E-001
+                "X" : 1.0000000000000000E+000
               },
               "Url" : "castle-data:/vehicle/motorbike/motorbike_wheel_front.gltf"
             }

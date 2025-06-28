@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, NyaActor, CastleClassUtils, CastleSceneCore,
-  NyaCharaDress, CastleTransform, NyaCastleUtils, CastleScene,
-  CastleParticleEmitter,
+  NyaCharaDress, CastleTransform, NyaCastleUtils, CastleScene, CastleTimeUtils,
+  CastleVectors, CastleParticleEmitter, NyaMath,
   NyaSoundControl;
 
 type
@@ -25,20 +25,26 @@ type
     FWheel2Speed: Single;
     FWheel3Speed: Single;
     FWheel4Speed: Single;
+    FMaxSpeed: Single;
+    FRealSpeed: Single;
+    FLastPos: TVector3;
+    FSpeedNoiseSuppressor: TNoiseSuppressor;
     procedure SetWheel1Scene(const value: String);
     procedure SetWheel2Scene(const value: String);
     procedure SetWheel3Scene(const value: String);
     procedure SetWheel4Scene(const value: String);
-    procedure SetUrl(const value: String); override;
     procedure UpdateWheelScenes;
+    procedure WheelRotor(const SecondsPassed: Single);
   public
     const
       DefaultWheelSpeed = 1.0;
+      DefaultMaxSpeed = 25.0; // m/s
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
+    property RealSpeed: Single read FRealSpeed;
   published
     property Wheel1SceneName: String read FWheel1SceneName write SetWheel1Scene;
     property Wheel2SceneName: String read FWheel2SceneName write SetWheel2Scene;
@@ -52,12 +58,14 @@ type
              {$ifdef FPC}default DefaultWheelSpeed{$endif};
     property Wheel4Speed: Single read FWheel4Speed write FWheel4Speed
              {$ifdef FPC}default DefaultWheelSpeed{$endif};
+    property MaxSpeed: Single read FMaxSpeed write FMaxSpeed
+             {$ifdef FPC}default DefaultMaxSpeed{$endif};
   end;
 
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils
+  CastleComponentSerialize, CastleUtils, NyaVectorMath
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -74,10 +82,17 @@ begin
   FWheel2Speed:= DefaultWheelSpeed;
   FWheel3Speed:= DefaultWheelSpeed;
   FWheel4Speed:= DefaultWheelSpeed;
+  FMaxSpeed:= DefaultMaxSpeed;
+  FRealSpeed:= 0.0;
+  FLastPos:= Translation;
+
+  FSpeedNoiseSuppressor:= TNoiseSuppressor.Create;
+  FSpeedNoiseSuppressor.CountLimit:= 4;
 end;
 
 destructor TNyaActorVehicle.Destroy;
 begin
+  FreeAndNil(FSpeedNoiseSuppressor);
   inherited;
 end;
 
@@ -85,6 +100,16 @@ procedure TNyaActorVehicle.Update(const SecondsPassed: Single;
                                   var RemoveMe: TRemoveType);
 begin
   inherited;
+
+  { calculate real Speed }
+  FRealSpeed:= ProjectionVectorAtoBLength((Translation - FLastPos) / SecondsPassed,
+                                          Direction);
+  FLastPos:= Translation;
+
+  FSpeedNoiseSuppressor.Update(FRealSpeed);
+  FRealSpeed:= FSpeedNoiseSuppressor.Value;
+
+  WheelRotor(SecondsPassed);
 end;
 
 procedure TNyaActorVehicle.SetWheel1Scene(const value: String);
@@ -143,9 +168,20 @@ begin
   end;
 end;
 
-procedure TNyaActorVehicle.SetUrl(const value: String);
+procedure TNyaActorVehicle.WheelRotor(const SecondsPassed: Single);
 begin
-  inherited;
+  if Assigned(FWheel1Scene) then
+    FWheel1Scene.Rotation:= Vector4(FWheel1Scene.Rotation.XYZ,
+                                    FWheel1Scene.Rotation.W + RealSpeed * FWheel1Speed);
+  if Assigned(FWheel2Scene) then
+    FWheel2Scene.Rotation:= Vector4(FWheel2Scene.Rotation.XYZ,
+                                    FWheel2Scene.Rotation.W + RealSpeed * FWheel2Speed);
+  if Assigned(FWheel3Scene) then
+    FWheel3Scene.Rotation:= Vector4(FWheel3Scene.Rotation.XYZ,
+                                    FWheel3Scene.Rotation.W + RealSpeed * FWheel3Speed);
+  if Assigned(FWheel4Scene) then
+    FWheel4Scene.Rotation:= Vector4(FWheel4Scene.Rotation.XYZ,
+                                    FWheel4Scene.Rotation.W + RealSpeed * FWheel4Speed);
 end;
 
 function TNyaActorVehicle.PropertySections(const PropertyName: String): TPropertySections;
@@ -153,7 +189,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'Wheel1SceneName', 'Wheel2SceneName', 'Wheel3SceneName',
        'Wheel4SceneName', 'Wheel1Speed', 'Wheel2Speed', 'Wheel3Speed',
-       'Wheel4Speed'
+       'Wheel4Speed', 'MaxSpeed'
      ]) then
     Result:= [psBasic]
   else

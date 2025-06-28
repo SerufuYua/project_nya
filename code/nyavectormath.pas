@@ -5,7 +5,7 @@ unit NyaVectorMath;
 interface
 
 uses
-  Classes, SysUtils, CastleVectors;
+  Classes, SysUtils, CastleVectors, Math;
 
 function TurnVectorAroundVector(const turnVector, axis: TVector3;
                                 const angle: Single): TVector3;
@@ -52,9 +52,17 @@ begin
 end;
 
 function ProjectionVectorAtoBLength(const VectorA, VectorB: TVector3): Single;
+var
+  newLen, baseLen: Single;
 begin
-  Result:= TVector3.DotProduct(VectorA, VectorB) /
-           TVector3.DotProduct(VectorB, VectorB);
+  newLen:=  TVector3.DotProduct(VectorA, VectorB);
+  baseLen:= TVector3.DotProduct(VectorB, VectorB);
+
+  if ((baseLen = 0.0) OR (newLen = 0.0) OR
+      IsNan(baseLen) OR IsNan(newLen)) then
+    Result:= 0.0
+  else
+    Result:= newLen / baseLen;
 end;
 
 end.
