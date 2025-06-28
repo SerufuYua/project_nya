@@ -18,12 +18,10 @@ type
   TNyaThirdPersonCharaNavigation = class(TCastleNavigation)
   protected
     FRunFlag: Boolean; { True - Run; False - Walk }
-    FVelocityNoiseSuppressor: TNoiseSuppressor;
     FAnimationStand: String;
     FAnimationWalk: String;
     FAnimationRun: String;
     FLookTargetDir: TVector3;
-    FAvatarPos: TVector3;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
     FWalkSpeed: Single;
@@ -119,9 +117,9 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, NyaVectorMath
+  CastleBoxes, NyaVectorMath, NyaActor
   {$ifdef CASTLE_DESIGN_MODE}
-  , PropEdits, CastlePropEdits, NyaActor
+  , PropEdits, CastlePropEdits
   {$endif};
 
 constructor TNyaThirdPersonCharaNavigation.Create(AOwner: TComponent);
@@ -156,11 +154,7 @@ begin
   Input_FastMove               .Name:= 'Input_FastMove';
   Input_Jump                   .Name:= 'Input_Jump';
 
-  FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
-  FVelocityNoiseSuppressor.CountLimit:= 8;
-
   FLookTargetDir:= TVector3.Zero;
-  FAvatarPos:= TVector3.Zero;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
   FWalkSpeed:= DefaultWalkSpeed;
@@ -184,7 +178,6 @@ end;
 destructor TNyaThirdPersonCharaNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
-  FreeAndNil(FVelocityNoiseSuppressor);
   inherited;
 end;
 
@@ -236,27 +229,27 @@ end;
 
 procedure TNyaThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single);
 var
-  TurnVec, AngularVelocity: TVector3;
+  turnVec, angularVelocity: TVector3;
   RBody: TCastleRigidBody;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
 
-  AngularVelocity:= TVector3.Zero;
+  angularVelocity:= TVector3.Zero;
 
   { turn avatar up aganist gravity }
-  TurnVec:= TurnVectorToVector(AvatarHierarchy.Up, Camera.GravityUp);
-  AngularVelocity:= AngularVelocity + TurnVec * SpeedOfGravityAlign;
+  turnVec:= TurnVectorToVector(AvatarHierarchy.Up, Camera.GravityUp);
+  angularVelocity:= angularVelocity + turnVec * SpeedOfGravityAlign;
 
 
   { turn avatar to target }
   if NOT FLookTargetDir.IsZero then
   begin
-    TurnVec:= TurnVectorToVector(AvatarHierarchy.Direction, FLookTargetDir);
-    AngularVelocity:= AngularVelocity + TurnVec * SpeedOfTurn;
+    turnVec:= TurnVectorToVector(AvatarHierarchy.Direction, FLookTargetDir);
+    angularVelocity:= angularVelocity + turnVec * SpeedOfTurn;
   end;
 
-  RBody.AngularVelocity:= AngularVelocity;
+  RBody.AngularVelocity:= angularVelocity;
 end;
 
 procedure TNyaThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single;
@@ -353,23 +346,18 @@ procedure TNyaThirdPersonCharaNavigation.Animate(const SecondsPassed: Single;
                                                 const OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
-  ForwardVelocity, RealForwardVelocity: Single;
+  moveVelocity: Single;
 begin
   if NOT Assigned(OnAnimation) then Exit;
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
 
-  { calculate Velocity from Rigid Body }
-  ForwardVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
-                                               AvatarHierarchy.Direction);
-
   { calculate real Velocity from Avatar Hierarchy }
-  RealForwardVelocity:= ProjectionVectorAtoBLength((AvatarHierarchy.Translation - FAvatarPos) / SecondsPassed,
-                                                   AvatarHierarchy.Direction);
-  FAvatarPos:= AvatarHierarchy.Translation;
-
-  FVelocityNoiseSuppressor.Update(RealForwardVelocity);
-  RealForwardVelocity:= FVelocityNoiseSuppressor.Value;
+  if (AvatarHierarchy is TNyaActor) then
+    moveVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+  else
+    moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+                                                 AvatarHierarchy.Direction);
 
   { processing animations }
   if OnGround then
@@ -377,22 +365,22 @@ begin
     { switch walk/run state }
     { W + (R - W) * 0.6 }
     { W * 0.4 + R * 0.6 }
-    if (NOT FRunFlag) AND (RealForwardVelocity > (SpeedOfWalkAnimation* 0.4 + SpeedOfRunAnimation * 0.6)) then
+    if (NOT FRunFlag) AND (moveVelocity > (SpeedOfWalkAnimation* 0.4 + SpeedOfRunAnimation * 0.6)) then
       FRunFlag:= True;
-    if FRunFlag AND (RealForwardVelocity < (SpeedOfWalkAnimation* 0.6 + SpeedOfRunAnimation * 0.4)) then
+    if FRunFlag AND (moveVelocity < (SpeedOfWalkAnimation* 0.6 + SpeedOfRunAnimation * 0.4)) then
       FRunFlag:= False;
 
-    if RealForwardVelocity < 0.2 * SpeedOfWalkAnimation then
+    if (moveVelocity < 0.2 * SpeedOfWalkAnimation) then
       { stand }
       OnAnimation(self, AnimationStand, 1.0)
     else begin
       { enable move animation }
       if FRunFlag then
         { run }
-        OnAnimation(self, AnimationRun, RealForwardVelocity / SpeedOfRunAnimation)
+        OnAnimation(self, AnimationRun, moveVelocity / SpeedOfRunAnimation)
       else
         { walk }
-        OnAnimation(self, AnimationWalk, RealForwardVelocity / SpeedOfWalkAnimation);
+        OnAnimation(self, AnimationWalk, moveVelocity / SpeedOfWalkAnimation);
     end
   end else
     OnAnimation(self, AnimationStand, 1.0);

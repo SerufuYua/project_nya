@@ -338,9 +338,7 @@
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "W" : 1.5707963705062866E+000,
-                  "X" : -1.7263347399421036E-004,
-                  "Y" : 9.9999994039535522E-001,
-                  "Z" : -1.7263347399421036E-004
+                  "Y" : 1.0000000000000000E+000
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
@@ -375,6 +373,8 @@
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
+                    "MaxAngularVelocity" : 2.5000000000000000E+001,
+                    "MaxLinearVelocity" : 2.5000000000000000E+001,
                     "Name" : "RigidBodyMoto"
                   }
                 ]
@@ -542,9 +542,8 @@
           "AnimationTurnRight" : "GAME.MOTO.TURN.RIGHT",
           "AvatarHierarchy" : "VehicleMoto",
           "Name" : "VehicleNavigation",
-          "SpeedOfMove" : 2.5000000000000000E+001,
           "SpeedOfMoveAnimation" : 2.5000000000000000E+001,
-          "SpeedOfTurn" : 5.0000000000000000E+000
+          "SpeedOfTurn" : 5.0000000000000000E-001
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",
@@ -571,16 +570,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5868279933929443E+000,
-          "X" : -1.7386114597320557E-001,
-          "Y" : -9.6855062246322632E-001,
-          "Z" : -1.7799487709999084E-001
+          "W" : 1.3200531005859375E+000,
+          "X" : -1.4500570297241211E-001,
+          "Y" : 9.8402643203735352E-001,
+          "Z" : 1.0327409207820892E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -6.6742844581604004E+000,
+          "X" : 5.5301022529602051E+000,
           "Y" : 1.9326608180999756E+000,
-          "Z" : 1.0256993770599365E+000
+          "Z" : 1.2731218338012695E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

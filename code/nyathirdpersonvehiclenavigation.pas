@@ -17,14 +17,14 @@ type
 
   TNyaThirdPersonVehicleNavigation = class(TCastleNavigation)
   protected
+    FMoveVelocity: Single;
     FAnimationStand: String;
     FAnimationMoveFwd: String;
     FAnimationTurnRight: String;
     FAnimationTurnLeft: String;
-    FLookTargetDir: TVector3;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
-    FMoveFwdSpeed: Single;
+    FForceOfMove: Single;
     FMoveSpeedAnimation: Single;
     FJumpSpeed: Single;
     FMoveInAirForce: Single;
@@ -41,9 +41,8 @@ type
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
     procedure SetAvatarHierarchy(const Value: TCastleTransform);
   protected
-    procedure CalcLookTargetDir;
-    procedure RotateVehicle(const SecondsPassed: Single);
-    procedure MoveVehicle(const SecondsPassed: Single; out OnGround: Boolean);
+    procedure RotateVehicle(const SecondsPassed: Single; const OnGround: Boolean);
+    procedure MoveVehicle(const SecondsPassed: Single; const OnGround: Boolean);
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean);
 
     function AnimationStandStored: Boolean;
@@ -53,11 +52,11 @@ type
   public
     const
       DefaultGravityAlignSpeed = 10.0;
-      DefaultTurnSpeed = 20.0;
-      DefaultMoveSpeed = 1.0;
+      DefaultTurnSpeed = 2.0;
+      DefaultForceOfMove = 100.0;
       DefaultMoveSpeedAnimation = 1.0;
       DefaultJumpSpeed = 1.0;
-      DefaultMoveInAirForce = 1.0;
+      DefaultForceOfMoveInAir = 1.0;
       DefaultJumpImpulse = 1.0;
       DefaultAnimationStand = 'stand';
       DefaultAnimationMoveFwd = 'move';
@@ -83,14 +82,14 @@ type
              {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
     property SpeedOfTurn: Single read FTurnSpeed write FTurnSpeed
              {$ifdef FPC}default DefaultTurnSpeed{$endif};
-    property SpeedOfMove: Single read FMoveFwdSpeed write FMoveFwdSpeed
-             {$ifdef FPC}default DefaultMoveSpeed{$endif};
+    property ForceOfMove: Single read FForceOfMove write FForceOfMove
+             {$ifdef FPC}default DefaultForceOfMove{$endif};
     property SpeedOfMoveAnimation: Single read FMoveSpeedAnimation write FMoveSpeedAnimation
              {$ifdef FPC}default DefaultMoveSpeedAnimation{$endif};
     property SpeedOfJump: Single read FJumpSpeed write FJumpSpeed
              {$ifdef FPC}default DefaultJumpSpeed{$endif};
     property ForceOfMoveInAir: Single read FMoveInAirForce write FMoveInAirForce
-             {$ifdef FPC}default DefaultMoveInAirForce{$endif};
+             {$ifdef FPC}default DefaultForceOfMoveInAir{$endif};
     property ImpulseOfJump: Single read FJumpImpulse write FJumpImpulse
              {$ifdef FPC}default DefaultJumpImpulse{$endif};
 
@@ -144,13 +143,13 @@ begin
   Input_Rightward              .Name:= 'Input_Rightward';
   Input_Jump                   .Name:= 'Input_Jump';
 
-  FLookTargetDir:= TVector3.Zero;
+  FMoveVelocity:= 0.0;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
-  FMoveFwdSpeed:= DefaultMoveSpeed;
+  FForceOfMove:= DefaultForceOfMove;
   FMoveSpeedAnimation:= DefaultMoveSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
-  FMoveInAirForce:= DefaultMoveInAirForce;
+  FMoveInAirForce:= DefaultForceOfMoveInAir;
   FJumpImpulse:= DefaultJumpImpulse;
 
   FOnAnimation:= nil;
@@ -171,76 +170,62 @@ end;
 procedure TNyaThirdPersonVehicleNavigation.Update(const SecondsPassed: Single;
                                                var HandleInput: Boolean);
 var
+  RBody: TCastleRigidBody;
+  CBody: TCastleCollider;
   OnGround: Boolean;
 begin
   inherited;
   if NOT Valid then Exit;
   if NOT Assigned(AvatarHierarchy) then Exit;
 
-  OnGround:= False;
+  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
+  CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
+  if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
+  OnGround:= IsOnGround(RBody, CBody);
 
-  CalcLookTargetDir;
-  RotateVehicle(SecondsPassed);
+  RotateVehicle(SecondsPassed, OnGround);
   MoveVehicle(SecondsPassed, OnGround);
 
   Animate(SecondsPassed, OnGround);
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.CalcLookTargetDir;
+procedure TNyaThirdPersonVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
+                                                         const OnGround: Boolean);
 var
-  AvaVerticalDir, ForwardDir, BackwardDir, RightwardDir, LeftwardDir: TVector3;
-begin
-  AvaVerticalDir:= AvatarHierarchy.Up;
-  LeftwardDir:= TVector3.CrossProduct(AvaVerticalDir, Camera.Direction);
-  RightwardDir:= -LeftwardDir;
-  BackwardDir:= TVector3.CrossProduct(AvaVerticalDir, LeftwardDir);
-  ForwardDir:= -BackwardDir;
-
-  FLookTargetDir:= TVector3.Zero;
-
-  if Input_Forward.IsPressed(Container) then
-    FLookTargetDir:= FLookTargetDir + ForwardDir;
-
-  if Input_Backward.IsPressed(Container) then
-    FLookTargetDir:= FLookTargetDir + BackwardDir;
-
-  if Input_Leftward.IsPressed(Container) then
-    FLookTargetDir:= FLookTargetDir + LeftwardDir;
-
-  if Input_Rightward.IsPressed(Container) then
-    FLookTargetDir:= FLookTargetDir + RightwardDir;
-
-  if NOT FLookTargetDir.IsZero then
-    FLookTargetDir:= FLookTargetDir.Normalize;
-end;
-
-procedure TNyaThirdPersonVehicleNavigation.RotateVehicle(const SecondsPassed: Single);
-var
-  TurnVec, AngularVelocity: TVector3;
+  turnVec, angularVelocity: TVector3;
   RBody: TCastleRigidBody;
+  fwdVelocity: Single;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   if NOT Assigned(RBody) then Exit;
 
-  AngularVelocity:= TVector3.Zero;
+  angularVelocity:= TVector3.Zero;
 
-  { turn avatar up aganist gravity }
-  TurnVec:= TurnVectorToVector(AvatarHierarchy.Up, Camera.GravityUp);
-  AngularVelocity:= AngularVelocity + TurnVec * SpeedOfGravityAlign;
+  { turn avatar up aganist gravity only around forward direction }
+  turnVec:= TurnVectorToVector(TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize,
+                               TVector3.CrossProduct(Camera.GravityUp, AvatarHierarchy.Direction).Normalize);
+  angularVelocity:= angularVelocity + turnVec * SpeedOfGravityAlign;
 
 
-  { turn avatar to target }
-  if NOT FLookTargetDir.IsZero then
-  begin
-    TurnVec:= TurnVectorToVector(AvatarHierarchy.Direction, FLookTargetDir);
-    AngularVelocity:= AngularVelocity + TurnVec * SpeedOfTurn;
-  end;
+  { turn avatar }
+  turnVec:= AvatarHierarchy.Up;
 
-  RBody.AngularVelocity:= AngularVelocity;
+  if (AvatarHierarchy is TNyaActor) then
+    fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+  else
+    fwdVelocity:= RBody.LinearVelocity.Length;
+
+  if Input_Leftward.IsPressed(Container) then
+    angularVelocity:= angularVelocity + turnVec * SpeedOfTurn * fwdVelocity;
+
+  if Input_Rightward.IsPressed(Container) then
+    angularVelocity:= angularVelocity - turnVec * SpeedOfTurn * fwdVelocity;
+
+  RBody.AngularVelocity:= angularVelocity;
 end;
 
 procedure TNyaThirdPersonVehicleNavigation.MoveVehicle(const SecondsPassed: Single;
-                                                  out OnGround: Boolean);
+                                                       const OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
@@ -250,29 +235,39 @@ begin
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
   if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
 
-  OnGround:= IsOnGround(RBody, CBody);
   AvaDir:= AvatarHierarchy.Direction;
 
   { save Velocity from gravity }
   GravityVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
                                          -Camera.GravityUp);
 
-  if NOT FLookTargetDir.IsZero then
+  { movement }
+  if Input_Forward.IsPressed(Container) then
   begin
-    { movement }
     if OnGround then
     begin
       { movement on ground }
-      RBody.LinearVelocity:= AvaDir * SpeedOfMove + GravityVelocity;
+      RBody.AddForce(AvaDir * ForceOfMove, False);
+    end else
+      { movement in air }
+      RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
+  end
+  else if Input_Backward.IsPressed(Container) then
+  begin
+    if OnGround then
+    begin
+      { movement on ground }
+      RBody.AddForce(AvaDir * (-ForceOfMove) * 0.5, False);
     end else
       { movement in air }
       RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
   end;
 
+
   { jump }
   if FInput_Jump.IsPressed(Container) AND OnGround then
     RBody.LinearVelocity:= RBody.LinearVelocity +
-                           (AvatarHierarchy.Up + FLookTargetDir) * SpeedOfJump +
+                           AvatarHierarchy.Up * SpeedOfJump +
                            GravityVelocity;
 end;
 
@@ -328,7 +323,7 @@ procedure TNyaThirdPersonVehicleNavigation.Animate(const SecondsPassed: Single;
                                                 const OnGround: Boolean);
 var
   RBody: TCastleRigidBody;
-  ForwardVelocity: Single;
+  moveVelocity: Single;
 begin
   if NOT Assigned(OnAnimation) then Exit;
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
@@ -336,20 +331,27 @@ begin
 
   { calculate real Velocity from Avatar Hierarchy }
   if (AvatarHierarchy is TNyaActor) then
-    ForwardVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+    moveVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
   else
-    ForwardVelocity:= 0.0;
+    moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+                                              AvatarHierarchy.Direction);
 
   { processing animations }
   if OnGround then
   begin
-    if ForwardVelocity < 0.2 * SpeedOfMoveAnimation then
+    if (Input_Forward.IsPressed(Container) OR
+        (moveVelocity > 0.02 * SpeedOfMoveAnimation)) then
+    begin
+      { enable move animation }
+      if Input_Rightward.IsPressed(Container) then
+        OnAnimation(self, AnimationTurnRight, moveVelocity / SpeedOfMoveAnimation)
+      else if Input_Leftward.IsPressed(Container) then
+        OnAnimation(self, AnimationTurnLeft, moveVelocity / SpeedOfMoveAnimation)
+      else
+        OnAnimation(self, AnimationMoveFwd, moveVelocity / SpeedOfMoveAnimation);
+    end else
       { stand }
       OnAnimation(self, AnimationStand, 1.0)
-    else begin
-      { enable move animation }
-      OnAnimation(self, AnimationMoveFwd, ForwardVelocity / SpeedOfMoveAnimation);
-    end
   end else
     OnAnimation(self, AnimationMoveFwd, 1.0);
 
@@ -358,7 +360,7 @@ end;
 function TNyaThirdPersonVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'SpeedOfMove', 'SpeedOfMoveAnimation',
+       'AvatarHierarchy', 'ForceOfMove', 'SpeedOfMoveAnimation',
        'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
        'SpeedOfTurn', 'SpeedOfGravityAlign', 'ForceOfGravity',
        'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
