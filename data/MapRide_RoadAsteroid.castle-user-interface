@@ -541,7 +541,10 @@
           "AnimationTurnLeft" : "GAME.MOTO.TURN.LEFT",
           "AnimationTurnRight" : "GAME.MOTO.TURN.RIGHT",
           "AvatarHierarchy" : "VehicleMoto",
-          "Name" : "VehicleNavigation"
+          "Name" : "VehicleNavigation",
+          "SpeedOfMove" : 2.5000000000000000E+001,
+          "SpeedOfMoveAnimation" : 2.5000000000000000E+001,
+          "SpeedOfTurn" : 5.0000000000000000E+000
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",

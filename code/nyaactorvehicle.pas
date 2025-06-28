@@ -25,7 +25,6 @@ type
     FWheel2Speed: Single;
     FWheel3Speed: Single;
     FWheel4Speed: Single;
-    FMaxSpeed: Single;
     procedure SetWheel1Scene(const value: String);
     procedure SetWheel2Scene(const value: String);
     procedure SetWheel3Scene(const value: String);
@@ -35,7 +34,6 @@ type
   public
     const
       DefaultWheelSpeed = 1.0;
-      DefaultMaxSpeed = 25.0; // m/s
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -53,8 +51,6 @@ type
              {$ifdef FPC}default DefaultWheelSpeed{$endif};
     property Wheel4Speed: Single read FWheel4Speed write FWheel4Speed
              {$ifdef FPC}default DefaultWheelSpeed{$endif};
-    property MaxSpeed: Single read FMaxSpeed write FMaxSpeed
-             {$ifdef FPC}default DefaultMaxSpeed{$endif};
   end;
 
 implementation
@@ -77,7 +73,6 @@ begin
   FWheel2Speed:= DefaultWheelSpeed;
   FWheel3Speed:= DefaultWheelSpeed;
   FWheel4Speed:= DefaultWheelSpeed;
-  FMaxSpeed:= DefaultMaxSpeed;
 end;
 
 procedure TNyaActorVehicle.Update(const SecondsPassed: Single;
