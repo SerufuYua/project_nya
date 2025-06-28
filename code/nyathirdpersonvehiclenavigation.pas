@@ -17,17 +17,15 @@ type
 
   TNyaThirdPersonVehicleNavigation = class(TCastleNavigation)
   protected
-    FRunFlag: Boolean; { True - Run; False - Walk }
     FAnimationStand: String;
-    FAnimationWalk: String;
-    FAnimationRun: String;
+    FAnimationMoveFwd: String;
+    FAnimationTurnRight: String;
+    FAnimationTurnLeft: String;
     FLookTargetDir: TVector3;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
-    FWalkSpeed: Single;
-    FWalkSpeedAnimation: Single;
-    FRunSpeed: Single;
-    FRunSpeedAnimation: Single;
+    FMoveFwdSpeed: Single;
+    FMoveSpeedAnimation: Single;
     FJumpSpeed: Single;
     FMoveInAirForce: Single;
     FGravityForce: Single;
@@ -36,7 +34,6 @@ type
     FInput_Backward: TInputShortcut;
     FInput_Leftward: TInputShortcut;
     FInput_Rightward: TInputShortcut;
-    FInput_FastMove: TInputShortcut;
     FInput_Jump: TInputShortcut;
     FOnAnimation: TNyaThirdPersonVehicleNavigationAnimationEvent;
     FAvatarHierarchy: TCastleTransform;
@@ -50,22 +47,22 @@ type
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean);
 
     function AnimationStandStored: Boolean;
-    function AnimationWalkStored: Boolean;
-    function AnimationRunStored: Boolean;
+    function AnimationMoveFwdStored: Boolean;
+    function AnimationTurnRightStored: Boolean;
+    function AnimationTurnLeftStored: Boolean;
   public
     const
       DefaultGravityAlignSpeed = 10.0;
       DefaultTurnSpeed = 20.0;
-      DefaultWalkSpeed = 1.0;
-      DefaultWalkSpeedAnimation = 1.0;
-      DefaultRunSpeed = 3.0;
-      DefaultRunSpeedAnimation = 3.0;
+      DefaultMoveSpeed = 1.0;
+      DefaultMoveSpeedAnimation = 1.0;
       DefaultJumpSpeed = 1.0;
       DefaultMoveInAirForce = 1.0;
       DefaultJumpImpulse = 1.0;
       DefaultAnimationStand = 'stand';
-      DefaultAnimationWalk = 'walk';
-      DefaultAnimationRun = 'run';
+      DefaultAnimationMoveFwd = 'move';
+      DefaultAnimationTurnRight = 'turn_right';
+      DefaultAnimationTurnLeft = 'turn_left';
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -79,7 +76,6 @@ type
     property Input_Backward: TInputShortcut read FInput_Backward;
     property Input_Leftward: TInputShortcut read FInput_Leftward;
     property Input_Rightward: TInputShortcut read FInput_Rightward;
-    property Input_FastMove: TInputShortcut read FInput_FastMove;
     property Input_Jump: TInputShortcut read FInput_Jump;
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
@@ -87,14 +83,10 @@ type
              {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
     property SpeedOfTurn: Single read FTurnSpeed write FTurnSpeed
              {$ifdef FPC}default DefaultTurnSpeed{$endif};
-    property SpeedOfWalk: Single read FWalkSpeed write FWalkSpeed
-             {$ifdef FPC}default DefaultWalkSpeed{$endif};
-    property SpeedOfWalkAnimation: Single read FWalkSpeedAnimation write FWalkSpeedAnimation
-             {$ifdef FPC}default DefaultWalkSpeedAnimation{$endif};
-    property SpeedOfRun: Single read FRunSpeed write FRunSpeed
-             {$ifdef FPC}default DefaultRunSpeed{$endif};
-    property SpeedOfRunAnimation: Single read FRunSpeedAnimation write FRunSpeedAnimation
-             {$ifdef FPC}default DefaultRunSpeedAnimation{$endif};
+    property SpeedOfMove: Single read FMoveFwdSpeed write FMoveFwdSpeed
+             {$ifdef FPC}default DefaultMoveSpeed{$endif};
+    property SpeedOfMoveAnimation: Single read FMoveSpeedAnimation write FMoveSpeedAnimation
+             {$ifdef FPC}default DefaultMoveSpeedAnimation{$endif};
     property SpeedOfJump: Single read FJumpSpeed write FJumpSpeed
              {$ifdef FPC}default DefaultJumpSpeed{$endif};
     property ForceOfMoveInAir: Single read FMoveInAirForce write FMoveInAirForce
@@ -104,10 +96,12 @@ type
 
     property AnimationStand: String read FAnimationStand write FAnimationStand
              stored AnimationStandStored nodefault;
-    property AnimationWalk: String read FAnimationWalk write FAnimationWalk
-             stored AnimationWalkStored nodefault;
-    property AnimationRun: String read FAnimationRun write FAnimationRun
-             stored AnimationRunStored nodefault;
+    property AnimationMoveFwd: String read FAnimationMoveFwd write FAnimationMoveFwd
+             stored AnimationMoveFwdStored nodefault;
+    property AnimationTurnRight: String read FAnimationTurnRight write FAnimationTurnRight
+             stored AnimationTurnRightStored nodefault;
+    property AnimationTurnLeft: String read FAnimationTurnLeft write FAnimationTurnLeft
+             stored AnimationTurnLeftStored nodefault;
 
     property OnAnimation: TNyaThirdPersonVehicleNavigationAnimationEvent
       read FOnAnimation write FOnAnimation;
@@ -130,46 +124,39 @@ begin
   FInput_Backward              := TInputShortcut.Create(Self);
   FInput_Leftward              := TInputShortcut.Create(Self);
   FInput_Rightward             := TInputShortcut.Create(Self);
-  FInput_FastMove              := TInputShortcut.Create(Self);
   FInput_Jump                  := TInputShortcut.Create(Self);
 
   Input_Forward                .Assign(keyW, keyArrowUp);
   Input_Backward               .Assign(keyS, keyArrowDown);
   Input_Leftward               .Assign(keyA, keyArrowLeft);
   Input_Rightward              .Assign(keyD, keyArrowRight);
-  Input_FastMove               .Assign(keyShift);
   Input_Jump                   .Assign(keySpace);
 
   Input_Forward                .SetSubComponent(true);
   Input_Backward               .SetSubComponent(true);
   Input_Leftward               .SetSubComponent(true);
   Input_Rightward              .SetSubComponent(true);
-  Input_FastMove               .SetSubComponent(true);
   Input_Jump                   .SetSubComponent(true);
 
   Input_Forward                .Name:= 'Input_Forward';
   Input_Backward               .Name:= 'Input_Backward';
   Input_Leftward               .Name:= 'Input_Leftward';
   Input_Rightward              .Name:= 'Input_Rightward';
-  Input_FastMove               .Name:= 'Input_FastMove';
   Input_Jump                   .Name:= 'Input_Jump';
 
   FLookTargetDir:= TVector3.Zero;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
-  FWalkSpeed:= DefaultWalkSpeed;
-  FWalkSpeedAnimation:= DefaultWalkSpeedAnimation;
-  FRunSpeed:= DefaultRunSpeed;
-  FRunSpeedAnimation:= DefaultRunSpeedAnimation;
+  FMoveFwdSpeed:= DefaultMoveSpeed;
+  FMoveSpeedAnimation:= DefaultMoveSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
   FMoveInAirForce:= DefaultMoveInAirForce;
   FJumpImpulse:= DefaultJumpImpulse;
 
   FOnAnimation:= nil;
-  FRunFlag:= False;
   FAnimationStand:= DefaultAnimationStand;
-  FAnimationWalk:= DefaultAnimationWalk;
-  FAnimationRun:= DefaultAnimationRun;
+  FAnimationMoveFwd:= DefaultAnimationMoveFwd;
+  FAnimationTurnRight:= DefaultAnimationTurnRight;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
@@ -276,12 +263,7 @@ begin
     if OnGround then
     begin
       { movement on ground }
-      if Input_FastMove.IsPressed(Container) then
-        { walk }
-        RBody.LinearVelocity:= AvaDir * SpeedOfRun + GravityVelocity
-      else
-        { run }
-        RBody.LinearVelocity:= AvaDir * SpeedOfWalk + GravityVelocity;
+      RBody.LinearVelocity:= AvaDir * SpeedOfMove + GravityVelocity;
     end else
       { movement in air }
       RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
@@ -361,39 +343,26 @@ begin
   { processing animations }
   if OnGround then
   begin
-    { switch walk/run state }
-    { W + (R - W) * 0.6 }
-    { W * 0.4 + R * 0.6 }
-    if (NOT FRunFlag) AND (ForwardVelocity > (SpeedOfWalkAnimation* 0.4 + SpeedOfRunAnimation * 0.6)) then
-      FRunFlag:= True;
-    if FRunFlag AND (ForwardVelocity < (SpeedOfWalkAnimation* 0.6 + SpeedOfRunAnimation * 0.4)) then
-      FRunFlag:= False;
-
-    if ForwardVelocity < 0.2 * SpeedOfWalkAnimation then
+    if ForwardVelocity < 0.2 * SpeedOfMoveAnimation then
       { stand }
       OnAnimation(self, AnimationStand, 1.0)
     else begin
       { enable move animation }
-      if FRunFlag then
-        { run }
-        OnAnimation(self, AnimationRun, ForwardVelocity / SpeedOfRunAnimation)
-      else
-        { walk }
-        OnAnimation(self, AnimationWalk, ForwardVelocity / SpeedOfWalkAnimation);
+      OnAnimation(self, AnimationMoveFwd, ForwardVelocity / SpeedOfMoveAnimation);
     end
   end else
-    OnAnimation(self, AnimationStand, 1.0);
+    OnAnimation(self, AnimationMoveFwd, 1.0);
 
 end;
 
 function TNyaThirdPersonVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'SpeedOfWalk', 'SpeedOfWalkAnimation', 'SpeedOfRun',
-       'SpeedOfRunAnimation', 'SpeedOfJump',
+       'AvatarHierarchy', 'SpeedOfMove', 'SpeedOfMoveAnimation',
+       'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
        'SpeedOfTurn', 'SpeedOfGravityAlign', 'ForceOfGravity',
-       'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationWalk',
-       'AnimationRun'
+       'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
+       'AnimationTurnRight', 'AnimationTurnLeft'
      ]) then
     Result:= [psBasic]
   else
@@ -420,14 +389,19 @@ begin
   Result:= FAnimationStand <> DefaultAnimationStand;
 end;
 
-function TNyaThirdPersonVehicleNavigation.AnimationWalkStored: Boolean;
+function TNyaThirdPersonVehicleNavigation.AnimationMoveFwdStored: Boolean;
 begin
-  Result:= FAnimationWalk <> DefaultAnimationWalk;
+  Result:= FAnimationMoveFwd <> DefaultAnimationMoveFwd;
 end;
 
-function TNyaThirdPersonVehicleNavigation.AnimationRunStored: Boolean;
+function TNyaThirdPersonVehicleNavigation.AnimationTurnRightStored: Boolean;
 begin
-  Result:= FAnimationRun <> DefaultAnimationRun;
+  Result:= FAnimationTurnRight <> DefaultAnimationTurnRight;
+end;
+
+function TNyaThirdPersonVehicleNavigation.AnimationTurnLeftStored: Boolean;
+begin
+  Result:= FAnimationTurnLeft <> DefaultAnimationTurnLeft;
 end;
 
 {$ifdef CASTLE_DESIGN_MODE}
@@ -463,9 +437,11 @@ initialization
   {$ifdef CASTLE_DESIGN_MODE}
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationStand',
                          TNyaThirdPersonVehicleNavigationPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationWalk',
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationMoveFwd',
                          TNyaThirdPersonVehicleNavigationPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationRun',
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationTurnRight',
+                         TNyaThirdPersonVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationTurnLeft',
                          TNyaThirdPersonVehicleNavigationPropertyEditor);
   {$endif}
 end.
