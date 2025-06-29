@@ -229,38 +229,36 @@ procedure TNyaThirdPersonVehicleNavigation.MoveVehicle(const SecondsPassed: Sing
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  AvaDir, GravityVelocity: TVector3;
+  avaDir, gravityVelocity, sideVelocity: TVector3;
 begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
   if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
 
-  AvaDir:= AvatarHierarchy.Direction;
+  avaDir:= AvatarHierarchy.Direction;
 
   { save Velocity from gravity }
-  GravityVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
+  gravityVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
                                          -Camera.GravityUp);
 
   { movement }
   if Input_Forward.IsPressed(Container) then
   begin
     if OnGround then
-    begin
       { movement on ground }
-      RBody.AddForce(AvaDir * ForceOfMove, False);
-    end else
+      RBody.AddForce(avaDir * ForceOfMove, False)
+    else
       { movement in air }
-      RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
+      RBody.AddForce(avaDir * ForceOfMoveInAir, False);
   end
   else if Input_Backward.IsPressed(Container) then
   begin
     if OnGround then
-    begin
       { movement on ground }
-      RBody.AddForce(AvaDir * (-ForceOfMove) * 0.5, False);
-    end else
+      RBody.AddForce(avaDir * (-ForceOfMove) * 0.5, False)
+    else
       { movement in air }
-      RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
+      RBody.AddForce(avaDir * ForceOfMoveInAir, False);
   end;
 
 
@@ -268,53 +266,61 @@ begin
   if FInput_Jump.IsPressed(Container) AND OnGround then
     RBody.LinearVelocity:= RBody.LinearVelocity +
                            AvatarHierarchy.Up * SpeedOfJump +
-                           GravityVelocity;
+                           gravityVelocity;
+
+  { zero side velocity }
+  if OnGround then
+  begin
+      sideVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
+        TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize);
+      RBody.LinearVelocity:= RBody.LinearVelocity - sideVelocity * 0.5;
+  end;
 end;
 
 function TNyaThirdPersonVehicleNavigation.IsOnGround(RBody: TCastleRigidBody;
                                                   CBody: TCastleCollider): Boolean;
 var
-  GroundRayCast: TRayCastResult;
-  AvatarBBox: TBox3D;
-  ProbeLength: Single;
-  RayDirection, RayOrigin: TVector3;
-  ForwardDir, RightwardDir: TVector3;
+  groundRayCast: TRayCastResult;
+  avatarBBox: TBox3D;
+  probeLength: Single;
+  rayDirection, rayOrigin: TVector3;
+  forwardDir, rightwardDir: TVector3;
 begin
-  AvatarBBox := AvatarHierarchy.BoundingBox;
-  ProbeLength:=  (1.0 + 0.2) * AvatarBBox.SizeY / 2.0;
-  RayOrigin:= AvatarBBox.Center;
-  RayDirection:= -AvatarHierarchy.Up;
+  avatarBBox := AvatarHierarchy.BoundingBox;
+  probeLength:=  (1.0 + 0.2) * avatarBBox.SizeY / 2.0;
+  rayOrigin:= avatarBBox.Center;
+  rayDirection:= -AvatarHierarchy.Up;
 
-  ForwardDir:= AvatarHierarchy.Direction.Normalize;
-  RightwardDir:= TVector3.CrossProduct(AvatarHierarchy.Up,
+  forwardDir:= AvatarHierarchy.Direction.Normalize;
+  rightwardDir:= TVector3.CrossProduct(AvatarHierarchy.Up,
                                        AvatarHierarchy.Direction).Normalize;
 
-  GroundRayCast:= RBody.PhysicsRayCast(RayOrigin,
-                                       RayDirection,
-                                       ProbeLength);
+  groundRayCast:= RBody.PhysicsRayCast(rayOrigin,
+                                       rayDirection,
+                                       probeLength);
 
-  if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + ForwardDir * AvatarBBox.SizeZ / 2.0,
-                                         RayDirection,
-                                         ProbeLength);
+  if NOT groundRayCast.Hit then
+    groundRayCast:= RBody.PhysicsRayCast(rayOrigin + forwardDir * avatarBBox.SizeZ / 2.0,
+                                         rayDirection,
+                                         probeLength);
 
-  if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin - ForwardDir * AvatarBBox.SizeZ / 2.0,
-                                         RayDirection,
-                                         ProbeLength);
+  if NOT groundRayCast.Hit then
+    groundRayCast:= RBody.PhysicsRayCast(rayOrigin - forwardDir * avatarBBox.SizeZ / 2.0,
+                                         rayDirection,
+                                         probeLength);
 
-  if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin + RightwardDir * AvatarBBox.SizeX / 2.0,
-                                         RayDirection,
-                                         ProbeLength);
+  if NOT groundRayCast.Hit then
+    groundRayCast:= RBody.PhysicsRayCast(rayOrigin + rightwardDir * avatarBBox.SizeX / 2.0,
+                                         rayDirection,
+                                         probeLength);
 
-  if NOT GroundRayCast.Hit then
-    GroundRayCast:= RBody.PhysicsRayCast(RayOrigin - RightwardDir * AvatarBBox.SizeX / 2.0,
-                                         RayDirection,
-                                         ProbeLength);
+  if NOT groundRayCast.Hit then
+    groundRayCast:= RBody.PhysicsRayCast(rayOrigin - rightwardDir * avatarBBox.SizeX / 2.0,
+                                         rayDirection,
+                                         probeLength);
 
-  if GroundRayCast.Hit then
-    Exit((ProbeLength - GroundRayCast.Distance) > 0);
+  if groundRayCast.Hit then
+    Exit((probeLength - groundRayCast.Distance) > 0);
 
   Result:= False;
 end;
