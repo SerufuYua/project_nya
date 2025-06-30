@@ -41,9 +41,9 @@ type
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
     procedure SetAvatarHierarchy(const Value: TCastleTransform);
   protected
-    procedure RotateVehicle(const SecondsPassed: Single; const OnGround: Boolean);
-    procedure MoveVehicle(const SecondsPassed: Single; const OnGround: Boolean);
-    procedure Animate(const SecondsPassed: Single; const OnGround: Boolean);
+    procedure RotateVehicle(RBody: TCastleRigidBody; const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
+    procedure MoveVehicle(RBody: TCastleRigidBody; CBody: TCastleCollider; const SecondsPassed: Single; const OnGround: Boolean);
+    procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
     function AnimationStandStored: Boolean;
     function AnimationMoveFwdStored: Boolean;
@@ -110,10 +110,13 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, NyaVectorMath, NyaActor
+  CastleBoxes, NyaVectorMath, NyaActor, NyaCastleUtils
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
+
+const
+  MoveTreshold = 0.02;
 
 constructor TNyaThirdPersonVehicleNavigation.Create(AOwner: TComponent);
 begin
@@ -168,11 +171,12 @@ begin
 end;
 
 procedure TNyaThirdPersonVehicleNavigation.Update(const SecondsPassed: Single;
-                                               var HandleInput: Boolean);
+                                                  var HandleInput: Boolean);
 var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
-  OnGround: Boolean;
+  onGround: Boolean;
+  moveVelocity: Single;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -181,60 +185,65 @@ begin
   RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
   CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
   if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
-  OnGround:= IsOnGround(RBody, CBody);
 
-  RotateVehicle(SecondsPassed, OnGround);
-  MoveVehicle(SecondsPassed, OnGround);
+  { calculate on ground condition }
+  onGround:= IsOnGround(RBody, CBody);
 
-  Animate(SecondsPassed, OnGround);
+  { calculate real Velocity from Avatar Hierarchy }
+  if (AvatarHierarchy is TNyaActor) then
+    moveVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+  else
+    moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+                                              AvatarHierarchy.Direction);
+
+
+  RotateVehicle(RBody, SecondsPassed, onGround, moveVelocity);
+  MoveVehicle(RBody, CBody, SecondsPassed, onGround);
+  Animate(SecondsPassed, onGround, moveVelocity);
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
-                                                         const OnGround: Boolean);
+procedure TNyaThirdPersonVehicleNavigation.RotateVehicle(RBody: TCastleRigidBody;
+                                                         const SecondsPassed: Single;
+                                                         const OnGround: Boolean;
+                                                         const FwdVelocity: Single);
 var
-  turnVec, angularVelocity: TVector3;
-  RBody: TCastleRigidBody;
-  fwdVelocity: Single;
+  gravAlign, turn, gravityUp, sideDir, gravSideDir: TVector3;
 begin
-  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
-  if NOT Assigned(RBody) then Exit;
-
-  angularVelocity:= TVector3.Zero;
+  gravAlign:= TVector3.Zero;
+  turn:= TVector3.Zero;
 
   { turn avatar up aganist gravity only around forward direction }
-  turnVec:= TurnVectorToVector(TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize,
-                               TVector3.CrossProduct(Camera.GravityUp, AvatarHierarchy.Direction).Normalize);
-  angularVelocity:= angularVelocity + turnVec * SpeedOfGravityAlign;
+  gravityUp:= Camera.GravityUp;
+  sideDir:= TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize;
 
+  { roll avatar in turns }
+  if (OnGround AND (FwdVelocity > MoveTreshold * SpeedOfMoveAnimation)) then
+  begin
+    if Input_Leftward.IsPressed(Container) then
+      gravityUp:= gravityUp + sideDir * SpeedOfTurn - AvatarHierarchy.Direction * FwdVelocity
+    else if Input_Rightward.IsPressed(Container) then
+      gravityUp:= gravityUp - sideDir * SpeedOfTurn - AvatarHierarchy.Direction * FwdVelocity;
+  end;
+
+  gravSideDir:= TVector3.CrossProduct(gravityUp, AvatarHierarchy.Direction).Normalize;
+  gravAlign:= TurnVectorToVector(sideDir, gravSideDir) * SpeedOfGravityAlign;
 
   { turn avatar }
-  turnVec:= AvatarHierarchy.Up;
-
-  if (AvatarHierarchy is TNyaActor) then
-    fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
-  else
-    fwdVelocity:= RBody.LinearVelocity.Length;
-
   if Input_Leftward.IsPressed(Container) then
-    angularVelocity:= angularVelocity + turnVec * SpeedOfTurn * fwdVelocity;
+    turn:= AvatarHierarchy.Up * SpeedOfTurn * FwdVelocity
+  else if Input_Rightward.IsPressed(Container) then
+    turn:= -AvatarHierarchy.Up * SpeedOfTurn * FwdVelocity;
 
-  if Input_Rightward.IsPressed(Container) then
-    angularVelocity:= angularVelocity - turnVec * SpeedOfTurn * fwdVelocity;
-
-  RBody.AngularVelocity:= angularVelocity;
+  RBody.AngularVelocity:= gravAlign + turn;
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.MoveVehicle(const SecondsPassed: Single;
+procedure TNyaThirdPersonVehicleNavigation.MoveVehicle(RBody: TCastleRigidBody;
+                                                       CBody: TCastleCollider;
+                                                       const SecondsPassed: Single;
                                                        const OnGround: Boolean);
 var
-  RBody: TCastleRigidBody;
-  CBody: TCastleCollider;
   avaDir, gravityVelocity, sideVelocity: TVector3;
 begin
-  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
-  CBody:= AvatarHierarchy.FindBehavior(TCastleCollider) as TCastleCollider;
-  if NOT (Assigned(RBody) OR Assigned(CBody)) then Exit;
-
   avaDir:= AvatarHierarchy.Direction;
 
   { save Velocity from gravity }
@@ -277,8 +286,35 @@ begin
   end;
 end;
 
+procedure TNyaThirdPersonVehicleNavigation.Animate(const SecondsPassed: Single;
+                                                   const OnGround: Boolean;
+                                                   const FwdVelocity: Single);
+begin
+  if NOT Assigned(OnAnimation) then Exit;
+
+  { processing animations }
+  if OnGround then
+  begin
+    if (Input_Forward.IsPressed(Container) OR
+        (FwdVelocity > MoveTreshold * SpeedOfMoveAnimation)) then
+    begin
+      { enable move animation }
+      if Input_Rightward.IsPressed(Container) then
+        OnAnimation(self, AnimationTurnRight, FwdVelocity / SpeedOfMoveAnimation)
+      else if Input_Leftward.IsPressed(Container) then
+        OnAnimation(self, AnimationTurnLeft, FwdVelocity / SpeedOfMoveAnimation)
+      else
+        OnAnimation(self, AnimationMoveFwd, FwdVelocity / SpeedOfMoveAnimation);
+    end else
+      { stand }
+      OnAnimation(self, AnimationStand, 1.0)
+  end else
+    OnAnimation(self, AnimationMoveFwd, 1.0);
+
+end;
+
 function TNyaThirdPersonVehicleNavigation.IsOnGround(RBody: TCastleRigidBody;
-                                                  CBody: TCastleCollider): Boolean;
+                                                     CBody: TCastleCollider): Boolean;
 var
   groundRayCast: TRayCastResult;
   avatarBBox: TBox3D;
@@ -323,44 +359,6 @@ begin
     Exit((probeLength - groundRayCast.Distance) > 0);
 
   Result:= False;
-end;
-
-procedure TNyaThirdPersonVehicleNavigation.Animate(const SecondsPassed: Single;
-                                                const OnGround: Boolean);
-var
-  RBody: TCastleRigidBody;
-  moveVelocity: Single;
-begin
-  if NOT Assigned(OnAnimation) then Exit;
-  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
-  if NOT Assigned(RBody) then Exit;
-
-  { calculate real Velocity from Avatar Hierarchy }
-  if (AvatarHierarchy is TNyaActor) then
-    moveVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
-  else
-    moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
-                                              AvatarHierarchy.Direction);
-
-  { processing animations }
-  if OnGround then
-  begin
-    if (Input_Forward.IsPressed(Container) OR
-        (moveVelocity > 0.02 * SpeedOfMoveAnimation)) then
-    begin
-      { enable move animation }
-      if Input_Rightward.IsPressed(Container) then
-        OnAnimation(self, AnimationTurnRight, moveVelocity / SpeedOfMoveAnimation)
-      else if Input_Leftward.IsPressed(Container) then
-        OnAnimation(self, AnimationTurnLeft, moveVelocity / SpeedOfMoveAnimation)
-      else
-        OnAnimation(self, AnimationMoveFwd, moveVelocity / SpeedOfMoveAnimation);
-    end else
-      { stand }
-      OnAnimation(self, AnimationStand, 1.0)
-  end else
-    OnAnimation(self, AnimationMoveFwd, 1.0);
-
 end;
 
 function TNyaThirdPersonVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;

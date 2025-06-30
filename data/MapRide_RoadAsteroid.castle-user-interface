@@ -326,7 +326,7 @@
                 "$$ClassName" : "TNyaActorVehicle",
                 "ActorName" : "Motorbike",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
-                "AutoAnimation" : "GAME.MOTO.PARKING",
+                "AutoAnimation" : "GAME.MOTO.STAND",
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "VehicleMoto",
@@ -356,7 +356,9 @@
                   {
                     "$$ClassName" : "TCastleCapsuleCollider",
                     "AutoSize" : false,
-                    "Height" : 1.5000000000000000E+000,
+                    "Friction" : 1.0000000149011612E-001,
+                    "Height" : 1.7000000476837158E+000,
+                    "Mass" : 6.0000000000000000E+000,
                     "Name" : "ColliderMoto",
                     "Radius" : 7.1557319164276123E-001,
                     "RotationPersistent" : {
@@ -366,9 +368,8 @@
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : 1.0960000008344650E-001,
-                      "Y" : 6.6940999031066895E-001,
-                      "Z" : 4.0000000596046448E-001
+                      "Y" : 7.5000000000000000E-001,
+                      "Z" : 4.4999998807907104E-001
                     }
                   },
                   {
@@ -544,7 +545,7 @@
           "Name" : "VehicleNavigation",
           "SpeedOfGravityAlign" : 2.0000000000000000E+002,
           "SpeedOfMoveAnimation" : 2.5000000000000000E+001,
-          "SpeedOfTurn" : 5.0000000000000000E-001
+          "SpeedOfTurn" : 4.0000000596046448E-001
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",
@@ -571,20 +572,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.3200531005859375E+000,
-          "X" : -1.4500570297241211E-001,
-          "Y" : 9.8402643203735352E-001,
-          "Z" : 1.0327409207820892E-001
+          "W" : 4.8239797353744507E-002,
+          "X" : 8.9629131555557251E-001,
+          "Y" : -4.3513134121894836E-001,
+          "Z" : -8.5573039948940277E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.0000001192092896E+000
+          "Y" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 5.5301022529602051E+000,
-          "Y" : 1.9326608180999756E+000,
-          "Z" : 1.2731218338012695E+000
+          "X" : 9.7215473651885986E-003,
+          "Y" : 7.9081594944000244E-001,
+          "Z" : 3.6008043289184570E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
