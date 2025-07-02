@@ -356,9 +356,9 @@
                   {
                     "$$ClassName" : "TCastleCapsuleCollider",
                     "AutoSize" : false,
-                    "Friction" : 1.0000000149011612E-001,
+                    "Friction" : 4.9999998882412910E-003,
                     "Height" : 1.7000000476837158E+000,
-                    "Mass" : 6.0000000000000000E+000,
+                    "Mass" : 2.4000000000000000E+001,
                     "Name" : "ColliderMoto",
                     "Radius" : 7.1557319164276123E-001,
                     "RotationPersistent" : {
@@ -544,8 +544,7 @@
           "AvatarHierarchy" : "VehicleMoto",
           "Name" : "VehicleNavigation",
           "SpeedOfGravityAlign" : 2.0000000000000000E+002,
-          "SpeedOfMoveAnimation" : 2.5000000000000000E+001,
-          "SpeedOfTurn" : 4.0000000596046448E-001
+          "SpeedOfMoveAnimation" : 2.5000000000000000E+001
         },
         {
           "$$ClassName" : "TNyaThirdPersonCameraNavigation",

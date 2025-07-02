@@ -24,6 +24,7 @@ type
     FAnimationTurnLeft: String;
     FGravityAlignSpeed: Single;
     FTurnSpeed: Single;
+    FRollFactor: Single;
     FForceOfMove: Single;
     FMoveSpeedAnimation: Single;
     FJumpSpeed: Single;
@@ -45,18 +46,21 @@ type
     procedure MoveVehicle(RBody: TCastleRigidBody; CBody: TCastleCollider; const SecondsPassed: Single; const OnGround: Boolean);
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
+    function WinFuncRotation(const value: Single): Single;
+
     function AnimationStandStored: Boolean;
     function AnimationMoveFwdStored: Boolean;
     function AnimationTurnRightStored: Boolean;
     function AnimationTurnLeftStored: Boolean;
   public
     const
-      DefaultGravityAlignSpeed = 10.0;
+      DefaultGravityAlignSpeed = 200.0;
       DefaultTurnSpeed = 2.0;
+      DefaultRollFactor = 0.7;
       DefaultForceOfMove = 100.0;
-      DefaultMoveSpeedAnimation = 1.0;
-      DefaultJumpSpeed = 1.0;
       DefaultForceOfMoveInAir = 1.0;
+      DefaultMoveSpeedAnimation = 25.0;
+      DefaultJumpSpeed = 1.0;
       DefaultJumpImpulse = 1.0;
       DefaultAnimationStand = 'stand';
       DefaultAnimationMoveFwd = 'move';
@@ -82,6 +86,8 @@ type
              {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
     property SpeedOfTurn: Single read FTurnSpeed write FTurnSpeed
              {$ifdef FPC}default DefaultTurnSpeed{$endif};
+    property RollFactor: Single read FRollFactor write FRollFactor
+             {$ifdef FPC}default DefaultRollFactor{$endif};
     property ForceOfMove: Single read FForceOfMove write FForceOfMove
              {$ifdef FPC}default DefaultForceOfMove{$endif};
     property SpeedOfMoveAnimation: Single read FMoveSpeedAnimation write FMoveSpeedAnimation
@@ -110,7 +116,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils, CastleKeysMouse,
-  CastleBoxes, NyaVectorMath, NyaActor, NyaCastleUtils
+  CastleBoxes, NyaVectorMath, NyaActor, NyaCastleUtils, Math
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -149,6 +155,7 @@ begin
   FMoveVelocity:= 0.0;
   FGravityAlignSpeed:= DefaultGravityAlignSpeed;
   FTurnSpeed:= DefaultTurnSpeed;
+  FRollFactor:= DefaultRollFactor;
   FForceOfMove:= DefaultForceOfMove;
   FMoveSpeedAnimation:= DefaultMoveSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
@@ -208,31 +215,40 @@ procedure TNyaThirdPersonVehicleNavigation.RotateVehicle(RBody: TCastleRigidBody
                                                          const FwdVelocity: Single);
 var
   gravAlign, turn, gravityUp, sideDir, gravSideDir: TVector3;
+  speedFactor: Single;
 begin
   gravAlign:= TVector3.Zero;
   turn:= TVector3.Zero;
+
+  if (RBody.MaxLinearVelocity <> 0.0) then
+    speedFactor:= FwdVelocity / RBody.MaxLinearVelocity
+  else
+    speedFactor:= FwdVelocity;
 
   { turn avatar up aganist gravity only around forward direction }
   gravityUp:= Camera.GravityUp;
   sideDir:= TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize;
 
-  { roll avatar in turns }
-  if (OnGround AND (FwdVelocity > MoveTreshold * SpeedOfMoveAnimation)) then
+  { add rolling factor from turns turns }
+  if (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation) then
   begin
     if Input_Leftward.IsPressed(Container) then
-      gravityUp:= gravityUp + sideDir * SpeedOfTurn - AvatarHierarchy.Direction * FwdVelocity
+      gravityUp:= gravityUp + ( sideDir * RollFactor - AvatarHierarchy.Direction) * speedFactor
     else if Input_Rightward.IsPressed(Container) then
-      gravityUp:= gravityUp - sideDir * SpeedOfTurn - AvatarHierarchy.Direction * FwdVelocity;
+      gravityUp:= gravityUp + (-sideDir * RollFactor - AvatarHierarchy.Direction) * speedFactor;
   end;
 
   gravSideDir:= TVector3.CrossProduct(gravityUp, AvatarHierarchy.Direction).Normalize;
   gravAlign:= TurnVectorToVector(sideDir, gravSideDir) * SpeedOfGravityAlign;
 
   { turn avatar }
-  if Input_Leftward.IsPressed(Container) then
-    turn:= AvatarHierarchy.Up * SpeedOfTurn * FwdVelocity
-  else if Input_Rightward.IsPressed(Container) then
-    turn:= -AvatarHierarchy.Up * SpeedOfTurn * FwdVelocity;
+  if OnGround then
+  begin
+    if Input_Leftward.IsPressed(Container) then
+      turn:=  AvatarHierarchy.Up * SpeedOfTurn * WinFuncRotation(speedFactor)
+    else if Input_Rightward.IsPressed(Container) then
+      turn:= -AvatarHierarchy.Up * SpeedOfTurn * WinFuncRotation(speedFactor);
+  end;
 
   RBody.AngularVelocity:= gravAlign + turn;
 end;
@@ -293,24 +309,39 @@ begin
   if NOT Assigned(OnAnimation) then Exit;
 
   { processing animations }
-  if OnGround then
+  if (Input_Forward.IsPressed(Container) OR
+      (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation)) then
   begin
-    if (Input_Forward.IsPressed(Container) OR
-        (FwdVelocity > MoveTreshold * SpeedOfMoveAnimation)) then
-    begin
-      { enable move animation }
-      if Input_Rightward.IsPressed(Container) then
-        OnAnimation(self, AnimationTurnRight, FwdVelocity / SpeedOfMoveAnimation)
-      else if Input_Leftward.IsPressed(Container) then
-        OnAnimation(self, AnimationTurnLeft, FwdVelocity / SpeedOfMoveAnimation)
-      else
-        OnAnimation(self, AnimationMoveFwd, FwdVelocity / SpeedOfMoveAnimation);
-    end else
-      { stand }
-      OnAnimation(self, AnimationStand, 1.0)
+    { move animation }
+    if Input_Rightward.IsPressed(Container) then
+      OnAnimation(self, AnimationTurnRight, FwdVelocity / SpeedOfMoveAnimation)
+    else if Input_Leftward.IsPressed(Container) then
+      OnAnimation(self, AnimationTurnLeft, FwdVelocity / SpeedOfMoveAnimation)
+    else
+      OnAnimation(self, AnimationMoveFwd, FwdVelocity / SpeedOfMoveAnimation);
   end else
-    OnAnimation(self, AnimationMoveFwd, 1.0);
+    { stand }
+    if OnGround then
+      OnAnimation(self, AnimationStand, 1.0)
+    else
+      OnAnimation(self, AnimationMoveFwd, 1.0);
 
+
+end;
+
+function TNyaThirdPersonVehicleNavigation.WinFuncRotation(const value: Single): Single;
+var
+  x, dir: Single;
+begin
+  x:= Abs(value);
+  dir:= Sign(value);
+
+  if (x < 0.25) then
+    Result:= 4.0 * x
+  else
+    Result:= -0.5333 * x + 1.1333;
+
+  Result:= Result * dir;
 end;
 
 function TNyaThirdPersonVehicleNavigation.IsOnGround(RBody: TCastleRigidBody;
@@ -366,7 +397,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'ForceOfMove', 'SpeedOfMoveAnimation',
        'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
-       'SpeedOfTurn', 'SpeedOfGravityAlign', 'ForceOfGravity',
+       'SpeedOfTurn', 'RollFactor', 'SpeedOfGravityAlign', 'ForceOfGravity',
        'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
        'AnimationTurnRight', 'AnimationTurnLeft'
      ]) then
