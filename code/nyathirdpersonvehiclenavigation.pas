@@ -43,7 +43,7 @@ type
     procedure SetAvatarHierarchy(const Value: TCastleTransform);
   protected
     procedure RotateVehicle(RBody: TCastleRigidBody; const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
-    procedure MoveVehicle(RBody: TCastleRigidBody; CBody: TCastleCollider; const SecondsPassed: Single; const OnGround: Boolean);
+    procedure MoveVehicle(RBody: TCastleRigidBody; CBody: TCastleCollider; const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
     function WinFuncRotation(const value: Single): Single;
@@ -205,7 +205,7 @@ begin
 
 
   RotateVehicle(RBody, SecondsPassed, onGround, moveVelocity);
-  MoveVehicle(RBody, CBody, SecondsPassed, onGround);
+  MoveVehicle(RBody, CBody, SecondsPassed, onGround, moveVelocity);
   Animate(SecondsPassed, onGround, moveVelocity);
 end;
 
@@ -256,7 +256,8 @@ end;
 procedure TNyaThirdPersonVehicleNavigation.MoveVehicle(RBody: TCastleRigidBody;
                                                        CBody: TCastleCollider;
                                                        const SecondsPassed: Single;
-                                                       const OnGround: Boolean);
+                                                       const OnGround: Boolean;
+                                                       const FwdVelocity: Single);
 var
   avaDir, gravityVelocity, sideVelocity: TVector3;
 begin
@@ -269,6 +270,7 @@ begin
   { movement }
   if Input_Forward.IsPressed(Container) then
   begin
+    { forward }
     if OnGround then
       { movement on ground }
       RBody.AddForce(avaDir * ForceOfMove, False)
@@ -278,12 +280,15 @@ begin
   end
   else if Input_Backward.IsPressed(Container) then
   begin
+    { backward }
     if OnGround then
+    begin
       { movement on ground }
-      RBody.AddForce(avaDir * (-ForceOfMove) * 0.5, False)
-    else
+      if (FwdVelocity > (-RBody.MaxLinearVelocity * 0.2)) then
+        RBody.AddForce(avaDir * (-ForceOfMove), False);
+    end else
       { movement in air }
-      RBody.AddForce(avaDir * ForceOfMoveInAir, False);
+      RBody.AddForce(avaDir * (-ForceOfMoveInAir), False);
   end;
 
 
