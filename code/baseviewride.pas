@@ -11,7 +11,7 @@ uses
   CastleViewport, CastleVectors,
   ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
   NyaSpectatorCameraNavigation, NyaVehicleNavigation, NyaSwitch,
-  NyaWorldCondition;
+  NyaBaseNavigation, NyaWorldCondition;
 
 type
   TBaseViewRide = class(TViewWarper)
@@ -48,7 +48,7 @@ type
     procedure SetSwitches;
     procedure DoStart(Sender: TObject);
     procedure NavigationSetAnimation(
-      const Sender: TNyaVehicleNavigation;
+      const Sender: TNyaBaseNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
     function PointVisible(const value: TVector3): boolean;
   end;
@@ -234,7 +234,7 @@ begin
 end;
 
 procedure TBaseViewRide.NavigationSetAnimation(
-                        const Sender: TNyaVehicleNavigation;
+                        const Sender: TNyaBaseNavigation;
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
   MainActor.AutoAnimation:= AnimationName;

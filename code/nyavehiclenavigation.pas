@@ -6,44 +6,25 @@ interface
 
 uses
   Classes, SysUtils, CastleCameras, CastleTransform, CastleClassUtils,
-  CastleInputs, CastleVectors;
+  CastleInputs, CastleVectors, NyaBaseNavigation;
 
 type
-  TNyaVehicleNavigation = class;
-
-  TNyaVehicleNavigationAnimationEvent = procedure (
-    const Sender: TNyaVehicleNavigation;
-    const AnimationName: String; AnimtionSpeed: Single) of object;
-
-  TNyaVehicleNavigation = class(TCastleNavigation)
+  TNyaVehicleNavigation = class(TNyaBaseNavigation)
   protected
     FMoveVelocity: Single;
     FAnimationStand: String;
     FAnimationMoveFwd: String;
     FAnimationTurnRight: String;
     FAnimationTurnLeft: String;
-    FGravityAlignSpeed: Single;
-    FTurnSpeed: Single;
     FRollFactor: Single;
     FForceOfMove: Single;
     FMoveSpeedAnimation: Single;
     FJumpSpeed: Single;
-    FMoveInAirForce: Single;
-    FGravityForce: Single;
     FJumpImpulse: Single;
-    FInput_Forward: TInputShortcut;
-    FInput_Backward: TInputShortcut;
-    FInput_Leftward: TInputShortcut;
-    FInput_Rightward: TInputShortcut;
     FInput_Jump: TInputShortcut;
-    FOnAnimation: TNyaVehicleNavigationAnimationEvent;
-    FAvatarHierarchy: TCastleTransform;
-    FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
-    procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
-    procedure SetAvatarHierarchy(const Value: TCastleTransform);
   protected
-    procedure RotateVehicle(RBody: TCastleRigidBody; const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
-    procedure MoveVehicle(RBody: TCastleRigidBody; CBody: TCastleCollider; const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
+    procedure RotateVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; const OnGround: Boolean; const FwdVelocity: Single);
+    procedure MoveVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean; const FwdVelocity: Single);
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
     function WinFuncRotation(const value: Single): Single;
@@ -54,38 +35,24 @@ type
     function AnimationTurnLeftStored: Boolean;
   public
     const
-      DefaultGravityAlignSpeed = 200.0;
-      DefaultTurnSpeed = 2.0;
       DefaultRollFactor = 0.7;
       DefaultForceOfMove = 100.0;
-      DefaultForceOfMoveInAir = 1.0;
       DefaultMoveSpeedAnimation = 25.0;
       DefaultJumpSpeed = 1.0;
-      DefaultJumpImpulse = 1.0;
       DefaultAnimationStand = 'stand';
       DefaultAnimationMoveFwd = 'move';
       DefaultAnimationTurnRight = 'turn_right';
       DefaultAnimationTurnLeft = 'turn_left';
 
     constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
     function IsOnGround(RBody: TCastleRigidBody;
                         CBody: TCastleCollider): Boolean;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   public
-    property Input_Forward: TInputShortcut read FInput_Forward;
-    property Input_Backward: TInputShortcut read FInput_Backward;
-    property Input_Leftward: TInputShortcut read FInput_Leftward;
-    property Input_Rightward: TInputShortcut read FInput_Rightward;
     property Input_Jump: TInputShortcut read FInput_Jump;
   published
-    property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
-    property SpeedOfGravityAlign: Single read FGravityAlignSpeed write FGravityAlignSpeed
-             {$ifdef FPC}default DefaultGravityAlignSpeed{$endif};
-    property SpeedOfTurn: Single read FTurnSpeed write FTurnSpeed
-             {$ifdef FPC}default DefaultTurnSpeed{$endif};
     property RollFactor: Single read FRollFactor write FRollFactor
              {$ifdef FPC}default DefaultRollFactor{$endif};
     property ForceOfMove: Single read FForceOfMove write FForceOfMove
@@ -94,8 +61,6 @@ type
              {$ifdef FPC}default DefaultMoveSpeedAnimation{$endif};
     property SpeedOfJump: Single read FJumpSpeed write FJumpSpeed
              {$ifdef FPC}default DefaultJumpSpeed{$endif};
-    property ForceOfMoveInAir: Single read FMoveInAirForce write FMoveInAirForce
-             {$ifdef FPC}default DefaultForceOfMoveInAir{$endif};
     property ImpulseOfJump: Single read FJumpImpulse write FJumpImpulse
              {$ifdef FPC}default DefaultJumpImpulse{$endif};
 
@@ -107,9 +72,6 @@ type
              stored AnimationTurnRightStored nodefault;
     property AnimationTurnLeft: String read FAnimationTurnLeft write FAnimationTurnLeft
              stored AnimationTurnLeftStored nodefault;
-
-    property OnAnimation: TNyaVehicleNavigationAnimationEvent
-      read FOnAnimation write FOnAnimation;
   end;
 
 implementation
@@ -128,53 +90,21 @@ constructor TNyaVehicleNavigation.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FInput_Forward               := TInputShortcut.Create(Self);
-  FInput_Backward              := TInputShortcut.Create(Self);
-  FInput_Leftward              := TInputShortcut.Create(Self);
-  FInput_Rightward             := TInputShortcut.Create(Self);
   FInput_Jump                  := TInputShortcut.Create(Self);
-
-  Input_Forward                .Assign(keyW, keyArrowUp);
-  Input_Backward               .Assign(keyS, keyArrowDown);
-  Input_Leftward               .Assign(keyA, keyArrowLeft);
-  Input_Rightward              .Assign(keyD, keyArrowRight);
   Input_Jump                   .Assign(keySpace);
-
-  Input_Forward                .SetSubComponent(true);
-  Input_Backward               .SetSubComponent(true);
-  Input_Leftward               .SetSubComponent(true);
-  Input_Rightward              .SetSubComponent(true);
   Input_Jump                   .SetSubComponent(true);
-
-  Input_Forward                .Name:= 'Input_Forward';
-  Input_Backward               .Name:= 'Input_Backward';
-  Input_Leftward               .Name:= 'Input_Leftward';
-  Input_Rightward              .Name:= 'Input_Rightward';
   Input_Jump                   .Name:= 'Input_Jump';
 
   FMoveVelocity:= 0.0;
-  FGravityAlignSpeed:= DefaultGravityAlignSpeed;
-  FTurnSpeed:= DefaultTurnSpeed;
   FRollFactor:= DefaultRollFactor;
   FForceOfMove:= DefaultForceOfMove;
   FMoveSpeedAnimation:= DefaultMoveSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
-  FMoveInAirForce:= DefaultForceOfMoveInAir;
   FJumpImpulse:= DefaultJumpImpulse;
 
-  FOnAnimation:= nil;
   FAnimationStand:= DefaultAnimationStand;
   FAnimationMoveFwd:= DefaultAnimationMoveFwd;
   FAnimationTurnRight:= DefaultAnimationTurnRight;
-
-  FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
-  FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
-end;
-
-destructor TNyaVehicleNavigation.Destroy;
-begin
-  AvatarHierarchy:= nil;
-  inherited;
 end;
 
 procedure TNyaVehicleNavigation.Update(const SecondsPassed: Single;
@@ -203,16 +133,15 @@ begin
     moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
                                               AvatarHierarchy.Direction);
 
-
-  RotateVehicle(RBody, SecondsPassed, onGround, moveVelocity);
-  MoveVehicle(RBody, CBody, SecondsPassed, onGround, moveVelocity);
+  RotateVehicle(SecondsPassed, RBody, onGround, moveVelocity);
+  MoveVehicle(SecondsPassed, RBody, CBody, onGround, moveVelocity);
   Animate(SecondsPassed, onGround, moveVelocity);
 end;
 
-procedure TNyaVehicleNavigation.RotateVehicle(RBody: TCastleRigidBody;
-                                                         const SecondsPassed: Single;
-                                                         const OnGround: Boolean;
-                                                         const FwdVelocity: Single);
+procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
+                                              RBody: TCastleRigidBody;
+                                              const OnGround: Boolean;
+                                              const FwdVelocity: Single);
 var
   gravAlign, turn, gravityUp, sideDir, gravSideDir: TVector3;
   speedFactor: Single;
@@ -253,11 +182,11 @@ begin
   RBody.AngularVelocity:= gravAlign + turn;
 end;
 
-procedure TNyaVehicleNavigation.MoveVehicle(RBody: TCastleRigidBody;
-                                                       CBody: TCastleCollider;
-                                                       const SecondsPassed: Single;
-                                                       const OnGround: Boolean;
-                                                       const FwdVelocity: Single);
+procedure TNyaVehicleNavigation.MoveVehicle(const SecondsPassed: Single;
+                                            RBody: TCastleRigidBody;
+                                            CBody: TCastleCollider;
+                                            const OnGround: Boolean;
+                                            const FwdVelocity: Single);
 var
   avaDir, gravityVelocity, sideVelocity: TVector3;
 begin
@@ -400,30 +329,15 @@ end;
 function TNyaVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'ForceOfMove', 'SpeedOfMoveAnimation',
+       'ForceOfMove', 'SpeedOfMoveAnimation',
        'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
-       'SpeedOfTurn', 'RollFactor', 'SpeedOfGravityAlign', 'ForceOfGravity',
-       'ForceOfMoveInAir', 'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
+       'RollFactor',
+       'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
        'AnimationTurnRight', 'AnimationTurnLeft'
      ]) then
     Result:= [psBasic]
   else
     Result:= inherited PropertySections(PropertyName);
-end;
-
-procedure TNyaVehicleNavigation.AvatarHierarchyFreeNotification(
-  const Sender: TFreeNotificationObserver);
-begin
-  AvatarHierarchy:= nil;
-end;
-
-procedure TNyaVehicleNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
-begin
-  if (FAvatarHierarchy <> Value) then
-  begin
-    FAvatarHierarchy:= Value;
-    FAvatarHierarchyFreeObserver.Observed:= Value;
-  end;
 end;
 
 function TNyaVehicleNavigation.AnimationStandStored: Boolean;
