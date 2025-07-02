@@ -10,7 +10,7 @@ uses
   CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
   CastleViewport, CastleVectors,
   ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
-  NyaSpectatorCameraNavigation, NyaThirdPersonVehicleNavigation, NyaSwitch,
+  NyaSpectatorCameraNavigation, NyaVehicleNavigation, NyaSwitch,
   NyaWorldCondition;
 
 type
@@ -48,7 +48,7 @@ type
     procedure SetSwitches;
     procedure DoStart(Sender: TObject);
     procedure NavigationSetAnimation(
-      const Sender: TNyaThirdPersonVehicleNavigation;
+      const Sender: TNyaVehicleNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
     function PointVisible(const value: TVector3): boolean;
   end;
@@ -70,7 +70,7 @@ end;
 
 procedure TBaseViewRide.Start;
 var
-  charaNavigation: TNyaThirdPersonVehicleNavigation;
+  charaNavigation: TNyaVehicleNavigation;
 begin
   inherited;
   FTouchedSwitch:= nil;
@@ -90,7 +90,7 @@ begin
   FDebugAvatar.Exists:= False;
 
   { set navigation }
-  charaNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaThirdPersonVehicleNavigation;
+  charaNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
   charaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
   FCameraNavigationFollow:= Map.DesignedComponent('CameraNavigationFollow') as TNyaThirdPersonCameraNavigation;
 
@@ -234,7 +234,7 @@ begin
 end;
 
 procedure TBaseViewRide.NavigationSetAnimation(
-                        const Sender: TNyaThirdPersonVehicleNavigation;
+                        const Sender: TNyaVehicleNavigation;
                         const AnimationName: String; AnimtionSpeed: Single);
 begin
   MainActor.AutoAnimation:= AnimationName;

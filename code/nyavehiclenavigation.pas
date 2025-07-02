@@ -1,4 +1,4 @@
-unit NyaThirdPersonVehicleNavigation;
+unit NyaVehicleNavigation;
 
 {$mode ObjFPC}{$H+}
 {$WARN 6058 off : Call to subroutine "$1" marked as inline is not inlined}
@@ -9,13 +9,13 @@ uses
   CastleInputs, CastleVectors;
 
 type
-  TNyaThirdPersonVehicleNavigation = class;
+  TNyaVehicleNavigation = class;
 
-  TNyaThirdPersonVehicleNavigationAnimationEvent = procedure (
-    const Sender: TNyaThirdPersonVehicleNavigation;
+  TNyaVehicleNavigationAnimationEvent = procedure (
+    const Sender: TNyaVehicleNavigation;
     const AnimationName: String; AnimtionSpeed: Single) of object;
 
-  TNyaThirdPersonVehicleNavigation = class(TCastleNavigation)
+  TNyaVehicleNavigation = class(TCastleNavigation)
   protected
     FMoveVelocity: Single;
     FAnimationStand: String;
@@ -36,7 +36,7 @@ type
     FInput_Leftward: TInputShortcut;
     FInput_Rightward: TInputShortcut;
     FInput_Jump: TInputShortcut;
-    FOnAnimation: TNyaThirdPersonVehicleNavigationAnimationEvent;
+    FOnAnimation: TNyaVehicleNavigationAnimationEvent;
     FAvatarHierarchy: TCastleTransform;
     FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
@@ -108,7 +108,7 @@ type
     property AnimationTurnLeft: String read FAnimationTurnLeft write FAnimationTurnLeft
              stored AnimationTurnLeftStored nodefault;
 
-    property OnAnimation: TNyaThirdPersonVehicleNavigationAnimationEvent
+    property OnAnimation: TNyaVehicleNavigationAnimationEvent
       read FOnAnimation write FOnAnimation;
   end;
 
@@ -124,7 +124,7 @@ uses
 const
   MoveTreshold = 0.02;
 
-constructor TNyaThirdPersonVehicleNavigation.Create(AOwner: TComponent);
+constructor TNyaVehicleNavigation.Create(AOwner: TComponent);
 begin
   inherited;
 
@@ -171,13 +171,13 @@ begin
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
 end;
 
-destructor TNyaThirdPersonVehicleNavigation.Destroy;
+destructor TNyaVehicleNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
   inherited;
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.Update(const SecondsPassed: Single;
+procedure TNyaVehicleNavigation.Update(const SecondsPassed: Single;
                                                   var HandleInput: Boolean);
 var
   RBody: TCastleRigidBody;
@@ -209,7 +209,7 @@ begin
   Animate(SecondsPassed, onGround, moveVelocity);
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.RotateVehicle(RBody: TCastleRigidBody;
+procedure TNyaVehicleNavigation.RotateVehicle(RBody: TCastleRigidBody;
                                                          const SecondsPassed: Single;
                                                          const OnGround: Boolean;
                                                          const FwdVelocity: Single);
@@ -253,7 +253,7 @@ begin
   RBody.AngularVelocity:= gravAlign + turn;
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.MoveVehicle(RBody: TCastleRigidBody;
+procedure TNyaVehicleNavigation.MoveVehicle(RBody: TCastleRigidBody;
                                                        CBody: TCastleCollider;
                                                        const SecondsPassed: Single;
                                                        const OnGround: Boolean;
@@ -307,7 +307,7 @@ begin
   end;
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.Animate(const SecondsPassed: Single;
+procedure TNyaVehicleNavigation.Animate(const SecondsPassed: Single;
                                                    const OnGround: Boolean;
                                                    const FwdVelocity: Single);
 begin
@@ -334,7 +334,7 @@ begin
 
 end;
 
-function TNyaThirdPersonVehicleNavigation.WinFuncRotation(const value: Single): Single;
+function TNyaVehicleNavigation.WinFuncRotation(const value: Single): Single;
 var
   x, dir: Single;
 begin
@@ -349,7 +349,7 @@ begin
   Result:= Result * dir;
 end;
 
-function TNyaThirdPersonVehicleNavigation.IsOnGround(RBody: TCastleRigidBody;
+function TNyaVehicleNavigation.IsOnGround(RBody: TCastleRigidBody;
                                                      CBody: TCastleCollider): Boolean;
 var
   groundRayCast: TRayCastResult;
@@ -397,7 +397,7 @@ begin
   Result:= False;
 end;
 
-function TNyaThirdPersonVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
+function TNyaVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'AvatarHierarchy', 'ForceOfMove', 'SpeedOfMoveAnimation',
@@ -411,13 +411,13 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.AvatarHierarchyFreeNotification(
+procedure TNyaVehicleNavigation.AvatarHierarchyFreeNotification(
   const Sender: TFreeNotificationObserver);
 begin
   AvatarHierarchy:= nil;
 end;
 
-procedure TNyaThirdPersonVehicleNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
+procedure TNyaVehicleNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
 begin
   if (FAvatarHierarchy <> Value) then
   begin
@@ -426,47 +426,47 @@ begin
   end;
 end;
 
-function TNyaThirdPersonVehicleNavigation.AnimationStandStored: Boolean;
+function TNyaVehicleNavigation.AnimationStandStored: Boolean;
 begin
   Result:= FAnimationStand <> DefaultAnimationStand;
 end;
 
-function TNyaThirdPersonVehicleNavigation.AnimationMoveFwdStored: Boolean;
+function TNyaVehicleNavigation.AnimationMoveFwdStored: Boolean;
 begin
   Result:= FAnimationMoveFwd <> DefaultAnimationMoveFwd;
 end;
 
-function TNyaThirdPersonVehicleNavigation.AnimationTurnRightStored: Boolean;
+function TNyaVehicleNavigation.AnimationTurnRightStored: Boolean;
 begin
   Result:= FAnimationTurnRight <> DefaultAnimationTurnRight;
 end;
 
-function TNyaThirdPersonVehicleNavigation.AnimationTurnLeftStored: Boolean;
+function TNyaVehicleNavigation.AnimationTurnLeftStored: Boolean;
 begin
   Result:= FAnimationTurnLeft <> DefaultAnimationTurnLeft;
 end;
 
 {$ifdef CASTLE_DESIGN_MODE}
 type
-  { Property editor to select an animation on TNyaThirdPersonVehicleNavigation }
-  TNyaThirdPersonVehicleNavigationPropertyEditor = class(TStringPropertyEditor)
+  { Property editor to select an animation on TNyaVehicleNavigation }
+  TNyaVehicleNavigationPropertyEditor = class(TStringPropertyEditor)
   public
     function GetAttributes: TPropertyAttributes; override;
     procedure GetValues(Proc: TGetStrProc); override;
   end;
 
-function TNyaThirdPersonVehicleNavigationPropertyEditor.GetAttributes: TPropertyAttributes;
+function TNyaVehicleNavigationPropertyEditor.GetAttributes: TPropertyAttributes;
 begin
   Result:= [paMultiSelect, paValueList, paSortList, paRevertable];
 end;
 
-procedure TNyaThirdPersonVehicleNavigationPropertyEditor.GetValues(Proc: TGetStrProc);
+procedure TNyaVehicleNavigationPropertyEditor.GetValues(Proc: TGetStrProc);
 var
-  Nav: TNyaThirdPersonVehicleNavigation;
+  Nav: TNyaVehicleNavigation;
   S: String;
 begin
   Proc('');
-  Nav:= GetComponent(0) as TNyaThirdPersonVehicleNavigation;
+  Nav:= GetComponent(0) as TNyaVehicleNavigation;
   if (Nav.AvatarHierarchy is TNyaActor) then
     for S in (Nav.AvatarHierarchy as TNyaActor).AnimationsList do
       Proc(S);
@@ -474,17 +474,17 @@ end;
 {$endif}
 
 initialization
-  RegisterSerializableComponent(TNyaThirdPersonVehicleNavigation, ['Navigation', 'Nya Third-Person Vehicle']);
+  RegisterSerializableComponent(TNyaVehicleNavigation, ['Navigation', 'Nya Vehicle']);
 
   {$ifdef CASTLE_DESIGN_MODE}
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationStand',
-                         TNyaThirdPersonVehicleNavigationPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationMoveFwd',
-                         TNyaThirdPersonVehicleNavigationPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationTurnRight',
-                         TNyaThirdPersonVehicleNavigationPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaThirdPersonVehicleNavigation, 'AnimationTurnLeft',
-                         TNyaThirdPersonVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationStand',
+                         TNyaVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationMoveFwd',
+                         TNyaVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationTurnRight',
+                         TNyaVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationTurnLeft',
+                         TNyaVehicleNavigationPropertyEditor);
   {$endif}
 end.
 
