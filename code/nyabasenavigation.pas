@@ -42,7 +42,7 @@ type
     function IsOnGround(RBody: TCastleRigidBody;
                         CBody: TCastleCollider): Boolean;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-  public
+
     property Input_Forward: TInputShortcut read FInput_Forward;
     property Input_Backward: TInputShortcut read FInput_Backward;
     property Input_Leftward: TInputShortcut read FInput_Leftward;
@@ -103,6 +103,10 @@ end;
 destructor TNyaBaseNavigation.Destroy;
 begin
   AvatarHierarchy:= nil;
+  FreeAndNil(FInput_Forward);
+  FreeAndNil(FInput_Backward);
+  FreeAndNil(FInput_Leftward);
+  FreeAndNil(FInput_Rightward);
   inherited;
 end;
 

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleCameras, CastleTransform, CastleClassUtils,
-  CastleInputs, CastleVectors, NyaBaseNavigation;
+  CastleInputs, CastleVectors, CastleKeysMouse, NyaBaseNavigation;
 
 type
   TNyaVehicleNavigation = class(TNyaBaseNavigation)
@@ -21,7 +21,8 @@ type
     FMoveSpeedAnimation: Single;
     FJumpSpeed: Single;
     FJumpImpulse: Single;
-    FInput_Jump: TInputShortcut;
+    FBrakeFactor: Single;
+    FInput_Brake: TInputShortcut;
   protected
     procedure RotateVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; const OnGround: Boolean; const FwdVelocity: Single);
     procedure MoveVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean; const FwdVelocity: Single);
@@ -43,15 +44,15 @@ type
       DefaultAnimationMoveFwd = 'move';
       DefaultAnimationTurnRight = 'turn_right';
       DefaultAnimationTurnLeft = 'turn_left';
+      DefaultBrakeFactor = 0.05;
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
-    function IsOnGround(RBody: TCastleRigidBody;
-                        CBody: TCastleCollider): Boolean;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-  public
-    property Input_Jump: TInputShortcut read FInput_Jump;
+
+    property Input_Brake: TInputShortcut read FInput_Brake;
   published
     property RollFactor: Single read FRollFactor write FRollFactor
              {$ifdef FPC}default DefaultRollFactor{$endif};
@@ -72,12 +73,14 @@ type
              stored AnimationTurnRightStored nodefault;
     property AnimationTurnLeft: String read FAnimationTurnLeft write FAnimationTurnLeft
              stored AnimationTurnLeftStored nodefault;
+    property BrakeFactor: Single read FBrakeFactor write FBrakeFactor
+             {$ifdef FPC}default DefaultBrakeFactor{$endif};
   end;
 
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleKeysMouse,
+  CastleComponentSerialize, CastleUtils,
   CastleBoxes, NyaVectorMath, NyaActor, NyaCastleUtils, Math
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
@@ -90,10 +93,10 @@ constructor TNyaVehicleNavigation.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FInput_Jump                  := TInputShortcut.Create(Self);
-  Input_Jump                   .Assign(keySpace);
-  Input_Jump                   .SetSubComponent(true);
-  Input_Jump                   .Name:= 'Input_Jump';
+  FInput_Brake                 := TInputShortcut.Create(Self);
+  Input_Brake                  .Assign(keySpace);
+  Input_Brake                  .SetSubComponent(true);
+  Input_Brake                  .Name:= 'Input_Brake';
 
   FMoveVelocity:= 0.0;
   FRollFactor:= DefaultRollFactor;
@@ -101,10 +104,17 @@ begin
   FMoveSpeedAnimation:= DefaultMoveSpeedAnimation;
   FJumpSpeed:= DefaultJumpSpeed;
   FJumpImpulse:= DefaultJumpImpulse;
+  FBrakeFactor:= DefaultBrakeFactor;
 
   FAnimationStand:= DefaultAnimationStand;
   FAnimationMoveFwd:= DefaultAnimationMoveFwd;
   FAnimationTurnRight:= DefaultAnimationTurnRight;
+end;
+
+destructor TNyaVehicleNavigation.Destroy;
+begin
+  FreeAndNil(FInput_Brake);
+  inherited;
 end;
 
 procedure TNyaVehicleNavigation.Update(const SecondsPassed: Single;
@@ -188,57 +198,56 @@ procedure TNyaVehicleNavigation.MoveVehicle(const SecondsPassed: Single;
                                             const OnGround: Boolean;
                                             const FwdVelocity: Single);
 var
-  avaDir, gravityVelocity, sideVelocity: TVector3;
+  avaDir, sideVelocity: TVector3;
+  speedFactor: Single;
 begin
   avaDir:= AvatarHierarchy.Direction;
-
-  { save Velocity from gravity }
-  gravityVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
-                                         -Camera.GravityUp);
 
   { movement }
   if Input_Forward.IsPressed(Container) then
   begin
-    { forward }
     if OnGround then
-      { movement on ground }
+      { movement forward on ground }
       RBody.AddForce(avaDir * ForceOfMove, False)
     else
-      { movement in air }
+      { movement forward in air }
       RBody.AddForce(avaDir * ForceOfMoveInAir, False);
   end
   else if Input_Backward.IsPressed(Container) then
   begin
-    { backward }
     if OnGround then
     begin
-      { movement on ground }
+      { movement backward on ground }
       if (FwdVelocity > (-RBody.MaxLinearVelocity * 0.2)) then
         RBody.AddForce(avaDir * (-ForceOfMove), False);
     end else
-      { movement in air }
+      { movement backward in air }
       RBody.AddForce(avaDir * (-ForceOfMoveInAir), False);
   end;
 
 
-  { jump }
-  if FInput_Jump.IsPressed(Container) AND OnGround then
-    RBody.LinearVelocity:= RBody.LinearVelocity +
-                           AvatarHierarchy.Up * SpeedOfJump +
-                           gravityVelocity;
-
-  { zero side velocity }
   if OnGround then
   begin
-      sideVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
-        TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize);
-      RBody.LinearVelocity:= RBody.LinearVelocity - sideVelocity * 0.5;
+    { break }
+    if (RBody.MaxLinearVelocity <> 0.0) then
+      speedFactor:= FwdVelocity / RBody.MaxLinearVelocity
+    else
+      speedFactor:= FwdVelocity;
+
+    if Input_Brake.IsPressed(Container) then
+      RBody.LinearVelocity:= RBody.LinearVelocity *
+                             (1.0 - (1.0 - speedFactor) * BrakeFactor);
+
+    { zero side velocity }
+    sideVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
+      TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize);
+    RBody.LinearVelocity:= RBody.LinearVelocity - sideVelocity * 0.5;
   end;
 end;
 
 procedure TNyaVehicleNavigation.Animate(const SecondsPassed: Single;
-                                                   const OnGround: Boolean;
-                                                   const FwdVelocity: Single);
+                                        const OnGround: Boolean;
+                                        const FwdVelocity: Single);
 begin
   if NOT Assigned(OnAnimation) then Exit;
 
@@ -278,60 +287,12 @@ begin
   Result:= Result * dir;
 end;
 
-function TNyaVehicleNavigation.IsOnGround(RBody: TCastleRigidBody;
-                                                     CBody: TCastleCollider): Boolean;
-var
-  groundRayCast: TRayCastResult;
-  avatarBBox: TBox3D;
-  probeLength: Single;
-  rayDirection, rayOrigin: TVector3;
-  forwardDir, rightwardDir: TVector3;
-begin
-  avatarBBox := AvatarHierarchy.BoundingBox;
-  probeLength:=  (1.0 + 0.2) * avatarBBox.SizeY / 2.0;
-  rayOrigin:= avatarBBox.Center;
-  rayDirection:= -AvatarHierarchy.Up;
-
-  forwardDir:= AvatarHierarchy.Direction.Normalize;
-  rightwardDir:= TVector3.CrossProduct(AvatarHierarchy.Up,
-                                       AvatarHierarchy.Direction).Normalize;
-
-  groundRayCast:= RBody.PhysicsRayCast(rayOrigin,
-                                       rayDirection,
-                                       probeLength);
-
-  if NOT groundRayCast.Hit then
-    groundRayCast:= RBody.PhysicsRayCast(rayOrigin + forwardDir * avatarBBox.SizeZ / 2.0,
-                                         rayDirection,
-                                         probeLength);
-
-  if NOT groundRayCast.Hit then
-    groundRayCast:= RBody.PhysicsRayCast(rayOrigin - forwardDir * avatarBBox.SizeZ / 2.0,
-                                         rayDirection,
-                                         probeLength);
-
-  if NOT groundRayCast.Hit then
-    groundRayCast:= RBody.PhysicsRayCast(rayOrigin + rightwardDir * avatarBBox.SizeX / 2.0,
-                                         rayDirection,
-                                         probeLength);
-
-  if NOT groundRayCast.Hit then
-    groundRayCast:= RBody.PhysicsRayCast(rayOrigin - rightwardDir * avatarBBox.SizeX / 2.0,
-                                         rayDirection,
-                                         probeLength);
-
-  if groundRayCast.Hit then
-    Exit((probeLength - groundRayCast.Distance) > 0);
-
-  Result:= False;
-end;
-
 function TNyaVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'ForceOfMove', 'SpeedOfMoveAnimation',
        'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
-       'RollFactor',
+       'RollFactor', 'BrakeFactor',
        'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
        'AnimationTurnRight', 'AnimationTurnLeft'
      ]) then

@@ -45,10 +45,11 @@ type
       DefaultAnimationRun = 'run';
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-  public
+
     property Input_FastMove: TInputShortcut read FInput_FastMove;
     property Input_Jump: TInputShortcut read FInput_Jump;
   published
@@ -110,6 +111,13 @@ begin
   FAnimationStand:= DefaultAnimationStand;
   FAnimationWalk:= DefaultAnimationWalk;
   FAnimationRun:= DefaultAnimationRun;
+end;
+
+destructor TNyaThirdPersonCharaNavigation.Destroy;
+begin
+  FreeAndNil(FInput_FastMove);
+  FreeAndNil(FInput_Jump);
+  inherited;
 end;
 
 procedure TNyaThirdPersonCharaNavigation.Update(const SecondsPassed: Single;
