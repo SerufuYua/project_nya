@@ -126,7 +126,7 @@ var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
   onGround: Boolean;
-  moveVelocity: Single;
+  fwdVelocity: Single;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -141,15 +141,15 @@ begin
 
   { calculate real Velocity from Avatar Hierarchy }
   if (AvatarHierarchy is TNyaActor) then
-    moveVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+    fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
   else
-    moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+    fwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
                                               AvatarHierarchy.Direction);
 
   CalcLookTargetDir;
   RotateChara(SecondsPassed, RBody, onGround);
-  MoveChara(SecondsPassed, RBody, CBody, onGround, moveVelocity);
-  Animate(SecondsPassed, OnGround, moveVelocity);
+  MoveChara(SecondsPassed, RBody, CBody, onGround, fwdVelocity);
+  Animate(SecondsPassed, OnGround, fwdVelocity);
 end;
 
 procedure TNyaThirdPersonCharaNavigation.CalcLookTargetDir;
@@ -184,7 +184,7 @@ procedure TNyaThirdPersonCharaNavigation.RotateChara(const SecondsPassed: Single
                                                      RBody: TCastleRigidBody;
                                                      const OnGround: Boolean);
 var
-  gravAlign, turn, angularVelocity: TVector3;
+  gravAlign, turn: TVector3;
 begin
   gravAlign:= TVector3.Zero;
   turn:= TVector3.Zero;

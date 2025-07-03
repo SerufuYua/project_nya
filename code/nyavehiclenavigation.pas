@@ -123,7 +123,7 @@ var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
   onGround: Boolean;
-  moveVelocity: Single;
+  fwdVelocity: Single;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -138,14 +138,14 @@ begin
 
   { calculate real Velocity from Avatar Hierarchy }
   if (AvatarHierarchy is TNyaActor) then
-    moveVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
+    fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
   else
-    moveVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+    fwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
                                               AvatarHierarchy.Direction);
 
-  RotateVehicle(SecondsPassed, RBody, onGround, moveVelocity);
-  MoveVehicle(SecondsPassed, RBody, CBody, onGround, moveVelocity);
-  Animate(SecondsPassed, onGround, moveVelocity);
+  RotateVehicle(SecondsPassed, RBody, onGround, fwdVelocity);
+  MoveVehicle(SecondsPassed, RBody, CBody, onGround, fwdVelocity);
+  Animate(SecondsPassed, onGround, fwdVelocity);
 end;
 
 procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
