@@ -301,6 +301,7 @@
                 "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.STAND",
+                "DefaultAnimationTransition" : 1.0000000149011612E-001,
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "CharaGirl",
@@ -327,6 +328,7 @@
                 "ActorName" : "Motorbike",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.MOTO.STAND",
+                "DefaultAnimationTransition" : 1.0000000149011612E-001,
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "VehicleMoto",
@@ -543,7 +545,6 @@
           "AnimationTurnRight" : "GAME.MOTO.TURN.RIGHT",
           "AvatarHierarchy" : "VehicleMoto",
           "Name" : "VehicleNavigation",
-          "RollFactor" : 4.0000000000000000E+000,
           "SpeedOfTurn" : 2.0000000000000000E+000
         },
         {

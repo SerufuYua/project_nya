@@ -26,6 +26,7 @@ type
     FAutoAnimation: String;
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
+    FDefaultAnimationTransition: Single;
     FLightning: Boolean;
     FForwardVelocity, FForwardShift: Single;
     FVelocityNoiseSuppressor: TNoiseSuppressor;
@@ -48,6 +49,7 @@ type
     procedure SetLightning(enable: Boolean);
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
+    procedure SetDefaultAnimationTransition(value: Single);
     function GetVelocityNoiseSuppressorCount: Integer;
     procedure SetVelocityNoiseSuppressorCount(value: Integer);
     procedure ApplyAutoAnimation; virtual;
@@ -56,6 +58,7 @@ type
     procedure ApplyLightning;
     procedure ApplyEmissionItself;
     procedure ApplyEmissionColor;
+    procedure ApplyDefaultAnimationTransition;
   protected
     procedure HandleNodeAnisotropic(sceneNode: TX3DNode);
     procedure HandleNodeEmissionItself(sceneNode: TX3DNode);
@@ -105,6 +108,9 @@ type
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
     property VelocityNoiseSuppressorCount: Integer read GetVelocityNoiseSuppressorCount write SetVelocityNoiseSuppressorCount
              {$ifdef FPC}default DefaultVelocityNoiseSuppressorCount{$endif};
+    property DefaultAnimationTransition: Single
+             read FDefaultAnimationTransition write SetDefaultAnimationTransition
+             {$ifdef FPC}default 0.0{$endif};
   end;
 
 implementation
@@ -283,6 +289,7 @@ begin
   ApplyLightning;
   ApplyEmissionItself;
   ApplyEmissionColor;
+  ApplyDefaultAnimationTransition;
 
   { restore animation }
   buff:= FAutoAnimation;
@@ -354,6 +361,14 @@ begin
   ApplyEmissionColor;
 end;
 
+procedure TNyaActor.SetDefaultAnimationTransition(value: Single);
+begin
+  if (FDefaultAnimationTransition = value) then Exit;
+  FDefaultAnimationTransition:= value;
+
+  ApplyDefaultAnimationTransition;
+end;
+
 function TNyaActor.GetVelocityNoiseSuppressorCount: Integer;
 begin
   Result:= FVelocityNoiseSuppressor.CountLimit;
@@ -421,6 +436,14 @@ begin
                                     false);
 end;
 
+procedure TNyaActor.ApplyDefaultAnimationTransition;
+var
+  scene: TCastleScene;
+begin
+  for scene in FAllScenes do
+    scene.DefaultAnimationTransition:= FDefaultAnimationTransition;
+end;
+
 procedure TNyaActor.HandleNodeAnisotropic(sceneNode: TX3DNode);
 var
   ImageTexture: TImageTextureNode;
@@ -478,7 +501,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
        'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
-       'PersonalColorPersistent', 'MainSceneName',
+       'PersonalColorPersistent', 'MainSceneName', 'DefaultAnimationTransition',
        'VelocityNoiseSuppressorCount'
      ]) then
     Result:= [psBasic]
