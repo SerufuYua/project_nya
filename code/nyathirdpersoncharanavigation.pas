@@ -27,7 +27,7 @@ type
   protected
     procedure CalcLookTargetDir;
     procedure RotateChara(const SecondsPassed: Single; RBody: TCastleRigidBody; const OnGround: Boolean);
-    procedure MoveChara(const SecondsPassed: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean; const FwdVelocity: Single);
+    procedure MoveChara(const SecondsPassed: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean);
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
     function AnimationStandStored: Boolean;
@@ -144,11 +144,11 @@ begin
     fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
   else
     fwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
-                                              AvatarHierarchy.Direction);
+                                             AvatarHierarchy.Direction);
 
   CalcLookTargetDir;
   RotateChara(SecondsPassed, RBody, onGround);
-  MoveChara(SecondsPassed, RBody, CBody, onGround, fwdVelocity);
+  MoveChara(SecondsPassed, RBody, CBody, onGround);
   Animate(SecondsPassed, OnGround, fwdVelocity);
 end;
 
@@ -203,8 +203,7 @@ end;
 procedure TNyaThirdPersonCharaNavigation.MoveChara(const SecondsPassed: Single;
                                                    RBody: TCastleRigidBody;
                                                    CBody: TCastleCollider;
-                                                   const OnGround: Boolean;
-                                                   const FwdVelocity: Single);
+                                                   const OnGround: Boolean);
 var
   AvaDir, GravityVelocity: TVector3;
 begin
