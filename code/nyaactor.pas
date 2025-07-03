@@ -27,7 +27,7 @@ type
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
     FLightning: Boolean;
-    FForwardVelocity: Single;
+    FForwardVelocity, FForwardShift: Single;
     FVelocityNoiseSuppressor: TNoiseSuppressor;
     FLastPos: TVector3;
     FEmissionItself: Boolean;
@@ -87,6 +87,7 @@ type
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
     property ForwardVelocity: Single read FForwardVelocity;
+    property ForwardShift: Single read FForwardShift;
   published
     property ActorName: String read FActorName write SetActorName;
     property MainSceneName: String read FMainSceneName write SetMainScene;
@@ -162,11 +163,15 @@ end;
 
 procedure TNyaActor.Update(const SecondsPassed: Single;
                            var RemoveMe: TRemoveType);
+var
+  shift: TVector3;
 begin
   inherited;
 
   { calculate real Velocity from Avatar Hierarchy }
-  FForwardVelocity:= ProjectionVectorAtoBLength((Translation - FLastPos) / SecondsPassed,
+  shift:= Translation - FLastPos;
+  FForwardShift:= shift.Length;
+  FForwardVelocity:= ProjectionVectorAtoBLength(shift / SecondsPassed,
                                                 Direction);
   FLastPos:= Translation;
 

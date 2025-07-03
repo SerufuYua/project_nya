@@ -24,7 +24,7 @@ type
     FBrakeFactor: Single;
     FInput_Brake: TInputShortcut;
   protected
-    procedure RotateVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; const OnGround: Boolean; const FwdVelocity: Single);
+    procedure RotateVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; const OnGround: Boolean; const FwdVelocity, FwdShift: Single);
     procedure MoveVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean; const FwdVelocity: Single);
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
@@ -36,7 +36,7 @@ type
     function AnimationTurnLeftStored: Boolean;
   public
     const
-      DefaultRollFactor = 0.7;
+      DefaultRollFactor = 4;
       DefaultForceOfMove = 100.0;
       DefaultMoveSpeedAnimation = 25.0;
       DefaultJumpSpeed = 1.0;
@@ -123,7 +123,8 @@ var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
   onGround: Boolean;
-  fwdVelocity: Single;
+  fwdVelocity, fwdShift: Single;
+  actor: TNyaActor;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -138,12 +139,18 @@ begin
 
   { calculate real Velocity from Avatar Hierarchy }
   if (AvatarHierarchy is TNyaActor) then
-    fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
-  else
+  begin
+    actor:= AvatarHierarchy as TNyaActor;
+    fwdVelocity:= actor.ForwardVelocity;
+    fwdShift:= actor.ForwardShift;
+  end else
+  begin
     fwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
-                                              AvatarHierarchy.Direction);
+                                             AvatarHierarchy.Direction);
+    fwdShift:= 0.0;
+  end;
 
-  RotateVehicle(SecondsPassed, RBody, onGround, fwdVelocity);
+  RotateVehicle(SecondsPassed, RBody, onGround, fwdVelocity, fwdShift);
   MoveVehicle(SecondsPassed, RBody, CBody, onGround, fwdVelocity);
   Animate(SecondsPassed, onGround, fwdVelocity);
 end;
@@ -151,13 +158,15 @@ end;
 procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
                                               RBody: TCastleRigidBody;
                                               const OnGround: Boolean;
-                                              const FwdVelocity: Single);
+                                              const FwdVelocity,
+                                              FwdShift: Single);
 var
-  gravAlign, turn, gravityUp, sideDir, gravSideDir: TVector3;
+  gravAlign, turn, gravityUp, tangage, sideDir, gravSideDir: TVector3;
   speedFactor: Single;
 begin
   gravAlign:= TVector3.Zero;
   turn:= TVector3.Zero;
+  tangage:= TVector3.Zero;
 
   if (RBody.MaxLinearVelocity <> 0.0) then
     speedFactor:= FwdVelocity / RBody.MaxLinearVelocity
@@ -169,16 +178,19 @@ begin
   sideDir:= TVector3.CrossProduct(AvatarHierarchy.Up, AvatarHierarchy.Direction).Normalize;
 
   { add rolling factor from turns turns }
-  if (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation) then
+  if (OnGround AND (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation)) then
   begin
     if Input_Leftward.IsPressed(Container) then
-      gravityUp:= gravityUp + ( sideDir * RollFactor - AvatarHierarchy.Direction) * speedFactor
+      gravityUp:= gravityUp + sideDir * FwdShift * RollFactor
     else if Input_Rightward.IsPressed(Container) then
-      gravityUp:= gravityUp + (-sideDir * RollFactor - AvatarHierarchy.Direction) * speedFactor;
+      gravityUp:= gravityUp - sideDir * FwdShift * RollFactor;
+
+    if (Input_Leftward.IsPressed(Container) OR Input_Rightward.IsPressed(Container)) then
+      tangage:= -sideDir * FwdShift * RollFactor;
   end;
 
   gravSideDir:= TVector3.CrossProduct(gravityUp, AvatarHierarchy.Direction).Normalize;
-  gravAlign:= TurnVectorToVector(sideDir, gravSideDir) * SpeedOfGravityAlign;
+  gravAlign:= TurnVectorToVector(sideDir, gravSideDir) * SpeedOfGravityAlign + tangage;
 
   { turn avatar }
   if OnGround then
