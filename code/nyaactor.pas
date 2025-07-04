@@ -27,6 +27,7 @@ type
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
     FDefaultAnimationTransition: Single;
+    FAnimateChildActors: Boolean;
     FLightning: Boolean;
     FForwardVelocity, FForwardShift: Single;
     FVelocityNoiseSuppressor: TNoiseSuppressor;
@@ -75,6 +76,8 @@ type
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
       DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
       DefaultVelocityNoiseSuppressorCount = 8;
+      DefaultDefaultAnimationTransition = 0.0;
+      DefaultAnimateChildActors = False;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -110,7 +113,9 @@ type
              {$ifdef FPC}default DefaultVelocityNoiseSuppressorCount{$endif};
     property DefaultAnimationTransition: Single
              read FDefaultAnimationTransition write SetDefaultAnimationTransition
-             {$ifdef FPC}default 0.0{$endif};
+             {$ifdef FPC}default DefaultDefaultAnimationTransition{$endif};
+    property AnimateChildActors: Boolean read FAnimateChildActors write FAnimateChildActors
+             {$ifdef FPC}default DefaultAnimateChildActors{$endif};
   end;
 
 implementation
@@ -135,6 +140,8 @@ begin
   FLightning:= DefaultLightning;
   FEmissionItself:= DefaultEmissionItself;
   FAnimationsList:= TStringList.Create;
+  FDefaultAnimationTransition:= DefaultDefaultAnimationTransition;
+  FAnimateChildActors:= DefaultAnimateChildActors;
 
   FEmissionColor:= DefaultEmissionColor;
   FPersonalColor:= DefaultPersonalColor;
@@ -189,6 +196,7 @@ procedure TNyaActor.PlayAnimation(const Parameters: TPlayAnimationParameters);
 var
   scene: TCastleScene;
   noEventParam: TPlayAnimationParameters;
+  child: TComponent;
 begin
   noEventParam:= TPlayAnimationParameters.Create;
   noEventParam.Name:= Parameters.Name;
@@ -205,15 +213,26 @@ begin
       scene.PlayAnimation(noEventParam)
   end;
 
+  if AnimateChildActors then
+    for child in self do
+      if (child is TNyaActor) then
+        (child as TNyaActor).PlayAnimation(noEventParam);
+
   FreeAndNil(noEventParam);
 end;
 
 procedure TNyaActor.StopAnimation(const disableStopNotification: Boolean);
 var
   scene: TCastleScene;
+  child: TComponent;
 begin
   for scene in FAnimatedScenes do
     scene.StopAnimation(disableStopNotification);
+
+  if AnimateChildActors then
+    for child in self do
+      if (child is TNyaActor) then
+        (child as TNyaActor).StopAnimation(disableStopNotification);
 end;
 
 function TNyaActor.Cameras: TCastleCameras;
@@ -382,17 +401,29 @@ end;
 procedure TNyaActor.ApplyAutoAnimation;
 var
   scene: TCastleScene;
+  child: TComponent;
 begin
   for scene in FAnimatedScenes do
     scene.AutoAnimation:= FAutoAnimation;
+
+  if AnimateChildActors then
+    for child in self do
+      if (child is TNyaActor) then
+        (child as TNyaActor).AutoAnimation:= FAutoAnimation;
 end;
 
 procedure TNyaActor.ApplyAnimationSpeed;
 var
   scene: TCastleScene;
+  child: TComponent;
 begin
   for scene in FAnimatedScenes do
     scene.TimePlayingSpeed:= FAnimationSpeed;
+
+  if AnimateChildActors then
+    for child in self do
+      if (child is TNyaActor) then
+        (child as TNyaActor).AnimationSpeed:= FAnimationSpeed;
 end;
 
 procedure TNyaActor.ApplyAnisotropicDegree;
@@ -439,9 +470,15 @@ end;
 procedure TNyaActor.ApplyDefaultAnimationTransition;
 var
   scene: TCastleScene;
+  child: TComponent;
 begin
   for scene in FAllScenes do
     scene.DefaultAnimationTransition:= FDefaultAnimationTransition;
+
+  if AnimateChildActors then
+    for child in self do
+      if (child is TNyaActor) then
+        (child as TNyaActor).DefaultAnimationTransition:= FDefaultAnimationTransition;
 end;
 
 procedure TNyaActor.HandleNodeAnisotropic(sceneNode: TX3DNode);
@@ -502,7 +539,7 @@ begin
        'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
        'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
        'PersonalColorPersistent', 'MainSceneName', 'DefaultAnimationTransition',
-       'VelocityNoiseSuppressorCount'
+       'VelocityNoiseSuppressorCount', 'AnimateChildActors'
      ]) then
     Result:= [psBasic]
   else
