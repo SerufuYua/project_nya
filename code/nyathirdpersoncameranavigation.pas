@@ -29,7 +29,6 @@ type
   protected
     procedure CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
     procedure CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
-    procedure UpdateCamera(const SecondsPassed: Single);
     procedure ProcessMouseLookDelta(const Delta: TVector2); override;
     function Zoom(const Factor: Single): Boolean; override;
   public
@@ -56,9 +55,11 @@ type
     property AvatarTargetPersistent: TCastleVector3Persistent read FAvatarTargetPersistent;
     property DistanceToAvatarTarget: Single read FDistanceToAvatarTarget write FDistanceToAvatarTarget
       {$ifdef FPC}default DefaultDistanceToAvatarTarget{$endif};
-    property DistanceToAvatarTargetMin: Single read FDistanceToAvatarTargetMin write FDistanceToAvatarTargetMin
+    property DistanceToAvatarTargetMin: Single
+      read FDistanceToAvatarTargetMin write FDistanceToAvatarTargetMin
       {$ifdef FPC}default DefaultDistanceToAvatarTargetMin{$endif};
-    property DistanceToAvatarTargetMax: Single read FDistanceToAvatarTargetMax write FDistanceToAvatarTargetMax
+    property DistanceToAvatarTargetMax: Single
+      read FDistanceToAvatarTargetMax write FDistanceToAvatarTargetMax
       {$ifdef FPC}default DefaultDistanceToAvatarTargetMax{$endif};
     property FollowSpeed: Single read FFollowSpeed write FFollowSpeed
       {$ifdef FPC}default DefaultFollowSpeed{$endif};
@@ -115,36 +116,22 @@ begin
 end;
 
 procedure TNyaThirdPersonCameraNavigation.Update(const SecondsPassed: Single;
-                 var HandleInput: Boolean);
+                                                 var HandleInput: Boolean);
+var
+  CameraPos, CameraPosTarget, CameraDir, CameraUp: TVector3;
 begin
   inherited;
   if NOT Valid then Exit;
 
-  UpdateCamera(SecondsPassed);
+  Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
+  CameraPosTarget:= CameraPos;
+  CalcCamera(CameraDir, CameraPosTarget, CameraUp);
+  CameraPos:= SmoothTowards(CameraPos, CameraPosTarget, SecondsPassed, FollowSpeed);
+  Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
-procedure TNyaThirdPersonCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
-begin
-  if (FAvatarHierarchy <> Value) then
-  begin
-    FAvatarHierarchy:= Value;
-    FAvatarHierarchyFreeObserver.Observed:= Value;
-  end;
-end;
-
-function TNyaThirdPersonCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
-begin
-  if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'AvatarTargetPersistent',
-       'DistanceToAvatarTarget', 'DistanceToAvatarTargetMin',
-       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomStep'
-     ]) then
-    Result:= [psBasic]
-  else
-    Result:= inherited PropertySections(PropertyName);
-end;
-
-procedure TNyaThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
+procedure TNyaThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3;
+                                                     out APos, AUp: TVector3);
 var
   TargetWorldPos: TVector3;
 begin
@@ -156,7 +143,8 @@ begin
   AUp:= Camera.GravityUp;
 end;
 
-procedure TNyaThirdPersonCameraNavigation.CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
+procedure TNyaThirdPersonCameraNavigation.CameraCollision(const CameraDir: TVector3;
+                                                          var CameraPos: TVector3);
 var
   TargetWorldPos: TVector3;
   Collider: TCastleTransform;
@@ -178,17 +166,6 @@ finally
 
   if PointsDistanceSqr(CameraPos, TargetWorldPos) > Sqr(CollisionDistance) then
     CameraPos:= TargetWorldPos - CameraDir.AdjustToLength(CollisionDistance);
-end;
-
-procedure TNyaThirdPersonCameraNavigation.UpdateCamera(const SecondsPassed: Single);
-var
-  CameraPos, CameraPosTarget, CameraDir, CameraUp: TVector3;
-begin
-  Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
-  CameraPosTarget:= CameraPos;
-  CalcCamera(CameraDir, CameraPosTarget, CameraUp);
-  CameraPos:= SmoothTowards(CameraPos, CameraPosTarget, SecondsPassed, FollowSpeed);
-  Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
 procedure TNyaThirdPersonCameraNavigation.ProcessMouseLookDelta(const Delta: TVector2);
@@ -241,6 +218,27 @@ begin
     DistanceToAvatarTarget:= DistanceToAvatarTargetMin;
 
   Result:= True;
+end;
+
+procedure TNyaThirdPersonCameraNavigation.SetAvatarHierarchy(const Value: TCastleTransform);
+begin
+  if (FAvatarHierarchy <> Value) then
+  begin
+    FAvatarHierarchy:= Value;
+    FAvatarHierarchyFreeObserver.Observed:= Value;
+  end;
+end;
+
+function TNyaThirdPersonCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
+begin
+  if ArrayContainsString(PropertyName, [
+       'AvatarHierarchy', 'AvatarTargetPersistent',
+       'DistanceToAvatarTarget', 'DistanceToAvatarTargetMin',
+       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomStep'
+     ]) then
+    Result:= [psBasic]
+  else
+    Result:= inherited PropertySections(PropertyName);
 end;
 
 procedure TNyaThirdPersonCameraNavigation.AvatarHierarchyFreeNotification(
