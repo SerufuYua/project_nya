@@ -35,7 +35,7 @@ type
       DefaultGravityAlignSpeed = 10.0;
       DefaultTurnSpeed = 20.0;
       DefaultJumpImpulse = 1.0;
-      DefaultForceOfMoveInAir = 1.0;
+      DefaultForceOfMoveInAir = 100.0;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;

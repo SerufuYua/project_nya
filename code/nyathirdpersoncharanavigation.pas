@@ -227,7 +227,7 @@ begin
         RBody.LinearVelocity:= AvaDir * SpeedOfWalk + GravityVelocity;
     end else
       { movement in air }
-      RBody.AddForce(AvaDir * ForceOfMoveInAir, False);
+      RBody.AddForce(AvaDir * ForceOfMoveInAir * SecondsPassed, False);
   end;
 
   { jump }

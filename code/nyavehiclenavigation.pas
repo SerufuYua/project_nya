@@ -37,14 +37,14 @@ type
   public
     const
       DefaultRollFactor = 4;
-      DefaultForceOfMove = 100.0;
+      DefaultForceOfMove = 8000.0;
       DefaultMoveSpeedAnimation = 25.0;
       DefaultJumpSpeed = 1.0;
       DefaultAnimationStand = 'stand';
       DefaultAnimationMoveFwd = 'move';
       DefaultAnimationTurnRight = 'turn_right';
       DefaultAnimationTurnLeft = 'turn_left';
-      DefaultBrakeFactor = 0.05;
+      DefaultBrakeFactor = 4;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -223,10 +223,10 @@ begin
   begin
     if OnGround then
       { movement forward on ground }
-      RBody.AddForce(avaDir * ForceOfMove, False)
+      RBody.AddForce(avaDir * ForceOfMove * SecondsPassed, False)
     else
       { movement forward in air }
-      RBody.AddForce(avaDir * ForceOfMoveInAir, False);
+      RBody.AddForce(avaDir * ForceOfMoveInAir * SecondsPassed, False);
   end
   else if Input_Backward.IsPressed(Container) then
   begin
@@ -234,10 +234,10 @@ begin
     begin
       { movement backward on ground }
       if (FwdVelocityFactor > -0.2) then
-        RBody.AddForce(avaDir * (-ForceOfMove), False);
+        RBody.AddForce(avaDir * (-ForceOfMove) * SecondsPassed, False);
     end else
       { movement backward in air }
-      RBody.AddForce(avaDir * (-ForceOfMoveInAir), False);
+      RBody.AddForce(avaDir * (-ForceOfMoveInAir) * SecondsPassed, False);
   end;
 
 
@@ -246,7 +246,7 @@ begin
     { break }
     if Input_Brake.IsPressed(Container) then
       RBody.LinearVelocity:= RBody.LinearVelocity *
-                             (1.0 - (1.0 - FwdVelocityFactor) * BrakeFactor);
+                             (1.0 - (1.0 - FwdVelocityFactor) * BrakeFactor * SecondsPassed);
 
     { zero side velocity }
     sideVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,
