@@ -36,7 +36,7 @@ type
     function AnimationTurnLeftStored: Boolean;
   public
     const
-      DefaultRollFactor = 4;
+      DefaultRollFactor = 3;
       DefaultForceOfMove = 8000.0;
       DefaultMoveSpeedAnimation = 25.0;
       DefaultJumpSpeed = 1.0;
