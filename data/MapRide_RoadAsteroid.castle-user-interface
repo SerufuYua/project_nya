@@ -547,6 +547,12 @@
             "Y" : 1.2999999523162842E+000
           },
           "DistanceToAvatarTarget" : 1.7500000000000000E+000,
+          "FollowRotation" : true,
+          "LocalCamDirPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : -4.4721359014511108E-001,
+            "Z" : 8.9442718029022217E-001
+          },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
           "Name" : "CameraNavigationFollow",
@@ -564,14 +570,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.1321033835411072E-001,
-          "X" : -9.5866829156875610E-001,
-          "Y" : -2.7904328703880310E-001,
-          "Z" : -5.5589761584997177E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001
+          "W" : 2.8849318623542786E-001,
+          "X" : -9.9341285228729248E-001,
+          "Y" : -1.1067254841327667E-001,
+          "Z" : -2.9712302610278130E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",

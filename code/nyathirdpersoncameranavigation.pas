@@ -11,6 +11,8 @@ uses
 type
   TNyaThirdPersonCameraNavigation = class(TCastleMouseLookNavigation)
   protected
+    FFollowRotation: Boolean;
+    FLocalCamDir: TVector3;
     FDistanceToAvatarTarget: Single;
     FDistanceToAvatarTargetMin: Single;
     FDistanceToAvatarTargetMax: Single;
@@ -20,25 +22,30 @@ type
     FInput_Shift: TInputShortcut;
     FAvatarTarget: TVector3;
     FAvatarTargetPersistent: TCastleVector3Persistent;
+    FLocalCamDirPersistent: TCastleVector3Persistent;
     FAvatarHierarchy: TCastleTransform;
     FAvatarHierarchyFreeObserver: TFreeNotificationObserver;
     procedure AvatarHierarchyFreeNotification(const Sender: TFreeNotificationObserver);
     procedure SetAvatarHierarchy(const Value: TCastleTransform);
     function GetAvatarTargetForPersistent: TVector3;
     procedure SetAvatarTargetForPersistent(const AValue: TVector3);
+    function GetLocalCamDirForPersistent: TVector3;
+    procedure SetLocalCamDirForPersistent(const AValue: TVector3);
   protected
-    procedure CalcCamera(const ADir: TVector3; out APos, AUp: TVector3);
+    procedure CalcCameraPos(const ADir: TVector3; out APos, AUp: TVector3);
     procedure CameraCollision(const CameraDir: TVector3; var CameraPos: TVector3);
     procedure ProcessMouseLookDelta(const Delta: TVector2); override;
     function Zoom(const Factor: Single): Boolean; override;
   public
     const
-      DefaultAvatarTarget: TVector3 = (X: 0; Y: 1.0; Z: 0);
+      DefaultAvatarTarget: TVector3 = (X: 0.0; Y: 1.0; Z: 0.0);
+      DefaultLocalCamDir: TVector3 = (X: 0.0; Y: -0.44721; Z: 0.89443);
       DefaultDistanceToAvatarTarget = 1.0;
       DefaultDistanceToAvatarTargetMin = 0.5;
       DefaultDistanceToAvatarTargetMax = 4.0;
       DefaultFollowSpeed = 10;
       DefaultZoomStep = 0.1;
+      DefaultFollowRotation = False;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -47,12 +54,14 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property AvatarTarget: TVector3 read FAvatarTarget write FAvatarTarget;
+    property LocalCamDir: TVector3 read FLocalCamDir write FLocalCamDir;
   public
     property Input_Rotate: TInputShortcut read FInput_Rotate;
     property Input_Shift: TInputShortcut read FInput_Shift;
   published
     property AvatarHierarchy: TCastleTransform read FAvatarHierarchy write SetAvatarHierarchy;
     property AvatarTargetPersistent: TCastleVector3Persistent read FAvatarTargetPersistent;
+    property LocalCamDirPersistent: TCastleVector3Persistent read FLocalCamDirPersistent;
     property DistanceToAvatarTarget: Single read FDistanceToAvatarTarget write FDistanceToAvatarTarget
       {$ifdef FPC}default DefaultDistanceToAvatarTarget{$endif};
     property DistanceToAvatarTargetMin: Single
@@ -65,6 +74,8 @@ type
       {$ifdef FPC}default DefaultFollowSpeed{$endif};
     property ZoomStep: Single read FZoomStep write FZoomStep
       {$ifdef FPC}default DefaultZoomStep{$endif};
+    property FollowRotation: Boolean read FFollowRotation write FFollowRotation
+      {$ifdef FPC}default DefaultFollowRotation{$endif};
   end;
 
 implementation
@@ -89,13 +100,14 @@ begin
   Input_Rotate                 .Name:= 'Input_Rotate';
   Input_Shift                  .Name:= 'Input_Shift';
 
-
   FAvatarTarget:= DefaultAvatarTarget;
+  FLocalCamDir:= DefaultLocalCamDir;
   FDistanceToAvatarTarget:= DefaultDistanceToAvatarTarget;
   FDistanceToAvatarTargetMin:= DefaultDistanceToAvatarTargetMin;
   FDistanceToAvatarTargetMax:= DefaultDistanceToAvatarTargetMax;
   FFollowSpeed:= DefaultFollowSpeed;
   FZoomStep:= DefaultZoomStep;
+  FFollowRotation:= DefaultFollowRotation;
 
   FAvatarHierarchyFreeObserver:= TFreeNotificationObserver.Create(Self);
   FAvatarHierarchyFreeObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}AvatarHierarchyFreeNotification;
@@ -106,6 +118,13 @@ begin
   FAvatarTargetPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetAvatarTargetForPersistent;
   FAvatarTargetPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetAvatarTargetForPersistent;
   FAvatarTargetPersistent.InternalDefaultValue:= DefaultAvatarTarget; // current value is default
+
+  { Persistent for AvatarTarget }
+  FLocalCamDirPersistent:= TCastleVector3Persistent.Create(nil);
+  FLocalCamDirPersistent.SetSubComponent(true);
+  FLocalCamDirPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetLocalCamDirForPersistent;
+  FLocalCamDirPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetLocalCamDirForPersistent;
+  FLocalCamDirPersistent.InternalDefaultValue:= DefaultLocalCamDir; // current value is default
 end;
 
 destructor TNyaThirdPersonCameraNavigation.Destroy;
@@ -124,14 +143,18 @@ begin
   if NOT Valid then Exit;
 
   Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
+
+  if FollowRotation then
+    CameraDir:= AvatarHierarchy.WorldTransform.MultDirection(FLocalCamDir);
+
   CameraPosTarget:= CameraPos;
-  CalcCamera(CameraDir, CameraPosTarget, CameraUp);
+  CalcCameraPos(CameraDir, CameraPosTarget, CameraUp);
   CameraPos:= SmoothTowards(CameraPos, CameraPosTarget, SecondsPassed, FollowSpeed);
   Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
 end;
 
-procedure TNyaThirdPersonCameraNavigation.CalcCamera(const ADir: TVector3;
-                                                     out APos, AUp: TVector3);
+procedure TNyaThirdPersonCameraNavigation.CalcCameraPos(const ADir: TVector3;
+                                                        out APos, AUp: TVector3);
 var
   TargetWorldPos: TVector3;
 begin
@@ -183,14 +206,21 @@ begin
     Rot:= (-Pi/180.0) * Delta;
 
     VerticalDir:= Camera.GravityUp;
-    HorizontalDir:= TVector3.CrossProduct(VerticalDir, CameraDir);
 
-    CameraDir:= TurnVectorAroundVector(CameraDir, VerticalDir, Rot.X);
-    CameraDir:= TurnVectorAroundVector(CameraDir, HorizontalDir, Rot.Y);
+    if FollowRotation then
+    begin
+      HorizontalDir:= TVector3.CrossProduct(VerticalDir, FLocalCamDir);
+      FLocalCamDir:= TurnVectorAroundVector(FLocalCamDir, VerticalDir, Rot.X);
+      FLocalCamDir:= TurnVectorAroundVector(FLocalCamDir, HorizontalDir, Rot.Y);
+      CameraDir:= AvatarHierarchy.WorldTransform.MultDirection(FLocalCamDir);
+    end else
+    begin
+      HorizontalDir:= TVector3.CrossProduct(VerticalDir, CameraDir);
+      CameraDir:= TurnVectorAroundVector(CameraDir, VerticalDir, Rot.X);
+      CameraDir:= TurnVectorAroundVector(CameraDir, HorizontalDir, Rot.Y);
+    end;
 
-    CalcCamera(CameraDir, CameraPos, CameraUp);
-
-    CameraUp:= VerticalDir;
+    CalcCameraPos(CameraDir, CameraPos, CameraUp);
     Camera.SetWorldView(CameraPos, CameraDir, CameraUp);
   end
   else
@@ -199,8 +229,7 @@ begin
     FAvatarTarget.Y:= FAvatarTarget.Y + Delta.Y;
     if (FAvatarTarget.Y < 0.0) then
       FAvatarTarget.Y:= 0.0
-    else
-    if (FAvatarTarget.Y > AvatarHierarchy.BoundingBox.MaxSize) then
+    else if (FAvatarTarget.Y > AvatarHierarchy.BoundingBox.MaxSize) then
       FAvatarTarget.Y:= AvatarHierarchy.BoundingBox.MaxSize;
   end;
 end;
@@ -232,9 +261,9 @@ end;
 function TNyaThirdPersonCameraNavigation.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'AvatarHierarchy', 'AvatarTargetPersistent',
+       'AvatarHierarchy', 'AvatarTargetPersistent', 'LocalCamDirPersistent',
        'DistanceToAvatarTarget', 'DistanceToAvatarTargetMin',
-       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomStep'
+       'DistanceToAvatarTargetMax', 'FollowSpeed', 'ZoomStep', 'FollowRotation'
      ]) then
     Result:= [psBasic]
   else
@@ -255,6 +284,16 @@ end;
 procedure TNyaThirdPersonCameraNavigation.SetAvatarTargetForPersistent(const AValue: TVector3);
 begin
   AvatarTarget:= AValue;
+end;
+
+function TNyaThirdPersonCameraNavigation.GetLocalCamDirForPersistent: TVector3;
+begin
+  Result:= LocalCamDir;
+end;
+
+procedure TNyaThirdPersonCameraNavigation.SetLocalCamDirForPersistent(const AValue: TVector3);
+begin
+  LocalCamDir:= AValue.Normalize;
 end;
 
 initialization
