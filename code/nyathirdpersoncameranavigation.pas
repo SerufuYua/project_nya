@@ -137,7 +137,7 @@ end;
 procedure TNyaThirdPersonCameraNavigation.Update(const SecondsPassed: Single;
                                                  var HandleInput: Boolean);
 var
-  CameraPos, CameraPosTarget, CameraDir, CameraUp: TVector3;
+  CameraPos, CameraPosTarget, CameraDir, CameraDirTarget, CameraUp: TVector3;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -145,7 +145,10 @@ begin
   Camera.GetWorldView(CameraPos, CameraDir, CameraUp);
 
   if FollowRotation then
-    CameraDir:= AvatarHierarchy.WorldTransform.MultDirection(FLocalCamDir);
+  begin
+    CameraDirTarget:= AvatarHierarchy.WorldTransform.MultDirection(FLocalCamDir);
+    CameraDir:= SmoothTowards(CameraDir, CameraDirTarget, SecondsPassed, FollowSpeed);
+  end;
 
   CameraPosTarget:= CameraPos;
   CalcCameraPos(CameraDir, CameraPosTarget, CameraUp);
