@@ -6,10 +6,12 @@
       "$$ClassName" : "TCastleScene",
       "ExposeTransforms" : [
         "Wheel.Rear",
+        "Rudder",
         "Wheel.Front"
       ],
       "ExposeTransformsPrefix" : "Bone_",
       "Name" : "Body",
+      "ProcessEvents" : true,
       "RenderOptions" : {
         "$$ClassName" : "TCastleScene.TSceneRenderOptions"
       },
@@ -75,6 +77,47 @@
                 "X" : 1.0000000000000000E+000
               },
               "Url" : "castle-data:/vehicle/motorbike/motorbike_wheel_front.gltf"
+            }
+          ]
+        },
+        {
+          "$$ClassName" : "TCastleTransform",
+          "Name" : "Bone_Rudder",
+          "RotationPersistent" : {
+            "$$ClassName" : "TCastleVector4RotationPersistent",
+            "W" : 8.3775961399078369E-001,
+            "X" : -1.0000000000000000E+000,
+            "Y" : -1.3952122124294419E-008,
+            "Z" : -1.3952122124294419E-008
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "X" : 1.1583158876504740E-009,
+            "Y" : 7.1136415004730225E-001,
+            "Z" : 8.1565183401107788E-001
+          },
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleSpotLight",
+              "ColorPersistent" : {
+                "$$ClassName" : "TCastleColorRGBPersistent",
+                "Blue" : 7.3725491762161255E-001,
+                "Green" : 9.5294117927551270E-001
+              },
+              "Intensity" : 6.0000000000000000E+001,
+              "Name" : "HeadLight",
+              "RotationPersistent" : {
+                "$$ClassName" : "TCastleVector4RotationPersistent",
+                "W" : 2.0943951606750488E+000,
+                "X" : -1.0000000000000000E+000
+              },
+              "Shadows" : true,
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector3Persistent",
+                "X" : -6.3409999012947083E-002,
+                "Y" : 1.2449999898672104E-001,
+                "Z" : 1.8493999540805817E-001
+              }
             }
           ]
         }
