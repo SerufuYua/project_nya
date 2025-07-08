@@ -654,55 +654,39 @@
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "Z" : 1.0000000000000000E+000
             },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Y" : 2.5000000000000000E-001
+            },
             "$Children" : [
               {
                 "$$ClassName" : "TCastlePointLight",
+                "Intensity" : 3.0000000000000000E+001,
                 "Name" : "PointLight1",
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "Y" : 8.0000000000000000E+000,
-                  "Z" : 2.0000000000000000E+000
+                  "X" : 4.0000000000000000E+000,
+                  "Y" : 3.0000000000000000E+000,
+                  "Z" : -6.0000000000000000E+000
                 }
               },
               {
                 "$$ClassName" : "TCastlePointLight",
-                "Name" : "PointLight5",
+                "Intensity" : 2.0000000000000000E+001,
+                "Name" : "PointLight2",
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 4.0000000000000000E+001,
+                  "X" : -4.0000000000000000E+000,
                   "Y" : 8.0000000000000000E+000,
-                  "Z" : -2.0000000000000000E+000
+                  "Z" : 6.0000000000000000E+000
                 }
-              },
+              }
+            ],
+            "$Behaviors" : [
               {
-                "$$ClassName" : "TCastlePointLight",
-                "Name" : "PointLight8",
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 8.0000000000000000E+001,
-                  "Y" : 8.0000000000000000E+000,
-                  "Z" : 2.0000000000000000E+000
-                }
-              },
-              {
-                "$$ClassName" : "TCastlePointLight",
-                "Name" : "PointLight12",
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -4.0000000000000000E+001,
-                  "Y" : 8.0000000000000000E+000,
-                  "Z" : -2.0000000000000000E+000
-                }
-              },
-              {
-                "$$ClassName" : "TCastlePointLight",
-                "Name" : "PointLight15",
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -8.0000000000000000E+001,
-                  "Y" : 8.0000000000000000E+000,
-                  "Z" : 2.0000000000000000E+000
-                }
+                "$$ClassName" : "TNyaFollow",
+                "Name" : "Follow",
+                "Target" : "VehicleMoto"
               }
             ]
           },
@@ -801,10 +785,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5725939273834229E+000,
-          "X" : 4.3432466685771942E-002,
-          "Y" : 9.9812656641006470E-001,
-          "Z" : -4.3094068765640259E-002
+          "W" : 1.1676017045974731E+000,
+          "X" : -2.4572284519672394E-001,
+          "Y" : 9.5684665441513062E-001,
+          "Z" : 1.5512779355049133E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
@@ -812,9 +796,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -2.2981227874755859E+001,
-          "Y" : 4.0359764099121094E+000,
-          "Z" : 9.8735618591308594E-001
+          "X" : 4.1442055702209473E+000,
+          "Y" : 2.6191024780273438E+000,
+          "Z" : 1.6301155090332031E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

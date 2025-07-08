@@ -11,7 +11,7 @@ uses
   CastleViewport, CastleVectors,
   ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
   NyaSpectatorCameraNavigation, NyaVehicleNavigation, NyaSwitch,
-  NyaBaseNavigation, NyaWorldCondition;
+  NyaBaseNavigation, NyaWorldCondition, NyaFollow;
 
 type
   TBaseViewRide = class(TViewWarper)

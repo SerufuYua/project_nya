@@ -50,6 +50,7 @@ type
       DefaultDistance = 1.0;
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     procedure Activate;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -117,6 +118,13 @@ begin
   FIndicatorObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}IndicatorFreeNotification;
   FActivatorObserver:= TFreeNotificationObserver.Create(Self);
   FActivatorObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}ActivatorFreeNotification;
+end;
+
+destructor TNyaSwitch.Destroy;
+begin
+  FreeAndNil(FIndicatorObserver);
+  FreeAndNil(FActivatorObserver);
+  inherited;
 end;
 
 procedure TNyaSwitch.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
