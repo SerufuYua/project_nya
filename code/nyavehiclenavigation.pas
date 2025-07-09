@@ -188,9 +188,9 @@ begin
     roll:= WinFuncRolling(FwdVelocityFactor) * RollFactor * SecondsPassed;
 
     if Input_Leftward.IsPressed(Container) then
-      gravityUp:= gravityUp + sideDir * roll
+      gravityUp:= gravityUp + sideDir * Abs(roll)
     else if Input_Rightward.IsPressed(Container) then
-      gravityUp:= gravityUp - sideDir * roll;
+      gravityUp:= gravityUp - sideDir * Abs(roll);
 
     { compensate retrogradation }
     if (Input_Leftward.IsPressed(Container) OR Input_Rightward.IsPressed(Container)) then
