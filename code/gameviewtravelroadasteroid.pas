@@ -13,18 +13,20 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorBoy: TNyaActorChara;
-    FActorSpacePlane: TNyaActor;
+    FActorSpacePlane, FActorMotorbike: TNyaActor;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
     procedure SaveCharasCondition; override;
   protected
     procedure ConversationSpacePlane;
+    procedure ConversationMotorbike;
     procedure ConversationBoy;
   protected
     procedure TalkToPlaneOk;
     procedure TalkToBoyOk;
   protected
     procedure GetToGoBoy;
+    procedure GetToGoRide;
     procedure GetToGoHome;
   end;
 
@@ -38,8 +40,8 @@ uses
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
-  GameViewDressingMenu, GameViewTravelContainerRoom, GameViewMain,
-  GameViewPlayTogether, GameViewConversationMenu;
+  GameViewDressingMenu, GameViewTravelContainerRoom, GameViewRideRoadAsteroid,
+  GameViewMain, GameViewPlayTogether, GameViewConversationMenu;
 
 procedure TViewTravelRoadAsteroid.Start;
 begin
@@ -52,6 +54,9 @@ begin
   { set Space Plane Character }
   FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
   FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
+
+  { set Motorbike Character }
+  FActorMotorbike:= Map.DesignedComponent('VehicleMoto') as TNyaActor;
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
@@ -116,6 +121,8 @@ begin
     ConversationBoy;
   'SpacePlaneSwitch':
     ConversationSpacePlane;
+  'VehicleMotoSwitch':
+    ConversationMotorbike;
   else
     Notifications.Show('There is nothing to do');
   end;
@@ -168,6 +175,19 @@ begin
                        {$ifdef FPC}@{$endif}TalkToPlaneOk,
                        nil));
   end;
+end;
+
+procedure TViewTravelRoadAsteroid.ConversationMotorbike;
+var
+  messages: TMessages;
+begin
+  SetLength(messages, 1);
+  messages[0].FActor:= FActorMotorbike;
+  messages[0].FMessage:= '<p>I was tired of waiting! Let&apos;s ride!</p>';
+  Container.PushView(TViewConversationMenu.CreateUntilStopped(
+                     messages,
+                     {$ifdef FPC}@{$endif}GetToGoRide,
+                     nil));
 end;
 
 procedure TViewTravelRoadAsteroid.ConversationBoy;
@@ -235,6 +255,11 @@ procedure TViewTravelRoadAsteroid.GetToGoBoy;
 begin
   WorldCondition.Boy.Location:= TBoyLocation.InRoom;
   GetToGo(ViewPlayTogether);
+end;
+
+procedure TViewTravelRoadAsteroid.GetToGoRide;
+begin
+  GetToGo(ViewRideRoadAsteroid);
 end;
 
 procedure TViewTravelRoadAsteroid.GetToGoHome;

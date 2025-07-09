@@ -56,10 +56,11 @@ type
 implementation
 
 uses
-  GameViewMain, GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
+  GameViewMain, GameViewTravelRoadAsteroid, GameViewDressingMenu,
+  GameViewLoading, GameViewSettingsMenu,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
-  CastleScene, CastleFonts,
+  CastleScene, CastleFonts, CastleUtils,
   StrUtils, NyaCastleUtils;
 
 constructor TBaseViewRide.Create(AOwner: TComponent);
@@ -194,7 +195,8 @@ begin
         if NOT (Container.FrontView is TViewSettingsMenu) then
           Container.PushView(TViewSettingsMenu.CreateUntilStopped);
     'BtnBack':
-        GetToGo(ViewMain);
+        GetToGo(ViewTravelRoadAsteroid, Vector3(-3.4, 0.2, -16.5),
+                                        Vector4(0.0, -1.0, 0.0, Deg(-205.0)));
   end;
 end;
 
