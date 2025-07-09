@@ -752,7 +752,7 @@
           "AnimationTurnRight" : "GAME.MOTO.TURN.RIGHT",
           "AvatarHierarchy" : "VehicleMoto",
           "Name" : "VehicleNavigation",
-          "RollFactor" : 4.0000000000000000E+001,
+          "RollFactor" : 1.0000000000000000E+000,
           "SpeedOfTurn" : 2.0000000000000000E+000
         },
         {
@@ -766,8 +766,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721364974975586E-001,
-            "Z" : 8.9442729949951172E-001
+            "Y" : -4.4721359014511108E-001,
+            "Z" : 8.9442718029022217E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,

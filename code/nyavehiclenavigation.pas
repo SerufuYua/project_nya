@@ -37,7 +37,7 @@ type
     function AnimationTurnLeftStored: Boolean;
   public
     const
-      DefaultRollFactor = 40.0;
+      DefaultRollFactor = 1.0;
       DefaultForceOfMove = 8000.0;
       DefaultMoveSpeedAnimation = 25.0;
       DefaultJumpSpeed = 1.0;
@@ -185,7 +185,7 @@ begin
   { add rolling factor from turns turns }
   if (OnGround AND (Abs(FwdVelocityFactor) > MoveTreshold)) then
   begin
-    roll:= WinFuncRolling(FwdVelocityFactor) * RollFactor * SecondsPassed;
+    roll:= WinFuncRolling(FwdVelocityFactor) * RollFactor;
 
     if Input_Leftward.IsPressed(Container) then
       gravityUp:= gravityUp + sideDir * Abs(roll)
