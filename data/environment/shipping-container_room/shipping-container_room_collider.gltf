@@ -26,10 +26,9 @@
 				{
 					"attributes":{
 						"POSITION":0,
-						"NORMAL":1,
-						"TEXCOORD_0":2
+						"NORMAL":1
 					},
-					"indices":3
+					"indices":2
 				}
 			]
 		}
@@ -38,7 +37,7 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":232,
+			"count":210,
 			"max":[
 				2.5069007873535156,
 				2.536050796508789,
@@ -54,51 +53,39 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":232,
+			"count":210,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
-			"componentType":5126,
-			"count":232,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":3,
 			"componentType":5123,
-			"count":438,
+			"count":396,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":2784,
+			"byteLength":2520,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2784,
-			"byteOffset":2784,
+			"byteLength":2520,
+			"byteOffset":2520,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1856,
-			"byteOffset":5568,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":876,
-			"byteOffset":7424,
+			"byteLength":792,
+			"byteOffset":5040,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":8300,
+			"byteLength":5832,
 			"uri":"shipping-container_room_collider.bin"
 		}
 	]
