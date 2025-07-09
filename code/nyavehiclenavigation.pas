@@ -29,6 +29,7 @@ type
     procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
 
     function WinFuncRotation(const value: Single): Single;
+    function WinFuncRolling(const value: Single): Single;
 
     function AnimationStandStored: Boolean;
     function AnimationMoveFwdStored: Boolean;
@@ -36,7 +37,7 @@ type
     function AnimationTurnLeftStored: Boolean;
   public
     const
-      DefaultRollFactor = 3;
+      DefaultRollFactor = 40.0;
       DefaultForceOfMove = 8000.0;
       DefaultMoveSpeedAnimation = 25.0;
       DefaultJumpSpeed = 1.0;
@@ -44,7 +45,7 @@ type
       DefaultAnimationMoveFwd = 'move';
       DefaultAnimationTurnRight = 'turn_right';
       DefaultAnimationTurnLeft = 'turn_left';
-      DefaultBrakeFactor = 4;
+      DefaultBrakeFactor = 4.0;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -171,6 +172,7 @@ procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
                                               FwdShift: Single);
 var
   gravAlign, turn, gravityUp, tangage, sideDir, gravSideDir: TVector3;
+  roll: Single;
 begin
   gravAlign:= TVector3.Zero;
   turn:= TVector3.Zero;
@@ -183,14 +185,16 @@ begin
   { add rolling factor from turns turns }
   if (OnGround AND (Abs(FwdVelocityFactor) > MoveTreshold)) then
   begin
+    roll:= WinFuncRolling(FwdVelocityFactor) * RollFactor * SecondsPassed;
+
     if Input_Leftward.IsPressed(Container) then
-      gravityUp:= gravityUp + sideDir * FwdShift * RollFactor
+      gravityUp:= gravityUp + sideDir * roll
     else if Input_Rightward.IsPressed(Container) then
-      gravityUp:= gravityUp - sideDir * FwdShift * RollFactor;
+      gravityUp:= gravityUp - sideDir * roll;
 
     { compensate retrogradation }
     if (Input_Leftward.IsPressed(Container) OR Input_Rightward.IsPressed(Container)) then
-      tangage:= -sideDir * FwdShift * RollFactor;
+      tangage:= -sideDir * roll;
   end;
 
   gravSideDir:= TVector3.CrossProduct(gravityUp, AvatarHierarchy.Direction).Normalize;
@@ -295,6 +299,16 @@ begin
     Result:= -0.5333 * x + 1.1333;
 
   Result:= Result * dir;
+end;
+
+function TNyaVehicleNavigation.WinFuncRolling(const value: Single): Single;
+var
+  x, dir: Single;
+begin
+  x:= Abs(value);
+  dir:= Sign(value);
+
+  Result:= Power(x, 0.3) * dir;
 end;
 
 function TNyaVehicleNavigation.PropertySections(const PropertyName: String): TPropertySections;
