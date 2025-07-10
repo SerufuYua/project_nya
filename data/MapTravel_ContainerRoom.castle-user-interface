@@ -91,6 +91,7 @@
                 "ActorName" : "Boy",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
+                "DefaultAnimationTransition" : 2.0000000298023224E-001,
                 "EmissionColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
                   "Blue" : 1.5000000596046448E-001,
@@ -138,8 +139,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6934025287628174E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263348854612559E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -229,8 +232,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.1064615249633789E+000,
-                      "Y" : 1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -309,8 +314,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.7087538242340088E+000,
-                      "Y" : 9.9999994039535522E-001
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -375,8 +382,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.1064615249633789E+000,
-                      "Y" : 1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -431,6 +440,7 @@
                 "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.STAND",
+                "DefaultAnimationTransition" : 1.5000000596046448E-001,
                 "EmissionColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
                   "Blue" : 1.5000000596046448E-001,
@@ -565,20 +575,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.1543374061584473E+000,
-          "X" : -1.6504395008087158E-001,
-          "Y" : 9.4389557838439941E-001,
-          "Z" : 2.8604501485824585E-001
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "W" : 3.7883954048156738E+000,
+          "X" : 6.2344856560230255E-002,
+          "Y" : 9.8024934530258179E-001,
+          "Z" : 1.8768115341663361E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.3697941303253174E-001,
-          "Y" : 1.6885521411895752E+000,
-          "Z" : -1.6586136817932129E-001
+          "X" : -1.6555581986904144E-001,
+          "Y" : 2.0278770923614502E+000,
+          "Z" : -1.2057187557220459E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
