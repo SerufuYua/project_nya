@@ -38,6 +38,26 @@
             "Url" : "castle-data:/environment/shipping-container_room/shipping-container_room_bed.x3dv",
             "$Children" : [
               {
+                "$$ClassName" : "TCastlePlane",
+                "Collides" : false,
+                "Name" : "OilDirt",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 7.8539800643920898E-001,
+                  "Y" : -9.9999988079071045E-001
+                },
+                "Texture" : "castle-data:/environment/shipping-container_room/oil_dirt.png",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -1.2000000476837158E+000,
+                  "Y" : 9.9999997764825821E-003,
+                  "Z" : 1.0000000000000000E+000
+                }
+              },
+              {
                 "$$ClassName" : "TCastleScene",
                 "ExposeTransforms" : [
                 ],
@@ -247,15 +267,14 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.1821101903915405E+000,
-          "X" : -3.8781771063804626E-001,
-          "Y" : -8.9108216762542725E-001,
-          "Z" : -2.3573261499404907E-001
+          "W" : 2.9808156490325928E+000,
+          "X" : -3.0344393104314804E-002,
+          "Y" : 9.4167518615722656E-001,
+          "Z" : 3.3515250682830811E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000,
-          "Z" : 1.0000001192092896E+000
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
