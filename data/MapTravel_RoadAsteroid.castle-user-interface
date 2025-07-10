@@ -381,9 +381,11 @@
                 ]
               },
               {
-                "$$ClassName" : "TNyaActor",
+                "$$ClassName" : "TNyaActorVehicle",
                 "ActorName" : "Motorbike",
                 "AutoAnimation" : "GAME.MOTO.PARKING",
+                "HeadlightOFFName" : "Headlight_OFF",
+                "HeadlightONName" : "Headlight_ON",
                 "MainSceneName" : "none",
                 "Name" : "VehicleMoto",
                 "PersonalColorPersistent" : {
@@ -796,16 +798,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5117886066436768E+000,
-          "X" : -1.0732406377792358E-001,
-          "Y" : -9.8846530914306641E-001,
-          "Z" : -1.0685524344444275E-001
+          "W" : 1.9500635862350464E+000,
+          "X" : -8.5383884608745575E-002,
+          "Y" : -9.8761367797851562E-001,
+          "Z" : -1.3163864612579346E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -6.3499979972839355E+000,
-          "Y" : 2.0996031761169434E+000,
-          "Z" : -2.0730848312377930E+001
+          "X" : -5.2386202812194824E+000,
+          "Y" : 1.3129292726516724E+000,
+          "Z" : -1.9107343673706055E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

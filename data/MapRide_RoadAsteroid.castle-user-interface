@@ -749,7 +749,9 @@
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.MOTO.STAND",
                 "DefaultAnimationTransition" : 1.0000000149011612E-001,
-                "EmissionItself" : true,
+                "Headlight" : true,
+                "HeadlightOFFName" : "Headlight_OFF",
+                "HeadlightONName" : "Headlight_ON",
                 "MainSceneName" : "Body",
                 "Name" : "VehicleMoto",
                 "PersonalColorPersistent" : {
@@ -960,16 +962,22 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 7.7321934700012207E-001,
-          "X" : -4.3747535347938538E-001,
-          "Y" : -8.8488769531250000E-001,
-          "Z" : -1.5996602177619934E-001
+          "W" : 1.1738611459732056E+000,
+          "X" : -2.0987538993358612E-001,
+          "Y" : 9.6859169006347656E-001,
+          "Z" : 1.3335078954696655E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 3.6665525436401367E+000,
-          "Y" : 1.5492206573486328E+001,
-          "Z" : -2.4180383300781250E+002
+          "X" : 2.1880068778991699E+000,
+          "Y" : 1.6716322898864746E+000,
+          "Z" : 8.2556068897247314E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

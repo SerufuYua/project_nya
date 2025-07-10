@@ -37,7 +37,7 @@ type
     FDebugAvatar: TDebugTransform;
     FCameraNavigationFollow: TNyaThirdPersonCameraNavigation;
     FCamera: TCastleCamera;
-    FKeyUse: TKey;
+    FLightSwitch: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
     procedure FocusButton(const Sender: TCastleUserInterface);
@@ -57,7 +57,7 @@ implementation
 
 uses
   GameViewMain, GameViewTravelRoadAsteroid, GameViewDressingMenu,
-  GameViewLoading, GameViewSettingsMenu,
+  GameViewLoading, GameViewSettingsMenu, NyaActorVehicle,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   CastleScene, CastleFonts, CastleUtils,
@@ -103,7 +103,7 @@ begin
   BtnBack.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { set keys }
-  FKeyUse:= TKey.keyF;
+  FLightSwitch:= TKey.keyF;
   FKeyDebug:= TKey.keyF4;
 
   { set color }
@@ -139,6 +139,8 @@ begin
 end;
 
 function TBaseViewRide.Press(const Event: TInputPressRelease): Boolean;
+var
+  motorbike: TNyaActorVehicle;
 begin
   Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
@@ -157,12 +159,14 @@ begin
     Exit(true);
   end;
 
-  { activate switch }
-  if Event.IsKey(FKeyUse) then
+  { switch light }
+  if Event.IsKey(FLightSwitch) then
   begin
-    { activate switch }
-    if Assigned(FTouchedSwitch) then
-      FTouchedSwitch.Activate;
+    if (MainActor is TNyaActorVehicle) then
+    begin
+      motorbike:= (MainActor as TNyaActorVehicle);
+      motorbike.Headlight:= NOT motorbike.Headlight;
+    end;
     Exit(true);
   end;
 end;
@@ -263,7 +267,7 @@ begin
   begin
     if(FTouchedSwitch <> switch) then
     begin
-      Status.Caption:= 'Press "' + GetKeyName(FKeyUse) + '" to ' +
+      Status.Caption:= 'Press "' + GetKeyName(FLightSwitch) + '" to ' +
                        switch.ActionString;
       FTouchedSwitch:= switch;
       SoundEngine.Play(NamedSound('SfxInspect'));
@@ -299,6 +303,8 @@ end;
 procedure TBaseViewRide.DoStart(Sender: TObject);
 begin
   Notifications.Show('Info: use WASD to move');
+  Notifications.Show('Info: use Space to brake');
+  Notifications.Show('Info: use Space to switch headlight');
 end;
 
 end.

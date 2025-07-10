@@ -450,7 +450,7 @@ var
   scene: TCastleScene;
 begin
   for scene in FAllScenes do
-    if Assigned(scene.RootNode) then
+    if (Assigned(scene.RootNode) AND (scene.Tag <> -1)) then
       scene.RootNode.EnumerateNodes(TPhysicalMaterialNode,
                                     {$ifdef FPC}@{$endif}HandleNodeEmissionItself,
                                     false);
@@ -461,7 +461,7 @@ var
   scene: TCastleScene;
 begin
   for scene in FAllScenes do
-    if Assigned(scene.RootNode) then
+    if (Assigned(scene.RootNode) AND (scene.Tag <> -1)) then
       scene.RootNode.EnumerateNodes(TPhysicalMaterialNode,
                                     {$ifdef FPC}@{$endif}HandleNodeEmissionColor,
                                     false);
