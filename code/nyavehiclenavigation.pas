@@ -24,9 +24,9 @@ type
     FBrakeFactor: Single;
     FInput_Brake: TInputShortcut;
   protected
-    procedure RotateVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; const OnGround: Boolean; const FwdVelocityFactor, FwdShift: Single);
-    procedure MoveVehicle(const SecondsPassed: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean; const FwdVelocityFactor: Single);
-    procedure Animate(const SecondsPassed: Single; const OnGround: Boolean; const FwdVelocity: Single);
+    procedure RotateVehicle(const SecondsPassed, FwdVelocityFactor: Single; RBody: TCastleRigidBody; const OnGround: Boolean);
+    procedure MoveVehicle(const SecondsPassed, FwdVelocityFactor: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean);
+    procedure Animate(const SecondsPassed, FwdVelocity: Single; const OnGround: Boolean);
 
     function WinFuncRotation(const value: Single): Single;
     function WinFuncRolling(const value: Single): Single;
@@ -124,8 +124,7 @@ var
   RBody: TCastleRigidBody;
   CBody: TCastleCollider;
   onGround: Boolean;
-  fwdVelocity, fwdVelocityFactor, fwdShift: Single;
-  actor: TNyaActor;
+  fwdVelocity, fwdVelocityFactor: Single;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -140,17 +139,11 @@ begin
 
   { calculate real Velocity from Avatar Hierarchy }
   if (AvatarHierarchy is TNyaActor) then
-  begin
-    actor:= AvatarHierarchy as TNyaActor;
-    fwdVelocity:= actor.ForwardVelocity;
-    fwdShift:= actor.ForwardShift;
+    fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
 
-  end else
-  begin
+  else
     fwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
                                              AvatarHierarchy.Direction);
-    fwdShift:= 0.0;
-  end;
 
   { calculate real Velocity Factor }
   if (RBody.MaxLinearVelocity > 0.0) then
@@ -158,18 +151,17 @@ begin
   else if (SpeedOfMoveAnimation > 0.0) then
     fwdVelocityFactor:= fwdVelocity / SpeedOfMoveAnimation
   else
-    fwdVelocityFactor:= 0.0;
+    fwdVelocityFactor:= 1.0;
 
-  RotateVehicle(SecondsPassed, RBody, onGround, fwdVelocityFactor, fwdShift);
-  MoveVehicle(SecondsPassed, RBody, CBody, onGround, fwdVelocityFactor);
-  Animate(SecondsPassed, onGround, fwdVelocity);
+  RotateVehicle(SecondsPassed, fwdVelocityFactor, RBody, onGround);
+  MoveVehicle(SecondsPassed, fwdVelocityFactor, RBody, CBody, onGround);
+  Animate(SecondsPassed, fwdVelocity, onGround);
 end;
 
-procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed: Single;
+procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed,
+                                              FwdVelocityFactor: Single;
                                               RBody: TCastleRigidBody;
-                                              const OnGround: Boolean;
-                                              const FwdVelocityFactor,
-                                              FwdShift: Single);
+                                              const OnGround: Boolean);
 var
   gravAlign, turn, gravityUp, tangage, sideDir, gravSideDir: TVector3;
   roll: Single;
@@ -212,11 +204,11 @@ begin
   RBody.AngularVelocity:= gravAlign + turn;
 end;
 
-procedure TNyaVehicleNavigation.MoveVehicle(const SecondsPassed: Single;
+procedure TNyaVehicleNavigation.MoveVehicle(const SecondsPassed,
+                                            FwdVelocityFactor: Single;
                                             RBody: TCastleRigidBody;
                                             CBody: TCastleCollider;
-                                            const OnGround: Boolean;
-                                            const FwdVelocityFactor: Single);
+                                            const OnGround: Boolean);
 var
   avaDir, sideVelocity: TVector3;
 begin
@@ -259,9 +251,9 @@ begin
   end;
 end;
 
-procedure TNyaVehicleNavigation.Animate(const SecondsPassed: Single;
-                                        const OnGround: Boolean;
-                                        const FwdVelocity: Single);
+procedure TNyaVehicleNavigation.Animate(const SecondsPassed,
+                                        FwdVelocity: Single;
+                                        const OnGround: Boolean);
 begin
   if NOT Assigned(OnAnimation) then Exit;
 
