@@ -34,7 +34,7 @@ begin
   MainActor:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
 
   { Play music }
-  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicRide');
 
   inherited;
 end;

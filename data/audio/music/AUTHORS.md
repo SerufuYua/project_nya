@@ -19,6 +19,11 @@ Album Title: "Cityscape Delusions"
 URL: https://www.youtube.com/@LunarMoth
 
 
+File: ride.ogg
+Artist Name: "Callix Lunaris"
+Track Title: "This Is It"
+URL: https://www.youtube.com/@LunarMoth
+
 File: together.ogg
 Artist Name: "Yunior Arronte"
 Track Title: "Moonlight Drive"

@@ -28,6 +28,12 @@
     },
     {
       "$$ClassName" : "TCastleSound",
+      "Name" : "MusicRide",
+      "Stream" : true,
+      "Url" : "castle-data:/audio/music/ride.ogg"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
       "Name" : "SfxButtonFocus",
       "Url" : "castle-data:/audio/sfx/breeu.wav",
       "Volume" : 3.0000001192092896E-001
