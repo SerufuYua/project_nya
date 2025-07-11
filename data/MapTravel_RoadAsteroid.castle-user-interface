@@ -132,7 +132,7 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
+                          "W" : 1.9375462532043457E+000,
                           "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
@@ -230,7 +230,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6779451370239258E+000,
+                      "W" : 1.9375462532043457E+000,
                       "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
@@ -352,7 +352,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.0321733951568604E+000,
+                      "W" : 1.2917745113372803E+000,
                       "Y" : -1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
@@ -386,7 +386,7 @@
                 "AutoAnimation" : "GAME.MOTO.PARKING",
                 "HeadlightOFFName" : "Headlight_OFF",
                 "HeadlightONName" : "Headlight_ON",
-                "MainSceneName" : "none",
+                "MainSceneName" : "Body",
                 "Name" : "VehicleMoto",
                 "PersonalColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
@@ -398,6 +398,8 @@
                   "W" : 3.5357420444488525E+000,
                   "Y" : 1.0000007152557373E+000
                 },
+                "StoplightOFFName" : "Stoplight_OFF",
+                "StoplightONName" : "Stoplight_ON",
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : -2.4337196350097656E+000,
@@ -420,8 +422,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 6.9497428834438324E-002,
-                      "Y" : 1.0000027418136597E+000
+                      "W" : 8.0989694595336914E-001,
+                      "Y" : 9.9999994039535522E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",

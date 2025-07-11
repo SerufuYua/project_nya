@@ -87,7 +87,7 @@ implementation
 
 uses
   CastleComponentSerialize, CastleUtils,
-  CastleBoxes, NyaVectorMath, NyaActor, NyaCastleUtils, Math
+  CastleBoxes, NyaVectorMath, NyaActor, NyaActorVehicle, NyaCastleUtils, Math
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -147,7 +147,6 @@ begin
   { calculate real Velocity from Avatar Hierarchy }
   if (AvatarHierarchy is TNyaActor) then
     fwdVelocity:= (AvatarHierarchy as TNyaActor).ForwardVelocity
-
   else
     fwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
                                              AvatarHierarchy.Direction);
@@ -250,6 +249,9 @@ begin
     if Input_Brake.IsPressed(Container) then
       RBody.LinearVelocity:= RBody.LinearVelocity *
                              (1.0 - (1.0 - FwdVelocityFactor) * BrakeFactor * SecondsPassed);
+
+    if (AvatarHierarchy is TNyaActorVehicle) then
+      (AvatarHierarchy as TNyaActorVehicle).Stoplight:= Input_Brake.IsPressed(Container);
 
     { zero side velocity }
     sideVelocity:= ProjectionVectorAtoB(RBody.LinearVelocity,

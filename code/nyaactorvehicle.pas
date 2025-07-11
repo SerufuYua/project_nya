@@ -16,6 +16,9 @@ type
     FHeadlight: Boolean;
     FHeadlightOFFName, FHeadlightONName: String;
     FHeadlightOFF, FHeadlightON: TCastleScene;
+    FStoplight: Boolean;
+    FStoplightOFFName, FStoplightONName: String;
+    FStoplightOFF, FStoplightON: TCastleScene;
     FWheel1SceneName: String;
     FWheel2SceneName: String;
     FWheel3SceneName: String;
@@ -38,12 +41,17 @@ type
     procedure ApplyHeadlight;
     procedure SetHeadlightOFF(const value: String);
     procedure SetHeadlightON(const value: String);
+    procedure SetStoplight(const value: Boolean);
+    procedure ApplyStoplight;
+    procedure SetStoplightOFF(const value: String);
+    procedure SetStoplightON(const value: String);
     procedure UpdateLight;
     procedure SetUrl(const value: String); override;
   public
     const
       DefaultWheelSpeed = 1.0;
       DefaultHeadlight = False;
+      DefaultStoplight = False;
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -63,9 +71,13 @@ type
              {$ifdef FPC}default DefaultWheelSpeed{$endif};
     property Headlight: Boolean read FHeadlight write SetHeadlight
              {$ifdef FPC}default DefaultHeadlight{$endif};
+    property Stoplight: Boolean read FStoplight write SetStoplight
+             {$ifdef FPC}default DefaultStoplight{$endif};
 
     property HeadlightOFFName: String read FHeadlightOFFName write SetHeadlightOFF;
     property HeadlightONName: String read FHeadlightONName write SetHeadlightON;
+    property StoplightOFFName: String read FStoplightOFFName write SetStoplightOFF;
+    property StoplightONName: String read FStoplightONName write SetStoplightON;
   end;
 
 implementation
@@ -81,6 +93,7 @@ begin
   inherited;
 
   FHeadlight:= DefaultHeadlight;
+  FStoplight:= DefaultStoplight;
 
   FWheel1Scene:= nil;
   FWheel2Scene:= nil;
@@ -210,6 +223,37 @@ begin
   UpdateLight;
 end;
 
+procedure TNyaActorVehicle.SetStoplight(const value: Boolean);
+begin
+  if (FStoplight = value) then Exit;
+  FStoplight:= value;
+
+  ApplyStoplight;
+end;
+
+procedure TNyaActorVehicle.ApplyStoplight;
+begin
+  if (Assigned(FStoplightOFF) AND Assigned(FStoplightON)) then
+  begin
+    FStoplightOFF.Exists:= NOT FStoplight;
+    FStoplightON.Exists:= FStoplight;
+  end;
+end;
+
+procedure TNyaActorVehicle.SetStoplightOFF(const value: String);
+begin
+  if (FStoplightOFFName = value) then Exit;
+  FStoplightOFFName:= value;
+  UpdateLight;
+end;
+
+procedure TNyaActorVehicle.SetStoplightON(const value: String);
+begin
+  if (FStoplightONName = value) then Exit;
+  FStoplightONName:= value;
+  UpdateLight;
+end;
+
 procedure TNyaActorVehicle.UpdateLight;
 var
   scene: TCastleScene;
@@ -220,9 +264,14 @@ begin
       FHeadlightOFF:= scene;
     if (scene.Name = FHeadlightONName) then
       FHeadlightON:= scene;
+    if (scene.Name = FStoplightOFFName) then
+      FStoplightOFF:= scene;
+    if (scene.Name = FStoplightONName) then
+      FStoplightON:= scene;
   end;
 
   ApplyHeadlight;
+  ApplyStoplight;
 end;
 
 function TNyaActorVehicle.PropertySections(const PropertyName: String): TPropertySections;
@@ -231,7 +280,8 @@ begin
        'Wheel1SceneName', 'Wheel2SceneName', 'Wheel3SceneName',
        'Wheel4SceneName', 'Wheel1Speed', 'Wheel2Speed', 'Wheel3Speed',
        'Wheel4Speed', 'MaxSpeed', 'Headlight', 'HeadlightOFFName',
-       'HeadlightONName'
+       'HeadlightONName', 'Stoplight', 'StoplightOFFName',
+       'StoplightONName'
      ]) then
     Result:= [psBasic]
   else
@@ -279,6 +329,10 @@ initialization
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'HeadlightOFFName',
                          TNyaActorWheelSceneEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'HeadlightONName',
+                         TNyaActorWheelSceneEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'StoplightOFFName',
+                         TNyaActorWheelSceneEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'StoplightONName',
                          TNyaActorWheelSceneEditor);
   {$endif}
 end.
