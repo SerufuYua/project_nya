@@ -16,6 +16,7 @@ type
     FAnimationMoveFwd: String;
     FAnimationTurnRight: String;
     FAnimationTurnLeft: String;
+    FAnimationFly: String;
     FRollFactor: Single;
     FForceOfMove: Single;
     FMoveSpeedAnimation: Single;
@@ -35,6 +36,7 @@ type
     function AnimationMoveFwdStored: Boolean;
     function AnimationTurnRightStored: Boolean;
     function AnimationTurnLeftStored: Boolean;
+    function AnimationFlyStored: Boolean;
   public
     const
       DefaultRollFactor = 1.0;
@@ -45,6 +47,7 @@ type
       DefaultAnimationMoveFwd = 'move';
       DefaultAnimationTurnRight = 'turn_right';
       DefaultAnimationTurnLeft = 'turn_left';
+      DefaultAnimationFly = 'fly';
       DefaultBrakeFactor = 4.0;
 
     constructor Create(AOwner: TComponent); override;
@@ -74,6 +77,8 @@ type
              stored AnimationTurnRightStored nodefault;
     property AnimationTurnLeft: String read FAnimationTurnLeft write FAnimationTurnLeft
              stored AnimationTurnLeftStored nodefault;
+    property AnimationFly: String read FAnimationFly write FAnimationFly
+             stored AnimationFlyStored nodefault;
     property BrakeFactor: Single read FBrakeFactor write FBrakeFactor
              {$ifdef FPC}default DefaultBrakeFactor{$endif};
   end;
@@ -110,6 +115,8 @@ begin
   FAnimationStand:= DefaultAnimationStand;
   FAnimationMoveFwd:= DefaultAnimationMoveFwd;
   FAnimationTurnRight:= DefaultAnimationTurnRight;
+  FAnimationTurnLeft:= DefaultAnimationTurnLeft;
+  FAnimationFly:= DefaultAnimationFly;
 end;
 
 destructor TNyaVehicleNavigation.Destroy;
@@ -258,22 +265,23 @@ begin
   if NOT Assigned(OnAnimation) then Exit;
 
   { processing animations }
-  if (Input_Forward.IsPressed(Container) OR
-      (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation)) then
+  if OnGround then
   begin
-    { move animation }
-    if Input_Rightward.IsPressed(Container) then
-      OnAnimation(self, AnimationTurnRight, FwdVelocity / SpeedOfMoveAnimation)
-    else if Input_Leftward.IsPressed(Container) then
-      OnAnimation(self, AnimationTurnLeft, FwdVelocity / SpeedOfMoveAnimation)
-    else
-      OnAnimation(self, AnimationMoveFwd, FwdVelocity / SpeedOfMoveAnimation);
+    if (Input_Forward.IsPressed(Container) OR
+        (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation)) then
+    begin
+      { move animation }
+      if Input_Rightward.IsPressed(Container) then
+        OnAnimation(self, AnimationTurnRight, FwdVelocity / SpeedOfMoveAnimation)
+      else if Input_Leftward.IsPressed(Container) then
+        OnAnimation(self, AnimationTurnLeft, FwdVelocity / SpeedOfMoveAnimation)
+      else
+        OnAnimation(self, AnimationMoveFwd, FwdVelocity / SpeedOfMoveAnimation);
+    end else
+      { stand }
+      OnAnimation(self, AnimationStand, 1.0);
   end else
-    { stand }
-    if OnGround then
-      OnAnimation(self, AnimationStand, 1.0)
-    else
-      OnAnimation(self, AnimationMoveFwd, 1.0);
+    OnAnimation(self, AnimationFly, 1.0);
 
 
 end;
@@ -310,7 +318,7 @@ begin
        'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
        'RollFactor', 'BrakeFactor',
        'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
-       'AnimationTurnRight', 'AnimationTurnLeft'
+       'AnimationTurnRight', 'AnimationTurnLeft', 'AnimationFly'
      ]) then
     Result:= [psBasic]
   else
@@ -335,6 +343,11 @@ end;
 function TNyaVehicleNavigation.AnimationTurnLeftStored: Boolean;
 begin
   Result:= FAnimationTurnLeft <> DefaultAnimationTurnLeft;
+end;
+
+function TNyaVehicleNavigation.AnimationFlyStored: Boolean;
+begin
+  Result:= FAnimationFly <> DefaultAnimationFly;
 end;
 
 {$ifdef CASTLE_DESIGN_MODE}
@@ -375,6 +388,8 @@ initialization
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationTurnRight',
                          TNyaVehicleNavigationPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationTurnLeft',
+                         TNyaVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationFly',
                          TNyaVehicleNavigationPropertyEditor);
   {$endif}
 end.

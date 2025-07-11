@@ -923,6 +923,7 @@
       "$Children" : [
         {
           "$$ClassName" : "TNyaVehicleNavigation",
+          "AnimationFly" : "GAME.MOTO.FLY",
           "AnimationMoveFwd" : "GAME.MOTO.MOVE.FORWARD",
           "AnimationStand" : "GAME.MOTO.STAND",
           "AnimationTurnLeft" : "GAME.MOTO.TURN.LEFT",
@@ -942,8 +943,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721359014511108E-001,
-            "Z" : 8.9442718029022217E-001
+            "Y" : -4.4721364974975586E-001,
+            "Z" : 8.9442729949951172E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
