@@ -2,6 +2,14 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "TravelContainerRoom",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleFont",
+      "Name" : "future_n0t_found",
+      "OptimalSize" : 64,
+      "Url" : "castle-data:/fonts/future_n0t_found_regular.ttf"
+    }
+  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleViewport",
@@ -734,6 +742,297 @@
                     "Name" : "BlockageRigidBody5"
                   }
                 ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Collides" : false,
+                "Name" : "CheckPointStart",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 8.0557182312011719E+001,
+                  "Y" : 3.9970941543579102E+000
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "Collides" : false,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "CheckIndicatorStart",
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.4109911918640137E+000,
+                      "X" : -2.4414061044808477E-004,
+                      "Y" : -9.9999982118606567E-001,
+                      "Z" : 2.8664199635386467E-004
+                    },
+                    "ScalePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 5.0000000000000000E+000,
+                      "Y" : 5.0000000000000000E+000,
+                      "Z" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/effects/indicator/indicator_green.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleBillboard",
+                        "MatchCameraDirection" : false,
+                        "Name" : "CheckIndBillboardStart"
+                      }
+                    ]
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaSwitch",
+                    "ActionString" : "START!",
+                    "Activator" : "VehicleMoto",
+                    "Distance" : 8.0000000000000000E+000,
+                    "Indicator" : "CheckIndicatorStart",
+                    "Name" : "CheckSwitchStart",
+                    "Tag" : 1
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Collides" : false,
+                "Name" : "CheckPoint2",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.2975743293762207E+001,
+                  "Y" : 1.7942544937133789E+001,
+                  "Z" : -2.3725961303710938E+002
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "Collides" : false,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "CheckIndicator2",
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 2.2708503901958466E-001,
+                      "Y" : 1.0000014305114746E+000
+                    },
+                    "ScalePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 5.0000000000000000E+000,
+                      "Y" : 5.0000000000000000E+000,
+                      "Z" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/effects/indicator/indicator_green.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleBillboard",
+                        "MatchCameraDirection" : false,
+                        "Name" : "CheckIndBillboard2"
+                      }
+                    ]
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaSwitch",
+                    "ActionString" : "Check Point!",
+                    "Activator" : "VehicleMoto",
+                    "Distance" : 8.0000000000000000E+000,
+                    "Indicator" : "CheckIndicator2",
+                    "Name" : "CheckSwitch2",
+                    "Tag" : 2
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Collides" : false,
+                "Name" : "CheckPoint3",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 2.0055847167968750E+001,
+                  "Y" : -1.5780542373657227E+001,
+                  "Z" : 1.1186814308166504E-001
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "Collides" : false,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "CheckIndicator3",
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.5320087671279907E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7946283333003521E-004
+                    },
+                    "ScalePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 5.0000000000000000E+000,
+                      "Y" : 5.0000000000000000E+000,
+                      "Z" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/effects/indicator/indicator_green.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleBillboard",
+                        "MatchCameraDirection" : false,
+                        "Name" : "CheckIndBillboard3"
+                      }
+                    ]
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaSwitch",
+                    "ActionString" : "Check Point!",
+                    "Activator" : "VehicleMoto",
+                    "Distance" : 8.0000000000000000E+000,
+                    "Indicator" : "CheckIndicator3",
+                    "Name" : "CheckSwitch3",
+                    "Tag" : 3
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Collides" : false,
+                "Name" : "CheckPointFinish",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -7.4245315551757812E+001,
+                  "Y" : 3.9899530410766602E+000,
+                  "Z" : 2.3007774353027344E-001
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "Collides" : false,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "CheckIndicatorFinish",
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.5584999322891235E+000,
+                      "Y" : 9.9999994039535522E-001
+                    },
+                    "ScalePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 5.0000000000000000E+000,
+                      "Y" : 5.0000000000000000E+000,
+                      "Z" : 5.0000000000000000E+000
+                    },
+                    "Url" : "castle-data:/effects/indicator/indicator_green.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleBillboard",
+                        "MatchCameraDirection" : false,
+                        "Name" : "CheckIndBillboardFinish"
+                      }
+                    ]
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaSwitch",
+                    "ActionString" : "FINSH!",
+                    "Activator" : "VehicleMoto",
+                    "Distance" : 8.0000000000000000E+000,
+                    "Indicator" : "CheckIndicatorFinish",
+                    "Name" : "CheckSwitchFinish",
+                    "Tag" : 4
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleText",
+                "Alignment" : "hpMiddle",
+                "Collides" : false,
+                "CustomFont" : "future_n0t_found",
+                "Name" : "TextStart",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingDestinationFactor" : "bdConstantColor"
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 1.3478055000305176E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "Text" : [
+                  "START"
+                ],
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 7.7000000000000000E+001,
+                  "Y" : 3.0000000000000000E+000
+                },
+                "VerticalAlignment" : "vpMiddle",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "TextStartBillboard"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleText",
+                "Alignment" : "hpMiddle",
+                "Collides" : false,
+                "CustomFont" : "future_n0t_found",
+                "Name" : "TextFinish",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingDestinationFactor" : "bdConstantColor"
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 1.5574256181716919E+000,
+                  "Y" : 1.0000000000000000E+000
+                },
+                "Text" : [
+                  "FINISH"
+                ],
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -8.0000000000000000E+001,
+                  "Y" : 3.0000000000000000E+000
+                },
+                "VerticalAlignment" : "vpMiddle",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "TextFinishBillboard"
+                  }
+                ]
               }
             ]
           },
@@ -944,8 +1243,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721364974975586E-001,
-            "Z" : 8.9442729949951172E-001
+            "Y" : -4.4721359014511108E-001,
+            "Z" : 8.9442718029022217E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
@@ -964,20 +1263,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.0157265663146973E+000,
-          "X" : -9.5883779227733612E-002,
-          "Y" : -9.9394154548645020E-001,
-          "Z" : -5.3725678473711014E-002
+          "W" : 1.6441060304641724E+000,
+          "X" : -1.2996564805507660E-001,
+          "Y" : -9.8217993974685669E-001,
+          "Z" : -1.3576301932334900E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Z" : 9.9999994039535522E-001
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 6.4124702453613281E+001,
-          "Y" : 5.2421092987060547E+000,
-          "Z" : 9.2078056335449219E+000
+          "X" : 6.8257621765136719E+001,
+          "Y" : 4.0131764411926270E+000,
+          "Z" : 1.9824385643005371E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

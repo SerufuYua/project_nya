@@ -10,7 +10,6 @@ type
   TViewRideRoadAsteroid = class(TBaseViewRide)
   public
     procedure Start; override;
-    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
 
 var
@@ -37,12 +36,6 @@ begin
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
 
-  inherited;
-end;
-
-procedure TViewRideRoadAsteroid.Update(const SecondsPassed: Single;
-                                       var HandleInput: boolean);
-begin
   inherited;
 end;
 

@@ -23,7 +23,7 @@ type
     BtnBack: TCastleButton;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
-    LabelSpeedValue: TCastleLabel;
+    LabelSpeedValue, LabelTimeValue: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -40,10 +40,12 @@ type
     FLightSwitch: TKey;
     FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
+    FCheckPointNum: Integer;
+    FEnableTimer: Boolean;
+    FTrackTimer: Single;
     procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickControl(Sender: TObject);
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
-    procedure DoActivateSwitch(Sender: TObject); virtual;
     procedure SetUIColor;
     procedure SetSwitches;
     procedure DoStart(Sender: TObject);
@@ -75,6 +77,10 @@ var
 begin
   inherited;
   FTouchedSwitch:= nil;
+  FCheckPointNum:= 0;
+  FEnableTimer:= False;
+  FTrackTimer:= 0.0;
+
 
   { set Main Viewport }
   MainViewport:= Map.DesignedComponent('ViewportMain') as TCastleViewport;
@@ -131,6 +137,13 @@ begin
   { update FPS }
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption:= 'FPS: ' + Container.Fps.ToString;
+
+  { update Track Timer }
+  if FEnableTimer then
+    FTrackTimer:= FTrackTimer + SecondsPassed;
+
+  { Show Time }
+  LabelTimeValue.Caption:= FTrackTimer.ToString(ffFixed, 3, 2);
 
   { Show Speed. Convert m/s to km/h }
   LabelSpeedValue.Caption:= (MainActor.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
@@ -234,7 +247,6 @@ begin
     if Assigned(switch) then
     begin
       switch.OnTouch:= {$ifdef FPC}@{$endif}DoTouchSwitch;
-      switch.OnActivate:= {$ifdef FPC}@{$endif}DoActivateSwitch;
     end;
   end;
 end;
@@ -267,8 +279,7 @@ begin
   begin
     if(FTouchedSwitch <> switch) then
     begin
-      Status.Caption:= 'Press "' + GetKeyName(FLightSwitch) + '" to ' +
-                       switch.ActionString;
+      Status.Caption:= switch.ActionString;
       FTouchedSwitch:= switch;
       SoundEngine.Play(NamedSound('SfxInspect'));
     end;
@@ -279,12 +290,26 @@ begin
       FTouchedSwitch:= nil;
       Status.Caption:= '';
     end;
-  end;
-end;
 
-procedure TBaseViewRide.DoActivateSwitch(Sender: TObject);
-begin
-  SoundEngine.Play(NamedSound('SfcActivate'));
+    { process Check Points }
+    if ((switch.Name = 'CheckSwitchStart') AND (NOT FEnableTimer)) then
+    begin
+      FTrackTimer:= 0.0;
+      FEnableTimer:= True;
+    end;
+
+    if (FCheckPointNum = (switch.Tag - 1)) then
+    begin
+      FCheckPointNum:= switch.Tag;
+
+      if switch.Name = 'CheckSwitchFinish' then
+      begin
+        FEnableTimer:= False;
+        FCheckPointNum:= 0;
+      end;
+    end else
+      Notifications.Show('Warning: wrong way');
+  end;
 end;
 
 procedure TBaseViewRide.Pause;
