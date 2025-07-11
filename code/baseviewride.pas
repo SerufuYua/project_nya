@@ -304,7 +304,7 @@ procedure TBaseViewRide.DoStart(Sender: TObject);
 begin
   Notifications.Show('Info: use WASD to move');
   Notifications.Show('Info: use Space to brake');
-  Notifications.Show('Info: use Space to switch headlight');
+  Notifications.Show('Info: use F to switch headlight');
 end;
 
 end.
