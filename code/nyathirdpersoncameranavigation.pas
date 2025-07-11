@@ -184,11 +184,12 @@ begin
   AvatarHierarchy.Pickable:= false;
   try
     Collider:= AvatarHierarchy.World.WorldRayCast(TargetWorldPos, -CameraDir, CollisionDistance);
-    if NOT Assigned(Collider) then
-      CollisionDistance:= MaxSingle;
-finally
+  finally
     AvatarHierarchy.Pickable:= SavedPickable;
   end;
+
+  if NOT Assigned(Collider) then
+    CollisionDistance:= MaxSingle;
 
   if PointsDistanceSqr(CameraPos, TargetWorldPos) > Sqr(CollisionDistance) then
     CameraPos:= TargetWorldPos - CameraDir.AdjustToLength(CollisionDistance);
