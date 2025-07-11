@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewTravel, NyaActor, NyaActorChara;
+  BaseViewTravel, NyaActor, NyaActorChara, NyaActorVehicle;
 
 type
   TViewTravelRoadAsteroid = class(TBaseViewTravel)
@@ -13,7 +13,8 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorBoy: TNyaActorChara;
-    FActorSpacePlane, FActorMotorbike: TNyaActor;
+    FActorSpacePlane: TNyaActor;
+    FActorMotorbike: TNyaActorVehicle;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
     procedure SaveCharasCondition; override;
@@ -56,7 +57,7 @@ begin
   FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
 
   { set Motorbike Character }
-  FActorMotorbike:= Map.DesignedComponent('VehicleMoto') as TNyaActor;
+  FActorMotorbike:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
@@ -102,6 +103,8 @@ begin
       else
         FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.STAND_WITH_PDA.WORKING';
     end;
+  'VehicleMotoSwitch':
+    FActorMotorbike.Headlight:= Touch;
   end;
 end;
 
