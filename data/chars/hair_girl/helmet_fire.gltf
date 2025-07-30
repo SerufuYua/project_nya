@@ -6,7 +6,11 @@
 	},
 	"extensionsUsed":[
 		"KHR_materials_specular",
-		"KHR_materials_ior"
+		"KHR_materials_ior",
+		"KHR_texture_transform"
+	],
+	"extensionsRequired":[
+		"KHR_texture_transform"
 	],
 	"scene":0,
 	"scenes":[
@@ -105,10 +109,10 @@
 			"mesh":3,
 			"name":"helmet.strap",
 			"rotation":[
-				-0.1736481487751007,
+				-0.15106438100337982,
 				0,
 				0,
-				0.9848077893257141
+				0.9885239005088806
 			],
 			"translation":[
 				0,
@@ -189,15 +193,37 @@
 		},
 		{
 			"doubleSided":true,
-			"name":"Helmet.Fire.Tex",
+			"name":"Helmet.Strap",
 			"normalTexture":{
-				"index":3,
-				"texCoord":1
+				"extensions":{
+					"KHR_texture_transform":{
+						"offset":[
+							0,
+							-5
+						],
+						"scale":[
+							20,
+							6
+						]
+					}
+				},
+				"index":3
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":4,
-					"texCoord":1
+					"extensions":{
+						"KHR_texture_transform":{
+							"offset":[
+								0,
+								-5
+							],
+							"scale":[
+								20,
+								6
+							]
+						}
+					},
+					"index":4
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -205,13 +231,21 @@
 		},
 		{
 			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"emissiveTexture":{
+				"index":5
+			},
 			"name":"Helmet.Fire.Tex",
 			"normalTexture":{
-				"index":5
+				"index":6
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":6
+					"index":7
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -291,9 +325,10 @@
 						"TEXCOORD_0":24,
 						"TEXCOORD_1":25,
 						"TEXCOORD_2":26,
-						"TANGENT":27
+						"TEXCOORD_3":27,
+						"TANGENT":28
 					},
-					"indices":28,
+					"indices":29,
 					"material":4
 				}
 			]
@@ -321,12 +356,16 @@
 			"source":4
 		},
 		{
-			"sampler":0,
-			"source":3
+			"sampler":1,
+			"source":5
 		},
 		{
 			"sampler":0,
-			"source":4
+			"source":6
+		},
+		{
+			"sampler":0,
+			"source":7
 		}
 	],
 	"images":[
@@ -344,6 +383,21 @@
 			"mimeType":"image/png",
 			"name":"hair",
 			"uri":"hair.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"fishnet_close_bump",
+			"uri":"fishnet_close_bump.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"fishnet_close",
+			"uri":"fishnet_close.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"helmet_fire_e",
+			"uri":"helmet_fire_e.png"
 		},
 		{
 			"mimeType":"image/png",
@@ -532,7 +586,7 @@
 		{
 			"bufferView":22,
 			"componentType":5126,
-			"count":238,
+			"count":258,
 			"max":[
 				0.1817234754562378,
 				0.33949998021125793,
@@ -548,35 +602,41 @@
 		{
 			"bufferView":23,
 			"componentType":5126,
-			"count":238,
+			"count":258,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":24,
 			"componentType":5126,
-			"count":238,
+			"count":258,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":25,
 			"componentType":5126,
-			"count":238,
+			"count":258,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":26,
 			"componentType":5126,
-			"count":238,
+			"count":258,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":27,
 			"componentType":5126,
-			"count":238,
-			"type":"VEC4"
+			"count":258,
+			"type":"VEC2"
 		},
 		{
 			"bufferView":28,
+			"componentType":5126,
+			"count":258,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":29,
 			"componentType":5123,
 			"count":1026,
 			"type":"SCALAR"
@@ -717,44 +777,50 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":2856,
+			"byteLength":3096,
 			"byteOffset":35096,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2856,
-			"byteOffset":37952,
+			"byteLength":3096,
+			"byteOffset":38192,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1904,
-			"byteOffset":40808,
+			"byteLength":2064,
+			"byteOffset":41288,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1904,
-			"byteOffset":42712,
+			"byteLength":2064,
+			"byteOffset":43352,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1904,
-			"byteOffset":44616,
+			"byteLength":2064,
+			"byteOffset":45416,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3808,
-			"byteOffset":46520,
+			"byteLength":2064,
+			"byteOffset":47480,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":4128,
+			"byteOffset":49544,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2052,
-			"byteOffset":50328,
+			"byteOffset":53672,
 			"target":34963
 		}
 	],
@@ -762,11 +828,17 @@
 		{
 			"magFilter":9729,
 			"minFilter":9987
+		},
+		{
+			"magFilter":9729,
+			"minFilter":9987,
+			"wrapS":33071,
+			"wrapT":33071
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":52380,
+			"byteLength":55724,
 			"uri":"helmet_fire.bin"
 		}
 	]
