@@ -66,7 +66,7 @@
                 "Collides" : false,
                 "ExposeTransforms" : [
                 ],
-                "Name" : "Collider",
+                "Name" : "ColliderWalls",
                 "PreciseCollisions" : true,
                 "ReceiveShadowVolumes" : false,
                 "RenderOptions" : {
@@ -81,14 +81,47 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleMeshCollider",
-                    "Mesh" : "Collider",
-                    "Name" : "MeshCollider"
+                    "Friction" : 1.4000000000000000E+001,
+                    "Mesh" : "ColliderWalls",
+                    "Name" : "MeshColliderWalls"
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
                     "Dynamic" : false,
                     "Gravity" : false,
-                    "Name" : "RigidBody"
+                    "Name" : "RigidBodyWalls"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleScene",
+                "CastShadows" : false,
+                "Collides" : false,
+                "ExposeTransforms" : [
+                ],
+                "Name" : "ColliderGround",
+                "PreciseCollisions" : true,
+                "ReceiveShadowVolumes" : false,
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "Textures" : false
+                },
+                "SceneFrustumCulling" : false,
+                "ShadowMaps" : false,
+                "ShapeFrustumCulling" : false,
+                "Url" : "castle-data:/environment/road_asteroid_road/road_asteroid_road_ground_collider.gltf",
+                "Visible" : false,
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleMeshCollider",
+                    "Mesh" : "ColliderGround",
+                    "Name" : "MeshColliderGround"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Dynamic" : false,
+                    "Gravity" : false,
+                    "Name" : "RigidBodyGround"
                   }
                 ]
               },
@@ -1237,8 +1270,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721364974975586E-001,
-            "Z" : 8.9442729949951172E-001
+            "Y" : -4.4721359014511108E-001,
+            "Z" : 8.9442718029022217E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
@@ -1257,10 +1290,15 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.2648602128028870E-001,
-          "X" : -3.1901645660400391E-001,
-          "Y" : 9.4624388217926025E-001,
-          "Z" : 5.3394123911857605E-002
+          "W" : 2.9812479019165039E+000,
+          "X" : 3.7392394733615220E-004,
+          "Y" : 9.9999892711639404E-001,
+          "Z" : -1.4968891628086567E-003
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
