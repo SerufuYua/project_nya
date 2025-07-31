@@ -19,18 +19,10 @@ type
     FStoplight: Boolean;
     FStoplightOFFName, FStoplightONName: String;
     FStoplightOFF, FStoplightON: TCastleScene;
-    FWheel1SceneName: String;
-    FWheel2SceneName: String;
-    FWheel3SceneName: String;
-    FWheel4SceneName: String;
-    FWheel1Scene: TCastleScene;
-    FWheel2Scene: TCastleScene;
-    FWheel3Scene: TCastleScene;
-    FWheel4Scene: TCastleScene;
-    FWheel1Speed: Single;
-    FWheel2Speed: Single;
-    FWheel3Speed: Single;
-    FWheel4Speed: Single;
+    FWheel1SceneName, FWheel2SceneName,
+      FWheel3SceneName, FWheel4SceneName: String;
+    FWheel1Scene, FWheel2Scene, FWheel3Scene, FWheel4Scene: TCastleScene;
+    FWheel1Dia, FWheel2Dia, FWheel3Dia, FWheel4Dia: Single;
     procedure SetWheel1Scene(const value: String);
     procedure SetWheel2Scene(const value: String);
     procedure SetWheel3Scene(const value: String);
@@ -49,7 +41,7 @@ type
     procedure SetUrl(const value: String); override;
   public
     const
-      DefaultWheelSpeed = 1.0;
+      DefaultWheelDia = 0.0;
       DefaultHeadlight = False;
       DefaultStoplight = False;
 
@@ -61,14 +53,6 @@ type
     property Wheel2SceneName: String read FWheel2SceneName write SetWheel2Scene;
     property Wheel3SceneName: String read FWheel3SceneName write SetWheel3Scene;
     property Wheel4SceneName: String read FWheel4SceneName write SetWheel4Scene;
-    property Wheel1Speed: Single read FWheel1Speed write FWheel1Speed
-             {$ifdef FPC}default DefaultWheelSpeed{$endif};
-    property Wheel2Speed: Single read FWheel2Speed write FWheel2Speed
-             {$ifdef FPC}default DefaultWheelSpeed{$endif};
-    property Wheel3Speed: Single read FWheel3Speed write FWheel3Speed
-             {$ifdef FPC}default DefaultWheelSpeed{$endif};
-    property Wheel4Speed: Single read FWheel4Speed write FWheel4Speed
-             {$ifdef FPC}default DefaultWheelSpeed{$endif};
     property Headlight: Boolean read FHeadlight write SetHeadlight
              {$ifdef FPC}default DefaultHeadlight{$endif};
     property Stoplight: Boolean read FStoplight write SetStoplight
@@ -99,10 +83,10 @@ begin
   FWheel2Scene:= nil;
   FWheel3Scene:= nil;
   FWheel4Scene:= nil;
-  FWheel1Speed:= DefaultWheelSpeed;
-  FWheel2Speed:= DefaultWheelSpeed;
-  FWheel3Speed:= DefaultWheelSpeed;
-  FWheel4Speed:= DefaultWheelSpeed;
+  FWheel1Dia:= DefaultWheelDia;
+  FWheel2Dia:= DefaultWheelDia;
+  FWheel3Dia:= DefaultWheelDia;
+  FWheel4Dia:= DefaultWheelDia;
 end;
 
 procedure TNyaActorVehicle.Update(const SecondsPassed: Single;
@@ -163,16 +147,28 @@ begin
   for scene in FAllScenes do
   begin
     if (scene.Name = FWheel1SceneName) then
+    begin
       FWheel1Scene:= scene;
+      FWheel1Dia:= FWheel1Scene.BoundingBox.SizeY;
+    end;
 
     if (scene.Name = FWheel2SceneName) then
+    begin
       FWheel2Scene:= scene;
+      FWheel2Dia:= FWheel2Scene.BoundingBox.SizeY;
+    end;
 
     if (scene.Name = FWheel3SceneName) then
+    begin
       FWheel3Scene:= scene;
+      FWheel3Dia:= FWheel3Scene.BoundingBox.SizeY;
+    end;
 
     if (scene.Name = FWheel4SceneName) then
+    begin
       FWheel4Scene:= scene;
+      FWheel4Dia:= FWheel4Scene.BoundingBox.SizeY;
+    end;
   end;
 end;
 
@@ -180,16 +176,20 @@ procedure TNyaActorVehicle.WheelRotor(const SecondsPassed: Single);
 begin
   if Assigned(FWheel1Scene) then
     FWheel1Scene.Rotation:= Vector4(FWheel1Scene.Rotation.XYZ,
-                                    FWheel1Scene.Rotation.W + ForwardVelocity * FWheel1Speed);
+                                    FWheel1Scene.Rotation.W +
+                                    FWheel1Dia * Pi * FForwardShift);
   if Assigned(FWheel2Scene) then
     FWheel2Scene.Rotation:= Vector4(FWheel2Scene.Rotation.XYZ,
-                                    FWheel2Scene.Rotation.W + ForwardVelocity * FWheel2Speed);
+                                    FWheel2Scene.Rotation.W +
+                                    FWheel2Dia * Pi * FForwardShift);
   if Assigned(FWheel3Scene) then
     FWheel3Scene.Rotation:= Vector4(FWheel3Scene.Rotation.XYZ,
-                                    FWheel3Scene.Rotation.W + ForwardVelocity * FWheel3Speed);
+                                    FWheel3Scene.Rotation.W +
+                                    FWheel3Dia * Pi * FForwardShift);
   if Assigned(FWheel4Scene) then
     FWheel4Scene.Rotation:= Vector4(FWheel4Scene.Rotation.XYZ,
-                                    FWheel4Scene.Rotation.W + ForwardVelocity * FWheel4Speed);
+                                    FWheel4Scene.Rotation.W +
+                                    FWheel4Dia * Pi * FForwardShift);
 end;
 
 procedure TNyaActorVehicle.SetHeadlight(const value: Boolean);

@@ -146,6 +146,9 @@ begin
   FEmissionColor:= DefaultEmissionColor;
   FPersonalColor:= DefaultPersonalColor;
 
+  FForwardShift:= 0.0;
+  FForwardVelocity:= 0.0;
+
   FLastPos:= Translation;
   FVelocityNoiseSuppressor:= TNoiseSuppressor.Create;
   FVelocityNoiseSuppressor.CountLimit:= DefaultVelocityNoiseSuppressorCount;
@@ -183,9 +186,9 @@ begin
 
   { calculate real Velocity from Avatar Hierarchy }
   shift:= Translation - FLastPos;
-  FForwardShift:= shift.Length;
-  FForwardVelocity:= ProjectionVectorAtoBLength(shift / SecondsPassed,
-                                                Direction);
+  FForwardShift:= ProjectionVectorAtoBLength(shift, Direction);
+  if (SecondsPassed > 0.0) then
+    FForwardVelocity:= FForwardShift / SecondsPassed;
   FLastPos:= Translation;
 
   FVelocityNoiseSuppressor.Update(FForwardVelocity);
