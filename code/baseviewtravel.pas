@@ -7,17 +7,15 @@ interface
 uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
-  CastleColors, CastleKeysMouse, CastleTransform, CastleDebugTransform,
+  CastleColors, CastleKeysMouse, CastleTransform,
   CastleViewport, CastleVectors,
-  ViewWarper, NyaActorChara, NyaThirdPersonCameraNavigation,
-  NyaSpectatorCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch,
+  BaseView, NyaActorChara,
+  NyaThirdPersonCameraNavigation, NyaThirdPersonCharaNavigation, NyaSwitch,
   NyaBaseNavigation, NyaWorldCondition;
 
 type
-  TBaseViewTravel = class(TViewWarper)
+  TBaseViewTravel = class(TBaseView)
   published
-    Map: TCastleDesign;
-    MainViewport: TCastleViewport;
     LabelFps: TCastleLabel;
     BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
@@ -31,15 +29,9 @@ type
     procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
-    function Release(const Event: TInputPressRelease): boolean; override;
-    procedure Pause; override;
-    procedure Resume; override;
   protected
-    FDebugAvatar: TDebugTransform;
-    FCameraNavigationFollow: TNyaThirdPersonCameraNavigation;
     FCamera: TCastleCamera;
     FKeyUse: TKey;
-    FKeyDebug: TKey;
     FTouchedSwitch: TNyaSwitch;
     procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickControl(Sender: TObject);
@@ -47,7 +39,6 @@ type
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
     procedure DoActivateSwitch(Sender: TObject); virtual;
     procedure SetDressButtons;
-    procedure SetUIColor;
     procedure SetSwitches;
     procedure SaveCharasCondition; virtual;
     procedure DoStart(Sender: TObject);
@@ -63,7 +54,7 @@ uses
   GameViewMain, GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
-  CastleScene, CastleFonts,
+  CastleScene, CastleFonts, CastleCameras,
   StrUtils, NyaCastleUtils;
 
 constructor TBaseViewTravel.Create(AOwner: TComponent);
@@ -79,24 +70,13 @@ begin
   inherited;
   FTouchedSwitch:= nil;
 
-  { set Main Viewport }
-  MainViewport:= Map.DesignedComponent('ViewportMain') as TCastleViewport;
-
-  { reset go to map }
-  FGetToGo:= nil;
-
   { set Camera }
   FCamera:= (Map.DesignedComponent('ViewportMain') as TCastleViewport).Camera;
-
-  { Visualize SceneAvatar bounding box, sphere, middle point, direction etc. }
-  FDebugAvatar:= TDebugTransform.Create(FreeAtStop);
-  FDebugAvatar.Parent:= MainActor;
-  FDebugAvatar.Exists:= False;
 
   { set navigation }
   charaNavigation:= Map.DesignedComponent('CharaNavigation') as TNyaThirdPersonCharaNavigation;
   charaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
-  FCameraNavigationFollow:= Map.DesignedComponent('CameraNavigationFollow') as TNyaThirdPersonCameraNavigation;
+  FCameraNavigation:= Map.DesignedComponent('CameraNavigationFollow') as TCastleMouseLookNavigation;
 
   { set Buttons }
   BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
@@ -107,10 +87,9 @@ begin
 
   { set keys }
   FKeyUse:= TKey.keyF;
-  FKeyDebug:= TKey.keyF4;
 
   { set color }
-  SetUIColor;
+  SetUIColor(MainActor.PersonalColor);
 
   { set Switches }
   SetSwitches;
@@ -148,20 +127,6 @@ begin
   Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
 
-  { enable camera control }
-  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-  begin
-    FCameraNavigationFollow.MouseLook:= True;
-    Exit(true);
-  end;
-
-  { show debug }
-  if Event.IsKey(FKeyDebug) then
-  begin
-    FDebugAvatar.Exists:= NOT FDebugAvatar.Exists;
-    Exit(true);
-  end;
-
   { activate switch }
   if Event.IsKey(FKeyUse) then
   begin
@@ -170,15 +135,6 @@ begin
       FTouchedSwitch.Activate;
     Exit(true);
   end;
-end;
-
-function TBaseViewTravel.Release(const Event: TInputPressRelease): boolean;
-begin
-  { disable camera control }
-  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-    FCameraNavigationFollow.MouseLook:= False;
-
-  Result := inherited;
 end;
 
 procedure TBaseViewTravel.FocusButton(const Sender: TCastleUserInterface);
@@ -201,22 +157,6 @@ begin
           Container.PushView(TViewSettingsMenu.CreateUntilStopped);
     'BtnBack':
         GetToGo(ViewMain);
-  end;
-end;
-
-procedure TBaseViewTravel.SetUIColor;
-var
-  rootItem: TCastleUserInterface;
-  item: TCastleImageControl;
-  alpha: single;
-begin
-  rootItem:= DesignedComponent('SceneMain') as TCastleUserInterface;
-
-  for item in GetAllUIImages(rootItem) do
-  begin
-    alpha:= item.Color.W;
-    if (item.Tag = 1) then
-      item.Color:= Vector4(MainActor.PersonalColor, alpha);
   end;
 end;
 
@@ -364,19 +304,6 @@ end;
 procedure TBaseViewTravel.DoActivateSwitch(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfcActivate'));
-end;
-
-procedure TBaseViewTravel.Pause;
-begin
-  inherited;
-  FCameraNavigationFollow.MouseLook:= False;
-  MainViewport.Items.TimeScale:= 0;
-end;
-
-procedure TBaseViewTravel.Resume;
-begin
-  inherited;
-  MainViewport.Items.TimeScale:= 1;
 end;
 
 procedure TBaseViewTravel.DoStart(Sender: TObject);

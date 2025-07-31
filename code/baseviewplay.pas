@@ -7,14 +7,13 @@ interface
 uses
   Classes, SysUtils,
   CastleUIControls, CastleControls, CastleNotifications, CastleClassUtils,
-  CastleColors, CastleKeysMouse, CastleTransform, CastleCameras,
-  ViewWarper, NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect,
+  CastleColors, CastleKeysMouse, CastleTransform,
+  BaseView, NyaFadeEffect, NyaPlayLogic, NyaPleasureTensionEffect,
   NyaLoadingBar, CastleFonts, CastleViewport;
 
 type
-  TBaseViewPlay = class(TViewWarper)
+  TBaseViewPlay = class(TBaseView)
   published
-    Map: TCastleDesign;
     LabelFps: TCastleLabel;
     BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
@@ -39,14 +38,12 @@ type
     procedure Stop; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: boolean); override;
-    function Press(const Event: TInputPressRelease): Boolean; override;
-    function Release(const Event: TInputPressRelease): boolean; override;
+    procedure Pause; override;
+    procedure Resume; override;
   protected
     FCameraList: array of TCastleCamera;
-    FMainViewport: TCastleViewport;
     FFont: TCastleAbstractFont;
     FActorsLogic: TNyaPlayLogic;
-    FObserverNavigation: TCastleWalkNavigation;
     procedure FocusButton(const Sender: TCastleUserInterface);
     procedure FocusList(const Sender: TCastleUserInterface);
     procedure ClickAction(Sender: TObject);
@@ -58,7 +55,6 @@ type
     procedure SetDressButtons;
     procedure SetActionsList(actList: TCastleComponent);
     procedure SetCamButtons;
-    procedure SetUIColor;
     procedure SaveCharasCondition;
     procedure DoStart(Sender: TObject);
   protected
@@ -71,7 +67,7 @@ uses
   GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
-  CastleScene, CastleVectors,
+  CastleScene, CastleVectors, CastleCameras,
   StrUtils, NyaCastleUtils, NyaActor, NyaActorChara, NyaCastleUiUtils;
 
 constructor TBaseViewPlay.Create(AOwner: TComponent);
@@ -109,7 +105,7 @@ begin
   BtnCamera.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { get Navigation }
-  FObserverNavigation:= Map.DesignedComponent('ObserverNavigation') as TCastleWalkNavigation;
+  FCameraNavigation:= Map.DesignedComponent('ObserverNavigation') as TCastleMouseLookNavigation;
 
   { set Actors Logic }
   actors:= [];
@@ -125,9 +121,6 @@ begin
 
   { set Font }
   FFont:= DesignedComponent('future_n0t_found_32') as TCastleAbstractFont;
-
-  { set Viewport }
-  FMainViewport:= Map.DesignedComponent('ViewportMain') as TCastleViewport;
 
   { set Camera List }
   FCameraList:= [];
@@ -148,7 +141,7 @@ begin
   SetCamButtons;
 
   { set color }
-  SetUIColor;
+  SetUIColor(FActorsLogic.CombinedColor);
 
   { set initial action }
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoStart);
@@ -179,28 +172,6 @@ begin
   PleasureTensionEffect.Tension:= FActorsLogic.Tension;
 
   inherited;
-end;
-
-function TBaseViewPlay.Press(const Event: TInputPressRelease): Boolean;
-begin
-  Result:= inherited;
-  if Result then Exit; // allow the ancestor to handle keys
-
-  { enable camera control }
-  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-  begin
-    FObserverNavigation.MouseLook:= True;
-    Exit(true);
-  end;
-end;
-
-function TBaseViewPlay.Release(const Event: TInputPressRelease): boolean;
-begin
-  { disable camera control }
-  if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-    FObserverNavigation.MouseLook:= False;
-
-  Result:= inherited;
 end;
 
 procedure TBaseViewPlay.FocusButton(const Sender: TCastleUserInterface);
@@ -301,7 +272,7 @@ begin
       Break;
     end;
 
-  FObserverNavigation.Exists:= (FMainViewport.Camera = FCameraList[Low(FCameraList)]);
+  FCameraNavigation.Exists:= (FMainViewport.Camera = FCameraList[Low(FCameraList)]);
 end;
 
 procedure TBaseViewPlay.SetDressButtons;
@@ -465,28 +436,22 @@ begin
   ImageControlCamList.Exists:= NOT ImageControlCamList.Exists;
 end;
 
-procedure TBaseViewPlay.SetUIColor;
-var
-  rootItem: TCastleUserInterface;
-  item: TCastleImageControl;
-  alpha: single;
-begin
-  rootItem:= DesignedComponent('SceneMain') as TCastleUserInterface;
-
-  for item in GetAllUIImages(rootItem) do
-  begin
-      alpha:= item.Color.W;
-      if (item.Tag = 1) then
-        item.Color:= Vector4(FActorsLogic.CombinedColor, alpha);
-  end;
-end;
-
 procedure TBaseViewPlay.SaveCharasCondition;
 var
   chara: TNyaActorChara;
 begin
   for chara in FActorsLogic.Charas do
     chara.SaveCondition;
+end;
+
+procedure TBaseViewPlay.Pause;
+begin
+  { do nothing }
+end;
+
+procedure TBaseViewPlay.Resume;
+begin
+  { do nothing }
 end;
 
 procedure TBaseViewPlay.DoStart(Sender: TObject);

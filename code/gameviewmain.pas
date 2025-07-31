@@ -11,11 +11,11 @@ uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
   CastleTransform, CastleQuaternions, CastleScene, CastleFlashEffect,
-  ViewWarper, NyaActorChara;
+  BaseView, NyaActorChara;
 
 type
   { Main view, where most of the application logic takes place. }
-  TViewMain = class(TViewWarper)
+  TViewMain = class(TBaseView)
   published
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
