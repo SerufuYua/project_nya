@@ -676,8 +676,8 @@
                 "Name" : "CharaGirl",
                 "PersonalColorPersistent" : {
                   "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 0.0000000000000000E+000,
-                  "Green" : 3.2941177487373352E-001
+                  "Blue" : 2.9803922772407532E-001,
+                  "Green" : 9.5686274766921997E-001
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
@@ -799,10 +799,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.9500635862350464E+000,
-          "X" : -8.5383884608745575E-002,
-          "Y" : -9.8761367797851562E-001,
-          "Z" : -1.3163864612579346E-001
+          "W" : 1.7420271635055542E+000,
+          "X" : -5.9267707169055939E-002,
+          "Y" : -9.9526500701904297E-001,
+          "Z" : -7.7041037380695343E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
