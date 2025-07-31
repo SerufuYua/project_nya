@@ -5664,9 +5664,13 @@
 				}
 			},
 			"name":"briefs.tex",
+			"normalTexture":{
+				"index":7,
+				"texCoord":3
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":7,
+					"index":8,
 					"texCoord":3
 				},
 				"metallicFactor":0
@@ -5677,7 +5681,7 @@
 			"name":"swimsuit.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":8
+					"index":9
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.75
@@ -5699,16 +5703,16 @@
 			},
 			"name":"boots.tex",
 			"normalTexture":{
-				"index":9,
+				"index":10,
 				"texCoord":2
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":10,
+					"index":11,
 					"texCoord":2
 				},
 				"metallicRoughnessTexture":{
-					"index":11,
+					"index":12,
 					"texCoord":2
 				}
 			}
@@ -5718,7 +5722,7 @@
 			"name":"sneakers.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":12
+					"index":13
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -5728,14 +5732,14 @@
 			"doubleSided":true,
 			"name":"weskit.tex",
 			"normalTexture":{
-				"index":13
+				"index":14
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":14
+					"index":15
 				},
 				"metallicRoughnessTexture":{
-					"index":15
+					"index":16
 				},
 				"roughnessFactor":0.44999998807907104
 			}
@@ -5745,7 +5749,7 @@
 			"name":"weskit_metal.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":16
+					"index":17
 				},
 				"roughnessFactor":0.5
 			}
@@ -5767,7 +5771,7 @@
 			"name":"summer_shirt.tex",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":17
+					"index":18
 				},
 				"metallicFactor":0
 			}
@@ -6050,11 +6054,15 @@
 		},
 		{
 			"sampler":0,
-			"source":14
+			"source":16
 		},
 		{
 			"sampler":0,
-			"source":16
+			"source":15
+		},
+		{
+			"sampler":0,
+			"source":17
 		}
 	],
 	"images":[
@@ -6092,6 +6100,11 @@
 			"mimeType":"image/png",
 			"name":"breeches_m-breeches_r",
 			"uri":"breeches_m-breeches_r.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"briefs._girl_n",
+			"uri":"briefs__girl_n.png"
 		},
 		{
 			"mimeType":"image/png",
