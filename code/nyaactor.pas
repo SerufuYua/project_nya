@@ -10,6 +10,28 @@ uses
   NyaCastleUtils, CastleSceneCore, CastleVectors, NyaMath;
 
 type
+  TNyaActorPerson = class(TCastleComponent)
+  protected
+    FActorName: String;
+    FPersonalColor: TCastleColorRGB;
+    FPersonalColorPersistent: TCastleColorRGBPersistent;
+    function GetPersonalColorForPersistent: TCastleColorRGB;
+    procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
+    procedure SetActorName(const value: String); virtual;
+  public
+    const
+      DefaultActorName = 'unknown';
+      DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
+
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    function PropertySections(const PropertyName: String): TPropertySections; override;
+    property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
+  published
+    property ActorName: String read FActorName write SetActorName;
+    property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
+  end;
+
   TNyaActor = class(TCastleTransform)
   protected
     FDesign: TCastleTransformDesign;
@@ -21,8 +43,9 @@ type
     procedure UpdateMainScene;
     procedure UpdateAnimationsList;
   protected
-    FUrl: String;
+    FUrl, FUrlPerson: String;
     FActorName: String;
+    FPersonalColor: TCastleColorRGB;
     FAutoAnimation: String;
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
@@ -34,15 +57,11 @@ type
     FLastPos: TVector3;
     FEmissionItself: Boolean;
     FEmissionColor: TCastleColorRGB;
-    FPersonalColor: TCastleColorRGB;
     FEmissionColorPersistent: TCastleColorRGBPersistent;
-    FPersonalColorPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const value: String); virtual;
+    procedure SetUrlPerson(const value: String); virtual;
     function GetEmissionColorForPersistent: TCastleColorRGB;
     procedure SetEmissionColorForPersistent(const AValue: TCastleColorRGB);
-    function GetPersonalColorForPersistent: TCastleColorRGB;
-    procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
-    procedure SetActorName(const value: String); virtual;
     procedure SetMainScene(const value: String);
     procedure SetAutoAnimation(const value: String);
     procedure SetAnimationSpeed(value: Single);
@@ -66,7 +85,6 @@ type
     procedure HandleNodeEmissionColor(sceneNode: TX3DNode);
   public
     const
-      DefaultActorName = 'unknown';
       DefaultAutoAnimation = 'none';
       DefaultMainSceneName = 'none';
       DefaultAnimationSpeed = 1.0;
@@ -74,7 +92,6 @@ type
       DefaultLightning = True;
       DefaultEmissionItself = False;
       DefaultEmissionColor: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
-      DefaultPersonalColor: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
       DefaultVelocityNoiseSuppressorCount = 8;
       DefaultDefaultAnimationTransition = 0.0;
       DefaultAnimateChildActors = False;
@@ -87,20 +104,21 @@ type
     function Cameras: TCastleCameras;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
+    property ActorName: String read FActorName;
     property AllScenes: TCastleScenes read FAllScenes;
     property MainScene: TCastleScene read FMainScene;
     property AnimationsList: TStrings read FAnimationsList;
     property EmissionColor: TCastleColorRGB read FEmissionColor write SetEmissionColor;
-    property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
+    property PersonalColor: TCastleColorRGB read FPersonalColor;
     property ForwardVelocity: Single read FForwardVelocity;
     property ForwardShift: Single read FForwardShift;
   published
-    property ActorName: String read FActorName write SetActorName;
     property MainSceneName: String read FMainSceneName write SetMainScene;
     property AutoAnimation: String read FAutoAnimation write SetAutoAnimation;
     property AnimationSpeed: Single read FAnimationSpeed write SetAnimationSpeed
              {$ifdef FPC}default DefaultAnimationSpeed{$endif};
     property Url: String read FUrl write SetUrl;
+    property UrlPerson: String read FUrlPerson write SetUrlPerson;
     property AnisotropicDegree: Single read FAnisotropicDegree write SetAnisotropicDegree
              {$ifdef FPC}default DefaultAnisotropicDegree{$endif};
     property Lightning: Boolean read FLightning write SetLightning
@@ -108,7 +126,6 @@ type
     property EmissionItself: Boolean read FEmissionItself write SetEmissionItself
              {$ifdef FPC}default DefaultEmissionItself{$endif};
     property EmissionColorPersistent: TCastleColorRGBPersistent read FEmissionColorPersistent;
-    property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
     property VelocityNoiseSuppressorCount: Integer read GetVelocityNoiseSuppressorCount write SetVelocityNoiseSuppressorCount
              {$ifdef FPC}default DefaultVelocityNoiseSuppressorCount{$endif};
     property DefaultAnimationTransition: Single
@@ -126,13 +143,68 @@ uses
   , PropEdits, CastlePropEdits
   {$endif};
 
+{ ========= ------------------------------------------------------------------ }
+{ TNyaActorPerson ------------------------------------------------------------ }
+{ ========= ------------------------------------------------------------------ }
+
+constructor TNyaActorPerson.Create(AOwner: TComponent);
+begin
+  inherited;
+
+  FActorName:= DefaultActorName;
+  FPersonalColor:= DefaultPersonalColor;
+
+  { Persistent for PersonalColor }
+  FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
+  FPersonalColorPersistent.SetSubComponent(true);
+  FPersonalColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPersonalColorForPersistent;
+  FPersonalColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPersonalColorForPersistent;
+  FPersonalColorPersistent.InternalDefaultValue:= PersonalColor; // current value is default
+end;
+
+destructor TNyaActorPerson.Destroy;
+begin
+  FreeAndNil(FPersonalColorPersistent);
+  inherited;
+end;
+
+procedure TNyaActorPerson.SetActorName(const value: String);
+begin
+  if (FActorName = value) then exit;
+  FActorName:= value;
+end;
+
+function TNyaActorPerson.GetPersonalColorForPersistent: TCastleColorRGB;
+begin
+  Result:= PersonalColor;
+end;
+
+procedure TNyaActorPerson.SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
+begin
+  PersonalColor:= AValue;
+end;
+
+function TNyaActorPerson.PropertySections(const PropertyName: String): TPropertySections;
+begin
+  if ArrayContainsString(PropertyName, [
+       'ActorName', 'PersonalColorPersistent'
+     ]) then
+    Result:= [psBasic]
+  else
+    Result:= inherited PropertySections(PropertyName);
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TNyaActor ------------------------------------------------------------------ }
+{ ========= ------------------------------------------------------------------ }
+
 constructor TNyaActor.Create(AOwner: TComponent);
 begin
   inherited;
 
   FDesign:= nil;
   FUrl:= '';
-  FActorName:= DefaultActorName;
+  FUrlPerson:= '';
   FAutoAnimation:= DefaultAutoAnimation;
   FMainSceneName:= DefaultMainSceneName;
   FAnimationSpeed:= DefaultAnimationSpeed;
@@ -143,8 +215,10 @@ begin
   FDefaultAnimationTransition:= DefaultDefaultAnimationTransition;
   FAnimateChildActors:= DefaultAnimateChildActors;
 
+  FPersonalColor:= TNyaActorPerson.DefaultPersonalColor;
+  FActorName:= TNyaActorPerson.DefaultActorName;
+
   FEmissionColor:= DefaultEmissionColor;
-  FPersonalColor:= DefaultPersonalColor;
 
   FForwardShift:= 0.0;
   FForwardVelocity:= 0.0;
@@ -159,20 +233,12 @@ begin
   FEmissionColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetEmissionColorForPersistent;
   FEmissionColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetEmissionColorForPersistent;
   FEmissionColorPersistent.InternalDefaultValue:= EmissionColor; // current value is default
-
-  { Persistent for PersonalColor }
-  FPersonalColorPersistent:= TCastleColorRGBPersistent.Create(nil);
-  FPersonalColorPersistent.SetSubComponent(true);
-  FPersonalColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPersonalColorForPersistent;
-  FPersonalColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPersonalColorForPersistent;
-  FPersonalColorPersistent.InternalDefaultValue:= PersonalColor; // current value is default
 end;
 
 destructor TNyaActor.Destroy;
 begin
   FreeAndNil(FVelocityNoiseSuppressor);
   FreeAndNil(FEmissionColorPersistent);
-  FreeAndNil(FPersonalColorPersistent);
   FreeAndNil(FAnimationsList);
   inherited;
 end;
@@ -321,10 +387,22 @@ begin
   ApplyAnimationSpeed;
 end;
 
-procedure TNyaActor.SetActorName(const value: String);
+procedure TNyaActor.SetUrlPerson(const value: String);
+var
+  personOwner: TComponent;
+  person: TNyaActorPerson;
 begin
-  if (FActorName = value) then exit;
-  FActorName:= value;
+  FPersonalColor:= TNyaActorPerson.DefaultPersonalColor;
+  FActorName:= TNyaActorPerson.DefaultActorName;
+
+  personOwner:= TComponent.Create(nil);
+  try
+    person:= ComponentLoad(value, personOwner) as TNyaActorPerson;
+    FPersonalColor:= person.PersonalColor;
+    FActorName:= person.ActorName;
+  finally
+    FreeAndNil(personOwner)
+  end;
 end;
 
 procedure TNyaActor.SetMainScene(const value: String);
@@ -526,22 +604,12 @@ begin
   EmissionColor:= AValue;
 end;
 
-function TNyaActor.GetPersonalColorForPersistent: TCastleColorRGB;
-begin
-  Result:= PersonalColor;
-end;
-
-procedure TNyaActor.SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
-begin
-  PersonalColor:= AValue;
-end;
-
 function TNyaActor.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Url', 'AnisotropicDegree', 'EmissionItself', 'EmissionColorPersistent',
-       'AutoAnimation', 'AnimationSpeed', 'ActorName', 'Lightning',
-       'PersonalColorPersistent', 'MainSceneName', 'DefaultAnimationTransition',
+       'Url', 'UrlPerson', 'AnisotropicDegree', 'EmissionItself',
+       'EmissionColorPersistent', 'AutoAnimation', 'AnimationSpeed',
+       'ActorName', 'Lightning', 'MainSceneName', 'DefaultAnimationTransition',
        'VelocityNoiseSuppressorCount', 'AnimateChildActors'
      ]) then
     Result:= [psBasic]
@@ -603,10 +671,13 @@ end;
 
 initialization
   RegisterSerializableComponent(TNyaActor, 'Nya Actor');
+  RegisterSerializableComponent(TNyaActorPerson, 'Nya Actor Personality');
 
   {$ifdef CASTLE_DESIGN_MODE}
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'URL',
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'Url',
                          TTransformDesignURLPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'UrlPerson',
+                         TAnyDesignUrlPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'AutoAnimation',
                          TNyaActorPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'MainSceneName',

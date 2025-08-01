@@ -11,6 +11,20 @@ uses
   NyaSoundControl;
 
 type
+  TNyaCharaPerson = class(TNyaActorPerson)
+  protected
+    FSuitName: String;
+    procedure SetSuitName(const value: String); virtual;
+  public
+    const
+      DefaultSuitName = 'summer';
+
+    constructor Create(AOwner: TComponent); override;
+    function PropertySections(const PropertyName: String): TPropertySections; override;
+  published
+    property SuitName: String read FSuitName write SetSuitName;
+  end;
+
   TNyaActorChara = class(TNyaActor)
   protected
     { controllers }
@@ -21,16 +35,17 @@ type
     FControlJizz: TCastleTransform;
     FEmitterJizz: TCastleParticleEmitter;
   protected
+    FSuitName: String;
     FDresser: TCharaDresser;
     FDripping: Single;
     FSweating: Single;
-    procedure SetActorName(const value: String); override;
     procedure SetDripping(value: Single);
     procedure SetSweating(value: Single);
     procedure ApplyDripping;
     procedure ApplySweating;
     procedure UpdateJizz;
     procedure SetUrl(const value: String); override;
+    procedure SetUrlPerson(const value: String); override;
   public
     const
       DefaultDripping = 0.0;
@@ -55,10 +70,42 @@ implementation
 uses
   CastleComponentSerialize, CastleUtils;
 
+{ ========= ------------------------------------------------------------------ }
+{ TNyaCharaPerson ------------------------------------------------------------ }
+{ ========= ------------------------------------------------------------------ }
+
+constructor TNyaCharaPerson.Create(AOwner: TComponent);
+begin
+  inherited;
+
+  FSuitName:= DefaultSuitName;
+end;
+
+procedure TNyaCharaPerson.SetSuitName(const value: String);
+begin
+  if (FSuitName = value) then exit;
+  FSuitName:= value;
+end;
+
+function TNyaCharaPerson.PropertySections(const PropertyName: String): TPropertySections;
+begin
+  if ArrayContainsString(PropertyName, [
+       'SuitName'
+     ]) then
+    Result:= [psBasic]
+  else
+    Result:= inherited PropertySections(PropertyName);
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TNyaActorChara ------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
 constructor TNyaActorChara.Create(AOwner: TComponent);
 begin
   inherited;
 
+  FSuitName:= TNyaCharaPerson.DefaultSuitName;
   FDripping:= DefaultDripping;
   FSweating:= DefaultSweating;
   FDresser:= nil;
@@ -105,12 +152,32 @@ begin
   RestoreCondition;
 end;
 
+procedure TNyaActorChara.SetUrlPerson(const value: String);
+var
+  personOwner: TComponent;
+  person: TNyaCharaPerson;
+begin
+  inherited;
+
+  FSuitName:= TNyaCharaPerson.DefaultSuitName;
+
+  personOwner:= TComponent.Create(nil);
+  try
+    person:= ComponentLoad(value, personOwner) as TNyaCharaPerson;
+    FSuitName:= person.SuitName;
+  finally
+    FreeAndNil(personOwner)
+  end;
+
+  RestoreCondition;
+end;
+
 function TNyaActorChara.Dresser: TCharaDresser;
 begin
   if NOT Assigned(FDesign) then Exit(nil);
 
   if NOT Assigned(FDresser) then
-    FDresser:= TCharaDresser.Create(FDesign);
+    FDresser:= TCharaDresser.Create(FDesign, FSuitName);
 
   Result:= FDresser;
 end;
@@ -125,13 +192,6 @@ procedure TNyaActorChara.SaveCondition;
 begin
   if Assigned(Dresser) then
     Dresser.SaveCondition(ActorName);
-end;
-
-procedure TNyaActorChara.SetActorName(const value: String);
-begin
-  if (FActorName = value) then exit;
-  FActorName:= value;
-  RestoreCondition;
 end;
 
 procedure TNyaActorChara.SetDripping(value: Single);
@@ -183,6 +243,7 @@ begin
 end;
 
 initialization
-  RegisterSerializableComponent(TNyaActorChara, 'Nya Actor Chara');
+  RegisterSerializableComponent(TNyaActorChara, 'Nya Chara');
+  RegisterSerializableComponent(TNyaCharaPerson, 'Nya Chara Personality');
 end.
 

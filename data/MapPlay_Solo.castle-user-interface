@@ -115,7 +115,6 @@
             "$Children" : [
               {
                 "$$ClassName" : "TNyaActorChara",
-                "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.GIRL_SOLO.PLAY.Idle",
                 "EmissionColorPersistent" : {
@@ -127,12 +126,8 @@
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "CharaGirl",
-                "PersonalColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 2.9803922772407532E-001,
-                  "Green" : 9.5686274766921997E-001
-                },
-                "Url" : "castle-data:/CharaGirl_Solo.castle-transform"
+                "Url" : "castle-data:/CharaGirl_Solo.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component"
               },
               {
                 "$$ClassName" : "TCastleBox",

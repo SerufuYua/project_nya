@@ -16,7 +16,8 @@ type
     FDefaultSuitName: String;
     function MainBody: TCastleScene; { main chara Body }
   public
-    constructor Create(scene: TCastleTransformDesign);
+    constructor Create(scene: TCastleTransformDesign;
+                       const SuitByDefault: String);
     function SuitPartsList(suitPartType: TSuitPart): TItemConditions;
     function DressedSuitPart(suitPartType: TSuitPart): String;
     procedure DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
@@ -57,27 +58,19 @@ const
   PrefixFoots = 'foots.';
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
-  DefaultSuitStr = 'summer';
   BodynameStr = 'Body';
 
 { ---------------------------------------------------------------------------- }
 { TCharaDresser -------------------------------------------------------------- }
 { ---------------------------------------------------------------------------- }
 
-constructor TCharaDresser.Create(scene: TCastleTransformDesign);
+constructor TCharaDresser.Create(scene: TCastleTransformDesign;
+                                 const SuitByDefault: String);
 var
   suitNameRepo: TCastleComponent;
 begin
   FScene:= scene;
-
-  { find Default Suit Name }
-  suitNameRepo:= FScene.DesignedComponent('DefaultSuit', False)
-                   as TCastleComponent;
-
-  if Assigned(suitNameRepo) AND (suitNameRepo.NonVisualComponentsCount > 0) then
-    FDefaultSuitName:= suitNameRepo.NonVisualComponents[0].Name
-  else
-    FDefaultSuitName:= DefaultSuitStr;
+  FDefaultSuitName:= SuitByDefault;
 end;
 
 function TCharaDresser.SuitPartsList(suitPartType: TSuitPart): TItemConditions;

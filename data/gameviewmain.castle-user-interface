@@ -72,7 +72,6 @@
           },
           {
             "$$ClassName" : "TNyaActorChara",
-            "ActorName" : "Girl",
             "AnisotropicDegree" : 1.6000000000000000E+001,
             "AutoAnimation" : "GAME.TOGETHER.INTRO.WAITING",
             "Dripping" : -1.0000000000000000E+000,
@@ -85,11 +84,6 @@
             "EmissionItself" : true,
             "MainSceneName" : "none",
             "Name" : "CharaGirl",
-            "PersonalColorPersistent" : {
-              "$$ClassName" : "TCastleColorRGBPersistent",
-              "Blue" : 2.9803922772407532E-001,
-              "Green" : 9.5686274766921997E-001
-            },
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "Z" : 1.0000000000000000E+000
@@ -100,11 +94,11 @@
               "X" : 1.7198499441146851E+000,
               "Z" : 3.7894999980926514E-001
             },
-            "Url" : "castle-data:/CharaGirl_intro.castle-transform"
+            "Url" : "castle-data:/CharaGirl_intro.castle-transform",
+            "UrlPerson" : "castle-data:/PersonGirl.castle-component"
           },
           {
             "$$ClassName" : "TNyaActorChara",
-            "ActorName" : "Boy",
             "AnisotropicDegree" : 1.6000000000000000E+001,
             "AutoAnimation" : "GAME.TOGETHER.INTRO.WAITING",
             "Dripping" : -1.0000000000000000E+000,
@@ -117,11 +111,6 @@
             "EmissionItself" : true,
             "MainSceneName" : "none",
             "Name" : "CharaBoy",
-            "PersonalColorPersistent" : {
-              "$$ClassName" : "TCastleColorRGBPersistent",
-              "Blue" : 3.8431373238563538E-001,
-              "Red" : 0.0000000000000000E+000
-            },
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "W" : 1.5707963705062866E+000,
@@ -133,7 +122,8 @@
               "X" : 2.3611500263214111E+000,
               "Z" : 1.6324000358581543E+000
             },
-            "Url" : "castle-data:/CharaBoy_intro.castle-transform"
+            "Url" : "castle-data:/CharaBoy_intro.castle-transform",
+            "UrlPerson" : "castle-data:/PersonBoy.castle-component"
           },
           {
             "$$ClassName" : "TCastleSpotLight",

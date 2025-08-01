@@ -85,7 +85,6 @@
             "$Children" : [
               {
                 "$$ClassName" : "TNyaActorChara",
-                "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.Idle",
                 "EmissionColorPersistent" : {
@@ -97,25 +96,15 @@
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "CharaGirl",
-                "PersonalColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 2.9803922772407532E-001,
-                  "Green" : 9.5686274766921997E-001
-                },
-                "Url" : "castle-data:/CharaGirl_ToyA.castle-transform"
+                "Url" : "castle-data:/CharaGirl_ToyA.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component"
               },
               {
                 "$$ClassName" : "TNyaActor",
-                "ActorName" : "Toy-A",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.Idle",
                 "MainSceneName" : "ToyA",
                 "Name" : "ToyA",
-                "PersonalColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Green" : 1.9607843458652496E-001,
-                  "Red" : 6.7058825492858887E-001
-                },
                 "Url" : "castle-data:/ToyAForGirl.castle-transform"
               },
               {

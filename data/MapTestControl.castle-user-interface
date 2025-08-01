@@ -98,7 +98,6 @@
             "$Children" : [
               {
                 "$$ClassName" : "TNyaActorChara",
-                "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "none",
                 "EmissionColorPersistent" : {
@@ -110,11 +109,6 @@
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "CharaGirl",
-                "PersonalColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 2.9803922772407532E-001,
-                  "Green" : 9.5686274766921997E-001
-                },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "W" : 1.7453292608261108E+000,
@@ -127,6 +121,7 @@
                   "Z" : 7.6837390661239624E-001
                 },
                 "Url" : "castle-data:/CharaGirl_common.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component",
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleCapsuleCollider",

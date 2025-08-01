@@ -87,7 +87,6 @@
               },
               {
                 "$$ClassName" : "TNyaActorChara",
-                "ActorName" : "Boy",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
                 "DefaultAnimationTransition" : 2.0000000298023224E-001,
@@ -100,11 +99,6 @@
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "CharaBoy",
-                "PersonalColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 3.8431373238563538E-001,
-                  "Red" : 0.0000000000000000E+000
-                },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "W" : 1.4835295677185059E+000,
@@ -122,6 +116,7 @@
                   "Z" : 1.6324000358581543E+000
                 },
                 "Url" : "castle-data:/CharaBoy_visiting.castle-transform",
+                "UrlPerson" : "castle-data:/PersonBoy.castle-component",
                 "$Children" : [
                   {
                     "$$ClassName" : "TCastleScene",
@@ -436,7 +431,6 @@
             "$Children" : [
               {
                 "$$ClassName" : "TNyaActorChara",
-                "ActorName" : "Girl",
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 1.5000000596046448E-001,
@@ -449,11 +443,6 @@
                 "EmissionItself" : true,
                 "MainSceneName" : "Body",
                 "Name" : "CharaGirl",
-                "PersonalColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 2.9803922772407532E-001,
-                  "Green" : 9.5686274766921997E-001
-                },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "W" : 5.5647435188293457E+000,
@@ -466,6 +455,7 @@
                   "Z" : 7.8937584161758423E-001
                 },
                 "Url" : "castle-data:/CharaGirl_common.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component",
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleCapsuleCollider",
