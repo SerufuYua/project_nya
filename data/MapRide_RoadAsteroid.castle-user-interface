@@ -1069,6 +1069,226 @@
           },
           {
             "$$ClassName" : "TCastleTransform",
+            "Name" : "Memo",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo1",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.5883209705352783E+000,
+                  "X" : -1.7263350309804082E-004,
+                  "Y" : -1.0000000000000000E+000,
+                  "Z" : 4.9013324314728379E-005
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 1.0000000000000000E+001,
+                  "Y" : 7.5000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.0000000000000000E+002,
+                  "Y" : 2.0000000000000000E+000,
+                  "Z" : 2.5500000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Ru_rolled_girl_003.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard5"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo2",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.5768940448760986E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 5.6250000000000000E+000,
+                  "Y" : 1.0000000000000000E+001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -2.0000000000000000E+002,
+                  "Y" : 1.6000000000000000E+001,
+                  "Z" : -2.4000000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Raffy_Kidder_stand.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard4"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo3",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.7839941978454590E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 8.0000000000000000E+000,
+                  "Y" : 8.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -4.5000000000000000E+001,
+                  "Y" : -8.0000000000000000E+000,
+                  "Z" : 4.2500000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Ru_NY25.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard3"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo4",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 1.9764035940170288E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "ScalePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 1.0000001192092896E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 1.0000000000000000E+001,
+                  "Y" : 7.5000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.4000000000000000E+001,
+                  "Y" : -2.0000000000000000E+001,
+                  "Z" : -4.1000000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Raffy_SpacePlane_Mage_seat.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard2"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo5",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 3.0934767723083496E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "ScalePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 1.0000001192092896E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 5.0000000000000000E+000,
+                  "Y" : 1.0000000000000000E+001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -4.0000000000000000E+002,
+                  "Y" : 6.0000000000000000E+000,
+                  "Z" : -2.0000000000000000E+001
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Together_Stand_001.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
             "Name" : "SceneActors",
             "$Children" : [
               {
@@ -1270,8 +1490,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721359014511108E-001,
-            "Z" : 8.9442718029022217E-001
+            "Y" : -4.4721364974975586E-001,
+            "Z" : 8.9442729949951172E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
@@ -1290,16 +1510,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.7443549036979675E-001,
-          "X" : -4.1282740235328674E-001,
-          "Y" : 9.0930390357971191E-001,
-          "Z" : 5.2345462143421173E-002
+          "W" : 1.9297243356704712E+000,
+          "X" : -5.5767979472875595E-002,
+          "Y" : -9.9509143829345703E-001,
+          "Z" : -8.1749826669692993E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.9996308088302612E+000,
-          "Y" : 1.5467534065246582E+000,
-          "Z" : 3.8144857883453369E+000
+          "X" : -3.8734329223632812E+002,
+          "Y" : 7.8493161201477051E+000,
+          "Z" : -5.0165374755859375E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
