@@ -176,8 +176,10 @@ function TNyaActorChara.Dresser: TCharaDresser;
 begin
   if NOT Assigned(FDesign) then Exit(nil);
 
-  if NOT Assigned(FDresser) then
-    FDresser:= TCharaDresser.Create(FDesign, FSuitName);
+  if Assigned(FDresser) then
+    FreeAndNil(FDresser);
+
+  FDresser:= TCharaDresser.Create(FDesign, FSuitName);
 
   Result:= FDresser;
 end;
