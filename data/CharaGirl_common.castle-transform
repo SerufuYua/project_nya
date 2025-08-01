@@ -1,18 +1,6 @@
 {
   "$$ClassName" : "TCastleTransform",
   "Name" : "CharaGirl",
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleComponent",
-      "Name" : "DefaultSuit",
-      "$NonVisualComponents" : [
-        {
-          "$$ClassName" : "TCastleComponent",
-          "Name" : "biker"
-        }
-      ]
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleScene",
@@ -83,9 +71,9 @@
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector3Persistent",
-                    "X" : -2.0201931238972293E-009,
-                    "Y" : 7.7539011836051941E-002,
-                    "Z" : 6.0834687203168869E-002
+                    "X" : -3.7252902984619141E-009,
+                    "Y" : 7.7539019286632538E-002,
+                    "Z" : 6.0834683477878571E-002
                   },
                   "$Children" : [
                     {
@@ -202,9 +190,9 @@
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "W" : 2.6542212963104248E+000,
-            "X" : 1.8844994902610779E-001,
-            "Y" : 5.9741848707199097E-001,
-            "Z" : 7.7947270870208740E-001
+            "X" : 1.8844993412494659E-001,
+            "Y" : 5.9741854667663574E-001,
+            "Z" : 7.7947282791137695E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
@@ -214,8 +202,8 @@
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : -2.8791317343711853E-001,
-            "Y" : 1.0731402635574341E+000,
-            "Z" : 1.2922345101833344E-001
+            "Y" : 1.0731401443481445E+000,
+            "Z" : 1.2922346591949463E-001
           },
           "$Children" : [
             {
@@ -247,9 +235,9 @@
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
             "W" : 3.6289639472961426E+000,
-            "X" : -1.8844994902610779E-001,
-            "Y" : 5.9741848707199097E-001,
-            "Z" : 7.7947270870208740E-001
+            "X" : -1.8844993412494659E-001,
+            "Y" : 5.9741854667663574E-001,
+            "Z" : 7.7947282791137695E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
@@ -259,8 +247,8 @@
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 2.8791317343711853E-001,
-            "Y" : 1.0731402635574341E+000,
-            "Z" : 1.2922345101833344E-001
+            "Y" : 1.0731401443481445E+000,
+            "Z" : 1.2922346591949463E-001
           },
           "$Children" : [
             {

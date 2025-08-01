@@ -1,18 +1,6 @@
 {
   "$$ClassName" : "TCastleTransform",
   "Name" : "CharaGirl",
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleComponent",
-      "Name" : "DefaultSuit",
-      "$NonVisualComponents" : [
-        {
-          "$$ClassName" : "TCastleComponent",
-          "Name" : "biker"
-        }
-      ]
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleScene",

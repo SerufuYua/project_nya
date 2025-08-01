@@ -7,18 +7,6 @@
     "Y" : 8.9999997615814209E-001,
     "Z" : 8.9999997615814209E-001
   },
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleComponent",
-      "Name" : "DefaultSuit",
-      "$NonVisualComponents" : [
-        {
-          "$$ClassName" : "TCastleComponentFactory",
-          "Name" : "kidder"
-        }
-      ]
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleScene",
@@ -40,22 +28,22 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 7.0188426971435547E-001,
-            "X" : 3.7769061326980591E-001,
-            "Y" : -7.5326842069625854E-001,
-            "Z" : 5.3845739364624023E-001
+            "W" : 7.0328414440155029E-001,
+            "X" : 3.7612026929855347E-001,
+            "Y" : -7.5225114822387695E-001,
+            "Z" : 5.4097366333007812E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0999996662139893E+000,
+            "X" : 1.0999999046325684E+000,
             "Y" : 1.1000001430511475E+000,
-            "Z" : 1.0999995470046997E+000
+            "Z" : 1.0999996662139893E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -9.1587707400321960E-002,
-            "Y" : 1.1097401380538940E+000,
-            "Z" : 1.0682686418294907E-001
+            "X" : -9.1679513454437256E-002,
+            "Y" : 1.1097453832626343E+000,
+            "Z" : 1.0679280757904053E-001
           },
           "$Children" : [
             {
