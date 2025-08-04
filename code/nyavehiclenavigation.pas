@@ -25,9 +25,10 @@ type
     FBrakeFactor: Single;
     FInput_Brake: TInputShortcut;
   protected
-    procedure RotateVehicle(const SecondsPassed, FwdVelocityFactor: Single; RBody: TCastleRigidBody; const OnGround: Boolean);
+    procedure RotateVehicle(FwdVelocityFactor: Single; RBody: TCastleRigidBody; const OnGround: Boolean);
     procedure MoveVehicle(const SecondsPassed, FwdVelocityFactor: Single; RBody: TCastleRigidBody; CBody: TCastleCollider; const OnGround: Boolean);
-    procedure Animate(const SecondsPassed, FwdVelocity: Single; const OnGround: Boolean);
+    procedure Animate(FwdVelocity: Single; const OnGround: Boolean);
+    procedure Sound(FwdVelocityFactor: Single; const OnGround: Boolean);
 
     function WinFuncRotation(const value: Single): Single;
     function WinFuncRolling(const value: Single): Single;
@@ -159,13 +160,13 @@ begin
   else
     fwdVelocityFactor:= 1.0;
 
-  RotateVehicle(SecondsPassed, fwdVelocityFactor, RBody, onGround);
+  RotateVehicle(fwdVelocityFactor, RBody, onGround);
   MoveVehicle(SecondsPassed, fwdVelocityFactor, RBody, CBody, onGround);
-  Animate(SecondsPassed, fwdVelocity, onGround);
+  Animate(fwdVelocity, onGround);
+  Sound(fwdVelocityFactor, onGround);
 end;
 
-procedure TNyaVehicleNavigation.RotateVehicle(const SecondsPassed,
-                                              FwdVelocityFactor: Single;
+procedure TNyaVehicleNavigation.RotateVehicle(FwdVelocityFactor: Single;
                                               RBody: TCastleRigidBody;
                                               const OnGround: Boolean);
 var
@@ -260,8 +261,7 @@ begin
   end;
 end;
 
-procedure TNyaVehicleNavigation.Animate(const SecondsPassed,
-                                        FwdVelocity: Single;
+procedure TNyaVehicleNavigation.Animate(FwdVelocity: Single;
                                         const OnGround: Boolean);
 begin
   if NOT Assigned(OnAnimation) then Exit;
@@ -272,7 +272,7 @@ begin
     if (Input_Forward.IsPressed(Container) OR
         (Abs(FwdVelocity) > MoveTreshold * SpeedOfMoveAnimation)) then
     begin
-      { move animation }
+      { move }
       if Input_Rightward.IsPressed(Container) then
         OnAnimation(self, AnimationTurnRight, FwdVelocity / SpeedOfMoveAnimation)
       else if Input_Leftward.IsPressed(Container) then
@@ -283,9 +283,49 @@ begin
       { stand }
       OnAnimation(self, AnimationStand, 1.0);
   end else
+    { fly }
     OnAnimation(self, AnimationFly, 1.0);
+end;
 
+procedure TNyaVehicleNavigation.Sound(FwdVelocityFactor: Single;
+                                      const OnGround: Boolean);
+var
+  vehicle: TNyaActorVehicle;
+begin
+  { processing sound }
+  if (AvatarHierarchy is TNyaActorVehicle) then
+  begin
+    vehicle:= (AvatarHierarchy as TNyaActorVehicle);
 
+    if OnGround then
+    begin
+      if Input_Forward.IsPressed(Container) then
+      begin
+        { move }
+        if Assigned(vehicle.SoundSrcMove) then
+        begin
+          vehicle.SoundSrcMove.SoundPlaying:= True;
+          vehicle.SoundSrcMove.Pitch:= 1.0 + FwdVelocityFactor;
+        end;
+        if Assigned(vehicle.SoundSrcNeutral)
+          then vehicle.SoundSrcNeutral.SoundPlaying:= False;
+      end else
+      begin
+        { stand }
+        if Assigned(vehicle.SoundSrcMove) then
+          vehicle.SoundSrcMove.SoundPlaying:= False;
+        if Assigned(vehicle.SoundSrcNeutral) then
+          vehicle.SoundSrcNeutral.SoundPlaying:= True;
+      end
+    end else
+    begin
+      { fly }
+      if Assigned(vehicle.SoundSrcMove) then
+        vehicle.SoundSrcMove.SoundPlaying:= False;
+      if Assigned(vehicle.SoundSrcNeutral) then
+        vehicle.SoundSrcNeutral.SoundPlaying:= True;
+    end
+  end;
 end;
 
 function TNyaVehicleNavigation.WinFuncRotation(const value: Single): Single;
