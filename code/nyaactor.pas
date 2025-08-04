@@ -393,6 +393,7 @@ var
   personOwner: TComponent;
   person: TNyaActorPerson;
 begin
+  FUrlPerson:= value;
   FPersonalColor:= TNyaActorPerson.DefaultPersonalColor;
   FActorName:= TNyaActorPerson.DefaultActorName;
 
