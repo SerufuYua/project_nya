@@ -23,8 +23,8 @@ type
       FWheel3SceneName, FWheel4SceneName: String;
     FWheel1Scene, FWheel2Scene, FWheel3Scene, FWheel4Scene: TCastleScene;
     FWheel1Dia, FWheel2Dia, FWheel3Dia, FWheel4Dia: Single;
-    FSoundNeutralName, FSoundStartName, FSoundMoveName: String;
-    FSoundSrcNeutral, FSoundSrcStart, FSoundSrcMove: TCastleSoundSource;
+    FSoundNeutralName, FSoundMoveName: String;
+    FSoundSrcNeutral, FSoundSrcMove: TCastleSoundSource;
     procedure SetWheel1Scene(const value: String);
     procedure SetWheel2Scene(const value: String);
     procedure SetWheel3Scene(const value: String);
@@ -32,7 +32,6 @@ type
     procedure UpdateWheelScenes;
     procedure WheelRotor(const SecondsPassed: Single);
     procedure SetSoundNeutralName(const value: String);
-    procedure SetSoundStartName(const value: String);
     procedure SetSoundMoveName(const value: String);
     procedure UpdateSounds;
     procedure SetHeadlight(const value: Boolean);
@@ -55,7 +54,6 @@ type
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
     property SoundSrcNeutral: TCastleSoundSource read FSoundSrcNeutral;
-    property SoundSrcStart: TCastleSoundSource read FSoundSrcStart;
     property SoundSrcMove: TCastleSoundSource read FSoundSrcMove;
   published
     property Wheel1SceneName: String read FWheel1SceneName write SetWheel1Scene;
@@ -63,7 +61,6 @@ type
     property Wheel3SceneName: String read FWheel3SceneName write SetWheel3Scene;
     property Wheel4SceneName: String read FWheel4SceneName write SetWheel4Scene;
     property SoundNeutralName: String read FSoundNeutralName write SetSoundNeutralName;
-    property SoundStartName: String read FSoundStartName write SetSoundStartName;
     property SoundMoveName: String read FSoundMoveName write SetSoundMoveName;
     property Headlight: Boolean read FHeadlight write SetHeadlight
              {$ifdef FPC}default DefaultHeadlight{$endif};
@@ -99,6 +96,8 @@ begin
   FWheel2Dia:= DefaultWheelDia;
   FWheel3Dia:= DefaultWheelDia;
   FWheel4Dia:= DefaultWheelDia;
+  FSoundSrcNeutral:= nil;
+  FSoundSrcMove:= nil;
 end;
 
 procedure TNyaActorVehicle.Update(const SecondsPassed: Single;
@@ -215,15 +214,6 @@ begin
   end;
 end;
 
-procedure TNyaActorVehicle.SetSoundStartName(const value: String);
-begin
-  if (FSoundStartName <> value) then
-  begin
-    FSoundStartName:= value;
-    UpdateSounds;
-  end;
-end;
-
 procedure TNyaActorVehicle.SetSoundMoveName(const value: String);
 begin
   if (FSoundMoveName <> value) then
@@ -243,9 +233,6 @@ begin
   begin
     if (behavior.Name = FSoundNeutralName) then
       FSoundSrcNeutral:= behavior as TCastleSoundSource;
-
-    if (behavior.Name = FSoundStartName) then
-      FSoundSrcStart:= behavior as TCastleSoundSource;
 
     if (behavior.Name = FSoundMoveName) then
       FSoundSrcMove:= behavior as TCastleSoundSource;
@@ -338,10 +325,9 @@ function TNyaActorVehicle.PropertySections(const PropertyName: String): TPropert
 begin
   if ArrayContainsString(PropertyName, [
        'Wheel1SceneName', 'Wheel2SceneName', 'Wheel3SceneName',
-       'Wheel4SceneName', 'SoundNeutralName', 'SoundStartName',
-       'SoundMoveName', 'Headlight', 'HeadlightOFFName',
-       'HeadlightONName', 'Stoplight', 'StoplightOFFName',
-       'StoplightONName'
+       'Wheel4SceneName', 'SoundNeutralName', 'SoundMoveName',
+       'Headlight', 'HeadlightOFFName', 'HeadlightONName', 'Stoplight',
+       'StoplightOFFName', 'StoplightONName'
      ]) then
     Result:= [psBasic]
   else
@@ -418,8 +404,6 @@ initialization
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'StoplightONName',
                          TNyaVehicleSceneEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'SoundNeutralName',
-                         TNyaSoundEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'SoundStartName',
                          TNyaSoundEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaActor, 'SoundMoveName',
                          TNyaSoundEditor);
