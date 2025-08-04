@@ -235,6 +235,47 @@
                 }
               ]
             }
+          ],
+          "$Behaviors" : [
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourceneutralNeutral",
+              "Sound" : "SoundNeutral",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundNeutral",
+                  "Url" : "castle-data:/audio/sfx/Moto_Neutral.wav"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourceStart",
+              "Sound" : "SoundStart",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundStart",
+                  "Url" : "castle-data:/audio/sfx/Moto_Start.wav"
+                }
+              ]
+            },
+            {
+              "$$ClassName" : "TCastleSoundSource",
+              "Name" : "SoundSourceMove3K",
+              "Sound" : "SoundMove3K",
+              "SoundPlaying" : false,
+              "$NonVisualComponents" : [
+                {
+                  "$$ClassName" : "TCastleSound",
+                  "Name" : "SoundMove3K",
+                  "Url" : "castle-data:/audio/sfx/Moto_Muve_3K.wav"
+                }
+              ]
+            }
           ]
         }
       ]
