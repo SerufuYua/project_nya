@@ -313,6 +313,13 @@ procedure TNyaActor.UpdateMainScene;
 var
   scene: TCastleScene;
 begin
+  { take first Scene as Main }
+  if (Length(FAllScenes) > 0) then
+    FMainScene:= FAllScenes[0]
+  else
+    FMainScene:= nil;
+
+  { try to find user Main Scene }
   for scene in FAllScenes do
   begin
     if (scene.Name = FMainSceneName) then
@@ -363,12 +370,6 @@ begin
   for scene in FAllScenes do
     if (scene.AnimationsList.Count > 0) then
       System.Insert(scene, FAnimatedScenes, 0);
-
-  { take only first Scene as Main }
-  if (Length(FAllScenes) > 0) then
-    FMainScene:= FAllScenes[0]
-  else
-    FMainScene:= nil;
 
   UpdateMainScene;
 

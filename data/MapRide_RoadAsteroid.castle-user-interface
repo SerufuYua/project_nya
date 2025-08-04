@@ -1315,6 +1315,9 @@
                   "W" : 1.5707963705062866E+000,
                   "Y" : 1.0000000000000000E+000
                 },
+                "SoundMoveName" : "SoundSourceMove3K",
+                "SoundNeutralName" : "SoundSourceneutralNeutral",
+                "SoundStartName" : "SoundSourceStart",
                 "StoplightOFFName" : "Stoplight_OFF",
                 "StoplightONName" : "Stoplight_ON",
                 "TranslationPersistent" : {
@@ -1322,7 +1325,6 @@
                   "Y" : 2.5000000000000000E-001
                 },
                 "Url" : "castle-data:/Vehicle_Motorbike.castle-transform",
-                "UrlPerson" : "castle-data:/PersonMotorbike.castle-component",
                 "VelocityNoiseSuppressorCount" : 4,
                 "Wheel1SceneName" : "Wheel_Front",
                 "Wheel2SceneName" : "Wheel_Rear",
@@ -1335,8 +1337,7 @@
                     "EmissionItself" : true,
                     "MainSceneName" : "Body",
                     "Name" : "CharaGirl",
-                    "Url" : "castle-data:/CharaGirl_moto.castle-transform",
-                    "UrlPerson" : "castle-data:/PersonGirl.castle-component"
+                    "Url" : "castle-data:/CharaGirl_moto.castle-transform"
                   }
                 ],
                 "$Behaviors" : [
@@ -1488,8 +1489,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721364974975586E-001,
-            "Z" : 8.9442729949951172E-001
+            "Y" : -4.4721359014511108E-001,
+            "Z" : 8.9442718029022217E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
