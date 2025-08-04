@@ -309,6 +309,16 @@ begin
         end;
         if Assigned(vehicle.SoundSrcNeutral)
           then vehicle.SoundSrcNeutral.SoundPlaying:= False;
+      end else if Input_Backward.IsPressed(Container) then
+      begin
+        { move backward }
+        if Assigned(vehicle.SoundSrcMove) then
+        begin
+          vehicle.SoundSrcMove.SoundPlaying:= True;
+          vehicle.SoundSrcMove.Pitch:= 1.0;
+        end;
+        if Assigned(vehicle.SoundSrcNeutral)
+          then vehicle.SoundSrcNeutral.SoundPlaying:= False;
       end else
       begin
         { stand }
