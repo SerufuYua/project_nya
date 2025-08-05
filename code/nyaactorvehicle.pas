@@ -248,11 +248,44 @@ begin
 end;
 
 procedure TNyaActorVehicle.ApplyHeadlight;
+var
+  child: TComponent;
+  light: TCastleAbstractLight;
 begin
-  if (Assigned(FHeadlightOFF) AND Assigned(FHeadlightON)) then
+  if Assigned(FHeadlightOFF) then
   begin
-    FHeadlightOFF.Exists:= NOT FHeadlight;
-    FHeadlightON.Exists:= FHeadlight;
+    FHeadlightOFF.Visible:= NOT FHeadlight;
+
+    for child in FHeadlightOFF do
+    begin
+      if (child is TCastleAbstractLight) then
+      begin
+        light:= child as TCastleAbstractLight;
+
+        if FHeadlight then
+          light.Scale:= Vector3(0.0, 0.0, 0.0)
+        else
+          light.Scale:= Vector3(1.0, 1.0, 1.0);
+      end;
+    end;
+  end;
+
+  if Assigned(FHeadlightON) then
+  begin
+    FHeadlightON.Visible:= FHeadlight;
+
+    for child in FHeadlightON do
+    begin
+      if (child is TCastleAbstractLight) then
+      begin
+        light:= child as TCastleAbstractLight;
+
+        if FHeadlight then
+          light.Scale:= Vector3(1.0, 1.0, 1.0)
+        else
+          light.Scale:= Vector3(0.0, 0.0, 0.0);
+      end;
+    end;
   end;
 end;
 
@@ -279,11 +312,44 @@ begin
 end;
 
 procedure TNyaActorVehicle.ApplyStoplight;
+var
+  child: TComponent;
+  light: TCastleAbstractLight;
 begin
-  if (Assigned(FStoplightOFF) AND Assigned(FStoplightON)) then
+  if Assigned(FStoplightOFF) then
   begin
-    FStoplightOFF.Exists:= NOT FStoplight;
-    FStoplightON.Exists:= FStoplight;
+    FStoplightOFF.Visible:= NOT FStoplight;
+
+    for child in FStoplightOFF do
+    begin
+      if (child is TCastleAbstractLight) then
+      begin
+        light:= child as TCastleAbstractLight;
+
+        if FStoplight then
+          light.Scale:= Vector3(0.0, 0.0, 0.0)
+        else
+          light.Scale:= Vector3(1.0, 1.0, 1.0);
+      end;
+    end;
+  end;
+
+  if Assigned(FStoplightON) then
+  begin
+    FStoplightON.Visible:= FStoplight;
+
+    for child in FStoplightON do
+    begin
+      if (child is TCastleAbstractLight) then
+      begin
+        light:= child as TCastleAbstractLight;
+
+        if FStoplight then
+          light.Scale:= Vector3(1.0, 1.0, 1.0)
+        else
+          light.Scale:= Vector3(0.0, 0.0, 0.0);
+      end;
+    end;
   end;
 end;
 
