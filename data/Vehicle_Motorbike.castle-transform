@@ -144,6 +144,7 @@
                   },
                   "Intensity" : 6.0000000000000000E+001,
                   "Name" : "HeadLight_Main",
+                  "Radius" : 3.0000000000000000E+001,
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "W" : 3.1415927410125732E+000,
@@ -165,6 +166,7 @@
                   },
                   "Intensity" : 3.0000000000000000E+001,
                   "Name" : "HeadLight_Yell",
+                  "Radius" : 2.0000000000000000E+001,
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "W" : 3.1415927410125732E+000,
@@ -219,8 +221,8 @@
                   },
                   "CutOffAngle" : 1.0471975803375244E+000,
                   "Intensity" : 1.0000000000000000E+001,
-                  "Name" : "PointLight1",
-                  "Radius" : 5.0000000000000000E+000,
+                  "Name" : "StopLight",
+                  "Radius" : 3.0000000000000000E+000,
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "W" : 9.5993107557296753E-001,
