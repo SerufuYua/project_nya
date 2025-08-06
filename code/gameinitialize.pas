@@ -22,6 +22,7 @@ uses SysUtils, CustApp,
   , GameViewPlayTogether
   , GameViewDressingMenu
   , GameViewLoading
+  , GameViewTravelTest
   , GameViewRideRoadAsteroid
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
@@ -51,6 +52,7 @@ begin
   ViewPlaySolo:= TViewPlaySolo.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
+  ViewTravelTest:= TViewTravelTest.Create(Application);
   ViewRideRoadAsteroid:= TViewRideRoadAsteroid.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
@@ -60,8 +62,10 @@ begin
     Window.Container.View:= ViewPlayGirl
   else if Application.hasOption('s', 'PlaySolo') then
     Window.Container.View:= ViewPlaySolo
-  else if Application.hasOption('t', 'PlayTogether') then
+  else if Application.hasOption('g', 'PlayTogether') then
     Window.Container.View:= ViewPlayTogether
+  else if Application.hasOption('t', 'Test') then
+    Window.Container.View:= ViewTravelTest
   else if Application.hasOption('h', 'Home') then
     Window.Container.View:= ViewTravelContainerRoom
   else if Application.hasOption('a', 'Asteroid') then

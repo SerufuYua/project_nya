@@ -1,0 +1,37 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo { headlight FALSE }
+
+DEF asteroid Transform
+{
+  children Inline
+  {
+    url "map_test_control.gltf"
+  }
+}
+
+PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
+                  inputOutput SFColor lightColor 1 1 1]
+{
+  SpotLight {
+    location IS lightPos
+    cutOffAngle 1.25
+    direction 0 -1 0
+    intensity 20
+    ambientIntensity 0.4
+    color IS lightColor
+    radius 15
+    beamWidth 0.1
+    shadows TRUE
+    defaultShadowMap GeneratedShadowMap {
+      size 1024
+      update "ALWAYS"
+      scale 3
+    }
+  }
+}
+
+UpperLight { lightPos  3.0 6.0  3.0 lightColor 0.0 0.3 1.0 }
+UpperLight { lightPos -3.0 6.0 -4.0 lightColor 0.7 0.4 0.0 }
+UpperLight { lightPos -6.0 4.0 6.0  lightColor 0.7 0.0 0.8 }
