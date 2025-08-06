@@ -1320,6 +1320,7 @@
                   "Y" : 2.5000000000000000E-001
                 },
                 "Url" : "castle-data:/Vehicle_Motorbike.castle-transform",
+                "UrlPerson" : "castle-data:/PersonMotorbike.castle-component",
                 "VelocityNoiseSuppressorCount" : 4,
                 "Wheel1SceneName" : "Wheel_Front",
                 "Wheel2SceneName" : "Wheel_Rear",
@@ -1486,8 +1487,8 @@
           "FollowRotation" : true,
           "LocalCamDirPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : -4.4721359014511108E-001,
-            "Z" : 8.9442718029022217E-001
+            "Y" : -4.4721364974975586E-001,
+            "Z" : 8.9442729949951172E-001
           },
           "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
           "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
@@ -1506,10 +1507,15 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 9.5814055204391479E-001,
-          "X" : -2.1760378777980804E-001,
-          "Y" : 9.7016400098800659E-001,
-          "Z" : 1.0691364854574203E-001
+          "W" : 2.6678054332733154E+000,
+          "X" : -2.7432205155491829E-002,
+          "Y" : 9.9377554655075073E-001,
+          "Z" : 1.0797078162431717E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000003576278687E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
