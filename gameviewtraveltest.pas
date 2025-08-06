@@ -3,7 +3,8 @@ unit GameViewTravelTest;
 interface
 
 uses
-  Classes, BaseViewTravel, NyaActorChara;
+  Classes, BaseViewTravel, NyaActorChara,
+  CastleLivingBehaviors;
 
 type
   TViewTravelTest = class(TBaseViewTravel)
@@ -29,7 +30,7 @@ begin
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
 
   { Play music }
-//  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
+  SoundEngine.LoopingChannel[0].Sound:= nil;
 
   inherited;
 end;
