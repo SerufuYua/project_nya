@@ -189,12 +189,12 @@
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 5.7142857462167740E-002
+                      "Y" : -2.0000000000000000E+000
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Z" : 5.7142857462167740E-002
+                      "Z" : 2.0000000000000000E+000
                     },
                     "Name" : "RigidBody1"
                   },
@@ -205,9 +205,8 @@
                     "AnimationIdle" : "GAME.STAND",
                     "AnimationMove" : "GAME.MOVE.FORWARD",
                     "Beater" : "CharaGirl",
-                    "DeathTimeout" : 1.6000000000000000E+001,
                     "Name" : "WalkSlime",
-                    "Velocity" : 5.7142857462167740E-002
+                    "Velocity" : 2.0000000000000000E+000
                   }
                 ]
               }
@@ -292,15 +291,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.3744844198226929E+000,
-          "X" : -5.4143857955932617E-001,
-          "Y" : 7.6849216222763062E-001,
-          "Z" : 3.4097602963447571E-001
+          "W" : 1.3340611457824707E+000,
+          "X" : -5.0048750638961792E-001,
+          "Y" : 8.0564314126968384E-001,
+          "Z" : 3.1694075465202332E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Y" : 9.9999994039535522E-001
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",

@@ -58,6 +58,8 @@ uses
 
 constructor TNyaRandomWalk.Create(AOwner: TComponent);
 begin
+  inherited;
+
   FVelocity:= DefaultVelocity;
   FActionTimeout:= DefaultActionTimeout;
   FDeathTimeout:= DefaultDeathTimeout;
@@ -66,7 +68,6 @@ begin
   FAnimationDeath:= DefaultAnimationDeath;
   FBeater:= nil;
   FTimer:= 0.0;
-
   FState:= TState.Idle;
 end;
 
@@ -136,13 +137,13 @@ begin
         begin
           currentAnimation:= FAnimationMove;
           RBody.LinearVelocity:= Parent.Direction * FVelocity;
-          RBody.AngularVelocity:= Vector3(0.0, FVelocity, 0.0);
+          RBody.AngularVelocity:= Parent.Up * FVelocity;
         end;
       TState.WalkRight:
         begin
           currentAnimation:= FAnimationMove;
           RBody.LinearVelocity:= Parent.Direction * FVelocity;
-          RBody.AngularVelocity:= Vector3(0.0, -FVelocity, 0.0);
+          RBody.AngularVelocity:= Parent.Up * (-FVelocity);
         end;
     end;
 
