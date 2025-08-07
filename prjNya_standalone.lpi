@@ -65,7 +65,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="45">
+    <Units Count="46">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -282,10 +282,15 @@
         <UnitName Value="NyaFollow"/>
       </Unit43>
       <Unit44>
-        <Filename Value="gameviewtraveltest.pas"/>
+        <Filename Value="code/gameviewtraveltest.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewTravelTest"/>
       </Unit44>
+      <Unit45>
+        <Filename Value="code/nyarandomwalk.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaRandomWalk"/>
+      </Unit45>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
