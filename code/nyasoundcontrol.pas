@@ -47,6 +47,8 @@ var
   child: TComponent;
   sounder: TNyaSounder;
 begin
+  inherited;
+
   for child in self.NonVisualComponentsEnumerate do
   begin
     if (child is TNyaSounder) then

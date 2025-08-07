@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, BaseViewTravel, NyaActorChara,
-  CastleLivingBehaviors;
+  CastleLivingBehaviors, NyaRandomWalk;
 
 type
   TViewTravelTest = class(TBaseViewTravel)
