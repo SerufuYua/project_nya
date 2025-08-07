@@ -164,6 +164,7 @@
               },
               {
                 "$$ClassName" : "TCastleScene",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "ExposeTransforms" : [
                 ],
@@ -188,24 +189,24 @@
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : -1.0000000000000000E+000
+                      "Y" : 5.7142857462167740E-002
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Z" : 1.0000000000000000E+000
+                      "Z" : 5.7142857462167740E-002
                     },
                     "Name" : "RigidBody1"
                   },
                   {
                     "$$ClassName" : "TNyaRandomWalk",
-                    "ActionTimeout" : 6.0000000000000000E+000,
+                    "ActionTimeout" : 8.0000000000000000E+000,
                     "AnimationDeath" : "GAME.DEATH",
                     "AnimationIdle" : "GAME.STAND",
                     "AnimationMove" : "GAME.MOVE.FORWARD",
                     "Beater" : "CharaGirl",
-                    "DeathTimeout" : 1.5000000000000000E+001,
-                    "Name" : "NyaRandomWalk1",
+                    "DeathTimeout" : 1.6000000000000000E+001,
+                    "Name" : "WalkSlime",
                     "Velocity" : 5.7142857462167740E-002
                   }
                 ]
