@@ -15,7 +15,6 @@
       "$$ClassName" : "TCastleViewport",
       "Background" : "Sky",
       "Camera" : "CameraMain",
-      "DynamicBatching" : true,
       "Fog" : "Fog",
       "FullSize" : true,
       "Items" : {
@@ -1441,6 +1440,7 @@
         ]
       },
       "Name" : "ViewportMain",
+      "OcclusionCulling" : true,
       "$NonVisualComponents" : [
         {
           "$$ClassName" : "TCastleBackground",
