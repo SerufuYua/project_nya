@@ -50,7 +50,7 @@ uses
   CastleConfig, NyaCastleUiUtils, CastleMessages;
 
 { ========= ------------------------------------------------------------------ }
-{ TViewSettingsMenu ---------------------------------------------------------- }
+{ TViewSettingsDialog -------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
 constructor TViewSettingsMenu.TViewSettingsDialog.Create(AOwner: TComponent);

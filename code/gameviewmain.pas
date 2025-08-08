@@ -19,16 +19,11 @@ type
   published
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
-    BtnExit: TCastleButton;
-    BtnStart: TCastleButton;
-    BtnSettings: TCastleButton;
-    LabelFps: TCastleLabel;
-    LabelInfo1: TCastleLabel;
-    LabelInfo2: TCastleLabel;
+    BtnExit, BtnStart, BtnSettings, BtnCredits: TCastleButton;
+    LabelFps, LabelInfo1, LabelInfo2: TCastleLabel;
     CameraMain: TCastleCamera;
     FlashEffect: TCastleFlashEffect;
-    CharaGirl: TNyaActorChara;
-    CharaBoy: TNyaActorChara;
+    CharaGirl, CharaBoy: TNyaActorChara;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -41,6 +36,7 @@ type
     procedure ClickExit(Sender: TObject);
     procedure ClickStart(Sender: TObject);
     procedure ClicSettings(Sender: TObject);
+    procedure ClicCredits(Sender: TObject);
     procedure UpdateCamera(const SecondsPassed: Single); { follow cameta rotation to cursor }
   end;
 
@@ -51,7 +47,7 @@ implementation
 
 uses
   SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom,
-  CastleSoundEngine, GameSound, GameViewSettingsMenu;
+  CastleSoundEngine, GameSound, GameViewSettingsMenu, GameViewCredits;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -69,10 +65,12 @@ begin
   BtnExit.OnClick:= {$ifdef FPC}@{$endif}ClickExit;
   BtnStart.OnClick:= {$ifdef FPC}@{$endif}ClickStart;
   BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClicSettings;
+  BtnCredits.OnClick:= {$ifdef FPC}@{$endif}ClicCredits;
 
   BtnExit.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnCredits.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { appear fade animator }
   FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 0.9), True);
@@ -126,6 +124,14 @@ begin
 
   if NOT (Container.FrontView is TViewSettingsMenu) then
     Container.PushView(TViewSettingsMenu.CreateUntilStopped);
+end;
+
+procedure TViewMain.ClicCredits(Sender: TObject);
+begin
+  SoundEngine.Play(NamedSound('SfxButtonPress'));
+
+  if NOT (Container.FrontView is TViewCredits) then
+    Container.PushView(TViewCredits.CreateUntilStopped);
 end;
 
 procedure TViewMain.UpdateCamera(const SecondsPassed: Single);
