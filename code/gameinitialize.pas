@@ -20,15 +20,12 @@ uses SysUtils, CustApp,
   , GameViewPlayGirl
   , GameViewPlaySolo
   , GameViewPlayTogether
-  , GameViewDressingMenu
   , GameViewLoading
   , GameViewTravelTest
   , GameViewRideRoadAsteroid
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
-  , GameViewConversationMenu
   , GameViewSettingsMenu
-  , GameViewCredits
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -57,7 +54,6 @@ begin
   ViewRideRoadAsteroid:= TViewRideRoadAsteroid.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
-  ViewCredits:= TViewCredits.Create(Application);
   {$endregion 'Castle View Creation'}
 
   if Application.hasOption('y', 'PlayToy') then
