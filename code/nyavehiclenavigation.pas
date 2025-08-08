@@ -133,6 +133,7 @@ var
   CBody: TCastleCollider;
   onGround: Boolean;
   fwdVelocity, fwdVelocityFactor: Single;
+  rbFwdVelocity, rbFwdVelocityFactor: Single;
 begin
   inherited;
   if NOT Valid then Exit;
@@ -160,10 +161,22 @@ begin
   else
     fwdVelocityFactor:= 1.0;
 
+  { calculate physics Velocity from Rigid Body }
+  rbFwdVelocity:= ProjectionVectorAtoBLength(RBody.LinearVelocity,
+                                             AvatarHierarchy.Direction);
+
+  { calculate physics Velocity Factor }
+  if (RBody.MaxLinearVelocity > 0.0) then
+    rbFwdVelocityFactor:= rbFwdVelocity / RBody.MaxLinearVelocity
+  else if (SpeedOfMoveAnimation > 0.0) then
+    rbFwdVelocityFactor:= rbFwdVelocity / SpeedOfMoveAnimation
+  else
+    rbFwdVelocityFactor:= 1.0;
+
   RotateVehicle(fwdVelocityFactor, RBody, onGround);
   MoveVehicle(SecondsPassed, fwdVelocityFactor, RBody, CBody, onGround);
   Animate(fwdVelocity, onGround);
-  Sound(fwdVelocityFactor, onGround);
+  Sound(rbFwdVelocityFactor, onGround);
 end;
 
 procedure TNyaVehicleNavigation.RotateVehicle(FwdVelocityFactor: Single;
