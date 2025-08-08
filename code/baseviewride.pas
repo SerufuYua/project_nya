@@ -13,6 +13,10 @@ uses
   NyaSpectatorCameraNavigation, NyaVehicleNavigation, NyaSwitch,
   NyaBaseNavigation, NyaWorldCondition, NyaFollow;
 
+const
+  BestTimePath = 'ride/time/BestTime';
+  DefaultBestTime = -1.0;
+
 type
   TBaseViewRide = class(TBaseView)
   published
@@ -21,7 +25,7 @@ type
     BtnBack: TCastleButton;
     Notifications: TCastleNotifications;
     Status: TCastleLabel;
-    LabelSpeedValue, LabelTimeValue: TCastleLabel;
+    LabelSpeedValue, LabelTimeValue, LabelBestTimeValue: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -34,10 +38,12 @@ type
     FTouchedSwitch: TNyaSwitch;
     FCheckPointNum: Integer;
     FEnableTimer: Boolean;
-    FTrackTimer: Single;
+    FTrackTimer, FBestTime: Single;
     procedure FocusButton(const Sender: TCastleUserInterface);
     procedure ClickControl(Sender: TObject);
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); virtual;
+    procedure ShowTime(const value: Single);
+    procedure ShowBestTime(const value: Single);
     procedure SetSwitches;
     procedure DoStart(Sender: TObject);
     procedure NavigationSetAnimation(
@@ -51,7 +57,7 @@ implementation
 uses
   GameViewMain, GameViewTravelRoadAsteroid, GameViewDressingMenu,
   GameViewLoading, GameViewSettingsMenu, NyaActorVehicle,
-  CastleComponentSerialize,
+  CastleComponentSerialize, CastleConfig,
   CastleSoundEngine, GameSound,
   CastleScene, CastleFonts, CastleCameras, CastleUtils,
   StrUtils, NyaCastleUtils;
@@ -96,6 +102,10 @@ begin
   { set Switches }
   SetSwitches;
 
+  { load Best Time }
+  FBestTime:= UserConfig.GetFloat(BestTimePath, DefaultBestTime);
+  ShowBestTime(FBestTime);
+
   { clear status info }
   Status.Caption:= '';
 
@@ -118,10 +128,10 @@ begin
 
   { update Track Timer }
   if FEnableTimer then
+  begin
     FTrackTimer:= FTrackTimer + SecondsPassed;
-
-  { Show Time }
-  LabelTimeValue.Caption:= FTrackTimer.ToString(ffFixed, 3, 2);
+    ShowTime(FTrackTimer);
+  end;
 
   { Show Speed. Convert m/s to km/h }
   LabelSpeedValue.Caption:= (MainActor.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
@@ -146,6 +156,19 @@ begin
     end;
     Exit(true);
   end;
+end;
+
+procedure TBaseViewRide.ShowTime(const value: Single);
+begin
+  LabelTimeValue.Caption:= value.ToString(ffFixed, 3, 2);
+end;
+
+procedure TBaseViewRide.ShowBestTime(const value: Single);
+begin
+  if (value <= 0.0) then
+    LabelBestTimeValue.Caption:= '---'
+  else
+    LabelBestTimeValue.Caption:= value.ToString(ffFixed, 3, 2);
 end;
 
 procedure TBaseViewRide.FocusButton(const Sender: TCastleUserInterface);
@@ -235,6 +258,7 @@ begin
     begin
       FTrackTimer:= 0.0;
       FEnableTimer:= True;
+      ShowBestTime(FBestTime);
     end;
 
     if (FCheckPointNum = (switch.Tag - 1)) then
@@ -245,6 +269,15 @@ begin
       begin
         FEnableTimer:= False;
         FCheckPointNum:= 0;
+
+        { save Best Time }
+        if ((FTrackTimer > 0.0) AND
+            ((FBestTime <= 0.0) OR (FBestTime > FTrackTimer))) then
+        begin
+          FBestTime:= FTrackTimer;
+          UserConfig.SetFloat(BestTimePath, FBestTime);
+          UserConfig.Save;
+        end;
       end;
     end else
       Notifications.Show('Warning: wrong way');
