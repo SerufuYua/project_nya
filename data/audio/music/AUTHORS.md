@@ -1,8 +1,7 @@
 File: intro.ogg
-Band Name: "Порез на Собаке"
-Track Title: "Теперь Мы Снова Вдвоём"
-Album Title: "Выход со Взломом"
-URL: https://www.youtube.com/@porezik
+Artist Name: "Callix Lunaris"
+Track Title: Running Under the Rain
+URL: https://www.youtube.com/@LunarMoth
 
 
 File: inroom.ogg

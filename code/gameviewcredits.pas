@@ -12,7 +12,7 @@ type
       TViewCreditsDialog = class(TCastleUserInterface)
       private
         BtnClose, CGEButton, MusicAuthorButton1, MusicAuthorButton2,
-          MusicAuthorButton3, AuthorButton, SourceButton: TCastleButton;
+          AuthorButton, SourceButton: TCastleButton;
       private
         procedure FocusButton(const Sender: TCastleUserInterface);
         procedure ClickClose(Sender: TObject);
@@ -58,7 +58,6 @@ begin
   CGEButton:= UiOwner.FindRequiredComponent('CGEButton') as TCastleButton;
   MusicAuthorButton1:= UiOwner.FindRequiredComponent('MusicAuthorButton1') as TCastleButton;
   MusicAuthorButton2:= UiOwner.FindRequiredComponent('MusicAuthorButton2') as TCastleButton;
-  MusicAuthorButton3:= UiOwner.FindRequiredComponent('MusicAuthorButton3') as TCastleButton;
   AuthorButton:= UiOwner.FindRequiredComponent('AuthorButton') as TCastleButton;
   SourceButton:= UiOwner.FindRequiredComponent('SourceButton') as TCastleButton;
 
@@ -66,7 +65,6 @@ begin
   CGEButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
   MusicAuthorButton1.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
   MusicAuthorButton2.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
-  MusicAuthorButton3.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
   AuthorButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
   SourceButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
 
@@ -74,7 +72,6 @@ begin
   CGEButton.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   MusicAuthorButton1.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   MusicAuthorButton2.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  MusicAuthorButton3.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   AuthorButton.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   SourceButton.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
@@ -105,8 +102,6 @@ begin
     'MusicAuthorButton1':
       OpenURL('https://www.youtube.com/@LunarMoth');
     'MusicAuthorButton2':
-      OpenURL('https://www.youtube.com/@porezik');
-    'MusicAuthorButton3':
       OpenURL('https://www.bensound.com/royalty-free-music/track/moonlight-drive-lo-fi-relaxing');
     'AuthorButton':
       OpenURL('https://x.com/serufu_yua');

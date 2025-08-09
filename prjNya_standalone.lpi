@@ -22,7 +22,8 @@
             <Filename Value="prjNya"/>
           </Target>
           <SearchPaths>
-            <OtherUnitFiles Value="code"/>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="code;code/loading;code/particle"/>
             <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
