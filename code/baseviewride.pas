@@ -20,6 +20,7 @@ const
 type
   TBaseViewRide = class(TBaseView)
   published
+    VehicleNavigation: TNyaVehicleNavigation;
     LabelFps: TCastleLabel;
     BtnSettings: TCastleButton;
     BtnBack: TCastleButton;
@@ -32,6 +33,8 @@ type
     procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
+    procedure Pause; override;
+    procedure Resume; override;
   protected
     FCamera: TCastleCamera;
     FLightSwitch: TKey;
@@ -69,8 +72,6 @@ begin
 end;
 
 procedure TBaseViewRide.Start;
-var
-  charaNavigation: TNyaVehicleNavigation;
 begin
   inherited;
   FTouchedSwitch:= nil;
@@ -82,8 +83,8 @@ begin
   FCamera:= (Map.DesignedComponent('ViewportMain') as TCastleViewport).Camera;
 
   { set navigation }
-  charaNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
-  charaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
+  VehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
+  VehicleNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
   FCameraNavigation:= Map.DesignedComponent('CameraNavigationFollow') as TCastleMouseLookNavigation;
 
   { set Buttons }
@@ -282,6 +283,22 @@ begin
     end else
       Notifications.Show('Warning: wrong way');
   end;
+end;
+
+procedure TBaseViewRide.Pause;
+begin
+  inherited;
+  FEnableTimer:= False;
+  if Assigned(VehicleNavigation) then
+    VehicleNavigation.Exists:= False;
+end;
+
+procedure TBaseViewRide.Resume;
+begin
+  inherited;
+  FEnableTimer:= True;
+  if Assigned(VehicleNavigation) then
+    VehicleNavigation.Exists:= True;
 end;
 
 procedure TBaseViewRide.DoStart(Sender: TObject);
