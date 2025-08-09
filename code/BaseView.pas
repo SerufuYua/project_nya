@@ -172,7 +172,8 @@ begin
   { enable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
   begin
-    FCameraNavigation.MouseLook:= True;
+    if Assigned(FCameraNavigation) then
+      FCameraNavigation.MouseLook:= True;
     Exit(true);
   end;
 
@@ -196,7 +197,8 @@ function TBaseView.Release(const Event: TInputPressRelease): boolean;
 begin
   { disable camera control }
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
-    FCameraNavigation.MouseLook:= False;
+    if Assigned(FCameraNavigation) then
+      FCameraNavigation.MouseLook:= False;
 
   Result := inherited;
 end;
