@@ -66,7 +66,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="47">
+    <Units Count="48">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -297,6 +297,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="GameViewCredits"/>
       </Unit46>
+      <Unit47>
+        <Filename Value="code/gameviewpause.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewPause"/>
+      </Unit47>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -19,7 +19,7 @@
     {
       "$$ClassName" : "TCastleVerticalGroup",
       "Name" : "GroupShadow",
-      "Padding" : 9.0000000000000000E+001,
+      "Padding" : 6.0000000000000000E+001,
       "$Children" : [
         {
           "$$ClassName" : "TCastleImageControl",
@@ -36,8 +36,8 @@
           "Stretch" : true,
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector2Persistent",
-            "X" : 9.0000000000000000E+001,
-            "Y" : -9.0000000000000000E+001
+            "X" : 6.0000000000000000E+001,
+            "Y" : -6.0000000000000000E+001
           },
           "VerticalAnchorParent" : "vpTop",
           "VerticalAnchorSelf" : "vpTop"
@@ -57,8 +57,8 @@
           "Name" : "ImageControl",
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector2Persistent",
-            "X" : 9.0000000000000000E+001,
-            "Y" : -9.0000000000000000E+001
+            "X" : 6.0000000000000000E+001,
+            "Y" : -6.0000000000000000E+001
           },
           "VerticalAnchorParent" : "vpTop",
           "VerticalAnchorSelf" : "vpTop",

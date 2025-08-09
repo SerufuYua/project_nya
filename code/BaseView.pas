@@ -46,14 +46,14 @@ type
     FMainViewport: TCastleViewport;
     FDebugAvatar: TDebugTransform;
     FCameraNavigation: TCastleMouseLookNavigation;
-    FKeyDebug: TKey;
+    FKeyDebug, FKeyPause1, FKeyPause2: TKey;
     procedure SetUIColor(AColor: TCastleColorRGB);
   end;
 
 implementation
 
 uses
-  GameViewLoading, NyaCastleUtils;
+  GameViewLoading, NyaCastleUtils, GameViewPause;
 
 { ========= ------------------------------------------------------------------ }
 { TViewWarper ---------------------------------------------------------------- }
@@ -144,6 +144,8 @@ begin
 
   { set keys }
   FKeyDebug:= TKey.keyF4;
+  FKeyPause1:= TKey.keyEscape;
+  FKeyPause2:= TKey.keyPause;
 end;
 
 procedure TBaseView.SetUIColor(AColor: TCastleColorRGB);
@@ -171,6 +173,14 @@ begin
   if Event.IsMouseButton(buttonRight) OR Event.IsMouseButton(buttonMiddle) then
   begin
     FCameraNavigation.MouseLook:= True;
+    Exit(true);
+  end;
+
+  { pause }
+  if (Event.IsKey(FKeyPause1) OR Event.IsKey(FKeyPause2)) then
+  begin
+    if NOT (Container.FrontView is TViewPause) then
+      Container.PushView(TViewPause.CreateUntilStopped);
     Exit(true);
   end;
 
