@@ -69,11 +69,6 @@ begin
   SourceButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
 
   BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  CGEButton.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  MusicAuthorButton1.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  MusicAuthorButton2.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  AuthorButton.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  SourceButton.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
 procedure TViewCredits.TViewCreditsDialog.FocusButton(const Sender: TCastleUserInterface);
@@ -93,8 +88,6 @@ var
 begin
   button:= Sender as TCastleButton;
   if NOT Assigned(button) then exit;
-
-  SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
     'CGEButton':
