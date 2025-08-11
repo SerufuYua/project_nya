@@ -3,7 +3,8 @@ unit GameViewCredits;
 interface
 
 uses Classes,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse;
+  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
+  NyaWebButton;
 
 type
   TViewCredits = class(TCastleView)
@@ -11,12 +12,10 @@ type
     type
       TViewCreditsDialog = class(TCastleUserInterface)
       private
-        BtnClose, CGEButton, MusicAuthorButton1, MusicAuthorButton2,
-          AuthorButton, SourceButton: TCastleButton;
+        BtnClose: TCastleButton;
       private
         procedure FocusButton(const Sender: TCastleUserInterface);
         procedure ClickClose(Sender: TObject);
-        procedure ClickUrl(Sender: TObject);
       public
         Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
@@ -32,7 +31,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleSoundEngine, GameSound, CastleOpenDocument;
+  CastleComponentSerialize, CastleSoundEngine, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TViewCreditsDialog --------------------------------------------------------- }
@@ -55,18 +54,8 @@ begin
 
   { Find components, by name, that we need to access from code }
   BtnClose:= UiOwner.FindRequiredComponent('BtnClose') as TCastleButton;
-  CGEButton:= UiOwner.FindRequiredComponent('CGEButton') as TCastleButton;
-  MusicAuthorButton1:= UiOwner.FindRequiredComponent('MusicAuthorButton1') as TCastleButton;
-  MusicAuthorButton2:= UiOwner.FindRequiredComponent('MusicAuthorButton2') as TCastleButton;
-  AuthorButton:= UiOwner.FindRequiredComponent('AuthorButton') as TCastleButton;
-  SourceButton:= UiOwner.FindRequiredComponent('SourceButton') as TCastleButton;
 
   BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
-  CGEButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
-  MusicAuthorButton1.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
-  MusicAuthorButton2.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
-  AuthorButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
-  SourceButton.OnClick:= {$ifdef FPC}@{$endif}ClickUrl;
 
   BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
@@ -80,27 +69,6 @@ procedure TViewCredits.TViewCreditsDialog.ClickClose(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
   Closed:= True;
-end;
-
-procedure TViewCredits.TViewCreditsDialog.ClickUrl(Sender: TObject);
-var
-  button: TCastleButton;
-begin
-  button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
-
-  Case button.Name of
-    'CGEButton':
-      OpenURL('https://castle-engine.io');
-    'MusicAuthorButton1':
-      OpenURL('https://www.youtube.com/@LunarMoth');
-    'MusicAuthorButton2':
-      OpenURL('https://www.bensound.com/royalty-free-music/track/moonlight-drive-lo-fi-relaxing');
-    'AuthorButton':
-      OpenURL('https://x.com/serufu_yua');
-    'SourceButton':
-      OpenURL('https://github.com/SerufuYua/project_nya');
-  end;
 end;
 
 { ========= ------------------------------------------------------------------ }
