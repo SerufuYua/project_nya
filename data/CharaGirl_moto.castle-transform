@@ -309,43 +309,6 @@
             }
           ]
         }
-      ],
-      "$Behaviors" : [
-        {
-          "$$ClassName" : "TCastleSoundSource",
-          "Name" : "SoundSourceWalkStep",
-          "Sound" : "SoundWalkStep",
-          "SoundPlaying" : false,
-          "$NonVisualComponents" : [
-            {
-              "$$ClassName" : "TCastleSound",
-              "Name" : "SoundWalkStep",
-              "Url" : "castle-data:/audio/sfx/step.wav"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "$$ClassName" : "TCastleScene",
-      "ExposeTransforms" : [
-        "Control_Step"
-      ],
-      "Name" : "Controller",
-      "ProcessEvents" : true,
-      "RenderOptions" : {
-        "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-      },
-      "Url" : "castle-data:/chars/controller_girl/controller_common.gltf",
-      "$Children" : [
-        {
-          "$$ClassName" : "TCastleTransform",
-          "Name" : "Control_Step",
-          "RotationPersistent" : {
-            "$$ClassName" : "TCastleVector4RotationPersistent",
-            "Z" : 1.0000000000000000E+000
-          }
-        }
       ]
     }
   ],
@@ -356,9 +319,8 @@
       "$NonVisualComponents" : [
         {
           "$$ClassName" : "TNyaSounder",
-          "Controller" : "Control_Step",
+          "Controller" : "",
           "Name" : "SounderWalkStep",
-          "Sound" : "SoundSourceWalkStep",
           "Treshold" : 1.0000000149011612E-001
         }
       ]
