@@ -12,7 +12,7 @@ type
     type
       TViewCreditsDialog = class(TCastleUserInterface)
       private
-        BtnClose: TCastleButton;
+        ButtonClose: TCastleButton;
       private
         procedure FocusButton(const Sender: TCastleUserInterface);
         procedure ClickClose(Sender: TObject);
@@ -53,11 +53,11 @@ begin
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
-  BtnClose:= UiOwner.FindRequiredComponent('BtnClose') as TCastleButton;
+  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
 
-  BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
+  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
 
-  BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
 procedure TViewCredits.TViewCreditsDialog.FocusButton(const Sender: TCastleUserInterface);

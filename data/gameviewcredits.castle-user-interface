@@ -72,7 +72,7 @@
                 "Red" : 1.0000000000000000E+000
               },
               "CustomFont" : "future_n0t_found",
-              "Name" : "Title",
+              "Name" : "LabelTitle",
               "Text" : [
                 "Credits"
               ],
@@ -138,7 +138,7 @@
                 "$$ClassName" : "TCastleImagePersistent",
                 "Url" : "castle-data:/ui/x.png"
               },
-              "Name" : "BtnClose",
+              "Name" : "ButtonClose",
               "TranslationPersistent" : {
                 "$$ClassName" : "TCastleVector2Persistent",
                 "X" : -2.0000000000000000E+001,
@@ -213,7 +213,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "AuthorLabel",
+                          "Name" : "LabelAuthor",
                           "Text" : [
                             "-> Game Author <-"
                           ],
@@ -236,7 +236,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "AuthorDescrLabel",
+                          "Name" : "LabelAuthorDescr",
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
                             "Serufu Yua (@serufu_yua):",
@@ -291,7 +291,7 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "AuthorButton",
+                          "Name" : "ButtonAuthor",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {
@@ -351,7 +351,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "SourceLabel",
+                          "Name" : "LabelSource",
                           "Text" : [
                             "-> Project Source <-"
                           ],
@@ -374,7 +374,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "SourceDescrLabel",
+                          "Name" : "LabelSourceDescr",
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
                             "Full source code and content",
@@ -428,7 +428,7 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "SourceButton",
+                          "Name" : "ButtonSource",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {
@@ -503,7 +503,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "EngineLabel",
+                          "Name" : "LabelEngine",
                           "PaddingVertical" : 1.0000000000000000E+001,
                           "Text" : [
                             "-> Game Engine <-"
@@ -526,7 +526,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "CGELabel",
+                          "Name" : "LabelCGE",
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
                             "Castle Game Engine"
@@ -579,7 +579,7 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "CGEButton",
+                          "Name" : "ButtonCGE",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {
@@ -639,7 +639,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "MusicLabel",
+                          "Name" : "LabelMusic",
                           "Text" : [
                             "-> Music <-"
                           ],
@@ -661,7 +661,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "MusicAuthorLabel1",
+                          "Name" : "LabelMusicAuthor1",
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
                             "Callix Lunaris"
@@ -714,7 +714,7 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "MusicAuthorButton1",
+                          "Name" : "ButtonMusicAuthor1",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {
@@ -736,7 +736,7 @@
                           "CustomFont" : "future_n0t_found",
                           "HorizontalAnchorParent" : "hpMiddle",
                           "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "MusicAuthorLabel2",
+                          "Name" : "LabelMusicAuthor2",
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
                             "Yunior Arronte"
@@ -789,7 +789,7 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "MusicAuthorButton2",
+                          "Name" : "ButtonMusicAuthor2",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {

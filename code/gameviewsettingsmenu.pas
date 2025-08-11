@@ -19,16 +19,17 @@ type
     type
       TViewSettingsDialog = class(TCastleUserInterface)
       private
-        BtnClose: TCastleButton;
-        FullScreenCheck: TCastleCheckbox;
-        SfxSlider, MusicSlider: TCastleFloatSlider;
-        BtnSfxMinus, BtnSfxPlus, BtnMusicMinus, BtnMusicPlus: TCastleButton;
+        ButtonClose: TCastleButton;
+        CheckFullScreen: TCastleCheckbox;
+        SliderSfx, SliderMusic: TCastleFloatSlider;
+        ButtonSfxMinus, ButtonSfxPlus, ButtonMusicMinus,
+          ButtonMusicPlus: TCastleButton;
       private
         procedure FocusButton(const Sender: TCastleUserInterface);
         procedure ClickClose(Sender: TObject);
         procedure ClickScreen(Sender: TObject);
         procedure ClickPlusMinus(Sender: TObject);
-        procedure ChangeSoundSlider(Sender: TObject);
+        procedure ChangeSliderSound(Sender: TObject);
         procedure SetSfx(value: Single);
         procedure SetMusic(value: Single);
       public
@@ -69,37 +70,37 @@ begin
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
-  BtnClose:= UiOwner.FindRequiredComponent('BtnClose') as TCastleButton;
-  FullScreenCheck:= UiOwner.FindRequiredComponent('FullScreenCheck') as TCastleCheckbox;
-  SfxSlider:= UiOwner.FindRequiredComponent('SfxSlider') as TCastleFloatSlider;
-  MusicSlider:= UiOwner.FindRequiredComponent('MusicSlider') as TCastleFloatSlider;
-  BtnSfxMinus:= UiOwner.FindRequiredComponent('BtnSfxMinus') as TCastleButton;
-  BtnSfxPlus:= UiOwner.FindRequiredComponent('BtnSfxPlus') as TCastleButton;
-  BtnMusicMinus:= UiOwner.FindRequiredComponent('BtnMusicMinus') as TCastleButton;
-  BtnMusicPlus:= UiOwner.FindRequiredComponent('BtnMusicPlus') as TCastleButton;
+  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
+  CheckFullScreen:= UiOwner.FindRequiredComponent('CheckFullScreen') as TCastleCheckbox;
+  SliderSfx:= UiOwner.FindRequiredComponent('SliderSfx') as TCastleFloatSlider;
+  SliderMusic:= UiOwner.FindRequiredComponent('SliderMusic') as TCastleFloatSlider;
+  ButtonSfxMinus:= UiOwner.FindRequiredComponent('ButtonSfxMinus') as TCastleButton;
+  ButtonSfxPlus:= UiOwner.FindRequiredComponent('ButtonSfxPlus') as TCastleButton;
+  ButtonMusicMinus:= UiOwner.FindRequiredComponent('ButtonMusicMinus') as TCastleButton;
+  ButtonMusicPlus:= UiOwner.FindRequiredComponent('ButtonMusicPlus') as TCastleButton;
 
-  FullScreenCheck.Checked:= UserConfig.GetValue(FullScreenPath,
+  CheckFullScreen.Checked:= UserConfig.GetValue(FullScreenPath,
                                                 DefaultFullScreen);
-  SfxSlider.Value:= UserConfig.GetFloat(SfxPath, DefaultSfxValue);
-  MusicSlider.Value:= UserConfig.GetFloat(MusicPath, DefaultMusicvalue);
+  SliderSfx.Value:= UserConfig.GetFloat(SfxPath, DefaultSfxValue);
+  SliderMusic.Value:= UserConfig.GetFloat(MusicPath, DefaultMusicvalue);
 
-  BtnClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
-  FullScreenCheck.OnChange:= {$ifdef FPC}@{$endif}ClickScreen;
-  SfxSlider.OnChange:= {$ifdef FPC}@{$endif}ChangeSoundSlider;
-  MusicSlider.OnChange:= {$ifdef FPC}@{$endif}ChangeSoundSlider;
-  BtnSfxMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
-  BtnSfxPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
-  BtnMusicMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
-  BtnMusicPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
+  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
+  CheckFullScreen.OnChange:= {$ifdef FPC}@{$endif}ClickScreen;
+  SliderSfx.OnChange:= {$ifdef FPC}@{$endif}ChangeSliderSound;
+  SliderMusic.OnChange:= {$ifdef FPC}@{$endif}ChangeSliderSound;
+  ButtonSfxMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
+  ButtonSfxPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
+  ButtonMusicMinus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
+  ButtonMusicPlus.OnClick:= {$ifdef FPC}@{$endif}ClickPlusMinus;
 
-  BtnClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  FullScreenCheck.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  SfxSlider.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  MusicSlider.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  BtnSfxMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  BtnSfxPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  BtnMusicMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-  BtnMusicPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  CheckFullScreen.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  SliderSfx.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  SliderMusic.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonSfxMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonSfxPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonMusicMinus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  ButtonMusicPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
 procedure TViewSettingsMenu.TViewSettingsDialog.FocusButton(const Sender: TCastleUserInterface);
@@ -122,18 +123,13 @@ begin
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
-  Case check.Name of
-    'FullScreenCheck':
-      begin
-        UserConfig.SetValue(FullScreenPath, check.Checked);
-        UserConfig.Save;
-        MessageOK(Application.MainWindow,
-                  'To switch the screen mode, you need to restart the game');
-      end;
-  end;
+  UserConfig.SetValue(FullScreenPath, check.Checked);
+  UserConfig.Save;
+  MessageOK(Application.MainWindow,
+            'To switch the screen mode, you need to restart the game');
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.ChangeSoundSlider(Sender: TObject);
+procedure TViewSettingsMenu.TViewSettingsDialog.ChangeSliderSound(Sender: TObject);
 var
   slider: TCastleFloatSlider;
 begin
@@ -143,8 +139,8 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case slider.Name of
-    'SfxSlider':   SetSfx(SfxSlider.Value);
-    'MusicSlider': SetMusic(MusicSlider.Value);
+    'SliderSfx':   SetSfx(SliderSfx.Value);
+    'SliderMusic': SetMusic(SliderMusic.Value);
   end;
 end;
 
@@ -160,25 +156,25 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
   Case button.Name of
-    'BtnSfxMinus':
+    'ButtonSfxMinus':
       begin
-        StepChangeSlider(SfxSlider, -step);
-        SetSfx(SfxSlider.Value);
+        StepChangeSlider(SliderSfx, -step);
+        SetSfx(SliderSfx.Value);
       end;
-    'BtnSfxPlus':
+    'ButtonSfxPlus':
       begin
-        StepChangeSlider(SfxSlider, step);
-        SetSfx(SfxSlider.Value);
+        StepChangeSlider(SliderSfx, step);
+        SetSfx(SliderSfx.Value);
       end;
-    'BtnMusicMinus':
+    'ButtonMusicMinus':
       begin
-        StepChangeSlider(MusicSlider, -step);
-        SetMusic(MusicSlider.Value);
+        StepChangeSlider(SliderMusic, -step);
+        SetMusic(SliderMusic.Value);
       end;
-    'BtnMusicPlus':
+    'ButtonMusicPlus':
       begin
-        StepChangeSlider(MusicSlider, step);
-        SetMusic(MusicSlider.Value);
+        StepChangeSlider(SliderMusic, step);
+        SetMusic(SliderMusic.Value);
       end;
   end;
 end;
