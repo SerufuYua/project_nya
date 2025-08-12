@@ -16,7 +16,6 @@ type
     FVelocity, FActionTimeout, FDeathTimeout, FTimer: Single;
     FState: TState;
     FAnimationIdle, FAnimationMove, FAnimationDeath: String;
-    FBeater: TCastleTransform;
     function AnimationIdleStored: Boolean;
     function AnimationMoveStored: Boolean;
     function AnimationDeathStored: Boolean;
@@ -45,13 +44,13 @@ type
              stored AnimationMoveStored nodefault;
     property AnimationDeath: String read FAnimationDeath write FAnimationDeath
              stored AnimationDeathStored nodefault;
-    property Beater: TCastleTransform read FBeater write FBeater;
   end;
 
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleScene, CastleVectors, Math
+  CastleComponentSerialize, CastleUtils, CastleScene, CastleVectors, Math,
+  NyaActor
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -66,7 +65,6 @@ begin
   FAnimationIdle:= DefaultAnimationIdle;
   FAnimationMove:= DefaultAnimationMove;
   FAnimationDeath:= DefaultAnimationDeath;
-  FBeater:= nil;
   FTimer:= 0.0;
   FState:= TState.Idle;
 end;
@@ -101,7 +99,7 @@ begin
 
     { detect death action }
     for colliding in RBody.GetCollidingTransforms do
-      if (colliding = FBeater) then
+      if (colliding is TNyaActor) then
       begin
         FState:= TState.Death;
         FTimer:= 0.0;
