@@ -114,6 +114,16 @@ var
 begin
   if NOT Assigned(FVehicle) then Exit;
 
+  if Assigned(FVehicle.RigidBody) then
+  begin
+    if NOT (FVehicle.RigidBody.LinearVelocity.IsZero(0.1) AND
+            FVehicle.RigidBody.AngularVelocity.IsZero(0.1)) then
+      begin
+          Notifications.Show('Stop movement before get off from Vehicle');
+          Exit;
+      end;
+  end;
+
   FVehicleNavigation.Exists:= False;
   FVehicleNavigation.Parking;
   FVehicleNavigation.OnAnimation:= nil;
