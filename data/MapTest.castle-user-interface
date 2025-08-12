@@ -123,7 +123,7 @@
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 2.0000000000000000E+000
+                      "Y" : -2.0000000000000000E+000
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
@@ -215,7 +215,7 @@
                       },
                       {
                         "$$ClassName" : "TNyaFrontSwitch",
-                        "ActionString" : "use",
+                        "ActionString" : "Ride",
                         "Activator" : "CharaGirl",
                         "Distance" : 5.0000000000000000E+000,
                         "Indicator" : "IndicatorMoto",

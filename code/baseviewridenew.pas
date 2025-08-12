@@ -105,6 +105,11 @@ begin
   MainActor.Rotation:= TVector4.Zero;
   FTempActorParent:= MainActor.Parent;
   MainActor.Parent:= FVehicle;
+
+  Notifications.Show('Info: use WASD to move');
+  Notifications.Show('Info: use Space to brake');
+  Notifications.Show('Info: use L to switch headlight');
+  Notifications.Show('Info: use R to get off from the Vehicle');
 end;
 
 procedure TBaseViewRideNew.GetOffFromVehicle;
@@ -119,7 +124,7 @@ begin
     if NOT (FVehicle.RigidBody.LinearVelocity.IsZero(0.1) AND
             FVehicle.RigidBody.AngularVelocity.IsZero(0.1)) then
       begin
-          Notifications.Show('Stop movement before get off from Vehicle');
+          Notifications.Show('Stop movement before get off from the Vehicle');
           Exit;
       end;
   end;
