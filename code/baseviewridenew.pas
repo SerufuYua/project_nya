@@ -106,6 +106,8 @@ begin
   FTempActorParent:= MainActor.Parent;
   MainActor.Parent:= FVehicle;
 
+  FVehicle.Headlight:= True;
+
   Notifications.Show('Info: use WASD to move');
   Notifications.Show('Info: use Space to brake');
   Notifications.Show('Info: use L to switch headlight');
@@ -156,12 +158,12 @@ begin
   FCharaNavigation.Exists:= True;
 
   if NOT Assigned(FVehicle) then Exit;
-  Status.Caption:= 'get off';
 
   if Assigned(FVehicle.RigidBody) then
     FVehicle.RigidBody.Dynamic:= False;
 
   FVehicle.Up:= Vector3(0.0, 1.0, 0.0);
+  FVehicle.Headlight:= False;
 
   FVehicle:= nil;
 end;
