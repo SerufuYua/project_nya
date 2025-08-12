@@ -3,11 +3,11 @@ unit GameViewTravelTest;
 interface
 
 uses
-  Classes, BaseViewTravel, NyaActorChara,
+  Classes, BaseViewRideNew, NyaActorChara, NyaActorVehicle,
   CastleLivingBehaviors, NyaRandomWalk;
 
 type
-  TViewTravelTest = class(TBaseViewTravel)
+  TViewTravelTest = class(TBaseViewRide)
   public
     procedure Start; override;
   end;
@@ -28,6 +28,9 @@ begin
 
   { set Girl Character }
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
+
+  { set Vehicle }
+  Vehicle:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
 
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= nil;
