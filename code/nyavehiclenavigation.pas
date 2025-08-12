@@ -120,6 +120,7 @@ begin
   FAnimationTurnRight:= DefaultAnimationTurnRight;
   FAnimationTurnLeft:= DefaultAnimationTurnLeft;
   FAnimationFly:= DefaultAnimationFly;
+  FAnimationParked:= DefaultAnimationParked;
 end;
 
 destructor TNyaVehicleNavigation.Destroy;
