@@ -112,7 +112,12 @@ var
   camera: TNyaThirdPersonCameraNavigation;
   switch: TCastleBehavior;
 begin
+  if NOT Assigned(FVehicle) then Exit;
+
+  FVehicleNavigation.Exists:= False;
+  FVehicleNavigation.Parking;
   FVehicleNavigation.OnAnimation:= nil;
+
   MainActor.Parent:= FTempActorParent;
   MainActor.Translation:= FVehicle.Translation;
   MainActor.Translate(Vector3(1.0, 0.0, 0.0));
@@ -133,7 +138,6 @@ begin
     if Assigned(switch) then
       switch.Parent.Exists:= True;
 
-  FVehicleNavigation.Exists:= False;
   FCharaNavigation.Exists:= True;
 
   if NOT Assigned(FVehicle) then Exit;

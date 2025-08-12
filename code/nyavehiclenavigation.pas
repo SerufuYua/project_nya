@@ -12,11 +12,8 @@ type
   TNyaVehicleNavigation = class(TNyaBaseNavigation)
   protected
     FMoveVelocity: Single;
-    FAnimationStand: String;
-    FAnimationMoveFwd: String;
-    FAnimationTurnRight: String;
-    FAnimationTurnLeft: String;
-    FAnimationFly: String;
+    FAnimationStand, FAnimationMoveFwd, FAnimationTurnRight, FAnimationTurnLeft,
+      FAnimationFly, FAnimationParked: String;
     FRollFactor: Single;
     FForceOfMove: Single;
     FMoveSpeedAnimation: Single;
@@ -38,6 +35,7 @@ type
     function AnimationTurnRightStored: Boolean;
     function AnimationTurnLeftStored: Boolean;
     function AnimationFlyStored: Boolean;
+    function AnimationParkedStored: Boolean;
   public
     const
       DefaultRollFactor = 1.0;
@@ -49,12 +47,14 @@ type
       DefaultAnimationTurnRight = 'turn_right';
       DefaultAnimationTurnLeft = 'turn_left';
       DefaultAnimationFly = 'fly';
+      DefaultAnimationParked = 'parked';
       DefaultBrakeFactor = 4.0;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
+    procedure Parking;
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property Input_Brake: TInputShortcut read FInput_Brake;
@@ -80,6 +80,8 @@ type
              stored AnimationTurnLeftStored nodefault;
     property AnimationFly: String read FAnimationFly write FAnimationFly
              stored AnimationFlyStored nodefault;
+    property AnimationParked: String read FAnimationParked write FAnimationParked
+             stored AnimationParkedStored nodefault;
     property BrakeFactor: Single read FBrakeFactor write FBrakeFactor
              {$ifdef FPC}default DefaultBrakeFactor{$endif};
   end;
@@ -177,6 +179,33 @@ begin
   MoveVehicle(SecondsPassed, fwdVelocityFactor, RBody, CBody, onGround);
   Animate(fwdVelocity, onGround);
   Sound(rbFwdVelocityFactor, onGround);
+end;
+
+procedure TNyaVehicleNavigation.Parking;
+var
+  RBody: TCastleRigidBody;
+  vehicle: TNyaActorVehicle;
+begin
+  if (AvatarHierarchy is TNyaActorVehicle) then
+  begin
+    vehicle:= (AvatarHierarchy as TNyaActorVehicle);
+
+    if Assigned(OnAnimation) then
+      OnAnimation(self, AnimationParked, 1.0);
+
+    if Assigned(vehicle.SoundSrcMove) then
+      vehicle.SoundSrcMove.SoundPlaying:= False;
+
+    if Assigned(vehicle.SoundSrcNeutral) then
+      vehicle.SoundSrcNeutral.SoundPlaying:= False;
+  end;
+
+  RBody:= AvatarHierarchy.FindBehavior(TCastleRigidBody) as TCastleRigidBody;
+  if Assigned(RBody) then
+  begin
+    RBody.AngularVelocity:= TVector3.Zero;
+    RBody.LinearVelocity:= TVector3.Zero;
+  end;
 end;
 
 procedure TNyaVehicleNavigation.RotateVehicle(FwdVelocityFactor: Single;
@@ -320,8 +349,8 @@ begin
           vehicle.SoundSrcMove.SoundPlaying:= True;
           vehicle.SoundSrcMove.Pitch:= 1.0 + FwdVelocityFactor;
         end;
-        if Assigned(vehicle.SoundSrcNeutral)
-          then vehicle.SoundSrcNeutral.SoundPlaying:= False;
+        if Assigned(vehicle.SoundSrcNeutral) then
+          vehicle.SoundSrcNeutral.SoundPlaying:= False;
       end else if Input_Backward.IsPressed(Container) then
       begin
         { move backward }
@@ -383,7 +412,8 @@ begin
        'SpeedOfRun', 'SpeedOfRunAnimation', 'SpeedOfJump',
        'RollFactor', 'BrakeFactor',
        'ImpulseOfJump', 'AnimationStand', 'AnimationMoveFwd',
-       'AnimationTurnRight', 'AnimationTurnLeft', 'AnimationFly'
+       'AnimationTurnRight', 'AnimationTurnLeft', 'AnimationFly',
+       'AnimationParked'
      ]) then
     Result:= [psBasic]
   else
@@ -413,6 +443,11 @@ end;
 function TNyaVehicleNavigation.AnimationFlyStored: Boolean;
 begin
   Result:= FAnimationFly <> DefaultAnimationFly;
+end;
+
+function TNyaVehicleNavigation.AnimationParkedStored: Boolean;
+begin
+  Result:= FAnimationParked <> DefaultAnimationParked;
 end;
 
 {$ifdef CASTLE_DESIGN_MODE}
@@ -455,6 +490,8 @@ initialization
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationTurnLeft',
                          TNyaVehicleNavigationPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationFly',
+                         TNyaVehicleNavigationPropertyEditor);
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaVehicleNavigation, 'AnimationParked',
                          TNyaVehicleNavigationPropertyEditor);
   {$endif}
 end.

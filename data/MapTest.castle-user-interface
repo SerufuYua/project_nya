@@ -327,6 +327,7 @@
           "$$ClassName" : "TNyaVehicleNavigation",
           "AnimationFly" : "GAME.MOTO.FLY",
           "AnimationMoveFwd" : "GAME.MOTO.MOVE.FORWARD",
+          "AnimationParked" : "GAME.MOTO.PARKING",
           "AnimationStand" : "GAME.MOTO.STAND",
           "AnimationTurnLeft" : "GAME.MOTO.TURN.LEFT",
           "AnimationTurnRight" : "GAME.MOTO.TURN.RIGHT",
@@ -348,16 +349,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 5.0604885816574097E-001,
-          "X" : -9.7871458530426025E-001,
-          "Y" : 1.9883689284324646E-001,
-          "Z" : 5.0812207162380219E-002
+          "W" : 8.2151973247528076E-001,
+          "X" : -5.5551075935363770E-001,
+          "Y" : 8.0817490816116333E-001,
+          "Z" : 1.9560615718364716E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -3.3396580219268799E+000,
+          "X" : 2.2287783622741699E+000,
           "Y" : 3.1528887748718262E+000,
-          "Z" : 4.2965679168701172E+000
+          "Z" : 3.3065309524536133E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

@@ -444,7 +444,7 @@ type
   begin
     Proc('');
     Nav:= GetComponent(0) as TNyaActor;
-    for C in GetAllBehavior(Nav, TCastleSoundSource) do
+    for C in GetAllBehaviors(Nav, TCastleSoundSource) do
       Proc(C.Name);
   end;
 {$endif}
