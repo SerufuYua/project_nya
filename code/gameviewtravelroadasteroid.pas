@@ -4,11 +4,11 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewRideNew, NyaActor, NyaActorChara, NyaActorVehicle,
+  BaseViewRace, NyaActor, NyaActorChara, NyaActorVehicle,
   NyaVehicleNavigation;
 
 type
-  TViewTravelRoadAsteroid = class(TBaseViewRideNew)
+  TViewTravelRoadAsteroid = class(TBaseViewRace)
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
@@ -21,14 +21,12 @@ type
     procedure SaveCharasCondition; override;
   protected
     procedure ConversationSpacePlane;
-    procedure ConversationMotorbike;
     procedure ConversationBoy;
   protected
     procedure TalkToPlaneOk;
     procedure TalkToBoyOk;
   protected
     procedure GetToGoBoy;
-    procedure GetToGoRide;
     procedure GetToGoHome;
   end;
 
@@ -125,8 +123,6 @@ begin
     ConversationBoy;
   'SpacePlaneSwitch':
     ConversationSpacePlane;
-  'VehicleMotoSwitch':
-    ConversationMotorbike;
   'SwitchMoto':
     SitToVehicle(Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle);
   else
@@ -181,19 +177,6 @@ begin
                        {$ifdef FPC}@{$endif}TalkToPlaneOk,
                        nil));
   end;
-end;
-
-procedure TViewTravelRoadAsteroid.ConversationMotorbike;
-var
-  messages: TMessages;
-begin
-  SetLength(messages, 1);
-  messages[0].FActor:= FActorMotorbike;
-  messages[0].FMessage:= '<p>I was tired of waiting! Let&apos;s ride!</p>';
-  Container.PushView(TViewConversationMenu.CreateUntilStopped(
-                     messages,
-                     {$ifdef FPC}@{$endif}GetToGoRide,
-                     nil));
 end;
 
 procedure TViewTravelRoadAsteroid.ConversationBoy;
@@ -261,11 +244,6 @@ procedure TViewTravelRoadAsteroid.GetToGoBoy;
 begin
   WorldCondition.Boy.Location:= TBoyLocation.InRoom;
   GetToGo(ViewPlayTogether);
-end;
-
-procedure TViewTravelRoadAsteroid.GetToGoRide;
-begin
-  GetToGo(ViewRideRoadAsteroid);
 end;
 
 procedure TViewTravelRoadAsteroid.GetToGoHome;
