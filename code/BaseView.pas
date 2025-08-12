@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, CastleUIControls, CastleVectors, CastleColors,
   CastleControls, CastleViewport, CastleKeysMouse, CastleDebugTransform,
-  CastleCameras, NyaActor;
+  CastleCameras, NyaThirdPersonCharaNavigation, NyaActor;
 
 type
   TViewWarper = class(TCastleView)
@@ -45,6 +45,7 @@ type
   protected
     FMainViewport: TCastleViewport;
     FDebugAvatar: TDebugTransform;
+    FCharaNavigation: TNyaThirdPersonCharaNavigation;
     FCameraNavigation: TCastleMouseLookNavigation;
     FKeyDebug, FKeyPause1, FKeyPause2: TKey;
     procedure SetUIColor(AColor: TCastleColorRGB);

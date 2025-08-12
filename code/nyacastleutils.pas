@@ -35,7 +35,7 @@ function GetShapesByNameStart(const scene: TCastleScene;
 function GetKeyName(key: TKey): string;
 function GetAllScenes(const rootItem: TCastleComponent): TCastleScenes;
 function GetAllTransform(const rootItem: TCastleComponent): TCastleTransforms;
-function GetAllBehavior(const rootItem: TCastleComponent;
+function GetAllBehaviors(const rootItem: TCastleComponent;
                         const BehaviorClass: TCastleBehaviorClass): TCastleBehaviors;
 function GetAllCameras(const rootItem: TCastleComponent): TCastleCameras;
 function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
@@ -257,7 +257,7 @@ begin
   FreeAndNil(items);
 end;
 
-function GetAllBehavior(const rootItem: TCastleComponent;
+function GetAllBehaviors(const rootItem: TCastleComponent;
                         const BehaviorClass: TCastleBehaviorClass): TCastleBehaviors;
 type
   TItemsStack = {$ifdef FPC}specialize{$endif} TObjectStack<TComponent>;

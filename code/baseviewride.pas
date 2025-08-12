@@ -202,7 +202,7 @@ var
   behavior: TCastleBehavior;
   switch: TNyaSwitch;
 begin
-  behaviors:= GetAllBehavior(Map, TNyaSwitch);
+  behaviors:= GetAllBehaviors(Map, TNyaSwitch);
 
   for behavior in behaviors do
   begin

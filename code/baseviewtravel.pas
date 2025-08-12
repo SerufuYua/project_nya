@@ -64,8 +64,6 @@ begin
 end;
 
 procedure TBaseViewTravel.Start;
-var
-  charaNavigation: TNyaThirdPersonCharaNavigation;
 begin
   inherited;
   FTouchedSwitch:= nil;
@@ -74,8 +72,8 @@ begin
   FCamera:= (Map.DesignedComponent('ViewportMain') as TCastleViewport).Camera;
 
   { set navigation }
-  charaNavigation:= Map.DesignedComponent('CharaNavigation') as TNyaThirdPersonCharaNavigation;
-  charaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
+  FCharaNavigation:= Map.DesignedComponent('CharaNavigation') as TNyaThirdPersonCharaNavigation;
+  FCharaNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
   FCameraNavigation:= Map.DesignedComponent('CameraNavigationFollow') as TCastleMouseLookNavigation;
 
   { set Buttons }
@@ -166,7 +164,7 @@ var
   behavior: TCastleBehavior;
   switch: TNyaSwitch;
 begin
-  behaviors:= GetAllBehavior(Map, TNyaSwitch);
+  behaviors:= GetAllBehaviors(Map, TNyaSwitch);
 
   for behavior in behaviors do
   begin

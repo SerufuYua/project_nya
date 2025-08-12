@@ -229,7 +229,7 @@ var
 begin
   if NOT Assigned(FDesign) then Exit;
 
-  for behavior in GetAllBehavior(FDesign, TCastleSoundSource) do
+  for behavior in GetAllBehaviors(FDesign, TCastleSoundSource) do
   begin
     if (behavior.Name = FSoundNeutralName) then
       FSoundSrcNeutral:= behavior as TCastleSoundSource;
