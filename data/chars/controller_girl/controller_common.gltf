@@ -9,15 +9,11 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				0,
-				1
+				0
 			]
 		}
 	],
 	"nodes":[
-		{
-			"name":"Control_Jizz"
-		},
 		{
 			"name":"Control_Step"
 		}
@@ -28,21 +24,21 @@
 				{
 					"sampler":0,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"translation"
 					}
 				},
 				{
 					"sampler":1,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"rotation"
 					}
 				},
 				{
 					"sampler":2,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"scale"
 					}
 				}
@@ -71,21 +67,21 @@
 				{
 					"sampler":0,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"translation"
 					}
 				},
 				{
 					"sampler":1,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"rotation"
 					}
 				},
 				{
 					"sampler":2,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"scale"
 					}
 				}
@@ -114,21 +110,21 @@
 				{
 					"sampler":0,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"translation"
 					}
 				},
 				{
 					"sampler":1,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"rotation"
 					}
 				},
 				{
 					"sampler":2,
 					"target":{
-						"node":1,
+						"node":0,
 						"path":"scale"
 					}
 				}
@@ -151,6 +147,221 @@
 					"output":13
 				}
 			]
+		},
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"GAME.MOTO.STAND",
+			"samplers":[
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":14
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":15
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":16
+				}
+			]
+		},
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"GAME.MOTO.TURN.LEFT",
+			"samplers":[
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":17
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":18
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":19
+				}
+			]
+		},
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"GAME.MOTO.TURN.RIGHT",
+			"samplers":[
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":20
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":21
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":22
+				}
+			]
+		},
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"GAME.MOTO.MOVE.FORWARD",
+			"samplers":[
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":23
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":24
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":25
+				}
+			]
+		},
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"GAME.MOTO.FLY",
+			"samplers":[
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":26
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":27
+				},
+				{
+					"input":0,
+					"interpolation":"STEP",
+					"output":28
+				}
+			]
 		}
 	],
 	"accessors":[
@@ -159,7 +370,7 @@
 			"componentType":5126,
 			"count":2,
 			"max":[
-				0.8333333333333334
+				0.08333333333333333
 			],
 			"min":[
 				0.041666666666666664
@@ -267,6 +478,96 @@
 			"componentType":5126,
 			"count":2,
 			"type":"VEC3"
+		},
+		{
+			"bufferView":14,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":15,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":16,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":17,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":18,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":19,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":20,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":21,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":22,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":23,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":24,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":25,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":26,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":27,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":28,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
 		}
 	],
 	"bufferViews":[
@@ -339,11 +640,86 @@
 			"buffer":0,
 			"byteLength":24,
 			"byteOffset":1120
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1144
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":1168
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1200
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1224
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":1248
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1280
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1304
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":1328
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1360
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1384
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":1408
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1440
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1464
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":1488
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":1520
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":1144,
+			"byteLength":1544,
 			"uri":"controller_common.bin"
 		}
 	]
