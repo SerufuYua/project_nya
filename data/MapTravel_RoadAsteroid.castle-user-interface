@@ -80,7 +80,7 @@
                 "SceneFrustumCulling" : false,
                 "ShadowMaps" : false,
                 "ShapeFrustumCulling" : false,
-                "Url" : "castle-data:/environment/road_asteroid_road/road_asteroid_road_collider.gltf",
+                "Url" : "castle-data:/environment/road_asteroid_road/road_asteroid_road_walls_collider.gltf",
                 "Visible" : false,
                 "$Behaviors" : [
                   {
@@ -1516,7 +1516,7 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.MOVE.FORWARD",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "ExposeTransforms" : [
                 ],
