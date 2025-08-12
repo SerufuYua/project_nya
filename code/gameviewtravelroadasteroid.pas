@@ -4,10 +4,11 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewTravel, NyaActor, NyaActorChara, NyaActorVehicle;
+  BaseViewRideNew, NyaActor, NyaActorChara, NyaActorVehicle,
+  NyaVehicleNavigation;
 
 type
-  TViewTravelRoadAsteroid = class(TBaseViewTravel)
+  TViewTravelRoadAsteroid = class(TBaseViewRideNew)
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
@@ -56,8 +57,8 @@ begin
   FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
   FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
 
-  { set Motorbike Character }
-  FActorMotorbike:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
+  { set vehicle Navigation }
+  FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
 
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
@@ -126,6 +127,8 @@ begin
     ConversationSpacePlane;
   'VehicleMotoSwitch':
     ConversationMotorbike;
+  'SwitchMoto':
+    SitToVehicle(Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle);
   else
     Notifications.Show('There is nothing to do');
   end;
