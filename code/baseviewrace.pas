@@ -18,8 +18,10 @@ type
   protected
     FEnableTimer: Boolean;
     FTrackTimer, FBestTime: Single;
+    FCheckPointNum: Integer;
     procedure ShowTime(const value: Single);
     procedure ShowBestTime(const value: Single);
+    procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
@@ -27,11 +29,15 @@ type
 
 implementation
 
+uses
+  CastleSoundEngine, GameSound, NyaSwitch;
+
 procedure TBaseViewRace.Start;
 begin
   inherited;
   FEnableTimer:= False;
   FTrackTimer:= 0.0;
+  FCheckPointNum:= 0;
 
   { load Best Time }
   FBestTime:= UserConfig.GetFloat(BestTimePath, DefaultBestTime);
@@ -67,6 +73,62 @@ begin
     LabelBestTimeValue.Caption:= '---'
   else
     LabelBestTimeValue.Caption:= value.ToString(ffFixed, 3, 2);
+end;
+
+procedure TBaseViewRace.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
+var
+  switch: TNyaSwitch;
+begin
+  inherited;
+
+  switch:= Sender as TNyaSwitch;
+  if NOT Assigned(switch) then Exit;
+
+  if Touch then
+  begin
+    if(FTouchedSwitch <> switch) then
+    begin
+      Status.Caption:= switch.ActionString;
+      FTouchedSwitch:= switch;
+      SoundEngine.Play(NamedSound('SfxInspect'));
+    end;
+  end else
+  begin
+    if(FTouchedSwitch = switch) then
+    begin
+      FTouchedSwitch:= nil;
+      Status.Caption:= '';
+    end;
+
+    { process Check Points }
+    if ((switch.Name = 'CheckSwitchStart') AND (NOT FEnableTimer)) then
+    begin
+      FTrackTimer:= 0.0;
+      FEnableTimer:= True;
+      ShowBestTime(FBestTime);
+    end;
+
+    if (FCheckPointNum = (switch.Tag - 1)) then
+    begin
+      FCheckPointNum:= switch.Tag;
+
+      if switch.Name = 'CheckSwitchFinish' then
+      begin
+        FEnableTimer:= False;
+        FCheckPointNum:= 0;
+
+        { save Best Time }
+        if ((FTrackTimer > 0.0) AND
+            ((FBestTime <= 0.0) OR (FBestTime > FTrackTimer))) then
+        begin
+          FBestTime:= FTrackTimer;
+          UserConfig.SetFloat(BestTimePath, FBestTime);
+          UserConfig.Save;
+        end;
+      end;
+    end else
+      Notifications.Show('Warning: wrong way');
+  end;
 end;
 
 end.
