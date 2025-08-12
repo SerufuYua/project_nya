@@ -485,6 +485,7 @@ procedure TNyaActor.ApplyAutoAnimation;
 var
   scene: TCastleScene;
   child: TComponent;
+  childActor: TNyaActor;
 begin
   for scene in FAnimatedScenes do
     scene.AutoAnimation:= FAutoAnimation;
@@ -492,7 +493,11 @@ begin
   if AnimateChildActors then
     for child in self do
       if (child is TNyaActor) then
-        (child as TNyaActor).AutoAnimation:= FAutoAnimation;
+      begin
+        childActor:= (child as TNyaActor);
+        childActor.AutoAnimation:= FAutoAnimation;
+        childActor.DefaultAnimationTransition:= DefaultAnimationTransition;
+      end;
 end;
 
 procedure TNyaActor.ApplyAnimationSpeed;
