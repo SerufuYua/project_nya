@@ -15,7 +15,6 @@ type
   protected
     FActorBoy: TNyaActorChara;
     FActorSpacePlane: TNyaActor;
-    FActorMotorbike: TNyaActorVehicle;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
     procedure SaveCharasCondition; override;
@@ -102,8 +101,6 @@ begin
       else
         FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.STAND_WITH_PDA.WORKING';
     end;
-  'VehicleMotoSwitch':
-    FActorMotorbike.Headlight:= Touch;
   end;
 end;
 

@@ -5,11 +5,14 @@ unit BaseViewRideNew;
 interface
 
 uses
-  Classes, SysUtils, CastleTransform, CastleKeysMouse, NyaVehicleNavigation,
-  BaseViewTravel, NyaActor, NyaActorVehicle, NyaBaseNavigation;
+  Classes, SysUtils, CastleTransform, CastleKeysMouse, CastleUIControls,
+  NyaVehicleNavigation, BaseViewTravel, NyaActor, NyaActorVehicle,
+  NyaBaseNavigation;
 
 type
   TBaseViewRideNew = class(TBaseViewTravel)
+  published
+    GroupSpeed: TCastleUserInterface;
   protected
     FGetOffSwitch, FLightSwitch: TKey;
     FTempCollider: TCastleCollider;
@@ -108,6 +111,8 @@ begin
 
   FVehicle.Headlight:= True;
 
+  GroupSpeed.Exists:= True;
+
   Notifications.Show('Info: use WASD to move');
   Notifications.Show('Info: use Space to brake');
   Notifications.Show('Info: use L to switch headlight');
@@ -166,6 +171,8 @@ begin
   FVehicle.Headlight:= False;
 
   FVehicle:= nil;
+
+  GroupSpeed.Exists:= False;
 end;
 
 procedure TBaseViewRideNew.NavigationSetAnimation(

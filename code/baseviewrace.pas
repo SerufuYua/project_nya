@@ -5,7 +5,8 @@ unit BaseViewRace;
 interface
 
 uses
-  Classes, SysUtils, CastleControls, CastleConfig, BaseViewRideNew;
+  Classes, SysUtils, CastleControls, CastleConfig, CastleUIControls,
+  BaseViewRideNew;
 
 const
   BestTimePath = 'ride/time/BestTime';
@@ -14,6 +15,7 @@ const
 type
   TBaseViewRace = class(TBaseViewRideNew)
   published
+    GroupTime: TCastleUserInterface;
     LabelSpeedValue, LabelTimeValue, LabelBestTimeValue: TCastleLabel;
   protected
     FEnableTimer: Boolean;
@@ -92,18 +94,12 @@ begin
       FTouchedSwitch:= switch;
       SoundEngine.Play(NamedSound('SfxInspect'));
     end;
-  end else
-  begin
-    if(FTouchedSwitch = switch) then
-    begin
-      FTouchedSwitch:= nil;
-      Status.Caption:= '';
-    end;
 
     { process Check Points }
     if ((switch.Name = 'CheckSwitchStart') AND (NOT FEnableTimer)) then
     begin
       FTrackTimer:= 0.0;
+      GroupTime.Exists:= True;
       FEnableTimer:= True;
       ShowBestTime(FBestTime);
     end;
@@ -128,6 +124,13 @@ begin
       end;
     end else
       Notifications.Show('Warning: wrong way');
+  end else
+  begin
+    if(FTouchedSwitch = switch) then
+    begin
+      FTouchedSwitch:= nil;
+      Status.Caption:= '';
+    end;
   end;
 end;
 
