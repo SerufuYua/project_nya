@@ -23,6 +23,8 @@ type
     procedure DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
     function SuitList: TStringArray;
     procedure DressSuit(const suitName: String);
+    function HeadList: TStringArray;
+    procedure DressHead(const headName: String);
     function AcessoriesList: TItemConditions;
     procedure DressAcessory(const accessoryName: String; visible: boolean);
     procedure SaveCondition(const name:string);
@@ -58,6 +60,7 @@ const
   PrefixFoots = 'foots.';
   PrefixArms = 'arms.';
   PrefixAccesory = 'accessory_';
+  PrefixHead = 'head_';
   BodynameStr = 'Body';
 
 { ---------------------------------------------------------------------------- }
@@ -66,8 +69,6 @@ const
 
 constructor TCharaDresser.Create(scene: TCastleTransformDesign;
                                  const SuitByDefault: String);
-var
-  suitNameRepo: TCastleComponent;
 begin
   FScene:= scene;
   FDefaultSuitName:= SuitByDefault;
@@ -211,6 +212,31 @@ begin
   end;
 end;
 
+function TCharaDresser.HeadList: TStringArray;
+var
+  item: TCastleScene;
+  haedName: String;
+begin
+  Result:= [];
+
+  for item in GetAllScenes(FScene) do
+    if item.Name.StartsWith(PrefixHead) then
+    begin
+      haedName:= item.Name;
+      delete(haedName, 1, Length(PrefixHead));
+      Insert(haedName, Result, Length(Result));
+    end;
+end;
+
+procedure TCharaDresser.DressHead(const headName: String);
+var
+  item: TCastleScene;
+begin
+  for item in GetAllScenes(FScene) do
+    if item.Name.StartsWith(PrefixHead) then
+      item.Visible:= item.Name.Contains(headName);
+end;
+
 function TCharaDresser.AcessoriesList: TItemConditions;
 var
   i: Integer;
@@ -219,9 +245,7 @@ begin
   acessoryNames:= GetSceneNamesByNameStart(FScene, PrefixAccesory);
 
   for i:= 0 to (Length(acessoryNames) - 1) do
-  begin
     delete(acessoryNames[i].Name, 1, Length(PrefixAccesory));
-  end;
 
   Result:= acessoryNames;
 end;
@@ -231,10 +255,8 @@ var
   item: TCastleScene;
 begin
   for item in GetAllScenes(FScene) do
-  begin
     if item.Name.Contains(accessoryName) then
       item.Visible:= visible;
-  end;
 end;
 
 procedure TCharaDresser.SaveCondition(const name:string);

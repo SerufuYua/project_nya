@@ -105,24 +105,63 @@
                       }
                     }
                   ]
+                },
+                {
+                  "$$ClassName" : "TCastleScene",
+                  "DefaultAnimationTransition" : 1.5000000596046448E-001,
+                  "ExposeTransforms" : [
+                  ],
+                  "Name" : "head_none",
+                  "ProcessEvents" : true,
+                  "RenderOptions" : {
+                    "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                  },
+                  "RotationPersistent" : {
+                    "$$ClassName" : "TCastleVector4RotationPersistent",
+                    "Z" : 1.0000000000000000E+000
+                  },
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector3Persistent",
+                    "Z" : -3.7252902984619141E-009
+                  },
+                  "Url" : "castle-data:/chars/hair_girl/hair_common.gltf"
+                },
+                {
+                  "$$ClassName" : "TCastleScene",
+                  "DefaultAnimationTransition" : 1.5000000596046448E-001,
+                  "ExposeTransforms" : [
+                  ],
+                  "Name" : "head_Helmet_Fire",
+                  "ProcessEvents" : true,
+                  "RenderOptions" : {
+                    "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                  },
+                  "RotationPersistent" : {
+                    "$$ClassName" : "TCastleVector4RotationPersistent",
+                    "Z" : 1.0000000000000000E+000
+                  },
+                  "Tag" : -1,
+                  "Url" : "castle-data:/chars/hair_girl/helmet_fire.gltf",
+                  "Visible" : false
+                },
+                {
+                  "$$ClassName" : "TCastleScene",
+                  "DefaultAnimationTransition" : 1.5000000596046448E-001,
+                  "ExposeTransforms" : [
+                  ],
+                  "Name" : "head_Helmet_Line",
+                  "ProcessEvents" : true,
+                  "RenderOptions" : {
+                    "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                  },
+                  "RotationPersistent" : {
+                    "$$ClassName" : "TCastleVector4RotationPersistent",
+                    "Z" : 1.0000000000000000E+000
+                  },
+                  "Url" : "castle-data:/chars/hair_girl/helmet_line.gltf",
+                  "Visible" : false
                 }
               ]
-            },
-            {
-              "$$ClassName" : "TCastleScene",
-              "DefaultAnimationTransition" : 1.5000000596046448E-001,
-              "ExposeTransforms" : [
-              ],
-              "Name" : "Hair",
-              "ProcessEvents" : true,
-              "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-              },
-              "RotationPersistent" : {
-                "$$ClassName" : "TCastleVector4RotationPersistent",
-                "Z" : 1.0000000000000000E+000
-              },
-              "Url" : "castle-data:/chars/hair_girl/hair_common.gltf"
             },
             {
               "$$ClassName" : "TCastleParticleEmitter",

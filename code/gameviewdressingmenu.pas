@@ -18,6 +18,7 @@ type
         ListBottom: TCastleVerticalGroup;
         ListArms: TCastleVerticalGroup;
         ListFoots: TCastleVerticalGroup;
+        ListHead: TCastleVerticalGroup;
         ListAccessories: TCastleVerticalGroup;
         BtnClose: TcastleButton;
       private
@@ -25,11 +26,13 @@ type
         procedure UpdateSuitParts();
         procedure UpdateSuitParts(suitType: TSuitPart; groupList: TCastleVerticalGroup);
         procedure UpdateSuits();
+        procedure UpdateHeads();
         procedure UpdateAccessories();
         procedure FocusButton(const Sender: TCastleUserInterface);
         procedure FocusList(const Sender: TCastleUserInterface);
         procedure ClickSuitPart(Sender: TObject);
         procedure ClickSuit(Sender: TObject);
+        procedure ClickHead(Sender: TObject);
         procedure ClickAccesories(Sender: TObject);
         procedure ClickClose(Sender: TObject);
         procedure SetChara(chara: TNyaActorChara);
@@ -59,6 +62,7 @@ const
   ListBottomStr = 'ListBottom';
   ListArmsStr = 'ListArms';
   ListFootsStr = 'ListFoots';
+  ListHeadStr = 'ListHead';
 
 { ========= ------------------------------------------------------------------ }
 { TViewDressingDialog -------------------------------------------------------- }
@@ -87,6 +91,7 @@ begin
   ListBottom:= UiOwner.FindRequiredComponent(ListBottomStr) as TCastleVerticalGroup;
   ListArms:= UiOwner.FindRequiredComponent(ListArmsStr) as TCastleVerticalGroup;
   ListFoots:= UiOwner.FindRequiredComponent(ListFootsStr) as TCastleVerticalGroup;
+  ListHead:= UiOwner.FindRequiredComponent(ListHeadStr) as TCastleVerticalGroup;
   ListAccessories:= UiOwner.FindRequiredComponent('ListAccessories') as TCastleVerticalGroup;
   BtnClose:= UiOwner.FindRequiredComponent('BtnClose') as TcastleButton;
 
@@ -101,6 +106,7 @@ begin
   if NOT Assigned(chara) then Exit;
   FDresser:= chara.Dresser();
   UpdateSuitParts();
+  UpdateHeads();
   UpdateAccessories();
 
   { Set personal color as background }
@@ -232,6 +238,49 @@ begin
     FreeAndNil(myBtnFactory);
 end;
 
+procedure TViewDressingMenu.TViewDressingDialog.UpdateHeads();
+var
+  newBtn, sampleBtn: TCastleButton;
+  myBtnFactory: TCastleComponentFactory;
+  myFont: TCastleAbstractFont;
+  head: String;
+begin
+  { take appearance of button }
+  if ((ListHead.ControlsCount > 0) AND
+      (ListHead.Controls[0] is TCastleButton)) then
+  begin
+    sampleBtn:= ListHead.Controls[0] as TCastleButton;
+    myFont:= sampleBtn.CustomFont;
+    myBtnFactory:= TCastleComponentFactory.Create(self);
+    myBtnFactory.LoadFromComponent(sampleBtn);
+  end else
+  begin
+    sampleBtn:= nil;
+    myBtnFactory:= nil;
+  end;
+
+  ListHead.ClearControls;
+
+  { create button head list }
+  for head in FDresser.HeadList do
+  begin
+    if Assigned(myBtnFactory) then
+    begin
+      newBtn:= myBtnFactory.ComponentLoad(ListHead) as TCastleButton;
+      newBtn.CustomFont:= myFont;
+    end else
+      newBtn:= TCastleButton.Create(ListHead);
+
+    newBtn.Caption:= head;
+    newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickHead;
+    newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
+    ListHead.InsertFront(newBtn);
+  end;
+
+  if Assigned(myBtnFactory) then
+    FreeAndNil(myBtnFactory);
+end;
+
 procedure TViewDressingMenu.TViewDressingDialog.UpdateAccessories();
 var
   acessory: TItemCondition;
@@ -271,6 +320,9 @@ begin
     newChk.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     ListAccessories.InsertFront(newChk);
   end;
+
+  if Assigned(myChkFactory) then
+    FreeAndNil(myChkFactory);
 end;
 
 procedure TViewDressingMenu.TViewDressingDialog.FocusButton(const Sender: TCastleUserInterface);
@@ -313,6 +365,18 @@ begin
   SoundEngine.Play(NamedSound('SfxListPress'));
 
   FDresser.DressSuit(button.Caption);
+end;
+
+procedure TViewDressingMenu.TViewDressingDialog.ClickHead(Sender: TObject);
+var
+  button: TCastleButton;
+begin
+  button:= Sender as TCastleButton;
+  if NOT Assigned(button) then exit;
+
+  SoundEngine.Play(NamedSound('SfxListPress'));
+
+  FDresser.DressHead(button.Caption);
 end;
 
 procedure TViewDressingMenu.TViewDressingDialog.ClickAccesories(Sender: TObject);
