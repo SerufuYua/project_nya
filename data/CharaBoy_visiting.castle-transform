@@ -30,22 +30,22 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 5.0147420167922974E-001,
-            "X" : 9.1722553968429565E-001,
-            "Y" : 3.7669947743415833E-001,
-            "Z" : -1.2959526479244232E-001
+            "W" : 4.9781015515327454E-001,
+            "X" : 9.1577214002609253E-001,
+            "Y" : 3.7977737188339233E-001,
+            "Z" : -1.3088501989841461E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : 1.0999994277954102E+000,
-            "Y" : 1.0999994277954102E+000,
+            "Y" : 1.0999993085861206E+000,
             "Z" : 1.0999993085861206E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -7.1686752140522003E-002,
-            "Y" : 1.1046628952026367E+000,
-            "Z" : 1.1926818639039993E-001
+            "X" : -7.1898803114891052E-002,
+            "Y" : 1.1031330823898315E+000,
+            "Z" : 1.1843734979629517E-001
           },
           "$Children" : [
             {
@@ -63,21 +63,23 @@
                 "$$ClassName" : "TCastleVector4RotationPersistent",
                 "Z" : 1.0000000000000000E+000
               },
-              "Url" : "castle-data:/chars/head_boy/head_visiting.gltf"
-            },
-            {
-              "$$ClassName" : "TCastleScene",
-              "ExposeTransforms" : [
-              ],
-              "Name" : "Hair",
-              "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-              },
-              "RotationPersistent" : {
-                "$$ClassName" : "TCastleVector4RotationPersistent",
-                "Z" : 1.0000000000000000E+000
-              },
-              "Url" : "castle-data:/chars/hair_boy/hair_inroom.gltf"
+              "Url" : "castle-data:/chars/head_boy/head_visiting.gltf",
+              "$Children" : [
+                {
+                  "$$ClassName" : "TCastleScene",
+                  "ExposeTransforms" : [
+                  ],
+                  "Name" : "head_none",
+                  "RenderOptions" : {
+                    "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                  },
+                  "RotationPersistent" : {
+                    "$$ClassName" : "TCastleVector4RotationPersistent",
+                    "Z" : 1.0000000000000000E+000
+                  },
+                  "Url" : "castle-data:/chars/hair_boy/hair_inroom.gltf"
+                }
+              ]
             }
           ]
         },
@@ -86,21 +88,22 @@
           "Name" : "Bone_Hand_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.7286498546600342E+000,
-            "X" : -2.0786246750503778E-003,
-            "Y" : 5.6400507688522339E-001,
-            "Z" : 8.2576888799667358E-001
+            "W" : 3.7286937236785889E+000,
+            "X" : -2.0962713751941919E-003,
+            "Y" : 5.6401813030242920E-001,
+            "Z" : 8.2575982809066772E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "Y" : 1.0000002384185791E+000,
-            "Z" : 9.9999988079071045E-001
+            "X" : 9.9999994039535522E-001,
+            "Y" : 9.9999982118606567E-001,
+            "Z" : 9.9999970197677612E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -1.5059646964073181E-001,
-            "Y" : 9.2212224006652832E-001,
-            "Z" : 4.1284102201461792E-001
+            "X" : -1.5064236521720886E-001,
+            "Y" : 9.2210119962692261E-001,
+            "Z" : 4.1283771395683289E-001
           },
           "$Children" : [
             {
