@@ -112,6 +112,7 @@ begin
   FVehicle.Headlight:= True;
 
   GroupSpeed.Exists:= True;
+  SetUIColor(FVehicle.PersonalColor);
 
   Notifications.Show('Info: use WASD to move');
   Notifications.Show('Info: use Space to brake');
@@ -173,6 +174,7 @@ begin
   FVehicle:= nil;
 
   GroupSpeed.Exists:= False;
+  SetUIColor(MainActor.PersonalColor);
 end;
 
 procedure TBaseViewRideNew.NavigationSetAnimation(

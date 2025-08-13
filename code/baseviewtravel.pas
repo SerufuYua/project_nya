@@ -86,7 +86,7 @@ begin
   { set keys }
   FKeyUse:= TKey.keyF;
 
-  { set color }
+  { set UI color }
   SetUIColor(MainActor.PersonalColor);
 
   { set Switches }
