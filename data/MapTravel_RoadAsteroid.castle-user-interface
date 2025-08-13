@@ -196,8 +196,10 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
-                          "Y" : -1.0000000000000000E+000
+                          "W" : 2.7721464633941650E-001,
+                          "X" : -1.7263351764995605E-004,
+                          "Y" : 9.9999940395355225E-001,
+                          "Z" : -1.2374997604638338E-003
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -891,8 +893,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.4383847713470459E+000,
-                      "Y" : -9.9999994039535522E-001
+                      "W" : 1.7115913629531860E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -947,8 +949,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.2589352130889893E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 4.5350708067417145E-002,
+                      "Y" : -1.0000352859497070E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1003,8 +1005,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.5001602172851562E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 2.1418824195861816E+000,
+                      "X" : -2.4414061044808477E-004,
+                      "Y" : -9.9999994039535522E-001,
+                      "Z" : 1.3332869275473058E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1059,8 +1063,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6089615821838379E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.7161341905593872E+000,
+                      "Y" : 1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1102,8 +1106,10 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.4418456554412842E+000,
-                  "Y" : -1.0000000000000000E+000
+                  "W" : 1.7182377576828003E+000,
+                  "X" : -1.7263347399421036E-004,
+                  "Y" : -9.9999988079071045E-001,
+                  "Z" : 1.4888764417264611E-004
                 },
                 "Text" : [
                   "START"
@@ -1134,10 +1140,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.6159431934356689E+000,
-                  "X" : -1.7263350309804082E-004,
-                  "Y" : -9.9999994039535522E-001,
-                  "Z" : 4.6446792111964896E-005
+                  "W" : 1.7034173011779785E+000,
+                  "Y" : 1.0000000000000000E+000
                 },
                 "Text" : [
                   "FINISH"
@@ -1210,8 +1214,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.3686872422695160E-001,
-                      "Y" : 1.0000005960464478E+000
+                      "W" : 2.8601865768432617E+000,
+                      "Y" : -9.9999994039535522E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1264,243 +1268,245 @@
                     "Name" : "RigidBodyMoto"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "SceneActors",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "$Children" : [
+              {
+                "$$ClassName" : "TNyaActorChara",
+                "AnisotropicDegree" : 1.6000000000000000E+001,
+                "AutoAnimation" : "GAME.STAND",
+                "DefaultAnimationTransition" : 1.5000000596046448E-001,
+                "EmissionColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 1.5000000596046448E-001,
+                  "Green" : 1.5000000596046448E-001,
+                  "Red" : 1.5000000596046448E-001
+                },
+                "EmissionItself" : true,
+                "MainSceneName" : "Body",
+                "Name" : "CharaGirl",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 4.3805891275405884E-001,
+                  "Y" : -9.9998873472213745E-001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -4.3223017454147339E-001,
+                  "Y" : 8.7783738970756531E-002,
+                  "Z" : -2.0110969543457031E+001
+                },
+                "Url" : "castle-data:/CharaGirl_common.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleCapsuleCollider",
+                    "Name" : "ColliderChara"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Animated" : true,
+                    "LockRotation" : [
+                      0,
+                      2
+                    ],
+                    "Name" : "RigidBodyChara"
+                  }
+                ]
               },
               {
-                "$$ClassName" : "TCastleTransform",
-                "Name" : "SceneActors",
+                "$$ClassName" : "TNyaActorChara",
+                "AnisotropicDegree" : 1.6000000000000000E+001,
+                "AutoAnimation" : "GAME.BOY_VISITING.STAND_WITH_PDA.WORKING",
+                "DefaultAnimationTransition" : 2.0000000298023224E-001,
+                "EmissionColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 1.5000000596046448E-001,
+                  "Green" : 1.5000000596046448E-001,
+                  "Red" : 1.5000000596046448E-001
+                },
+                "EmissionItself" : true,
+                "MainSceneName" : "Body",
+                "Name" : "CharaBoy",
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
                   "Z" : 1.0000000000000000E+000
                 },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 5.6925952434539795E-001,
+                  "Y" : 3.1332634389400482E-002,
+                  "Z" : -2.2909753799438477E+001
+                },
+                "Url" : "castle-data:/CharaBoy_visiting.castle-transform",
+                "UrlPerson" : "castle-data:/PersonBoy.castle-component",
                 "$Children" : [
                   {
-                    "$$ClassName" : "TNyaActorChara",
-                    "AnisotropicDegree" : 1.6000000000000000E+001,
-                    "AutoAnimation" : "GAME.STAND",
-                    "DefaultAnimationTransition" : 1.5000000596046448E-001,
-                    "EmissionColorPersistent" : {
-                      "$$ClassName" : "TCastleColorRGBPersistent",
-                      "Blue" : 1.5000000596046448E-001,
-                      "Green" : 1.5000000596046448E-001,
-                      "Red" : 1.5000000596046448E-001
+                    "$$ClassName" : "TCastleScene",
+                    "CastShadows" : false,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "BoyIndicator",
+                    "Pickable" : false,
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantAlpha",
+                      "BlendingSourceFactor" : "bsConstantColor"
                     },
-                    "EmissionItself" : true,
-                    "MainSceneName" : "Body",
-                    "Name" : "CharaGirl",
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 4.3805891275405884E-001,
-                      "Y" : -9.9998873472213745E-001
+                      "W" : 2.7721464633941650E-001,
+                      "X" : -1.7263351764995605E-004,
+                      "Y" : 9.9999940395355225E-001,
+                      "Z" : -1.2374997604638338E-003
+                    },
+                    "ScalePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000001192092896E+000,
+                      "Y" : 1.0000002384185791E+000,
+                      "Z" : 1.0000001192092896E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : -4.3223017454147339E-001,
-                      "Y" : 8.7783738970756531E-002,
-                      "Z" : -2.0110969543457031E+001
+                      "Y" : 2.0000000000000000E+000,
+                      "Z" : 2.0000000298023224E-001
                     },
-                    "Url" : "castle-data:/CharaGirl_common.castle-transform",
-                    "UrlPerson" : "castle-data:/PersonGirl.castle-component",
+                    "Url" : "castle-data:/effects/indicator/indicator_pink.gltf",
                     "$Behaviors" : [
                       {
-                        "$$ClassName" : "TCastleCapsuleCollider",
-                        "Name" : "ColliderChara"
-                      },
-                      {
-                        "$$ClassName" : "TCastleRigidBody",
-                        "Animated" : true,
-                        "LockRotation" : [
-                          0,
-                          2
-                        ],
-                        "Name" : "RigidBodyChara"
+                        "$$ClassName" : "TCastleBillboard",
+                        "Name" : "BoyIndicatorBillboard"
                       }
                     ]
-                  },
+                  }
+                ],
+                "$Behaviors" : [
                   {
-                    "$$ClassName" : "TNyaActorChara",
-                    "AnisotropicDegree" : 1.6000000000000000E+001,
-                    "AutoAnimation" : "GAME.BOY_VISITING.STAND_WITH_PDA.WORKING",
-                    "DefaultAnimationTransition" : 2.0000000298023224E-001,
-                    "EmissionColorPersistent" : {
-                      "$$ClassName" : "TCastleColorRGBPersistent",
-                      "Blue" : 1.5000000596046448E-001,
-                      "Green" : 1.5000000596046448E-001,
-                      "Red" : 1.5000000596046448E-001
-                    },
-                    "EmissionItself" : true,
-                    "MainSceneName" : "Body",
-                    "Name" : "CharaBoy",
-                    "RotationPersistent" : {
-                      "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "Z" : 1.0000000000000000E+000
+                    "$$ClassName" : "TCastleBoxCollider",
+                    "AutoSize" : false,
+                    "Name" : "BoyCollider",
+                    "SizePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 6.9194924831390381E-001,
+                      "Y" : 2.0918085575103760E+000,
+                      "Z" : 6.6032516956329346E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : 5.6925952434539795E-001,
-                      "Y" : 3.1332634389400482E-002,
-                      "Z" : -2.2909753799438477E+001
-                    },
-                    "Url" : "castle-data:/CharaBoy_visiting.castle-transform",
-                    "UrlPerson" : "castle-data:/PersonBoy.castle-component",
-                    "$Children" : [
-                      {
-                        "$$ClassName" : "TCastleScene",
-                        "CastShadows" : false,
-                        "ExposeTransforms" : [
-                        ],
-                        "Name" : "BoyIndicator",
-                        "Pickable" : false,
-                        "ProcessEvents" : true,
-                        "RenderOptions" : {
-                          "$$ClassName" : "TCastleScene.TSceneRenderOptions",
-                          "BlendingDestinationFactor" : "bdConstantAlpha",
-                          "BlendingSourceFactor" : "bsConstantColor"
-                        },
-                        "RotationPersistent" : {
-                          "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
-                          "Y" : -1.0000000000000000E+000
-                        },
-                        "ScalePersistent" : {
-                          "$$ClassName" : "TCastleVector3Persistent",
-                          "X" : 1.0000001192092896E+000,
-                          "Y" : 1.0000002384185791E+000,
-                          "Z" : 1.0000001192092896E+000
-                        },
-                        "TranslationPersistent" : {
-                          "$$ClassName" : "TCastleVector3Persistent",
-                          "Y" : 2.0000000000000000E+000,
-                          "Z" : 2.0000000298023224E-001
-                        },
-                        "Url" : "castle-data:/effects/indicator/indicator_pink.gltf",
-                        "$Behaviors" : [
-                          {
-                            "$$ClassName" : "TCastleBillboard",
-                            "Name" : "BoyIndicatorBillboard"
-                          }
-                        ]
-                      }
+                      "X" : 1.5531316399574280E-002,
+                      "Y" : 1.0290957689285278E+000,
+                      "Z" : 1.9292558729648590E-001
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Dynamic" : false,
+                    "Gravity" : false,
+                    "Name" : "BoyRigidBody"
+                  },
+                  {
+                    "$$ClassName" : "TNyaFrontSwitch",
+                    "ActionString" : "talk",
+                    "Activator" : "CharaGirl",
+                    "Distance" : 6.0000002384185791E-001,
+                    "Indicator" : "BoyIndicator",
+                    "Name" : "BoySwitch",
+                    "VisibleAngle" : 4.5000000000000000E+001
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TNyaActor",
+                "AutoAnimation" : "none",
+                "MainSceneName" : "none",
+                "Name" : "SpacePlane",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 6.4577174186706543E-001,
+                  "Y" : -1.0000001192092896E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 4.3268198966979980E+000,
+                  "Y" : 9.2500001192092896E-001,
+                  "Z" : -1.8011779785156250E+001
+                },
+                "Url" : "castle-data:/SpacePlane.castle-transform",
+                "UrlPerson" : "castle-data:/PersonSpacePlane.castle-component",
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
                     ],
+                    "Name" : "SpacePlaneCollider",
+                    "PreciseCollisions" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "Url" : "castle-data:/furniture/space_plane/space_plane_collider.gltf",
+                    "Visible" : false,
                     "$Behaviors" : [
                       {
-                        "$$ClassName" : "TCastleBoxCollider",
-                        "AutoSize" : false,
-                        "Name" : "BoyCollider",
-                        "SizePersistent" : {
-                          "$$ClassName" : "TCastleVector3Persistent",
-                          "X" : 6.9194924831390381E-001,
-                          "Y" : 2.0918085575103760E+000,
-                          "Z" : 6.6032516956329346E-001
-                        },
-                        "TranslationPersistent" : {
-                          "$$ClassName" : "TCastleVector3Persistent",
-                          "X" : 1.5531316399574280E-002,
-                          "Y" : 1.0290957689285278E+000,
-                          "Z" : 1.9292558729648590E-001
-                        }
+                        "$$ClassName" : "TCastleMeshCollider",
+                        "Mesh" : "SpacePlaneCollider",
+                        "Name" : "SpacePlaneMeshCollider"
                       },
                       {
                         "$$ClassName" : "TCastleRigidBody",
                         "Dynamic" : false,
                         "Gravity" : false,
-                        "Name" : "BoyRigidBody"
-                      },
-                      {
-                        "$$ClassName" : "TNyaFrontSwitch",
-                        "ActionString" : "talk",
-                        "Activator" : "CharaGirl",
-                        "Distance" : 6.0000002384185791E-001,
-                        "Indicator" : "BoyIndicator",
-                        "Name" : "BoySwitch",
-                        "VisibleAngle" : 4.5000000000000000E+001
+                        "Name" : "SpacePlaneRigidBody"
                       }
                     ]
                   },
                   {
-                    "$$ClassName" : "TNyaActor",
-                    "AutoAnimation" : "none",
-                    "MainSceneName" : "none",
-                    "Name" : "SpacePlane",
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "SpacePlaneIndicator",
+                    "Pickable" : false,
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 6.4577174186706543E-001,
-                      "Y" : -1.0000001192092896E+000
+                      "W" : 9.2298638820648193E-001,
+                      "Y" : 9.9999994039535522E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : 4.3268198966979980E+000,
-                      "Y" : 9.2500001192092896E-001,
-                      "Z" : -1.8011779785156250E+001
+                      "Y" : 1.3999999761581421E+000
                     },
-                    "Url" : "castle-data:/SpacePlane.castle-transform",
-                    "UrlPerson" : "castle-data:/PersonSpacePlane.castle-component",
-                    "$Children" : [
-                      {
-                        "$$ClassName" : "TCastleScene",
-                        "ExposeTransforms" : [
-                        ],
-                        "Name" : "SpacePlaneCollider",
-                        "PreciseCollisions" : true,
-                        "RenderOptions" : {
-                          "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-                        },
-                        "Url" : "castle-data:/furniture/space_plane/space_plane_collider.gltf",
-                        "Visible" : false,
-                        "$Behaviors" : [
-                          {
-                            "$$ClassName" : "TCastleMeshCollider",
-                            "Mesh" : "SpacePlaneCollider",
-                            "Name" : "SpacePlaneMeshCollider"
-                          },
-                          {
-                            "$$ClassName" : "TCastleRigidBody",
-                            "Dynamic" : false,
-                            "Gravity" : false,
-                            "Name" : "SpacePlaneRigidBody"
-                          }
-                        ]
-                      },
-                      {
-                        "$$ClassName" : "TCastleScene",
-                        "ExposeTransforms" : [
-                        ],
-                        "Name" : "SpacePlaneIndicator",
-                        "Pickable" : false,
-                        "ProcessEvents" : true,
-                        "RenderOptions" : {
-                          "$$ClassName" : "TCastleScene.TSceneRenderOptions",
-                          "BlendingDestinationFactor" : "bdConstantColor",
-                          "BlendingSourceFactor" : "bsConstantColor"
-                        },
-                        "RotationPersistent" : {
-                          "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.0321733951568604E+000,
-                          "Y" : -1.0000000000000000E+000
-                        },
-                        "TranslationPersistent" : {
-                          "$$ClassName" : "TCastleVector3Persistent",
-                          "Y" : 1.3999999761581421E+000
-                        },
-                        "Url" : "castle-data:/effects/indicator/indicator_green.gltf",
-                        "$Behaviors" : [
-                          {
-                            "$$ClassName" : "TCastleBillboard",
-                            "Name" : "SpacePlaneIndicatorBillboard"
-                          }
-                        ]
-                      }
-                    ],
+                    "Url" : "castle-data:/effects/indicator/indicator_green.gltf",
                     "$Behaviors" : [
                       {
-                        "$$ClassName" : "TNyaFrontSwitch",
-                        "ActionString" : "talk",
-                        "Activator" : "CharaGirl",
-                        "Distance" : 2.0000000298023224E-001,
-                        "Indicator" : "SpacePlaneIndicator",
-                        "Name" : "SpacePlaneSwitch",
-                        "VisibleAngle" : 6.0000000000000000E+001
+                        "$$ClassName" : "TCastleBillboard",
+                        "Name" : "SpacePlaneIndicatorBillboard"
                       }
                     ]
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaFrontSwitch",
+                    "ActionString" : "talk",
+                    "Activator" : "CharaGirl",
+                    "Distance" : 2.0000000298023224E-001,
+                    "Indicator" : "SpacePlaneIndicator",
+                    "Name" : "SpacePlaneSwitch",
+                    "VisibleAngle" : 6.0000000000000000E+001
                   }
                 ]
               }
@@ -1733,16 +1739,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.0294313430786133E+000,
-          "X" : -1.4332270622253418E-001,
-          "Y" : 9.8713302612304688E-001,
-          "Z" : 7.0901572704315186E-002
+          "W" : 4.2290309071540833E-001,
+          "X" : -7.5787669420242310E-001,
+          "Y" : 6.4669096469879150E-001,
+          "Z" : 8.6103506386280060E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -6.8650642395019531E+001,
-          "Y" : 3.2367012500762939E+000,
-          "Z" : 3.7981040477752686E+000
+          "X" : 2.7087409496307373E+000,
+          "Y" : 4.0598459243774414E+000,
+          "Z" : -1.1033681869506836E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
