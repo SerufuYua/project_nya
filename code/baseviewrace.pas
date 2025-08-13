@@ -6,14 +6,14 @@ interface
 
 uses
   Classes, SysUtils, CastleControls, CastleConfig, CastleUIControls,
-  BaseViewRideNew;
+  BaseViewRide;
 
 const
   BestTimePath = 'ride/time/BestTime';
   DefaultBestTime = -1.0;
 
 type
-  TBaseViewRace = class(TBaseViewRideNew)
+  TBaseViewRace = class(TBaseViewRide)
   published
     GroupTime: TCastleUserInterface;
     LabelSpeedValue, LabelTimeValue, LabelBestTimeValue: TCastleLabel;

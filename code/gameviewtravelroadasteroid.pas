@@ -5,7 +5,7 @@ interface
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
   BaseViewRace, NyaActor, NyaActorChara, NyaActorVehicle,
-  NyaVehicleNavigation;
+  NyaVehicleNavigation, NyaFollow;
 
 type
   TViewTravelRoadAsteroid = class(TBaseViewRace)
@@ -39,7 +39,7 @@ uses
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
-  GameViewDressingMenu, GameViewTravelContainerRoom, GameViewRideRoadAsteroid,
+  GameViewDressingMenu, GameViewTravelContainerRoom,
   GameViewMain, GameViewPlayTogether, GameViewConversationMenu;
 
 procedure TViewTravelRoadAsteroid.Start;

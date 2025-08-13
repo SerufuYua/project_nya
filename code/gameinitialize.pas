@@ -22,7 +22,6 @@ uses SysUtils, CustApp,
   , GameViewPlayTogether
   , GameViewLoading
   , GameViewTravelTest
-  , GameViewRideRoadAsteroid
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
   , GameViewSettingsMenu
@@ -51,7 +50,6 @@ begin
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelTest:= TViewTravelTest.Create(Application);
-  ViewRideRoadAsteroid:= TViewRideRoadAsteroid.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}
@@ -68,8 +66,6 @@ begin
     Window.Container.View:= ViewTravelContainerRoom
   else if Application.hasOption('a', 'Asteroid') then
     Window.Container.View:= ViewTravelRoadAsteroid
-  else if Application.hasOption('r', 'Ride') then
-    Window.Container.View:= ViewRideRoadAsteroid
   else
     Window.Container.View:= ViewMain;
 

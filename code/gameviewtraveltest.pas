@@ -3,12 +3,12 @@ unit GameViewTravelTest;
 interface
 
 uses
-  Classes, BaseViewRideNew,
+  Classes, BaseViewRide,
   NyaActorChara, NyaActorVehicle,
   CastleLivingBehaviors, NyaRandomWalk;
 
 type
-  TViewTravelTest = class(TBaseViewRideNew)
+  TViewTravelTest = class(TBaseViewRide)
   protected
     procedure DoActivateSwitch(Sender: TObject); override;
   public
