@@ -18,7 +18,7 @@ type
     GroupTime: TCastleUserInterface;
     LabelSpeedValue, LabelTimeValue, LabelBestTimeValue: TCastleLabel;
   protected
-    FEnableTimer: Boolean;
+    FEnableTimer, FRaceStarted: Boolean;
     FTrackTimer, FBestTime: Single;
     FCheckPointNum: Integer;
     procedure ShowTime(const value: Single);
@@ -27,6 +27,8 @@ type
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
+    procedure Pause; override;
+    procedure Resume; override;
   end;
 
 implementation
@@ -38,6 +40,7 @@ procedure TBaseViewRace.Start;
 begin
   inherited;
   FEnableTimer:= False;
+  FRaceStarted:= False;
   FTrackTimer:= 0.0;
   FCheckPointNum:= 0;
 
@@ -51,7 +54,7 @@ begin
   { Executed every frame. }
 
   { update Track Timer }
-  if FEnableTimer then
+  if FEnableTimer AND FRaceStarted then
   begin
     FTrackTimer:= FTrackTimer + SecondsPassed;
     ShowTime(FTrackTimer);
@@ -90,6 +93,8 @@ begin
 
   if Touch then
   begin
+    Status.Caption:= switch.ActionString;
+
     if(FTouchedSwitch <> switch) then
     begin
       Status.Caption:= switch.ActionString;
@@ -103,6 +108,7 @@ begin
       FTrackTimer:= 0.0;
       GroupTime.Exists:= True;
       FEnableTimer:= True;
+      FRaceStarted:= True;
       ShowBestTime(FBestTime);
     end;
 
@@ -113,6 +119,7 @@ begin
       if switch.Name = 'CheckSwitchFinish' then
       begin
         FEnableTimer:= False;
+        FRaceStarted:= False;
         FCheckPointNum:= 0;
 
         { save Best Time }
@@ -134,6 +141,19 @@ begin
       Status.Caption:= '';
     end;
   end;
+end;
+
+procedure TBaseViewRace.Pause;
+begin
+  inherited;
+  FEnableTimer:= False;
+end;
+
+procedure TBaseViewRace.Resume;
+begin
+  inherited;
+  if FRaceStarted then
+    FEnableTimer:= True;
 end;
 
 end.

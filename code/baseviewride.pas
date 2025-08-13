@@ -28,6 +28,8 @@ type
     function Press(const Event: TInputPressRelease): Boolean; override;
     procedure SitToVehicle(vehicle: TNyaActorVehicle);
     procedure GetOffFromVehicle;
+    procedure Pause; override;
+    procedure Resume; override;
   end;
 
 implementation
@@ -175,6 +177,20 @@ begin
 
   GroupSpeed.Exists:= False;
   SetUIColor(MainActor.PersonalColor);
+end;
+
+procedure TBaseViewRide.Pause;
+begin
+  inherited;
+  if Assigned(FVehicleNavigation) then
+    FVehicleNavigation.Exists:= False;
+end;
+
+procedure TBaseViewRide.Resume;
+begin
+  inherited;
+  if (Assigned(FVehicleNavigation) AND Assigned(FVehicle)) then
+    FVehicleNavigation.Exists:= True;
 end;
 
 procedure TBaseViewRide.NavigationSetAnimation(
