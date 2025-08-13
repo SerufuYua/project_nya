@@ -18,6 +18,7 @@ type
       public
         Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
+        function Press(const Event: TInputPressRelease): Boolean; override;
       end;
     var
       FDialog: TViewPauseDialog;
@@ -57,6 +58,21 @@ begin
   BtnResume.OnClick:= {$ifdef FPC}@{$endif}ClickResume;
 
   BtnResume.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+end;
+
+function TViewPause.TViewPauseDialog.Press(const Event: TInputPressRelease): Boolean;
+begin
+  Result:= inherited;
+  if Result then Exit; // allow the ancestor to handle keys
+
+  { return pause }
+  if (Event.IsKey(TKey.keyEscape) OR
+      Event.IsKey(TKey.keyPause) OR
+      Event.IsKey(TKey.keyEnter)) then
+  begin
+    Closed:= True;
+    Exit(true);
+  end;
 end;
 
 procedure TViewPause.TViewPauseDialog.FocusButton(const Sender: TCastleUserInterface);
