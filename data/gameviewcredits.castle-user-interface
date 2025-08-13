@@ -428,7 +428,7 @@
                           "Image" : {
                             "$$ClassName" : "TCastleImagePersistent"
                           },
-                          "Name" : "ButtonSource",
+                          "Name" : "ButtonSourceCode",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {
@@ -438,6 +438,58 @@
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
                           "WebUrl" : "https://github.com/SerufuYua/project_nya"
+                        },
+                        {
+                          "$$ClassName" : "TNyaWebButton",
+                          "Border" : {
+                            "$$ClassName" : "TBorder",
+                            "Bottom" : 3.0000000000000000E+000
+                          },
+                          "BorderColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Alpha" : 1.0000000000000000E+000,
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "Caption" : "github.com/SerufuYua/project_nya_models",
+                          "Cursor" : "mcHand",
+                          "CustomBackground" : true,
+                          "CustomBackgroundDisabled" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundFocused" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundNormal" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundPressed" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "CustomTextColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "CustomTextColorUse" : true,
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Image" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "Name" : "ButtonSourcemodels",
+                          "PaddingHorizontal" : 0.0000000000000000E+000,
+                          "PaddingVertical" : 0.0000000000000000E+000,
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -2.3700000000000000E+002
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop",
+                          "WebUrl" : "https://github.com/SerufuYua/project_nya_models"
                         }
                       ]
                     }
@@ -451,7 +503,7 @@
                   "Spacing" : 1.6000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 6.4700000000000000E+002
+                    "X" : 6.8300000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
