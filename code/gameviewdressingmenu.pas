@@ -243,7 +243,7 @@ var
   newBtn, sampleBtn: TCastleButton;
   myBtnFactory: TCastleComponentFactory;
   myFont: TCastleAbstractFont;
-  head: String;
+  head: TItemCondition;
 begin
   { take appearance of button }
   if ((ListHead.ControlsCount > 0) AND
@@ -271,7 +271,7 @@ begin
     end else
       newBtn:= TCastleButton.Create(ListHead);
 
-    newBtn.Caption:= head;
+    newBtn.Caption:= head.Name;
     newBtn.OnClick:= {$ifdef FPC}@{$endif}ClickHead;
     newBtn.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusList;
     ListHead.InsertFront(newBtn);

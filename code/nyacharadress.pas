@@ -23,7 +23,7 @@ type
     procedure DressSuitPart(suitPartType: TSuitPart; const suitPartName: String);
     function SuitList: TStringArray;
     procedure DressSuit(const suitName: String);
-    function HeadList: TStringArray;
+    function HeadList: TItemConditions;
     procedure DressHead(const headName: String);
     function AcessoriesList: TItemConditions;
     procedure DressAcessory(const accessoryName: String; visible: boolean);
@@ -212,20 +212,17 @@ begin
   end;
 end;
 
-function TCharaDresser.HeadList: TStringArray;
+function TCharaDresser.HeadList: TItemConditions;
 var
-  item: TCastleScene;
-  haedName: String;
+  i: Integer;
+  headNames: TItemConditions;
 begin
-  Result:= [];
+  headNames:= GetSceneNamesByNameStart(FScene, PrefixHead);
 
-  for item in GetAllScenes(FScene) do
-    if item.Name.StartsWith(PrefixHead) then
-    begin
-      haedName:= item.Name;
-      delete(haedName, 1, Length(PrefixHead));
-      Insert(haedName, Result, Length(Result));
-    end;
+  for i:= 0 to (Length(headNames) - 1) do
+    delete(headNames[i].Name, 1, Length(PrefixHead));
+
+  Result:= headNames;
 end;
 
 procedure TCharaDresser.DressHead(const headName: String);
@@ -314,6 +311,10 @@ begin
   suitPartName:= UserConfig.GetValue(path + PrefixArms, FDresser.DefaultSuitName);
   FDresser.DressSuitPart(Arms, suitPartName);
 
+  { head }
+  suitPartName:= UserConfig.GetValue(path + PrefixHead, NoSuitPartStr);
+  FDresser.DressHead(suitPartName);
+
   { accessories }
   for accessory in FDresser.AcessoriesList do
   begin
@@ -325,23 +326,27 @@ end;
 procedure TDressSaver.SaveProperties;
 var
   path: String;
-  accessory: TItemCondition;
+  item: TItemCondition;
 begin
   path:= DressingStr + '/' + FCharaName + '/';
 
   { suit parts }
-
   UserConfig.SetValue(path + PrefixTop, FDresser.DressedSuitPart(Top));
   UserConfig.SetValue(path + PrefixBottom, FDresser.DressedSuitPart(Bottom));
   UserConfig.SetValue(path + PrefixFoots, FDresser.DressedSuitPart(Foots));
   UserConfig.SetValue(path + PrefixArms, FDresser.DressedSuitPart(Arms));
 
+  { head }
+  for item in FDresser.HeadList do
+    if item.Visible then
+    begin
+      UserConfig.SetValue(path + PrefixHead, item.Name);
+      Break;
+    end;
 
   { accessories }
-  for accessory in FDresser.AcessoriesList do
-  begin
-    UserConfig.SetValue(path + accessory.Name, accessory.Visible);
-  end;
+  for item in FDresser.AcessoriesList do
+    UserConfig.SetValue(path + item.Name, item.Visible);
 
   UserConfig.Save;
 end;

@@ -325,7 +325,7 @@ begin
       condition.Name:= item.Name;
       condition.Visible:= item.Visible;
 
-      Insert(condition, Result, 0);
+      Insert(condition, Result, Length(Result));
     end;
   end;
 end;
