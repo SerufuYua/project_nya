@@ -21,7 +21,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Cube.015",
+			"name":"Cube.013",
 			"primitives":[
 				{
 					"attributes":{
@@ -38,67 +38,67 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":384,
+			"count":9600,
 			"max":[
-				-80.05656433105469,
-				2.2693066596984863,
-				7.08993673324585
+				119.26338958740234,
+				37.212345123291016,
+				11.929606437683105
 			],
 			"min":[
-				-140.10638427734375,
-				0.18856026232242584,
-				-7.119385242462158
+				-436.4708557128906,
+				-23.721010208129883,
+				-378.3983154296875
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":384,
+			"count":9600,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":384,
+			"count":9600,
 			"type":"VEC4"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":576,
+			"count":14400,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":4608,
+			"byteLength":115200,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":4608,
-			"byteOffset":4608,
+			"byteLength":115200,
+			"byteOffset":115200,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6144,
-			"byteOffset":9216,
+			"byteLength":153600,
+			"byteOffset":230400,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1152,
-			"byteOffset":15360,
+			"byteLength":28800,
+			"byteOffset":384000,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":16512,
+			"byteLength":412800,
 			"uri":"ghost_road_shine_004.bin"
 		}
 	]

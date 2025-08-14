@@ -196,8 +196,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
-                          "Y" : -1.0000000000000000E+000
+                          "W" : 1.5303432941436768E+000,
+                          "Y" : 1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -381,7 +381,7 @@
                     },
                     "LifeSpan" : 4.0000000000000000E+000,
                     "LifeSpanVariance" : 2.0000000000000000E+000,
-                    "MaxParticles" : 457,
+                    "MaxParticles" : 154,
                     "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid_road/ghost_road_shine_002.gltf",
                     "Name" : "GhostRoadParticleEffect2",
                     "RotationSpeedPersistent" : {
@@ -471,7 +471,7 @@
                     },
                     "LifeSpan" : 4.0000000000000000E+000,
                     "LifeSpanVariance" : 2.0000000000000000E+000,
-                    "MaxParticles" : 462,
+                    "MaxParticles" : 270,
                     "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid_road/ghost_road_shine_003.gltf",
                     "Name" : "GhostRoadParticleEffect3",
                     "RotationSpeedPersistent" : {
@@ -561,9 +561,99 @@
                     },
                     "LifeSpan" : 4.0000000000000000E+000,
                     "LifeSpanVariance" : 2.0000000000000000E+000,
-                    "MaxParticles" : 20,
+                    "MaxParticles" : 484,
                     "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid_road/ghost_road_shine_004.gltf",
                     "Name" : "GhostRoadParticleEffect4",
+                    "RotationSpeedPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 2.5000000000000000E-001
+                    },
+                    "RotationSpeedVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 1.2500000000000000E-001
+                    },
+                    "RotationVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Z" : 4.0000000000000000E+000
+                    },
+                    "SourcePositionLocalVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 6.0000000000000000E+000,
+                      "Y" : 2.0000000000000000E+000,
+                      "Z" : 6.0000000000000000E+000
+                    },
+                    "SourcePositionPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : -1.0000000000000000E+000
+                    },
+                    "SourcePositionVariancePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000000000000000E+000,
+                      "Y" : 1.0000000000000000E+000,
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "SourceType" : "pstBoxSurface",
+                    "Speed" : 1.2500000000000000E-001,
+                    "SpeedVariance" : 7.5000002980232239E-002,
+                    "Texture" : "castle-data:/effects/star.png"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleParticleEmitter",
+                "Effect" : "GhostRoadParticleEffect5",
+                "Name" : "GhostRoadParticleEmitter5",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "$NonVisualComponents" : [
+                  {
+                    "$$ClassName" : "TCastleParticleEffect",
+                    "Anchors" : [
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "TimeNormalized" : 1.0000000149011612E-001
+                      },
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorVariancePersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 1.0000000000000000E+000,
+                          "Green" : 8.1568628549575806E-001,
+                          "Red" : 7.4509805440902710E-001
+                        },
+                        "Size" : 6.0000002384185791E-001,
+                        "SizeVariance" : 4.0000000596046448E-001,
+                        "TimeNormalized" : 6.0000002384185791E-001
+                      },
+                      {
+                        "$$ClassName" : "TCastleParticleEffectAnchorItem",
+                        "ColorPersistent" : {
+                          "$$ClassName" : "TCastleColorPersistent",
+                          "Blue" : 0.0000000000000000E+000,
+                          "Green" : 0.0000000000000000E+000,
+                          "Red" : 0.0000000000000000E+000
+                        },
+                        "Size" : 1.0000000149011612E-001,
+                        "SizeVariance" : 1.0000000149011612E-001
+                      }
+                    ],
+                    "ColorPersistent" : {
+                      "$$ClassName" : "TCastleColorPersistent",
+                      "Blue" : 0.0000000000000000E+000,
+                      "Green" : 0.0000000000000000E+000,
+                      "Red" : 0.0000000000000000E+000
+                    },
+                    "GravityPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : -1.2500000000000000E-001
+                    },
+                    "LifeSpan" : 4.0000000000000000E+000,
+                    "LifeSpanVariance" : 2.0000000000000000E+000,
+                    "MaxParticles" : 20,
+                    "MeshAsSourcePosition" : "castle-data:/environment/road_asteroid_road/ghost_road_shine_005.gltf",
+                    "Name" : "GhostRoadParticleEffect5",
                     "RotationSpeedPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
                       "Z" : 2.5000000000000000E-001
@@ -891,8 +981,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.4383847713470459E+000,
-                      "Y" : -9.9999994039535522E-001
+                      "W" : 1.4371999502182007E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -947,8 +1037,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.2589352130889893E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 7.0282198488712311E-002,
+                      "Y" : 1.0000215768814087E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1003,8 +1093,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.5001602172851562E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 9.8770338296890259E-001,
+                      "Y" : 1.0000001192092896E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1059,8 +1149,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6089615821838379E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5081995725631714E+000,
+                      "Y" : 1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1102,8 +1192,10 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.4418456554412842E+000,
-                  "Y" : -1.0000000000000000E+000
+                  "W" : 1.4271891117095947E+000,
+                  "X" : -1.7263348854612559E-004,
+                  "Y" : -1.0000000000000000E+000,
+                  "Z" : 1.9939229241572320E-004
                 },
                 "Text" : [
                   "START"
@@ -1134,10 +1226,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.6159431934356689E+000,
-                  "X" : -1.7263350309804082E-004,
-                  "Y" : -9.9999994039535522E-001,
-                  "Z" : 4.6446792111964896E-005
+                  "W" : 1.5093808174133301E+000,
+                  "Y" : 1.0000000000000000E+000
                 },
                 "Text" : [
                   "FINISH"
@@ -1210,8 +1300,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.3686872422695160E-001,
-                      "Y" : 1.0000005960464478E+000
+                      "W" : 2.6041650772094727E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1360,8 +1450,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6779451370239258E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5303432941436768E+000,
+                      "Y" : 1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1476,8 +1566,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.0321733951568604E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 2.1761150360107422E+000,
+                      "Y" : 9.9999994039535522E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1516,7 +1606,7 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.STAND",
+                "AutoAnimation" : "GAME.MOVE.FORWARD",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "ExposeTransforms" : [
                 ],
@@ -1558,7 +1648,7 @@
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : -5.7142857462167740E-002
+                      "Y" : 5.7142857462167740E-002
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
@@ -1733,16 +1823,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 4.2290309071540833E-001,
-          "X" : -7.5787669420242310E-001,
-          "Y" : 6.4669096469879150E-001,
-          "Z" : 8.6103506386280060E-002
+          "W" : 1.5344111919403076E+000,
+          "X" : -7.3078550398349762E-002,
+          "Y" : 9.9539512395858765E-001,
+          "Z" : 6.2033466994762421E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 2.7087409496307373E+000,
-          "Y" : 4.0598459243774414E+000,
-          "Z" : -1.1033681869506836E+001
+          "X" : 3.0155826568603516E+001,
+          "Y" : 7.6426715850830078E+000,
+          "Z" : 6.7737936973571777E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
