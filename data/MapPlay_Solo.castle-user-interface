@@ -61,29 +61,6 @@
                 "$$ClassName" : "TCastleScene",
                 "ExposeTransforms" : [
                 ],
-                "Name" : "Pillow1",
-                "RenderOptions" : {
-                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-                },
-                "RotationPersistent" : {
-                  "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 1.5977547168731689E+000,
-                  "X" : 5.3606510162353516E-001,
-                  "Y" : 8.2315236330032349E-001,
-                  "Z" : -1.8723221123218536E-001
-                },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 8.6690001189708710E-002,
-                  "Y" : 1.9751000404357910E-001,
-                  "Z" : -2.6816399097442627E+000
-                },
-                "Url" : "castle-data:/environment/shipping-container_room/pillow.gltf"
-              },
-              {
-                "$$ClassName" : "TCastleScene",
-                "ExposeTransforms" : [
-                ],
                 "Name" : "Pillow2",
                 "RenderOptions" : {
                   "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -229,16 +206,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.2381508350372314E+000,
-          "X" : -5.5664576590061188E-002,
-          "Y" : -9.9749875068664551E-001,
-          "Z" : -4.3565429747104645E-002
+          "W" : 2.6773968338966370E-001,
+          "X" : -8.8434612751007080E-001,
+          "Y" : -4.6188116073608398E-001,
+          "Z" : -6.7807972431182861E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -5.0299638509750366E-001,
-          "Y" : 7.8279238939285278E-001,
-          "Z" : -1.1817884445190430E+000
+          "X" : -1.6353130340576172E-001,
+          "Y" : 1.2832504510879517E+000,
+          "Z" : 1.4992839097976685E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
