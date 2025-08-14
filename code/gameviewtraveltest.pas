@@ -22,7 +22,7 @@ implementation
 
 uses
   NyaVehicleNavigation, CastleSoundEngine, GameSound,
-  GameViewDressingMenu, NyaSwitch;
+  GameViewDressing, NyaSwitch;
 
 procedure TViewTravelTest.Start;
 begin

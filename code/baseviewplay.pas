@@ -64,7 +64,7 @@ type
 implementation
 
 uses
-  GameViewDressingMenu, GameViewLoading, GameViewSettingsMenu,
+  GameViewDressing, GameViewLoading, GameViewSettingsMenu,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   CastleScene, CastleVectors, CastleCameras,
@@ -213,7 +213,7 @@ begin
   dressFound:= False;
   for i:= 0 to (Container.ViewStackCount - 1) do
   begin
-    if (Container.ViewStack[i] is TViewDressingMenu) then
+    if (Container.ViewStack[i] is TViewDressing) then
     begin
       dressFound:= False;
       break;
@@ -228,7 +228,7 @@ begin
     begin
       if (chara.ActorName = btnDress.Caption) then
       begin
-        Container.PushView(TViewDressingMenu.CreateUntilStopped(chara));
+        Container.PushView(TViewDressing.CreateUntilStopped(chara));
         Break;
       end;
     end;

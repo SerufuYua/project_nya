@@ -39,7 +39,7 @@ uses
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
-  GameViewDressingMenu, GameViewTravelContainerRoom,
+  GameViewDressing, GameViewTravelContainerRoom,
   GameViewMain, GameViewPlayTogether, GameViewConversationMenu;
 
 procedure TViewTravelRoadAsteroid.Start;

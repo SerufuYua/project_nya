@@ -37,7 +37,7 @@ uses
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
-  GameViewDressingMenu, GameViewPlayGirl, GameViewPlaySolo,
+  GameViewDressing, GameViewPlayGirl, GameViewPlaySolo,
   GameViewPlayTogether, GameViewTravelRoadAsteroid, GameViewMain,
   GameViewConversationMenu;
 
