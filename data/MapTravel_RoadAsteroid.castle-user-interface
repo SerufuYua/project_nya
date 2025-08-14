@@ -196,8 +196,8 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 1.5303432941436768E+000,
-                          "Y" : 1.0000000000000000E+000
+                          "W" : 2.6779451370239258E+000,
+                          "Y" : -1.0000000000000000E+000
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -981,7 +981,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.4371999502182007E+000,
+                      "W" : 2.5871338844299316E+000,
                       "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
@@ -1037,8 +1037,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 7.0282198488712311E-002,
-                      "Y" : 1.0000215768814087E+000
+                      "W" : 2.5164444446563721E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1093,8 +1093,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 9.8770338296890259E-001,
-                      "Y" : 1.0000001192092896E+000
+                      "W" : 2.6315665245056152E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1149,8 +1149,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5081995725631714E+000,
-                      "Y" : 1.0000000000000000E+000
+                      "W" : 2.7053997516632080E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1192,10 +1192,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 1.4271891117095947E+000,
-                  "X" : -1.7263348854612559E-004,
-                  "Y" : -1.0000000000000000E+000,
-                  "Z" : 1.9939229241572320E-004
+                  "W" : 2.5896794795989990E+000,
+                  "Y" : -9.9999994039535522E-001
                 },
                 "Text" : [
                   "START"
@@ -1226,8 +1224,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 1.5093808174133301E+000,
-                  "Y" : 1.0000000000000000E+000
+                  "W" : 2.7099955081939697E+000,
+                  "Y" : -1.0000000000000000E+000
                 },
                 "Text" : [
                   "FINISH"
@@ -1300,8 +1298,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6041650772094727E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.0612125694751740E-001,
+                      "Y" : 1.0000077486038208E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1450,8 +1448,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5303432941436768E+000,
-                      "Y" : 1.0000000000000000E+000
+                      "W" : 2.6779451370239258E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1566,8 +1564,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.1761150360107422E+000,
-                      "Y" : 9.9999994039535522E-001
+                      "W" : 2.0321733951568604E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1667,6 +1665,230 @@
                     "DeathTimeout" : 2.5000000000000000E+001,
                     "Name" : "WalkSlime",
                     "Velocity" : 5.7142857462167740E-002
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "Memo",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo1",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.7148530483245850E+000,
+                  "Y" : -9.9999994039535522E-001
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 1.0000000000000000E+001,
+                  "Y" : 7.5000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 3.0000000000000000E+001,
+                  "Y" : 5.0000000000000000E+000,
+                  "Z" : 2.5500000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Ru_rolled_girl_003.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard5"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo2",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.7249486446380615E+000,
+                  "X" : -2.4414061044808477E-004,
+                  "Y" : -9.9999988079071045E-001,
+                  "Z" : 5.1608636567834765E-005
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 5.6250000000000000E+000,
+                  "Y" : 1.0000000000000000E+001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -2.0000000000000000E+002,
+                  "Y" : 1.8000000000000000E+001,
+                  "Z" : -2.3000000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Raffy_Kidder_stand.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard4"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo3",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.8017151355743408E+000,
+                  "X" : -1.7263347399421036E-004,
+                  "Y" : -1.0000000000000000E+000,
+                  "Z" : 2.9622811780427583E-005
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 8.0000000000000000E+000,
+                  "Y" : 8.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -4.5000000000000000E+001,
+                  "Y" : -1.0000000000000000E+001,
+                  "Z" : 4.0500000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Ru_NY25.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard3"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo4",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 2.4075202941894531E+000,
+                  "Y" : -1.0000000000000000E+000
+                },
+                "ScalePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 1.0000001192092896E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 1.0000000000000000E+001,
+                  "Y" : 7.5000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.5000000000000000E+001,
+                  "Y" : -1.6000000000000000E+001,
+                  "Z" : -3.9000000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Raffy_SpacePlane_Mage_seat.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard2"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleImageTransform",
+                "Collides" : false,
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorPersistent",
+                  "Alpha" : 0.0000000000000000E+000
+                },
+                "Name" : "memo5",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "BlendingSourceFactor" : "bsConstantColor",
+                  "Lighting" : false,
+                  "ReceiveGlobalLights" : false,
+                  "ReceiveSceneLights" : false
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 3.0053615570068359E+000,
+                  "X" : -1.7263347399421036E-004,
+                  "Y" : -1.0000000000000000E+000,
+                  "Z" : 1.1777273357438389E-005
+                },
+                "ScalePersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 1.0000001192092896E+000
+                },
+                "SizePersistent" : {
+                  "$$ClassName" : "TCastleVector2Persistent",
+                  "X" : 5.0000000000000000E+000,
+                  "Y" : 1.0000000000000000E+001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -4.1000000000000000E+002,
+                  "Y" : 1.0000000000000000E+001,
+                  "Z" : -2.0000000000000000E+001
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/memo/Together_Stand_001.png",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleBillboard",
+                    "MatchCameraDirection" : false,
+                    "Name" : "Billboard6"
                   }
                 ]
               }
@@ -1823,16 +2045,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5344111919403076E+000,
-          "X" : -7.3078550398349762E-002,
-          "Y" : 9.9539512395858765E-001,
-          "Z" : 6.2033466994762421E-002
+          "W" : 3.5634868144989014E+000,
+          "X" : 9.7858463414013386E-004,
+          "Y" : 9.9989175796508789E-001,
+          "Z" : 1.4677681960165501E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 9.9999994039535522E-001,
+          "Y" : 1.0000002384185791E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 3.0155826568603516E+001,
-          "Y" : 7.6426715850830078E+000,
-          "Z" : 6.7737936973571777E+000
+          "X" : -4.1723739624023438E+002,
+          "Y" : 9.9561929702758789E+000,
+          "Z" : -5.3073951721191406E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
