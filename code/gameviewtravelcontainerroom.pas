@@ -39,7 +39,7 @@ uses
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressing, GameViewPlayGirl, GameViewPlaySolo,
   GameViewPlayTogether, GameViewTravelRoadAsteroid, GameViewMain,
-  GameViewConversationMenu;
+  GameViewConversation;
 
 procedure TViewTravelContainerRoom.Start;
 begin
@@ -135,7 +135,7 @@ begin
     messages[0].FActor:= MainActor;
     messages[0].FMessage:= '<p>Well... Maybe I&apos;ll play sometime ' +
                            'later... when I&apos;ll be alone with myself.</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        nil,
                        nil));
@@ -145,7 +145,7 @@ begin
     SetLength(messages, 1);
     messages[0].FActor:= MainActor;
     messages[0].FMessage:= '<p>Let&apos;s play with my Toy!</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        {$ifdef FPC}@{$endif}GetToGoToyA,
                        nil));
@@ -161,7 +161,7 @@ begin
     SetLength(messages, 1);
     messages[0].FActor:= MainActor;
     messages[0].FMessage:= '<p>I can&apos;t just go to bed when I have guests.</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        nil,
                        nil));
@@ -171,7 +171,7 @@ begin
     SetLength(messages, 1);
     messages[0].FActor:= MainActor;
     messages[0].FMessage:= '<p>Maybe relax a little in bed...</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        {$ifdef FPC}@{$endif}GetToGoBed,
                        nil));
@@ -187,7 +187,7 @@ begin
   messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
   messages[1].FActor:= FActorBoy;
   messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';
-  Container.PushView(TViewConversationMenu.CreateUntilStopped(
+  Container.PushView(TViewConversation.CreateUntilStopped(
                      messages,
                      {$ifdef FPC}@{$endif}GetToGoBoy,
                      nil));

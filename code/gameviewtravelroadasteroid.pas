@@ -40,7 +40,7 @@ uses
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressing, GameViewTravelContainerRoom,
-  GameViewMain, GameViewPlayTogether, GameViewConversationMenu;
+  GameViewMain, GameViewPlayTogether, GameViewConversation;
 
 procedure TViewTravelRoadAsteroid.Start;
 begin
@@ -150,7 +150,7 @@ begin
     messages[1].FMessage:= '<p>Fine! How are you?</p>';
     messages[2].FActor:= MainActor;
     messages[2].FMessage:= '<p>Nya!</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        nil,
                        nil));
@@ -169,7 +169,7 @@ begin
                            '<p>Maybe he&apos;s at your home, I don&apos;t know.</p>';
     messages[4].FActor:= MainActor;
     messages[4].FMessage:= '<p>Thanks! See ya!</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        {$ifdef FPC}@{$endif}TalkToPlaneOk,
                        nil));
@@ -187,7 +187,7 @@ begin
     messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
     messages[1].FActor:= FActorBoy;
     messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        {$ifdef FPC}@{$endif}GetToGoBoy,
                        nil));
@@ -212,7 +212,7 @@ begin
     messages[7].FMessage:= '<p>If you remember, I warned you many times that could happen that I would leave much earlier than you. You should have been ready for this.</p>';
     messages[8].FActor:= MainActor;
     messages[8].FMessage:= '<p>Yes, I remember that... I remember... But in the end, here we are. We are together again! I am ultra happy!</p>';
-    Container.PushView(TViewConversationMenu.CreateUntilStopped(
+    Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        {$ifdef FPC}@{$endif}TalkToBoyOk,
                        nil));

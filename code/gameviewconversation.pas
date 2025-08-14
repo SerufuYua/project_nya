@@ -1,4 +1,4 @@
-unit GameViewConversationMenu;
+unit GameViewConversation;
 
 interface
 
@@ -16,7 +16,7 @@ type
 
   TMessages = Array of TMessage;
 
-  TViewConversationMenu = class(TCastleView)
+  TViewConversation = class(TCastleView)
   strict private
     type
       TViewConversationDialog = class(TCastleUserInterface)
@@ -36,7 +36,7 @@ type
       public
         OnOk: TOnAnswer;
         OnCancel: TOnAnswer;
-        ParentView: TViewConversationMenu;
+        ParentView: TViewConversation;
         function Press(const Event: TInputPressRelease): Boolean; override;
         procedure SetMessages(AMessages: TMessages);
       public
@@ -66,7 +66,7 @@ const
 { TViewConversationDialog ---------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TViewConversationMenu.TViewConversationDialog.Create(AOwner: TComponent);
+constructor TViewConversation.TViewConversationDialog.Create(AOwner: TComponent);
 var
   UiOwner: TComponent;
   Ui: TCastleUserInterface;
@@ -79,7 +79,7 @@ begin
   UiOwner:= TComponent.Create(Self);
 
   { Load designed user interface }
-  Ui:= UserInterfaceLoad('castle-data:/gameviewconversationmenu.castle-user-interface', UiOwner);
+  Ui:= UserInterfaceLoad('castle-data:/gameviewconversation.castle-user-interface', UiOwner);
   InsertFront(Ui);
 
   { set keys }
@@ -102,7 +102,7 @@ begin
   AutoSizeToChildren:= True;
 end;
 
-procedure TViewConversationMenu.TViewConversationDialog.SetMessages(AMessages: TMessages);
+procedure TViewConversation.TViewConversationDialog.SetMessages(AMessages: TMessages);
 begin
   FCounter:= 0;
   FMessages:= AMessages;
@@ -110,7 +110,7 @@ begin
     ShowMessage(FMessages[FCounter]);
 end;
 
-function TViewConversationMenu.TViewConversationDialog.Press(const Event: TInputPressRelease): Boolean;
+function TViewConversation.TViewConversationDialog.Press(const Event: TInputPressRelease): Boolean;
 begin
   Result:= inherited;
   if Result then Exit; // allow the ancestor to handle keys
@@ -139,7 +139,7 @@ begin
   end;
 end;
 
-procedure TViewConversationMenu.TViewConversationDialog.ShowMessage(AMessage: TMessage);
+procedure TViewConversation.TViewConversationDialog.ShowMessage(AMessage: TMessage);
 begin
   FTextMessage.SlowCaption:= AMessage.FMessage;
   if Assigned(AMessage.FActor) then
@@ -153,7 +153,7 @@ begin
   end;
 end;
 
-procedure TViewConversationMenu.TViewConversationDialog.SetColor(color: TCastleColorRGB);
+procedure TViewConversation.TViewConversationDialog.SetColor(color: TCastleColorRGB);
 var
   item: TCastleImageControl;
   alpha: single;
@@ -168,12 +168,12 @@ begin
   end;
 end;
 
-procedure TViewConversationMenu.TViewConversationDialog.FocusButton(const Sender: TCastleUserInterface);
+procedure TViewConversation.TViewConversationDialog.FocusButton(const Sender: TCastleUserInterface);
 begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
-procedure TViewConversationMenu.TViewConversationDialog.ClickNext(Sender: TObject);
+procedure TViewConversation.TViewConversationDialog.ClickNext(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -192,7 +192,7 @@ begin
   end;
 end;
 
-procedure TViewConversationMenu.TViewConversationDialog.ClickCancel(Sender: TObject);
+procedure TViewConversation.TViewConversationDialog.ClickCancel(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -201,10 +201,10 @@ begin
 end;
 
 { ========= ------------------------------------------------------------------ }
-{ TViewConversationMenu ------------------------------------------------------ }
+{ TViewConversation ------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
-constructor TViewConversationMenu.CreateUntilStopped(AMessages: TMessages;
+constructor TViewConversation.CreateUntilStopped(AMessages: TMessages;
                                                      AOnOk: TOnAnswer;
                                                      AOnCancel: TOnAnswer);
 begin
@@ -215,7 +215,7 @@ begin
   FOnCancel:= AOnCancel;
 end;
 
-procedure TViewConversationMenu.Start;
+procedure TViewConversation.Start;
 begin
   inherited;
   InterceptInput:= True;
