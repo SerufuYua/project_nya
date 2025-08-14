@@ -64,7 +64,7 @@ type
 implementation
 
 uses
-  GameViewDressing, GameViewLoading, GameViewSettingsMenu,
+  GameViewDressing, GameViewLoading, GameViewSettings,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   CastleScene, CastleVectors, CastleCameras,
@@ -246,8 +246,8 @@ begin
 
   Case button.Name of
     'BtnSettings':
-        if NOT (Container.FrontView is TViewSettingsMenu) then
-          Container.PushView(TViewSettingsMenu.CreateUntilStopped);
+        if NOT (Container.FrontView is TViewSettings) then
+          Container.PushView(TViewSettings.CreateUntilStopped);
     'BtnBack':
       GetToGoBack;
     'BtnStop':

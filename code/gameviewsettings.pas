@@ -1,4 +1,4 @@
-unit GameViewSettingsMenu;
+unit GameViewSettings;
 
 interface
 
@@ -11,10 +11,10 @@ const
   MusicPath = 'settings/sound/Music';
   DefaultFullScreen = False;
   DefaultSfxValue = 1.0;
-  DefaultMusicvalue = 0.8;
+  DefaultMusicValue = 0.8;
 
 type
-  TViewSettingsMenu = class(TCastleView)
+  TViewSettings = class(TCastleView)
   strict private
     type
       TViewSettingsDialog = class(TCastleUserInterface)
@@ -54,7 +54,7 @@ uses
 { TViewSettingsDialog -------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TViewSettingsMenu.TViewSettingsDialog.Create(AOwner: TComponent);
+constructor TViewSettings.TViewSettingsDialog.Create(AOwner: TComponent);
 var
   UiOwner: TComponent;
   Ui: TCastleUserInterface;
@@ -66,7 +66,7 @@ begin
   UiOwner := TComponent.Create(Self);
 
   { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/gameviewsettingsmenu.castle-user-interface', UiOwner);
+  Ui := UserInterfaceLoad('castle-data:/gameviewsettings.castle-user-interface', UiOwner);
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
@@ -82,7 +82,7 @@ begin
   CheckFullScreen.Checked:= UserConfig.GetValue(FullScreenPath,
                                                 DefaultFullScreen);
   SliderSfx.Value:= UserConfig.GetFloat(SfxPath, DefaultSfxValue);
-  SliderMusic.Value:= UserConfig.GetFloat(MusicPath, DefaultMusicvalue);
+  SliderMusic.Value:= UserConfig.GetFloat(MusicPath, DefaultMusicValue);
 
   ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
   CheckFullScreen.OnChange:= {$ifdef FPC}@{$endif}ClickScreen;
@@ -103,18 +103,18 @@ begin
   ButtonMusicPlus.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.FocusButton(const Sender: TCastleUserInterface);
+procedure TViewSettings.TViewSettingsDialog.FocusButton(const Sender: TCastleUserInterface);
 begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.ClickClose(Sender: TObject);
+procedure TViewSettings.TViewSettingsDialog.ClickClose(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
   Closed:= True;
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.ClickScreen(Sender: TObject);
+procedure TViewSettings.TViewSettingsDialog.ClickScreen(Sender: TObject);
 var
   check: TCastleCheckbox;
 begin
@@ -129,7 +129,7 @@ begin
             'To switch the screen mode, you need to restart the game');
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.ChangeSliderSound(Sender: TObject);
+procedure TViewSettings.TViewSettingsDialog.ChangeSliderSound(Sender: TObject);
 var
   slider: TCastleFloatSlider;
 begin
@@ -144,7 +144,7 @@ begin
   end;
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.ClickPlusMinus(Sender: TObject);
+procedure TViewSettings.TViewSettingsDialog.ClickPlusMinus(Sender: TObject);
 const
   step = 0.1;
 var
@@ -179,14 +179,14 @@ begin
   end;
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.SetSfx(value: Single);
+procedure TViewSettings.TViewSettingsDialog.SetSfx(value: Single);
 begin
   SoundEngine.Volume:= value;
   UserConfig.SetFloat(SfxPath, value);
   UserConfig.Save;
 end;
 
-procedure TViewSettingsMenu.TViewSettingsDialog.SetMusic(value: Single);
+procedure TViewSettings.TViewSettingsDialog.SetMusic(value: Single);
 begin
   SoundEngine.LoopingChannel[0].Volume:= value;
   UserConfig.SetFloat(MusicPath, value);
@@ -194,16 +194,16 @@ begin
 end;
 
 { ========= ------------------------------------------------------------------ }
-{ TViewSettingsMenu ---------------------------------------------------------- }
+{ TViewSettings -------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TViewSettingsMenu.CreateUntilStopped;
+constructor TViewSettings.CreateUntilStopped;
 begin
   inherited CreateUntilStopped;
   DesignUrl:= 'castle-data:/bgsettings.castle-user-interface';
 end;
 
-procedure TViewSettingsMenu.Start;
+procedure TViewSettings.Start;
 begin
   inherited;
   InterceptInput:= True;
@@ -215,7 +215,7 @@ begin
   InsertFront(FDialog);
 end;
 
-procedure TViewSettingsMenu.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TViewSettings.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
 

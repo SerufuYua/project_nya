@@ -47,7 +47,7 @@ implementation
 
 uses
   SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom,
-  CastleSoundEngine, GameSound, GameViewSettingsMenu, GameViewCredits;
+  CastleSoundEngine, GameSound, GameViewSettings, GameViewCredits;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -122,8 +122,8 @@ procedure TViewMain.ClicSettings(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
-  if NOT (Container.FrontView is TViewSettingsMenu) then
-    Container.PushView(TViewSettingsMenu.CreateUntilStopped);
+  if NOT (Container.FrontView is TViewSettings) then
+    Container.PushView(TViewSettings.CreateUntilStopped);
 end;
 
 procedure TViewMain.ClicCredits(Sender: TObject);

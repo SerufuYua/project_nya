@@ -24,7 +24,7 @@ uses SysUtils, CustApp,
   , GameViewTravelTest
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
-  , GameViewSettingsMenu
+  , GameViewSettings
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -39,7 +39,7 @@ begin
   { Sounds initialization }
   InitializeSounds;
   SoundEngine.Volume:= UserConfig.GetFloat(SfxPath, DefaultSfxValue);
-  SoundEngine.LoopingChannel[0].Volume:= UserConfig.GetFloat(MusicPath, DefaultMusicvalue);
+  SoundEngine.LoopingChannel[0].Volume:= UserConfig.GetFloat(MusicPath, DefaultMusicValue);
 
   { Create views (see https://castle-engine.io/views ). }
   {$region 'Castle View Creation'}
