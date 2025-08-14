@@ -38,6 +38,7 @@
             ],
             "Name" : "Asteroid",
             "PreciseCollisions" : true,
+            "ProcessEvents" : true,
             "RenderOptions" : {
               "$$ClassName" : "TCastleScene.TSceneRenderOptions"
             },
@@ -1243,6 +1244,23 @@
                     "Name" : "TextFinishBillboard"
                   }
                 ]
+              },
+              {
+                "$$ClassName" : "TCastleScene",
+                "Collides" : false,
+                "ExposeTransforms" : [
+                ],
+                "Name" : "Water",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.0500000000000000E+002,
+                  "Y" : -2.5000000000000000E+000,
+                  "Z" : 4.2000000000000000E+002
+                },
+                "Url" : "castle-data:/environment/road_asteroid_road/lake_water.x3dv"
               }
             ]
           },
@@ -1604,7 +1622,7 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.MOVE.FORWARD",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "ExposeTransforms" : [
                 ],
@@ -1646,7 +1664,7 @@
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 5.7142857462167740E-002
+                      "Y" : -5.7142857462167740E-002
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
@@ -2045,21 +2063,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.5634868144989014E+000,
-          "X" : 9.7858463414013386E-004,
-          "Y" : 9.9989175796508789E-001,
-          "Z" : 1.4677681960165501E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Y" : 1.0000002384185791E+000
+          "W" : 2.5578847527503967E-001,
+          "X" : -9.5738232135772705E-001,
+          "Y" : 2.8818976879119873E-001,
+          "Z" : 1.9127020612359047E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -4.1723739624023438E+002,
-          "Y" : 9.9561929702758789E+000,
-          "Z" : -5.3073951721191406E+001
+          "X" : 1.3699496459960938E+002,
+          "Y" : 2.0998950004577637E+000,
+          "Z" : 4.1214367675781250E+002
         }
       },
       "InternalDesignNavigations[dnFly]" : {

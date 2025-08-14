@@ -1,0 +1,82 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+# ----------------------------------------------------------------------------
+# Water surface
+
+Collision {
+  enabled FALSE
+  children DEF WaterTransform Transform {
+    translation -50 0 -41
+    scale 100 60 80
+
+    children Shape {
+      appearance Appearance {
+        material PhysicalMaterial {
+          transparency 0.05
+          baseColor 0.9 0.9 1.0
+          baseTexture RenderedTexture {
+            dimensions [ 2048 2048 3 ]
+            viewpoint ViewpointMirror { }
+            repeatS FALSE
+            repeatT FALSE
+            update "ALWAYS"
+          }
+        }
+
+        # Calculate animated normal vectors using GLSL
+        effects DEF EffectAnimatedNormals Effect {
+          # enabled FALSE
+          language "GLSL"
+          inputOnly SFTime time
+          parts [
+            EffectPart {
+              type "VERTEX"
+              url "shaders/animate_normals.vs"
+            }
+            EffectPart {
+              type "FRAGMENT"
+              url "shaders/animate_normals.fs"
+            }
+            EffectPart {
+              type "FRAGMENT"
+              url "shaders/noise3Dgrad.glsl"
+            }
+          ]
+        }
+      }
+      geometry IndexedFaceSet {
+        coord Coordinate {
+          point [ 0 0 0, 0 0 1, 1 0 1, 1 0 0, ]
+        }
+        coordIndex [ 0 1 2 3 ]
+        texCoord MultiGeneratedTextureCoordinate {
+          texCoord [
+            # generate texture coordinates
+            # that match the texture produced by RenderedTexture and ViewpointMirror
+            # (in diffuseTexture)
+            TextureCoordinateGenerator {
+              mode "MIRROR-PLANE"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+# MyTimeSensor provides values for GLSL "time" uniform.
+DEF MyTimeSensor TimeSensor {
+  loop TRUE
+}
+ROUTE MyTimeSensor.elapsedTime TO EffectAnimatedNormals.time
+
+# Without MyProximitySensor, MyTimeSensor.elapsedTime output
+# values would be huge, as TimeSensor "starts" at Unix epoch.
+# Such huge floats would make GLSL shader computations useless (the results
+# of the shaders would look still).
+# So we we use MyProximitySensor to activate MyTimeSensor on scene enter.
+DEF MyProximitySensor ProximitySensor {
+  size 10000000 10000000 10000000 # huge size, to always be activated
+}
+ROUTE MyProximitySensor.enterTime TO MyTimeSensor.startTime

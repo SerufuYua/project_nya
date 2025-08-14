@@ -43,6 +43,8 @@ uses
   GameViewMain, GameViewPlayTogether, GameViewConversation;
 
 procedure TViewTravelRoadAsteroid.Start;
+var
+  Water: TCastleScene;
 begin
   { set map }
   Map.Url:= 'castle-data:/MapTravel_RoadAsteroid.castle-user-interface';
@@ -61,6 +63,10 @@ begin
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
   FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
+
+  { enable water animation }
+  Water:= Map.DesignedComponent('Water') as TCastleScene;
+  Water.ProcessEvents:= True;
 
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
