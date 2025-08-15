@@ -221,14 +221,14 @@
 			"componentType":5126,
 			"count":1152,
 			"max":[
-				35.47929763793945,
-				-0.9217644929885864,
-				396.748046875
+				35.86858367919922,
+				1.8393703699111938,
+				396.1239013671875
 			],
 			"min":[
-				-118.48402404785156,
-				-20.8023624420166,
-				59.991966247558594
+				-118.55976104736328,
+				-21.117063522338867,
+				60.11465835571289
 			],
 			"type":"VEC3"
 		},
@@ -339,15 +339,15 @@
 		{
 			"bufferView":20,
 			"componentType":5126,
-			"count":2016,
+			"count":2064,
 			"max":[
-				326.17974853515625,
+				336.80633544921875,
 				14.886415481567383,
-				382.3289794921875
+				394.5137023925781
 			],
 			"min":[
 				9.80709457397461,
-				-8.86721420288086,
+				-4.48748254776001,
 				-245.6989288330078
 			],
 			"type":"VEC3"
@@ -355,25 +355,25 @@
 		{
 			"bufferView":21,
 			"componentType":5126,
-			"count":2016,
+			"count":2064,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":22,
 			"componentType":5126,
-			"count":2016,
+			"count":2064,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":23,
 			"componentType":5126,
-			"count":2016,
+			"count":2064,
 			"type":"VEC4"
 		},
 		{
 			"bufferView":24,
 			"componentType":5123,
-			"count":3024,
+			"count":3096,
 			"type":"SCALAR"
 		}
 	],
@@ -500,32 +500,32 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":24192,
+			"byteLength":24768,
 			"byteOffset":400800,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":24192,
-			"byteOffset":424992,
+			"byteLength":24768,
+			"byteOffset":425568,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":16128,
-			"byteOffset":449184,
+			"byteLength":16512,
+			"byteOffset":450336,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":32256,
-			"byteOffset":465312,
+			"byteLength":33024,
+			"byteOffset":466848,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6048,
-			"byteOffset":497568,
+			"byteLength":6192,
+			"byteOffset":499872,
 			"target":34963
 		}
 	],
@@ -537,7 +537,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":503616,
+			"byteLength":506064,
 			"uri":"ghost_road_trace.bin"
 		}
 	]
