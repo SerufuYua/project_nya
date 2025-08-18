@@ -197,8 +197,10 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 2.6779451370239258E+000,
-                          "Y" : -1.0000000000000000E+000
+                          "W" : 1.5707963705062866E+000,
+                          "X" : -1.7263347399421036E-004,
+                          "Y" : 9.9999994039535522E-001,
+                          "Z" : -1.7263347399421036E-004
                         },
                         "TranslationPersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -982,8 +984,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.5882418155670166E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.4680986292660236E-002,
+                      "Y" : -1.0002832412719727E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1038,8 +1040,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.5177772045135498E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 9.7629316151142120E-002,
+                      "Y" : 1.0000038146972656E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1094,8 +1096,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6327257156372070E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.3813251256942749E-001,
+                      "Y" : 1.0000023841857910E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1150,10 +1152,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.7066359519958496E+000,
-                      "X" : -1.7263345944229513E-004,
-                      "Y" : -9.9999994039535522E-001,
-                      "Z" : 3.8147361919982359E-005
+                      "W" : 3.6202070116996765E-001,
+                      "Y" : 1.0000005960464478E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1195,10 +1195,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.5907902717590332E+000,
-                  "X" : -1.7263350309804082E-004,
-                  "Y" : -1.0000000000000000E+000,
-                  "Z" : 4.8783080274006352E-005
+                  "W" : 5.6522660888731480E-003,
+                  "Y" : -1.0000009536743164E+000
                 },
                 "Text" : [
                   "START"
@@ -1229,8 +1227,10 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.7112362384796143E+000,
-                  "Y" : -1.0000000000000000E+000
+                  "W" : 3.7455013394355774E-001,
+                  "X" : -1.7263334302697331E-004,
+                  "Y" : 9.9999922513961792E-001,
+                  "Z" : -9.1101578436791897E-004
                 },
                 "Text" : [
                   "FINISH"
@@ -1248,7 +1248,23 @@
                     "Name" : "TextFinishBillboard"
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "Lake",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "X" : 1.0500000000000000E+002,
+              "Y" : -2.5000000000000000E+000,
+              "Z" : 4.1500000000000000E+002
+            },
+            "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
                 "Collides" : false,
@@ -1258,13 +1274,20 @@
                 "RenderOptions" : {
                   "$$ClassName" : "TCastleScene.TSceneRenderOptions"
                 },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 1.0500000000000000E+002,
-                  "Y" : -2.5000000000000000E+000,
-                  "Z" : 4.1500000000000000E+002
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
                 },
                 "Url" : "castle-data:/environment/road_asteroid_road/lake_water.x3dv"
+              },
+              {
+                "$$ClassName" : "TCastlePointLight",
+                "Name" : "WaterLight",
+                "Radius" : 4.0000000000000000E+001,
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Y" : 5.0000000000000000E+000
+                }
               }
             ]
           },
@@ -1320,8 +1343,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.0493230074644089E-001,
-                      "Y" : 9.9999207258224487E-001
+                      "W" : 2.9330575466156006E+000,
+                      "Y" : 1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1470,8 +1493,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.6779451370239258E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1586,8 +1611,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.0321733951568604E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -1717,10 +1744,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.7158477306365967E+000,
-                  "X" : -2.4414062500000000E-004,
-                  "Y" : -1.0000000000000000E+000,
-                  "Z" : 5.2770326874451712E-005
+                  "W" : 3.1220978498458862E-001,
+                  "Y" : 1.0000007152557373E+000
                 },
                 "SizePersistent" : {
                   "$$ClassName" : "TCastleVector2Persistent",
@@ -1759,8 +1784,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.7265727519989014E+000,
-                  "Y" : -9.9999994039535522E-001
+                  "W" : 4.1495952010154724E-001,
+                  "Y" : 1.0000003576278687E+000
                 },
                 "SizePersistent" : {
                   "$$ClassName" : "TCastleVector2Persistent",
@@ -1799,8 +1824,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.8026578426361084E+000,
-                  "Y" : -9.9999994039535522E-001
+                  "W" : 1.6646857261657715E+000,
+                  "Y" : 1.0000000000000000E+000
                 },
                 "SizePersistent" : {
                   "$$ClassName" : "TCastleVector2Persistent",
@@ -1839,8 +1864,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.4089415073394775E+000,
-                  "Y" : -1.0000000000000000E+000
+                  "W" : 7.6123237609863281E-002,
+                  "Y" : 1.0000063180923462E+000
                 },
                 "ScalePersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
@@ -1883,10 +1908,8 @@
                 },
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 3.0068089962005615E+000,
-                  "X" : -1.7263348854612559E-004,
-                  "Y" : -9.9999994039535522E-001,
-                  "Z" : 1.1651792192424182E-005
+                  "W" : 8.6431407928466797E-001,
+                  "Y" : 1.0000000000000000E+000
                 },
                 "ScalePersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
@@ -2065,20 +2088,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 7.4156439304351807E-001,
-          "X" : -2.6593515276908875E-001,
-          "Y" : -9.5796495676040649E-001,
-          "Z" : -1.0761755704879761E-001
+          "W" : 4.0367298126220703E+000,
+          "X" : 1.1037886142730713E-002,
+          "Y" : 9.9904274940490723E-001,
+          "Z" : 4.2329508811235428E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 9.9999994039535522E-001
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.1607170867919922E+002,
-          "Y" : 3.2697751522064209E+000,
-          "Z" : 3.7181457519531250E+002
+          "X" : 7.4774505615234375E+001,
+          "Y" : 1.2562727928161621E-001,
+          "Z" : 3.9372128295898438E+002
         }
       },
       "InternalDesignNavigations[dnFly]" : {

@@ -25,6 +25,19 @@ DEF WaterTransform Transform
           repeatT FALSE
           update "ALWAYS"
         }
+        baseTextureMapping "BASE"
+
+        emissiveColor 1.0 1.0 1.0
+        emissiveTexture MovieTexture
+        {
+          url "electricity/electricity@counter(4).png"
+          loop TRUE
+          speed 0.15
+        }
+        emissiveTextureMapping "ELECTRIC"
+
+        metallic 0.8
+        roughness 0.1
       }
 
       # Calculate animated normal vectors using GLSL
@@ -70,6 +83,13 @@ DEF WaterTransform Transform
           TextureCoordinateGenerator
           {
             mode "MIRROR-PLANE"
+            mapping "BASE"
+          }
+          # This is useful to make waves smaller/larger.
+          TextureCoordinate
+          {
+            point [ 0 0, 0 8, 10 8, 10 0, ]
+            mapping "ELECTRIC"
           }
         ]
       }
