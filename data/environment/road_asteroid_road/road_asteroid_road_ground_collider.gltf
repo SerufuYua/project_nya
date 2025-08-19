@@ -646,7 +646,7 @@
 			]
 		},
 		{
-			"name":"Plane.040",
+			"name":"Plane.019",
 			"primitives":[
 				{
 					"attributes":{
@@ -1193,7 +1193,7 @@
 		{
 			"bufferView":58,
 			"componentType":5126,
-			"count":505,
+			"count":549,
 			"max":[
 				75.0488052368164,
 				1.8434853553771973,
@@ -1201,7 +1201,7 @@
 			],
 			"min":[
 				-75.4759750366211,
-				-3.3732943534851074,
+				-3.3379435539245605,
 				-75.00000762939453
 			],
 			"type":"VEC3"
@@ -1209,19 +1209,19 @@
 		{
 			"bufferView":59,
 			"componentType":5126,
-			"count":505,
+			"count":549,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":60,
 			"componentType":5126,
-			"count":505,
+			"count":549,
 			"type":"VEC4"
 		},
 		{
 			"bufferView":61,
 			"componentType":5123,
-			"count":2412,
+			"count":2472,
 			"type":"SCALAR"
 		},
 		{
@@ -1604,50 +1604,50 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":6060,
+			"byteLength":6588,
 			"byteOffset":233740,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6060,
-			"byteOffset":239800,
+			"byteLength":6588,
+			"byteOffset":240328,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":8080,
-			"byteOffset":245860,
+			"byteLength":8784,
+			"byteOffset":246916,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":4824,
-			"byteOffset":253940,
+			"byteLength":4944,
+			"byteOffset":255700,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":660,
-			"byteOffset":258764,
+			"byteOffset":260644,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":660,
-			"byteOffset":259424,
+			"byteOffset":261304,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":240,
-			"byteOffset":260084,
+			"byteOffset":261964,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":260324,
+			"byteLength":262204,
 			"uri":"road_asteroid_road_ground_collider.bin"
 		}
 	]
