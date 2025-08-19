@@ -13008,9 +13008,12 @@
 			"alphaMode":"MASK",
 			"doubleSided":true,
 			"name":"grass.001",
+			"normalTexture":{
+				"index":28
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":28
+					"index":29
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -13021,9 +13024,12 @@
 			"alphaMode":"MASK",
 			"doubleSided":true,
 			"name":"grass.002",
+			"normalTexture":{
+				"index":30
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":29
+					"index":31
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -13045,15 +13051,15 @@
 			},
 			"name":"road.center",
 			"normalTexture":{
-				"index":30
+				"index":32
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":31
+					"index":33
 				},
 				"metallicFactor":0.009999999776482582,
 				"metallicRoughnessTexture":{
-					"index":32
+					"index":34
 				}
 			}
 		},
@@ -13073,15 +13079,15 @@
 			},
 			"name":"road.side",
 			"normalTexture":{
-				"index":33
+				"index":35
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":34
+					"index":36
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":35
+					"index":37
 				}
 			}
 		},
@@ -13101,18 +13107,18 @@
 			},
 			"name":"ground",
 			"normalTexture":{
-				"index":36
+				"index":38
 			},
 			"occlusionTexture":{
-				"index":37
+				"index":39
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":38
+					"index":40
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":37
+					"index":39
 				}
 			}
 		},
@@ -13132,18 +13138,18 @@
 			},
 			"name":"rock.mountain",
 			"normalTexture":{
-				"index":39
+				"index":41
 			},
 			"occlusionTexture":{
-				"index":40
+				"index":42
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":41
+					"index":43
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":42
+					"index":44
 				}
 			}
 		},
@@ -13163,18 +13169,18 @@
 			},
 			"name":"rock.shear",
 			"normalTexture":{
-				"index":43
+				"index":45
 			},
 			"occlusionTexture":{
-				"index":44
+				"index":46
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":45
+					"index":47
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":46
+					"index":48
 				}
 			}
 		},
@@ -13195,18 +13201,18 @@
 			},
 			"name":"gravel",
 			"normalTexture":{
-				"index":47
+				"index":49
 			},
 			"occlusionTexture":{
-				"index":48
+				"index":50
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":49
+					"index":51
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":48
+					"index":50
 				}
 			}
 		},
@@ -13226,18 +13232,18 @@
 			},
 			"name":"ground",
 			"normalTexture":{
-				"index":50
+				"index":52
 			},
 			"occlusionTexture":{
-				"index":51
+				"index":53
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":52
+					"index":54
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":51
+					"index":53
 				}
 			}
 		},
@@ -13257,18 +13263,18 @@
 			},
 			"name":"rock.shear",
 			"normalTexture":{
-				"index":53
+				"index":55
 			},
 			"occlusionTexture":{
-				"index":54
+				"index":56
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":55
+					"index":57
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":56
+					"index":58
 				}
 			}
 		},
@@ -13288,15 +13294,15 @@
 			},
 			"name":"road.center",
 			"normalTexture":{
-				"index":57
+				"index":59
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":58
+					"index":60
 				},
 				"metallicFactor":0.009999999776482582,
 				"metallicRoughnessTexture":{
-					"index":59
+					"index":61
 				}
 			}
 		},
@@ -13316,15 +13322,15 @@
 			},
 			"name":"road.side",
 			"normalTexture":{
-				"index":60
+				"index":62
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":61
+					"index":63
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":62
+					"index":64
 				}
 			}
 		},
@@ -13344,15 +13350,15 @@
 			},
 			"name":"gravel_lake_road",
 			"normalTexture":{
-				"index":63
+				"index":65
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":64
+					"index":66
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":65
+					"index":67
 				}
 			}
 		},
@@ -13372,15 +13378,15 @@
 			},
 			"name":"black_sand",
 			"normalTexture":{
-				"index":66
+				"index":68
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":67
+					"index":69
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":68
+					"index":70
 				}
 			}
 		},
@@ -13390,11 +13396,11 @@
 			"doubleSided":true,
 			"name":"bush.001",
 			"normalTexture":{
-				"index":69
+				"index":71
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":70
+					"index":72
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -13406,11 +13412,11 @@
 			"doubleSided":true,
 			"name":"bush.002",
 			"normalTexture":{
-				"index":71
+				"index":73
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":72
+					"index":74
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -13462,18 +13468,18 @@
 			"doubleSided":true,
 			"name":"pylon.wood",
 			"normalTexture":{
-				"index":73
+				"index":75
 			},
 			"occlusionTexture":{
-				"index":74
+				"index":76
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":75
+					"index":77
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":74
+					"index":76
 				}
 			}
 		},
@@ -13481,18 +13487,18 @@
 			"doubleSided":true,
 			"name":"pylon.metal",
 			"normalTexture":{
-				"index":76
+				"index":78
 			},
 			"occlusionTexture":{
-				"index":77
+				"index":79
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":78
+					"index":80
 				},
 				"metallicFactor":0.6909090876579285,
 				"metallicRoughnessTexture":{
-					"index":79
+					"index":81
 				}
 			}
 		},
@@ -13501,9 +13507,12 @@
 			"alphaMode":"MASK",
 			"doubleSided":true,
 			"name":"grass.003",
+			"normalTexture":{
+				"index":82
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":80
+					"index":83
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -13514,9 +13523,12 @@
 			"alphaMode":"MASK",
 			"doubleSided":true,
 			"name":"grass.003a",
+			"normalTexture":{
+				"index":84
+			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":81
+					"index":85
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -13571,15 +13583,15 @@
 			},
 			"name":"concrete",
 			"normalTexture":{
-				"index":82
+				"index":86
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":83
+					"index":87
 				},
 				"metallicFactor":0,
 				"metallicRoughnessTexture":{
-					"index":84
+					"index":88
 				}
 			}
 		}
@@ -15117,6 +15129,14 @@
 		},
 		{
 			"sampler":0,
+			"source":36
+		},
+		{
+			"sampler":0,
+			"source":37
+		},
+		{
+			"sampler":0,
 			"source":21
 		},
 		{
@@ -15133,19 +15153,11 @@
 		},
 		{
 			"sampler":0,
-			"source":36
+			"source":38
 		},
 		{
 			"sampler":0,
 			"source":22
-		},
-		{
-			"sampler":0,
-			"source":37
-		},
-		{
-			"sampler":0,
-			"source":38
 		},
 		{
 			"sampler":0,
@@ -15161,11 +15173,11 @@
 		},
 		{
 			"sampler":0,
-			"source":33
+			"source":42
 		},
 		{
 			"sampler":0,
-			"source":34
+			"source":43
 		},
 		{
 			"sampler":0,
@@ -15177,10 +15189,6 @@
 		},
 		{
 			"sampler":0,
-			"source":22
-		},
-		{
-			"sampler":0,
 			"source":37
 		},
 		{
@@ -15189,11 +15197,15 @@
 		},
 		{
 			"sampler":0,
-			"source":27
+			"source":22
 		},
 		{
 			"sampler":0,
-			"source":28
+			"source":39
+		},
+		{
+			"sampler":0,
+			"source":40
 		},
 		{
 			"sampler":0,
@@ -15213,11 +15225,11 @@
 		},
 		{
 			"sampler":0,
-			"source":42
+			"source":33
 		},
 		{
 			"sampler":0,
-			"source":43
+			"source":34
 		},
 		{
 			"sampler":0,
@@ -15298,6 +15310,22 @@
 		{
 			"sampler":0,
 			"source":63
+		},
+		{
+			"sampler":0,
+			"source":64
+		},
+		{
+			"sampler":0,
+			"source":65
+		},
+		{
+			"sampler":0,
+			"source":66
+		},
+		{
+			"sampler":0,
+			"source":67
 		}
 	],
 	"images":[
@@ -15428,8 +15456,18 @@
 		},
 		{
 			"mimeType":"image/png",
+			"name":"grass01_n",
+			"uri":"grass01_n.png"
+		},
+		{
+			"mimeType":"image/png",
 			"name":"grass01",
 			"uri":"grass01.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"grass02_n",
+			"uri":"grass02_n.png"
 		},
 		{
 			"mimeType":"image/png",
@@ -15598,8 +15636,18 @@
 		},
 		{
 			"mimeType":"image/png",
+			"name":"grass03_n",
+			"uri":"grass03_n.png"
+		},
+		{
+			"mimeType":"image/png",
 			"name":"grass03",
 			"uri":"grass03.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"grass03a_n",
+			"uri":"grass03a_n.png"
 		},
 		{
 			"mimeType":"image/png",
