@@ -15,7 +15,6 @@ DEF WaterTransform Transform
     {
       material PhysicalMaterial
       {
-        transparency 0.05
         baseColor 0.9 0.9 1.0
         baseTexture RenderedTexture
         {
@@ -38,6 +37,7 @@ DEF WaterTransform Transform
 
         metallic 0.8
         roughness 0.1
+        transparency 0.15
       }
 
       # Calculate animated normal vectors using GLSL
