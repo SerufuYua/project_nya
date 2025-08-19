@@ -23,7 +23,8 @@
 				11,
 				12,
 				13,
-				14
+				14,
+				15
 			]
 		}
 	],
@@ -132,7 +133,7 @@
 		},
 		{
 			"mesh":6,
-			"name":"asteroid.ground.walls"
+			"name":"asteroid.outer.walls"
 		},
 		{
 			"mesh":7,
@@ -175,6 +176,10 @@
 				0,
 				400
 			]
+		},
+		{
+			"mesh":11,
+			"name":"asteroid.mountain.walls"
 		}
 	],
 	"meshes":[
@@ -313,6 +318,19 @@
 						"NORMAL":37
 					},
 					"indices":38
+				}
+			]
+		},
+		{
+			"name":"Plane.020",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":39,
+						"NORMAL":40,
+						"TANGENT":41
+					},
+					"indices":42
 				}
 			]
 		}
@@ -661,6 +679,40 @@
 			"componentType":5123,
 			"count":894,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":39,
+			"componentType":5126,
+			"count":538,
+			"max":[
+				78.75885009765625,
+				14.264762878417969,
+				77.4351806640625
+			],
+			"min":[
+				-68.23405456542969,
+				-1.6995277404785156,
+				-85.8674545288086
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":40,
+			"componentType":5126,
+			"count":538,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":41,
+			"componentType":5126,
+			"count":538,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":42,
+			"componentType":5123,
+			"count":2457,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -897,11 +949,35 @@
 			"byteLength":1788,
 			"byteOffset":314664,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":6456,
+			"byteOffset":316452,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":6456,
+			"byteOffset":322908,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":8608,
+			"byteOffset":329364,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":4914,
+			"byteOffset":337972,
+			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":316452,
+			"byteLength":342888,
 			"uri":"road_asteroid_road_walls_collider.bin"
 		}
 	]
