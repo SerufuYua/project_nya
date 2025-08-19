@@ -87,6 +87,7 @@
               },
               {
                 "$$ClassName" : "TNyaActorChara",
+                "AnimateOnlyWhenVisible" : true,
                 "AnisotropicDegree" : 1.6000000000000000E+001,
                 "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
                 "DefaultAnimationTransition" : 2.0000000298023224E-001,
@@ -120,6 +121,7 @@
                 "$Children" : [
                   {
                     "$$ClassName" : "TCastleScene",
+                    "AnimateOnlyWhenVisible" : true,
                     "CastShadows" : false,
                     "ExposeTransforms" : [
                     ],
@@ -133,10 +135,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263348854612559E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 2.2774229049682617E+000,
+                      "Y" : 1.0000000000000000E+000
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -213,6 +213,7 @@
                 "$Children" : [
                   {
                     "$$ClassName" : "TCastleScene",
+                    "AnimateOnlyWhenVisible" : true,
                     "CastShadows" : false,
                     "ExposeTransforms" : [
                     ],
@@ -226,10 +227,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 7.9397678375244141E-001,
+                      "Y" : 9.9999988079071045E-001
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -273,6 +272,7 @@
               },
               {
                 "$$ClassName" : "TCastleScene",
+                "AnimateOnlyWhenVisible" : true,
                 "AutoAnimation" : "GAME.GIRL_TOYA.PLAY.Idle",
                 "ExposeTransforms" : [
                 ],
@@ -295,6 +295,7 @@
                 "$Children" : [
                   {
                     "$$ClassName" : "TCastleScene",
+                    "AnimateOnlyWhenVisible" : true,
                     "CastShadows" : false,
                     "ExposeTransforms" : [
                     ],
@@ -308,10 +309,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 1.3962688446044922E+000,
+                      "Y" : 9.9999988079071045E-001
                     },
                     "ScalePersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -364,6 +363,7 @@
                 "$Children" : [
                   {
                     "$$ClassName" : "TCastleScene",
+                    "AnimateOnlyWhenVisible" : true,
                     "ExposeTransforms" : [
                     ],
                     "Name" : "GoOutIndicator",
@@ -376,10 +376,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 7.9397678375244141E-001,
+                      "Y" : 9.9999988079071045E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -564,16 +562,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.7883954048156738E+000,
-          "X" : 6.2344856560230255E-002,
-          "Y" : 9.8024934530258179E-001,
-          "Z" : 1.8768115341663361E-001
+          "W" : 8.6589437723159790E-001,
+          "X" : -3.9085325598716736E-001,
+          "Y" : 9.0641438961029053E-001,
+          "Z" : 1.6014622151851654E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -1.6555581986904144E-001,
+          "X" : -2.7565070986747742E-001,
           "Y" : 2.0278770923614502E+000,
-          "Z" : -1.2057187557220459E+000
+          "Z" : 4.5736250281333923E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
