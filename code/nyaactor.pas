@@ -50,6 +50,8 @@ type
     FAnimationSpeed: Single;
     FAnisotropicDegree: Single;
     FDefaultAnimationTransition: Single;
+    FAnimateOnlyWhenVisible: Boolean;
+    FDistanceCulling: Single;
     FAnimateChildActors: Boolean;
     FLightning: Boolean;
     FForwardVelocity, FForwardShift: Single;
@@ -70,6 +72,8 @@ type
     procedure SetEmissionItself(const value: Boolean);
     procedure SetEmissionColor(const value: TCastleColorRGB);
     procedure SetDefaultAnimationTransition(value: Single);
+    procedure SetAnimateOnlyWhenVisible(value: Boolean);
+    procedure SetDistanceCulling(value: Single);
     function GetVelocityNoiseSuppressorCount: Integer;
     procedure SetVelocityNoiseSuppressorCount(value: Integer);
     procedure ApplyAutoAnimation; virtual;
@@ -79,6 +83,8 @@ type
     procedure ApplyEmissionItself;
     procedure ApplyEmissionColor;
     procedure ApplyDefaultAnimationTransition;
+    procedure ApplyAnimateOnlyWhenVisible;
+    procedure ApplyDistanceCulling;
   protected
     procedure HandleNodeAnisotropic(sceneNode: TX3DNode);
     procedure HandleNodeEmissionItself(sceneNode: TX3DNode);
@@ -95,6 +101,8 @@ type
       DefaultVelocityNoiseSuppressorCount = 8;
       DefaultDefaultAnimationTransition = 0.0;
       DefaultAnimateChildActors = False;
+      DefaultAnimateOnlyWhenVisible = False;
+      DefaultDistanceCulling = 0.0;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -133,6 +141,12 @@ type
              {$ifdef FPC}default DefaultDefaultAnimationTransition{$endif};
     property AnimateChildActors: Boolean read FAnimateChildActors write FAnimateChildActors
              {$ifdef FPC}default DefaultAnimateChildActors{$endif};
+    property AnimateOnlyWhenVisible: Boolean
+             read FAnimateOnlyWhenVisible write SetAnimateOnlyWhenVisible
+             {$ifdef FPC}default DefaultAnimateOnlyWhenVisible{$endif};
+    property DistanceCulling: Single
+             read FDistanceCulling write SetDistanceCulling
+             {$ifdef FPC}default DefaultDistanceCulling{$endif};
   end;
 
 implementation
@@ -214,6 +228,8 @@ begin
   FAnimationsList:= TStringList.Create;
   FDefaultAnimationTransition:= DefaultDefaultAnimationTransition;
   FAnimateChildActors:= DefaultAnimateChildActors;
+  FAnimateOnlyWhenVisible:= DefaultAnimateOnlyWhenVisible;
+  FDistanceCulling:= DefaultDistanceCulling;
 
   FPersonalColor:= TNyaActorPerson.DefaultPersonalColor;
   FActorName:= TNyaActorPerson.DefaultActorName;
@@ -379,6 +395,8 @@ begin
   ApplyEmissionItself;
   ApplyEmissionColor;
   ApplyDefaultAnimationTransition;
+  ApplyAnimateOnlyWhenVisible;
+  ApplyDistanceCulling;
 
   { restore animation }
   buff:= FAutoAnimation;
@@ -469,6 +487,22 @@ begin
   FDefaultAnimationTransition:= value;
 
   ApplyDefaultAnimationTransition;
+end;
+
+procedure TNyaActor.SetAnimateOnlyWhenVisible(value: Boolean);
+begin
+  if (FAnimateOnlyWhenVisible = value) then Exit;
+  FAnimateOnlyWhenVisible:= value;
+
+  ApplyAnimateOnlyWhenVisible;
+end;
+
+procedure TNyaActor.SetDistanceCulling(value: Single);
+begin
+  if (FDistanceCulling = value) then Exit;
+  FDistanceCulling:= value;
+
+  ApplyDistanceCulling;
 end;
 
 function TNyaActor.GetVelocityNoiseSuppressorCount: Integer;
@@ -569,6 +603,22 @@ begin
         (child as TNyaActor).DefaultAnimationTransition:= FDefaultAnimationTransition;
 end;
 
+procedure TNyaActor.ApplyAnimateOnlyWhenVisible;
+var
+  scene: TCastleScene;
+begin
+  for scene in FAllScenes do
+    scene.AnimateOnlyWhenVisible:= AnimateOnlyWhenVisible;
+end;
+
+procedure TNyaActor.ApplyDistanceCulling;
+var
+  scene: TCastleScene;
+begin
+  for scene in FAllScenes do
+    scene.DistanceCulling:= DistanceCulling;
+end;
+
 procedure TNyaActor.HandleNodeAnisotropic(sceneNode: TX3DNode);
 var
   ImageTexture: TImageTextureNode;
@@ -617,7 +667,8 @@ begin
        'Url', 'UrlPerson', 'AnisotropicDegree', 'EmissionItself',
        'EmissionColorPersistent', 'AutoAnimation', 'AnimationSpeed',
        'ActorName', 'Lightning', 'MainSceneName', 'DefaultAnimationTransition',
-       'VelocityNoiseSuppressorCount', 'AnimateChildActors'
+       'VelocityNoiseSuppressorCount', 'AnimateChildActors',
+       'AnimateOnlyWhenVisible', 'DistanceCulling'
      ]) then
     Result:= [psBasic]
   else
