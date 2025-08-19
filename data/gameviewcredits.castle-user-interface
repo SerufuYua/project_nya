@@ -171,7 +171,7 @@
                       "Alignment" : "hpMiddle",
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "AuthorGroup",
+                      "Name" : "GroupAuthor",
                       "Padding" : 1.6000000000000000E+001,
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
@@ -309,7 +309,7 @@
                       "Alignment" : "hpMiddle",
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "SourceGroup",
+                      "Name" : "GroupSource",
                       "Padding" : 1.6000000000000000E+001,
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
@@ -513,7 +513,7 @@
                       "Alignment" : "hpMiddle",
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "EngineGroup",
+                      "Name" : "GroupEngine",
                       "Padding" : 1.6000000000000000E+001,
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
@@ -649,7 +649,7 @@
                       "Alignment" : "hpMiddle",
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "MusicGroup",
+                      "Name" : "GroupMusic",
                       "Padding" : 1.6000000000000000E+001,
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
@@ -851,6 +851,141 @@
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
                           "WebUrl" : "https://www.bensound.com/royalty-free-music/track/moonlight-drive-lo-fi-relaxing"
+                        }
+                      ]
+                    },
+                    {
+                      "$$ClassName" : "TCastleVerticalGroup",
+                      "Alignment" : "hpMiddle",
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "GroupTextures",
+                      "Padding" : 1.6000000000000000E+001,
+                      "Spacing" : 2.4000000000000000E+001,
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "Y" : -5.7100000000000000E+002
+                      },
+                      "VerticalAnchorParent" : "vpTop",
+                      "VerticalAnchorSelf" : "vpTop",
+                      "$Children" : [
+                        {
+                          "$$ClassName" : "TCastleImageControl",
+                          "Content" : {
+                            "$$ClassName" : "TCastleImagePersistent",
+                            "ProtectedSides" : {
+                              "$$ClassName" : "TBorder",
+                              "AllSides" : 1.5000000000000000E+001
+                            },
+                            "Url" : "castle-data:/ui/submenu.png"
+                          },
+                          "FullSize" : true,
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Name" : "ImageTexturesBG",
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -1.6000000000000000E+001
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop"
+                        },
+                        {
+                          "$$ClassName" : "TCastleLabel",
+                          "ColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 1.0000000000000000E+000,
+                            "Red" : 1.0000000000000000E+000
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Name" : "LabelTextures",
+                          "Text" : [
+                            "-> Textures <-"
+                          ],
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -4.0000000000000000E+001
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop"
+                        },
+                        {
+                          "$$ClassName" : "TCastleLabel",
+                          "ColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 1.0000000000000000E+000,
+                            "Red" : 1.0000000000000000E+000
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Name" : "LabelTexturesAuthor",
+                          "PaddingHorizontal" : 1.0000000000000000E+001,
+                          "Text" : [
+                            "CCO textures for landscapes"
+                          ],
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -9.6000000000000000E+001
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop"
+                        },
+                        {
+                          "$$ClassName" : "TNyaWebButton",
+                          "Border" : {
+                            "$$ClassName" : "TBorder",
+                            "Bottom" : 3.0000000000000000E+000
+                          },
+                          "BorderColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Alpha" : 1.0000000000000000E+000,
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "Caption" : "cc0-textures.com",
+                          "Cursor" : "mcHand",
+                          "CustomBackground" : true,
+                          "CustomBackgroundDisabled" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundFocused" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundNormal" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundPressed" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "CustomTextColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "CustomTextColorUse" : true,
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Image" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "Name" : "ButtonTexturesAuthor",
+                          "PaddingHorizontal" : 0.0000000000000000E+000,
+                          "PaddingVertical" : 0.0000000000000000E+000,
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -1.5200000000000000E+002
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop",
+                          "WebUrl" : "https://cc0-textures.com"
                         }
                       ]
                     }
