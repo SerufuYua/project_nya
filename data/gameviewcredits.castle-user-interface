@@ -226,7 +226,6 @@
                         },
                         {
                           "$$ClassName" : "TCastleLabel",
-                          "Alignment" : "hpMiddle",
                           "ColorPersistent" : {
                             "$$ClassName" : "TCastleColorPersistent",
                             "Blue" : 1.0000000000000000E+000,
@@ -240,8 +239,14 @@
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
                             "Serufu Yua (@serufu_yua):",
-                            "Developing, Coding, Graphics design, ",
-                            "Animations, Sounds, Texturing, Scenario"
+                            "- Developing",
+                            "- Coding",
+                            "- Original Characters design",
+                            "- Graphics design",
+                            "- Animations",
+                            "- Sounds",
+                            "- Texturing",
+                            "- Scenario"
                           ],
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
@@ -296,7 +301,7 @@
                           "PaddingVertical" : 0.0000000000000000E+000,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -2.1200000000000000E+002
+                            "Y" : -3.9200003051757812E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
@@ -314,7 +319,7 @@
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -2.8500000000000000E+002
+                        "Y" : -4.6500003051757812E+002
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop",
@@ -926,7 +931,7 @@
                           "Name" : "LabelTexturesAuthor",
                           "PaddingHorizontal" : 1.0000000000000000E+001,
                           "Text" : [
-                            "CCO textures for landscapes"
+                            "CC0 textures for landscapes"
                           ],
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
