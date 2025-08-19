@@ -57,7 +57,8 @@ begin
   inherited;
 
   if Assigned(FTarget) then
-    Parent.Translation:= SmoothTowards(Parent.Translation, FTarget.Translation,
+    Parent.Translation:= SmoothTowards(Parent.Translation,
+                                       FTarget.WorldTranslation,
                                        SecondsPassed, FollowSpeed);
 end;
 
