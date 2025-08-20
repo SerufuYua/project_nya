@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, CastleTransform, CastleKeysMouse, CastleUIControls,
-  NyaVehicleNavigation, BaseViewTravel, NyaActor, NyaActorVehicle,
+  CastleSoundEngine,
+  BaseViewTravel, NyaVehicleNavigation, NyaActor, NyaActorVehicle,
   NyaBaseNavigation;
 
 type
@@ -14,6 +15,7 @@ type
   published
     GroupSpeed: TCastleUserInterface;
   protected
+    FWalkMusic, FRideMusic: TCastleSound;
     FGetOffSwitch, FLightSwitch: TKey;
     FTempCollider: TCastleCollider;
     FTempRBody: TCastleRigidBody;
@@ -120,6 +122,9 @@ begin
   Notifications.Show('Info: use Space to brake');
   Notifications.Show('Info: use L to switch headlight');
   Notifications.Show('Info: use R to get off from the Vehicle');
+
+  { Play Ride music }
+  SoundEngine.LoopingChannel[0].Sound:= FRideMusic;
 end;
 
 procedure TBaseViewRide.GetOffFromVehicle;
@@ -177,6 +182,9 @@ begin
 
   GroupSpeed.Exists:= False;
   SetUIColor(MainActor.PersonalColor);
+
+  { Play Walk music }
+  SoundEngine.LoopingChannel[0].Sound:= FWalkMusic;
 end;
 
 procedure TBaseViewRide.Pause;

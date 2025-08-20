@@ -69,7 +69,9 @@ begin
   Water.ProcessEvents:= True;
 
   { Play music }
-  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
+  FWalkMusic:= NamedSound('MusicOutdoors');
+  FRideMusic:= NamedSound('MusicRide');
+  SoundEngine.LoopingChannel[0].Sound:= FWalkMusic;
 
   inherited;
 end;
