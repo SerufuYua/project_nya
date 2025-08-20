@@ -14,15 +14,11 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleRectangleControl",
+      "$$ClassName" : "TCastleUserInterface",
       "AutoSizeToChildren" : true,
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 0.0000000000000000E+000
-      },
       "HorizontalAnchorParent" : "hpRight",
       "HorizontalAnchorSelf" : "hpRight",
-      "Name" : "RectangleDressing",
+      "Name" : "GroupDressing",
       "$Children" : [
         {
           "$$ClassName" : "TCastleImageControl",

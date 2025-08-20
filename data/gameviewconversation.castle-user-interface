@@ -13,13 +13,9 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleRectangleControl",
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 0.0000000000000000E+000
-      },
+      "$$ClassName" : "TCastleUserInterface",
       "FullSize" : true,
-      "Name" : "RectangleControl",
+      "Name" : "GroupConversation",
       "$Children" : [
         {
           "$$ClassName" : "TCastleImageControl",
