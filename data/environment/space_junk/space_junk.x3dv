@@ -1,0 +1,28 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo { headlight FALSE }
+
+DEF asteroid Transform
+{
+  children Inline
+  {
+    url "abandoned_spaceship_broken.gltf"
+  }
+}
+
+# ambient light
+DirectionalLight
+{
+  global TRUE
+  direction 0.5 -1 1
+  intensity 10
+  color 0.6 0.6 1.0
+  shadows TRUE
+  defaultShadowMap GeneratedShadowMap
+  {
+    size 2048
+    update "ALWAYS"
+    scale 3
+  }
+}

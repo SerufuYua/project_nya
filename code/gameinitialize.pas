@@ -24,6 +24,7 @@ uses SysUtils, CustApp,
   , GameViewTravelTest
   , GameViewTravelContainerRoom
   , GameViewTravelRoadAsteroid
+  , GameViewTravelSpaceJunk
   , GameViewSettings
   {$endregion 'Castle Initialization Uses'};
 
@@ -51,6 +52,7 @@ begin
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelTest:= TViewTravelTest.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
+  ViewTravelSpaceJunk:= TViewTravelSpaceJunk.Create(Application);
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}
 
@@ -66,6 +68,8 @@ begin
     Window.Container.View:= ViewTravelContainerRoom
   else if Application.hasOption('a', 'Asteroid') then
     Window.Container.View:= ViewTravelRoadAsteroid
+  else if Application.hasOption('j', 'Junk') then
+    Window.Container.View:= ViewTravelSpaceJunk
   else
     Window.Container.View:= ViewMain;
 

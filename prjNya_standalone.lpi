@@ -66,7 +66,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="49">
+    <Units Count="50">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -307,6 +307,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="BaseViewRace"/>
       </Unit48>
+      <Unit49>
+        <Filename Value="code/gameviewtravelspacejunk.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewTravelSpaceJunk"/>
+      </Unit49>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

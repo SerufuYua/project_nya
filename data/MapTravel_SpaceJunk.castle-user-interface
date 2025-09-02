@@ -1,0 +1,298 @@
+{
+  "$$ClassName" : "TCastleUserInterface",
+  "FullSize" : true,
+  "Name" : "TravelContainerRoom",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleViewport",
+      "Background" : "Sky",
+      "Camera" : "CameraMain",
+      "FullSize" : true,
+      "Items" : {
+        "$$ClassName" : "TCastleRootTransform",
+        "PhysicsProperties" : {
+          "$$ClassName" : "TPhysicsProperties",
+          "LayerCollisions" : {
+            "$$ClassName" : "TCastleLayerCollisions"
+          },
+          "LayerNames" : {
+            "$$ClassName" : "TCastleLayerNames"
+          }
+        },
+        "$Children" : [
+          {
+            "$$ClassName" : "TCastleScene",
+            "CastGlobalLights" : true,
+            "ExposeTransforms" : [
+            ],
+            "Name" : "Spaceship",
+            "PreciseCollisions" : true,
+            "RenderOptions" : {
+              "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Y" : -3.0149999618530273E+001
+            },
+            "Url" : "castle-data:/environment/space_junk/space_junk.x3dv",
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastleScene",
+                "CastShadows" : false,
+                "Collides" : false,
+                "ExposeTransforms" : [
+                ],
+                "Name" : "Collider",
+                "PreciseCollisions" : true,
+                "ReceiveShadowVolumes" : false,
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                  "Textures" : false
+                },
+                "SceneFrustumCulling" : false,
+                "ShadowMaps" : false,
+                "ShapeFrustumCulling" : false,
+                "Url" : "castle-data:/environment/space_junk/abandoned_spaceship_broken.gltf",
+                "Visible" : false,
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleMeshCollider",
+                    "Mesh" : "Collider",
+                    "Name" : "MeshCollider"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Dynamic" : false,
+                    "Gravity" : false,
+                    "Name" : "RigidBody"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "SceneActors",
+            "$Children" : [
+              {
+                "$$ClassName" : "TNyaActorChara",
+                "AnisotropicDegree" : 1.6000000000000000E+001,
+                "AutoAnimation" : "GAME.STAND",
+                "DefaultAnimationTransition" : 1.5000000596046448E-001,
+                "EmissionColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 1.5000000596046448E-001,
+                  "Green" : 1.5000000596046448E-001,
+                  "Red" : 1.5000000596046448E-001
+                },
+                "EmissionItself" : true,
+                "MainSceneName" : "Body",
+                "Name" : "CharaGirl",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 5.5647435188293457E+000,
+                  "Y" : 9.9999922513961792E-001
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -3.3661031723022461E-001,
+                  "Y" : -4.8798794746398926E+000,
+                  "Z" : 1.2593912506103516E+002
+                },
+                "Url" : "castle-data:/CharaGirl_common.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleCapsuleCollider",
+                    "Name" : "ColliderChara"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Animated" : true,
+                    "LockRotation" : [
+                      0,
+                      2
+                    ],
+                    "Name" : "RigidBodyChara"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "Lights",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastlePointLight",
+                "ColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 8.5098040103912354E-001,
+                  "Green" : 9.5686274766921997E-001
+                },
+                "Intensity" : 2.0000000000000000E+001,
+                "Name" : "LightDoor",
+                "Radius" : 2.0000000000000000E+001,
+                "Shadows" : true,
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -9.6565208435058594E+000,
+                  "Y" : -1.4771039962768555E+001,
+                  "Z" : 1.3312652587890625E+002
+                }
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "Garbage",
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "Z" : 1.0000000000000000E+000
+            },
+            "$Children" : [
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "CenterEngine",
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "Engine",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : -3.4753276824951172E+001
+                    },
+                    "Url" : "castle-data:/environment/space_junk/spaceship_broken_engine.gltf"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleCamera",
+            "CastShadows" : false,
+            "Collides" : false,
+            "CollisionSphereRadius" : 1.0000000000000000E+000,
+            "Name" : "CameraMain",
+            "Orthographic" : {
+              "$$ClassName" : "TCastleOrthographic"
+            },
+            "Perspective" : {
+              "$$ClassName" : "TCastlePerspective",
+              "FieldOfView" : 1.2000000476837158E+000
+            },
+            "RotationPersistent" : {
+              "$$ClassName" : "TCastleVector4RotationPersistent",
+              "W" : 1.3439247608184814E+000,
+              "X" : -2.4229687452316284E-001,
+              "Y" : -9.5273512601852417E-001,
+              "Z" : -1.8327188491821289E-001
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "X" : -1.9164460897445679E+000,
+              "Y" : 1.9161221981048584E+000,
+              "Z" : 2.4695422649383545E+000
+            }
+          }
+        ]
+      },
+      "Name" : "ViewportMain",
+      "$NonVisualComponents" : [
+        {
+          "$$ClassName" : "TCastleBackground",
+          "Name" : "Sky",
+          "TextureNegativeX" : "castle-data:/environment/star_sky/star_sky_0001.png",
+          "TextureNegativeY" : "castle-data:/environment/star_sky/star_sky_0006.png",
+          "TextureNegativeZ" : "castle-data:/environment/star_sky/star_sky_0002.png",
+          "TexturePositiveX" : "castle-data:/environment/star_sky/star_sky_0003.png",
+          "TexturePositiveY" : "castle-data:/environment/star_sky/star_sky_0005.png",
+          "TexturePositiveZ" : "castle-data:/environment/star_sky/star_sky_0004.png"
+        },
+        {
+          "$$ClassName" : "TCastleFog",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorRGBPersistent",
+            "Blue" : 0.0000000000000000E+000,
+            "Green" : 0.0000000000000000E+000,
+            "Red" : 0.0000000000000000E+000
+          },
+          "Name" : "Fog",
+          "VisibilityRange" : 1.4000000000000000E+002
+        }
+      ],
+      "$Children" : [
+        {
+          "$$ClassName" : "TNyaThirdPersonCharaNavigation",
+          "AnimationRun" : "GAME.RUN.FORWARD",
+          "AnimationStand" : "GAME.STAND",
+          "AnimationWalk" : "GAME.WALK.FORWARD",
+          "AvatarHierarchy" : "CharaGirl",
+          "Name" : "CharaNavigation",
+          "SpeedOfJump" : 0.0000000000000000E+000,
+          "SpeedOfWalk" : 1.2000000476837158E+000,
+          "SpeedOfWalkAnimation" : 6.9999998807907104E-001
+        },
+        {
+          "$$ClassName" : "TNyaThirdPersonCameraNavigation",
+          "AvatarHierarchy" : "CharaGirl",
+          "AvatarTargetPersistent" : {
+            "$$ClassName" : "TCastleVector3Persistent",
+            "Y" : 1.2999999523162842E+000
+          },
+          "DistanceToAvatarTarget" : 1.7500000000000000E+000,
+          "MouseLookHorizontalSensitivity" : 1.0000000149011612E-001,
+          "MouseLookVerticalSensitivity" : 1.0000000149011612E-001,
+          "Name" : "CameraNavigationFollow",
+          "ZoomEnabled" : true
+        }
+      ],
+      "InternalDesignCamera" : {
+        "$$ClassName" : "TCastleCamera",
+        "Name" : "",
+        "Orthographic" : {
+          "$$ClassName" : "TCastleOrthographic"
+        },
+        "Perspective" : {
+          "$$ClassName" : "TCastlePerspective"
+        },
+        "RotationPersistent" : {
+          "$$ClassName" : "TCastleVector4RotationPersistent",
+          "W" : 7.9699045419692993E-001,
+          "X" : -4.5118668675422668E-001,
+          "Y" : -8.7557560205459595E-001,
+          "Z" : -1.7262132465839386E-001
+        },
+        "TranslationPersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : -9.0006759643554688E+001,
+          "Y" : 1.9407434463500977E+001,
+          "Z" : 7.9597740173339844E+001
+        }
+      },
+      "InternalDesignNavigations[dnFly]" : {
+        "$$ClassName" : "TCastleWalkNavigationDesign",
+        "Name" : ""
+      },
+      "InternalDesignNavigations[dnExamine]" : {
+        "$$ClassName" : "TCastleExamineNavigationDesign",
+        "Exists" : false,
+        "Name" : ""
+      },
+      "InternalDesignNavigations[dn2D]" : {
+        "$$ClassName" : "TCastle2DNavigationDesign",
+        "Exists" : false,
+        "Name" : ""
+      }
+    }
+  ]
+}
