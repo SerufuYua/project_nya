@@ -5,7 +5,7 @@ interface
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
   BaseViewRace, NyaActor, NyaActorChara, NyaActorVehicle,
-  NyaVehicleNavigation, NyaFollow;
+  NyaVehicleNavigation, NyaAnimators;
 
 type
   TViewTravelRoadAsteroid = class(TBaseViewRace)
