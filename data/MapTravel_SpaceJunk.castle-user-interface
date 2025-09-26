@@ -7,6 +7,7 @@
       "$$ClassName" : "TCastleViewport",
       "Background" : "Sky",
       "Camera" : "CameraMain",
+      "Fog" : "Fog",
       "FullSize" : true,
       "Items" : {
         "$$ClassName" : "TCastleRootTransform",
@@ -137,7 +138,6 @@
                 "Intensity" : 2.0000000000000000E+001,
                 "Name" : "LightDoor",
                 "Radius" : 2.0000000000000000E+001,
-                "Shadows" : true,
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
                   "X" : -9.6565208435058594E+000,
@@ -157,10 +157,10 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleTransform",
-                "Name" : "CenterEngine",
+                "Name" : "CenterGarbage",
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 3.6445426940917969E+000,
+                  "W" : 2.1327718734741211E+001,
                   "Y" : 9.9503719806671143E-001,
                   "Z" : 9.9503718316555023E-002
                 },
@@ -175,7 +175,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 5.0113960266113281E+001,
+                      "W" : 1.2599789428710938E+002,
                       "X" : 4.2107596993446350E-001,
                       "Y" : 8.4215193986892700E-001,
                       "Z" : 3.3686077594757080E-001
@@ -193,6 +193,108 @@
                           "$$ClassName" : "TCastleVector3Persistent",
                           "X" : 1.2500000000000000E-001,
                           "Y" : 2.5000000000000000E-001,
+                          "Z" : 1.0000000149011612E-001
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "Ear",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.2599789428710938E+002,
+                      "X" : 4.2107596993446350E-001,
+                      "Y" : 8.4215193986892700E-001,
+                      "Z" : -3.3686077594757080E-001
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 2.0000000000000000E+002,
+                      "Y" : 2.0000000000000000E+001
+                    },
+                    "Url" : "castle-data:/environment/space_junk/spaceship_broken_ear.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TNyaRotate",
+                        "Name" : "RotateEngine1",
+                        "RotatorPersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : 1.2500000000000000E-001,
+                          "Y" : 2.5000000000000000E-001,
+                          "Z" : -1.0000000149011612E-001
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "Part01",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.2599789428710938E+002,
+                      "X" : -4.2107596993446350E-001,
+                      "Y" : 8.4215193986892700E-001,
+                      "Z" : 3.3686077594757080E-001
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 2.0000000000000000E+001,
+                      "Z" : 2.2000000000000000E+002
+                    },
+                    "Url" : "castle-data:/environment/space_junk/spaceship_broken_part01.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TNyaRotate",
+                        "Name" : "RotatePart01",
+                        "RotatorPersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : -1.2500000000000000E-001,
+                          "Y" : 2.5000000000000000E-001,
+                          "Z" : 1.0000000149011612E-001
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "Part02",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.2430706024169922E+002,
+                      "X" : 4.2107596993446350E-001,
+                      "Y" : -8.4215193986892700E-001,
+                      "Z" : 3.3686077594757080E-001
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 3.0000000000000000E+001,
+                      "Z" : -2.2000000000000000E+002
+                    },
+                    "Url" : "castle-data:/environment/space_junk/spaceship_broken_part02.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TNyaRotate",
+                        "Name" : "RotatePart02",
+                        "RotatorPersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : 1.2500000000000000E-001,
+                          "Y" : -2.5000000000000000E-001,
                           "Z" : 1.0000000149011612E-001
                         }
                       }
@@ -263,7 +365,7 @@
             "Red" : 0.0000000000000000E+000
           },
           "Name" : "Fog",
-          "VisibilityRange" : 1.4000000000000000E+002
+          "VisibilityRange" : 2.8000000000000000E+002
         }
       ],
       "$Children" : [
@@ -303,16 +405,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 6.3429427146911621E-001,
-          "X" : -6.1232542991638184E-001,
-          "Y" : -7.7336239814758301E-001,
-          "Z" : -1.6422004997730255E-001
+          "W" : 4.9798625707626343E-001,
+          "X" : -8.7794965505599976E-001,
+          "Y" : -4.6502143144607544E-001,
+          "Z" : -1.1384026706218719E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -8.1689590454101562E+001,
-          "Y" : 8.0791336059570312E+001,
-          "Z" : 2.5812622070312500E+002
+          "X" : -2.8308631896972656E+001,
+          "Y" : 1.3450466156005859E+001,
+          "Z" : 1.9242242431640625E+002
         }
       },
       "InternalDesignNavigations[dnFly]" : {
