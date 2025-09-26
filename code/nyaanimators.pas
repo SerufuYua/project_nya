@@ -1,4 +1,4 @@
-unit NyaFollow;
+unit NyaAnimators;
 
 {$mode ObjFPC}{$H+}
 
@@ -35,6 +35,10 @@ implementation
 
 uses
   CastleUtils, CastleComponentSerialize, CastleVectors;
+
+{ ========= ------------------------------------------------------------------ }
+{ TNyaFollow ----------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
 
 constructor TNyaFollow.Create(AOwner: TComponent);
 begin
