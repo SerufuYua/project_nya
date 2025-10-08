@@ -66,7 +66,7 @@
                 "SceneFrustumCulling" : false,
                 "ShadowMaps" : false,
                 "ShapeFrustumCulling" : false,
-                "Url" : "castle-data:/environment/space_junk/abandoned_spaceship_broken.gltf",
+                "Url" : "castle-data:/environment/space_junk/spaceship_broken_collider.gltf",
                 "Visible" : false,
                 "$Behaviors" : [
                   {
@@ -348,7 +348,7 @@
                 "Name" : "CenterGarbage",
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 2.3490167617797852E+001,
+                  "W" : 2.6011605262756348E+000,
                   "Y" : 9.9503719806671143E-001,
                   "Z" : 9.9503718316555023E-002
                 },
@@ -363,7 +363,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.3877299499511719E+002,
+                      "W" : 1.5366890907287598E+001,
                       "X" : 4.2107596993446350E-001,
                       "Y" : 8.4215193986892700E-001,
                       "Z" : 3.3686077594757080E-001
@@ -396,7 +396,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.3877299499511719E+002,
+                      "W" : 1.5366890907287598E+001,
                       "X" : 4.2107596993446350E-001,
                       "Y" : 8.4215193986892700E-001,
                       "Z" : -3.3686077594757080E-001
@@ -430,7 +430,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.3877299499511719E+002,
+                      "W" : 1.5366890907287598E+001,
                       "X" : -4.2107596993446350E-001,
                       "Y" : 8.4215193986892700E-001,
                       "Z" : 3.3686077594757080E-001
@@ -464,7 +464,7 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.3877299499511719E+002,
+                      "W" : 1.5366890907287598E+001,
                       "X" : 4.2107596993446350E-001,
                       "Y" : -8.4215193986892700E-001,
                       "Z" : 3.3686077594757080E-001
@@ -593,16 +593,22 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 7.2485262155532837E-001,
-          "X" : -3.4540799260139465E-001,
-          "Y" : -9.2979288101196289E-001,
-          "Z" : -1.2719465792179108E-001
+          "W" : 1.2668298482894897E+000,
+          "X" : -1.3909336924552917E-001,
+          "Y" : 9.8532521724700928E-001,
+          "Z" : 9.8931252956390381E-002
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000001192092896E+000,
+          "Z" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -1.2814671516418457E+001,
+          "X" : -3.5382151603698730E+000,
           "Y" : 1.5161240577697754E+001,
-          "Z" : 1.3284133911132812E+002
+          "Z" : 1.3971652221679688E+002
         }
       },
       "InternalDesignNavigations[dnFly]" : {
