@@ -6,12 +6,16 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewTravel, NyaActor, NyaActorChara;
+  BaseViewRide, NyaActor, NyaActorChara, NyaActorVehicle, NyaVehicleNavigation;
 
 type
-  TViewTravelSpaceJunk = class(TBaseViewTravel)
+  TViewTravelSpaceJunk = class(TBaseViewRide)
   public
     procedure Start; override;
+  protected
+    procedure DoActivateSwitch(Sender: TObject); override;
+  protected
+    procedure GetToGoShip;
   end;
 
 var
@@ -36,10 +40,41 @@ begin
   { set Girl Character }
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
 
+  { set vehicle Navigation }
+  FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
+
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
 
   inherited;
+end;
+
+procedure TViewTravelSpaceJunk.DoActivateSwitch(Sender: TObject);
+var
+  switch: TNyaSwitch;
+begin
+  switch:= Sender as TNyaSwitch;
+  if NOT Assigned(switch) then Exit;
+
+  inherited;
+
+  Case switch.Name of
+  'GoShipSwitch':
+    GetToGoShip;
+  'SwitchMoto':
+    SitToVehicle(Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle);
+  else
+    Notifications.Show('There is nothing to do');
+  end;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ Get To Go ------------------------------------------------------------------ }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelSpaceJunk.GetToGoShip;
+begin
+
 end;
 
 end.
