@@ -43,7 +43,7 @@
 			]
 		},
 		{
-			"name":"Cube.109",
+			"name":"Cube.105",
 			"primitives":[
 				{
 					"attributes":{
@@ -87,29 +87,29 @@
 		{
 			"bufferView":3,
 			"componentType":5126,
-			"count":14924,
+			"count":11984,
 			"max":[
-				609.0980834960938,
-				62.95948028564453,
-				341.7421569824219
+				618.0286865234375,
+				67.8802719116211,
+				345.2585754394531
 			],
 			"min":[
-				-285.3900146484375,
-				-38.642189025878906,
-				-277.87261962890625
+				-130.9302978515625,
+				-5.3810577392578125,
+				-229.63233947753906
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":14924,
+			"count":11984,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
 			"componentType":5123,
-			"count":22434,
+			"count":18018,
 			"type":"SCALAR"
 		}
 	],
@@ -134,26 +134,26 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":179088,
+			"byteLength":143808,
 			"byteOffset":9576,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":179088,
-			"byteOffset":188664,
+			"byteLength":143808,
+			"byteOffset":153384,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":44868,
-			"byteOffset":367752,
+			"byteLength":36036,
+			"byteOffset":297192,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":412620,
+			"byteLength":333228,
 			"uri":"spaceship_broken_collider.bin"
 		}
 	]
