@@ -31,7 +31,7 @@ uses
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressing,
-  GameViewTravelRoadAsteroid, GameViewMain,
+  GameViewTravelRoadAsteroid, GameViewMain, GameViewTravelSpaceshipIndoors,
   GameViewConversation;
 
 procedure TViewTravelSpaceJunk.Start;
@@ -89,7 +89,7 @@ end;
 
 procedure TViewTravelSpaceJunk.GetToGoShip;
 begin
-
+  GetToGo(ViewTravelSpaceshipIndoors);
 end;
 
 procedure TViewTravelSpaceJunk.GetToGoRoadAsteroid;
