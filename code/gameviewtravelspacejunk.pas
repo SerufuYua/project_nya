@@ -13,9 +13,11 @@ type
   public
     procedure Start; override;
   protected
+    procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
     procedure GetToGoShip;
+    procedure GetToGoRoadAsteroid;
   end;
 
 var
@@ -28,8 +30,8 @@ uses
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
-  GameViewDressing, GameViewPlayGirl, GameViewPlaySolo,
-  GameViewPlayTogether, GameViewTravelRoadAsteroid, GameViewMain,
+  GameViewDressing,
+  GameViewTravelRoadAsteroid, GameViewMain,
   GameViewConversation;
 
 procedure TViewTravelSpaceJunk.Start;
@@ -49,6 +51,20 @@ begin
   inherited;
 end;
 
+procedure TViewTravelSpaceJunk.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
+var
+  switch: TNyaSwitch;
+begin
+  inherited;
+
+  switch:= Sender as TNyaSwitch;
+  if NOT Assigned(switch) then Exit;
+
+  Case switch.Name of
+  'SwitchRoadAsteroud': if Touch then GetToGoRoadAsteroid;
+  end;
+end;
+
 procedure TViewTravelSpaceJunk.DoActivateSwitch(Sender: TObject);
 var
   switch: TNyaSwitch;
@@ -59,8 +75,7 @@ begin
   inherited;
 
   Case switch.Name of
-  'GoShipSwitch':
-    GetToGoShip;
+  'GoShipSwitch': GetToGoShip;
   'SwitchMoto':
     SitToVehicle(Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle);
   else
@@ -75,6 +90,12 @@ end;
 procedure TViewTravelSpaceJunk.GetToGoShip;
 begin
 
+end;
+
+procedure TViewTravelSpaceJunk.GetToGoRoadAsteroid;
+begin
+  GetToGo(ViewTravelRoadAsteroid, Vector3(-0.4, 0.1, -11.0),
+                                  Vector4(0.0, 1.0, 0.0, Deg(180.0)));
 end;
 
 end.
