@@ -27,6 +27,7 @@ type
   protected
     procedure GetToGoBoy;
     procedure GetToGoHome;
+    procedure GetToGoSpaceJunk;
   end;
 
 var
@@ -39,7 +40,7 @@ uses
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
-  GameViewDressing, GameViewTravelContainerRoom,
+  GameViewDressing, GameViewTravelContainerRoom, GameViewTravelSpaceJunk,
   GameViewMain, GameViewPlayTogether, GameViewConversation;
 
 procedure TViewTravelRoadAsteroid.Start;
@@ -109,6 +110,7 @@ begin
       else
         FActorBoy.AutoAnimation:= 'GAME.BOY_VISITING.STAND_WITH_PDA.WORKING';
     end;
+  'SwitchSpaceJunk': if Touch then GetToGoSpaceJunk;
   end;
 end;
 
@@ -255,6 +257,11 @@ procedure TViewTravelRoadAsteroid.GetToGoHome;
 begin
   GetToGo(ViewTravelContainerRoom, Vector3(-0.66, 0.15, 1.66),
                                    Vector4(0.0, 1.0, 0.0, Deg(150.0)));
+end;
+
+procedure TViewTravelRoadAsteroid.GetToGoSpaceJunk;
+begin
+  GetToGo(ViewTravelSpaceJunk);
 end;
 
 end.
