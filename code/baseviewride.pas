@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleTransform, CastleKeysMouse, CastleUIControls,
-  CastleSoundEngine,
+  CastleSoundEngine, CastleControls,
   BaseViewTravel, NyaVehicleNavigation, NyaActor, NyaActorVehicle,
   NyaBaseNavigation;
 
@@ -14,6 +14,7 @@ type
   TBaseViewRide = class(TBaseViewTravel)
   published
     GroupSpeed: TCastleUserInterface;
+    LabelSpeedValue: TCastleLabel;
   protected
     FWalkMusic, FRideMusic: TCastleSound;
     FGetOffSwitch, FLightSwitch: TKey;
@@ -27,6 +28,7 @@ type
       const AnimationName: String; AnimtionSpeed: Single);
   public
     procedure Start; override;
+    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
     procedure SitToVehicle(vehicle: TNyaActorVehicle);
     procedure GetOffFromVehicle;
@@ -51,6 +53,17 @@ begin
   { set keys }
   FLightSwitch:= TKey.keyL;
   FGetOffSwitch:= TKey.keyR;
+end;
+
+procedure TBaseViewRide.Update(const SecondsPassed: Single; var HandleInput: boolean);
+begin
+  { Executed every frame. }
+
+  { Show Speed. Convert m/s to km/h }
+  if Assigned(FVehicle) then
+    LabelSpeedValue.Caption:= (FVehicle.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
+
+  inherited;
 end;
 
 function TBaseViewRide.Press(const Event: TInputPressRelease): Boolean;

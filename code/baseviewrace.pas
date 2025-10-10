@@ -16,7 +16,7 @@ type
   TBaseViewRace = class(TBaseViewRide)
   published
     GroupTime: TCastleUserInterface;
-    LabelSpeedValue, LabelTimeValue, LabelBestTimeValue: TCastleLabel;
+    LabelTimeValue, LabelBestTimeValue: TCastleLabel;
   protected
     FEnableTimer, FRaceStarted: Boolean;
     FTrackTimer, FBestTime: Single;
@@ -59,10 +59,6 @@ begin
     FTrackTimer:= FTrackTimer + SecondsPassed;
     ShowTime(FTrackTimer);
   end;
-
-  { Show Speed. Convert m/s to km/h }
-  if Assigned(FVehicle) then
-    LabelSpeedValue.Caption:= (FVehicle.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
 
   inherited;
 end;
