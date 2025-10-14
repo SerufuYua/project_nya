@@ -88,7 +88,7 @@
                     "CollisionSphereRadius" : 4.0000000000000000E+001,
                     "ExposeTransforms" : [
                     ],
-                    "Name" : "GoOutIndicator",
+                    "Name" : "IndicatorGoOut",
                     "Pickable" : false,
                     "ProcessEvents" : true,
                     "RenderOptions" : {
@@ -111,7 +111,7 @@
                     "$Behaviors" : [
                       {
                         "$$ClassName" : "TCastleBillboard",
-                        "Name" : "GoOutIndicatorBillboard"
+                        "Name" : "BillboardIndicatorGoOut"
                       }
                     ]
                   },
@@ -140,8 +140,84 @@
                     "ActionString" : "enter in Ship",
                     "Activator" : "CharaGirl",
                     "Distance" : 6.0000002384185791E-001,
-                    "Indicator" : "GoOutIndicator",
-                    "Name" : "GoOutSwitch"
+                    "Indicator" : "IndicatorGoOut",
+                    "Name" : "SwitchGoOut"
+                  }
+                ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "PortalGoToLab",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : 1.6600000381469727E+001,
+                  "Z" : -2.8660600662231445E+001
+                },
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "AnimateOnlyWhenVisible" : true,
+                    "CollisionSphereRadius" : 4.0000000000000000E+001,
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "IndicatorGoToLab",
+                    "Pickable" : false,
+                    "ProcessEvents" : true,
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                      "BlendingDestinationFactor" : "bdConstantColor",
+                      "BlendingSourceFactor" : "bsConstantColor"
+                    },
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 2.2000000476837158E+000
+                    },
+                    "Url" : "castle-data:/effects/indicator/indicator_blue.gltf",
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleBillboard",
+                        "Name" : "BillboardIndicatorGoToLab"
+                      }
+                    ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleBox",
+                    "Name" : "SwitchExtenderGoToLab",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "SizePersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.0000000149011612E-001,
+                      "Y" : 1.0000000000000000E+000,
+                      "Z" : 1.0000000149011612E-001
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 5.0000000000000000E-001
+                    },
+                    "Visible" : false
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TNyaSwitch",
+                    "ActionString" : "enter in Ship",
+                    "Activator" : "CharaGirl",
+                    "Distance" : 6.0000002384185791E-001,
+                    "Indicator" : "IndicatorGoToLab",
+                    "Name" : "SwitchGoToLab"
                   }
                 ]
               }
@@ -304,16 +380,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.2199194431304932E+000,
-          "X" : -3.2187351025640965E-003,
-          "Y" : 9.9953067302703857E-001,
-          "Z" : -3.0462350696325302E-002
+          "W" : 5.1572620868682861E-001,
+          "X" : -3.9005407691001892E-001,
+          "Y" : -9.1513049602508545E-001,
+          "Z" : -1.0195065289735794E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -1.6098948717117310E+000,
-          "Y" : 1.6060707569122314E+000,
-          "Z" : -1.0332550048828125E+001
+          "X" : 1.5604673385620117E+001,
+          "Y" : 2.0208256244659424E+000,
+          "Z" : -2.4144035339355469E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

@@ -15,6 +15,7 @@ type
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
     procedure GetToGoOut;
+    procedure GetToGoToLab;
   end;
 
 var
@@ -62,7 +63,8 @@ begin
   inherited;
 
   Case switch.Name of
-  'GoOutSwitch': GetToGoOut;
+  'SwitchGoOut': GetToGoOut;
+  'SwitchGoToLab': GetToGoToLab;
   else
     Notifications.Show('There is nothing to do');
   end;
@@ -76,6 +78,11 @@ procedure TViewTravelSpaceshipIndoors.GetToGoOut;
 begin
   GetToGo(ViewTravelSpaceJunk, Vector3(-9.75, 12.4, 130.5),
                                Vector4(0.0, 1.0, 0.0, Deg(0.0)));
+end;
+
+procedure TViewTravelSpaceshipIndoors.GetToGoToLab;
+begin
+
 end;
 
 end.
