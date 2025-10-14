@@ -31,7 +31,7 @@
             "RenderOptions" : {
               "$$ClassName" : "TCastleScene.TSceneRenderOptions"
             },
-            "Url" : "castle-data:/environment/spaceship_indoors/abandoned_spaceship_indoors.gltf",
+            "Url" : "castle-data:/environment/spaceship_indoors/abandoned_spaceship_indoors.x3dv",
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
@@ -53,7 +53,7 @@
                 "SceneFrustumCulling" : false,
                 "ShadowMaps" : false,
                 "ShapeFrustumCulling" : false,
-                "Url" : "castle-data:/environment/spaceship_indoors/abandoned_spaceship_indoors.gltf",
+                "Url" : "castle-data:/environment/spaceship_indoors/abandoned_spaceship_indoors_collider.gltf",
                 "Visible" : false,
                 "$Behaviors" : [
                   {
@@ -98,8 +98,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.5548615455627441E+000,
-                      "Y" : 1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -198,25 +200,7 @@
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
               "Z" : 1.0000000000000000E+000
-            },
-            "$Children" : [
-              {
-                "$$ClassName" : "TCastlePointLight",
-                "ColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 8.5098040103912354E-001,
-                  "Green" : 9.5686274766921997E-001
-                },
-                "Intensity" : 2.0000000000000000E+001,
-                "Name" : "LightDoor",
-                "Radius" : 2.0000000000000000E+001,
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "Y" : 2.8499999046325684E+000,
-                  "Z" : -2.7500000000000000E+000
-                }
-              }
-            ]
+            }
           },
           {
             "$$ClassName" : "TCastleCamera",
@@ -320,20 +304,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.5555112361907959E+000,
-          "X" : -1.8506925553083420E-002,
-          "Y" : 9.9840140342712402E-001,
-          "Z" : 5.3406570106744766E-002
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000002384185791E+000
+          "W" : 3.2199194431304932E+000,
+          "X" : -3.2187351025640965E-003,
+          "Y" : 9.9953067302703857E-001,
+          "Z" : -3.0462350696325302E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.5379325151443481E+000,
+          "X" : -1.6098948717117310E+000,
           "Y" : 1.6060707569122314E+000,
-          "Z" : -3.7901499271392822E+000
+          "Z" : -1.0332550048828125E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
