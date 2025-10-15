@@ -1,4 +1,4 @@
-unit GameViewTravelSpaceshipIndoors;
+unit GameViewTravelSpaceshipLabRoom;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   BaseViewTravel, NyaActor, NyaActorChara;
 
 type
-  TViewTravelSpaceshipIndoors = class(TBaseViewTravel)
+  TViewTravelSpaceshipLabRoom = class(TBaseViewTravel)
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
@@ -15,11 +15,10 @@ type
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
     procedure GetToGoOut;
-    procedure GetToGoToLab;
   end;
 
 var
-  ViewTravelSpaceshipIndoors: TViewTravelSpaceshipIndoors;
+  ViewTravelSpaceshipLabRoom: TViewTravelSpaceshipLabRoom;
 
 implementation
 
@@ -29,13 +28,13 @@ uses
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressing,
-  GameViewTravelRoadAsteroid, GameViewMain, GameViewTravelSpaceJunk,
-  GameViewTravelSpaceshipLabRoom, GameViewConversation;
+  GameViewTravelRoadAsteroid, GameViewMain, GameViewTravelSpaceshipIndoors,
+  GameViewConversation;
 
-procedure TViewTravelSpaceshipIndoors.Start;
+procedure TViewTravelSpaceshipLabRoom.Start;
 begin
   { set map }
-  Map.Url:= 'castle-data:/MapTravel_SpaceshipIndoors.castle-user-interface';
+  Map.Url:= 'castle-data:/MapTravel_SpaceshipLabRoom.castle-user-interface';
 
   { set Girl Character }
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
@@ -46,14 +45,14 @@ begin
   inherited;
 end;
 
-procedure TViewTravelSpaceshipIndoors.Update(const SecondsPassed: Single;
-                                          var HandleInput: boolean);
+procedure TViewTravelSpaceshipLabRoom.Update(const SecondsPassed: Single;
+                                             var HandleInput: boolean);
 begin
 
   inherited;
 end;
 
-procedure TViewTravelSpaceshipIndoors.DoActivateSwitch(Sender: TObject);
+procedure TViewTravelSpaceshipLabRoom.DoActivateSwitch(Sender: TObject);
 var
   switch: TNyaSwitch;
 begin
@@ -64,7 +63,6 @@ begin
 
   Case switch.Name of
   'SwitchGoOut': GetToGoOut;
-  'SwitchGoToLab': GetToGoToLab;
   else
     Notifications.Show('There is nothing to do');
   end;
@@ -74,15 +72,10 @@ end;
 { Get To Go ------------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
-procedure TViewTravelSpaceshipIndoors.GetToGoOut;
+procedure TViewTravelSpaceshipLabRoom.GetToGoOut;
 begin
-  GetToGo(ViewTravelSpaceJunk, Vector3(-9.75, 12.4, 130.5),
-                               Vector4(0.0, 1.0, 0.0, Deg(0.0)));
-end;
-
-procedure TViewTravelSpaceshipIndoors.GetToGoToLab;
-begin
-  GetToGo(ViewTravelSpaceshipLabRoom);
+  GetToGo(ViewTravelSpaceshipIndoors, Vector3(16.0, 0.025, -28.6),
+                                      Vector4(0.0, 1.0, 0.0, Deg(-90.0)));
 end;
 
 end.

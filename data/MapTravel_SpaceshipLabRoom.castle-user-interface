@@ -36,7 +36,7 @@
             "RenderOptions" : {
               "$$ClassName" : "TCastleScene.TSceneRenderOptions"
             },
-            "Url" : "castle-data:/environment/spaceship_indoors/abandoned_spaceship_indoors.x3dv",
+            "Url" : "castle-data:/environment/spaceship_lab_room/abandoned_spaceship_lab_room.x3dv",
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
@@ -58,7 +58,7 @@
                 "SceneFrustumCulling" : false,
                 "ShadowMaps" : false,
                 "ShapeFrustumCulling" : false,
-                "Url" : "castle-data:/environment/spaceship_indoors/abandoned_spaceship_indoors_collider.gltf",
+                "Url" : "castle-data:/environment/spaceship_lab_room/abandoned_spaceship_lab_room_collider.gltf",
                 "Visible" : false,
                 "$Behaviors" : [
                   {
@@ -83,7 +83,7 @@
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
-                  "Z" : -6.0000002384185791E-001
+                  "X" : -4.5000000000000000E+000
                 },
                 "$Children" : [
                   {
@@ -102,10 +102,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
+                      "W" : 2.5357410907745361E+000,
+                      "Y" : 1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -148,82 +146,6 @@
                     "Name" : "SwitchGoOut"
                   }
                 ]
-              },
-              {
-                "$$ClassName" : "TCastleTransform",
-                "Name" : "PortalGoToLab",
-                "RotationPersistent" : {
-                  "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "Z" : 1.0000000000000000E+000
-                },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 1.6600000381469727E+001,
-                  "Z" : -2.8660600662231445E+001
-                },
-                "$Children" : [
-                  {
-                    "$$ClassName" : "TCastleScene",
-                    "AnimateOnlyWhenVisible" : true,
-                    "CollisionSphereRadius" : 4.0000000000000000E+001,
-                    "ExposeTransforms" : [
-                    ],
-                    "Name" : "IndicatorGoToLab",
-                    "Pickable" : false,
-                    "ProcessEvents" : true,
-                    "RenderOptions" : {
-                      "$$ClassName" : "TCastleScene.TSceneRenderOptions",
-                      "BlendingDestinationFactor" : "bdConstantColor",
-                      "BlendingSourceFactor" : "bsConstantColor"
-                    },
-                    "RotationPersistent" : {
-                      "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.5707963705062866E+000,
-                      "X" : -1.7263347399421036E-004,
-                      "Y" : 9.9999994039535522E-001,
-                      "Z" : -1.7263347399421036E-004
-                    },
-                    "TranslationPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 2.2000000476837158E+000
-                    },
-                    "Url" : "castle-data:/effects/indicator/indicator_blue.gltf",
-                    "$Behaviors" : [
-                      {
-                        "$$ClassName" : "TCastleBillboard",
-                        "Name" : "BillboardIndicatorGoToLab"
-                      }
-                    ]
-                  },
-                  {
-                    "$$ClassName" : "TCastleBox",
-                    "Name" : "SwitchExtenderGoToLab",
-                    "RenderOptions" : {
-                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-                    },
-                    "SizePersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : 1.0000000149011612E-001,
-                      "Y" : 1.0000000000000000E+000,
-                      "Z" : 1.0000000149011612E-001
-                    },
-                    "TranslationPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 5.0000000000000000E-001
-                    },
-                    "Visible" : false
-                  }
-                ],
-                "$Behaviors" : [
-                  {
-                    "$$ClassName" : "TNyaSwitch",
-                    "ActionString" : "go to Lab",
-                    "Activator" : "CharaGirl",
-                    "Distance" : 6.0000002384185791E-001,
-                    "Indicator" : "IndicatorGoToLab",
-                    "Name" : "SwitchGoToLab"
-                  }
-                ]
               }
             ]
           },
@@ -247,13 +169,14 @@
                 "Name" : "CharaGirl",
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 3.1415927410125732E+000,
+                  "W" : 1.5707963705062866E+000,
                   "Y" : 1.0000000000000000E+000
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -3.5918304920196533E+000,
                   "Y" : 2.5000000372529030E-002,
-                  "Z" : -3.2500000000000000E+000
+                  "Z" : 4.1857436627878997E-008
                 },
                 "Url" : "castle-data:/CharaGirl_common.castle-transform",
                 "UrlPerson" : "castle-data:/PersonGirl.castle-component",
@@ -298,16 +221,16 @@
             },
             "RotationPersistent" : {
               "$$ClassName" : "TCastleVector4RotationPersistent",
-              "W" : 2.4782462120056152E+000,
-              "X" : -4.3271735310554504E-002,
-              "Y" : -9.9126964807510376E-001,
-              "Z" : -1.2454869598150253E-001
+              "W" : 1.4804879426956177E+000,
+              "X" : -1.9482667744159698E-001,
+              "Y" : 9.6566087007522583E-001,
+              "Z" : 1.7186982929706573E-001
             },
             "TranslationPersistent" : {
               "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -1.2678517103195190E+000,
-              "Y" : 2.1053657531738281E+000,
-              "Z" : -1.2245873451232910E+001
+              "X" : 3.2392635345458984E+000,
+              "Y" : 2.4849846363067627E+000,
+              "Z" : 1.7538384199142456E+000
             }
           }
         ]
@@ -363,10 +286,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.7658686637878418E+000,
-          "X" : -2.1122703328728676E-002,
-          "Y" : 9.9487721920013428E-001,
-          "Z" : 9.8859563469886780E-002
+          "W" : 2.5393395423889160E+000,
+          "X" : -3.8275480270385742E-002,
+          "Y" : 9.9272400140762329E-001,
+          "Z" : 1.1416594684123993E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
@@ -374,9 +297,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.2674611806869507E+000,
-          "Y" : 2.6830592155456543E+000,
-          "Z" : -1.6439245223999023E+001
+          "X" : 1.7979053258895874E+000,
+          "Y" : 2.0190834999084473E+000,
+          "Z" : -3.9948041439056396E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

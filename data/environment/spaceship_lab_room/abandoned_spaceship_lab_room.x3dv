@@ -1,0 +1,54 @@
+#X3D V3.2 utf8
+PROFILE Interchange
+
+NavigationInfo { headlight FALSE }
+
+DEF room Transform
+{
+  children Inline
+  {
+    url "abandoned_spaceship_lab_room.gltf"
+  }
+}
+
+PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0]
+{
+  SpotLight {
+    location IS lightPos
+    cutOffAngle 1.25
+    direction 0 -1 0
+    intensity 8
+    ambientIntensity 0.4
+    color 0.75 0.8 1.0
+    radius 15
+    beamWidth 0.1
+    shadows TRUE
+    defaultShadowMap GeneratedShadowMap {
+      size 256
+      update "ALWAYS"
+      scale 3
+    }
+  }
+}
+
+PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
+{
+  PointLight
+  {
+    location IS lightPos
+    intensity 0.2
+    color 0.75 0.8 1.0
+    ambientIntensity 0.4
+    radius 30
+  }
+}
+
+UpperLight { lightPos  2.6 4.5  2.6 }
+UpperLight { lightPos  2.6 4.5 -2.6 }
+UpperLight { lightPos -2.6 4.5 -2.6 }
+UpperLight { lightPos -2.6 4.5  2.6 }
+
+BottomLight { lightPos  2.6 2.0  2.6 }
+BottomLight { lightPos  2.6 2.0 -2.6 }
+BottomLight { lightPos -2.6 2.0 -2.6 }
+BottomLight { lightPos -2.6 2.0  2.6 }
