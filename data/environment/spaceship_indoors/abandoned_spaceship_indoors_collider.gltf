@@ -44,10 +44,9 @@
 				{
 					"attributes":{
 						"POSITION":4,
-						"NORMAL":5,
-						"TANGENT":6
+						"NORMAL":5
 					},
-					"indices":7
+					"indices":6
 				}
 			]
 		}
@@ -90,7 +89,7 @@
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":132,
+			"count":204,
 			"max":[
 				17,
 				3.5,
@@ -106,19 +105,13 @@
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":132,
+			"count":204,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
-			"componentType":5126,
-			"count":132,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":7,
 			"componentType":5123,
-			"count":324,
+			"count":516,
 			"type":"SCALAR"
 		}
 	],
@@ -149,26 +142,20 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":1584,
+			"byteLength":2448,
 			"byteOffset":1032,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1584,
-			"byteOffset":2616,
+			"byteLength":2448,
+			"byteOffset":3480,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2112,
-			"byteOffset":4200,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":648,
-			"byteOffset":6312,
+			"byteLength":1032,
+			"byteOffset":5928,
 			"target":34963
 		}
 	],
