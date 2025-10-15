@@ -24,7 +24,7 @@ PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0]
     beamWidth 0.1
     shadows TRUE
     defaultShadowMap GeneratedShadowMap {
-      size 512
+      size 256
       update "ALWAYS"
       scale 3
     }
