@@ -39,7 +39,7 @@
 			]
 		},
 		{
-			"name":"Cube.004",
+			"name":"Mesh.003",
 			"primitives":[
 				{
 					"attributes":{
@@ -89,15 +89,15 @@
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":204,
+			"count":644,
 			"max":[
 				17,
 				3.5,
-				0
+				-0.13989654183387756
 			],
 			"min":[
 				-10,
-				0,
+				-3.2345099931774257e-09,
 				-32
 			],
 			"type":"VEC3"
@@ -105,13 +105,13 @@
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":204,
+			"count":644,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5123,
-			"count":516,
+			"count":1290,
 			"type":"SCALAR"
 		}
 	],
@@ -142,26 +142,26 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":2448,
+			"byteLength":7728,
 			"byteOffset":1032,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2448,
-			"byteOffset":3480,
+			"byteLength":7728,
+			"byteOffset":8760,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1032,
-			"byteOffset":5928,
+			"byteLength":2580,
+			"byteOffset":16488,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":6960,
+			"byteLength":19068,
 			"uri":"abandoned_spaceship_indoors_collider.bin"
 		}
 	]
