@@ -5,6 +5,6 @@ rem start prjNya.exe --PlaySolo
 rem start prjNya.exe --PlayTogether
 rem start prjNya.exe --Asteroid
 rem start prjNya.exe --Junk
-rem start prjNya.exe --ShipIn
-start prjNya.exe --Lab
+start prjNya.exe --ShipIn
+rem start prjNya.exe --Lab
 rem start prjNya.exe --Test
