@@ -35,6 +35,8 @@ var
 
 { One-time initialization of resources. }
 procedure ApplicationInitialize;
+var
+  mapName: String;
 begin
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
@@ -60,27 +62,26 @@ begin
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}
 
-  if Application.hasOption('y', 'PlayToy') then
-    Window.Container.View:= ViewPlayGirl
-  else if Application.hasOption('s', 'PlaySolo') then
-    Window.Container.View:= ViewPlaySolo
-  else if Application.hasOption('g', 'PlayTogether') then
-    Window.Container.View:= ViewPlayTogether
-  else if Application.hasOption('t', 'Test') then
-    Window.Container.View:= ViewTravelTest
-  else if Application.hasOption('h', 'Home') then
-    Window.Container.View:= ViewTravelContainerRoom
-  else if Application.hasOption('a', 'Asteroid') then
-    Window.Container.View:= ViewTravelRoadAsteroid
-  else if Application.hasOption('j', 'Junk') then
-    Window.Container.View:= ViewTravelSpaceJunk
-  else if Application.hasOption('i', 'ShipIn') then
-    Window.Container.View:= ViewTravelSpaceshipIndoors
-  else if Application.hasOption('l', 'Lab') then
-    Window.Container.View:= ViewTravelSpaceshipLabRoom
+  if Application.hasOption('M', 'Map') then
+  begin
+    mapName:= Application.GetOptionValue('M', 'Map');
+
+    Case mapName of
+    'Test': Window.Container.View:= ViewTravelTest;
+    'PlayToy': Window.Container.View:= ViewPlayGirl;
+    'PlaySolo': Window.Container.View:= ViewPlaySolo;
+    'PlayTogether': Window.Container.View:= ViewPlayTogether;
+    'Home': Window.Container.View:= ViewTravelContainerRoom;
+    'Asteroid': Window.Container.View:= ViewTravelRoadAsteroid;
+    'Junk': Window.Container.View:= ViewTravelSpaceJunk;
+    'ShipIn': Window.Container.View:= ViewTravelSpaceshipIndoors;
+    'SpaceLab': Window.Container.View:= ViewTravelSpaceshipLabRoom;
+    else
+      Window.Container.View:= ViewMain;
+    end;
+  end
   else
     Window.Container.View:= ViewMain;
-
 end;
 
 initialization

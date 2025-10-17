@@ -1,10 +1,10 @@
 @echo off
-rem start prjNya.exe --Home
-rem start prjNya.exe --PlayToy
-rem start prjNya.exe --PlaySolo
-rem start prjNya.exe --PlayTogether
-rem start prjNya.exe --Asteroid
-rem start prjNya.exe --Junk
-start prjNya.exe --ShipIn
-rem start prjNya.exe --Lab
-rem start prjNya.exe --Test
+rem start prjNya.exe --Map=Home
+rem start prjNya.exe --Map=PlayToy
+rem start prjNya.exe --Map=PlaySolo
+rem start prjNya.exe --Map=PlayTogether
+rem start prjNya.exe --Map=Asteroid
+rem start prjNya.exe --Map=Junk
+rem start prjNya.exe --Map=ShipIn
+start prjNya.exe --Map=SpaceLab
+rem start prjNya.exe --Map=Test
