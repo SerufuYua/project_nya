@@ -381,6 +381,9 @@
 			"normalTexture":{
 				"index":19
 			},
+			"occlusionTexture":{
+				"index":20
+			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
 					0.04954561963677406,
@@ -396,7 +399,7 @@
 			"doubleSided":true,
 			"name":"Plastic",
 			"normalTexture":{
-				"index":20
+				"index":21
 			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
@@ -413,7 +416,10 @@
 			"doubleSided":true,
 			"name":"SoftPad",
 			"normalTexture":{
-				"index":21
+				"index":22
+			},
+			"occlusionTexture":{
+				"index":23
 			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
@@ -430,7 +436,7 @@
 			"doubleSided":true,
 			"name":"Metal",
 			"normalTexture":{
-				"index":22
+				"index":24
 			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
@@ -759,11 +765,19 @@
 		},
 		{
 			"sampler":0,
+			"source":16
+		},
+		{
+			"sampler":0,
 			"source":0
 		},
 		{
 			"sampler":0,
 			"source":15
+		},
+		{
+			"sampler":0,
+			"source":16
 		},
 		{
 			"sampler":0,
@@ -850,6 +864,11 @@
 			"mimeType":"image/png",
 			"name":"hex_plates_chair_n",
 			"uri":"hex_plates_chair_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"hex_plates_chair_ao",
+			"uri":"hex_plates_chair_ao.png"
 		}
 	],
 	"accessors":[
