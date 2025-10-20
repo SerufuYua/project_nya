@@ -17,7 +17,8 @@
 				11,
 				16,
 				18,
-				25
+				25,
+				27
 			]
 		}
 	],
@@ -71,7 +72,7 @@
 			"mesh":5,
 			"name":"Armpad.L",
 			"translation":[
-				-0.009999952279031277,
+				-0.009999923408031464,
 				0,
 				0
 			]
@@ -83,16 +84,16 @@
 			"mesh":6,
 			"name":"Armpad.Frame.L",
 			"translation":[
-				-0.1999998539686203,
-				0.2699999213218689,
-				-0.3500000834465027
+				-0.1999998241662979,
+				0.27000001072883606,
+				-0.35000020265579224
 			]
 		},
 		{
 			"mesh":5,
 			"name":"Armpad.R",
 			"translation":[
-				-0.009999928995966911,
+				-0.009999899193644524,
 				0,
 				0
 			]
@@ -104,9 +105,9 @@
 			"mesh":6,
 			"name":"Armpad.Frame.R",
 			"translation":[
-				-0.1999998390674591,
-				-0.27000004053115845,
-				-0.34999987483024597
+				-0.19999980926513672,
+				-0.2699999511241913,
+				-0.3500000238418579
 			]
 		},
 		{
@@ -125,7 +126,7 @@
 			"translation":[
 				0,
 				0.35000017285346985,
-				0.24000005424022675
+				0.2400001883506775
 			]
 		},
 		{
@@ -136,14 +137,14 @@
 			"name":"Chair.001",
 			"rotation":[
 				0,
-				-0.7071067094802856,
+				-0.5735764503479004,
 				0,
-				0.7071068286895752
+				0.8191521763801575
 			],
 			"translation":[
-				2.4000000953674316,
+				2.3004512786865234,
 				0,
-				-2.500000238418579
+				-2.7645702362060547
 			]
 		},
 		{
@@ -225,9 +226,9 @@
 			"name":"Table",
 			"rotation":[
 				0,
-				-0.7071067094802856,
+				-0.5735764503479004,
 				0,
-				0.7071068286895752
+				0.8191521763801575
 			],
 			"translation":[
 				1.5999999046325684,
@@ -262,15 +263,15 @@
 			"name":"Armpad.Frame.L",
 			"translation":[
 				-0.1999998390674591,
-				0.26999983191490173,
-				-0.34999993443489075
+				0.2699999511241913,
+				-0.3500000536441803
 			]
 		},
 		{
 			"mesh":5,
 			"name":"Armpad.R",
 			"translation":[
-				-0.009999874047935009,
+				-0.009999933652579784,
 				0,
 				0
 			]
@@ -283,8 +284,8 @@
 			"name":"Armpad.Frame.R",
 			"translation":[
 				-0.19999980926513672,
-				-0.26999998092651367,
-				-0.3499998152256012
+				-0.27000001072883606,
+				-0.3500000536441803
 			]
 		},
 		{
@@ -303,7 +304,7 @@
 			"translation":[
 				0,
 				0.35000017285346985,
-				0.24000011384487152
+				0.2400001585483551
 			]
 		},
 		{
@@ -314,14 +315,40 @@
 			"name":"Chair.002",
 			"rotation":[
 				0,
-				0.9396927356719971,
+				-0.8660253882408142,
 				0,
-				0.3420201539993286
+				0.4999999701976776
 			],
 			"translation":[
-				0.10000014305114746,
+				4.100000381469727,
 				0,
-				3.5999996662139893
+				-0.4000001847743988
+			]
+		},
+		{
+			"mesh":13,
+			"name":"Tabouret",
+			"translation":[
+				0,
+				0.23000000417232513,
+				0
+			]
+		},
+		{
+			"children":[
+				26
+			],
+			"name":"Tabouret.001",
+			"rotation":[
+				0,
+				0.3420201539993286,
+				0,
+				0.9396927356719971
+			],
+			"translation":[
+				0.40000009536743164,
+				0,
+				3.200000047683716
 			]
 		}
 	],
@@ -730,6 +757,57 @@
 				"metallicFactor":0,
 				"roughnessFactor":0.6000000238418579
 			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Plastic",
+			"normalTexture":{
+				"index":34
+			},
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.6980686187744141,
+					0.6921387314796448,
+					0.8000000715255737,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.05909091234207153
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"SoftPad",
+			"normalTexture":{
+				"index":35
+			},
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.04954561963677406,
+					0.02549397200345993,
+					0.04960521310567856,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Plastic.Rubber",
+			"normalTexture":{
+				"index":36
+			},
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.020543204620480537,
+					0.018923744559288025,
+					0.02471923828125,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.6000000238418579
+			}
 		}
 	],
 	"meshes":[
@@ -1076,6 +1154,38 @@
 					"material":13
 				}
 			]
+		},
+		{
+			"name":"Cube.001",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":127,
+						"NORMAL":128,
+						"TEXCOORD_0":129
+					},
+					"indices":130,
+					"material":22
+				},
+				{
+					"attributes":{
+						"POSITION":131,
+						"NORMAL":132,
+						"TEXCOORD_0":133
+					},
+					"indices":134,
+					"material":23
+				},
+				{
+					"attributes":{
+						"POSITION":135,
+						"NORMAL":136,
+						"TEXCOORD_0":137
+					},
+					"indices":138,
+					"material":24
+				}
+			]
 		}
 	],
 	"textures":[
@@ -1214,6 +1324,18 @@
 		{
 			"sampler":0,
 			"source":19
+		},
+		{
+			"sampler":0,
+			"source":4
+		},
+		{
+			"sampler":0,
+			"source":15
+		},
+		{
+			"sampler":0,
+			"source":4
 		}
 	],
 	"images":[
@@ -2380,6 +2502,108 @@
 			"componentType":5126,
 			"count":84,
 			"type":"VEC2"
+		},
+		{
+			"bufferView":127,
+			"componentType":5126,
+			"count":209,
+			"max":[
+				0.20000000298023224,
+				0.18999996781349182,
+				0.20000000298023224
+			],
+			"min":[
+				-0.20000000298023224,
+				-0.23000000417232513,
+				-0.20000000298023224
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":128,
+			"componentType":5126,
+			"count":209,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":129,
+			"componentType":5126,
+			"count":209,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":130,
+			"componentType":5123,
+			"count":618,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":131,
+			"componentType":5126,
+			"count":64,
+			"max":[
+				0.20000000298023224,
+				0.23000000417232513,
+				0.20000000298023224
+			],
+			"min":[
+				-0.20000000298023224,
+				0.18999996781349182,
+				-0.20000000298023224
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":132,
+			"componentType":5126,
+			"count":64,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":133,
+			"componentType":5126,
+			"count":64,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":134,
+			"componentType":5123,
+			"count":330,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":135,
+			"componentType":5126,
+			"count":80,
+			"max":[
+				0.20000000298023224,
+				0.1550000011920929,
+				0.20000000298023224
+			],
+			"min":[
+				-0.20000000298023224,
+				-0.23000000417232513,
+				-0.20000000298023224
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":136,
+			"componentType":5126,
+			"count":80,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":137,
+			"componentType":5126,
+			"count":80,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":138,
+			"componentType":5123,
+			"count":216,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -3144,6 +3368,78 @@
 			"byteLength":672,
 			"byteOffset":250228,
 			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2508,
+			"byteOffset":250900,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2508,
+			"byteOffset":253408,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1672,
+			"byteOffset":255916,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1236,
+			"byteOffset":257588,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":768,
+			"byteOffset":258824,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":768,
+			"byteOffset":259592,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":512,
+			"byteOffset":260360,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":660,
+			"byteOffset":260872,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":960,
+			"byteOffset":261532,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":960,
+			"byteOffset":262492,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":640,
+			"byteOffset":263452,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":432,
+			"byteOffset":264092,
+			"target":34963
 		}
 	],
 	"samplers":[
@@ -3154,7 +3450,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":250900,
+			"byteLength":264524,
 			"uri":"abandoned_spaceship_lab_room.bin"
 		}
 	]
