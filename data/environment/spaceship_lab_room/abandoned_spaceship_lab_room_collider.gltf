@@ -10,7 +10,10 @@
 			"name":"Scene",
 			"nodes":[
 				0,
-				1
+				1,
+				2,
+				3,
+				4
 			]
 		}
 	],
@@ -26,6 +29,51 @@
 				2.5,
 				0,
 				3.2200000286102295
+			]
+		},
+		{
+			"mesh":2,
+			"name":"Tbale.Collider",
+			"rotation":[
+				0,
+				-0.7071066498756409,
+				0,
+				0.70710688829422
+			],
+			"translation":[
+				1.5999999046325684,
+				0,
+				-2.3500003814697266
+			]
+		},
+		{
+			"mesh":3,
+			"name":"Chair.Collider.001",
+			"rotation":[
+				0,
+				-0.7071066498756409,
+				0,
+				0.70710688829422
+			],
+			"translation":[
+				2.4000000953674316,
+				0,
+				-2.500000238418579
+			]
+		},
+		{
+			"mesh":4,
+			"name":"Chair.Collider.002",
+			"rotation":[
+				0,
+				0.9396926164627075,
+				0,
+				0.3420201539993286
+			],
+			"translation":[
+				0.10000014305114746,
+				0,
+				3.5999999046325684
 			]
 		}
 	],
@@ -52,6 +100,45 @@
 						"TANGENT":5
 					},
 					"indices":6
+				}
+			]
+		},
+		{
+			"name":"Cube.002",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":7,
+						"NORMAL":8,
+						"TANGENT":9
+					},
+					"indices":10
+				}
+			]
+		},
+		{
+			"name":"Cube.004",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":11,
+						"NORMAL":12,
+						"TANGENT":13
+					},
+					"indices":10
+				}
+			]
+		},
+		{
+			"name":"Cube.005",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":14,
+						"NORMAL":15,
+						"TANGENT":16
+					},
+					"indices":10
 				}
 			]
 		}
@@ -118,6 +205,96 @@
 			"componentType":5123,
 			"count":108,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":7,
+			"componentType":5126,
+			"count":24,
+			"max":[
+				1,
+				0.75,
+				0.3500000238418579
+			],
+			"min":[
+				-1,
+				0,
+				-0.3500000238418579
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":10,
+			"componentType":5123,
+			"count":36,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":11,
+			"componentType":5126,
+			"count":24,
+			"max":[
+				0.3199999928474426,
+				0.9700000286102295,
+				0.27000001072883606
+			],
+			"min":[
+				-0.3199999928474426,
+				0,
+				-0.2800000011920929
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":12,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":13,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":14,
+			"componentType":5126,
+			"count":24,
+			"max":[
+				0.3199999928474426,
+				0.9700000286102295,
+				0.27000001072883606
+			],
+			"min":[
+				-0.3199999928474426,
+				0,
+				-0.2800000011920929
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":15,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":16,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC4"
 		}
 	],
 	"bufferViews":[
@@ -162,11 +339,71 @@
 			"byteLength":216,
 			"byteOffset":3800,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":4016,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":4304,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":4592,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":72,
+			"byteOffset":4976,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":5048,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":5336,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":5624,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":6008,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":6296,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":6584,
+			"target":34962
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":4016,
+			"byteLength":6968,
 			"uri":"abandoned_spaceship_lab_room_collider.bin"
 		}
 	]
