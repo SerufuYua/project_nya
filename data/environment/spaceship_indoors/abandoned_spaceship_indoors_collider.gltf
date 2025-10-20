@@ -10,7 +10,10 @@
 			"name":"Scene",
 			"nodes":[
 				0,
-				1
+				1,
+				2,
+				3,
+				4
 			]
 		}
 	],
@@ -22,6 +25,39 @@
 		{
 			"mesh":1,
 			"name":"hall.collider"
+		},
+		{
+			"mesh":2,
+			"name":"Bench.6x.collider.002",
+			"translation":[
+				-6,
+				0,
+				-18.5
+			]
+		},
+		{
+			"mesh":2,
+			"name":"Bench.6x.collider.001",
+			"translation":[
+				13.160598754882812,
+				0,
+				-13.5
+			]
+		},
+		{
+			"mesh":2,
+			"name":"Bench.6x.collider.003",
+			"rotation":[
+				0,
+				0.7071068286895752,
+				0,
+				0.7071068286895752
+			],
+			"translation":[
+				11.5,
+				0,
+				-28.660600662231445
+			]
 		}
 	],
 	"meshes":[
@@ -47,6 +83,19 @@
 						"NORMAL":5
 					},
 					"indices":6
+				}
+			]
+		},
+		{
+			"name":"Cube.001",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":7,
+						"NORMAL":8,
+						"TANGENT":9
+					},
+					"indices":3
 				}
 			]
 		}
@@ -113,6 +162,34 @@
 			"componentType":5123,
 			"count":1290,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":7,
+			"componentType":5126,
+			"count":24,
+			"max":[
+				1.3799999952316284,
+				0.46000003814697266,
+				0.22999998927116394
+			],
+			"min":[
+				-1.3799999952316284,
+				0,
+				-0.23000001907348633
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC4"
 		}
 	],
 	"bufferViews":[
@@ -157,11 +234,29 @@
 			"byteLength":2580,
 			"byteOffset":16488,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":19068,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":19356,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":19644,
+			"target":34962
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":19068,
+			"byteLength":20028,
 			"uri":"abandoned_spaceship_indoors_collider.bin"
 		}
 	]
