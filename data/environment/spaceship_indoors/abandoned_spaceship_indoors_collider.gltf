@@ -13,7 +13,8 @@
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			]
 		}
 	],
@@ -58,6 +59,21 @@
 				0,
 				-28.660600662231445
 			]
+		},
+		{
+			"mesh":3,
+			"name":"Box.Collider",
+			"rotation":[
+				0,
+				-0.537299633026123,
+				0,
+				0.8433914184570312
+			],
+			"translation":[
+				16.058725357055664,
+				0,
+				-26.368953704833984
+			]
 		}
 	],
 	"meshes":[
@@ -94,6 +110,19 @@
 						"POSITION":7,
 						"NORMAL":8,
 						"TANGENT":9
+					},
+					"indices":3
+				}
+			]
+		},
+		{
+			"name":"Cube.003",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":10,
+						"NORMAL":11,
+						"TANGENT":12
 					},
 					"indices":3
 				}
@@ -190,6 +219,34 @@
 			"componentType":5126,
 			"count":24,
 			"type":"VEC4"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":24,
+			"max":[
+				0.5,
+				1,
+				0.5
+			],
+			"min":[
+				-0.5,
+				0,
+				-0.5
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":11,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":12,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC4"
 		}
 	],
 	"bufferViews":[
@@ -252,11 +309,29 @@
 			"byteLength":384,
 			"byteOffset":19644,
 			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":20028,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":20316,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":384,
+			"byteOffset":20604,
+			"target":34962
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":20028,
+			"byteLength":20988,
 			"uri":"abandoned_spaceship_indoors_collider.bin"
 		}
 	]

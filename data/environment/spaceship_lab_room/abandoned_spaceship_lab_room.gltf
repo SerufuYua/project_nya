@@ -18,7 +18,12 @@
 				16,
 				18,
 				25,
-				27
+				27,
+				29,
+				31,
+				33,
+				35,
+				37
 			]
 		}
 	],
@@ -349,6 +354,136 @@
 				0.40000009536743164,
 				0,
 				3.200000047683716
+			]
+		},
+		{
+			"mesh":14,
+			"name":"Box",
+			"translation":[
+				0,
+				0.5,
+				0
+			]
+		},
+		{
+			"children":[
+				28
+			],
+			"name":"Box.001",
+			"rotation":[
+				0,
+				-0.9914448857307434,
+				0,
+				0.13052619993686676
+			],
+			"translation":[
+				-1.343013048171997,
+				0,
+				3.908266067504883
+			]
+		},
+		{
+			"mesh":14,
+			"name":"Box",
+			"translation":[
+				0,
+				0.5,
+				0
+			]
+		},
+		{
+			"children":[
+				30
+			],
+			"name":"Box.002",
+			"rotation":[
+				0,
+				0.9584676623344421,
+				0,
+				0.2852013409137726
+			],
+			"translation":[
+				-2.7492809295654297,
+				0,
+				3.8069779872894287
+			]
+		},
+		{
+			"mesh":15,
+			"name":"Box.Orange",
+			"translation":[
+				0,
+				0.5,
+				0
+			]
+		},
+		{
+			"children":[
+				32
+			],
+			"name":"Box.Orange.001",
+			"rotation":[
+				0,
+				0.7372773885726929,
+				0,
+				0.6755901575088501
+			],
+			"translation":[
+				-2.101132869720459,
+				1,
+				4.059773921966553
+			]
+		},
+		{
+			"mesh":16,
+			"name":"Box.Danger",
+			"translation":[
+				0,
+				0.5,
+				0
+			]
+		},
+		{
+			"children":[
+				34
+			],
+			"name":"Box.Danger.001",
+			"rotation":[
+				0,
+				-0.2588190734386444,
+				0,
+				0.965925931930542
+			],
+			"translation":[
+				0.05181114375591278,
+				0,
+				-3.788123369216919
+			]
+		},
+		{
+			"mesh":17,
+			"name":"Box.Green",
+			"translation":[
+				0,
+				0.5,
+				0
+			]
+		},
+		{
+			"children":[
+				36
+			],
+			"name":"Box.Green",
+			"rotation":[
+				0,
+				0.21643958985805511,
+				0,
+				0.9762960076332092
+			],
+			"translation":[
+				-1.4886518716812134,
+				0,
+				-3.4953949451446533
 			]
 		}
 	],
@@ -808,6 +943,78 @@
 				"metallicFactor":0,
 				"roughnessFactor":0.6000000238418579
 			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Box.Tex",
+			"normalTexture":{
+				"index":37
+			},
+			"occlusionTexture":{
+				"index":38
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":39
+				},
+				"metallicRoughnessTexture":{
+					"index":38
+				}
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Box.Tex.Orange",
+			"normalTexture":{
+				"index":40
+			},
+			"occlusionTexture":{
+				"index":41
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":42
+				},
+				"metallicRoughnessTexture":{
+					"index":41
+				}
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Box.Tex.Danger",
+			"normalTexture":{
+				"index":43
+			},
+			"occlusionTexture":{
+				"index":44
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":45
+				},
+				"metallicRoughnessTexture":{
+					"index":44
+				}
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Box.Tex.Green",
+			"normalTexture":{
+				"index":46
+			},
+			"occlusionTexture":{
+				"index":47
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":48
+				},
+				"metallicRoughnessTexture":{
+					"index":47
+				}
+			}
 		}
 	],
 	"meshes":[
@@ -1186,6 +1393,62 @@
 					"material":24
 				}
 			]
+		},
+		{
+			"name":"Cube.002",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":139,
+						"NORMAL":140,
+						"TEXCOORD_0":141
+					},
+					"indices":142,
+					"material":25
+				}
+			]
+		},
+		{
+			"name":"Cube.003",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":143,
+						"NORMAL":144,
+						"TEXCOORD_0":145
+					},
+					"indices":142,
+					"material":26
+				}
+			]
+		},
+		{
+			"name":"Cube.006",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":146,
+						"NORMAL":147,
+						"TEXCOORD_0":148
+					},
+					"indices":142,
+					"material":27
+				}
+			]
+		},
+		{
+			"name":"Cube.005",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":149,
+						"NORMAL":150,
+						"TEXCOORD_0":151
+					},
+					"indices":142,
+					"material":28
+				}
+			]
 		}
 	],
 	"textures":[
@@ -1336,6 +1599,54 @@
 		{
 			"sampler":0,
 			"source":4
+		},
+		{
+			"sampler":0,
+			"source":20
+		},
+		{
+			"sampler":0,
+			"source":21
+		},
+		{
+			"sampler":0,
+			"source":22
+		},
+		{
+			"sampler":0,
+			"source":23
+		},
+		{
+			"sampler":0,
+			"source":24
+		},
+		{
+			"sampler":0,
+			"source":25
+		},
+		{
+			"sampler":0,
+			"source":26
+		},
+		{
+			"sampler":0,
+			"source":27
+		},
+		{
+			"sampler":0,
+			"source":28
+		},
+		{
+			"sampler":0,
+			"source":29
+		},
+		{
+			"sampler":0,
+			"source":30
+		},
+		{
+			"sampler":0,
+			"source":31
 		}
 	],
 	"images":[
@@ -1438,6 +1749,66 @@
 			"mimeType":"image/png",
 			"name":"work_surface_n",
 			"uri":"work_surface_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_n",
+			"uri":"box_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_ao-box_r-box_m",
+			"uri":"box_ao-box_r-box_m.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box",
+			"uri":"box.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_orange_n",
+			"uri":"box_orange_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_orange_ao-box_orange_r-box_orange_m",
+			"uri":"box_orange_ao-box_orange_r-box_orange_m.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_orange",
+			"uri":"box_orange.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_danger_n",
+			"uri":"box_danger_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_danger_ao-box_danger_r-box_danger_m",
+			"uri":"box_danger_ao-box_danger_r-box_danger_m.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_danger",
+			"uri":"box_danger.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_green_n",
+			"uri":"box_green_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_green_ao-box_green_r-box_green_m",
+			"uri":"box_green_ao-box_green_r-box_green_m.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_green",
+			"uri":"box_green.png"
 		}
 	],
 	"accessors":[
@@ -2604,6 +2975,124 @@
 			"componentType":5123,
 			"count":216,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":139,
+			"componentType":5126,
+			"count":634,
+			"max":[
+				0.5,
+				0.5,
+				0.5
+			],
+			"min":[
+				-0.5,
+				-0.5,
+				-0.5
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":140,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":141,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":142,
+			"componentType":5123,
+			"count":1308,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":143,
+			"componentType":5126,
+			"count":634,
+			"max":[
+				0.5,
+				0.5,
+				0.5
+			],
+			"min":[
+				-0.5,
+				-0.5,
+				-0.5
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":144,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":145,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":146,
+			"componentType":5126,
+			"count":634,
+			"max":[
+				0.5,
+				0.5,
+				0.5
+			],
+			"min":[
+				-0.5,
+				-0.5,
+				-0.5
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":147,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":148,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":149,
+			"componentType":5126,
+			"count":634,
+			"max":[
+				0.5,
+				0.5,
+				0.5
+			],
+			"min":[
+				-0.5,
+				-0.5,
+				-0.5
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":150,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":151,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC2"
 		}
 	],
 	"bufferViews":[
@@ -3440,6 +3929,84 @@
 			"byteLength":432,
 			"byteOffset":264092,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":264524,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":272132,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":5072,
+			"byteOffset":279740,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2616,
+			"byteOffset":284812,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":287428,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":295036,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":5072,
+			"byteOffset":302644,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":307716,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":315324,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":5072,
+			"byteOffset":322932,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":328004,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":335612,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":5072,
+			"byteOffset":343220,
+			"target":34962
 		}
 	],
 	"samplers":[
@@ -3450,7 +4017,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":264524,
+			"byteLength":348292,
 			"uri":"abandoned_spaceship_lab_room.bin"
 		}
 	]

@@ -24,7 +24,8 @@
 				19,
 				21,
 				23,
-				25
+				25,
+				27
 			]
 		}
 	],
@@ -230,6 +231,32 @@
 				11.5,
 				0,
 				-28.660600662231445
+			]
+		},
+		{
+			"mesh":15,
+			"name":"Box.Red",
+			"translation":[
+				0,
+				0.5,
+				0
+			]
+		},
+		{
+			"children":[
+				26
+			],
+			"name":"Box.Red",
+			"rotation":[
+				0,
+				-0.537299633026123,
+				0,
+				0.8433914184570312
+			],
+			"translation":[
+				16.058725357055664,
+				0,
+				-26.368953704833984
 			]
 		}
 	],
@@ -653,6 +680,24 @@
 				],
 				"metallicFactor":0,
 				"roughnessFactor":0.6000000238418579
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Box.Tex.Red",
+			"normalTexture":{
+				"index":40
+			},
+			"occlusionTexture":{
+				"index":41
+			},
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":42
+				},
+				"metallicRoughnessTexture":{
+					"index":41
+				}
 			}
 		}
 	],
@@ -1103,6 +1148,20 @@
 					"material":22
 				}
 			]
+		},
+		{
+			"name":"Cube.004",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":152,
+						"NORMAL":153,
+						"TEXCOORD_0":154
+					},
+					"indices":155,
+					"material":23
+				}
+			]
 		}
 	],
 	"textures":[
@@ -1265,6 +1324,18 @@
 		{
 			"sampler":0,
 			"source":23
+		},
+		{
+			"sampler":0,
+			"source":27
+		},
+		{
+			"sampler":0,
+			"source":28
+		},
+		{
+			"sampler":0,
+			"source":29
 		}
 	],
 	"images":[
@@ -1402,6 +1473,21 @@
 			"mimeType":"image/png",
 			"name":"hex_plates_chair_n",
 			"uri":"hex_plates_chair_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_red_n",
+			"uri":"box_red_n.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_red_ao-box_red_r-box_red_m",
+			"uri":"box_red_ao-box_red_r-box_red_m.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"box_red",
+			"uri":"box_red.png"
 		}
 	],
 	"accessors":[
@@ -2726,6 +2812,40 @@
 			"componentType":5126,
 			"count":464,
 			"type":"VEC2"
+		},
+		{
+			"bufferView":152,
+			"componentType":5126,
+			"count":634,
+			"max":[
+				0.5,
+				0.5,
+				0.5
+			],
+			"min":[
+				-0.5,
+				-0.5,
+				-0.5
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":153,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":154,
+			"componentType":5126,
+			"count":634,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":155,
+			"componentType":5123,
+			"count":1308,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -3640,6 +3760,30 @@
 			"byteLength":3712,
 			"byteOffset":467472,
 			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":471184,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":7608,
+			"byteOffset":478792,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":5072,
+			"byteOffset":486400,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2616,
+			"byteOffset":491472,
+			"target":34963
 		}
 	],
 	"samplers":[
@@ -3650,7 +3794,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":471184,
+			"byteLength":494088,
 			"uri":"abandoned_spaceship_indoors.bin"
 		}
 	]
