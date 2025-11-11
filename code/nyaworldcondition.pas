@@ -10,7 +10,8 @@ uses
 
 type
   TBoyLocation = (Away, VisitInRoom, VisitInHovel, HomeWorking, HomeSleep);
-  TBoyStatus   = (NotMeet, InSearch, FirstTalkDone, FirstVisitDone);
+  TBoyStatus   = (InSearch, FirstTalkDone, FirstVisitDone);
+  TBoyStatuses = Set of TBoyStatus;
 
   TNyaWorldCondition = class(TCastleUserInterface)
   protected
@@ -20,7 +21,6 @@ type
       protected
         const
           DefaultLocation = Away;
-          DefaultStatus = TBoyStatus.NotMeet;
           DefaultLocationInterval: TFloatTime = 60.0;
           DefaultLocationIntervalVariance: TFloatTime = 15.0;
           DefaultSearched = False;
@@ -29,7 +29,7 @@ type
         FVisible: Boolean;
         FLocation: TBoyLocation;
         FLocationRemaining: TFloatTime;
-        FStatus: TBoyStatus;
+        FStatus: TBoyStatuses;
         FDresser: TCharaDresser;
         function LocationInterval: TFloatTime;
         procedure OnLocation;
@@ -38,7 +38,7 @@ type
         procedure Update(const SecondsPassed: Single);
         property Visible: boolean read FVisible write FVisible;
         property Location: TBoyLocation read FLocation write FLocation;
-        property Status: TBoyStatus read FStatus write FStatus;
+        property Status: TBoyStatuses read FStatus write FStatus;
         property Dresser: TCharaDresser write FDresser;
       end;
     var
@@ -60,7 +60,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleConfig, Math;
+  CastleComponentSerialize, CastleUtils, CastleConfig, Math, TypInfo;
 
 const
   Section = 'World';
@@ -78,7 +78,7 @@ const
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
   FLocation:= DefaultLocation;
-  FStatus:= DefaultStatus;
+  FStatus:= [];
   FLocationRemaining:= LocationInterval;
   FVisible:= DefaultVisible;
   FDresser:= nil;
@@ -113,7 +113,8 @@ begin
   locNum:= RandomRange(nLow, nHigh);
 
   { if FirstTalk with Boy isn't done then boy isn't go in Girl's Home itself }
-  if ((Status = DefaultStatus) AND (TBoyLocation(locNum) = TBoyLocation.VisitInRoom)) then
+  if ((NOT (TBoyStatus.FirstTalkDone in Status)) AND
+      (TBoyLocation(locNum) = TBoyLocation.VisitInRoom)) then
     FLocation:= TBoyLocation.VisitInHovel
   else
     FLocation:= TBoyLocation(locNum);
@@ -168,32 +169,39 @@ end;
 
 procedure TNyaWorldCondition.RestoreCondition;
 var
+  boyStatus: TBoyStatus;
   path: String;
 begin
   path:= Section + '/' + BoyStr + '/';
-
-  FBoyCondition.FLocation:= TBoyLocation(UserConfig.GetValue(path +
-                                         LocationStr,
-                                         Ord(FBoyCondition.DefaultLocation)));
-
-  FBoyCondition.FStatus:=  TBoyStatus(UserConfig.GetValue(path +
-                                      BoySatus,
-                                      Ord(FBoyCondition.DefaultStatus)));
 
   FBoyCondition.FLocationRemaining:= UserConfig.GetFloat(path + TimerStr,
                                        FBoyCondition.LocationInterval);
 
+  FBoyCondition.FLocation:= TBoyLocation(GetEnumValue(TypeInfo(TBoyLocation),
+                              (UserConfig.GetValue(path + LocationStr,
+                                 GetEnumName(TypeInfo(TBoyLocation), 0)))));
+
+  For boyStatus in TBoyStatuses do
+    UserConfig.GetValue(path + GetEnumName(TypeInfo(TBoyStatus), Ord(boyStatus)),
+                        False);
 end;
 
 procedure TNyaWorldCondition.SaveCondition;
 var
+  boyStatus: TBoyStatus;
   path: String;
 begin
   path:= Section + '/' + BoyStr + '/';
 
-  UserConfig.SetValue(path + LocationStr, Ord(FBoyCondition.FLocation));
-  UserConfig.SetValue(path + BoySatus, Ord(FBoyCondition.FStatus));
   UserConfig.SetFloat(path + TimerStr, FBoyCondition.FLocationRemaining);
+
+  UserConfig.SetValue(path + LocationStr,
+                      GetEnumName(TypeInfo(TBoyLocation),
+                                  Ord(FBoyCondition.FLocation)));
+
+  For boyStatus in TBoyStatuses do
+    UserConfig.SetValue(path + GetEnumName(TypeInfo(TBoyStatus), Ord(boyStatus)),
+                        (boyStatus in FBoyCondition.Status));
 
   UserConfig.Save;
 end;

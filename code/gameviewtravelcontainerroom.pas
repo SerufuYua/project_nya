@@ -68,7 +68,7 @@ begin
 
   { update Boy Exists }
   FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.VisitInRoom) AND
-                     (WorldCondition.Boy.Status = TBoyStatus.FirstTalkDone);
+                     (TBoyStatus.FirstTalkDone in WorldCondition.Boy.Status);
 
   inherited;
 end;

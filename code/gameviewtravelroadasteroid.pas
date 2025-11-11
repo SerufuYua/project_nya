@@ -91,7 +91,7 @@ begin
 
   { update Boy Exists }
   FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.VisitInHovel) AND
-                     (WorldCondition.Boy.Status <> TBoyStatus.NotMeet);
+                     (TBoyStatus.InSearch in WorldCondition.Boy.Status);
 
   inherited;
 end;
@@ -154,7 +154,20 @@ procedure TViewTravelRoadAsteroid.ConversationSpacePlane;
 var
   messages: TMessages;
 begin
-  if (WorldCondition.Boy.Status = TBoyStatus.NotMeet) then
+  if (TBoyStatus.FirstTalkDone in WorldCondition.Boy.Status) then
+  begin
+    SetLength(messages, 3);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi! How are you!</p>';
+    messages[1].FActor:= FActorSpacePlane;
+    messages[1].FMessage:= '<p>Fine! How are you?</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Nya!</p>';
+    Container.PushView(TViewConversation.CreateUntilStopped(
+                       messages,
+                       nil,
+                       nil));
+  end else
   begin
     SetLength(messages, 5);
     messages[0].FActor:= MainActor;
@@ -173,19 +186,6 @@ begin
                        messages,
                        {$ifdef FPC}@{$endif}TalkToPlaneOk,
                        nil));
-  end else
-  begin
-    SetLength(messages, 3);
-    messages[0].FActor:= MainActor;
-    messages[0].FMessage:= '<p>Hi! How are you!</p>';
-    messages[1].FActor:= FActorSpacePlane;
-    messages[1].FMessage:= '<p>Fine! How are you?</p>';
-    messages[2].FActor:= MainActor;
-    messages[2].FMessage:= '<p>Nya!</p>';
-    Container.PushView(TViewConversation.CreateUntilStopped(
-                       messages,
-                       nil,
-                       nil));
   end;
 end;
 
@@ -193,7 +193,7 @@ procedure TViewTravelRoadAsteroid.ConversationBoy;
 var
   messages: TMessages;
 begin
-  if (WorldCondition.Boy.Status = TBoyStatus.FirstTalkDone) then
+  if (TBoyStatus.FirstTalkDone in WorldCondition.Boy.Status) then
   begin
     SetLength(messages, 2);
     messages[0].FActor:= MainActor;
@@ -238,12 +238,12 @@ end;
 
 procedure TViewTravelRoadAsteroid.TalkToPlaneOk;
 begin
-  WorldCondition.Boy.Status:= TBoyStatus.InSearch;
+  WorldCondition.Boy.Status:= WorldCondition.Boy.Status + [TBoyStatus.InSearch];
 end;
 
 procedure TViewTravelRoadAsteroid.TalkToBoyOk;
 begin
-  WorldCondition.Boy.Status:= TBoyStatus.FirstTalkDone;
+  WorldCondition.Boy.Status:= WorldCondition.Boy.Status + [TBoyStatus.FirstTalkDone];
 end;
 
 { ========= ------------------------------------------------------------------ }
