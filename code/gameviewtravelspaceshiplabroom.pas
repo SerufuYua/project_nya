@@ -12,6 +12,8 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
+    FActorBoy: TNyaActorChara;
+    FPositionBoyTable, FPositionBoyBed: TCastleTransform;
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
     procedure GetToGoOut;
@@ -39,6 +41,16 @@ begin
   { set Girl Character }
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
 
+  { set Boy Character }
+  FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
+  WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
+  FActorBoy.Exists:= (WorldCondition.Boy.Location in
+                      [TBoyLocation.HomeSleep, TBoyLocation.HomeWorking]) AND
+                      (TBoyStatus.InSearch in WorldCondition.Boy.Status);
+
+  FPositionBoyTable:= Map.DesignedComponent('PositionBoyTable') as TCastleTransform;
+  FPositionBoyBed:= Map.DesignedComponent('PositionBoyBed') as TCastleTransform;
+
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
 
@@ -48,6 +60,14 @@ end;
 procedure TViewTravelSpaceshipLabRoom.Update(const SecondsPassed: Single;
                                              var HandleInput: boolean);
 begin
+  { update Plane visibility }
+  WorldCondition.Boy.Visible:= PointVisible(FPositionBoyTable.Translation) AND
+                               PointVisible(FPositionBoyBed.Translation);
+
+  { update Space Plane Exists }
+  FActorBoy.Exists:= (WorldCondition.Boy.Location in
+                      [TBoyLocation.HomeSleep, TBoyLocation.HomeWorking]) AND
+                      (TBoyStatus.InSearch in WorldCondition.Boy.Status);
 
   inherited;
 end;

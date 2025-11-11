@@ -18,6 +18,10 @@ type
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
+    procedure ConversationSpacePlane;
+  protected
+    procedure TalkToPlaneOk;
+  protected
     procedure GetToGoShip;
     procedure GetToGoRoadAsteroid;
   end;
@@ -64,6 +68,9 @@ begin
   { update Plane visibility }
   WorldCondition.Boy.Visible:= PointVisible(FActorSpacePlane.Translation);
 
+  { update Space Plane Exists }
+  FActorSpacePlane.Exists:= WorldCondition.Boy.Location in
+                            [TBoyLocation.HomeSleep, TBoyLocation.HomeWorking];
   inherited;
 end;
 
@@ -91,12 +98,68 @@ begin
   inherited;
 
   Case switch.Name of
-  'GoShipSwitch': GetToGoShip;
+  'GoShipSwitch':
+    GetToGoShip;
+  'SpacePlaneSwitch':
+    ConversationSpacePlane;
   'SwitchMoto':
     SitToVehicle(Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle);
   else
     Notifications.Show('There is nothing to do');
   end;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ Conversations -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelSpaceJunk.ConversationSpacePlane;
+var
+  messages: TMessages;
+begin
+  if (TBoyStatus.FirstTalkDone in WorldCondition.Boy.Status) then
+  begin
+    SetLength(messages, 3);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi! How are you!</p>';
+    messages[1].FActor:= FActorSpacePlane;
+    messages[1].FMessage:= '<p>Fine! How are you?</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Nya!</p>';
+    Container.PushView(TViewConversation.CreateUntilStopped(
+                       messages,
+                       nil,
+                       nil));
+  end else
+  begin
+    SetLength(messages, 5);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi!</p><p>How are you?!</p>';
+    messages[1].FActor:= FActorSpacePlane;
+    messages[1].FMessage:= '<p>Yo! I&apos;m fine.</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Have you seen my friend?</p>';
+    messages[3].FActor:= FActorSpacePlane;
+    messages[3].FMessage:= '<p>Why are you asking me? I&apos;m not a spy for him. ' +
+                           'I&apos;m just his vehicle. Look for him yourself...</p>' +
+                           '<p>Maybe he&apos;s somewhere on board a ship.<br>' +
+                           'Not on me ha-ha... I don&apos;t know.</p>';
+    messages[4].FActor:= MainActor;
+    messages[4].FMessage:= '<p>Thanks! See ya!</p>';
+    Container.PushView(TViewConversation.CreateUntilStopped(
+                       messages,
+                       {$ifdef FPC}@{$endif}TalkToPlaneOk,
+                       nil));
+  end;
+end;
+
+{ ========= ------------------------------------------------------------------ }
+{ TalkTo Result -------------------------------------------------------------- }
+{ ========= ------------------------------------------------------------------ }
+
+procedure TViewTravelSpaceJunk.TalkToPlaneOk;
+begin
+  WorldCondition.Boy.Status:= WorldCondition.Boy.Status + [TBoyStatus.InSearch];
 end;
 
 { ========= ------------------------------------------------------------------ }
