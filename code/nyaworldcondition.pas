@@ -21,21 +21,23 @@ type
       protected
         const
           DefaultLocation = Away;
-          DefaultLocationInterval: TFloatTime = 60.0;
-          DefaultLocationIntervalVariance: TFloatTime = 15.0;
           DefaultSearched = False;
           DefaultVisible = False;
       protected
+        FLocationInterval: TFloatTime;
+        FLocationIntervalVariance: TFloatTime;
         FVisible: Boolean;
         FLocation: TBoyLocation;
         FLocationRemaining: TFloatTime;
         FStatus: TBoyStatuses;
         FDresser: TCharaDresser;
-        function LocationInterval: TFloatTime;
+        function GetLocationInterval: TFloatTime;
         procedure OnLocation;
       public
         constructor Create;
         procedure Update(const SecondsPassed: Single);
+        property LocationInterval: TFloatTime read FLocationInterval write FLocationInterval;
+        property LocationIntervalVariance: TFloatTime read FLocationIntervalVariance write FLocationInterval;
         property Visible: boolean read FVisible write FVisible;
         property Location: TBoyLocation read FLocation write FLocation;
         property Status: TBoyStatuses read FStatus write FStatus;
@@ -44,6 +46,14 @@ type
     var
       FBoyCondition: TBoyCondition;
   protected
+    const
+      DefaultLocationInterval = 60.0;
+      DefaultLocationIntervalVariance = 15.0;
+
+    procedure SetBoyLocationInterval(value: Single);
+    function GetBoyLocationInterval: Single;
+    procedure SetBoyLocationIntervalVariance(value: Single);
+    function GetBoyLocationIntervalVariance: Single;
     procedure RestoreCondition;
     procedure SaveCondition;
   public
@@ -52,8 +62,13 @@ type
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
-  public
+
     property Boy: TBoyCondition read FBoyCondition;
+  published
+    property BoyLocationInterval: Single read GetBoyLocationInterval write SetBoyLocationInterval
+             {$ifdef FPC}default DefaultLocationInterval{$endif};
+    property BoyLocationIntervalVariance: Single read GetBoyLocationIntervalVariance write SetBoyLocationIntervalVariance
+             {$ifdef FPC}default DefaultLocationIntervalVariance{$endif};
   end;
 
 
@@ -77,9 +92,11 @@ const
 
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
+  FLocationInterval:= DefaultLocationInterval;
+  FLocationIntervalVariance:= DefaultLocationIntervalVariance;
   FLocation:= DefaultLocation;
   FStatus:= [];
-  FLocationRemaining:= LocationInterval;
+  FLocationRemaining:= GetLocationInterval;
   FVisible:= DefaultVisible;
   FDresser:= nil;
 end;
@@ -89,12 +106,12 @@ begin
   FLocationRemaining:= FLocationRemaining - SecondsPassed;
   if ((FLocationRemaining <= 0.0) AND (NOT Self.Visible)) then
   begin
-    FLocationRemaining:= LocationInterval;
+    FLocationRemaining:= GetLocationInterval;
     OnLocation;
   end;
 end;
 
-function TNyaWorldCondition.TBoyCondition.LocationInterval: TFloatTime;
+function TNyaWorldCondition.TBoyCondition.GetLocationInterval: TFloatTime;
 begin
   Result:= RandomFloatRange(
              DefaultLocationInterval - DefaultLocationIntervalVariance,
@@ -160,11 +177,31 @@ end;
 function TNyaWorldCondition.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'any1', 'any2'
+       'BoyLocationInterval', 'BoyLocationIntervalVariance'
      ]) then
     Result:= [psBasic]
   else
     Result:= inherited PropertySections(PropertyName);
+end;
+
+procedure TNyaWorldCondition.SetBoyLocationInterval(value: Single);
+begin
+  FBoyCondition.LocationInterval:= value;
+end;
+
+function TNyaWorldCondition.GetBoyLocationInterval: Single;
+begin
+  Result:= FBoyCondition.LocationInterval;
+end;
+
+procedure TNyaWorldCondition.SetBoyLocationIntervalVariance(value: Single);
+begin
+  FBoyCondition.LocationIntervalVariance:= value;
+end;
+
+function TNyaWorldCondition.GetBoyLocationIntervalVariance: Single;
+begin
+  Result:= FBoyCondition.LocationIntervalVariance;
 end;
 
 procedure TNyaWorldCondition.RestoreCondition;
@@ -175,7 +212,7 @@ begin
   path:= Section + '/' + BoyStr + '/';
 
   FBoyCondition.FLocationRemaining:= UserConfig.GetFloat(path + TimerStr,
-                                       FBoyCondition.LocationInterval);
+                                       FBoyCondition.GetLocationInterval);
 
   FBoyCondition.FLocation:= TBoyLocation(GetEnumValue(TypeInfo(TBoyLocation),
                               (UserConfig.GetValue(path + LocationStr,
