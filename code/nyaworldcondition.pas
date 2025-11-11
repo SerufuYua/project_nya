@@ -219,8 +219,8 @@ begin
                                  GetEnumName(TypeInfo(TBoyLocation), 0)))));
 
   For boyStatus in TBoyStatuses do
-    UserConfig.GetValue(path + GetEnumName(TypeInfo(TBoyStatus), Ord(boyStatus)),
-                        False);
+    if UserConfig.GetValue(path + GetEnumName(TypeInfo(TBoyStatus), Ord(boyStatus)), False) then
+      FBoyCondition.Status:= FBoyCondition.Status + [boyStatus];
 end;
 
 procedure TNyaWorldCondition.SaveCondition;
