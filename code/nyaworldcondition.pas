@@ -9,7 +9,8 @@ uses
   CastleTimeUtils, NyaCharaDress;
 
 type
-  TBoyLocation = (Away, InRoom, InHovel);
+  TBoyLocation = (Away, VisitInRoom, VisitInHovel, HomeWorking, HomeSleep);
+  TBoyStatus   = (NotMeet, InSearch, FirstTalkDone, FirstVisitDone);
 
   TNyaWorldCondition = class(TCastleUserInterface)
   protected
@@ -19,7 +20,7 @@ type
       protected
         const
           DefaultLocation = Away;
-          DefaultFirstTalkDone = False;
+          DefaultStatus = TBoyStatus.NotMeet;
           DefaultLocationInterval: TFloatTime = 60.0;
           DefaultLocationIntervalVariance: TFloatTime = 15.0;
           DefaultSearched = False;
@@ -28,25 +29,21 @@ type
         FVisible: Boolean;
         FLocation: TBoyLocation;
         FLocationRemaining: TFloatTime;
-        FSearched: Boolean;
-        FFirstTalkDone: Boolean;
+        FStatus: TBoyStatus;
         FDresser: TCharaDresser;
-        function GetLocation: TBoyLocation;
         function LocationInterval: TFloatTime;
         procedure OnLocation;
       public
         constructor Create;
         procedure Update(const SecondsPassed: Single);
-        property Location: TBoyLocation read GetLocation write FLocation;
-        property Searched: boolean read FSearched write FSearched;
-        property FirstTalkDone: boolean read FFirstTalkDone write FFirstTalkDone;
         property Visible: boolean read FVisible write FVisible;
+        property Location: TBoyLocation read FLocation write FLocation;
+        property Status: TBoyStatus read FStatus write FStatus;
         property Dresser: TCharaDresser write FDresser;
       end;
     var
       FBoyCondition: TBoyCondition;
   protected
-    function GetSpacePlaneExists: Boolean;
     procedure RestoreCondition;
     procedure SaveCondition;
   public
@@ -57,7 +54,6 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
   public
     property Boy: TBoyCondition read FBoyCondition;
-    property SpacePlaneExists: boolean read GetSpacePlaneExists;
   end;
 
 
@@ -68,6 +64,7 @@ uses
 
 const
   Section = 'World';
+  BoySatus = 'Status';
   BoyStr = 'Boy';
 
 { ========= ------------------------------------------------------------------ }
@@ -76,16 +73,13 @@ const
 
 const
   LocationStr = 'Location';
-  FirstTalkDone = 'FirstTalkDone';
   TimerStr = 'Timer';
-  SearchedStr = 'Searched';
 
   constructor TNyaWorldCondition.TBoyCondition.Create;
 begin
   FLocation:= DefaultLocation;
-  FFirstTalkDone:= DefaultFirstTalkDone;
+  FStatus:= DefaultStatus;
   FLocationRemaining:= LocationInterval;
-  FSearched:= DefaultSearched;
   FVisible:= DefaultVisible;
   FDresser:= nil;
 end;
@@ -93,16 +87,11 @@ end;
 procedure TNyaWorldCondition.TBoyCondition.Update(const SecondsPassed: Single);
 begin
   FLocationRemaining:= FLocationRemaining - SecondsPassed;
-  if ((FLocationRemaining <= 0.0) AND (NOT Visible)) then
+  if ((FLocationRemaining <= 0.0) AND (NOT Self.Visible)) then
+  begin
+    FLocationRemaining:= LocationInterval;
     OnLocation;
-end;
-
-function TNyaWorldCondition.TBoyCondition.GetLocation: TBoyLocation;
-begin
-  if FSearched then
-    Result:= FLocation
-  else
-    Result:= DefaultLocation;
+  end;
 end;
 
 function TNyaWorldCondition.TBoyCondition.LocationInterval: TFloatTime;
@@ -118,16 +107,14 @@ var
   suitList: Array of String;
   newSuit: String;
 begin
-  FLocationRemaining:= LocationInterval;
-
   nLow:= Ord(Low(TBoyLocation));
   nHigh:= Ord(High(TBoyLocation)) + 1;
 
   locNum:= RandomRange(nLow, nHigh);
 
   { if FirstTalk with Boy isn't done then boy isn't go in Girl's Home itself }
-  if ((NOT FirstTalkDone) AND (TBoyLocation(locNum) = TBoyLocation.InRoom)) then
-    FLocation:= TBoyLocation.InHovel
+  if ((Status = DefaultStatus) AND (TBoyLocation(locNum) = TBoyLocation.VisitInRoom)) then
+    FLocation:= TBoyLocation.VisitInHovel
   else
     FLocation:= TBoyLocation(locNum);
 
@@ -179,11 +166,6 @@ begin
     Result:= inherited PropertySections(PropertyName);
 end;
 
-function TNyaWorldCondition.GetSpacePlaneExists: Boolean;
-begin
-  Result:= FBoyCondition.FLocation <> TBoyLocation.Away;
-end;
-
 procedure TNyaWorldCondition.RestoreCondition;
 var
   path: String;
@@ -194,15 +176,13 @@ begin
                                          LocationStr,
                                          Ord(FBoyCondition.DefaultLocation)));
 
-  FBoyCondition.FFirstTalkDone:=  UserConfig.GetValue(path +
-                                    FirstTalkDone,
-                                    FBoyCondition.DefaultFirstTalkDone);
+  FBoyCondition.FStatus:=  TBoyStatus(UserConfig.GetValue(path +
+                                      BoySatus,
+                                      Ord(FBoyCondition.DefaultStatus)));
 
   FBoyCondition.FLocationRemaining:= UserConfig.GetFloat(path + TimerStr,
                                        FBoyCondition.LocationInterval);
 
-  FBoyCondition.FSearched:= UserConfig.GetValue(path + SearchedStr,
-                                                FBoyCondition.DefaultSearched);
 end;
 
 procedure TNyaWorldCondition.SaveCondition;
@@ -212,9 +192,8 @@ begin
   path:= Section + '/' + BoyStr + '/';
 
   UserConfig.SetValue(path + LocationStr, Ord(FBoyCondition.FLocation));
-  UserConfig.SetValue(path + FirstTalkDone, FBoyCondition.FFirstTalkDone);
+  UserConfig.SetValue(path + BoySatus, Ord(FBoyCondition.FStatus));
   UserConfig.SetFloat(path + TimerStr, FBoyCondition.FLocationRemaining);
-  UserConfig.SetValue(path + SearchedStr, FBoyCondition.FSearched);
 
   UserConfig.Save;
 end;

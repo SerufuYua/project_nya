@@ -52,7 +52,7 @@ begin
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
-  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InRoom);
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.VisitInRoom);
 
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
@@ -67,7 +67,8 @@ begin
   WorldCondition.Boy.Visible:= PointVisible(FActorBoy.Translation);
 
   { update Boy Exists }
-  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InRoom);
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.VisitInRoom) AND
+                     (WorldCondition.Boy.Status = TBoyStatus.FirstTalkDone);
 
   inherited;
 end;

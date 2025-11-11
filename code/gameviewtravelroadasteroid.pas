@@ -55,7 +55,8 @@ begin
 
   { set Space Plane Character }
   FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
-  FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
+  FActorSpacePlane.Exists:= WorldCondition.Boy.Location in
+                          [TBoyLocation.VisitInHovel, TBoyLocation.VisitInRoom];
 
   { set vehicle Navigation }
   FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
@@ -63,7 +64,7 @@ begin
   { set Boy Character }
   FActorBoy:= Map.DesignedComponent('CharaBoy') as TNyaActorChara;
   WorldCondition.Boy.Dresser:= FActorBoy.Dresser;
-  FActorBoy.Exists:= WorldCondition.Boy.Location = TBoyLocation.InHovel;
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.VisitInHovel);
 
   { enable water animation }
   Water:= Map.DesignedComponent('Water') as TCastleScene;
@@ -80,15 +81,17 @@ end;
 procedure TViewTravelRoadAsteroid.Update(const SecondsPassed: Single;
                                           var HandleInput: boolean);
 begin
-  { update Boy visibility }
-  WorldCondition.Boy.Visible:= PointVisible(FActorBoy.Translation) OR
-                               PointVisible(FActorSpacePlane.Translation);
+  { update Boy and Plane visibility }
+  WorldCondition.Boy.Visible:= PointVisible(FActorSpacePlane.Translation) AND
+                               PointVisible(FActorBoy.Translation);
 
   { update Space Plane Exists }
-  FActorSpacePlane.Exists:= WorldCondition.SpacePlaneExists;
+  FActorSpacePlane.Exists:= WorldCondition.Boy.Location in
+                          [TBoyLocation.VisitInHovel, TBoyLocation.VisitInRoom];
 
   { update Boy Exists }
-  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.InHovel);
+  FActorBoy.Exists:= (WorldCondition.Boy.Location = TBoyLocation.VisitInHovel) AND
+                     (WorldCondition.Boy.Status <> TBoyStatus.NotMeet);
 
   inherited;
 end;
@@ -151,20 +154,7 @@ procedure TViewTravelRoadAsteroid.ConversationSpacePlane;
 var
   messages: TMessages;
 begin
-  if WorldCondition.Boy.FirstTalkDone then
-  begin
-    SetLength(messages, 3);
-    messages[0].FActor:= MainActor;
-    messages[0].FMessage:= '<p>Hi! How are you!</p>';
-    messages[1].FActor:= FActorSpacePlane;
-    messages[1].FMessage:= '<p>Fine! How are you?</p>';
-    messages[2].FActor:= MainActor;
-    messages[2].FMessage:= '<p>Nya!</p>';
-    Container.PushView(TViewConversation.CreateUntilStopped(
-                       messages,
-                       nil,
-                       nil));
-  end else
+  if (WorldCondition.Boy.Status = TBoyStatus.NotMeet) then
   begin
     SetLength(messages, 5);
     messages[0].FActor:= MainActor;
@@ -183,6 +173,19 @@ begin
                        messages,
                        {$ifdef FPC}@{$endif}TalkToPlaneOk,
                        nil));
+  end else
+  begin
+    SetLength(messages, 3);
+    messages[0].FActor:= MainActor;
+    messages[0].FMessage:= '<p>Hi! How are you!</p>';
+    messages[1].FActor:= FActorSpacePlane;
+    messages[1].FMessage:= '<p>Fine! How are you?</p>';
+    messages[2].FActor:= MainActor;
+    messages[2].FMessage:= '<p>Nya!</p>';
+    Container.PushView(TViewConversation.CreateUntilStopped(
+                       messages,
+                       nil,
+                       nil));
   end;
 end;
 
@@ -190,7 +193,7 @@ procedure TViewTravelRoadAsteroid.ConversationBoy;
 var
   messages: TMessages;
 begin
-  if WorldCondition.Boy.FirstTalkDone then
+  if (WorldCondition.Boy.Status = TBoyStatus.FirstTalkDone) then
   begin
     SetLength(messages, 2);
     messages[0].FActor:= MainActor;
@@ -235,12 +238,12 @@ end;
 
 procedure TViewTravelRoadAsteroid.TalkToPlaneOk;
 begin
-  WorldCondition.Boy.Searched:= True;
+  WorldCondition.Boy.Status:= TBoyStatus.InSearch;
 end;
 
 procedure TViewTravelRoadAsteroid.TalkToBoyOk;
 begin
-  WorldCondition.Boy.FirstTalkDone:= True;
+  WorldCondition.Boy.Status:= TBoyStatus.FirstTalkDone;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -249,7 +252,7 @@ end;
 
 procedure TViewTravelRoadAsteroid.GetToGoBoy;
 begin
-  WorldCondition.Boy.Location:= TBoyLocation.InRoom;
+  WorldCondition.Boy.Location:= TBoyLocation.VisitInRoom;
   GetToGo(ViewPlayTogether);
 end;
 
