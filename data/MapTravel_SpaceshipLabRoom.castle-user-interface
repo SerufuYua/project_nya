@@ -102,8 +102,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.2168807983398438E+000,
-                      "Y" : -9.9999994039535522E-001
+                      "W" : 1.1400083303451538E+000,
+                      "Y" : -1.0000000000000000E+000
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -146,14 +146,63 @@
                     "Name" : "SwitchGoOut"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "$$ClassName" : "TCastleTransform",
+            "Name" : "SceneActors",
+            "$Children" : [
+              {
+                "$$ClassName" : "TNyaActorChara",
+                "AnisotropicDegree" : 1.6000000000000000E+001,
+                "AutoAnimation" : "GAME.STAND",
+                "DefaultAnimationTransition" : 1.5000000596046448E-001,
+                "EmissionColorPersistent" : {
+                  "$$ClassName" : "TCastleColorRGBPersistent",
+                  "Blue" : 1.5000000596046448E-001,
+                  "Green" : 1.5000000596046448E-001,
+                  "Red" : 1.5000000596046448E-001
+                },
+                "EmissionItself" : true,
+                "MainSceneName" : "Body",
+                "Name" : "CharaGirl",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "W" : 1.5707963705062866E+000,
+                  "Y" : 1.0000000000000000E+000
+                },
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -3.5918304920196533E+000,
+                  "Y" : 2.5000000372529030E-002,
+                  "Z" : 4.1857436627878997E-008
+                },
+                "Url" : "castle-data:/CharaGirl_common.castle-transform",
+                "UrlPerson" : "castle-data:/PersonGirl.castle-component",
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleCapsuleCollider",
+                    "Name" : "ColliderChara"
+                  },
+                  {
+                    "$$ClassName" : "TCastleRigidBody",
+                    "Animated" : true,
+                    "LockRotation" : [
+                      0,
+                      2
+                    ],
+                    "Name" : "RigidBodyChara"
+                  }
+                ]
               },
               {
                 "$$ClassName" : "TCastleTransform",
                 "Name" : "PositionBoyTable",
                 "RotationPersistent" : {
                   "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : -1.2217304706573486E+000,
-                  "Y" : 1.0000000000000000E+000
+                  "W" : 1.2217304706573486E+000,
+                  "Y" : -1.0000000000000000E+000
                 },
                 "TranslationPersistent" : {
                   "$$ClassName" : "TCastleVector3Persistent",
@@ -214,8 +263,10 @@
                         },
                         "RotationPersistent" : {
                           "$$ClassName" : "TCastleVector4RotationPersistent",
-                          "W" : 9.2471164464950562E-001,
-                          "Y" : 1.0000000000000000E+000
+                          "W" : 2.0015842914581299E+000,
+                          "X" : -2.4414061044808477E-004,
+                          "Y" : 9.9999994039535522E-001,
+                          "Z" : -1.5648794942535460E-004
                         },
                         "ScalePersistent" : {
                           "$$ClassName" : "TCastleVector3Persistent",
@@ -270,55 +321,6 @@
                         "VisibleAngle" : 4.5000000000000000E+001
                       }
                     ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "$$ClassName" : "TCastleTransform",
-            "Name" : "SceneActors",
-            "$Children" : [
-              {
-                "$$ClassName" : "TNyaActorChara",
-                "AnisotropicDegree" : 1.6000000000000000E+001,
-                "AutoAnimation" : "GAME.STAND",
-                "DefaultAnimationTransition" : 1.5000000596046448E-001,
-                "EmissionColorPersistent" : {
-                  "$$ClassName" : "TCastleColorRGBPersistent",
-                  "Blue" : 1.5000000596046448E-001,
-                  "Green" : 1.5000000596046448E-001,
-                  "Red" : 1.5000000596046448E-001
-                },
-                "EmissionItself" : true,
-                "MainSceneName" : "Body",
-                "Name" : "CharaGirl",
-                "RotationPersistent" : {
-                  "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 1.5707963705062866E+000,
-                  "Y" : 1.0000000000000000E+000
-                },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -3.5918304920196533E+000,
-                  "Y" : 2.5000000372529030E-002,
-                  "Z" : 4.1857436627878997E-008
-                },
-                "Url" : "castle-data:/CharaGirl_common.castle-transform",
-                "UrlPerson" : "castle-data:/PersonGirl.castle-component",
-                "$Behaviors" : [
-                  {
-                    "$$ClassName" : "TCastleCapsuleCollider",
-                    "Name" : "ColliderChara"
-                  },
-                  {
-                    "$$ClassName" : "TCastleRigidBody",
-                    "Animated" : true,
-                    "LockRotation" : [
-                      0,
-                      2
-                    ],
-                    "Name" : "RigidBodyChara"
                   }
                 ]
               }
@@ -412,20 +414,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 4.0250105857849121E+000,
-          "X" : 1.3609865307807922E-001,
-          "Y" : 9.5056557655334473E-001,
-          "Z" : 2.7910953760147095E-001
+          "W" : 1.1714938879013062E+000,
+          "X" : -2.1221712231636047E-001,
+          "Y" : -9.6694010496139526E-001,
+          "Z" : -1.4138855040073395E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "X" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -5.4172295331954956E-001,
+          "X" : -2.6974718570709229E+000,
           "Y" : 2.6879422664642334E+000,
-          "Z" : -1.6532142460346222E-001
+          "Z" : 2.0385804176330566E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

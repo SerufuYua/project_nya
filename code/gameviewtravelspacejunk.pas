@@ -12,7 +12,9 @@ type
   TViewTravelSpaceJunk = class(TBaseViewRide)
   public
     procedure Start; override;
+    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
+    FActorSpacePlane: TNyaActor;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
@@ -42,11 +44,25 @@ begin
   { set Girl Character }
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
 
+  { set Space Plane Character }
+  FActorSpacePlane:= Map.DesignedComponent('SpacePlane') as TNyaActor;
+  FActorSpacePlane.Exists:= WorldCondition.Boy.Location in
+                            [TBoyLocation.HomeSleep, TBoyLocation.HomeWorking];
+
   { set vehicle Navigation }
   FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
 
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicOutdoors');
+
+  inherited;
+end;
+
+procedure TViewTravelSpaceJunk.Update(const SecondsPassed: Single;
+                                      var HandleInput: boolean);
+begin
+  { update Plane visibility }
+  WorldCondition.Boy.Visible:= PointVisible(FActorSpacePlane.Translation);
 
   inherited;
 end;
