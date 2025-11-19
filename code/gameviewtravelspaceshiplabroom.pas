@@ -14,6 +14,7 @@ type
   protected
     FActorBoy: TNyaActorChara;
     FPositionBoyTable, FPositionBoyBed: TCastleTransform;
+    procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
     procedure GetToGoOut;
@@ -86,6 +87,29 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TViewTravelSpaceshipLabRoom.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
+var
+  switch: TNyaSwitch;
+begin
+  inherited;
+
+  switch:= Sender as TNyaSwitch;
+  if NOT Assigned(switch) then Exit;
+
+  Case switch.Name of
+  'SwitchTable':
+    begin
+      if (FActorBoy.Parent = FPositionBoyTable) then
+      begin
+        if Touch then
+          FActorBoy.AutoAnimation:= 'GAME.BOY_HOME.SEAT_WITH_PC.LOOKING'
+        else
+          FActorBoy.AutoAnimation:= 'GAME.BOY_HOME.SEAT_WITH_PC.WORKING';
+      end;
+    end;
+  end;
 end;
 
 procedure TViewTravelSpaceshipLabRoom.DoActivateSwitch(Sender: TObject);
