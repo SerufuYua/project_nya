@@ -82,7 +82,7 @@ procedure TViewTravelRoadAsteroid.Update(const SecondsPassed: Single;
                                           var HandleInput: boolean);
 begin
   { update Boy and Plane visibility }
-  WorldCondition.Boy.Visible:= PointVisible(FActorSpacePlane.Translation) AND
+  WorldCondition.Boy.Visible:= PointVisible(FActorSpacePlane.Translation) OR
                                PointVisible(FActorBoy.Translation);
 
   { update Space Plane Exists }

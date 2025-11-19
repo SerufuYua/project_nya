@@ -61,13 +61,29 @@ procedure TViewTravelSpaceshipLabRoom.Update(const SecondsPassed: Single;
                                              var HandleInput: boolean);
 begin
   { update Plane visibility }
-  WorldCondition.Boy.Visible:= PointVisible(FPositionBoyTable.Translation) AND
+  WorldCondition.Boy.Visible:= PointVisible(FPositionBoyTable.Translation) OR
                                PointVisible(FPositionBoyBed.Translation);
 
   { update Space Plane Exists }
   FActorBoy.Exists:= (WorldCondition.Boy.Location in
                       [TBoyLocation.HomeSleep, TBoyLocation.HomeWorking]) AND
                       (TBoyStatus.InSearch in WorldCondition.Boy.Status);
+
+  { set Boy to place }
+  if ((FActorBoy.Parent <> FPositionBoyBed) AND (WorldCondition.Boy.Location = TBoyLocation.HomeSleep)) then
+  begin
+    FActorBoy.Translation:= TVector3.Zero;
+    FActorBoy.Rotation:= TVector4.Zero;
+    FActorBoy.Parent:= FPositionBoyBed;
+    FActorBoy.AutoAnimation:= 'GAME.BOY_HOME.SLEEP';
+  end
+  else if ((FActorBoy.Parent <> FPositionBoyTable) AND (WorldCondition.Boy.Location = TBoyLocation.HomeWorking)) then
+  begin
+    FActorBoy.Translation:= TVector3.Zero;
+    FActorBoy.Rotation:= TVector4.Zero;
+    FActorBoy.Parent:= FPositionBoyTable;
+    FActorBoy.AutoAnimation:= 'GAME.BOY_HOME.SEAT_WITH_PC.WORKING';
+  end;
 
   inherited;
 end;
