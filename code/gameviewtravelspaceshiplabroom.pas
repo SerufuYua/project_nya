@@ -190,13 +190,26 @@ begin
   end
   else
   begin
-    SetLength(messages, 1);
-    messages[0].FActor:= MainActor;
-    messages[0].FMessage:= '<p>Looks like there someone working with... something...</p>';
-    Container.PushView(TViewConversation.CreateUntilStopped(
-                       messages,
-                       nil,
-                       nil));
+    if (TBoyStatus.FirstTalkDone in WorldCondition.Boy.Status) then
+    begin
+      SetLength(messages, 1);
+      messages[0].FActor:= MainActor;
+      messages[0].FMessage:= '<p>Looks like there is ' + FActorBoy.ActorName + '&apos;s workbench</p>';
+      Container.PushView(TViewConversation.CreateUntilStopped(
+                         messages,
+                         nil,
+                         nil));
+    end
+    else
+    begin
+      SetLength(messages, 1);
+      messages[0].FActor:= MainActor;
+      messages[0].FMessage:= '<p>Looks like there someone working with... something...</p>';
+      Container.PushView(TViewConversation.CreateUntilStopped(
+                         messages,
+                         nil,
+                         nil));
+    end;
   end;
 end;
 
