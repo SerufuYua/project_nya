@@ -14,6 +14,7 @@ DEF room Transform
 PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0]
 {
   SpotLight {
+    global TRUE
     location IS lightPos
     cutOffAngle 1.25
     direction 0 -1 0
@@ -35,6 +36,7 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
 {
   PointLight
   {
+    global TRUE
     location IS lightPos
     intensity 0.2
     color 0.75 0.8 1.0

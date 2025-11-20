@@ -14,6 +14,7 @@ DEF asteroid Transform
 # hovel light
 SpotLight
 {
+  global TRUE
   location 0.0 2.05 -21.7284
   color 1.0 0.7 0.4
   attenuation 1 0 0
@@ -35,6 +36,7 @@ SpotLight
 
 PointLight
 {
+  global TRUE
   location 0.0 1.0 -21.7284
   intensity 1
   color 1.0 0.7 0.4
@@ -45,6 +47,7 @@ PointLight
 # ambient light
 DirectionalLight
 {
+  global TRUE
   direction 0.5 -1 1
   intensity 10
   color 0.6 0.6 1.0

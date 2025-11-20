@@ -8,28 +8,11 @@ DEF Transf Transform {
   }
 }
 
-#Transform
-#{
-#  translation 0 30 0
-#  scale 5 5 5
-#  children Shape {
-#    geometry Box {}
-#    appearance  Appearance { material Material { diffuseColor 0.8 0.8 0.1 }}}
-#}
-
-#Transform
-#{
-#  translation 0 20 0
-#  scale 20 1 20
-#  children Shape {
-#    geometry Box {}
-#    appearance  Appearance { material Material { diffuseColor 0.8 0.0 0.1 }}}
-#}
-
 PROTO UpperLight [
   inputOutput SFVec3f lightPos 0 0 0
 ] {
   SpotLight {
+    global TRUE
     location IS lightPos
     cutOffAngle 1.25
     direction 0 -1 0
@@ -50,6 +33,7 @@ PROTO BottomLight [
   inputOutput SFVec3f lightPos 0 0 0
 ] {
   PointLight {
+    global TRUE
     location IS lightPos
     intensity 0.03
     ambientIntensity 0.4
