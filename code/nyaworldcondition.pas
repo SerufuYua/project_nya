@@ -10,7 +10,7 @@ uses
 
 type
   TBoyLocation = (Away, VisitInRoom, VisitInHovel, HomeWorking, HomeSleep);
-  TBoyStatus   = (InSearch, FirstTalkDone, FirstVisitDone);
+  TBoyStatus   = (InSearch, FirstTalkDone);
   TBoyStatuses = Set of TBoyStatus;
 
   TNyaWorldCondition = class(TCastleUserInterface)
