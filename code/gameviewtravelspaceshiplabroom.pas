@@ -40,7 +40,7 @@ uses
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
   GameViewDressing,
   GameViewTravelRoadAsteroid, GameViewMain, GameViewTravelSpaceshipIndoors,
-  GameViewConversation;
+  GameViewPlayTogetherLab, GameViewConversation;
 
 procedure TViewTravelSpaceshipLabRoom.Start;
 begin
@@ -235,7 +235,7 @@ begin
                              '<p>Heeey! Wake up! I want to play!</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
                          messages,
-                         {$ifdef FPC}@{$endif}TalkToBoyTable,
+                         {$ifdef FPC}@{$endif}GetToGoBoy,
                          nil));
     end;
   end
@@ -273,12 +273,12 @@ end;
 procedure TViewTravelSpaceshipLabRoom.GetToGoBoy;
 begin
   WorldCondition.Boy.Location:= TBoyLocation.HomeSleep;
-  //GetToGo(ViewPlayTogether);
+  GetToGo(ViewPlayTogetherLab);
 end;
 
 procedure TViewTravelSpaceshipLabRoom.GetToGoOut;
 begin
-  GetToGo(ViewTravelSpaceshipIndoors, Vector3(16.0, 0.025, -28.6),
+  GetToGo(ViewTravelSpaceshipIndoors, Vector3(15.0, 0.1, -28.6),
                                       Vector4(0.0, 1.0, 0.0, Deg(-90.0)));
 end;
 

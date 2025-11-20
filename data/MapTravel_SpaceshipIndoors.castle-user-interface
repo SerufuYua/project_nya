@@ -318,12 +318,12 @@
           "$$ClassName" : "TCastleFog",
           "ColorPersistent" : {
             "$$ClassName" : "TCastleColorRGBPersistent",
-            "Blue" : 0.0000000000000000E+000,
-            "Green" : 0.0000000000000000E+000,
+            "Blue" : 1.3333334028720856E-001,
+            "Green" : 9.4117648899555206E-002,
             "Red" : 0.0000000000000000E+000
           },
           "Name" : "Fog",
-          "VisibilityRange" : 1.4000000000000000E+001
+          "VisibilityRange" : 1.6000000000000000E+001
         }
       ],
       "$Children" : [
@@ -363,20 +363,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.2642537355422974E+000,
-          "X" : -1.0778351128101349E-001,
-          "Y" : -9.9074721336364746E-001,
-          "Z" : -8.2482680678367615E-002
+          "W" : 8.3489306271076202E-002,
+          "X" : -9.6019601821899414E-001,
+          "Y" : -2.7523025870323181E-001,
+          "Z" : -4.7664381563663483E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Z" : 9.9999994039535522E-001
+          "X" : 9.9999994039535522E-001,
+          "Y" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 7.8084793090820312E+000,
+          "X" : 1.3425046920776367E+001,
           "Y" : 2.6830592155456543E+000,
-          "Z" : -1.5317702293395996E+001
+          "Z" : -1.6210180282592773E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

@@ -20,6 +20,7 @@ uses SysUtils, CustApp,
   , GameViewPlayGirl
   , GameViewPlaySolo
   , GameViewPlayTogether
+  , GameViewPlayTogetherLab
   , GameViewLoading
   , GameViewTravelTest
   , GameViewTravelContainerRoom
@@ -53,6 +54,7 @@ begin
   ViewPlayGirl:= TViewPlayGirl.Create(Application);
   ViewPlaySolo:= TViewPlaySolo.Create(Application);
   ViewPlayTogether:= TViewPlayTogether.Create(Application);
+  ViewPlayTogetherLab:= TViewPlayTogetherLab.Create(Application);
   ViewLoading:= TViewLoading.Create(Application);
   ViewTravelTest:= TViewTravelTest.Create(Application);
   ViewTravelContainerRoom:= TViewTravelContainerRoom.Create(Application);
@@ -71,6 +73,7 @@ begin
     'PlayToy': Window.Container.View:= ViewPlayGirl;
     'PlaySolo': Window.Container.View:= ViewPlaySolo;
     'PlayTogether': Window.Container.View:= ViewPlayTogether;
+    'PlayTogetherLab': Window.Container.View:= ViewPlayTogetherLab;
     'Home': Window.Container.View:= ViewTravelContainerRoom;
     'Asteroid': Window.Container.View:= ViewTravelRoadAsteroid;
     'Junk': Window.Container.View:= ViewTravelSpaceJunk;
