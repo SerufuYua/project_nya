@@ -264,7 +264,12 @@ end;
 
 procedure TViewTravelRoadAsteroid.GetToGoSpaceJunk;
 begin
-  GetToGo(ViewTravelSpaceJunk);
+  if Assigned(Vehicle) then
+    GetToRide(ViewTravelSpaceJunk, Vehicle.Name,
+                                   Vector3(393.0, 5.6, 311.0),
+                                   Vector4(0.0, 1.0, 0.0, Deg(-78.0)))
+  else
+    GetToGo(ViewTravelSpaceJunk);
 end;
 
 end.
