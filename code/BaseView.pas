@@ -67,6 +67,7 @@ begin
   { reset go to map }
   FGetToGo:= nil;
 
+  { set main actor to preset position }
   if Assigned(MainActor) then
   begin
     if FMainActorNewTrans then

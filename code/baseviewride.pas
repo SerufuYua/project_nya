@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, CastleTransform, CastleKeysMouse, CastleUIControls,
-  CastleSoundEngine, CastleControls,
-  BaseViewTravel, NyaVehicleNavigation, NyaActor, NyaActorVehicle,
+  CastleSoundEngine, CastleControls, CastleVectors,
+  BaseView, BaseViewTravel, NyaVehicleNavigation, NyaActor, NyaActorVehicle,
   NyaBaseNavigation;
 
 type
@@ -22,24 +22,40 @@ type
     FTempRBody: TCastleRigidBody;
     FTempActorParent: TCastleTransform;
     FVehicle: TNyaActorVehicle;
+    FVehicleName: String;
     FVehicleNavigation: TNyaVehicleNavigation;
+    FVehicleTrans: TVector3;
+    FVehicleRot: TVector4;
+    FVehicleNewTrans: Boolean;
+    FVehicleNewRot: Boolean;
     procedure NavigationSetAnimation(
       const Sender: TNyaBaseNavigation;
       const AnimationName: String; AnimtionSpeed: Single);
+    procedure SetVehicle(AVehicle: TNyaActorVehicle);
+    procedure SetVehicleTrans(value: TVector3);
+    procedure SetVehicleRot(value: TVector4);
   public
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
-    procedure SitToVehicle(vehicle: TNyaActorVehicle);
+    procedure SitToVehicle(AVehicle: TNyaActorVehicle);
     procedure GetOffFromVehicle;
     procedure Pause; override;
     procedure Resume; override;
+    procedure GetToRide(ALocation: TBaseViewRide;
+                        AVehicle: String; { only vehicle name, not current object }
+                        ATranslation: TVector3;
+                        ARotation: TVector4);
+    property Vehicle: TNyaActorVehicle read FVehicle write SetVehicle;
+    property VehicleName: String read FVehicleName write FVehicleName;
+    property VehicleTrans: TVector3 read FVehicleTrans write SetVehicleTrans;
+    property VehicleRot: TVector4 read FVehicleRot write SetVehicleRot;
   end;
 
 implementation
 
 uses
-  CastleVectors, CastleScene, NyaThirdPersonCameraNavigation,
+  CastleScene, NyaThirdPersonCameraNavigation,
   NyaSwitch, NyaCastleUtils;
 
 procedure TBaseViewRide.Start;
@@ -48,7 +64,22 @@ begin
   FTempCollider:=nil;
   FTempRBody:= nil;
   FTempActorParent:= nil;
-  FVehicle:= nil;
+
+  { set main actor with vechicle to preset position }
+  Vehicle:= Map.DesignedComponent(VehicleName, False) as TNyaActorVehicle;
+
+  if (Assigned(MainActor) AND Assigned(Vehicle))  then
+  begin
+    if FVehicleNewTrans then
+      Vehicle.Translation:= VehicleTrans;
+    if FVehicleNewRot then
+      Vehicle.Rotation:= VehicleRot;
+
+    SitToVehicle(Vehicle);
+  end;
+
+  FMainActorNewTrans:= False;
+  FMainActorNewRot:= False;
 
   { set keys }
   FLightSwitch:= TKey.keyL;
@@ -60,8 +91,8 @@ begin
   { Executed every frame. }
 
   { Show Speed. Convert m/s to km/h }
-  if Assigned(FVehicle) then
-    LabelSpeedValue.Caption:= (FVehicle.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
+  if Assigned(Vehicle) then
+    LabelSpeedValue.Caption:= (Vehicle.ForwardVelocity * 60 * 60 / 1000).ToString(ffFixed, 3, 0);
 
   inherited;
 end;
@@ -74,8 +105,8 @@ begin
   { switch light }
   if Event.IsKey(FLightSwitch) then
   begin
-    if Assigned(FVehicle) then
-      FVehicle.Headlight:= NOT FVehicle.Headlight;
+    if Assigned(Vehicle) then
+      Vehicle.Headlight:= NOT Vehicle.Headlight;
     Exit(true);
   end;
 
@@ -87,13 +118,13 @@ begin
   end;
 end;
 
-procedure TBaseViewRide.SitToVehicle(vehicle: TNyaActorVehicle);
+procedure TBaseViewRide.SitToVehicle(AVehicle: TNyaActorVehicle);
 var
   camera: TNyaThirdPersonCameraNavigation;
   switch: TCastleBehavior;
 begin
   Status.Caption:= '';
-  FVehicle:= vehicle;
+  Vehicle:= AVehicle;
 
   FTempRBody:= MainActor.RigidBody;
   MainActor.RemoveBehavior(MainActor.RigidBody);
@@ -105,31 +136,31 @@ begin
   if (FCameraNavigation is TNyaThirdPersonCameraNavigation) then
   begin
     camera:= (FCameraNavigation as TNyaThirdPersonCameraNavigation);
-    camera.AvatarHierarchy:= FVehicle;
+    camera.AvatarHierarchy:= Vehicle;
     camera.FollowRotation:= True;
   end;
 
-  switch:= FVehicle[1].FindBehavior(TNyaSwitch);
+  switch:= Vehicle[1].FindBehavior(TNyaSwitch);
     if Assigned(switch) then
       switch.Parent.Exists:= False;
 
-  FVehicleNavigation.AvatarHierarchy:= FVehicle;
+  FVehicleNavigation.AvatarHierarchy:= Vehicle;
   FVehicleNavigation.Exists:= True;
 
-  if Assigned(FVehicle.RigidBody) then
-    FVehicle.RigidBody.Dynamic:= True;
+  if Assigned(Vehicle.RigidBody) then
+    Vehicle.RigidBody.Dynamic:= True;
 
   FVehicleNavigation.OnAnimation:= {$ifdef FPC}@{$endif}NavigationSetAnimation;
 
   MainActor.Translation:= TVector3.Zero;
   MainActor.Rotation:= TVector4.Zero;
   FTempActorParent:= MainActor.Parent;
-  MainActor.Parent:= FVehicle;
+  MainActor.Parent:= Vehicle;
 
-  FVehicle.Headlight:= True;
+  Vehicle.Headlight:= True;
 
   GroupSpeed.Exists:= True;
-  SetUIColor(FVehicle.PersonalColor);
+  SetUIColor(Vehicle.PersonalColor);
 
   Notifications.Show('Info: use WASD to move');
   Notifications.Show('Info: use Space to brake');
@@ -145,12 +176,12 @@ var
   camera: TNyaThirdPersonCameraNavigation;
   switch: TCastleBehavior;
 begin
-  if NOT Assigned(FVehicle) then Exit;
+  if NOT Assigned(Vehicle) then Exit;
 
-  if Assigned(FVehicle.RigidBody) then
+  if Assigned(Vehicle.RigidBody) then
   begin
-    if NOT (FVehicle.RigidBody.LinearVelocity.IsZero(0.1) AND
-            FVehicle.RigidBody.AngularVelocity.IsZero(0.1)) then
+    if NOT (Vehicle.RigidBody.LinearVelocity.IsZero(0.1) AND
+            Vehicle.RigidBody.AngularVelocity.IsZero(0.1)) then
       begin
           Notifications.Show('Stop movement before get off from the Vehicle');
           Exit;
@@ -162,9 +193,9 @@ begin
   FVehicleNavigation.OnAnimation:= nil;
 
   MainActor.Parent:= FTempActorParent;
-  MainActor.Translation:= FVehicle.Translation;
+  MainActor.Translation:= Vehicle.Translation;
   MainActor.Translate(Vector3(1.0, 0.0, 0.0));
-  MainActor.Rotation:= FVehicle.Rotation;
+  MainActor.Rotation:= Vehicle.Rotation;
   MainActor.Up:= Vector3(0.0, 1.0, 0.0);
 
   MainActor.AddBehavior(FTempCollider);
@@ -177,21 +208,21 @@ begin
     camera.FollowRotation:= False;
   end;
 
-  switch:= FVehicle[1].FindBehavior(TNyaSwitch);
+  switch:= Vehicle[1].FindBehavior(TNyaSwitch);
     if Assigned(switch) then
       switch.Parent.Exists:= True;
 
   FCharaNavigation.Exists:= True;
 
-  if NOT Assigned(FVehicle) then Exit;
+  if NOT Assigned(Vehicle) then Exit;
 
-  if Assigned(FVehicle.RigidBody) then
-    FVehicle.RigidBody.Dynamic:= False;
+  if Assigned(Vehicle.RigidBody) then
+    Vehicle.RigidBody.Dynamic:= False;
 
-  FVehicle.Up:= Vector3(0.0, 1.0, 0.0);
-  FVehicle.Headlight:= False;
+  Vehicle.Up:= Vector3(0.0, 1.0, 0.0);
+  Vehicle.Headlight:= False;
 
-  FVehicle:= nil;
+  Vehicle:= nil;
 
   GroupSpeed.Exists:= False;
   SetUIColor(MainActor.PersonalColor);
@@ -210,7 +241,7 @@ end;
 procedure TBaseViewRide.Resume;
 begin
   inherited;
-  if (Assigned(FVehicleNavigation) AND Assigned(FVehicle)) then
+  if (Assigned(FVehicleNavigation) AND Assigned(Vehicle)) then
     FVehicleNavigation.Exists:= True;
 end;
 
@@ -218,8 +249,38 @@ procedure TBaseViewRide.NavigationSetAnimation(
                            const Sender: TNyaBaseNavigation;
                            const AnimationName: String; AnimtionSpeed: Single);
 begin
-  FVehicle.AutoAnimation:= AnimationName;
-  FVehicle.AnimationSpeed:= AnimtionSpeed;
+  Vehicle.AutoAnimation:= AnimationName;
+  Vehicle.AnimationSpeed:= AnimtionSpeed;
+end;
+
+procedure TBaseViewRide.GetToRide(ALocation: TBaseViewRide;
+                                  AVehicle: String;
+                                  ATranslation: TVector3;
+                                  ARotation: TVector4);
+begin
+  ALocation.VehicleName:= AVehicle;
+  ALocation.VehicleTrans:= ATranslation;
+  ALocation.VehicleRot:= ARotation;
+  FGetToGo:= ALocation;
+end;
+
+procedure TBaseViewRide.SetVehicle(AVehicle: TNyaActorVehicle);
+begin
+  if (FVehicle = AVehicle) then Exit;
+
+  FVehicle:= AVehicle;
+end;
+
+procedure TBaseViewRide.SetVehicleTrans(value: TVector3);
+begin
+  FVehicleTrans:= value;
+  FVehicleNewTrans:= True;
+end;
+
+procedure TBaseViewRide.SetVehicleRot(value: TVector4);
+begin
+  FVehicleRot:= value;
+  FVehicleNewRot:= True;
 end;
 
 end.
