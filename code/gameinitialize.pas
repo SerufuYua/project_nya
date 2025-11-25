@@ -64,6 +64,7 @@ begin
   ViewTravelRoadAsteroid:= TViewTravelRoadAsteroid.Create(Application);
   {$endregion 'Castle View Creation'}
 
+  {$ifdef DEBUG}
   if Application.hasOption('M', 'Map') then
   begin
     mapName:= Application.GetOptionValue('M', 'Map');
@@ -85,6 +86,9 @@ begin
   end
   else
     Window.Container.View:= ViewMain;
+  {$else}
+  Window.Container.View:= ViewMain;
+  {$endif}
 end;
 
 initialization
