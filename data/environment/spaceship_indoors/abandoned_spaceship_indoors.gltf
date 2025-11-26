@@ -597,13 +597,21 @@
 		},
 		{
 			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"emissiveTexture":{
+				"index":32
+			},
 			"name":"Light.OFF",
 			"normalTexture":{
-				"index":32
+				"index":33
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":33
+					"index":34
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.00909090880304575
@@ -617,15 +625,15 @@
 				1
 			],
 			"emissiveTexture":{
-				"index":34
+				"index":35
 			},
 			"name":"Light.Open",
 			"normalTexture":{
-				"index":35
+				"index":36
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":36
+					"index":37
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.00909090880304575
@@ -635,7 +643,7 @@
 			"doubleSided":true,
 			"name":"Plastic",
 			"normalTexture":{
-				"index":37
+				"index":38
 			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
@@ -652,7 +660,7 @@
 			"doubleSided":true,
 			"name":"SoftPad",
 			"normalTexture":{
-				"index":38
+				"index":39
 			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
@@ -669,7 +677,7 @@
 			"doubleSided":true,
 			"name":"Plastic.Rubber",
 			"normalTexture":{
-				"index":39
+				"index":40
 			},
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
@@ -686,17 +694,17 @@
 			"doubleSided":true,
 			"name":"Box.Tex.Red",
 			"normalTexture":{
-				"index":40
+				"index":41
 			},
 			"occlusionTexture":{
-				"index":41
+				"index":42
 			},
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":42
+					"index":43
 				},
 				"metallicRoughnessTexture":{
-					"index":41
+					"index":42
 				}
 			}
 		}
@@ -1295,6 +1303,10 @@
 		},
 		{
 			"sampler":0,
+			"source":24
+		},
+		{
+			"sampler":0,
 			"source":19
 		},
 		{
@@ -1303,11 +1315,19 @@
 		},
 		{
 			"sampler":0,
-			"source":25
+			"source":18
 		},
 		{
 			"sampler":0,
 			"source":19
+		},
+		{
+			"sampler":0,
+			"source":18
+		},
+		{
+			"sampler":0,
+			"source":23
 		},
 		{
 			"sampler":0,
@@ -1323,19 +1343,11 @@
 		},
 		{
 			"sampler":0,
-			"source":23
-		},
-		{
-			"sampler":0,
 			"source":27
 		},
 		{
 			"sampler":0,
 			"source":28
-		},
-		{
-			"sampler":0,
-			"source":29
 		}
 	],
 	"images":[
@@ -1431,8 +1443,8 @@
 		},
 		{
 			"mimeType":"image/png",
-			"name":"light_red",
-			"uri":"light_red.png"
+			"name":"light_green",
+			"uri":"light_green.png"
 		},
 		{
 			"mimeType":"image/png",
@@ -1461,13 +1473,8 @@
 		},
 		{
 			"mimeType":"image/png",
-			"name":"light_red_OOF",
-			"uri":"light_red_OOF.png"
-		},
-		{
-			"mimeType":"image/png",
-			"name":"light_blue",
-			"uri":"light_blue.png"
+			"name":"light_red",
+			"uri":"light_red.png"
 		},
 		{
 			"mimeType":"image/png",
