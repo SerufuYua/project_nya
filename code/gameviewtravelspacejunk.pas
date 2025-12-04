@@ -57,7 +57,7 @@ begin
   FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
 
   { Play music }
-  FWalkMusic:= NamedSound('MusicOutdoors');
+  FWalkMusic:= NamedSound('MusicSpaceJunk');
   FRideMusic:= NamedSound('MusicRide');
   SoundEngine.LoopingChannel[0].Sound:= FWalkMusic;
 

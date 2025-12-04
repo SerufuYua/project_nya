@@ -63,7 +63,7 @@ begin
   FPositionBoyBed:= Map.DesignedComponent('PositionBoyBed') as TCastleTransform;
 
   { Play music }
-  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicLabRoom');
 
   inherited;
 end;

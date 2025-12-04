@@ -22,6 +22,18 @@
     },
     {
       "$$ClassName" : "TCastleSound",
+      "Name" : "MusicSpaceJunk",
+      "Stream" : true,
+      "Url" : "castle-data:/audio/music/SpaceJunk.ogg"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "MusicLabRoom",
+      "Stream" : true,
+      "Url" : "castle-data:/audio/music/LabRoom.ogg"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
       "Name" : "MusicTogether",
       "Stream" : true,
       "Url" : "castle-data:/audio/music/together.ogg"

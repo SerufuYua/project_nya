@@ -41,7 +41,7 @@ begin
   MainActor:= Map.DesignedComponent('CharaGirl') as TNyaActorChara;
 
   { Play music }
-  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicInRoom');
+  SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicSpaceJunk');
 
   inherited;
 end;
