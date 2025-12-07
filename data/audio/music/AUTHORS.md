@@ -1,8 +1,15 @@
 File: SpaceJunk.ogg
-***
+Artist Name: Arkle
+Track Title: Cauldrone
+Album Title: A Very Synthwave Halloween
+URL1: https://archive.org/details/a-very-synthwave-halloween-wrxvvb/
+URL2: https://girlfriendrecords.bandcamp.com/album/a-very-synthwave-halloween
 
 File: LabRoom.ogg
-***
+Artist Name: Dead Disk Drive
+Track Title: RGB Sunset
+Album Title: Digital Dimensions
+URL: https://archive.org/details/digital-dimensions-plglyb/
 
 File: intro.ogg
 Artist Name: "Callix Lunaris"

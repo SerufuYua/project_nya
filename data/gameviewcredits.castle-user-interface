@@ -299,9 +299,10 @@
                           "Name" : "ButtonAuthor",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://x.com/serufu_yua",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -3.9200003051757812E+002
+                            "Y" : -3.9200000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
@@ -319,7 +320,7 @@
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -4.6500003051757812E+002
+                        "Y" : -4.6500000000000000E+002
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop",
@@ -436,6 +437,7 @@
                           "Name" : "ButtonSourceCode",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://github.com/SerufuYua/project_nya",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -1.8200000000000000E+002
@@ -488,6 +490,7 @@
                           "Name" : "ButtonSourcemodels",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://github.com/SerufuYua/project_nya_models",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -2.3700000000000000E+002
@@ -639,6 +642,7 @@
                           "Name" : "ButtonCGE",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://castle-engine.io",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -1.7200000000000000E+002
@@ -708,29 +712,6 @@
                           "VerticalAnchorSelf" : "vpTop"
                         },
                         {
-                          "$$ClassName" : "TCastleLabel",
-                          "ColorPersistent" : {
-                            "$$ClassName" : "TCastleColorPersistent",
-                            "Blue" : 1.0000000000000000E+000,
-                            "Green" : 1.0000000000000000E+000,
-                            "Red" : 1.0000000000000000E+000
-                          },
-                          "CustomFont" : "future_n0t_found",
-                          "HorizontalAnchorParent" : "hpMiddle",
-                          "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "LabelMusicAuthor1",
-                          "PaddingHorizontal" : 1.0000000000000000E+001,
-                          "Text" : [
-                            "Callix Lunaris"
-                          ],
-                          "TranslationPersistent" : {
-                            "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -9.6000000000000000E+001
-                          },
-                          "VerticalAnchorParent" : "vpTop",
-                          "VerticalAnchorSelf" : "vpTop"
-                        },
-                        {
                           "$$ClassName" : "TNyaWebButton",
                           "Border" : {
                             "$$ClassName" : "TBorder",
@@ -743,7 +724,7 @@
                             "Green" : 7.1764707565307617E-001,
                             "Red" : 5.0980395078659058E-001
                           },
-                          "Caption" : "www.youtube.com/@LunarMoth",
+                          "Caption" : "Callix Lunaris",
                           "Cursor" : "mcHand",
                           "CustomBackground" : true,
                           "CustomBackgroundDisabled" : {
@@ -774,36 +755,14 @@
                           "Name" : "ButtonMusicAuthor1",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://www.youtube.com/@LunarMoth",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -1.5200000000000000E+002
+                            "Y" : -9.6000000000000000E+001
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
                           "WebUrl" : "https://www.youtube.com/@LunarMoth"
-                        },
-                        {
-                          "$$ClassName" : "TCastleLabel",
-                          "ColorPersistent" : {
-                            "$$ClassName" : "TCastleColorPersistent",
-                            "Blue" : 1.0000000000000000E+000,
-                            "Green" : 1.0000000000000000E+000,
-                            "Red" : 1.0000000000000000E+000
-                          },
-                          "CustomFont" : "future_n0t_found",
-                          "HorizontalAnchorParent" : "hpMiddle",
-                          "HorizontalAnchorSelf" : "hpMiddle",
-                          "Name" : "LabelMusicAuthor2",
-                          "PaddingHorizontal" : 1.0000000000000000E+001,
-                          "Text" : [
-                            "Yunior Arronte"
-                          ],
-                          "TranslationPersistent" : {
-                            "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -2.0700000000000000E+002
-                          },
-                          "VerticalAnchorParent" : "vpTop",
-                          "VerticalAnchorSelf" : "vpTop"
                         },
                         {
                           "$$ClassName" : "TNyaWebButton",
@@ -818,7 +777,7 @@
                             "Green" : 7.1764707565307617E-001,
                             "Red" : 5.0980395078659058E-001
                           },
-                          "Caption" : "www.bensound.com",
+                          "Caption" : "Yunior Arronte",
                           "Cursor" : "mcHand",
                           "CustomBackground" : true,
                           "CustomBackgroundDisabled" : {
@@ -849,13 +808,120 @@
                           "Name" : "ButtonMusicAuthor2",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://www.bensound.com/royalty-free-music/track/moonlight-drive-lo-fi-relaxing",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -2.6300000000000000E+002
+                            "Y" : -1.5100000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
                           "WebUrl" : "https://www.bensound.com/royalty-free-music/track/moonlight-drive-lo-fi-relaxing"
+                        },
+                        {
+                          "$$ClassName" : "TNyaWebButton",
+                          "Border" : {
+                            "$$ClassName" : "TBorder",
+                            "Bottom" : 3.0000000000000000E+000
+                          },
+                          "BorderColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Alpha" : 1.0000000000000000E+000,
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "Caption" : "Arkle",
+                          "Cursor" : "mcHand",
+                          "CustomBackground" : true,
+                          "CustomBackgroundDisabled" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundFocused" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundNormal" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundPressed" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "CustomTextColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "CustomTextColorUse" : true,
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Image" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "Name" : "ButtonMusicAuthor3",
+                          "PaddingHorizontal" : 0.0000000000000000E+000,
+                          "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://girlfriendrecords.bandcamp.com/album/a-very-synthwave-halloween",
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -2.0600000000000000E+002
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop",
+                          "WebUrl" : "https://girlfriendrecords.bandcamp.com/album/a-very-synthwave-halloween"
+                        },
+                        {
+                          "$$ClassName" : "TNyaWebButton",
+                          "Border" : {
+                            "$$ClassName" : "TBorder",
+                            "Bottom" : 3.0000000000000000E+000
+                          },
+                          "BorderColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Alpha" : 1.0000000000000000E+000,
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "Caption" : "Dead Disk Drive",
+                          "Cursor" : "mcHand",
+                          "CustomBackground" : true,
+                          "CustomBackgroundDisabled" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundFocused" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundNormal" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomBackgroundPressed" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "CustomFont" : "future_n0t_found",
+                          "CustomTextColorPersistent" : {
+                            "$$ClassName" : "TCastleColorPersistent",
+                            "Blue" : 1.0000000000000000E+000,
+                            "Green" : 7.1764707565307617E-001,
+                            "Red" : 5.0980395078659058E-001
+                          },
+                          "CustomTextColorUse" : true,
+                          "HorizontalAnchorParent" : "hpMiddle",
+                          "HorizontalAnchorSelf" : "hpMiddle",
+                          "Image" : {
+                            "$$ClassName" : "TCastleImagePersistent"
+                          },
+                          "Name" : "ButtonMusicAuthor4",
+                          "PaddingHorizontal" : 0.0000000000000000E+000,
+                          "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://archive.org/details/digital-dimensions-plglyb/",
+                          "TranslationPersistent" : {
+                            "$$ClassName" : "TCastleVector2Persistent",
+                            "Y" : -2.6100000000000000E+002
+                          },
+                          "VerticalAnchorParent" : "vpTop",
+                          "VerticalAnchorSelf" : "vpTop",
+                          "WebUrl" : "https://archive.org/details/digital-dimensions-plglyb/"
                         }
                       ]
                     },
@@ -869,7 +935,7 @@
                       "Spacing" : 2.4000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "Y" : -5.7100000000000000E+002
+                        "Y" : -5.6900000000000000E+002
                       },
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop",
@@ -984,6 +1050,7 @@
                           "Name" : "ButtonTexturesAuthor",
                           "PaddingHorizontal" : 0.0000000000000000E+000,
                           "PaddingVertical" : 0.0000000000000000E+000,
+                          "Tooltip" : "https://cc0-textures.com",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -1.5200000000000000E+002
