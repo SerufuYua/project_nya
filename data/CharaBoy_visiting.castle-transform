@@ -30,22 +30,22 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 4.9781015515327454E-001,
-            "X" : 9.1577214002609253E-001,
-            "Y" : 3.7977737188339233E-001,
-            "Z" : -1.3088501989841461E-001
+            "W" : 4.9803754687309265E-001,
+            "X" : 9.1586476564407349E-001,
+            "Y" : 3.7958735227584839E-001,
+            "Z" : -1.3080121576786041E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.0999994277954102E+000,
-            "Y" : 1.0999993085861206E+000,
-            "Z" : 1.0999993085861206E+000
+            "X" : 1.0499998331069946E+000,
+            "Y" : 1.0499993562698364E+000,
+            "Z" : 1.0499993562698364E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -7.1898803114891052E-002,
-            "Y" : 1.1031330823898315E+000,
-            "Z" : 1.1843734979629517E-001
+            "X" : -7.1888178586959839E-002,
+            "Y" : 1.1032283306121826E+000,
+            "Z" : 1.1849325895309448E-001
           },
           "$Children" : [
             {
@@ -67,9 +67,11 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleScene",
+                  "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
                   "ExposeTransforms" : [
                   ],
                   "Name" : "head_none",
+                  "ProcessEvents" : true,
                   "RenderOptions" : {
                     "$$ClassName" : "TCastleScene.TSceneRenderOptions"
                   },
@@ -77,7 +79,7 @@
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "Z" : 1.0000000000000000E+000
                   },
-                  "Url" : "castle-data:/chars/hair_boy/hair_inroom.gltf"
+                  "Url" : "castle-data:/chars/hair_boy/hair_visiting.gltf"
                 }
               ]
             }
@@ -88,22 +90,22 @@
           "Name" : "Bone_Hand_R",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 3.7286937236785889E+000,
-            "X" : -2.0962713751941919E-003,
-            "Y" : 5.6401813030242920E-001,
-            "Z" : 8.2575982809066772E-001
+            "W" : 3.7286934852600098E+000,
+            "X" : -2.0954778883606195E-003,
+            "Y" : 5.6402051448822021E-001,
+            "Z" : 8.2575821876525879E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9999994039535522E-001,
-            "Y" : 9.9999982118606567E-001,
-            "Z" : 9.9999970197677612E-001
+            "X" : 9.9999988079071045E-001,
+            "Y" : 1.0000003576278687E+000,
+            "Z" : 9.9999988079071045E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
             "X" : -1.5064236521720886E-001,
-            "Y" : 9.2210119962692261E-001,
-            "Z" : 4.1283771395683289E-001
+            "Y" : 9.2210364341735840E-001,
+            "Z" : 4.1283679008483887E-001
           },
           "$Children" : [
             {

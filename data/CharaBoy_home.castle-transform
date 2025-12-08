@@ -30,27 +30,27 @@
           "Name" : "Bone_Head",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 4.9551993608474731E-001,
-            "X" : 9.3742126226425171E-001,
-            "Y" : -2.8994604945182800E-001,
-            "Z" : -1.9280445575714111E-001
+            "W" : 3.5471266508102417E-001,
+            "X" : -5.9736716747283936E-001,
+            "Y" : -3.4377181529998779E-001,
+            "Z" : -7.2455108165740967E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.9000000953674316E-001,
-            "Y" : 9.8999905586242676E-001,
-            "Z" : 9.9000012874603271E-001
+            "X" : 1.0500000715255737E+000,
+            "Y" : 1.0499997138977051E+000,
+            "Z" : 1.0499997138977051E+000
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : -5.2361777052283287E-003,
-            "Y" : 9.7314488887786865E-001,
-            "Z" : 1.9201168417930603E-001
+            "X" : 5.5010276846587658E-003,
+            "Y" : 1.1238681077957153E+000,
+            "Z" : 1.1348564922809601E-001
           },
           "$Children" : [
             {
               "$$ClassName" : "TCastleScene",
-              "AutoAnimation" : "GAME.BOY_VISITING.SEAT_WITH_PDA.WORKING",
+              "AutoAnimation" : "GAME.BOY_HOME.SEAT_WITH_PC.WORKING",
               "DefaultAnimationTransition" : 9.9999997764825821E-003,
               "ExposeTransforms" : [
               ],
@@ -67,9 +67,11 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleScene",
+                  "AutoAnimation" : "GAME.BOY_HOME.SEAT_WITH_PC.WORKING",
                   "ExposeTransforms" : [
                   ],
                   "Name" : "head_none",
+                  "ProcessEvents" : true,
                   "RenderOptions" : {
                     "$$ClassName" : "TCastleScene.TSceneRenderOptions"
                   },
@@ -88,22 +90,21 @@
           "Name" : "Bone_Hand_L",
           "RotationPersistent" : {
             "$$ClassName" : "TCastleVector4RotationPersistent",
-            "W" : 2.7063822746276855E+000,
-            "X" : -3.7599626183509827E-001,
-            "Y" : 7.3517179489135742E-001,
-            "Z" : 5.6404721736907959E-001
+            "W" : 2.7374687194824219E+000,
+            "X" : -4.2063765227794647E-002,
+            "Y" : 7.7319687604904175E-001,
+            "Z" : 6.3276952505111694E-001
           },
           "ScalePersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 9.0000021457672119E-001,
-            "Y" : 9.0000057220458984E-001,
-            "Z" : 8.9999997615814209E-001
+            "Y" : 1.0000007152557373E+000,
+            "Z" : 9.9999976158142090E-001
           },
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector3Persistent",
-            "X" : 1.7235817015171051E-001,
-            "Y" : 8.2144850492477417E-001,
-            "Z" : 4.1480842232704163E-001
+            "X" : 2.0258337259292603E-001,
+            "Y" : 8.6423361301422119E-001,
+            "Z" : 3.8686493039131165E-001
           },
           "$Children" : [
             {
