@@ -15,7 +15,6 @@ PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
                   inputOutput SFColor lightColor 1 1 1]
 {
   SpotLight {
-    global TRUE
     location IS lightPos
     cutOffAngle 1.25
     direction 0 -1 0
@@ -37,7 +36,6 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
 {
   PointLight
   {
-    global TRUE
     location IS lightPos
     intensity 1
     color 1.0 0.7 0.4
