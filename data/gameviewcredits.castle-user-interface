@@ -415,7 +415,7 @@
                                 "Green" : 7.1764707565307617E-001,
                                 "Red" : 5.0980395078659058E-001
                               },
-                              "Caption" : "github.com/SerufuYua/project_nya",
+                              "Caption" : "- Source",
                               "Cursor" : "mcHand",
                               "CustomBackground" : true,
                               "CustomBackgroundDisabled" : {
@@ -468,7 +468,7 @@
                                 "Green" : 7.1764707565307617E-001,
                                 "Red" : 5.0980395078659058E-001
                               },
-                              "Caption" : "github.com/SerufuYua/project_nya_models",
+                              "Caption" : "- Models",
                               "Cursor" : "mcHand",
                               "CustomBackground" : true,
                               "CustomBackgroundDisabled" : {
@@ -520,7 +520,7 @@
                       "Spacing" : 1.6000000000000000E+001,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 6.8300000000000000E+002
+                        "X" : 4.9999996948242188E+002
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle",
@@ -585,29 +585,6 @@
                               "VerticalAnchorSelf" : "vpTop"
                             },
                             {
-                              "$$ClassName" : "TCastleLabel",
-                              "ColorPersistent" : {
-                                "$$ClassName" : "TCastleColorPersistent",
-                                "Blue" : 1.0000000000000000E+000,
-                                "Green" : 1.0000000000000000E+000,
-                                "Red" : 1.0000000000000000E+000
-                              },
-                              "CustomFont" : "future_n0t_found",
-                              "HorizontalAnchorParent" : "hpMiddle",
-                              "HorizontalAnchorSelf" : "hpMiddle",
-                              "Name" : "LabelCGE",
-                              "PaddingHorizontal" : 1.0000000000000000E+001,
-                              "Text" : [
-                                "Castle Game Engine"
-                              ],
-                              "TranslationPersistent" : {
-                                "$$ClassName" : "TCastleVector2Persistent",
-                                "Y" : -1.1600000000000000E+002
-                              },
-                              "VerticalAnchorParent" : "vpTop",
-                              "VerticalAnchorSelf" : "vpTop"
-                            },
-                            {
                               "$$ClassName" : "TNyaWebButton",
                               "Border" : {
                                 "$$ClassName" : "TBorder",
@@ -620,7 +597,7 @@
                                 "Green" : 7.1764707565307617E-001,
                                 "Red" : 5.0980395078659058E-001
                               },
-                              "Caption" : "www.castle-engine.io",
+                              "Caption" : "Castle Game Engine",
                               "Cursor" : "mcHand",
                               "CustomBackground" : true,
                               "CustomBackgroundDisabled" : {
@@ -654,7 +631,7 @@
                               "Tooltip" : "https://castle-engine.io",
                               "TranslationPersistent" : {
                                 "$$ClassName" : "TCastleVector2Persistent",
-                                "Y" : -1.7200000000000000E+002
+                                "Y" : -1.1600000000000000E+002
                               },
                               "VerticalAnchorParent" : "vpTop",
                               "VerticalAnchorSelf" : "vpTop",
@@ -672,7 +649,7 @@
                           "Spacing" : 2.4000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -2.4500000000000000E+002
+                            "Y" : -1.8900000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
@@ -944,7 +921,7 @@
                           "Spacing" : 2.4000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
-                            "Y" : -5.6900000000000000E+002
+                            "Y" : -5.1300000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
@@ -1084,7 +1061,7 @@
                   "Spacing" : 2.4000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -8.1000000000000000E+002
+                    "Y" : -7.9100000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
