@@ -38,8 +38,10 @@ function GetAllTransform(const rootItem: TCastleComponent): TCastleTransforms;
 function GetAllBehaviors(const rootItem: TCastleComponent;
                         const BehaviorClass: TCastleBehaviorClass): TCastleBehaviors;
 function GetAllCameras(const rootItem: TCastleComponent): TCastleCameras;
-function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
+function GetSceneNamesByNameStart(const rootScene: TCastleTransform;
                                   const NameStartWith: String): TItemConditions;
+function GetSceneByName(const rootScene: TCastleTransform;
+                        const NameStartWith: String): TCastleScene;
 function GetAllUIRectangles(const rootItem: TCastleUserInterface): TUIRectangles;
 function GetAllUIImages(const rootItem: TCastleUserInterface): TUIImages;
 
@@ -310,7 +312,7 @@ begin
   FreeAndNil(items);
 end;
 
-function GetSceneNamesByNameStart(const rootScene: TCastleTransformDesign;
+function GetSceneNamesByNameStart(const rootScene: TCastleTransform;
                                   const NameStartWith: String): TItemConditions;
 var
   item: TCastleScene;
@@ -326,6 +328,22 @@ begin
       condition.Visible:= item.Visible;
 
       Insert(condition, Result, Length(Result));
+    end;
+  end;
+end;
+
+function GetSceneByName(const rootScene: TCastleTransform;
+                        const NameStartWith: String): TCastleScene;
+var
+  item: TCastleScene;
+begin
+  Result:= nil;
+  for item in GetAllScenes(rootScene) do
+  begin
+    if item.Name.StartsWith('Solderer') then
+    begin
+      Result:= item;
+      Break;
     end;
   end;
 end;

@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewTravel, NyaActor, NyaActorChara;
+  CastleScene, BaseViewTravel, NyaActor, NyaActorChara;
 
 type
   TViewTravelSpaceshipLabRoom = class(TBaseViewTravel)
@@ -15,6 +15,7 @@ type
     FWakeUpCount: Integer;
     FActorBoy: TNyaActorChara;
     FPositionBoyTable, FPositionBoyBed: TCastleTransform;
+    FBoyTool: TCastleScene;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
   protected
@@ -34,7 +35,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
+  SysUtils, CastleViewport, CastleUtils, CastleVectors,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
@@ -62,6 +63,9 @@ begin
   FPositionBoyTable:= Map.DesignedComponent('PositionBoyTable') as TCastleTransform;
   FPositionBoyBed:= Map.DesignedComponent('PositionBoyBed') as TCastleTransform;
 
+  FBoyTool:= GetSceneByName(FActorBoy, 'Solderer');
+  FBoyTool.Visible:= False;
+
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicLabRoom');
 
@@ -87,6 +91,7 @@ begin
     FActorBoy.Rotation:= TVector4.Zero;
     FActorBoy.Parent:= FPositionBoyBed;
     FActorBoy.AutoAnimation:= 'GAME.BOY_HOME.SLEEP';
+    FBoyTool.Visible:= False;
   end
   else if ((FActorBoy.Parent <> FPositionBoyTable) AND (WorldCondition.Boy.Location = TBoyLocation.HomeWorking)) then
   begin
@@ -94,6 +99,7 @@ begin
     FActorBoy.Rotation:= TVector4.Zero;
     FActorBoy.Parent:= FPositionBoyTable;
     FActorBoy.AutoAnimation:= 'GAME.BOY_HOME.SEAT_WITH_PC.WORKING';
+    FBoyTool.Visible:= True;
   end;
 
   inherited;
