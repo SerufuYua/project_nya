@@ -80,6 +80,7 @@ begin
 
   FMainActorNewTrans:= False;
   FMainActorNewRot:= False;
+  VehicleName:= '';
 
   { set keys }
   FLightSwitch:= TKey.keyL;
