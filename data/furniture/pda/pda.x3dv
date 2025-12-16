@@ -24,29 +24,22 @@ DEF PDA Transform
           {
             appearance Appearance
             {
-              material Material { }
-              shaders CommonSurfaceShader
-              {
-                multiDiffuseAlphaTexture
-                  MovieTexture
-                  {
-                    url "screen@counter(4).png"
-                    loop TRUE
-                    speed 0.075
-                  }
-                specularFactor 0 0 0
-              }
+               material Material
+               {
+                 ambientIntensity 0
+                 diffuseColor 0.0 0.0 0.0
+                 specularColor 0.0 0.0 0.0
+                 emissiveColor 1.0 1.0 1.0
+                 emissiveTexture MovieTexture
+                 {
+                   url "screen@counter(4).png"
+                   loop TRUE
+                   speed 0.075
+                 }
+               }
             }
             geometry Plane { }
           }
-        }
-
-        PointLight
-        {
-          location 0 -0.03 0.05
-          intensity 1
-          radius 1.5
-          attenuation 0 0.5 1
         }
       ]
     }
