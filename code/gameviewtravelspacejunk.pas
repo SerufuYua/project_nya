@@ -58,7 +58,7 @@ begin
 
   { Play music }
   FWalkMusic:= NamedSound('MusicSpaceJunk');
-  FRideMusic:= NamedSound('MusicRide');
+  FRideMusic:= NamedSound('MusicSpaceJunk');
   SoundEngine.LoopingChannel[0].Sound:= FWalkMusic;
 
   inherited;
