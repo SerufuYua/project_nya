@@ -1739,7 +1739,7 @@
               {
                 "$$ClassName" : "TCastleScene",
                 "AnimateOnlyWhenVisible" : true,
-                "AutoAnimation" : "GAME.MOVE.FORWARD",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "DistanceCulling" : 3.0000000000000000E+001,
                 "ExposeTransforms" : [
@@ -1851,7 +1851,7 @@
               {
                 "$$ClassName" : "TCastleScene",
                 "AnimateOnlyWhenVisible" : true,
-                "AutoAnimation" : "GAME.MOVE.FORWARD",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "DistanceCulling" : 3.0000000000000000E+001,
                 "ExposeTransforms" : [
@@ -1907,7 +1907,7 @@
               {
                 "$$ClassName" : "TCastleScene",
                 "AnimateOnlyWhenVisible" : true,
-                "AutoAnimation" : "GAME.MOVE.FORWARD",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "DistanceCulling" : 3.0000000000000000E+001,
                 "ExposeTransforms" : [
@@ -1963,7 +1963,7 @@
               {
                 "$$ClassName" : "TCastleScene",
                 "AnimateOnlyWhenVisible" : true,
-                "AutoAnimation" : "GAME.MOVE.FORWARD",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000000000000E+000,
                 "DistanceCulling" : 3.0000000000000000E+001,
                 "ExposeTransforms" : [
@@ -2235,53 +2235,6 @@
                     "Name" : "Billboard6"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "$$ClassName" : "TCastleTransform",
-            "Name" : "BackLights",
-            "RotationPersistent" : {
-              "$$ClassName" : "TCastleVector4RotationPersistent",
-              "Z" : 1.0000000000000000E+000
-            },
-            "TranslationPersistent" : {
-              "$$ClassName" : "TCastleVector3Persistent",
-              "X" : -4.3223017454147339E-001,
-              "Y" : 8.7783738970756531E-002,
-              "Z" : -2.0110969543457031E+001
-            },
-            "$Children" : [
-              {
-                "$$ClassName" : "TCastlePointLight",
-                "Intensity" : 3.0000000000000000E+001,
-                "Name" : "PointLight1",
-                "Radius" : 1.0000000000000000E+001,
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : 4.0000000000000000E+000,
-                  "Y" : 3.0000000000000000E+000,
-                  "Z" : -6.0000000000000000E+000
-                }
-              },
-              {
-                "$$ClassName" : "TCastlePointLight",
-                "Intensity" : 2.0000000000000000E+001,
-                "Name" : "PointLight2",
-                "Radius" : 2.0000000000000000E+001,
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -4.0000000000000000E+000,
-                  "Y" : 8.0000000000000000E+000,
-                  "Z" : 6.0000000000000000E+000
-                }
-              }
-            ],
-            "$Behaviors" : [
-              {
-                "$$ClassName" : "TNyaFollow",
-                "Name" : "Follow",
-                "Target" : "CharaGirl"
               }
             ]
           },

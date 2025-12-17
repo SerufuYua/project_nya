@@ -45,9 +45,10 @@ PointLight
 # ambient light
 DirectionalLight
 {
+  global TRUE
   direction 0.5 -1 1
-  intensity 10
-  color 0.6 0.6 1.0
+  intensity 4
+  color 1.0 1.0 0.6
   shadows TRUE
   defaultShadowMap GeneratedShadowMap
   {
