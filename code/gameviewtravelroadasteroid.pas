@@ -222,7 +222,7 @@ begin
     messages[6].FActor:= MainActor;
     messages[6].FMessage:= '<p>Um... I remember how you are leaving. It was... it was terrible. I don&apos;t remember what happened to me after that. I just remember waking up, knowing you&apos;d be here somewhere.</p>';
     messages[7].FActor:= FActorBoy;
-    messages[7].FMessage:= '<p>If you remember, I warned you many times that could happen that I would leave much earlier than you. You should have been ready for this.</p>';
+    messages[7].FMessage:= '<p>If you remember, I warned you many times that could happen that I would leave much earlier than you. You should have been ready for that.</p>';
     messages[8].FActor:= MainActor;
     messages[8].FMessage:= '<p>Yes, I remember that... I remember... But in the end, here we are. We are together again! I am ultra happy!</p>';
     Container.PushView(TViewConversation.CreateUntilStopped(

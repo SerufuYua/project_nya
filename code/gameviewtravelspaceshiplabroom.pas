@@ -171,21 +171,21 @@ begin
     begin
       SetLength(messages, 9);
       messages[0].FActor:= MainActor;
-      messages[0].FMessage:= '<p>I found You! It&apos;s super cool!</p>';
+      messages[0].FMessage:= '<p>I found You! This is super cool!</p>';
       messages[1].FActor:= FActorBoy;
       messages[1].FMessage:= '<p>Yo! Now You found me first. You look nya!</p>';
       messages[2].FActor:= MainActor;
       messages[2].FMessage:= '<p>Ha! Thanks! And you&apos;re really super cute!</p>';
       messages[3].FActor:= FActorBoy;
-      messages[3].FMessage:= '<p>Have you been search me for a long time?</p>';
+      messages[3].FMessage:= '<p>Have You been looking for me for a long time?</p>';
       messages[4].FActor:= MainActor;
-      messages[4].FMessage:= '<p>Well it wasn&apos;t so long. I know we should be together, but where are we?</p>';
+      messages[4].FMessage:= '<p>Well, not that long. I know we&apos;re supposed to be together, but where are we?</p>';
       messages[5].FActor:= FActorBoy;
-      messages[5].FMessage:= '<p>What do you mean where? We&apos;re in post-mortalis. We&apos;re dead, have you forgotten?</p>';
+      messages[5].FMessage:= '<p>What do You mean, "where"? We&apos;re in a post-mortalis. We&apos;re dead, have you forgotten?</p>';
       messages[6].FActor:= MainActor;
       messages[6].FMessage:= '<p>Um... I remember how you are leaving. It was... it was terrible. I don&apos;t remember what happened to me after that. I just remember waking up, knowing you&apos;d be here somewhere.</p>';
       messages[7].FActor:= FActorBoy;
-      messages[7].FMessage:= '<p>If you remember, I warned you many times that could happen that I would leave much earlier than you. You should have been ready for this.</p>';
+      messages[7].FMessage:= '<p>If you remember, I warned you many times that could happen that I would leave much earlier than you. You should have been ready for that.</p>';
       messages[8].FActor:= MainActor;
       messages[8].FMessage:= '<p>Yes, I remember that... I remember... But in the end, here we are. We are together again! I am ultra happy!</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
@@ -210,7 +210,7 @@ begin
     begin
       SetLength(messages, 1);
       messages[0].FActor:= MainActor;
-      messages[0].FMessage:= '<p>Looks like there someone working with... something...</p>';
+      messages[0].FMessage:= '<p>Looks like someone&apos;s working with... something... here.</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
                          messages,
                          nil,
@@ -230,7 +230,7 @@ begin
     begin
       SetLength(messages, 1);
       messages[0].FActor:= MainActor;
-      messages[0].FMessage:= '<p>Maybe htere&apos;s no need to wake up he...</p>';
+      messages[0].FMessage:= '<p>Perhaps there is no need to wake him up...</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
                          messages,
                          {$ifdef FPC}@{$endif}IncWakeUpCount,
@@ -250,7 +250,7 @@ begin
     begin
       SetLength(messages, 1);
       messages[0].FActor:= MainActor;
-      messages[0].FMessage:= '<p>And however I want... I want it...</p>' +
+      messages[0].FMessage:= '<p>And yet I want... I want it...</p>' +
                              '<p>Heeey! Wake up! I want to play!</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
                          messages,
@@ -262,7 +262,7 @@ begin
   begin
     SetLength(messages, 1);
     messages[0].FActor:= MainActor;
-    messages[0].FMessage:= '<p>Don&apos;t go to another&apos;s bed. It&apos;s not civilly.</p>';
+    messages[0].FMessage:= '<p>Sleeping in someone else&apos;s bed without approval is uncivil.</p>';
     Container.PushView(TViewConversation.CreateUntilStopped(
                        messages,
                        nil,
