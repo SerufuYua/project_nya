@@ -37,6 +37,7 @@ initialization
     for standalone programs (when "not IsLibrary").
     This allows to handle --version and --help command-line parameters
     without any extra output on Unix, and to set --log-file . }
+  LogFileName:= ApplicationProperties.ApplicationName + '.log';
   InitializeLog;
 
   {$ifdef DEBUG}
