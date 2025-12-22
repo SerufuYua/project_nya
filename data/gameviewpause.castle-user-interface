@@ -17,27 +17,21 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleVerticalGroup",
-      "Name" : "GroupShadow",
-      "Padding" : 3.0000000000000000E+001,
+      "$$ClassName" : "TCastleImageControl",
+      "AutoSizeToChildren" : true,
+      "AutoSizeToChildrenPaddingRight" : 6.4000000000000000E+001,
+      "AutoSizeToChildrenPaddingTop" : 6.4000000000000000E+001,
+      "Content" : {
+        "$$ClassName" : "TCastleImagePersistent",
+        "Url" : "castle-data:/ui/menu_shadow.png"
+      },
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "ImageShadow",
+      "Stretch" : true,
+      "VerticalAnchorParent" : "vpMiddle",
+      "VerticalAnchorSelf" : "vpMiddle",
       "$Children" : [
-        {
-          "$$ClassName" : "TCastleImageControl",
-          "Content" : {
-            "$$ClassName" : "TCastleImagePersistent",
-            "Url" : "castle-data:/ui/menu_shadow.png"
-          },
-          "FullSize" : true,
-          "Name" : "ImageShadow",
-          "Stretch" : true,
-          "TranslationPersistent" : {
-            "$$ClassName" : "TCastleVector2Persistent",
-            "X" : 3.0000000000000000E+001,
-            "Y" : -3.0000000000000000E+001
-          },
-          "VerticalAnchorParent" : "vpTop",
-          "VerticalAnchorSelf" : "vpTop"
-        },
         {
           "$$ClassName" : "TCastleImageControl",
           "AutoSizeToChildren" : true,
@@ -51,14 +45,11 @@
             },
             "Url" : "castle-data:/ui/menu.png"
           },
+          "HorizontalAnchorParent" : "hpMiddle",
+          "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "ImageControl",
-          "TranslationPersistent" : {
-            "$$ClassName" : "TCastleVector2Persistent",
-            "X" : 3.0000000000000000E+001,
-            "Y" : -3.0000000000000000E+001
-          },
-          "VerticalAnchorParent" : "vpTop",
-          "VerticalAnchorSelf" : "vpTop",
+          "VerticalAnchorParent" : "vpMiddle",
+          "VerticalAnchorSelf" : "vpMiddle",
           "$Children" : [
             {
               "$$ClassName" : "TCastleVerticalGroup",

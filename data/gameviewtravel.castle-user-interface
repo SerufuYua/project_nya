@@ -407,7 +407,7 @@
     {
       "$$ClassName" : "TCastleImageControl",
       "AutoSizeToChildren" : true,
-      "AutoSizeToChildrenPaddingRight" : 1.0000000000000000E+001,
+      "AutoSizeToChildrenPaddingRight" : 2.4000000000000000E+001,
       "Content" : {
         "$$ClassName" : "TCastleImagePersistent",
         "ColorPersistent" : {
@@ -426,39 +426,22 @@
       "VerticalAnchorSelf" : "vpMiddle",
       "$Children" : [
         {
-          "$$ClassName" : "TCastleVerticalGroup",
-          "Alignment" : "hpRight",
+          "$$ClassName" : "TCastleLabel",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent",
+            "Blue" : 1.0000000000000000E+000,
+            "Green" : 1.0000000000000000E+000,
+            "Red" : 1.0000000000000000E+000
+          },
+          "CustomFont" : "future_n0t_found_32",
           "HorizontalAnchorParent" : "hpMiddle",
           "HorizontalAnchorSelf" : "hpMiddle",
-          "Name" : "GroupStatus",
-          "Padding" : 1.0000000000000000E+000,
+          "Name" : "Status",
+          "Text" : [
+            "Info: any status"
+          ],
           "VerticalAnchorParent" : "vpMiddle",
-          "VerticalAnchorSelf" : "vpMiddle",
-          "$Children" : [
-            {
-              "$$ClassName" : "TCastleLabel",
-              "ColorPersistent" : {
-                "$$ClassName" : "TCastleColorPersistent",
-                "Blue" : 1.0000000000000000E+000,
-                "Green" : 1.0000000000000000E+000,
-                "Red" : 1.0000000000000000E+000
-              },
-              "CustomFont" : "future_n0t_found_32",
-              "HorizontalAnchorParent" : "hpRight",
-              "HorizontalAnchorSelf" : "hpRight",
-              "Name" : "Status",
-              "Text" : [
-                "Info: any status"
-              ],
-              "TranslationPersistent" : {
-                "$$ClassName" : "TCastleVector2Persistent",
-                "X" : -1.0000000000000000E+000,
-                "Y" : -1.0000000000000000E+000
-              },
-              "VerticalAnchorParent" : "vpTop",
-              "VerticalAnchorSelf" : "vpTop"
-            }
-          ]
+          "VerticalAnchorSelf" : "vpMiddle"
         }
       ]
     },
