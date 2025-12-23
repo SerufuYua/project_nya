@@ -12,12 +12,13 @@ uses
 type
   TNyaActorPerson = class(TCastleComponent)
   protected
-    FActorName: String;
+    FActorName, FActorShortName: String;
     FPersonalColor: TCastleColorRGB;
     FPersonalColorPersistent: TCastleColorRGBPersistent;
     function GetPersonalColorForPersistent: TCastleColorRGB;
     procedure SetPersonalColorForPersistent(const AValue: TCastleColorRGB);
     procedure SetActorName(const value: String); virtual;
+    procedure SetActorShortName(const value: String); virtual;
   public
     const
       DefaultActorName = 'unknown';
@@ -29,6 +30,7 @@ type
     property PersonalColor: TCastleColorRGB read FPersonalColor write FPersonalColor;
   published
     property ActorName: String read FActorName write SetActorName;
+    property ActorShortName: String read FActorShortName write SetActorShortName;
     property PersonalColorPersistent: TCastleColorRGBPersistent read FPersonalColorPersistent;
   end;
 
@@ -166,6 +168,7 @@ begin
   inherited;
 
   FActorName:= DefaultActorName;
+  FActorShortName:= DefaultActorName;
   FPersonalColor:= DefaultPersonalColor;
 
   { Persistent for PersonalColor }
@@ -188,6 +191,12 @@ begin
   FActorName:= value;
 end;
 
+procedure TNyaActorPerson.SetActorShortName(const value: String);
+begin
+  if (FActorShortName = value) then exit;
+  FActorShortName:= value;
+end;
+
 function TNyaActorPerson.GetPersonalColorForPersistent: TCastleColorRGB;
 begin
   Result:= PersonalColor;
@@ -201,7 +210,7 @@ end;
 function TNyaActorPerson.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'ActorName', 'PersonalColorPersistent'
+       'ActorName', 'ActorShortName', 'PersonalColorPersistent'
      ]) then
     Result:= [psBasic]
   else
