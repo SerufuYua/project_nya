@@ -160,7 +160,7 @@ begin
     begin
       SetLength(messages, 2);
       messages[0].FActor:= MainActor;
-      messages[0].FMessage:= '<p>Hey! Let&apos;s play together! Nya!</p>';
+      messages[0].FMessage:= '<p>Hey, ' + FActorBoy.ActorShortName + '! Let&apos;s play together! Nya!</p>';
       messages[1].FActor:= FActorBoy;
       messages[1].FMessage:= '<p>Ah... what... sure. Let&apos;s play! Nya!</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
@@ -200,7 +200,7 @@ begin
     begin
       SetLength(messages, 1);
       messages[0].FActor:= MainActor;
-      messages[0].FMessage:= '<p>Looks like there is ' + FActorBoy.ActorName + '&apos;s workbench</p>';
+      messages[0].FMessage:= '<p>Looks like there is ' + FActorBoy.ActorShortName + '&apos;s workbench</p>';
       Container.PushView(TViewConversation.CreateUntilStopped(
                          messages,
                          nil,

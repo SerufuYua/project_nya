@@ -46,7 +46,7 @@ type
     procedure UpdateAnimationsList;
   protected
     FUrl, FUrlPerson: String;
-    FActorName: String;
+    FActorName, FActorShortName: String;
     FPersonalColor: TCastleColorRGB;
     FAutoAnimation: String;
     FAnimationSpeed: Single;
@@ -115,6 +115,7 @@ type
     function PropertySections(const PropertyName: String): TPropertySections; override;
 
     property ActorName: String read FActorName;
+    property ActorShortName: String read FActorShortName;
     property AllScenes: TCastleScenes read FAllScenes;
     property MainScene: TCastleScene read FMainScene;
     property AnimationsList: TStrings read FAnimationsList;
@@ -423,12 +424,14 @@ begin
   FUrlPerson:= value;
   FPersonalColor:= TNyaActorPerson.DefaultPersonalColor;
   FActorName:= TNyaActorPerson.DefaultActorName;
+  FActorShortName:= TNyaActorPerson.DefaultActorName;
 
   personOwner:= TComponent.Create(nil);
   try
     person:= ComponentLoad(value, personOwner) as TNyaActorPerson;
     FPersonalColor:= person.PersonalColor;
     FActorName:= person.ActorName;
+    FActorShortName:= person.ActorShortName;
   finally
     FreeAndNil(personOwner)
   end;
