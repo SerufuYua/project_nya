@@ -10,7 +10,7 @@ interface
 uses Classes,
   CastleVectors, CastleWindow, CastleComponentSerialize,
   CastleUIControls, CastleControls, CastleKeysMouse, CastleTimeUtils,
-  CastleTransform, CastleQuaternions, CastleScene, CastleFlashEffect,
+  CastleTransform, CastleQuaternions, CastleScene,
   BaseView, NyaActorChara;
 
 type
@@ -22,7 +22,6 @@ type
     BtnExit, BtnStart, BtnSettings, BtnCredits: TCastleButton;
     LabelFps, LabelInfo1, LabelInfo2: TCastleLabel;
     CameraMain: TCastleCamera;
-    FlashEffect: TCastleFlashEffect;
     CharaGirl, CharaBoy: TNyaActorChara;
   public
     constructor Create(AOwner: TComponent); override;
@@ -71,9 +70,6 @@ begin
   BtnStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnCredits.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
-
-  { appear fade animator }
-  FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 0.9), True);
 
   { remember initial camera rotation }
   FCameraRatation:= QuatFromAxisAngle(CameraMain.Rotation);
