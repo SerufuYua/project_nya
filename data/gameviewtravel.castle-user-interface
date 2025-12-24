@@ -630,6 +630,22 @@
       ]
     },
     {
+      "$$ClassName" : "TCastleFlashEffect",
+      "Duration" : 2.0000000000000000E+000,
+      "EditorSelectOnHover" : false,
+      "Image" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "Name" : "FlashEffect",
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector2Persistent",
+        "X" : 8.2100000000000000E+002,
+        "Y" : 1.2600000000000000E+003
+      },
+      "VerticalAnchorParent" : "vpMiddle",
+      "VerticalAnchorSelf" : "vpMiddle"
+    },
+    {
       "$$ClassName" : "TNyaWorldCondition",
       "Height" : 0.0000000000000000E+000,
       "Name" : "WorldCondition",

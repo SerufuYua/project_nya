@@ -6,13 +6,12 @@ interface
 
 uses
   Classes, SysUtils,
-  CastleUIControls, CastleColors, CastleGLImages, CastleTimeUtils;
+  CastleUIControls, CastleGLImages, CastleTimeUtils;
 
 type
   TNyaFadeEffect = class(TCastleUserInterface)
   protected
-    FDuration: TFloatTime;
-    FTime: TFloatTime;
+    FTime, FDuration: TFloatTime;
     FIntensity: Single;
     FImage: TDrawableImage;
     FActive: Boolean;
@@ -21,7 +20,7 @@ type
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     procedure Render; override;
-    procedure Fade(duration: TFloatTime = 0.5);
+    procedure Fade(ADuration: TFloatTime = 0.5);
   published
   end;
 
@@ -34,6 +33,9 @@ constructor TNyaFadeEffect.Create(AOwner: TComponent);
 begin
   inherited;
   FActive:= False;
+  FDuration:= 0;
+  FIntensity:= 0;
+  FTime:= 0;
   FImage:= TDrawableImage.Create(nil, False, True { OwnsImage });
 end;
 
@@ -46,7 +48,7 @@ end;
 procedure TNyaFadeEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
-  if NOT FActive then Exit;
+  if (NOT FActive) then Exit;
 
   FTime:= FTime + SecondsPassed;
 
@@ -59,7 +61,7 @@ end;
 procedure TNyaFadeEffect.Render;
 begin
   inherited;
-  if NOT FActive then Exit;
+  if (NOT FActive) then Exit;
 
   if Assigned(FImage) then
   begin
@@ -69,9 +71,9 @@ begin
 end;
 
 
-procedure TNyaFadeEffect.Fade(duration: TFloatTime = 0.5);
+procedure TNyaFadeEffect.Fade(ADuration: TFloatTime);
 begin
-  FDuration:= duration;
+  FDuration:= ADuration;
   FTime:= 0;
   FImage.Image:= Container.SaveScreen;
   FActive:= True;

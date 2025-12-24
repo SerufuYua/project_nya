@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, CastleUIControls, CastleVectors, CastleColors,
   CastleControls, CastleViewport, CastleKeysMouse, CastleDebugTransform,
-  CastleCameras, NyaThirdPersonCharaNavigation, NyaActor;
+  CastleCameras, CastleFlashEffect, NyaThirdPersonCharaNavigation, NyaActor;
 
 type
   TViewWarper = class(TCastleView)
@@ -36,6 +36,7 @@ type
   TBaseView = class(TViewWarper)
   published
     Map: TCastleDesign;
+    FlashEffect: TCastleFlashEffect;
   public
     procedure Start; override;
     function Press(const Event: TInputPressRelease): Boolean; override;
@@ -148,6 +149,10 @@ begin
   FKeyDebug:= TKey.keyF4;
   FKeyPause1:= TKey.keyEscape;
   FKeyPause2:= TKey.keyPause;
+
+  { appear animator }
+  if Assigned(FlashEffect) then
+    FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 1.0), True);
 end;
 
 procedure TBaseView.SetUIColor(AColor: TCastleColorRGB);
