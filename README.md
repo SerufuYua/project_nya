@@ -6,9 +6,11 @@ This game contains age-restricted materials including nudity and explicit scenes
 
 Anyway, I warned You.
 
-The project is currently in development mode ^_^
+The project is released now.
 
-At this version of the game, you can move through the locations and interact with actors marked with special signs V, thereby activating animated scenes.
+At this game, you can move through the locations and interact with actors marked with special signs V, thereby activating animated scenes.
+
+The goal of the game is for the girl to meet the boy.
 
 This Game using [Castle Game Engine](https://castle-engine.io/).
 
