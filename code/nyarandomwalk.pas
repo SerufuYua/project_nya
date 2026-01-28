@@ -11,22 +11,22 @@ type
   TNyaRandomWalk = class(TCastleBehavior)
   protected
     type
-      TState = (Idle, WalkStright, WalkLeft, WalkRight, Death);
+      TState = (Idle, WalkStright, WalkLeft, WalkRight, Confuse);
   protected
-    FVelocity, FActionTimeout, FDeathTimeout, FTimer: Single;
+    FVelocity, FActionTimeout, FConfuseTimeout, FTimer: Single;
     FState: TState;
-    FAnimationIdle, FAnimationMove, FAnimationDeath: String;
+    FAnimationIdle, FAnimationMove, FAnimationConfuse: String;
     function AnimationIdleStored: Boolean;
     function AnimationMoveStored: Boolean;
-    function AnimationDeathStored: Boolean;
+    function AnimationConfuseStored: Boolean;
   public
     const
       DefaultVelocity = 1.0;
       DefaultActionTimeout = 3.0;
-      DefaultDeathTimeout = 5.0;
+      DefaultConfuseTimeout = 5.0;
       DefaultAnimationIdle = 'idle';
       DefaultAnimationMove = 'move';
-      DefaultAnimationDeath = 'death';
+      DefaultAnimationConfuse = 'confuse';
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -36,14 +36,14 @@ type
              {$ifdef FPC}default DefaultVelocity{$endif};
     property ActionTimeout: Single read FActionTimeout write FActionTimeout
              {$ifdef FPC}default DefaultActionTimeout{$endif};
-    property DeathTimeout: Single read FDeathTimeout write FDeathTimeout
-             {$ifdef FPC}default DefaultDeathTimeout{$endif};
+    property ConfuseTimeout: Single read FConfuseTimeout write FConfuseTimeout
+             {$ifdef FPC}default DefaultConfuseTimeout{$endif};
     property AnimationIdle: String read FAnimationIdle write FAnimationIdle
              stored AnimationIdleStored nodefault;
     property AnimationMove: String read FAnimationMove write FAnimationMove
              stored AnimationMoveStored nodefault;
-    property AnimationDeath: String read FAnimationDeath write FAnimationDeath
-             stored AnimationDeathStored nodefault;
+    property AnimationConfuse: String read FAnimationConfuse write FAnimationConfuse
+             stored AnimationConfuseStored nodefault;
   end;
 
 implementation
@@ -61,10 +61,10 @@ begin
 
   FVelocity:= DefaultVelocity;
   FActionTimeout:= DefaultActionTimeout;
-  FDeathTimeout:= DefaultDeathTimeout;
+  FConfuseTimeout:= DefaultConfuseTimeout;
   FAnimationIdle:= DefaultAnimationIdle;
   FAnimationMove:= DefaultAnimationMove;
-  FAnimationDeath:= DefaultAnimationDeath;
+  FAnimationConfuse:= DefaultAnimationConfuse;
   FTimer:= 0.0;
   FState:= TState.Idle;
 end;
@@ -85,10 +85,10 @@ begin
   begin
     FTimer:= FTimer + SecondsPassed;
 
-    { count death time }
-    if (FState = TState.Death) then
+    { count Confuse time }
+    if (FState = TState.Confuse) then
     begin
-      if (FTimer > FDeathTimeout) then
+      if (FTimer > FConfuseTimeout) then
       begin
         FTimer:= 0.0;
         RBody.Dynamic:= True;
@@ -97,17 +97,17 @@ begin
       Exit;
     end;
 
-    { detect death action }
+    { detect Confuse action }
     for colliding in RBody.GetCollidingTransforms do
       if (colliding is TNyaActor) then
       begin
-        FState:= TState.Death;
+        FState:= TState.Confuse;
         FTimer:= 0.0;
         RBody.LinearVelocity:= TVector3.Zero;
         RBody.AngularVelocity:= TVector3.Zero;
         RBody.Dynamic:= False;
         if (Parent is TCastleScene) then
-          (Parent as TCastleScene).PlayAnimation(FAnimationDeath, False);
+          (Parent as TCastleScene).PlayAnimation(FAnimationConfuse, False);
         Exit;
       end;
 
@@ -116,7 +116,7 @@ begin
     begin
       FTimer:= 0.0;
       nLow:= Ord(Low(TState));
-      nHigh:= Ord(High(TState)); { without death state }
+      nHigh:= Ord(High(TState)); { without Confuse state }
       FState:= TState(RandomRange(nLow, nHigh));
     end;
 
@@ -161,16 +161,16 @@ begin
   Result:= FAnimationMove <> DefaultAnimationMove;
 end;
 
-function TNyaRandomWalk.AnimationDeathStored: Boolean;
+function TNyaRandomWalk.AnimationConfuseStored: Boolean;
 begin
-  Result:= FAnimationDeath <> DefaultAnimationDeath;
+  Result:= FAnimationConfuse <> DefaultAnimationConfuse;
 end;
 
 function TNyaRandomWalk.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Velocity', 'ActionTimeout', 'DeathTimeout', 'Beater',
-       'AnimationIdle', 'AnimationMove', 'AnimationDeath'
+       'Velocity', 'ActionTimeout', 'ConfuseTimeout', 'Beater',
+       'AnimationIdle', 'AnimationMove', 'AnimationConfuse'
      ]) then
     Result:= [psBasic]
   else
@@ -212,7 +212,7 @@ initialization
                          TNyaRandomWalkPropertyEditor);
   RegisterPropertyEditor(TypeInfo(AnsiString), TNyaRandomWalk, 'AnimationMove',
                          TNyaRandomWalkPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaRandomWalk, 'AnimationDeath',
+  RegisterPropertyEditor(TypeInfo(AnsiString), TNyaRandomWalk, 'AnimationConfuse',
                          TNyaRandomWalkPropertyEditor);
   {$endif}
 end.
