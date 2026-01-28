@@ -13,7 +13,8 @@ type
     type
       TState = (Idle, WalkStright, WalkLeft, WalkRight, Confuse);
   protected
-    FVelocity, FActionTimeout, FConfuseTimeout, FTimer: Single;
+    FVelocityWalk, FVelocityRotate, FTimeoutWalk, FTimeoutRotate, FTimeoutIdle,
+      FTimeoutConfuse, FTimer: Single;
     FState: TState;
     FAnimationIdle, FAnimationMove, FAnimationConfuse: String;
     function AnimationIdleStored: Boolean;
@@ -21,9 +22,12 @@ type
     function AnimationConfuseStored: Boolean;
   public
     const
-      DefaultVelocity = 1.0;
-      DefaultActionTimeout = 3.0;
-      DefaultConfuseTimeout = 5.0;
+      DefaultVelocityWalk = 1.0;
+      DefaultVelocityRotate = 1.0;
+      DefaultTimeoutWalk = 3.0;
+      DefaultTimeoutRotate = 1.0;
+      DefaultTimeoutIdle = 8.0;
+      DefaultTimeoutConfuse = 15.0;
       DefaultAnimationIdle = 'idle';
       DefaultAnimationMove = 'move';
       DefaultAnimationConfuse = 'confuse';
@@ -32,12 +36,18 @@ type
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
   published
-    property Velocity: Single read FVelocity write FVelocity
-             {$ifdef FPC}default DefaultVelocity{$endif};
-    property ActionTimeout: Single read FActionTimeout write FActionTimeout
-             {$ifdef FPC}default DefaultActionTimeout{$endif};
-    property ConfuseTimeout: Single read FConfuseTimeout write FConfuseTimeout
-             {$ifdef FPC}default DefaultConfuseTimeout{$endif};
+    property VelocityWalk: Single read FVelocityWalk write FVelocityWalk
+             {$ifdef FPC}default DefaultVelocityWalk{$endif};
+    property VelocityRotate: Single read FVelocityRotate write FVelocityRotate
+             {$ifdef FPC}default DefaultVelocityRotate{$endif};
+    property TimeoutWalk: Single read FTimeoutWalk write FTimeoutWalk
+             {$ifdef FPC}default DefaultTimeoutWalk{$endif};
+    property TimeoutRotate: Single read FTimeoutRotate write FTimeoutRotate
+             {$ifdef FPC}default DefaultTimeoutRotate{$endif};
+    property TimeoutIdle: Single read FTimeoutIdle write FTimeoutIdle
+             {$ifdef FPC}default DefaultTimeoutIdle{$endif};
+    property TimeoutConfuse: Single read FTimeoutConfuse write FTimeoutConfuse
+             {$ifdef FPC}default DefaultTimeoutConfuse{$endif};
     property AnimationIdle: String read FAnimationIdle write FAnimationIdle
              stored AnimationIdleStored nodefault;
     property AnimationMove: String read FAnimationMove write FAnimationMove
@@ -59,13 +69,16 @@ constructor TNyaRandomWalk.Create(AOwner: TComponent);
 begin
   inherited;
 
-  FVelocity:= DefaultVelocity;
-  FActionTimeout:= DefaultActionTimeout;
-  FConfuseTimeout:= DefaultConfuseTimeout;
+  FVelocityWalk:= DefaultVelocityWalk;
+  FVelocityRotate:= DefaultVelocityRotate;
+  FTimeoutWalk:= DefaultTimeoutWalk;
+  FTimeoutRotate:= DefaultTimeoutRotate;
+  FTimeoutIdle:= DefaultTimeoutIdle;
+  FTimeoutConfuse:= DefaultTimeoutConfuse;
   FAnimationIdle:= DefaultAnimationIdle;
   FAnimationMove:= DefaultAnimationMove;
   FAnimationConfuse:= DefaultAnimationConfuse;
-  FTimer:= 0.0;
+  FTimer:= DefaultTimeoutIdle;
   FState:= TState.Idle;
 end;
 
@@ -78,31 +91,21 @@ var
 begin
   inherited;
 
-  currentAnimation:= FAnimationIdle;
-
   RBody:= Parent.RigidBody;
-  if (Assigned(RBody) and RBody.ExistsInRoot) then
+  if (NOT (Assigned(RBody) and RBody.ExistsInRoot)) then Exit;
+
+  currentAnimation:= FAnimationIdle;
+  FTimer:= FTimer - SecondsPassed;
+
+  { detect Confuse action }
+  if (FState <> TState.Confuse) then
   begin
-    FTimer:= FTimer + SecondsPassed;
-
-    { count Confuse time }
-    if (FState = TState.Confuse) then
-    begin
-      if (FTimer > FConfuseTimeout) then
-      begin
-        FTimer:= 0.0;
-        RBody.Dynamic:= True;
-        FState:= TState.Idle;
-      end;
-      Exit;
-    end;
-
-    { detect Confuse action }
     for colliding in RBody.GetCollidingTransforms do
+    begin
       if (colliding is TNyaActor) then
       begin
+        FTimer:= FTimeoutConfuse;
         FState:= TState.Confuse;
-        FTimer:= 0.0;
         RBody.LinearVelocity:= TVector3.Zero;
         RBody.AngularVelocity:= TVector3.Zero;
         RBody.Dynamic:= False;
@@ -110,45 +113,62 @@ begin
           (Parent as TCastleScene).PlayAnimation(FAnimationConfuse, False);
         Exit;
       end;
-
-    { count normal time }
-    if (FTimer > FActionTimeout) then
-    begin
-      FTimer:= 0.0;
-      nLow:= Ord(Low(TState));
-      nHigh:= Ord(High(TState)); { without Confuse state }
-      FState:= TState(RandomRange(nLow, nHigh));
     end;
-
-    { normal action }
-    Case FState of
-      TState.Idle:
-        begin
-          currentAnimation:= FAnimationIdle;
-        end;
-      TState.WalkStright:
-        begin
-          currentAnimation:= FAnimationMove;
-          RBody.LinearVelocity:= Parent.Direction * FVelocity;
-        end;
-      TState.WalkLeft:
-        begin
-          currentAnimation:= FAnimationMove;
-          RBody.LinearVelocity:= Parent.Direction * FVelocity;
-          RBody.AngularVelocity:= Parent.Up * FVelocity;
-        end;
-      TState.WalkRight:
-        begin
-          currentAnimation:= FAnimationMove;
-          RBody.LinearVelocity:= Parent.Direction * FVelocity;
-          RBody.AngularVelocity:= Parent.Up * (-FVelocity);
-        end;
-    end;
-
-    if (Parent is TCastleScene) then
-      (Parent as TCastleScene).AutoAnimation:= currentAnimation;
   end;
 
+  { processing timer elapse }
+  if (FTimer <= 0.0) then
+  begin
+    Case FState of
+      { end Confuse action }
+      TState.Confuse:
+        begin
+          FTimer:= FTimeoutConfuse;
+          RBody.Dynamic:= True;
+          FState:= TState.Idle;
+        end;
+      { end Normal action }
+      TState.Idle, TState.WalkStright, TState.WalkLeft, TState.WalkRight:
+        begin
+          nLow:= Ord(Low(TState));
+          nHigh:= Ord(High(TState)); { without Confuse state }
+          FState:= TState(RandomRange(nLow, nHigh));
+          Case FState of
+            TState.Idle: FTimer:= FTimeoutIdle;
+            TState.WalkStright: FTimer:= FTimeoutWalk;
+            TState.WalkLeft, TState.WalkRight: FTimer:= FTimeoutRotate;
+          end;
+        end;
+    end;
+  end;
+
+  { normal action }
+  Case FState of
+    TState.Idle:
+      begin
+        currentAnimation:= FAnimationIdle;
+      end;
+    TState.WalkStright:
+      begin
+        currentAnimation:= FAnimationMove;
+        RBody.LinearVelocity:= Parent.Direction * FVelocityWalk;
+      end;
+    TState.WalkLeft:
+      begin
+        currentAnimation:= FAnimationMove;
+        RBody.LinearVelocity:= Parent.Direction * FVelocityWalk;
+        RBody.AngularVelocity:= Parent.Up * FVelocityRotate;
+      end;
+    TState.WalkRight:
+      begin
+        currentAnimation:= FAnimationMove;
+        RBody.LinearVelocity:= Parent.Direction * FVelocityWalk;
+        RBody.AngularVelocity:= Parent.Up * (-FVelocityRotate);
+      end;
+  end;
+
+  if (Parent is TCastleScene) then
+    (Parent as TCastleScene).AutoAnimation:= currentAnimation;
 end;
 
 function TNyaRandomWalk.AnimationIdleStored: Boolean;
@@ -169,8 +189,9 @@ end;
 function TNyaRandomWalk.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Velocity', 'ActionTimeout', 'ConfuseTimeout', 'Beater',
-       'AnimationIdle', 'AnimationMove', 'AnimationConfuse'
+       'VelocityWalk', 'TimeoutRotate', 'VelocityRotate', 'TimeoutWalk',
+       'TimeoutIdle', 'TimeoutConfuse', 'Beater', 'AnimationIdle',
+       'AnimationMove', 'AnimationConfuse'
      ]) then
     Result:= [psBasic]
   else

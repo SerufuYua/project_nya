@@ -123,24 +123,21 @@
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : -2.0000000000000000E+000
+                      "Y" : -1.0000000000000000E+000
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Z" : 2.0000000000000000E+000
+                      "Z" : 1.0000000000000000E+000
                     },
                     "Name" : "RigidBodySlime"
                   },
                   {
                     "$$ClassName" : "TNyaRandomWalk",
-                    "ActionTimeout" : 8.0000000000000000E+000,
                     "AnimationConfuse" : "GAME.DEATH",
                     "AnimationIdle" : "GAME.STAND",
                     "AnimationMove" : "GAME.MOVE.FORWARD",
-                    "ConfuseTimeout" : 2.0000000000000000E+001,
-                    "Name" : "WalkSlime",
-                    "Velocity" : 2.0000000000000000E+000
+                    "Name" : "WalkSlime"
                   }
                 ]
               },
@@ -165,14 +162,13 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleBoxCollider",
-                    "Mass" : 1.0000000000000000E+000,
                     "Name" : "BoxColliderDroid"
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
                     "AngularVelocityPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : -1.0000000000000000E+000
+                      "Y" : -5.0000000000000000E+000
                     },
                     "Animated" : true,
                     "LinearVelocityPersistent" : {
@@ -187,12 +183,11 @@
                   },
                   {
                     "$$ClassName" : "TNyaRandomWalk",
-                    "ActionTimeout" : 8.0000000000000000E+000,
                     "AnimationConfuse" : "GAME.BOO",
                     "AnimationIdle" : "GAME.STAND",
                     "AnimationMove" : "GAME.WALK",
-                    "ConfuseTimeout" : 1.4000000000000000E+001,
-                    "Name" : "WalkDroid"
+                    "Name" : "WalkDroid",
+                    "VelocityRotate" : 5.0000000000000000E+000
                   }
                 ]
               }
@@ -251,8 +246,8 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.8831487894058228E+000,
-                      "Y" : 1.0000000000000000E+000
+                      "W" : 2.3471858501434326E+000,
+                      "Y" : -9.9999994039535522E-001
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -401,16 +396,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5770126581192017E+000,
-          "X" : -7.8229360282421112E-002,
-          "Y" : 9.9372643232345581E-001,
-          "Z" : 7.9924680292606354E-002
+          "W" : 1.4110007286071777E+000,
+          "X" : -1.9510646164417267E-001,
+          "Y" : -9.6776205301284790E-001,
+          "Z" : -1.5927955508232117E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -2.2721021175384521E+000,
-          "Y" : 1.6523560285568237E+000,
-          "Z" : -5.0876870155334473E+000
+          "X" : 1.7718820571899414E+000,
+          "Y" : 1.1648130416870117E+000,
+          "Z" : -4.7259979248046875E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
