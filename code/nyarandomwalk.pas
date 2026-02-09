@@ -146,6 +146,8 @@ begin
   Case FState of
     TState.Idle:
       begin
+        RBody.LinearVelocity:= TVector3.Zero;
+        RBody.AngularVelocity:= TVector3.Zero;
         currentAnimation:= FAnimationIdle;
       end;
     TState.WalkStright:

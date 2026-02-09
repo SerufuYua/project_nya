@@ -117,19 +117,11 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleBoxCollider",
-                    "Name" : "BoxColliderSlime"
+                    "Name" : "ColliderSlime"
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
-                    "AngularVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : -1.0000000000000000E+000
-                    },
                     "Animated" : true,
-                    "LinearVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Z" : 1.0000000000000000E+000
-                    },
                     "Name" : "RigidBodySlime"
                   },
                   {
@@ -162,19 +154,11 @@
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleBoxCollider",
-                    "Name" : "BoxColliderDroid"
+                    "Name" : "ColliderDroid"
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
-                    "AngularVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : -5.0000000000000000E+000
-                    },
                     "Animated" : true,
-                    "LinearVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Z" : 1.0000000000000000E+000
-                    },
                     "LockRotation" : [
                       0,
                       2
@@ -186,8 +170,7 @@
                     "AnimationConfuse" : "GAME.BOO",
                     "AnimationIdle" : "GAME.STAND",
                     "AnimationMove" : "GAME.WALK",
-                    "Name" : "WalkDroid",
-                    "VelocityRotate" : 5.0000000000000000E+000
+                    "Name" : "WalkDroid"
                   }
                 ]
               }
@@ -246,8 +229,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 2.3471858501434326E+000,
-                      "Y" : -9.9999994039535522E-001
+                      "W" : 5.4390245676040649E-001,
+                      "X" : -1.7263344489037991E-004,
+                      "Y" : -9.9999988079071045E-001,
+                      "Z" : 6.1906874179840088E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -396,16 +381,22 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.4110007286071777E+000,
-          "X" : -1.9510646164417267E-001,
-          "Y" : -9.6776205301284790E-001,
-          "Z" : -1.5927955508232117E-001
+          "W" : 9.2841368913650513E-001,
+          "X" : -5.1709455251693726E-001,
+          "Y" : -8.2902765274047852E-001,
+          "Z" : -2.1290019154548645E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "X" : 9.9999994039535522E-001,
+          "Y" : 9.9999994039535522E-001,
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.7718820571899414E+000,
-          "Y" : 1.1648130416870117E+000,
-          "Z" : -4.7259979248046875E+000
+          "X" : 3.8782916069030762E+000,
+          "Y" : 2.6658563613891602E+000,
+          "Z" : 3.0477561950683594E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {
