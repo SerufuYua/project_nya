@@ -123,7 +123,7 @@ begin
       { end Confuse action }
       TState.Confuse:
         begin
-          FTimer:= FTimeoutConfuse;
+          FTimer:= FTimeoutIdle;
           RBody.Dynamic:= True;
           FState:= TState.Idle;
         end;
