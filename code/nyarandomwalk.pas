@@ -17,6 +17,7 @@ type
       FTimeoutConfuse, FTimer: Single;
     FState: TState;
     FAnimationIdle, FAnimationMove, FAnimationConfuse: String;
+    FLookAtOne: Boolean;
     function AnimationIdleStored: Boolean;
     function AnimationMoveStored: Boolean;
     function AnimationConfuseStored: Boolean;
@@ -31,6 +32,7 @@ type
       DefaultAnimationIdle = 'idle';
       DefaultAnimationMove = 'move';
       DefaultAnimationConfuse = 'confuse';
+      DefaultLookAtOne = False;
 
     constructor Create(AOwner: TComponent); override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -54,13 +56,16 @@ type
              stored AnimationMoveStored nodefault;
     property AnimationConfuse: String read FAnimationConfuse write FAnimationConfuse
              stored AnimationConfuseStored nodefault;
+    { look at collided target before start animation Confuse }
+    property LookAtOne: Boolean read FLookAtOne write FLookAtOne
+             {$ifdef FPC}default DefaultLookAtOne{$endif};
   end;
 
 implementation
 
 uses
-  CastleComponentSerialize, CastleUtils, CastleScene, CastleVectors, Math,
-  NyaActor
+  CastleComponentSerialize, CastleUtils, CastleScene, Math, NyaActor,
+  CastleVectors
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -80,6 +85,7 @@ begin
   FAnimationConfuse:= DefaultAnimationConfuse;
   FTimer:= DefaultTimeoutIdle;
   FState:= TState.Idle;
+  FLookAtOne:= DefaultLookAtOne;
 end;
 
 procedure TNyaRandomWalk.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
@@ -109,6 +115,8 @@ begin
         RBody.LinearVelocity:= TVector3.Zero;
         RBody.AngularVelocity:= TVector3.Zero;
         RBody.Dynamic:= False;
+        if FLookAtOne then
+          Parent.Direction:= (colliding.Translation - Parent.Translation).Normalize;
         if (Parent is TCastleScene) then
           (Parent as TCastleScene).PlayAnimation(FAnimationConfuse, False);
         Exit;
@@ -193,7 +201,7 @@ begin
   if ArrayContainsString(PropertyName, [
        'VelocityWalk', 'TimeoutRotate', 'VelocityRotate', 'TimeoutWalk',
        'TimeoutIdle', 'TimeoutConfuse', 'Beater', 'AnimationIdle',
-       'AnimationMove', 'AnimationConfuse'
+       'AnimationMove', 'AnimationConfuse', 'LookAtOne'
      ]) then
     Result:= [psBasic]
   else
