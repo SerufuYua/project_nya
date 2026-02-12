@@ -21,7 +21,7 @@ SpotLight
   direction 0 -1 0
   intensity 16
   ambientIntensity 0.4
-  radius 15
+  radius 160
   beamWidth 0.1
   shadows TRUE
   defaultShadowMap GeneratedShadowMap
@@ -39,7 +39,7 @@ PointLight
   intensity 1
   color 1.0 0.7 0.4
   ambientIntensity 0.4
-  radius 10
+  radius 160
 }
 
 # ambient light
