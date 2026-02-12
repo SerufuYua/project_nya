@@ -15,9 +15,11 @@ type
   protected
     FActorBoy: TNyaActorChara;
     FActorSpacePlane: TNyaActor;
+    FVehicleMoto: TNyaActorVehicle;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
     procedure SaveCharasCondition; override;
+    procedure DoAferLoad(Sender: TObject);
   protected
     procedure ConversationSpacePlane;
     procedure ConversationBoy;
@@ -58,7 +60,8 @@ begin
   FActorSpacePlane.Exists:= WorldCondition.Boy.Location in
                           [TBoyLocation.VisitInHovel, TBoyLocation.VisitInRoom];
 
-  { set vehicle Navigation }
+  { set Vehicle }
+  FVehicleMoto:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
   FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
 
   { set Boy Character }
@@ -74,6 +77,10 @@ begin
   FWalkMusic:= NamedSound('MusicOutdoors');
   FRideMusic:= NamedSound('MusicRide');
   SoundEngine.LoopingChannel[0].Sound:= FWalkMusic;
+
+  { wait when images will be showed then turn off vechicle Light }
+  { for cache shaders with vehicle lights }
+  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 
   inherited;
 end;
@@ -134,7 +141,7 @@ begin
   'SpacePlaneSwitch':
     ConversationSpacePlane;
   'SwitchMoto':
-    SitToVehicle(Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle);
+    SitToVehicle(FVehicleMoto);
   else
     Notifications.Show('There is nothing to do');
   end;
@@ -144,6 +151,12 @@ procedure TViewTravelRoadAsteroid.SaveCharasCondition;
 begin
   inherited;
   FActorBoy.SaveCondition;
+end;
+
+procedure TViewTravelRoadAsteroid.DoAferLoad(Sender: TObject);
+begin
+  FVehicleMoto.Headlight:= False;
+  FVehicleMoto.Stoplight:= False;
 end;
 
 { ========= ------------------------------------------------------------------ }

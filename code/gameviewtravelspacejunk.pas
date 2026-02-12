@@ -15,8 +15,10 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
     FActorSpacePlane: TNyaActor;
+    FVehicleMoto: TNyaActorVehicle;
     procedure DoTouchSwitch(const Sender: TObject; Touch: Boolean); override;
     procedure DoActivateSwitch(Sender: TObject); override;
+    procedure DoAferLoad(Sender: TObject);
   protected
     procedure ConversationSpacePlane;
   protected
@@ -53,13 +55,18 @@ begin
   FActorSpacePlane.Exists:= WorldCondition.Boy.Location in
                             [TBoyLocation.HomeSleep, TBoyLocation.HomeWorking];
 
-  { set vehicle Navigation }
+  { set Vehicle }
+  FVehicleMoto:= Map.DesignedComponent('VehicleMoto') as TNyaActorVehicle;
   FVehicleNavigation:= Map.DesignedComponent('VehicleNavigation') as TNyaVehicleNavigation;
 
   { Play music }
   FWalkMusic:= NamedSound('MusicSpaceJunk');
   FRideMusic:= NamedSound('MusicSpaceJunk');
   SoundEngine.LoopingChannel[0].Sound:= FWalkMusic;
+
+  { wait when images will be showed then turn off vechicle Light }
+  { for cache shaders with vehicle lights }
+  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 
   inherited;
 end;
@@ -109,6 +116,12 @@ begin
   else
     Notifications.Show('There is nothing to do');
   end;
+end;
+
+procedure TViewTravelSpaceJunk.DoAferLoad(Sender: TObject);
+begin
+  FVehicleMoto.Headlight:= False;
+  FVehicleMoto.Stoplight:= False;
 end;
 
 { ========= ------------------------------------------------------------------ }
