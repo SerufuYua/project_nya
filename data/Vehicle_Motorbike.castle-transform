@@ -111,7 +111,7 @@
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 7.8539818525314331E-001,
+                "W" : 9.5993107557296753E-001,
                 "X" : 1.0000000000000000E+000
               },
               "Url" : "castle-data:/vehicle/motorbike/motorbike_headlight_OFF.gltf"
@@ -129,7 +129,7 @@
               },
               "RotationPersistent" : {
                 "$$ClassName" : "TCastleVector4RotationPersistent",
-                "W" : 7.8539818525314331E-001,
+                "W" : 9.5993107557296753E-001,
                 "X" : 1.0000000000000000E+000
               },
               "Tag" : -1,
@@ -137,14 +137,16 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleSpotLight",
+                  "BeamWidth" : 4.3633231520652771E-001,
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorRGBPersistent",
                     "Blue" : 9.0588235855102539E-001,
                     "Green" : 9.7647058963775635E-001
                   },
+                  "CutOffAngle" : 5.2359879016876221E-001,
                   "Intensity" : 6.0000000000000000E+001,
                   "Name" : "HeadLight_Main",
-                  "Radius" : 3.0000000000000000E+001,
+                  "Radius" : 1.6000000000000000E+002,
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "W" : 3.1415927410125732E+000,
@@ -159,14 +161,16 @@
                 },
                 {
                   "$$ClassName" : "TCastleSpotLight",
+                  "BeamWidth" : 3.4906584024429321E-001,
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorRGBPersistent",
                     "Blue" : 1.6862745583057404E-001,
                     "Green" : 9.7647058963775635E-001
                   },
+                  "CutOffAngle" : 4.3633231520652771E-001,
                   "Intensity" : 3.0000000000000000E+001,
                   "Name" : "HeadLight_Yell",
-                  "Radius" : 2.0000000000000000E+001,
+                  "Radius" : 1.6000000000000000E+002,
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "W" : 3.1415927410125732E+000,
@@ -222,7 +226,7 @@
                   "CutOffAngle" : 1.0471975803375244E+000,
                   "Intensity" : 1.0000000000000000E+001,
                   "Name" : "StopLight",
-                  "Radius" : 3.0000000000000000E+000,
+                  "Radius" : 1.6000000000000000E+002,
                   "RotationPersistent" : {
                     "$$ClassName" : "TCastleVector4RotationPersistent",
                     "W" : 9.5993107557296753E-001,
