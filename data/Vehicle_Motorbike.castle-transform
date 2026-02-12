@@ -199,19 +199,11 @@
               "$$ClassName" : "TCastleScene",
               "ExposeTransforms" : [
               ],
-              "Name" : "Stoplight_OFF",
-              "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
-              },
-              "Url" : "castle-data:/vehicle/motorbike/motorbike_stoplight_OFF.gltf"
-            },
-            {
-              "$$ClassName" : "TCastleScene",
-              "ExposeTransforms" : [
-              ],
               "Name" : "Stoplight_ON",
               "RenderOptions" : {
-                "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                "BlendingDestinationFactor" : "bdSrcAlpha",
+                "BlendingSourceFactor" : "bsSrcColor"
               },
               "Tag" : -1,
               "Url" : "castle-data:/vehicle/motorbike/motorbike_stoplight_ON.gltf",
@@ -224,6 +216,7 @@
                     "Green" : 7.0588238537311554E-002
                   },
                   "CutOffAngle" : 1.0471975803375244E+000,
+                  "Exists" : false,
                   "Intensity" : 1.0000000000000000E+001,
                   "Name" : "StopLight",
                   "Radius" : 1.6000000000000000E+002,

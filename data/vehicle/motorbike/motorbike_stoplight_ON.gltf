@@ -4,9 +4,6 @@
 		"generator":"Khronos glTF Blender I/O v3.6.28",
 		"version":"2.0"
 	},
-	"extensionsUsed":[
-		"KHR_materials_emissive_strength"
-	],
 	"scene":0,
 	"scenes":[
 		{
@@ -35,6 +32,7 @@
 	],
 	"materials":[
 		{
+			"alphaMode":"BLEND",
 			"doubleSided":true,
 			"emissiveFactor":[
 				1,
@@ -44,46 +42,14 @@
 			"emissiveTexture":{
 				"index":0
 			},
-			"extensions":{
-				"KHR_materials_emissive_strength":{
-					"emissiveStrength":10
-				}
-			},
-			"name":"baclight.ON",
-			"pbrMetallicRoughness":{
-				"baseColorTexture":{
-					"index":1
-				},
-				"metallicFactor":0,
-				"roughnessFactor":0.5
-			}
-		},
-		{
-			"alphaMode":"BLEND",
-			"doubleSided":true,
-			"emissiveFactor":[
-				1,
-				0.0030151079408824444,
-				0
-			],
-			"extensions":{
-				"KHR_materials_emissive_strength":{
-					"emissiveStrength":4
-				}
-			},
 			"name":"rayon.red",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					1,
-					0.0030151079408824444,
+					0,
+					0,
 					0,
 					1
-				],
-				"baseColorTexture":{
-					"index":2
-				},
-				"metallicFactor":0,
-				"roughnessFactor":0.5
+				]
 			}
 		}
 	],
@@ -99,15 +65,6 @@
 					},
 					"indices":3,
 					"material":0
-				},
-				{
-					"attributes":{
-						"POSITION":4,
-						"NORMAL":5,
-						"TEXCOORD_0":6
-					},
-					"indices":7,
-					"material":1
 				}
 			]
 		}
@@ -116,22 +73,9 @@
 		{
 			"sampler":0,
 			"source":0
-		},
-		{
-			"sampler":0,
-			"source":0
-		},
-		{
-			"sampler":0,
-			"source":1
 		}
 	],
 	"images":[
-		{
-			"mimeType":"image/png",
-			"name":"light_back",
-			"uri":"light_back.png"
-		},
 		{
 			"mimeType":"image/png",
 			"name":"lihgt_gradient",
@@ -142,119 +86,61 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":8,
+			"count":136,
 			"max":[
-				0.053340233862400055,
-				1.018502116203308,
-				-0.22742965817451477
+				0.9335982203483582,
+				2.0569214820861816,
+				-0.219654843211174
 			],
 			"min":[
-				-0.053340233862400055,
-				0.9177561402320862,
-				-0.25132209062576294
+				-0.9335982203483582,
+				0.2434317022562027,
+				-1.2070515155792236
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":8,
+			"count":136,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":8,
+			"count":136,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":18,
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":4,
-			"componentType":5126,
-			"count":18,
-			"max":[
-				0.14685533940792084,
-				1.1165525913238525,
-				-0.22742965817451477
-			],
-			"min":[
-				-0.14685533940792084,
-				0.8391807079315186,
-				-0.32681363821029663
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":5,
-			"componentType":5126,
-			"count":18,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":6,
-			"componentType":5126,
-			"count":18,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":7,
-			"componentType":5123,
-			"count":48,
+			"count":354,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":96,
+			"byteLength":1632,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":96,
-			"byteOffset":96,
+			"byteLength":1632,
+			"byteOffset":1632,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":64,
-			"byteOffset":192,
+			"byteLength":1088,
+			"byteOffset":3264,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":36,
-			"byteOffset":256,
-			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":216,
-			"byteOffset":292,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":216,
-			"byteOffset":508,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":144,
-			"byteOffset":724,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":96,
-			"byteOffset":868,
+			"byteLength":708,
+			"byteOffset":4352,
 			"target":34963
 		}
 	],
@@ -266,7 +152,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":964,
+			"byteLength":5060,
 			"uri":"motorbike_stoplight_ON.bin"
 		}
 	]
