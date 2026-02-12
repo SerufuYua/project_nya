@@ -20,7 +20,7 @@ PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0]
     intensity 8
     ambientIntensity 0.4
     color 0.75 0.8 1.0
-    radius 15
+    radius 150
     beamWidth 0.1
     shadows TRUE
     defaultShadowMap GeneratedShadowMap {
@@ -39,24 +39,24 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
     intensity 0.2
     color 0.75 0.8 1.0
     ambientIntensity 0.4
-    radius 30
+    radius 150
   }
 }
 
-UpperLight { lightPos  0.0   2.4 -2.5 }
-UpperLight { lightPos  0.0   2.4 -9.0 }
-UpperLight { lightPos  0.0   2.4 -15.3 }
-UpperLight { lightPos -7.49  2.4 -15.3 }
-UpperLight { lightPos  7.0   2.4 -15.3 }
-UpperLight { lightPos  13.09 2.4 -16.9 }
-UpperLight { lightPos  14    2.4 -23.0 }
-UpperLight { lightPos  14    2.4 -29.49 }
+UpperLight  { lightPos  0.0   2.4 -2.5   }
+UpperLight  { lightPos  0.0   2.4 -9.0   }
+UpperLight  { lightPos  0.0   2.4 -15.3  }
+UpperLight  { lightPos -7.49  2.4 -16  }
+UpperLight  { lightPos  7.0   2.4 -16    }
+UpperLight  { lightPos  13.09 2.4 -16.9  }
+UpperLight  { lightPos  14    2.4 -23.0  }
+UpperLight  { lightPos  14    2.4 -29.49 }
 
-BottomLight { lightPos  0.0   2.0 -2.5 }
-BottomLight { lightPos  0.0   2.0 -9.0 }
-BottomLight { lightPos  0.0   2.0 -15.3 }
-BottomLight { lightPos -7.49  2.0 -15.3 }
-BottomLight { lightPos  7.0   2.0 -15.3 }
-BottomLight { lightPos  13.09 2.0 -16.9 }
-BottomLight { lightPos  14    2.0 -23.0 }
+BottomLight { lightPos  0.0   2.0 -2.5   }
+BottomLight { lightPos  0.0   2.0 -9.0   }
+BottomLight { lightPos  0.0   2.0 -15.3  }
+BottomLight { lightPos -7.49  2.0 -15.3  }
+BottomLight { lightPos  7.0   2.0 -15.3  }
+BottomLight { lightPos  13.09 2.0 -16.9  }
+BottomLight { lightPos  14    2.0 -23.0  }
 BottomLight { lightPos  14    2.0 -29.49 }
