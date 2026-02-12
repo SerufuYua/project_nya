@@ -100,8 +100,6 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleScene",
-              "CastGlobalLights" : true,
-              "CastShadows" : false,
               "Collides" : false,
               "ExposeTransforms" : [
               ],
@@ -118,7 +116,6 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleScene",
-                  "CastGlobalLights" : true,
                   "CastShadows" : false,
                   "Collides" : false,
                   "ExposeTransforms" : [
@@ -209,6 +206,7 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleScene",
+              "CastShadows" : false,
               "ExposeTransforms" : [
               ],
               "Name" : "Stoplight_ON",
