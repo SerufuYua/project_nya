@@ -89,6 +89,7 @@
                   {
                     "$$ClassName" : "TCastleScene",
                     "AnimateOnlyWhenVisible" : true,
+                    "CastShadows" : false,
                     "CollisionSphereRadius" : 4.0000000000000000E+001,
                     "ExposeTransforms" : [
                     ],
@@ -102,8 +103,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.4994093179702759E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -119,6 +122,7 @@
                   },
                   {
                     "$$ClassName" : "TCastleBox",
+                    "CastShadows" : false,
                     "Name" : "SwitchExtenderGoOut",
                     "RenderOptions" : {
                       "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -163,6 +167,7 @@
                   {
                     "$$ClassName" : "TCastleScene",
                     "AnimateOnlyWhenVisible" : true,
+                    "CastShadows" : false,
                     "CollisionSphereRadius" : 4.0000000000000000E+001,
                     "ExposeTransforms" : [
                     ],
@@ -176,8 +181,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.4994093179702759E+000,
-                      "Y" : -1.0000000000000000E+000
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
+                      "Y" : 9.9999994039535522E-001,
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -193,6 +200,7 @@
                   },
                   {
                     "$$ClassName" : "TCastleBox",
+                    "CastShadows" : false,
                     "Name" : "SwitchExtenderGoToLab",
                     "RenderOptions" : {
                       "$$ClassName" : "TCastleScene.TSceneRenderOptions"
@@ -281,7 +289,7 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.STAND",
+                "AutoAnimation" : "GAME.WALK",
                 "DefaultAnimationTransition" : 2.0000000298023224E-001,
                 "ExposeTransforms" : [
                 ],
@@ -309,7 +317,16 @@
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
+                    "AngularVelocityPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : -1.0000000000000000E+000
+                    },
                     "Animated" : true,
+                    "LinearVelocityPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : -7.0710676908493042E-001,
+                      "Z" : 7.0710676908493042E-001
+                    },
                     "LockRotation" : [
                       0,
                       2
@@ -416,21 +433,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.5638802051544189E+000,
-          "X" : -2.5127193331718445E-001,
-          "Y" : -9.3836301565170288E-001,
-          "Z" : -2.3735512793064117E-001
+          "W" : 9.6437025070190430E-001,
+          "X" : -2.4975797533988953E-001,
+          "Y" : -9.5959711074829102E-001,
+          "Z" : -1.2959291040897369E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 9.9999994039535522E-001,
-          "Z" : 9.9999994039535522E-001
+          "X" : 1.0000001192092896E+000,
+          "Y" : 1.0000001192092896E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.0331735610961914E+000,
+          "X" : 1.1210872650146484E+001,
           "Y" : 3.1177747249603271E+000,
-          "Z" : -1.5252241134643555E+001
+          "Z" : -2.3983072280883789E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
