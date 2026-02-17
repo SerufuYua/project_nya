@@ -30,19 +30,31 @@
 		{
 			"mesh":2,
 			"name":"Bench.6x.collider.002",
+			"rotation":[
+				0.5416752099990845,
+				0.4545195400714874,
+				-0.4545195698738098,
+				0.5416752696037292
+			],
 			"translation":[
-				-6,
-				0,
-				-18.5
+				-9.600000381469727,
+				0.23000000417232513,
+				-15.5
 			]
 		},
 		{
 			"mesh":2,
 			"name":"Bench.6x.collider.001",
-			"translation":[
-				13.160598754882812,
+			"rotation":[
 				0,
-				-13.5
+				0.08715575188398361,
+				0,
+				0.9961947202682495
+			],
+			"translation":[
+				15.300000190734863,
+				0,
+				-13.699999809265137
 			]
 		},
 		{
@@ -83,10 +95,9 @@
 				{
 					"attributes":{
 						"POSITION":0,
-						"NORMAL":1,
-						"TANGENT":2
+						"NORMAL":1
 					},
-					"indices":3
+					"indices":2
 				}
 			]
 		},
@@ -95,10 +106,10 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":4,
-						"NORMAL":5
+						"POSITION":3,
+						"NORMAL":4
 					},
-					"indices":6
+					"indices":5
 				}
 			]
 		},
@@ -107,11 +118,10 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":7,
-						"NORMAL":8,
-						"TANGENT":9
+						"POSITION":6,
+						"NORMAL":7
 					},
-					"indices":3
+					"indices":2
 				}
 			]
 		},
@@ -120,11 +130,10 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":10,
-						"NORMAL":11,
-						"TANGENT":12
+						"POSITION":8,
+						"NORMAL":9
 					},
-					"indices":3
+					"indices":2
 				}
 			]
 		}
@@ -154,18 +163,12 @@
 		},
 		{
 			"bufferView":2,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":3,
 			"componentType":5123,
 			"count":36,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":4,
+			"bufferView":3,
 			"componentType":5126,
 			"count":644,
 			"max":[
@@ -181,19 +184,19 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":5,
+			"bufferView":4,
 			"componentType":5126,
 			"count":644,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":6,
+			"bufferView":5,
 			"componentType":5123,
 			"count":1290,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":7,
+			"bufferView":6,
 			"componentType":5126,
 			"count":24,
 			"max":[
@@ -209,19 +212,13 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":8,
+			"bufferView":7,
 			"componentType":5126,
 			"count":24,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":9,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":10,
+			"bufferView":8,
 			"componentType":5126,
 			"count":24,
 			"max":[
@@ -237,16 +234,10 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":11,
+			"bufferView":9,
 			"componentType":5126,
 			"count":24,
 			"type":"VEC3"
-		},
-		{
-			"bufferView":12,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
 		}
 	],
 	"bufferViews":[
@@ -264,74 +255,56 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":384,
-			"byteOffset":576,
-			"target":34962
-		},
-		{
-			"buffer":0,
 			"byteLength":72,
-			"byteOffset":960,
+			"byteOffset":576,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":7728,
-			"byteOffset":1032,
+			"byteOffset":648,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":7728,
-			"byteOffset":8760,
+			"byteOffset":8376,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2580,
-			"byteOffset":16488,
+			"byteOffset":16104,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":19068,
+			"byteOffset":18684,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":19356,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":384,
-			"byteOffset":19644,
+			"byteOffset":18972,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":20028,
+			"byteOffset":19260,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":20316,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":384,
-			"byteOffset":20604,
+			"byteOffset":19548,
 			"target":34962
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":20988,
+			"byteLength":19836,
 			"uri":"abandoned_spaceship_indoors_collider.bin"
 		}
 	]
