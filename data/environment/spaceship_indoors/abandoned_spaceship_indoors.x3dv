@@ -19,12 +19,13 @@ PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0]
     cutOffAngle 1.25
     beamWidth 1.05
     direction 0 -1 0
-    intensity 18
+    intensity 32
     ambientIntensity 0.4
     color 0.75 0.8 1.0
     radius 150
     shadows TRUE
-    defaultShadowMap GeneratedShadowMap {
+    defaultShadowMap GeneratedShadowMap
+    {
       size 256
       update "ALWAYS"
       scale 3
@@ -38,7 +39,7 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
   {
     location IS lightPos
     attenuation 3 4 15
-    intensity 10
+    intensity 18
     color 0.75 0.8 1.0
     ambientIntensity 0.4
     radius 150
