@@ -11,10 +11,12 @@ DEF room Transform
   }
 }
 
-PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0]
+PROTO UpperLight [inputOutput SFVec3f lightPos 0 0 0
+                  inputOutput SFVec3f lightDir 0 -1 0]
 {
   SpotLight {
     location IS lightPos
+    direction IS lightDir
     attenuation 0 0 1
     cutOffAngle 1.25
     beamWidth 1.05
@@ -49,7 +51,8 @@ PROTO BottomLight [inputOutput SFVec3f lightPos 0 0 0]
 DEF Light1S UpperLight  { lightPos  0.0   3.4 -2.5   }
 DEF Light2S UpperLight  { lightPos  0.0   3.4 -9.0   }
 DEF Light3S UpperLight  { lightPos  0.0   3.4 -15.3  }
-#DEF Light4S UpperLight  { lightPos -7.49  3.4 -16    }
+DEF Light4S UpperLight  { lightPos -7.49  3.2 -16
+                          lightDir -0.13836 -0.34063 -0.92996 }
 DEF Light5S UpperLight  { lightPos  7.0   3.4 -16    }
 #DEF Light6S UpperLight  { lightPos  13.09 3.4 -16.9  }
 #DEF Light7S UpperLight  { lightPos  14    3.4 -23.0  }
@@ -58,7 +61,7 @@ DEF Light8S UpperLight  { lightPos  14    3.4 -29.49 }
 DEF Light1P BottomLight { lightPos  0.0   2.0 -2.5   }
 DEF Light2P BottomLight { lightPos  0.0   2.0 -9.0   }
 DEF Light3P BottomLight { lightPos  0.0   2.0 -15.3  }
-#DEF Light4P BottomLight { lightPos -7.49  2.0 -16    }
+DEF Light4P BottomLight { lightPos -7.49  2.0 -16    }
 DEF Light5P BottomLight { lightPos  7.0   2.0 -16    }
 #DEF Light6P BottomLight { lightPos  13.09 2.0 -16.9  }
 #DEF Light7P BottomLight { lightPos  14    2.0 -23.0  }
