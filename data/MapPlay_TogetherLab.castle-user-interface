@@ -110,6 +110,32 @@
                     }
                   }
                 ]
+              },
+              {
+                "$$ClassName" : "TCastleTransform",
+                "Name" : "Noize",
+                "TranslationPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "X" : -1.1000000238418579E+000,
+                  "Y" : 1.0000000149011612E-001,
+                  "Z" : -3.4000000953674316E+000
+                },
+                "$NonVisualComponents" : [
+                  {
+                    "$$ClassName" : "TCastleSound",
+                    "Name" : "SoundNoize",
+                    "Stream" : true,
+                    "Url" : "castle-data:/audio/sfx/noize_75Hz.wav",
+                    "Volume" : 2.5000000000000000E-001
+                  }
+                ],
+                "$Behaviors" : [
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "SourceNoize",
+                    "Sound" : "SoundNoize"
+                  }
+                ]
               }
             ]
           },
@@ -260,16 +286,20 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 8.7173146009445190E-001,
-          "X" : 3.4000521898269653E-001,
-          "Y" : 9.2798471450805664E-001,
-          "Z" : -1.5244948863983154E-001
+          "W" : 3.9134025573730469E+000,
+          "X" : 6.5401084721088409E-002,
+          "Y" : 9.8417025804519653E-001,
+          "Z" : 1.6471782326698303E-001
+        },
+        "ScalePersistent" : {
+          "$$ClassName" : "TCastleVector3Persistent",
+          "Y" : 1.0000002384185791E+000
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 3.1265693902969360E-001,
+          "X" : -6.0635834932327271E-001,
           "Y" : 1.5576434135437012E+000,
-          "Z" : 1.3240216970443726E+000
+          "Z" : 6.1925339698791504E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
