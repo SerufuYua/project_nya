@@ -16,7 +16,7 @@ type
     FLightNodeS: TSpotLightNode;
     FLightNodeP: TPointLightNode;
     FIntensityS, FIntensityP: Single;
-    FLightOFF, FLightON: TCastleScene;
+    FReferenceLampOFF, FReferenceLampON: TCastleTransformReference;
     FRandomSwitch: TNyaRandomSwitch;
     procedure DoActivateSwitch(Sender: TObject); override;
     procedure DoRandomSwitch(const AEnable: Boolean);
@@ -58,8 +58,8 @@ begin
   end;
   FIntensityS:= FLightNodeS.Intensity;
   FIntensityP:= FLightNodeP.Intensity;
-  FLightOFF:= Map.DesignedComponent('LightOFF') as TCastleScene;
-  FLightON:= Map.DesignedComponent('LightON') as TCastleScene;
+  FReferenceLampOFF:= Map.DesignedComponent('ReferenceLampOFF') as TCastleTransformReference;
+  FReferenceLampON:= Map.DesignedComponent('ReferenceLampON') as TCastleTransformReference;
   FRandomSwitch:= Map.DesignedComponent('RandomSwitch') as TNyaRandomSwitch;
   FRandomSwitch.OnSwitch:= {$ifdef FPC}@{$endif}DoRandomSwitch;
 
@@ -105,8 +105,8 @@ begin
     intP:= 0.0;
   end;
 
-  FLightOFF.Visible:= NOT AEnable;
-  FLightON.Visible:= AEnable;
+  FReferenceLampOFF.Visible:= NOT AEnable;
+  FReferenceLampON.Visible:= AEnable;
 
   FLightNodeS.Intensity:= intS;
   FLightNodeP.Intensity:= intP;

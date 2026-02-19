@@ -231,40 +231,139 @@
               },
               {
                 "$$ClassName" : "TCastleTransform",
-                "Name" : "BadLight",
-                "RotationPersistent" : {
-                  "$$ClassName" : "TCastleVector4RotationPersistent",
-                  "W" : 5.3744417428970337E-001,
-                  "X" : 6.9176656007766724E-001,
-                  "Y" : -1.3513231277465820E-001,
-                  "Z" : -7.0935362577438354E-001
-                },
-                "TranslationPersistent" : {
-                  "$$ClassName" : "TCastleVector3Persistent",
-                  "X" : -7.4932799339294434E+000,
-                  "Y" : 3.5999999046325684E+000,
-                  "Z" : -1.6000000000000000E+001
-                },
+                "Name" : "Lamps",
                 "$Children" : [
                   {
-                    "$$ClassName" : "TCastleScene",
-                    "ExposeTransforms" : [
-                    ],
-                    "Name" : "LightOFF",
-                    "RenderOptions" : {
-                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "BadLamp",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "W" : 5.3744417428970337E-001,
+                      "X" : 6.9177186489105225E-001,
+                      "Y" : -1.3513323664665222E-001,
+                      "Z" : -7.0935934782028198E-001
                     },
-                    "Url" : "castle-data:/environment/spaceship_indoors/indoor_lamp_off.gltf"
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : -7.4932799339294434E+000,
+                      "Y" : 3.5999999046325684E+000,
+                      "Z" : -1.6000000000000000E+001
+                    },
+                    "$Children" : [
+                      {
+                        "$$ClassName" : "TCastleTransformReference",
+                        "Name" : "ReferenceLampOFF",
+                        "Reference" : "LampOFF1",
+                        "ScalePersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : 9.9999988079071045E-001,
+                          "Y" : 9.9999994039535522E-001
+                        }
+                      },
+                      {
+                        "$$ClassName" : "TCastleTransformReference",
+                        "Name" : "ReferenceLampON",
+                        "Reference" : "LampON1",
+                        "ScalePersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : 9.9999988079071045E-001,
+                          "Y" : 9.9999994039535522E-001
+                        }
+                      }
+                    ]
                   },
                   {
                     "$$ClassName" : "TCastleScene",
                     "ExposeTransforms" : [
                     ],
-                    "Name" : "LightON",
+                    "Name" : "LampON1",
                     "RenderOptions" : {
                       "$$ClassName" : "TCastleScene.TSceneRenderOptions"
                     },
-                    "Url" : "castle-data:/environment/spaceship_indoors/indoor_lamp_on.gltf"
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 3.5248000621795654E+000,
+                      "Z" : -2.5066800117492676E+000
+                    },
+                    "Url" : "castle-data:/environment/spaceship_indoors/indoor_lamp_on.gltf",
+                    "$Children" : [
+                      {
+                        "$$ClassName" : "TCastleScene",
+                        "CastShadows" : false,
+                        "ExposeTransforms" : [
+                        ],
+                        "Name" : "LampLight1",
+                        "RenderOptions" : {
+                          "$$ClassName" : "TCastleScene.TSceneRenderOptions",
+                          "BlendingDestinationFactor" : "bdSrcAlpha",
+                          "BlendingSourceFactor" : "bsSrcColor"
+                        },
+                        "ScalePersistent" : {
+                          "$$ClassName" : "TCastleVector3Persistent",
+                          "X" : 9.9999988079071045E-001,
+                          "Y" : 9.9999994039535522E-001
+                        },
+                        "Url" : "castle-data:/environment/spaceship_indoors/indoor_lamp_light.gltf"
+                      }
+                    ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransformReference",
+                    "Name" : "ReferenceLampON2",
+                    "Reference" : "LampON1",
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 3.5248000621795654E+000,
+                      "Z" : -9.0000000000000000E+000
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransformReference",
+                    "Name" : "ReferenceLampON3",
+                    "Reference" : "LampON1",
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 3.5248000621795654E+000,
+                      "Z" : -1.5300000190734863E+001
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransformReference",
+                    "Name" : "ReferenceLampON4",
+                    "Reference" : "LampON1",
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 7.0000000000000000E+000,
+                      "Y" : 3.5248000621795654E+000,
+                      "Z" : -1.6000000000000000E+001
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransformReference",
+                    "Name" : "ReferenceLampON5",
+                    "Reference" : "LampON1",
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.4000000000000000E+001,
+                      "Y" : 3.5248000621795654E+000,
+                      "Z" : -2.9493299484252930E+001
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleScene",
+                    "ExposeTransforms" : [
+                    ],
+                    "Name" : "LampOFF1",
+                    "RenderOptions" : {
+                      "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : 1.4000000000000000E+001,
+                      "Y" : 3.5999999046325684E+000,
+                      "Z" : -2.3000000000000000E+001
+                    },
+                    "Url" : "castle-data:/environment/spaceship_indoors/indoor_lamp_off.gltf"
                   }
                 ]
               }
@@ -463,20 +562,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 2.0274865627288818E+000,
-          "X" : -2.1559637039899826E-002,
-          "Y" : -9.9911427497863770E-001,
-          "Z" : -3.6137532442808151E-002
+          "W" : 3.1220049858093262E+000,
+          "X" : -4.5893312199041247E-004,
+          "Y" : 9.9999880790710449E-001,
+          "Z" : 1.5404643490910530E-003
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "Y" : 1.0000001192092896E+000
+          "X" : 9.9999994039535522E-001,
+          "Y" : 9.9999988079071045E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -4.9488406181335449E+000,
-          "Y" : 2.5283854007720947E+000,
-          "Z" : -1.6957962036132812E+001
+          "X" : 1.1748222261667252E-001,
+          "Y" : 2.0815339088439941E+000,
+          "Z" : -1.0143637657165527E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
