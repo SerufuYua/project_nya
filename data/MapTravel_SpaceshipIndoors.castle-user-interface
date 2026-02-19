@@ -249,6 +249,13 @@
                       "Y" : 3.5999999046325684E+000,
                       "Z" : -1.6000000000000000E+001
                     },
+                    "$NonVisualComponents" : [
+                      {
+                        "$$ClassName" : "TCastleSound",
+                        "Name" : "SoundNoize",
+                        "Url" : "castle-data:/audio/sfx/noize_50Hz.wav"
+                      }
+                    ],
                     "$Children" : [
                       {
                         "$$ClassName" : "TCastleTransformReference",
@@ -263,12 +270,15 @@
                       {
                         "$$ClassName" : "TCastleTransformReference",
                         "Name" : "ReferenceLampON",
-                        "Reference" : "LampON1",
-                        "ScalePersistent" : {
-                          "$$ClassName" : "TCastleVector3Persistent",
-                          "X" : 9.9999988079071045E-001,
-                          "Y" : 9.9999994039535522E-001
-                        }
+                        "Reference" : "LampON1"
+                      }
+                    ],
+                    "$Behaviors" : [
+                      {
+                        "$$ClassName" : "TCastleSoundSource",
+                        "Name" : "SourceNoize",
+                        "Sound" : "SoundNoize",
+                        "Volume" : 3.0000000000000000E+000
                       }
                     ]
                   },
@@ -427,7 +437,7 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.STAND",
+                "AutoAnimation" : "GAME.WALK",
                 "DefaultAnimationTransition" : 2.0000000298023224E-001,
                 "ExposeTransforms" : [
                 ],
@@ -456,6 +466,11 @@
                   {
                     "$$ClassName" : "TCastleRigidBody",
                     "Animated" : true,
+                    "LinearVelocityPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "X" : -7.0710676908493042E-001,
+                      "Z" : 7.0710676908493042E-001
+                    },
                     "LockRotation" : [
                       0,
                       2
@@ -562,21 +577,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.1220049858093262E+000,
-          "X" : -4.5893312199041247E-004,
-          "Y" : 9.9999880790710449E-001,
-          "Z" : 1.5404643490910530E-003
-        },
-        "ScalePersistent" : {
-          "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Y" : 9.9999988079071045E-001
+          "W" : 4.0555649995803833E-001,
+          "X" : -1.7249588668346405E-001,
+          "Y" : 9.8428028821945190E-001,
+          "Z" : 3.7915393710136414E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.1748222261667252E-001,
-          "Y" : 2.0815339088439941E+000,
-          "Z" : -1.0143637657165527E+001
+          "X" : 1.4915568351745605E+001,
+          "Y" : 1.8227461576461792E+000,
+          "Z" : -2.2777244567871094E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {

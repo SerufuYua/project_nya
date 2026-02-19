@@ -4,8 +4,8 @@ interface
 
 uses
   Classes, CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
-  CastleTransform, BaseViewTravel, NyaActor, NyaActorChara, NyaRandomSwitch,
-  X3DNodes;
+  CastleTransform, CastleBehaviors, X3DNodes, BaseViewTravel, NyaActor,
+  NyaActorChara, NyaRandomSwitch;
 
 type
   TViewTravelSpaceshipIndoors = class(TBaseViewTravel)
@@ -17,6 +17,7 @@ type
     FLightNodeP: TPointLightNode;
     FIntensityS, FIntensityP: Single;
     FReferenceLampOFF, FReferenceLampON: TCastleTransformReference;
+    FSourceNoize: TCastleSoundSource;
     FRandomSwitch: TNyaRandomSwitch;
     procedure DoActivateSwitch(Sender: TObject); override;
     procedure DoRandomSwitch(const AEnable: Boolean);
@@ -60,6 +61,7 @@ begin
   FIntensityP:= FLightNodeP.Intensity;
   FReferenceLampOFF:= Map.DesignedComponent('ReferenceLampOFF') as TCastleTransformReference;
   FReferenceLampON:= Map.DesignedComponent('ReferenceLampON') as TCastleTransformReference;
+  FSourceNoize:= Map.DesignedComponent('SourceNoize') as TCastleSoundSource;
   FRandomSwitch:= Map.DesignedComponent('RandomSwitch') as TNyaRandomSwitch;
   FRandomSwitch.OnSwitch:= {$ifdef FPC}@{$endif}DoRandomSwitch;
 
@@ -107,6 +109,8 @@ begin
 
   FReferenceLampOFF.Visible:= NOT AEnable;
   FReferenceLampON.Visible:= AEnable;
+
+  FSourceNoize.SoundPlaying:= AEnable;
 
   FLightNodeS.Intensity:= intS;
   FLightNodeP.Intensity:= intP;
