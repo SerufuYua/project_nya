@@ -3,8 +3,9 @@ unit GameViewTravelSpaceshipIndoors;
 interface
 
 uses
-  Classes, CastleUIControls, CastleControls, CastleKeysMouse, CastleTransform,
-  BaseViewTravel, NyaActor, NyaActorChara;
+  Classes, CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
+  CastleTransform, CastleBehaviors, X3DNodes, BaseViewTravel, NyaActor,
+  NyaActorChara, NyaRandomSwitch;
 
 type
   TViewTravelSpaceshipIndoors = class(TBaseViewTravel)
@@ -12,7 +13,14 @@ type
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   protected
+    FLightNodeS: TSpotLightNode;
+    FLightNodeP: TPointLightNode;
+    FIntensityS, FIntensityP: Single;
+    FReferenceLampOFF, FReferenceLampON: TCastleTransformReference;
+    FSourceNoize: TCastleSoundSource;
+    FRandomSwitch: TNyaRandomSwitch;
     procedure DoActivateSwitch(Sender: TObject); override;
+    procedure DoRandomSwitch(const AEnable: Boolean);
   protected
     procedure GetToGoOut;
     procedure GetToGoToLab;
@@ -24,7 +32,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleViewport, CastleScene, CastleUtils, CastleVectors,
+  SysUtils, CastleViewport, CastleUtils, CastleVectors,
   CastleComponentSerialize,
   CastleSoundEngine, GameSound,
   NyaSwitch, NyaCastleUtils, NyaWorldCondition,
@@ -43,11 +51,25 @@ begin
   { Play music }
   SoundEngine.LoopingChannel[0].Sound:= NamedSound('MusicSpaceJunk');
 
+  { Bad Light }
+  with (Map.DesignedComponent('SpaceshipIndoors') as TCastleScene) do
+  begin
+    FLightNodeS:= Node(TSpotLightNode,  'Light4S') as TSpotLightNode;
+    FLightNodeP:= Node(TPointLightNode, 'Light4P') as TPointLightNode;
+  end;
+  FIntensityS:= FLightNodeS.Intensity;
+  FIntensityP:= FLightNodeP.Intensity;
+  FReferenceLampOFF:= Map.DesignedComponent('ReferenceLampOFF') as TCastleTransformReference;
+  FReferenceLampON:= Map.DesignedComponent('ReferenceLampON') as TCastleTransformReference;
+  FSourceNoize:= Map.DesignedComponent('SourceNoize') as TCastleSoundSource;
+  FRandomSwitch:= Map.DesignedComponent('RandomSwitch') as TNyaRandomSwitch;
+  FRandomSwitch.OnSwitch:= {$ifdef FPC}@{$endif}DoRandomSwitch;
+
   inherited;
 end;
 
 procedure TViewTravelSpaceshipIndoors.Update(const SecondsPassed: Single;
-                                          var HandleInput: boolean);
+                                             var HandleInput: boolean);
 begin
 
   inherited;
@@ -68,6 +90,30 @@ begin
   else
     Notifications.Show('There is nothing to do');
   end;
+end;
+
+procedure TViewTravelSpaceshipIndoors.DoRandomSwitch(const AEnable: Boolean);
+var
+  intS, intP: Single;
+begin
+  if AEnable then
+  begin
+    intS:= FIntensityS;
+    intP:= FIntensityP;
+  end
+  else
+  begin
+    intS:= 0.0;
+    intP:= 0.0;
+  end;
+
+  FReferenceLampOFF.Visible:= NOT AEnable;
+  FReferenceLampON.Visible:= AEnable;
+
+  FSourceNoize.SoundPlaying:= AEnable;
+
+  FLightNodeS.Intensity:= intS;
+  FLightNodeP.Intensity:= intP;
 end;
 
 { ========= ------------------------------------------------------------------ }

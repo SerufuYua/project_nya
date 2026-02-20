@@ -66,7 +66,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="54">
+    <Units Count="56">
       <Unit0>
         <Filename Value="prjNya_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -333,6 +333,15 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="BaseViewPlayTogether"/>
       </Unit53>
+      <Unit54>
+        <Filename Value="code/nyarandomswitch.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NyaRandomSwitch"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="code/viewwarper.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit55>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
