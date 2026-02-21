@@ -278,6 +278,7 @@
                         "$$ClassName" : "TCastleSoundSource",
                         "Name" : "SourceNoize",
                         "Sound" : "SoundNoize",
+                        "SoundPlaying" : false,
                         "Volume" : 3.0000000000000000E+000
                       }
                     ]
@@ -437,9 +438,11 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.WALK",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000298023224E-001,
                 "ExposeTransforms" : [
+                  "Control_Boo",
+                  "Control_Walk"
                 ],
                 "Name" : "Droid",
                 "ProcessEvents" : true,
@@ -458,6 +461,40 @@
                   "Z" : -1.6372251510620117E+001
                 },
                 "Url" : "castle-data:/furniture/droid/droid.gltf",
+                "$NonVisualComponents" : [
+                  {
+                    "$$ClassName" : "TCastleSound",
+                    "Name" : "SoundBoo",
+                    "Url" : "castle-data:/audio/sfx/droid_boo.wav"
+                  },
+                  {
+                    "$$ClassName" : "TCastleSound",
+                    "Name" : "SoundWalk",
+                    "Url" : "castle-data:/audio/sfx/droid_boo.wav"
+                  }
+                ],
+                "$Children" : [
+                  {
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "Control_Boo",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "Z" : 1.0000000000000000E+000
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "Control_Walk",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "Z" : 1.0000000000000000E+000
+                    },
+                    "TranslationPersistent" : {
+                      "$$ClassName" : "TCastleVector3Persistent",
+                      "Y" : 4.3293690681457520E-001
+                    }
+                  }
+                ],
                 "$Behaviors" : [
                   {
                     "$$ClassName" : "TCastleBoxCollider",
@@ -465,16 +502,7 @@
                   },
                   {
                     "$$ClassName" : "TCastleRigidBody",
-                    "AngularVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "Y" : 1.0000000000000000E+000
-                    },
                     "Animated" : true,
-                    "LinearVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : -7.0710676908493042E-001,
-                      "Z" : 7.0710676908493042E-001
-                    },
                     "LockRotation" : [
                       0,
                       2
@@ -488,6 +516,37 @@
                     "AnimationMove" : "GAME.WALK",
                     "LookAtOne" : true,
                     "Name" : "WalkDroid"
+                  },
+                  {
+                    "$$ClassName" : "TNyaSoundMap",
+                    "Name" : "SoundMap",
+                    "$NonVisualComponents" : [
+                      {
+                        "$$ClassName" : "TNyaSounder",
+                        "Controller" : "Control_Boo",
+                        "Name" : "SounderBoo",
+                        "Sound" : "SourceBoo",
+                        "Treshold" : 1.0000000149011612E-001
+                      },
+                      {
+                        "$$ClassName" : "TNyaSounder",
+                        "Controller" : "Control_Walk",
+                        "Name" : "SounderWalkStep",
+                        "Sound" : "SourceWalkStep",
+                        "Treshold" : 1.0000000149011612E-001
+                      }
+                    ]
+                  },
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "SourceBoo",
+                    "Sound" : "SoundBoo",
+                    "SoundPlaying" : false
+                  },
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "SourceWalkStep",
+                    "Sound" : "SoundWalk"
                   }
                 ]
               }
@@ -581,10 +640,10 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.8430304527282715E+000,
-          "X" : -1.1564365029335022E-001,
-          "Y" : 9.8185199499130249E-001,
-          "Z" : 1.5031075477600098E-001
+          "W" : 1.7154005765914917E+000,
+          "X" : -1.1642947047948837E-001,
+          "Y" : 9.8423200845718384E-001,
+          "Z" : 1.3316003978252411E-001
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
@@ -592,9 +651,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 1.1732583999633789E+001,
-          "Y" : 1.8227461576461792E+000,
-          "Z" : -1.7149177551269531E+001
+          "X" : 9.2657566070556641E+000,
+          "Y" : 1.5584795475006104E+000,
+          "Z" : -1.6832872390747070E+001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
