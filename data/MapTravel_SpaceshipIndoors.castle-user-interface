@@ -438,11 +438,14 @@
             "$Children" : [
               {
                 "$$ClassName" : "TCastleScene",
-                "AutoAnimation" : "GAME.WALK",
+                "AutoAnimation" : "GAME.STAND",
                 "DefaultAnimationTransition" : 2.0000000298023224E-001,
                 "ExposeTransforms" : [
                   "Control_Boo",
-                  "Control_Walk"
+                  "Control_Open",
+                  "Control_Walk",
+                  "Control_Close",
+                  "Control_Scrub"
                 ],
                 "Name" : "Droid",
                 "ProcessEvents" : true,
@@ -471,6 +474,22 @@
                     "$$ClassName" : "TCastleSound",
                     "Name" : "SoundWalk",
                     "Url" : "castle-data:/audio/sfx/droid_step.wav"
+                  },
+                  {
+                    "$$ClassName" : "TCastleSound",
+                    "Name" : "SoundOpen",
+                    "Url" : "castle-data:/audio/sfx/droid_open.wav"
+                  },
+                  {
+                    "$$ClassName" : "TCastleSound",
+                    "Name" : "SoundClose",
+                    "Url" : "castle-data:/audio/sfx/droid_close.wav"
+                  },
+                  {
+                    "$$ClassName" : "TCastleSound",
+                    "Name" : "SoundScrub",
+                    "Url" : "castle-data:/audio/sfx/droid_scrub.wav",
+                    "Volume" : 5.0000000000000000E-001
                   }
                 ],
                 "$Children" : [
@@ -489,6 +508,30 @@
                       "$$ClassName" : "TCastleVector4RotationPersistent",
                       "Z" : 1.0000000000000000E+000
                     }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "Control_Open",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "Z" : 1.0000000000000000E+000
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "Control_Close",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "Z" : 1.0000000000000000E+000
+                    }
+                  },
+                  {
+                    "$$ClassName" : "TCastleTransform",
+                    "Name" : "Control_Scrub",
+                    "RotationPersistent" : {
+                      "$$ClassName" : "TCastleVector4RotationPersistent",
+                      "Z" : 1.0000000000000000E+000
+                    }
                   }
                 ],
                 "$Behaviors" : [
@@ -499,11 +542,6 @@
                   {
                     "$$ClassName" : "TCastleRigidBody",
                     "Animated" : true,
-                    "LinearVelocityPersistent" : {
-                      "$$ClassName" : "TCastleVector3Persistent",
-                      "X" : -7.0710676908493042E-001,
-                      "Z" : 7.0710676908493042E-001
-                    },
                     "LockRotation" : [
                       0,
                       2
@@ -535,6 +573,26 @@
                         "Name" : "SounderWalkStep",
                         "Sound" : "SourceWalkStep",
                         "Treshold" : 1.0000000149011612E-001
+                      },
+                      {
+                        "$$ClassName" : "TNyaSounder",
+                        "Controller" : "Control_Open",
+                        "Name" : "SounderOpen",
+                        "Sound" : "SourceOpen",
+                        "UseVolume" : true
+                      },
+                      {
+                        "$$ClassName" : "TNyaSounder",
+                        "Controller" : "Control_Close",
+                        "Name" : "SounderClose",
+                        "Sound" : "SourceClose",
+                        "UseVolume" : true
+                      },
+                      {
+                        "$$ClassName" : "TNyaSounder",
+                        "Controller" : "Control_Scrub",
+                        "Name" : "SounderScrub",
+                        "Sound" : "SourceScrub"
                       }
                     ]
                   },
@@ -548,6 +606,26 @@
                     "$$ClassName" : "TCastleSoundSource",
                     "Name" : "SourceWalkStep",
                     "Sound" : "SoundWalk",
+                    "SoundPlaying" : false
+                  },
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "SourceOpen",
+                    "Sound" : "SoundOpen",
+                    "SoundPlaying" : false,
+                    "Volume" : 6.3625627756118774E-001
+                  },
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "SourceClose",
+                    "Sound" : "SoundClose",
+                    "SoundPlaying" : false,
+                    "Volume" : 5.1809239387512207E-001
+                  },
+                  {
+                    "$$ClassName" : "TCastleSoundSource",
+                    "Name" : "SourceScrub",
+                    "Sound" : "SoundScrub",
                     "SoundPlaying" : false
                   }
                 ]

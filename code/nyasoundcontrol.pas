@@ -18,11 +18,13 @@ type
     FSound: TCastleSoundSource;
     FController: TCastleTransform;
     FTreshold: Single;
+    FUseVolume: Boolean;
     procedure SetSound(value: TCastleSoundSource);
     procedure SetController(value: TCastleTransform);
   public
     const
       DefaultTreshold = 0.5;
+      DefaultUseVolume = False;
 
     constructor Create(AOwner: TComponent); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -31,6 +33,8 @@ type
     property Controller: TCastleTransform read FController write SetController;
     property Treshold: Single read FTreshold write FTreshold
              {$ifdef FPC}default DefaultTreshold{$endif};
+    property UseVolume: Boolean read FUseVolume write FUseVolume
+             {$ifdef FPC}default DefaultUseVolume{$endif};
   end;
 
 implementation
@@ -55,7 +59,18 @@ begin
       sounder:= child as TNyaSounder;
 
     if (Assigned(sounder.Controller) AND Assigned(sounder.Sound)) then
-      sounder.Sound.SoundPlaying:= (sounder.Controller.Translation.Y > sounder.Treshold);
+    begin
+      if (sounder.Controller.Translation.Y > sounder.Treshold) then
+      begin
+        sounder.Sound.SoundPlaying:= True;
+        if sounder.UseVolume then
+          sounder.Sound.Volume:= sounder.Controller.Translation.Y;
+      end
+      else
+      begin
+        sounder.Sound.SoundPlaying:= False;
+      end;
+    end;
   end;
 
 end;
@@ -69,6 +84,7 @@ begin
   inherited;
 
   FTreshold:= DefaultTreshold;
+  FUseVolume:= DefaultUseVolume;
 end;
 
 procedure TNyaSounder.SetSound(value: TCastleSoundSource);
@@ -86,7 +102,7 @@ end;
 function TNyaSounder.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Sound', 'Controller', 'Treshold'
+       'Sound', 'Controller', 'Treshold', 'UseVolume'
      ]) then
     Result:= [psBasic]
   else
