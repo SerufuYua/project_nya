@@ -177,7 +177,7 @@ begin
       end;
   end;
 
-  if (Parent is TCastleScene) then
+  if ((FState <> TState.Confuse) AND (Parent is TCastleScene)) then
     (Parent as TCastleScene).AutoAnimation:= currentAnimation;
 end;
 
