@@ -103,10 +103,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.6995626688003540E+000,
-                      "X" : -2.4414061044808477E-004,
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
                       "Y" : 9.9999994039535522E-001,
-                      "Z" : -2.1456673857755959E-004
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -181,10 +181,10 @@
                     },
                     "RotationPersistent" : {
                       "$$ClassName" : "TCastleVector4RotationPersistent",
-                      "W" : 1.6995626688003540E+000,
-                      "X" : -2.4414061044808477E-004,
+                      "W" : 1.5707963705062866E+000,
+                      "X" : -1.7263347399421036E-004,
                       "Y" : 9.9999994039535522E-001,
-                      "Z" : -2.1456673857755959E-004
+                      "Z" : -1.7263347399421036E-004
                     },
                     "TranslationPersistent" : {
                       "$$ClassName" : "TCastleVector3Persistent",
@@ -473,7 +473,8 @@
                   {
                     "$$ClassName" : "TCastleSound",
                     "Name" : "SoundWalk",
-                    "Url" : "castle-data:/audio/sfx/droid_step.wav"
+                    "Url" : "castle-data:/audio/sfx/droid_step.wav",
+                    "Volume" : 2.0000000000000000E+000
                   },
                   {
                     "$$ClassName" : "TCastleSound",
@@ -579,6 +580,7 @@
                         "Controller" : "Control_Open",
                         "Name" : "SounderOpen",
                         "Sound" : "SourceOpen",
+                        "Treshold" : 1.0000000149011612E-001,
                         "UseVolume" : true
                       },
                       {
@@ -586,13 +588,15 @@
                         "Controller" : "Control_Close",
                         "Name" : "SounderClose",
                         "Sound" : "SourceClose",
+                        "Treshold" : 1.0000000149011612E-001,
                         "UseVolume" : true
                       },
                       {
                         "$$ClassName" : "TNyaSounder",
                         "Controller" : "Control_Scrub",
                         "Name" : "SounderScrub",
-                        "Sound" : "SourceScrub"
+                        "Sound" : "SourceScrub",
+                        "Treshold" : 1.0000000149011612E-001
                       }
                     ]
                   },
@@ -613,7 +617,7 @@
                     "Name" : "SourceOpen",
                     "Sound" : "SoundOpen",
                     "SoundPlaying" : false,
-                    "Volume" : 6.3625627756118774E-001
+                    "Volume" : 1.0451352596282959E-001
                   },
                   {
                     "$$ClassName" : "TCastleSoundSource",
