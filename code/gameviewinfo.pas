@@ -1,4 +1,4 @@
-unit GameViewCredits;
+unit GameViewInfo;
 
 interface
 
@@ -7,7 +7,7 @@ uses Classes,
   NyaWebButton;
 
 type
-  TViewCredits = class(TCastleView)
+  TViewInfo = class(TCastleView)
   strict private
     type
       TViewCreditsDialog = class(TCastleUserInterface)
@@ -18,12 +18,13 @@ type
         procedure ClickClose(Sender: TObject);
       public
         Closed: Boolean;
-        constructor Create(AOwner: TComponent); override;
+        constructor CreateWin(AOwner: TComponent; const AUrl: String);
       end;
     var
       FDialog: TViewCreditsDialog;
+      FWinUrl: String;
   public
-    constructor CreateUntilStopped;
+    constructor CreateUntilStopped(const AUrl: String);
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
@@ -37,7 +38,7 @@ uses
 { TViewCreditsDialog --------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TViewCredits.TViewCreditsDialog.Create(AOwner: TComponent);
+constructor TViewInfo.TViewCreditsDialog.CreateWin(AOwner: TComponent; const AUrl: String);
 var
   UiOwner: TComponent;
   Ui: TCastleUserInterface;
@@ -49,7 +50,7 @@ begin
   UiOwner := TComponent.Create(Self);
 
   { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/gameviewcredits.castle-user-interface', UiOwner);
+  Ui := UserInterfaceLoad(AUrl, UiOwner);
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
@@ -60,40 +61,41 @@ begin
   ButtonClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 end;
 
-procedure TViewCredits.TViewCreditsDialog.FocusButton(const Sender: TCastleUserInterface);
+procedure TViewInfo.TViewCreditsDialog.FocusButton(const Sender: TCastleUserInterface);
 begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
-procedure TViewCredits.TViewCreditsDialog.ClickClose(Sender: TObject);
+procedure TViewInfo.TViewCreditsDialog.ClickClose(Sender: TObject);
 begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
   Closed:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }
-{ TViewCredits --------------------------------------------------------------- }
+{ TViewInfo --------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TViewCredits.CreateUntilStopped;
+constructor TViewInfo.CreateUntilStopped(const AUrl: String);
 begin
   inherited CreateUntilStopped;
-  DesignUrl:= 'castle-data:/bgsettings.castle-user-interface';
+  FWinUrl:= AUrl;
+  DesignUrl:= 'castle-data:/bgwin.castle-user-interface';
 end;
 
-procedure TViewCredits.Start;
+procedure TViewInfo.Start;
 begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TViewCreditsDialog.Create(FreeAtStop);
+  FDialog:= TViewCreditsDialog.CreateWin(FreeAtStop, FWinUrl);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
   InsertFront(FDialog);
 end;
 
-procedure TViewCredits.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TViewInfo.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
 

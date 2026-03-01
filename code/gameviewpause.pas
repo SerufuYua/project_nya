@@ -93,7 +93,7 @@ end;
 constructor TViewPause.CreateUntilStopped;
 begin
   inherited CreateUntilStopped;
-  DesignUrl:= 'castle-data:/bgsettings.castle-user-interface';
+  DesignUrl:= 'castle-data:/bgwin.castle-user-interface';
 end;
 
 procedure TViewPause.Start;

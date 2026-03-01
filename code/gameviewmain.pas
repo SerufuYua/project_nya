@@ -19,7 +19,7 @@ type
   published
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
-    BtnExit, BtnStart, BtnSettings, BtnCredits: TCastleButton;
+    BtnExit, BtnStart, BtnSettings, BtnAbout, BtnCredits: TCastleButton;
     LabelFps, LabelInfo1, LabelInfo2: TCastleLabel;
     CameraMain: TCastleCamera;
     CharaGirl, CharaBoy: TNyaActorChara;
@@ -32,10 +32,7 @@ type
     FCurPos: TVector2;
     FCameraRatation: TQuaternion;
     procedure FocusButton(const Sender: TCastleUserInterface);
-    procedure ClickExit(Sender: TObject);
-    procedure ClickStart(Sender: TObject);
-    procedure ClicSettings(Sender: TObject);
-    procedure ClicCredits(Sender: TObject);
+    procedure ClickButton(Sender: TObject);
     procedure UpdateCamera(const SecondsPassed: Single); { follow cameta rotation to cursor }
   end;
 
@@ -46,7 +43,7 @@ implementation
 
 uses
   SysUtils, CastleUtils, GameViewLoading, GameViewTravelContainerRoom,
-  CastleSoundEngine, GameSound, GameViewSettings, GameViewCredits;
+  CastleSoundEngine, GameSound, GameViewSettings, GameViewInfo;
 
 { TViewMain ----------------------------------------------------------------- }
 
@@ -61,14 +58,16 @@ procedure TViewMain.Start;
 begin
   inherited;
 
-  BtnExit.OnClick:= {$ifdef FPC}@{$endif}ClickExit;
-  BtnStart.OnClick:= {$ifdef FPC}@{$endif}ClickStart;
-  BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClicSettings;
-  BtnCredits.OnClick:= {$ifdef FPC}@{$endif}ClicCredits;
+  BtnExit.OnClick:= {$ifdef FPC}@{$endif}ClickButton;
+  BtnStart.OnClick:= {$ifdef FPC}@{$endif}ClickButton;
+  BtnSettings.OnClick:= {$ifdef FPC}@{$endif}ClickButton;
+  BtnAbout.OnClick:= {$ifdef FPC}@{$endif}ClickButton;
+  BtnCredits.OnClick:= {$ifdef FPC}@{$endif}ClickButton;
 
   BtnExit.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnSettings.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
+  BtnAbout.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
   BtnCredits.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}FocusButton;
 
   { remember initial camera rotation }
@@ -102,32 +101,30 @@ begin
   SoundEngine.Play(NamedSound('SfxButtonFocus'));
 end;
 
-procedure TViewMain.ClickExit(Sender: TObject);
+procedure TViewMain.ClickButton(Sender: TObject);
+var
+  button: TCastleButton;
 begin
-  SoundEngine.Play(NamedSound('SfxButtonPress'));
-  Application.MainWindow.Close();
-end;
+  if NOT (Sender is TCastleButton) then Exit;
+  button:= Sender as TCastleButton;
 
-procedure TViewMain.ClickStart(Sender: TObject);
-begin
-  SoundEngine.Play(NamedSound('SfxButtonPress'));
-  GetToGo(ViewTravelContainerRoom);
-end;
-
-procedure TViewMain.ClicSettings(Sender: TObject);
-begin
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
-  if NOT (Container.FrontView is TViewSettings) then
-    Container.PushView(TViewSettings.CreateUntilStopped);
-end;
-
-procedure TViewMain.ClicCredits(Sender: TObject);
-begin
-  SoundEngine.Play(NamedSound('SfxButtonPress'));
-
-  if NOT (Container.FrontView is TViewCredits) then
-    Container.PushView(TViewCredits.CreateUntilStopped);
+  Case button.Name of
+    'BtnStart':
+      GetToGo(ViewTravelContainerRoom);
+    'BtnSettings':
+      if NOT (Container.FrontView is TViewSettings) then
+        Container.PushView(TViewSettings.CreateUntilStopped);
+    'BtnAbout':
+      if NOT (Container.FrontView is TViewInfo) then
+        Container.PushView(TViewInfo.CreateUntilStopped('castle-data:/gameviewabout.castle-user-interface'));
+    'BtnCredits':
+      if NOT (Container.FrontView is TViewInfo) then
+        Container.PushView(TViewInfo.CreateUntilStopped('castle-data:/gameviewcredits.castle-user-interface'));
+    'BtnExit':
+      Application.MainWindow.Close();
+  end;
 end;
 
 procedure TViewMain.UpdateCamera(const SecondsPassed: Single);
