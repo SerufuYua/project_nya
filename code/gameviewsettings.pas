@@ -118,8 +118,8 @@ procedure TViewSettings.TViewSettingsDialog.ClickScreen(Sender: TObject);
 var
   check: TCastleCheckbox;
 begin
+  if NOT (Sender is TCastleCheckbox) then Exit;
   check:= Sender as TCastleCheckbox;
-  if NOT Assigned(check) then exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -133,8 +133,8 @@ procedure TViewSettings.TViewSettingsDialog.ChangeSliderSound(Sender: TObject);
 var
   slider: TCastleFloatSlider;
 begin
+  if NOT (Sender is TCastleFloatSlider) then Exit;
   slider:= Sender as TCastleFloatSlider;
-  if NOT Assigned(slider) then exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -150,8 +150,8 @@ const
 var
   button: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 

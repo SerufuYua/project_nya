@@ -79,8 +79,8 @@ var
 begin
   inherited;
 
+  if NOT (Sender is TNyaSwitch) then Exit;
   switch:= Sender as TNyaSwitch;
-  if NOT Assigned(switch) then Exit;
 
   Case switch.Name of
   'BoySwitch':
@@ -97,8 +97,8 @@ procedure TViewTravelContainerRoom.DoActivateSwitch(Sender: TObject);
 var
   switch: TNyaSwitch;
 begin
+  if NOT (Sender is TNyaSwitch) then Exit;
   switch:= Sender as TNyaSwitch;
-  if NOT Assigned(switch) then Exit;
 
   inherited;
 

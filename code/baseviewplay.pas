@@ -188,8 +188,8 @@ procedure TBaseViewPlay.ClickAction(Sender: TObject);
 var
   btnDress: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   btnDress:= Sender as TCastleButton;
-  if NOT Assigned(btnDress) then Exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -204,8 +204,8 @@ var
   i: integer;
   dressFound: Boolean;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   btnDress:= Sender as TCastleButton;
-  if NOT Assigned(btnDress) then Exit;
 
   SoundEngine.Play(NamedSound('SfxListPress'));
 
@@ -239,8 +239,8 @@ procedure TBaseViewPlay.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -262,8 +262,8 @@ var
   cam: TCastleCamera;
   button: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   for cam in FCameraList do
     if (button.Caption = cam.Name) then

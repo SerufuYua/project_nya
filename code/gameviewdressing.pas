@@ -340,8 +340,8 @@ var
   button: TCastleButton;
   suitType: TSuitPart;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   SoundEngine.Play(NamedSound('SfxListPress'));
 
@@ -359,8 +359,8 @@ procedure TViewDressing.TViewDressingDialog.ClickSuit(Sender: TObject);
 var
   button: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   SoundEngine.Play(NamedSound('SfxListPress'));
 
@@ -371,8 +371,8 @@ procedure TViewDressing.TViewDressingDialog.ClickHead(Sender: TObject);
 var
   button: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   SoundEngine.Play(NamedSound('SfxListPress'));
 
@@ -383,8 +383,8 @@ procedure TViewDressing.TViewDressingDialog.ClickAccesories(Sender: TObject);
 var
   check: TCastleCheckbox;
 begin
+  if NOT (Sender is TCastleCheckbox) then Exit;
   check:= Sender as TCastleCheckbox;
-  if NOT Assigned(check) then exit;
 
   SoundEngine.Play(NamedSound('SfxListPress'));
 

@@ -144,8 +144,8 @@ procedure TBaseViewTravel.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   button:= Sender as TCastleButton;
-  if NOT Assigned(button) then exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -190,8 +190,8 @@ var
   dressFound: Boolean;
   actorChara: TNyaActorChara;
 begin
+  if NOT (Sender is TCastleButton) then Exit;
   btnDress:= Sender as TCastleButton;
-  if NOT Assigned(btnDress) then Exit;
 
   SoundEngine.Play(NamedSound('SfxButtonPress'));
 
@@ -277,8 +277,8 @@ procedure TBaseViewTravel.DoTouchSwitch(const Sender: TObject; Touch: Boolean);
 var
   switch: TNyaSwitch;
 begin
+  if NOT (Sender is TNyaSwitch) then Exit;
   switch:= Sender as TNyaSwitch;
-  if NOT Assigned(switch) then Exit;
 
   if Touch then
   begin

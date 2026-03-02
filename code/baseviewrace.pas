@@ -82,8 +82,8 @@ var
 begin
   inherited;
 
+  if NOT (Sender is TNyaSwitch) then Exit;
   switch:= Sender as TNyaSwitch;
-  if NOT Assigned(switch) then Exit;
 
   if (switch.Tag < 1) then Exit;
 
