@@ -39,6 +39,9 @@ procedure ApplicationInitialize;
 var
   mapName: String;
 begin
+  { Load settings }
+  UserConfig.Load(ApplicationName + '.conf');
+
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
 
@@ -92,9 +95,6 @@ begin
 end;
 
 initialization
-  { Load settings }
-  UserConfig.Load(ApplicationName + '.conf');
-
   { This initialization section configures:
     - Application.OnInitialize
     - Application.MainWindow
