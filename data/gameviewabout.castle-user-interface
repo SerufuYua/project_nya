@@ -150,7 +150,8 @@
                   "$$ClassName" : "TCastleScrollView",
                   "Border" : {
                     "$$ClassName" : "TBorder",
-                    "AllSides" : 3.0000000000000000E+000
+                    "Bottom" : 2.0000000000000000E+000,
+                    "Top" : 2.0000000000000000E+000
                   },
                   "BorderColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
@@ -210,7 +211,7 @@
                             "Spacing" : 2.0000000000000000E+001,
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -7.7000000000000000E+002
+                              "Y" : -7.7000006103515625E+002
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop",
@@ -247,7 +248,7 @@
                                 "Name" : "HrLine",
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -3.5200003051757812E+002
+                                  "Y" : -3.5199996948242188E+002
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop",
@@ -275,7 +276,7 @@
                                 ],
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -3.7500003051757812E+002
+                                  "Y" : -3.7499996948242188E+002
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop"
