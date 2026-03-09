@@ -36,8 +36,10 @@ var
 
 { One-time initialization of resources. }
 procedure ApplicationInitialize;
+{$ifdef DEBUG}
 var
   mapName: String;
+{$endif}
 begin
   {$ifdef MSWINDOWS}
   { Load settings }

@@ -23,7 +23,7 @@ uses CastleApplicationProperties, CastleWindow, CastleLog;
 initialization
   ApplicationProperties.ApplicationName := 'prjNya';
   ApplicationProperties.Caption := 'Project Nya';
-  ApplicationProperties.Version := '0.1';
+  ApplicationProperties.Version := '1.1';
 
   if not IsLibrary then
     Application.ParseStandardParameters;
@@ -37,7 +37,9 @@ initialization
     for standalone programs (when "not IsLibrary").
     This allows to handle --version and --help command-line parameters
     without any extra output on Unix, and to set --log-file . }
+  {$ifdef MSWINDOWS}
   LogFileName:= ApplicationProperties.ApplicationName + '.log';
+  {$endif}
   InitializeLog;
 
   {$ifdef DEBUG}
