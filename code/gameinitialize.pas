@@ -41,9 +41,11 @@ var
   mapName: String;
 {$endif}
 begin
-  {$ifdef MSWINDOWS}
   { Load settings }
+  {$ifdef MSWINDOWS}
   UserConfig.Load(ApplicationName + '.conf');
+  {$else}
+  UserConfig.Load;
   {$endif}
 
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
