@@ -10,6 +10,7 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   game_units="GameInitialize"
   qualified_name="com.mycompany.prjNya"
   caption="Project Nya"
+  author="Serufu Yua"
   editor_units="CastleParticleEmitter,
                 NyaFadeEffect,
                 NyaPleasureTensionEffect,
@@ -32,6 +33,15 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 NyaRandomSwitch,
                 NyaWebButton"
 >
+  <icons>
+    <icon path="emblem/emblem_016.png " />
+    <icon path="emblem/emblem_024.png " />
+    <icon path="emblem/emblem_032.png " />
+    <icon path="emblem/emblem_048.png " />
+    <icon path="emblem/emblem_064.png " />
+    <icon path="emblem/emblem_128.png " />
+    <icon path="emblem/emblem_256.png " />
+  </icons>
   <compiler_options>
     <search_paths>
       <path value="code/" />
