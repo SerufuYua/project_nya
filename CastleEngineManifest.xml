@@ -34,13 +34,9 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 NyaWebButton"
 >
   <icons>
-    <icon path="emblem/emblem_016.png " />
-    <icon path="emblem/emblem_024.png " />
-    <icon path="emblem/emblem_032.png " />
-    <icon path="emblem/emblem_048.png " />
-    <icon path="emblem/emblem_064.png " />
-    <icon path="emblem/emblem_128.png " />
-    <icon path="emblem/emblem_256.png " />
+    <icon path="data/emblem/emblem.ico" />
+    <icon path="data/emblem/emblem_256.png" />
+    <icon path="data/emblem/emblem_hi.svg" />
   </icons>
   <compiler_options>
     <search_paths>
